@@ -68,7 +68,7 @@ const QuantumBoundStatesFluent = {
     twoWellsStringProperty: _.get( QuantumBoundStatesStrings, 'screen.twoWellsStringProperty' ),
     manyWellsStringProperty: _.get( QuantumBoundStatesStrings, 'screen.manyWellsStringProperty' )
   },
-  _comment_0: new FluentComment( {"comment":"Strings that are specific to accessibility and interactive description","associatedKey":"a11y"} ),
+  _comment_0: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     oneWellScreen: {
       screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' ) ),

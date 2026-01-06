@@ -8,7 +8,7 @@ screen.oneWell:      One Well
 screen.twoWells:     Two Wells
 screen.manyWells:    Many Wells
 
-# Strings that are specific to accessibility and interactive description
+# Strings that are specific to accessibility
 a11y:
   oneWellScreen:
     screenButtonsHelpText: TODO.oneWellScreen.screenButtonsHelpText
