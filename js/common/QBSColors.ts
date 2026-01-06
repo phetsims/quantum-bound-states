@@ -3,8 +3,6 @@
 /**
  * QBSColors defines colors that are used throughout this simulation.
  *
- * All simulations should have a Colors.js file, see https://github.com/phetsims/scenery-phet/issues/642.
- *
  * For static colors that are used in more than one place, add them here.
  *
  * For dynamic colors that can be controlled via colorProfileProperty.js, add instances of ProfileColorProperty here,
