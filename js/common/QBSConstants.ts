@@ -1,15 +1,15 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * QuantumBoundStatesConstants defines constants that are used throughout this simulation.
+ * QBSConstants defines constants that are used throughout this simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import quantumBoundStates from '../quantumBoundStates.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
+import quantumBoundStates from '../quantumBoundStates.js';
 
-export default class QuantumBoundStatesConstants {
+export default class QBSConstants {
 
   private constructor() {
     // Not intended for instantiation.
@@ -31,4 +31,4 @@ export default class QuantumBoundStatesConstants {
   public static readonly SCREEN_VIEW_Y_MARGIN = 15;
 }
 
-quantumBoundStates.register( 'QuantumBoundStatesConstants', QuantumBoundStatesConstants );
+quantumBoundStates.register( 'QBSConstants', QBSConstants );

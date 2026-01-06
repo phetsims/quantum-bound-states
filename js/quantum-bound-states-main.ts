@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
 import Sim, { SimOptions } from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
+import QBSConstants from './common/QBSConstants.js';
+import ManyWellsScreen from './many-wells/ManyWellsScreen.js';
 import OneWellScreen from './one-well/OneWellScreen.js';
 import QuantumBoundStatesStrings from './QuantumBoundStatesStrings.js';
-import './common/QuantumBoundStatesQueryParameters.js';
+import './common/QBSQueryParameters.js';
 import TwoWellsScreen from './two-wells/TwoWellsScreen.js';
-import ManyWellsScreen from './many-wells/ManyWellsScreen.js';
-import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
-import QuantumBoundStatesConstants from './common/QuantumBoundStatesConstants.js';
 
 simLauncher.launch( () => {
 
@@ -28,7 +28,7 @@ simLauncher.launch( () => {
   ];
 
   const options: SimOptions = {
-    credits: QuantumBoundStatesConstants.CREDITS,
+    credits: QBSConstants.CREDITS,
     preferencesModel: new PreferencesModel( {
       visualOptions: {
         supportsProjectorMode: true

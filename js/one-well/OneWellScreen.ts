@@ -8,7 +8,7 @@
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import QuantumBoundStatesColors from '../common/QuantumBoundStatesColors.js';
+import QBSColors from '../common/QBSColors.js';
 import QBSKeyboardHelpContent from '../common/view/QBSKeyboardHelpContent.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 import QuantumBoundStatesStrings from '../QuantumBoundStatesStrings.js';
@@ -21,7 +21,7 @@ export default class OneWellScreen extends Screen<OneWellModel, OneWellScreenVie
 
     const options: ScreenOptions = {
       name: QuantumBoundStatesStrings.screen.oneWellStringProperty,
-      backgroundColorProperty: QuantumBoundStatesColors.screenBackgroundColorProperty,
+      backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
       tandem: tandem
     };

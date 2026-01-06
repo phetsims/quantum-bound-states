@@ -8,11 +8,11 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import ManyWellsModel from '../model/ManyWellsModel.js';
-import QuantumBoundStatesConstants from '../../common/QuantumBoundStatesConstants.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 
 export default class ManyWellsScreenView extends ScreenView {
 
@@ -27,8 +27,8 @@ export default class ManyWellsScreenView extends ScreenView {
         model.reset();
         this.reset();
       },
-      right: this.layoutBounds.maxX - QuantumBoundStatesConstants.SCREEN_VIEW_X_MARGIN,
-      bottom: this.layoutBounds.maxY - QuantumBoundStatesConstants.SCREEN_VIEW_Y_MARGIN,
+      right: this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN,
+      bottom: this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 

@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * QuantumBoundStatesColors defines colors that are used throughout this simulation.
+ * QBSColors defines colors that are used throughout this simulation.
  *
  * All simulations should have a Colors.js file, see https://github.com/phetsims/scenery-phet/issues/642.
  *
@@ -17,7 +17,7 @@
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 
-export default class QuantumBoundStatesColors {
+export default class QBSColors {
 
   private constructor() {
     // Not intended for instantiation.
@@ -30,4 +30,4 @@ export default class QuantumBoundStatesColors {
   } );
 }
 
-quantumBoundStates.register( 'QuantumBoundStatesColors', QuantumBoundStatesColors );
+quantumBoundStates.register( 'QBSColors', QBSColors );
