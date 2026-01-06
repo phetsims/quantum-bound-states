@@ -13,12 +13,14 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import TwoWellsModel from '../model/TwoWellsModel.js';
+import TwoWellsScreenSummaryContent from './TwoWellsScreenSummaryContent.js';
 
 export default class TwoWellsScreenView extends ScreenView {
 
   public constructor( model: TwoWellsModel, tandem: Tandem ) {
 
     super( {
+      screenSummaryContent: new TwoWellsScreenSummaryContent(),
       tandem: tandem
     } );
 
