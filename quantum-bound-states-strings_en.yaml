@@ -1,12 +1,13 @@
 # Strings for PhET's Quantum Bound States simulation
 
 # Simulation Title
-quantum-bound-states.title:    Quantum Bound States
+quantum-bound-states.title: Quantum Bound States
 
 # Screen Names
-screen.oneWell:      One Well
-screen.twoWells:     Two Wells
-screen.manyWells:    Many Wells
+screen.oneWell:             One Well
+screen.superposition:       Superposition
+screen.twoWells:            Two Wells
+screen.manyWells:           Many Wells
 
 # Strings that are specific to accessibility
 a11y:
@@ -17,6 +18,13 @@ a11y:
       controlArea:     TODO.oneWellScreen.screenSummary.controlArea
       currentDetails:  TODO.oneWellScreen.screenSummary.currentDetails
       interactionHint: TODO.oneWellScreen.screenSummary.interactionHint
+  superpositionScreen:
+    screenButtonsHelpText: TODO.oneWellScreen.screenButtonsHelpText
+    screenSummary:
+      playArea:        TODO.superpositionScreen.screenSummary.playArea
+      controlArea:     TODO.superpositionScreen.screenSummary.controlArea
+      currentDetails:  TODO.superpositionScreen.screenSummary.currentDetails
+      interactionHint: TODO.superpositionScreen.screenSummary.interactionHint
   twoWellsScreen:
     screenButtonsHelpText: TODO.twoWellsScreen.screenButtonsHelpText
     screenSummary:

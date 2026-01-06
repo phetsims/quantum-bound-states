@@ -15,6 +15,7 @@ import ManyWellsScreen from './many-wells/ManyWellsScreen.js';
 import OneWellScreen from './one-well/OneWellScreen.js';
 import QuantumBoundStatesFluent from './QuantumBoundStatesFluent.js';
 import './common/QBSQueryParameters.js';
+import SuperpositionScreen from './superposition/SuperpositionScreen.js';
 import TwoWellsScreen from './two-wells/TwoWellsScreen.js';
 
 simLauncher.launch( () => {
@@ -23,6 +24,7 @@ simLauncher.launch( () => {
 
   const screens = [
     new OneWellScreen( Tandem.ROOT.createTandem( 'oneWellScreen' ) ),
+    new SuperpositionScreen( Tandem.ROOT.createTandem( 'superpositionScreen' ) ),
     new TwoWellsScreen( Tandem.ROOT.createTandem( 'twoWellsScreen' ) ),
     new ManyWellsScreen( Tandem.ROOT.createTandem( 'manyWellsScreen' ) )
   ];

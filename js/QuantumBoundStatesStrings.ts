@@ -17,11 +17,21 @@ type StringsType = {
   };
   'screen': {
     'oneWellStringProperty': LocalizedStringProperty;
+    'superpositionStringProperty': LocalizedStringProperty;
     'twoWellsStringProperty': LocalizedStringProperty;
     'manyWellsStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'oneWellScreen': {
+      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      'screenSummary': {
+        'playAreaStringProperty': LocalizedStringProperty;
+        'controlAreaStringProperty': LocalizedStringProperty;
+        'currentDetailsStringProperty': LocalizedStringProperty;
+        'interactionHintStringProperty': LocalizedStringProperty;
+      }
+    };
+    'superpositionScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
       'screenSummary': {
         'playAreaStringProperty': LocalizedStringProperty;

@@ -5,6 +5,9 @@
   "screen.oneWell": {
     "value": "One Well"
   },
+  "screen.superposition": {
+    "value": "Superposition"
+  },
   "screen.twoWells": {
     "value": "Two Wells"
   },
@@ -28,6 +31,25 @@
         },
         "interactionHint": {
           "value": "TODO.oneWellScreen.screenSummary.interactionHint"
+        }
+      }
+    },
+    "superpositionScreen": {
+      "screenButtonsHelpText": {
+        "value": "TODO.oneWellScreen.screenButtonsHelpText"
+      },
+      "screenSummary": {
+        "playArea": {
+          "value": "TODO.superpositionScreen.screenSummary.playArea"
+        },
+        "controlArea": {
+          "value": "TODO.superpositionScreen.screenSummary.controlArea"
+        },
+        "currentDetails": {
+          "value": "TODO.superpositionScreen.screenSummary.currentDetails"
+        },
+        "interactionHint": {
+          "value": "TODO.superpositionScreen.screenSummary.interactionHint"
         }
       }
     },
