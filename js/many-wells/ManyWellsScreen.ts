@@ -12,7 +12,6 @@ import QBSColors from '../common/QBSColors.js';
 import QBSKeyboardHelpContent from '../common/view/QBSKeyboardHelpContent.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../QuantumBoundStatesFluent.js';
-import QuantumBoundStatesStrings from '../QuantumBoundStatesStrings.js';
 import ManyWellsModel from './model/ManyWellsModel.js';
 import ManyWellsScreenView from './view/ManyWellsScreenView.js';
 
@@ -21,7 +20,7 @@ export default class ManyWellsScreen extends Screen<ManyWellsModel, ManyWellsScr
   public constructor( tandem: Tandem ) {
 
     const options: ScreenOptions = {
-      name: QuantumBoundStatesStrings.screen.manyWellsStringProperty,
+      name: QuantumBoundStatesFluent.screen.manyWellsStringProperty,
       backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
       screenButtonsHelpText: QuantumBoundStatesFluent.a11y.manyWellsScreen.screenButtonsHelpTextStringProperty,

@@ -13,13 +13,13 @@ import Tandem from '../../tandem/js/Tandem.js';
 import QBSConstants from './common/QBSConstants.js';
 import ManyWellsScreen from './many-wells/ManyWellsScreen.js';
 import OneWellScreen from './one-well/OneWellScreen.js';
-import QuantumBoundStatesStrings from './QuantumBoundStatesStrings.js';
+import QuantumBoundStatesFluent from './QuantumBoundStatesFluent.js';
 import './common/QBSQueryParameters.js';
 import TwoWellsScreen from './two-wells/TwoWellsScreen.js';
 
 simLauncher.launch( () => {
 
-  const titleStringProperty = QuantumBoundStatesStrings[ 'quantum-bound-states' ].titleStringProperty;
+  const titleStringProperty = QuantumBoundStatesFluent[ 'quantum-bound-states' ].titleStringProperty;
 
   const screens = [
     new OneWellScreen( Tandem.ROOT.createTandem( 'oneWellScreen' ) ),
