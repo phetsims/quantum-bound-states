@@ -11,6 +11,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import QBSColors from '../common/QBSColors.js';
 import QBSKeyboardHelpContent from '../common/view/QBSKeyboardHelpContent.js';
 import quantumBoundStates from '../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../QuantumBoundStatesFluent.js';
 import QuantumBoundStatesStrings from '../QuantumBoundStatesStrings.js';
 import TwoWellsModel from './model/TwoWellsModel.js';
 import TwoWellsScreenView from './view/TwoWellsScreenView.js';
@@ -23,6 +24,7 @@ export default class TwoWellsScreen extends Screen<TwoWellsModel, TwoWellsScreen
       name: QuantumBoundStatesStrings.screen.twoWellsStringProperty,
       backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
+      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.twoWellsScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 

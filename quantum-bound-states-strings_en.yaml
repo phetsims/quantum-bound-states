@@ -7,3 +7,26 @@ quantum-bound-states.title:    Quantum Bound States
 screen.oneWell:      One Well
 screen.twoWells:     Two Wells
 screen.manyWells:    Many Wells
+
+a11y:
+  oneWellScreen:
+    screenButtonsHelpText: TODO.oneWellScreen.screenButtonsHelpText
+    screenSummary:
+      playArea:        TODO.oneWellScreen.screenSummary.playArea
+      controlArea:     TODO.oneWellScreen.screenSummary.controlArea
+      currentDetails:  TODO.oneWellScreen.screenSummary.currentDetails
+      interactionHint: TODO.oneWellScreen.screenSummary.interactionHint
+  twoWellsScreen:
+    screenButtonsHelpText: TODO.twoWellsScreen.screenButtonsHelpText
+    screenSummary:
+      playArea:        TODO.twoWellsScreen.screenSummary.playArea
+      controlArea:     TODO.twoWellsScreen.screenSummary.controlArea
+      currentDetails:  TODO.twoWellsScreen.screenSummary.currentDetails
+      interactionHint: TODO.twoWellsScreen.screenSummary.interactionHint
+  manyWellsScreen:
+    screenButtonsHelpText: TODO.manyWellsScreen.screenButtonsHelpText
+    screenSummary:
+      playArea:        TODO.manyWellsScreen.screenSummary.playArea
+      controlArea:     TODO.manyWellsScreen.screenSummary.controlArea
+      currentDetails:  TODO.manyWellsScreen.screenSummary.currentDetails
+      interactionHint: TODO.manyWellsScreen.screenSummary.interactionHint

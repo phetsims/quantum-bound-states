@@ -10,5 +10,64 @@
   },
   "screen.manyWells": {
     "value": "Many Wells"
+  },
+  "a11y": {
+    "oneWellScreen": {
+      "screenButtonsHelpText": {
+        "value": "TODO.oneWellScreen.screenButtonsHelpText"
+      },
+      "screenSummary": {
+        "playArea": {
+          "value": "TODO.oneWellScreen.screenSummary.playArea"
+        },
+        "controlArea": {
+          "value": "TODO.oneWellScreen.screenSummary.controlArea"
+        },
+        "currentDetails": {
+          "value": "TODO.oneWellScreen.screenSummary.currentDetails"
+        },
+        "interactionHint": {
+          "value": "TODO.oneWellScreen.screenSummary.interactionHint"
+        }
+      }
+    },
+    "twoWellsScreen": {
+      "screenButtonsHelpText": {
+        "value": "TODO.twoWellsScreen.screenButtonsHelpText"
+      },
+      "screenSummary": {
+        "playArea": {
+          "value": "TODO.twoWellsScreen.screenSummary.playArea"
+        },
+        "controlArea": {
+          "value": "TODO.twoWellsScreen.screenSummary.controlArea"
+        },
+        "currentDetails": {
+          "value": "TODO.twoWellsScreen.screenSummary.currentDetails"
+        },
+        "interactionHint": {
+          "value": "TODO.twoWellsScreen.screenSummary.interactionHint"
+        }
+      }
+    },
+    "manyWellsScreen": {
+      "screenButtonsHelpText": {
+        "value": "TODO.manyWellsScreen.screenButtonsHelpText"
+      },
+      "screenSummary": {
+        "playArea": {
+          "value": "TODO.manyWellsScreen.screenSummary.playArea"
+        },
+        "controlArea": {
+          "value": "TODO.manyWellsScreen.screenSummary.controlArea"
+        },
+        "currentDetails": {
+          "value": "TODO.manyWellsScreen.screenSummary.currentDetails"
+        },
+        "interactionHint": {
+          "value": "TODO.manyWellsScreen.screenSummary.interactionHint"
+        }
+      }
+    }
   }
 }

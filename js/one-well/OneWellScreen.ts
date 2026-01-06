@@ -11,6 +11,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import QBSColors from '../common/QBSColors.js';
 import QBSKeyboardHelpContent from '../common/view/QBSKeyboardHelpContent.js';
 import quantumBoundStates from '../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../QuantumBoundStatesFluent.js';
 import QuantumBoundStatesStrings from '../QuantumBoundStatesStrings.js';
 import OneWellModel from './model/OneWellModel.js';
 import OneWellScreenView from './view/OneWellScreenView.js';
@@ -23,6 +24,7 @@ export default class OneWellScreen extends Screen<OneWellModel, OneWellScreenVie
       name: QuantumBoundStatesStrings.screen.oneWellStringProperty,
       backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
+      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.oneWellScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 
