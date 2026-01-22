@@ -17,7 +17,7 @@ export default class QBSSimulationPreferencesNode extends VBox {
 
   public constructor( tandem: Tandem ) {
 
-    // Controls in the order that they appear in the Simulation tab, from top-to-bottom.
+    // Controls in the order that they appear in the Preferences > Simulation tab, from top-to-bottom.
     const controls = [
       new PhaseFeatureControl( QBSPreferences.phaseCheckboxVisibleProperty, tandem.createTandem( 'phaseFeatureControl' ) )
     ];
