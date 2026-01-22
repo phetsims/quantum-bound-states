@@ -11,8 +11,8 @@ screen.manyWells:           Many Wells
 
 # Preferences
 phaseFeatureControl:
-  label: Phase
-  description: Adds a checkbox to control panels for showing the phase of wave functions.
+  label: Wave Function Phase
+  description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
 
 # Strings that are specific to accessibility
 a11y:

@@ -16,10 +16,10 @@
   },
   "phaseFeatureControl": {
     "label": {
-      "value": "Phase"
+      "value": "Wave Function Phase"
     },
     "description": {
-      "value": "Adds a checkbox to control panels for showing the phase of wave functions."
+      "value": "Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function."
     }
   },
   "a11y": {
