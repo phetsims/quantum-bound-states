@@ -21,7 +21,7 @@ export default class QBSSimulationPreferencesNode extends VBox {
     const controls = [
 
       // Phase Overlay
-      new PhaseFeatureControl( QBSPreferences.hasPhaseFeatureProperty, tandem.createTandem( 'phaseFeatureControl' ) )
+      new PhaseFeatureControl( QBSPreferences.phaseCheckboxVisibleProperty, tandem.createTandem( 'phaseFeatureControl' ) )
     ];
 
     super( {

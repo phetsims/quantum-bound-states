@@ -13,8 +13,8 @@ import quantumBoundStates from '../quantumBoundStates.js';
 
 const QBSQueryParameters = QueryStringMachine.getAll( {
 
-  // Initial value of the 'Phase' preference.
-  hasPhaseFeature: {
+  // Whether the Phase checkbox is visible in the controls panel.
+  phaseCheckboxVisible: {
     type: 'boolean',
     defaultValue: false,
     public: true

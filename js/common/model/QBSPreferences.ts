@@ -18,11 +18,10 @@ export default class QBSPreferences {
     // Not intended for instantiation.
   }
 
-  // Property for the 'Phase' preference
-  public static readonly hasPhaseFeatureProperty = new BooleanProperty( QBSQueryParameters.hasPhaseFeature, {
-    tandem: Tandem.PREFERENCES.createTandem( 'hasPhaseFeatureProperty' ),
+  public static readonly phaseCheckboxVisibleProperty = new BooleanProperty( QBSQueryParameters.phaseCheckboxVisible, {
+    tandem: Tandem.PREFERENCES.createTandem( 'phaseCheckboxVisibleProperty' ),
     phetioFeatured: true,
-    phetioDocumentation: 'Enables the feature for showing the phase of wave functions.'
+    phetioDocumentation: 'Determines whether the Phase checkbox is visible in control panels.'
   } );
 }
 
