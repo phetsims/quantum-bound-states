@@ -1,8 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PhaseFeatureControl is the control in the Preferences dialog for setting whether the phase overlay feature is
- * available. It is a labeled on/off switch.
+ * PhaseFeatureControl is the control in the Preferences dialog for setting whether the phase checkbox is available
+ * in control panels. It is a labeled on/off switch.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
