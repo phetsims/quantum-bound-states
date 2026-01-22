@@ -53,6 +53,9 @@ export default class QBSIconFactory {
     } );
   }
 
+  /**
+   * Creates an icon for a specified number of square wells.
+   */
   private static createSquareWellsIcon( numberOfWells: number, wellWidth: number, wellDepth: number ): Node {
     affirm( numberOfWells > 0, 'numberOfWells must be > 0' );
     affirm( wellWidth > 0, 'wellWidth must be > 0' );
