@@ -9,6 +9,7 @@
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import QBSColors from '../common/QBSColors.js';
+import QBSIconFactory from '../common/view/QBSIconFactory.js';
 import QBSKeyboardHelpContent from '../common/view/QBSKeyboardHelpContent.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../QuantumBoundStatesFluent.js';
@@ -22,6 +23,7 @@ export default class ManyWellsScreen extends Screen<ManyWellsModel, ManyWellsScr
     const options: ScreenOptions = {
       name: QuantumBoundStatesFluent.screen.manyWellsStringProperty,
       backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
+      homeScreenIcon: QBSIconFactory.createManyWellsScreenIcon(),
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
       screenButtonsHelpText: QuantumBoundStatesFluent.a11y.manyWellsScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
