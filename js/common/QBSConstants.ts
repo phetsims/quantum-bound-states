@@ -40,6 +40,9 @@ export default class QBSConstants {
   public static readonly PREFERENCES_LABEL_MAX_WIDTH = 200;
   public static readonly PREFERENCES_DESCRIPTION_FONT = new PhetFont( 16 );
   public static readonly PREFERENCES_DESCRIPTION_LINE_WRAP = 450;
+
+  // Fonts
+  public static readonly LEGEND_FONT = new PhetFont( 14 );
 }
 
 quantumBoundStates.register( 'QBSConstants', QBSConstants );

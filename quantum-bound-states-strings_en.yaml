@@ -14,6 +14,9 @@ phaseFeatureControl:
   label: Wave Function Phase
   description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
 
+potentialEnergy: Potential Energy
+totalEnergy: Total Energy
+
 # Strings that are specific to accessibility
 a11y:
   oneWellScreen:

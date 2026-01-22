@@ -22,6 +22,12 @@
       "value": "Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function."
     }
   },
+  "potentialEnergy": {
+    "value": "Potential Energy"
+  },
+  "totalEnergy": {
+    "value": "Total Energy"
+  },
   "a11y": {
     "oneWellScreen": {
       "screenButtonsHelpText": {

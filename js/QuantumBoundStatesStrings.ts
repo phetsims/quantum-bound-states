@@ -25,6 +25,8 @@ type StringsType = {
     'labelStringProperty': LocalizedStringProperty;
     'descriptionStringProperty': LocalizedStringProperty;
   };
+  'potentialEnergyStringProperty': LocalizedStringProperty;
+  'totalEnergyStringProperty': LocalizedStringProperty;
   'a11y': {
     'oneWellScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;

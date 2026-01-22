@@ -11,6 +11,7 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import LegendNode from '../../common/view/LegendNode.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
@@ -23,6 +24,10 @@ export default class OneWellScreenView extends ScreenView {
       screenSummaryContent: new OneWellScreenSummaryContent(),
       tandem: tandem
     } );
+
+    const legendNode = new LegendNode( tandem.createTandem( 'legendNode' ) );
+    legendNode.centerX = this.layoutBounds.centerX;
+    legendNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -37,7 +42,7 @@ export default class OneWellScreenView extends ScreenView {
     // Rendering order, from back to front
     const screenViewRootNode = new Node( {
       children: [
-        //TODO
+        legendNode,
         resetAllButton
       ]
     } );

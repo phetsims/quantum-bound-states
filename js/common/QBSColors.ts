@@ -23,8 +23,23 @@ export default class QBSColors {
 
   // Background color for screens in this sim
   public static readonly screenBackgroundColorProperty = new ProfileColorProperty( quantumBoundStates, 'screenBackgroundColor', {
-    default: 'white',
-    projector: 'black'
+    default: 'rgb( 254, 250, 229 )'
+  } );
+
+  public static readonly legendFillProperty = new ProfileColorProperty( quantumBoundStates, 'legendFill', {
+    default: 'white'
+  } );
+
+  public static readonly legendStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'legendStroke', {
+    default: 'black'
+  } );
+
+  public static readonly potentialEnergyColorProperty = new ProfileColorProperty( quantumBoundStates, 'potentialEnergyColor', {
+    default: 'rgb( 149, 29, 214 )'
+  } );
+
+  public static readonly totalEnergyColorProperty = new ProfileColorProperty( quantumBoundStates, 'totalEnergyColor', {
+    default: 'rgb( 92, 184, 79 )'
   } );
 }
 

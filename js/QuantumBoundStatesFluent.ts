@@ -32,6 +32,8 @@ addToMapIfDefined( 'screen_twoWells', 'screen.twoWellsStringProperty' );
 addToMapIfDefined( 'screen_manyWells', 'screen.manyWellsStringProperty' );
 addToMapIfDefined( 'phaseFeatureControl_label', 'phaseFeatureControl.labelStringProperty' );
 addToMapIfDefined( 'phaseFeatureControl_description', 'phaseFeatureControl.descriptionStringProperty' );
+addToMapIfDefined( 'potentialEnergy', 'potentialEnergyStringProperty' );
+addToMapIfDefined( 'totalEnergy', 'totalEnergyStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -82,6 +84,8 @@ const QuantumBoundStatesFluent = {
     labelStringProperty: _.get( QuantumBoundStatesStrings, 'phaseFeatureControl.labelStringProperty' ),
     descriptionStringProperty: _.get( QuantumBoundStatesStrings, 'phaseFeatureControl.descriptionStringProperty' )
   },
+  potentialEnergyStringProperty: _.get( QuantumBoundStatesStrings, 'potentialEnergyStringProperty' ),
+  totalEnergyStringProperty: _.get( QuantumBoundStatesStrings, 'totalEnergyStringProperty' ),
   _comment_1: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     oneWellScreen: {
