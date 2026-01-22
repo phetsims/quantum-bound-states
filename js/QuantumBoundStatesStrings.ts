@@ -21,6 +21,10 @@ type StringsType = {
     'twoWellsStringProperty': LocalizedStringProperty;
     'manyWellsStringProperty': LocalizedStringProperty;
   };
+  'phaseFeatureControl': {
+    'labelStringProperty': LocalizedStringProperty;
+    'descriptionStringProperty': LocalizedStringProperty;
+  };
   'a11y': {
     'oneWellScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;

@@ -7,6 +7,7 @@
  */
 
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
+import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 
 export default class QBSConstants {
@@ -30,6 +31,15 @@ export default class QBSConstants {
   // Margins inside the ScreenView layoutBounds.
   public static readonly SCREEN_VIEW_X_MARGIN = 15;
   public static readonly SCREEN_VIEW_Y_MARGIN = 15;
+
+  // Preferences
+  public static readonly PREFERENCES_LABEL_FONT = new PhetFont( {
+    size: 16,
+    weight: 'bold'
+  } );
+  public static readonly PREFERENCES_LABEL_MAX_WIDTH = 200;
+  public static readonly PREFERENCES_DESCRIPTION_FONT = new PhetFont( 16 );
+  public static readonly PREFERENCES_DESCRIPTION_LINE_WRAP = 450;
 }
 
 quantumBoundStates.register( 'QBSConstants', QBSConstants );

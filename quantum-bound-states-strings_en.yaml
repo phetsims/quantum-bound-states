@@ -9,6 +9,11 @@ screen.superposition:       Superposition
 screen.twoWells:            Two Wells
 screen.manyWells:           Many Wells
 
+# Preferences
+phaseFeatureControl:
+  label: Phase
+  description: Adds a checkbox to control panels for showing the phase of wave functions.
+
 # Strings that are specific to accessibility
 a11y:
   oneWellScreen:

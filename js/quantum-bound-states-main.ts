@@ -11,6 +11,7 @@ import Sim, { SimOptions } from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import QBSConstants from './common/QBSConstants.js';
+import QBSSimulationPreferencesNode from './common/view/QBSSimulationPreferencesNode.js';
 import ManyWellsScreen from './many-wells/ManyWellsScreen.js';
 import OneWellScreen from './one-well/OneWellScreen.js';
 import QuantumBoundStatesFluent from './QuantumBoundStatesFluent.js';
@@ -34,6 +35,11 @@ simLauncher.launch( () => {
     preferencesModel: new PreferencesModel( {
       visualOptions: {
         supportsProjectorMode: true
+      },
+      simulationOptions: {
+        customPreferences: [ {
+          createContent: tandem => new QBSSimulationPreferencesNode( tandem.createTandem( 'content' ) )
+        } ]
       }
     } )
   };

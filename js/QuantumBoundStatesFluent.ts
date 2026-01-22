@@ -30,6 +30,8 @@ addToMapIfDefined( 'screen_oneWell', 'screen.oneWellStringProperty' );
 addToMapIfDefined( 'screen_superposition', 'screen.superpositionStringProperty' );
 addToMapIfDefined( 'screen_twoWells', 'screen.twoWellsStringProperty' );
 addToMapIfDefined( 'screen_manyWells', 'screen.manyWellsStringProperty' );
+addToMapIfDefined( 'phaseFeatureControl_label', 'phaseFeatureControl.labelStringProperty' );
+addToMapIfDefined( 'phaseFeatureControl_description', 'phaseFeatureControl.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -75,7 +77,12 @@ const QuantumBoundStatesFluent = {
     twoWellsStringProperty: _.get( QuantumBoundStatesStrings, 'screen.twoWellsStringProperty' ),
     manyWellsStringProperty: _.get( QuantumBoundStatesStrings, 'screen.manyWellsStringProperty' )
   },
-  _comment_0: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  _comment_0: new FluentComment( {"comment":"Preferences","associatedKey":"phaseFeatureControl"} ),
+  phaseFeatureControl: {
+    labelStringProperty: _.get( QuantumBoundStatesStrings, 'phaseFeatureControl.labelStringProperty' ),
+    descriptionStringProperty: _.get( QuantumBoundStatesStrings, 'phaseFeatureControl.descriptionStringProperty' )
+  },
+  _comment_1: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     oneWellScreen: {
       screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' ) ),

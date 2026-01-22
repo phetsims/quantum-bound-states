@@ -12,7 +12,13 @@ import { QueryStringMachine } from '../../../query-string-machine/js/QueryString
 import quantumBoundStates from '../quantumBoundStates.js';
 
 const QBSQueryParameters = QueryStringMachine.getAll( {
-  //TODO add schemas for query parameters
+
+  // Initial value of the 'Phase' preference.
+  hasPhaseFeature: {
+    type: 'boolean',
+    defaultValue: false,
+    public: true
+  }
 } );
 
 quantumBoundStates.register( 'QBSQueryParameters', QBSQueryParameters );
