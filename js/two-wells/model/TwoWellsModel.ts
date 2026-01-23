@@ -6,29 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import TModel from '../../../../joist/js/TModel.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSModel from '../../common/model/QBSModel.js';
+import quantumBoundStates from '../../quantumBoundStates.js';
 
-export default class TwoWellsModel implements TModel {
+export default class TwoWellsModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
-    //TODO
-  }
-
-  /**
-   * Resets the model.
-   */
-  public reset(): void {
-    //TODO
-  }
-
-  /**
-   * Steps the model.
-   * @param dt - time step, in seconds
-   */
-  public step( dt: number ): void {
-    //TODO
+    super( tandem );
   }
 }
 
