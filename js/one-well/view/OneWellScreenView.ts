@@ -18,11 +18,8 @@ import ToolsCheckboxGroup from '../../common/view/ToolsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
-import OneWellViewProperties from './OneWellViewProperties.js';
 
 export default class OneWellScreenView extends ScreenView {
-
-  private readonly viewProperties: OneWellViewProperties;
 
   public constructor( model: OneWellModel, tandem: Tandem ) {
 
@@ -31,16 +28,14 @@ export default class OneWellScreenView extends ScreenView {
       tandem: tandem
     } );
 
-    this.viewProperties = new OneWellViewProperties( tandem.createTandem( 'viewProperties' ) );
-
     const legendNode = new LegendNode( tandem.createTandem( 'legendNode' ) );
 
     const energyGraphNode = new EnergyGraphNode( tandem.createTandem( 'energyGraphNode' ) );
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( tandem.createTandem( 'probabilityDensityGraphNode' ) );
 
-    const toolsCheckboxGroup = new ToolsCheckboxGroup( this.viewProperties.referenceLineVisibleProperty,
-      this.viewProperties.magnifierToolVisibleProperty, tandem.createTandem( 'toolsCheckboxGroup' ) );
+    const toolsCheckboxGroup = new ToolsCheckboxGroup( model.referenceLine.visibleProperty,
+      model.magnifierTool.visibleProperty, tandem.createTandem( 'toolsCheckboxGroup' ) );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -91,7 +86,7 @@ export default class OneWellScreenView extends ScreenView {
    * Resets the view.
    */
   public reset(): void {
-    this.viewProperties.reset();
+    //TODO
   }
 
   /**

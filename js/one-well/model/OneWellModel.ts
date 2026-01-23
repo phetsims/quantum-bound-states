@@ -7,20 +7,29 @@
  */
 
 import TModel from '../../../../joist/js/TModel.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import MagnifierTool from '../../common/model/MagnifierTool.js';
+import ReferenceLine from '../../common/model/ReferenceLine.js';
+import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class OneWellModel implements TModel {
 
-  public constructor( tandem :Tandem ) {
-    //TODO
+  public readonly magnifierTool: MagnifierTool;
+  public readonly referenceLine: ReferenceLine;
+
+  public constructor( tandem: Tandem ) {
+
+    this.magnifierTool = new MagnifierTool( tandem.createTandem( 'magnifierTool' ) );
+
+    this.referenceLine = new ReferenceLine( tandem.createTandem( 'referenceLine' ) );
   }
 
   /**
    * Resets the model.
    */
   public reset(): void {
-    //TODO
+    this.magnifierTool.reset();
+    this.referenceLine.reset();
   }
 
   /**
