@@ -8,15 +8,13 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
 import LegendNode from '../../common/view/LegendNode.js';
-import MagnifierToolCheckbox from '../../common/view/MagnifierToolCheckbox.js';
 import ProbabilityDensityGraphNode from '../../common/view/ProbabilityDensityGraphNode.js';
-import ReferenceLineCheckbox from '../../common/view/ReferenceLineCheckbox.js';
+import ToolsCheckboxGroup from '../../common/view/ToolsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
@@ -41,18 +39,8 @@ export default class OneWellScreenView extends ScreenView {
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( tandem.createTandem( 'probabilityDensityGraphNode' ) );
 
-    const magnifierToolCheckbox = new MagnifierToolCheckbox( this.viewProperties.referenceLineVisibleProperty,
-      tandem.createTandem( 'magnifierToolCheckbox' ) );
-
-    const referenceLineCheckbox = new ReferenceLineCheckbox( this.viewProperties.magnifierToolVisibleProperty,
-      tandem.createTandem( 'referenceLineCheckbox' ) );
-
-    const checkboxGroup = new VBox( {
-      children: [ magnifierToolCheckbox, referenceLineCheckbox ],
-      spacing: 6,
-      align: 'left',
-      phetioVisiblePropertyInstrumented: false
-    } );
+    const toolsCheckboxGroup = new ToolsCheckboxGroup( this.viewProperties.referenceLineVisibleProperty,
+      this.viewProperties.magnifierToolVisibleProperty, tandem.createTandem( 'toolsCheckboxGroup' ) );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -69,8 +57,8 @@ export default class OneWellScreenView extends ScreenView {
     energyGraphNode.top = legendNode.bottom + 3;
     probabilityDensityGraphNode.left = energyGraphNode.left;
     probabilityDensityGraphNode.top = energyGraphNode.bottom + 3;
-    checkboxGroup.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
-    checkboxGroup.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    toolsCheckboxGroup.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
+    toolsCheckboxGroup.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
@@ -80,7 +68,7 @@ export default class OneWellScreenView extends ScreenView {
         legendNode,
         energyGraphNode,
         probabilityDensityGraphNode,
-        checkboxGroup,
+        toolsCheckboxGroup,
         resetAllButton
       ]
     } );
@@ -94,7 +82,7 @@ export default class OneWellScreenView extends ScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       //TODO
-      checkboxGroup,
+      toolsCheckboxGroup,
       resetAllButton
     ];
   }
