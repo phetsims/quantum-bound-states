@@ -19,6 +19,7 @@ totalEnergy: Total Energy
 position_nm: Position (nm)
 energy_eV: Energy (eV)
 probabilityDensity: Probability Density
+magnifierTool: Magnifier Tool
 referenceLine: Reference Line
 
 # Strings that are specific to accessibility
@@ -51,7 +52,11 @@ a11y:
       controlArea:     TODO.manyWellsScreen.screenSummary.controlArea
       currentDetails:  TODO.manyWellsScreen.screenSummary.currentDetails
       interactionHint: TODO.manyWellsScreen.screenSummary.interactionHint
+  magnifierToolCheckbox:
+    accessibleHelpText:                 TODO.magnifierToolCheckbox.accessibleHelpText
+    accessibleContextResponseChecked:   Magnifier Tool shown.
+    accessibleContextResponseUnchecked: Magnifier Tool hidden.
   referenceLineCheckbox:
-    accessibleHelpText: TODO.referenceLine.accessibleHelpText
-    accessibleContextResponseChecked: Reference line shown.
-    accessibleContextResponseUnchecked: Reference line hidden.
+    accessibleHelpText: TODO.referenceLineCheckbox.accessibleHelpText
+    accessibleContextResponseChecked: Reference Line shown.
+    accessibleContextResponseUnchecked: Reference Line hidden.

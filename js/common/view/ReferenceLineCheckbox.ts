@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ReferenceLineCheckbox is the checkbox labeled 'Reference Line', for making the reference line visible.
+ * ReferenceLineCheckbox is the checkbox for making the Reference Line visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,16 +25,16 @@ export default class ReferenceLineCheckbox extends Checkbox {
 
   public constructor( referenceLineVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
-    const icon = createIcon();
-
     const text = new RichText( QuantumBoundStatesFluent.referenceLineStringProperty, {
       font: QBSConstants.CONTROL_FONT,
-      maxWidth: 100,
+      maxWidth: 150,
       tandem: tandem.createTandem( 'text' )
     } );
 
+    const icon = createIcon();
+
     const box = new HBox( {
-      children: [ icon, text ],
+      children: [ text, icon ],
       spacing: 8
     } );
 

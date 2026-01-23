@@ -37,6 +37,9 @@
   "probabilityDensity": {
     "value": "Probability Density"
   },
+  "magnifierTool": {
+    "value": "Magnifier Tool"
+  },
   "referenceLine": {
     "value": "Reference Line"
   },
@@ -117,15 +120,26 @@
         }
       }
     },
-    "referenceLineCheckbox": {
+    "magnifierToolCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO.referenceLine.accessibleHelpText"
+        "value": "TODO.magnifierToolCheckbox.accessibleHelpText"
       },
       "accessibleContextResponseChecked": {
-        "value": "Reference line shown."
+        "value": "Magnifier Tool shown."
       },
       "accessibleContextResponseUnchecked": {
-        "value": "Reference line hidden."
+        "value": "Magnifier Tool hidden."
+      }
+    },
+    "referenceLineCheckbox": {
+      "accessibleHelpText": {
+        "value": "TODO.referenceLineCheckbox.accessibleHelpText"
+      },
+      "accessibleContextResponseChecked": {
+        "value": "Reference Line shown."
+      },
+      "accessibleContextResponseUnchecked": {
+        "value": "Reference Line hidden."
       }
     }
   }

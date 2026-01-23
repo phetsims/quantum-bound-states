@@ -13,9 +13,14 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class OneWellViewProperties {
 
+  public readonly magnifierToolVisibleProperty: Property<boolean>;
   public readonly referenceLineVisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
+
+    this.magnifierToolVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'magnifierToolVisibleProperty' )
+    } );
 
     this.referenceLineVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'referenceLineVisibleProperty' )
@@ -23,6 +28,7 @@ export default class OneWellViewProperties {
   }
 
   public reset(): void {
+    this.magnifierToolVisibleProperty.reset();
     this.referenceLineVisibleProperty.reset();
   }
 }
