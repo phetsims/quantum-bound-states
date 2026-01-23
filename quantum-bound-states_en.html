@@ -33,6 +33,9 @@
         "grunt": "~1.5.3"
       },
       "phet": {
+        "phetLibs": [
+          "bamboo"
+        ],
         "requirejsNamespace": "QUANTUM_BOUND_STATES",
         "simulation": true,
         "runnable": true,
@@ -61,6 +64,10 @@
     };
   window.phet.chipper.stringRepos =
     [
+      {
+        "repo": "bamboo",
+        "requirejsNamespace": "BAMBOO"
+      },
       {
         "repo": "joist",
         "requirejsNamespace": "JOIST"

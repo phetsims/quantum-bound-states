@@ -12,6 +12,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 
@@ -40,6 +41,20 @@ export default class QBSColors {
 
   public static readonly totalEnergyColorProperty = new ProfileColorProperty( quantumBoundStates, 'totalEnergyColor', {
     default: 'rgb( 92, 184, 79 )'
+  } );
+
+  public static readonly graphRectangleFillProperty = new ProfileColorProperty( quantumBoundStates, 'graphRectangleFill', {
+    default: 'white',
+    projector: 'black'
+  } );
+
+  public static readonly graphRectangleStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'graphRectangleStroke', {
+    default: 'black'
+  } );
+
+  public static readonly gridLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'gridLinesStrokeProperty', {
+    default: Color.grayColor( 180 ),
+    projector: Color.grayColor( 200 )
   } );
 }
 

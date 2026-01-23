@@ -16,6 +16,9 @@ phaseFeatureControl:
 
 potentialEnergy: Potential Energy
 totalEnergy: Total Energy
+position_nm: Position (nm)
+energy_eV: Energy (eV)
+probabilityDensity: Probability Density
 
 # Strings that are specific to accessibility
 a11y:

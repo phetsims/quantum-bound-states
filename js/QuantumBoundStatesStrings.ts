@@ -27,6 +27,9 @@ type StringsType = {
   };
   'potentialEnergyStringProperty': LocalizedStringProperty;
   'totalEnergyStringProperty': LocalizedStringProperty;
+  'position_nmStringProperty': LocalizedStringProperty;
+  'energy_eVStringProperty': LocalizedStringProperty;
+  'probabilityDensityStringProperty': LocalizedStringProperty;
   'a11y': {
     'oneWellScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;

@@ -34,6 +34,9 @@ addToMapIfDefined( 'phaseFeatureControl_label', 'phaseFeatureControl.labelString
 addToMapIfDefined( 'phaseFeatureControl_description', 'phaseFeatureControl.descriptionStringProperty' );
 addToMapIfDefined( 'potentialEnergy', 'potentialEnergyStringProperty' );
 addToMapIfDefined( 'totalEnergy', 'totalEnergyStringProperty' );
+addToMapIfDefined( 'position_nm', 'position_nmStringProperty' );
+addToMapIfDefined( 'energy_eV', 'energy_eVStringProperty' );
+addToMapIfDefined( 'probabilityDensity', 'probabilityDensityStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -86,6 +89,9 @@ const QuantumBoundStatesFluent = {
   },
   potentialEnergyStringProperty: _.get( QuantumBoundStatesStrings, 'potentialEnergyStringProperty' ),
   totalEnergyStringProperty: _.get( QuantumBoundStatesStrings, 'totalEnergyStringProperty' ),
+  position_nmStringProperty: _.get( QuantumBoundStatesStrings, 'position_nmStringProperty' ),
+  energy_eVStringProperty: _.get( QuantumBoundStatesStrings, 'energy_eVStringProperty' ),
+  probabilityDensityStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityStringProperty' ),
   _comment_1: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     oneWellScreen: {

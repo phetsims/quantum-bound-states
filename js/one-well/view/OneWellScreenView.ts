@@ -11,7 +11,9 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
 import LegendNode from '../../common/view/LegendNode.js';
+import ProbabilityDensityGraphNode from '../../common/view/ProbabilityDensityGraphNode.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
@@ -25,24 +27,36 @@ export default class OneWellScreenView extends ScreenView {
       tandem: tandem
     } );
 
+    const energyGraphNode = new EnergyGraphNode( tandem.createTandem( 'energyGraphNode' ) );
+
+    const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( tandem.createTandem( 'probabilityDensityGraphNode' ) );
+
     const legendNode = new LegendNode( tandem.createTandem( 'legendNode' ) );
-    legendNode.centerX = this.layoutBounds.centerX;
-    legendNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
         this.reset();
       },
-      right: this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN,
-      bottom: this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
+
+    // Layout
+    energyGraphNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
+    legendNode.right = energyGraphNode.right;
+    legendNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    energyGraphNode.top = legendNode.bottom + 5;
+    probabilityDensityGraphNode.left = energyGraphNode.left;
+    probabilityDensityGraphNode.top = energyGraphNode.bottom + 5;
+    resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
+    resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Rendering order, from back to front
     const screenViewRootNode = new Node( {
       children: [
         legendNode,
+        energyGraphNode,
+        probabilityDensityGraphNode,
         resetAllButton
       ]
     } );

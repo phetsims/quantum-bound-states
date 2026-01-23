@@ -28,6 +28,15 @@
   "totalEnergy": {
     "value": "Total Energy"
   },
+  "position_nm": {
+    "value": "Position (nm)"
+  },
+  "energy_eV": {
+    "value": "Energy (eV)"
+  },
+  "probabilityDensity": {
+    "value": "Probability Density"
+  },
   "a11y": {
     "oneWellScreen": {
       "screenButtonsHelpText": {

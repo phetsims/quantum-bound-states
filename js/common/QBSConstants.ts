@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../dot/js/Range.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import quantumBoundStates from '../quantumBoundStates.js';
@@ -43,6 +44,16 @@ export default class QBSConstants {
 
   // Fonts
   public static readonly LEGEND_FONT = new PhetFont( 14 );
+  public static readonly GRAPH_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } );
+  public static readonly TICK_LABEL_FONT = new PhetFont( 12 );
+
+  // Graphs
+  public static readonly ALL_GRAPHS_VIEW_WIDTH = 675;
+  public static readonly ALL_GRAPHS_X_RANGE = new Range( -3.5, 3.5 );
+  public static readonly ENERGY_GRAPH_VIEW_HEIGHT = 275;
+  public static readonly ENERGY_GRAPH_Y_RANGE = new Range( 0, 20 );
+  public static readonly PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = 175;
+  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1 );
 }
 
 quantumBoundStates.register( 'QBSConstants', QBSConstants );

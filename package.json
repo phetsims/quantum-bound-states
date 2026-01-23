@@ -10,6 +10,9 @@
     "grunt": "~1.5.3"
   },
   "phet": {
+    "phetLibs": [
+      "bamboo"
+    ],
     "requirejsNamespace": "QUANTUM_BOUND_STATES",
     "simulation": true,
     "runnable": true,
