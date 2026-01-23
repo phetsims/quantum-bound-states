@@ -23,7 +23,7 @@ export default class EnergyGraphNode extends QBSGraphNode {
       xRange: QBSConstants.ALL_GRAPHS_X_RANGE,
       yRange: QBSConstants.ENERGY_GRAPH_Y_RANGE,
       hasXTicks: false,
-      xTickSpacing: 1,
+      xTickSpacing: QBSConstants.ALL_GRAPHS_X_TICK_SPACING,
       yTickSpacing: 5,
       tandem: tandem
     };

@@ -35,7 +35,8 @@ export default class LegendNode extends Panel {
       xMargin: 10,
       yMargin: 5,
       fill: QBSColors.legendFillProperty,
-      stroke: QBSColors.legendStrokeProperty
+      stroke: QBSColors.legendStrokeProperty,
+      tandem: tandem
     } );
   }
 }

@@ -28,18 +28,32 @@ const X_AXIS_LABEL_OFFSET = 20;
 const Y_AXIS_LABEL_OFFSET = -30;
 
 type SelfOptions = {
-  xAxisLabelStringProperty?: TReadOnlyProperty<string> | null;
-  yAxisLabelStringProperty?: TReadOnlyProperty<string> | null;
+
+  // Dimensions of the graph in view coordinates.
   viewWidth: number;
   viewHeight: number;
+
+  // Range of the axes in model coordinates.
   xRange: Range;
   yRange: Range;
+
+  // Optional labels for the axes.
+  xAxisLabelStringProperty?: TReadOnlyProperty<string> | null;
+  yAxisLabelStringProperty?: TReadOnlyProperty<string> | null;
+
+  // Whether the graph has ticks on the axes.
   hasXTicks?: boolean;
   hasYTicks?: boolean;
-  xTickSpacing: number;
-  yTickSpacing: number;
+
+  // Spacing of the tick marks.
+  xTickSpacing?: number;
+  yTickSpacing?: number;
+
+  // Number of decimal places in tick labels.
   xTickLabelDecimals?: number;
   yTickLabelDecimals?: number;
+
+  // Propagated to this.chartRectangle.
   chartRectangleOptions?: ChartRectangleOptions;
 };
 
@@ -69,6 +83,8 @@ export default class QBSGraphNode extends Node {
       // SelfOptions
       xAxisLabelStringProperty: null,
       yAxisLabelStringProperty: null,
+      xTickSpacing: providedOptions.xRange.getLength(),
+      yTickSpacing: providedOptions.yRange.getLength(),
       xTickLabelDecimals: 0,
       yTickLabelDecimals: 0,
       hasXTicks: true,

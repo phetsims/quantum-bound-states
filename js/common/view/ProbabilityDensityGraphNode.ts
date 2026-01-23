@@ -23,10 +23,8 @@ export default class ProbabilityDensityGraphNode extends QBSGraphNode {
       viewHeight: QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT,
       xRange: QBSConstants.ALL_GRAPHS_X_RANGE,
       yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
+      xTickSpacing: QBSConstants.ALL_GRAPHS_X_TICK_SPACING,
       hasYTicks: false, //TODO Java version has unlabeled tick marks. Are they needed?
-      xTickSpacing: 1,
-      yTickSpacing: 0.5,
-      yTickLabelDecimals: 1,
       tandem: tandem
     };
 
