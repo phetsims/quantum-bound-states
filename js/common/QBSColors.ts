@@ -12,6 +12,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import quantumBoundStates from '../quantumBoundStates.js';
@@ -55,6 +56,14 @@ export default class QBSColors {
   public static readonly gridLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'gridLinesStrokeProperty', {
     default: Color.grayColor( 180 ),
     projector: Color.grayColor( 200 )
+  } );
+
+  public static readonly referenceLineStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'referenceLineStroke', {
+    default: PhetColorScheme.RED_COLORBLIND
+  } );
+
+  public static readonly referenceLineHandleColorProperty = new ProfileColorProperty( quantumBoundStates, 'referenceLineHandleColor', {
+    default: PhetColorScheme.RED_COLORBLIND
   } );
 }
 

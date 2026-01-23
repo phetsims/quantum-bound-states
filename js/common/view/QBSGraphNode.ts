@@ -151,7 +151,7 @@ export default class QBSGraphNode extends Node {
     // x-axis label
     if ( options.xAxisLabelStringProperty ) {
       const xAxisLabelNode = new RichText( options.xAxisLabelStringProperty, {
-        font: QBSConstants.GRAPH_LABEL_FONT,
+        font: QBSConstants.AXIS_LABEL_FONT,
         maxWidth: 0.85 * this.chartRectangle.width
       } );
       decorations.push( xAxisLabelNode );
@@ -163,7 +163,7 @@ export default class QBSGraphNode extends Node {
     // y-axis label
     if ( options.yAxisLabelStringProperty ) {
       const yAxisLabelNode = new RichText( options.yAxisLabelStringProperty, {
-        font: QBSConstants.GRAPH_LABEL_FONT,
+        font: QBSConstants.AXIS_LABEL_FONT,
         rotation: -Math.PI / 2,
         maxWidth: 0.85 * this.chartRectangle.height
       } );

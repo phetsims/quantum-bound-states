@@ -14,9 +14,11 @@ import QBSConstants from '../../common/QBSConstants.js';
 import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
 import LegendNode from '../../common/view/LegendNode.js';
 import ProbabilityDensityGraphNode from '../../common/view/ProbabilityDensityGraphNode.js';
+import ReferenceLineCheckbox from '../../common/view/ReferenceLineCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
+import OneWellViewProperties from './OneWellViewProperties.js';
 
 export default class OneWellScreenView extends ScreenView {
 
@@ -27,11 +29,16 @@ export default class OneWellScreenView extends ScreenView {
       tandem: tandem
     } );
 
+    const viewProperties = new OneWellViewProperties( tandem.createTandem( 'viewProperties' ) );
+
+    const legendNode = new LegendNode( tandem.createTandem( 'legendNode' ) );
+
     const energyGraphNode = new EnergyGraphNode( tandem.createTandem( 'energyGraphNode' ) );
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( tandem.createTandem( 'probabilityDensityGraphNode' ) );
 
-    const legendNode = new LegendNode( tandem.createTandem( 'legendNode' ) );
+    const referenceLineCheckbox = new ReferenceLineCheckbox( viewProperties.referenceLineVisibleProperty,
+      tandem.createTandem( 'referenceLineCheckbox' ) );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -45,9 +52,11 @@ export default class OneWellScreenView extends ScreenView {
     energyGraphNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
     legendNode.right = energyGraphNode.right;
     legendNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
-    energyGraphNode.top = legendNode.bottom + 5;
+    energyGraphNode.top = legendNode.bottom + 3;
     probabilityDensityGraphNode.left = energyGraphNode.left;
-    probabilityDensityGraphNode.top = energyGraphNode.bottom + 5;
+    probabilityDensityGraphNode.top = energyGraphNode.bottom + 3;
+    referenceLineCheckbox.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
+    referenceLineCheckbox.top = probabilityDensityGraphNode.bottom + 5;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
@@ -57,6 +66,7 @@ export default class OneWellScreenView extends ScreenView {
         legendNode,
         energyGraphNode,
         probabilityDensityGraphNode,
+        referenceLineCheckbox,
         resetAllButton
       ]
     } );
@@ -70,6 +80,7 @@ export default class OneWellScreenView extends ScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       //TODO
+      referenceLineCheckbox,
       resetAllButton
     ];
   }

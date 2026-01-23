@@ -19,6 +19,7 @@ totalEnergy: Total Energy
 position_nm: Position (nm)
 energy_eV: Energy (eV)
 probabilityDensity: Probability Density
+referenceLine: Reference Line
 
 # Strings that are specific to accessibility
 a11y:
@@ -50,3 +51,7 @@ a11y:
       controlArea:     TODO.manyWellsScreen.screenSummary.controlArea
       currentDetails:  TODO.manyWellsScreen.screenSummary.currentDetails
       interactionHint: TODO.manyWellsScreen.screenSummary.interactionHint
+  referenceLineCheckbox:
+    accessibleHelpText: TODO.referenceLine.accessibleHelpText
+    accessibleContextResponseChecked: Reference line shown.
+    accessibleContextResponseUnchecked: Reference line hidden.

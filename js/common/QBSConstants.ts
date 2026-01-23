@@ -9,6 +9,8 @@
 import Range from '../../../dot/js/Range.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
+import Text from '../../../scenery/js/nodes/Text.js';
+import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 
 export default class QBSConstants {
@@ -43,9 +45,10 @@ export default class QBSConstants {
   public static readonly PREFERENCES_DESCRIPTION_LINE_WRAP = 450;
 
   // Fonts
-  public static readonly LEGEND_FONT = new PhetFont( 14 );
-  public static readonly GRAPH_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } );
-  public static readonly TICK_LABEL_FONT = new PhetFont( 12 );
+  public static readonly LEGEND_FONT = new PhetFont( 14 ); // for text in the legend
+  public static readonly AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } ); // for axis labels on graphs
+  public static readonly TICK_LABEL_FONT = new PhetFont( 12 ); // for tick labels on graphs
+  public static readonly CONTROL_FONT = new PhetFont( 16 ); // for text on checkboxes, radio buttons, push buttons, etc.
 
   // Graphs
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 675;
@@ -55,6 +58,14 @@ export default class QBSConstants {
   public static readonly ENERGY_GRAPH_Y_RANGE = new Range( 0, 20 );
   public static readonly PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = 175;
   public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1 );
+
+  public static readonly CHECKBOX_OPTIONS: CheckboxOptions = {
+    boxWidth: new Text( 'A', { font: QBSConstants.CONTROL_FONT } ).height,
+    touchAreaXDilation: 6,
+    touchAreaYDilation: 3,
+    mouseAreaXDilation: 6,
+    mouseAreaYDilation: 3
+  };
 }
 
 quantumBoundStates.register( 'QBSConstants', QBSConstants );

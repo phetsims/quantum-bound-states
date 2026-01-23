@@ -30,6 +30,7 @@ type StringsType = {
   'position_nmStringProperty': LocalizedStringProperty;
   'energy_eVStringProperty': LocalizedStringProperty;
   'probabilityDensityStringProperty': LocalizedStringProperty;
+  'referenceLineStringProperty': LocalizedStringProperty;
   'a11y': {
     'oneWellScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
@@ -66,6 +67,11 @@ type StringsType = {
         'currentDetailsStringProperty': LocalizedStringProperty;
         'interactionHintStringProperty': LocalizedStringProperty;
       }
+    };
+    'referenceLineCheckbox': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     }
   }
 };

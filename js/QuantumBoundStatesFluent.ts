@@ -37,6 +37,7 @@ addToMapIfDefined( 'totalEnergy', 'totalEnergyStringProperty' );
 addToMapIfDefined( 'position_nm', 'position_nmStringProperty' );
 addToMapIfDefined( 'energy_eV', 'energy_eVStringProperty' );
 addToMapIfDefined( 'probabilityDensity', 'probabilityDensityStringProperty' );
+addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -57,6 +58,9 @@ addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_playArea', 'a11y.manyWell
 addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_controlArea', 'a11y.manyWellsScreen.screenSummary.controlAreaStringProperty' );
 addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_currentDetails', 'a11y.manyWellsScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_interactionHint', 'a11y.manyWellsScreen.screenSummary.interactionHintStringProperty' );
+addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleHelpText', 'a11y.referenceLineCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseChecked', 'a11y.referenceLineCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseUnchecked', 'a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -92,6 +96,7 @@ const QuantumBoundStatesFluent = {
   position_nmStringProperty: _.get( QuantumBoundStatesStrings, 'position_nmStringProperty' ),
   energy_eVStringProperty: _.get( QuantumBoundStatesStrings, 'energy_eVStringProperty' ),
   probabilityDensityStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityStringProperty' ),
+  referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
   _comment_1: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     oneWellScreen: {
@@ -129,6 +134,11 @@ const QuantumBoundStatesFluent = {
         currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_manyWellsScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.manyWellsScreen.screenSummary.currentDetailsStringProperty' ) ),
         interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_manyWellsScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.manyWellsScreen.screenSummary.interactionHintStringProperty' ) )
       }
+    },
+    referenceLineCheckbox: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+      accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     }
   }
 };
