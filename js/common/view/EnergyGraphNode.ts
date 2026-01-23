@@ -19,7 +19,7 @@ export default class EnergyGraphNode extends QBSGraphNode {
     const options: QBSGraphNodeOptions = {
       yAxisLabelStringProperty: QuantumBoundStatesFluent.energy_eVStringProperty,
       viewWidth: QBSConstants.ALL_GRAPHS_VIEW_WIDTH,
-      viewHeight: QBSConstants.ENERGY_GRAPH_VIEW_HEIGHT, //TODO
+      viewHeight: QBSConstants.ENERGY_GRAPH_VIEW_HEIGHT,
       xRange: QBSConstants.ALL_GRAPHS_X_RANGE,
       yRange: QBSConstants.ENERGY_GRAPH_Y_RANGE,
       hasXTicks: false,
