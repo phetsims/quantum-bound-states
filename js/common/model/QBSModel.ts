@@ -16,6 +16,7 @@ import ReferenceLine from './ReferenceLine.js';
 export default class QBSModel implements TModel {
 
   public readonly magnifierTool: MagnifierTool;
+
   public readonly referenceLine: ReferenceLine;
 
   protected constructor( tandem: Tandem ) {
