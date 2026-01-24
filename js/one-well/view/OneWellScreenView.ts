@@ -14,6 +14,7 @@ import QBSConstants from '../../common/QBSConstants.js';
 import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
 import LegendNode from '../../common/view/LegendNode.js';
 import ProbabilityDensityGraphNode from '../../common/view/ProbabilityDensityGraphNode.js';
+import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import ToolsCheckboxGroup from '../../common/view/ToolsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
@@ -34,8 +35,8 @@ export default class OneWellScreenView extends ScreenView {
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( tandem.createTandem( 'probabilityDensityGraphNode' ) );
 
-    const toolsCheckboxGroup = new ToolsCheckboxGroup( model.referenceLine.visibleProperty,
-      model.magnifierTool.visibleProperty, tandem.createTandem( 'toolsCheckboxGroup' ) );
+    const toolsCheckboxGroup = new ToolsCheckboxGroup( model.magnifierTool.visibleProperty,
+      model.referenceLine.visibleProperty, tandem.createTandem( 'toolsCheckboxGroup' ) );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -57,6 +58,13 @@ export default class OneWellScreenView extends ScreenView {
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
+    const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyGraphNode.chartTransform, {
+      lineTop: energyGraphNode.top,
+      lineBottom: probabilityDensityGraphNode.bottom - 10,
+      tandem: tandem.createTandem( 'referenceLineNode' )
+    } );
+    referenceLineNode.x = energyGraphNode.x; //TODO
+
     // Rendering order, from back to front
     const screenViewRootNode = new Node( {
       children: [
@@ -64,6 +72,7 @@ export default class OneWellScreenView extends ScreenView {
         energyGraphNode,
         probabilityDensityGraphNode,
         toolsCheckboxGroup,
+        referenceLineNode,
         resetAllButton
       ]
     } );
@@ -78,6 +87,7 @@ export default class OneWellScreenView extends ScreenView {
     this.pdomControlAreaNode.pdomOrder = [
       //TODO
       toolsCheckboxGroup,
+      referenceLineNode,
       resetAllButton
     ];
   }

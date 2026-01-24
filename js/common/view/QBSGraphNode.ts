@@ -62,7 +62,7 @@ export type QBSGraphNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tande
 export default class QBSGraphNode extends Node {
 
   // bamboo model-view transform
-  private readonly chartTransform: ChartTransform;
+  public readonly chartTransform: ChartTransform;
 
   // Outer rectangle of the chart
   private readonly chartRectangle: ChartRectangle;

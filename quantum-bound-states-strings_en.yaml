@@ -60,3 +60,7 @@ a11y:
     accessibleHelpText: TODO.referenceLineCheckbox.accessibleHelpText
     accessibleContextResponseChecked: Reference Line shown.
     accessibleContextResponseUnchecked: Reference Line hidden.
+  referenceLineHandleNode:
+    accessibleName: Reference Line handle
+    accessibleHelpText: TODO.referenceLineHandleNode.accessibleHelpText
+    accessibleObjectResponse: TODO.referenceLineHandleNode.accessibleObjectResponse

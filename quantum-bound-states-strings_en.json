@@ -141,6 +141,17 @@
       "accessibleContextResponseUnchecked": {
         "value": "Reference Line hidden."
       }
+    },
+    "referenceLineHandleNode": {
+      "accessibleName": {
+        "value": "Reference Line handle"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.referenceLineHandleNode.accessibleHelpText"
+      },
+      "accessibleObjectResponse": {
+        "value": "TODO.referenceLineHandleNode.accessibleObjectResponse"
+      }
     }
   }
 }
