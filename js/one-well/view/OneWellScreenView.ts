@@ -18,6 +18,7 @@ import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import ToolsCheckboxGroup from '../../common/view/ToolsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
+import OneWellControlPanel from './OneWellControlPanel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
 
 export default class OneWellScreenView extends ScreenView {
@@ -38,6 +39,8 @@ export default class OneWellScreenView extends ScreenView {
     const toolsCheckboxGroup = new ToolsCheckboxGroup( model.magnifierTool.visibleProperty,
       model.referenceLine.visibleProperty, tandem.createTandem( 'toolsCheckboxGroup' ) );
 
+    const controlPanel = new OneWellControlPanel( tandem.createTandem( 'controlPanel' ) );
+
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
@@ -53,6 +56,8 @@ export default class OneWellScreenView extends ScreenView {
     energyGraphNode.top = legendNode.bottom + 3;
     probabilityDensityGraphNode.left = energyGraphNode.left;
     probabilityDensityGraphNode.top = energyGraphNode.bottom + 3;
+    controlPanel.right = this.layoutBounds.right - QBSConstants.SCREEN_VIEW_X_MARGIN;
+    controlPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
     toolsCheckboxGroup.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
     toolsCheckboxGroup.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
@@ -71,6 +76,7 @@ export default class OneWellScreenView extends ScreenView {
         legendNode,
         energyGraphNode,
         probabilityDensityGraphNode,
+        controlPanel,
         toolsCheckboxGroup,
         referenceLineNode,
         resetAllButton
@@ -81,13 +87,14 @@ export default class OneWellScreenView extends ScreenView {
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
       //TODO
+      controlPanel,
+      referenceLineNode
     ];
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       //TODO
       toolsCheckboxGroup,
-      referenceLineNode,
       resetAllButton
     ];
   }
