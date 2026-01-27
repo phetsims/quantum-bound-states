@@ -25,6 +25,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ReferenceLine from '../model/ReferenceLine.js';
 import QBSColors from '../QBSColors.js';
+import QBSConstants from '../QBSConstants.js';
 
 type SelfOptions = {
 
@@ -82,7 +83,7 @@ class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode 
       tandem: tandem
     }, AccessibleDraggableOptions );
 
-    super( 18, options );
+    super( QBSConstants.HANDLE_DIAMETER, options );
 
     // Synthesize a ModelViewTransform2 from the ChartTransform.
     const transform = ModelViewTransform2.createOffsetXYScaleMapping(

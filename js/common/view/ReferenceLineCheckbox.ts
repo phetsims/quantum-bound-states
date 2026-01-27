@@ -59,7 +59,7 @@ function createIcon(): Node {
     stroke: QBSColors.referenceLineStrokeProperty
   } );
 
-  const handleNode = new ShadedSphereNode( 18, {
+  const handleNode = new ShadedSphereNode( QBSConstants.HANDLE_DIAMETER, {
     mainColor: QBSColors.referenceLineHandleColorProperty
   } );
 

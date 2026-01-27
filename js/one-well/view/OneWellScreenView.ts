@@ -59,8 +59,8 @@ export default class OneWellScreenView extends ScreenView {
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyGraphNode.chartTransform, {
-      lineTop: energyGraphNode.top,
-      lineBottom: probabilityDensityGraphNode.bottom - 10,
+      lineTop: energyGraphNode.y,
+      lineBottom: probabilityDensityGraphNode.bottom - QBSConstants.HANDLE_DIAMETER / 2,
       tandem: tandem.createTandem( 'referenceLineNode' )
     } );
     referenceLineNode.x = energyGraphNode.x; //TODO

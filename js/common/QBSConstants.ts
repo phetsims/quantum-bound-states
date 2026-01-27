@@ -59,6 +59,8 @@ export default class QBSConstants {
   public static readonly PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = 175;
   public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( -1, 1 );
 
+  public static readonly HANDLE_DIAMETER = 18;
+
   public static readonly CHECKBOX_OPTIONS: CheckboxOptions = {
     boxWidth: new Text( 'A', { font: QBSConstants.CONTROL_FONT } ).height,
     touchAreaXDilation: 6,
