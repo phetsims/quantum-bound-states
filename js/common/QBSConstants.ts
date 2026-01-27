@@ -57,7 +57,7 @@ export default class QBSConstants {
   public static readonly ENERGY_GRAPH_VIEW_HEIGHT = 275;
   public static readonly ENERGY_GRAPH_Y_RANGE = new Range( 0, 20 );
   public static readonly PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = 175;
-  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1 );
+  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( -1, 1 );
 
   public static readonly CHECKBOX_OPTIONS: CheckboxOptions = {
     boxWidth: new Text( 'A', { font: QBSConstants.CONTROL_FONT } ).height,

@@ -41,9 +41,11 @@ type SelfOptions = {
   xAxisLabelStringProperty?: TReadOnlyProperty<string> | null;
   yAxisLabelStringProperty?: TReadOnlyProperty<string> | null;
 
-  // Whether the graph has ticks on the axes.
+  // Whether the graph has ticks on the x-axis.
   hasXTicks?: boolean;
-  hasYTicks?: boolean;
+
+  // Whether the graph has tick labels on the y-axis.
+  hasYTickLabels?: boolean;
 
   // Spacing of the tick marks.
   xTickSpacing?: number;
@@ -75,6 +77,7 @@ export default class QBSGraphNode extends Node {
 
   // Grid lines
   private readonly verticalGridLines: GridLineSet;
+  private readonly horizontalGridLines: GridLineSet;
 
   protected constructor( providedOptions: QBSGraphNodeOptions ) {
 
@@ -88,7 +91,7 @@ export default class QBSGraphNode extends Node {
       xTickLabelDecimals: 0,
       yTickLabelDecimals: 0,
       hasXTicks: true,
-      hasYTicks: true,
+      hasYTickLabels: true,
       chartRectangleOptions: {
         fill: QBSColors.graphRectangleFillProperty,
         stroke: QBSColors.graphRectangleStrokeProperty
@@ -115,6 +118,12 @@ export default class QBSGraphNode extends Node {
       stroke: QBSColors.gridLinesStrokeProperty
     } );
     decorations.push( this.verticalGridLines );
+    this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
+      lineWidth: 1,
+      lineDash: [ 4, 4 ],
+      stroke: QBSColors.gridLinesStrokeProperty
+    } );
+    decorations.push( this.horizontalGridLines );
 
     // x-axis ticks
     if ( options.hasXTicks ) {
@@ -133,12 +142,12 @@ export default class QBSGraphNode extends Node {
     }
 
     // y-axis ticks
-    if ( options.hasYTicks ) {
-      this.yTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
-        edge: 'min'
-      } );
-      decorations.push( this.yTickMarkSet );
+    this.yTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
+      edge: 'min'
+    } );
+    decorations.push( this.yTickMarkSet );
 
+    if ( options.hasYTickLabels ) {
       this.yTickLabelSet = new TickLabelSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
         edge: 'min',
         createLabel: ( value: number ) => new Text( toFixed( value, options.yTickLabelDecimals ), {
@@ -202,6 +211,7 @@ export default class QBSGraphNode extends Node {
   public setYTickSpacing( spacing: number ): void {
     this.yTickMarkSet && this.yTickMarkSet.setSpacing( spacing );
     this.yTickLabelSet && this.yTickLabelSet.setSpacing( spacing );
+    this.horizontalGridLines.setSpacing( spacing );
   }
 }
 

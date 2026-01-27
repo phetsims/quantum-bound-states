@@ -54,8 +54,8 @@ export default class QBSColors {
   } );
 
   public static readonly gridLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'gridLinesStrokeProperty', {
-    default: Color.grayColor( 180 ),
-    projector: Color.grayColor( 200 )
+    default: Color.grayColor( 200 ),
+    projector: Color.grayColor( 100 )
   } );
 
   public static readonly referenceLineStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'referenceLineStroke', {
