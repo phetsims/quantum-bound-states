@@ -25,9 +25,9 @@ simLauncher.launch( () => {
 
   const screens = [
     new OneWellScreen( Tandem.ROOT.createTandem( 'oneWellScreen' ) ),
-    new SuperpositionScreen( Tandem.ROOT.createTandem( 'superpositionScreen' ) ),
     new TwoWellsScreen( Tandem.ROOT.createTandem( 'twoWellsScreen' ) ),
-    new ManyWellsScreen( Tandem.ROOT.createTandem( 'manyWellsScreen' ) )
+    new ManyWellsScreen( Tandem.ROOT.createTandem( 'manyWellsScreen' ) ),
+    new SuperpositionScreen( Tandem.ROOT.createTandem( 'superpositionScreen' ) )
   ];
 
   const options: SimOptions = {
