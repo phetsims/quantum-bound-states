@@ -20,7 +20,6 @@ export default class OneWellControlPanel extends Panel {
 
     const options = combineOptions<PanelOptions>( {
       isDisposable: false,
-
       tandem: tandem
     }, QBSConstants.PANEL_OPTIONS );
 
