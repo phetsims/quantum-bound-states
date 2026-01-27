@@ -49,7 +49,7 @@ type SelfOptions = {
 
   // Spacing of the tick marks.
   xTickSpacing?: number;
-  yTickSpacing?: number;
+  yTickSpacing: number;
 
   // Number of decimal places in tick labels.
   xTickLabelDecimals?: number;
@@ -69,10 +69,12 @@ export default class QBSGraphNode extends Node {
   // Outer rectangle of the chart
   private readonly chartRectangle: ChartRectangle;
 
-  // Tick marks and labels
+  // x-axis tick marks and labels are optional.
   private readonly xTickMarkSet?: TickMarkSet;
   private readonly xTickLabelSet?: TickLabelSet;
-  private readonly yTickMarkSet?: TickMarkSet;
+
+  // y-axis tick marks are required, but labels are optional.
+  private readonly yTickMarkSet: TickMarkSet;
   private readonly yTickLabelSet?: TickLabelSet;
 
   // Grid lines
@@ -87,7 +89,6 @@ export default class QBSGraphNode extends Node {
       xAxisLabelStringProperty: null,
       yAxisLabelStringProperty: null,
       xTickSpacing: providedOptions.xRange.getLength(),
-      yTickSpacing: providedOptions.yRange.getLength(),
       xTickLabelDecimals: 0,
       yTickLabelDecimals: 0,
       hasXTicks: true,
@@ -209,7 +210,7 @@ export default class QBSGraphNode extends Node {
   }
 
   public setYTickSpacing( spacing: number ): void {
-    this.yTickMarkSet && this.yTickMarkSet.setSpacing( spacing );
+    this.yTickMarkSet.setSpacing( spacing );
     this.yTickLabelSet && this.yTickLabelSet.setSpacing( spacing );
     this.horizontalGridLines.setSpacing( spacing );
   }
