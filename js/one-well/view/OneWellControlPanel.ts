@@ -23,9 +23,7 @@ export default class OneWellControlPanel extends Panel {
       tandem: tandem
     }, QBSConstants.PANEL_OPTIONS );
 
-    const energyLevelSpinner = new Text( 'Energy Level', {
-      tandem: tandem.createTandem( 'energyLevelSpinner' )
-    } );
+    const energyLevelSpinner = new Text( 'Energy Level' );
 
     const content = new VBox( {
       align: 'left',
