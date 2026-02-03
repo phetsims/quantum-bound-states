@@ -9,9 +9,13 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import SpectrumNode from '../../../../scenery-phet/js/SpectrumNode.js';
+import VisibleColor from '../../../../scenery-phet/js/VisibleColor.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -93,8 +97,8 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
     const phaseIcon = new HBox( {
       spacing: HBOX_SPACING,
       children: [
-        new Text( QuantumBoundStatesFluent.phaseStringProperty, TEXT_OPTIONS )
-        //TODO phase icon
+        new Text( QuantumBoundStatesFluent.phaseStringProperty, TEXT_OPTIONS ),
+        createPhaseIcon()
       ]
     } );
     const phaseCheckbox = new Checkbox( phaseVisibleProperty, phaseIcon, {
@@ -103,6 +107,7 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
       },
       boxWidth: BOX_WIDTH,
       visibleProperty: QBSPreferences.phaseCheckboxVisibleProperty,
+      enabledProperty: magnitudeVisibleProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleHelpTextStringProperty,
       tandem: tandem.createTandem( 'phaseCheckbox' )
     } );
@@ -119,6 +124,26 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
       tandem: tandem
     } );
   }
+}
+
+function createPhaseIcon(): Node {
+  const zeroNode = new Text( '0', {
+    font: QBSConstants.CONTROL_FONT
+  } );
+  const phaseBandIcon = new SpectrumNode( {
+    size: new Dimension2( 40, 0.75 * zeroNode.height ),
+    minValue: VisibleColor.MIN_WAVELENGTH,
+    maxValue: VisibleColor.MAX_WAVELENGTH,
+    valueToColor: VisibleColor.wavelengthToColor
+  } );
+  const twoPiNode = new Text( '2\u03C0', {
+    font: QBSConstants.CONTROL_FONT
+  } );
+
+  return new HBox( {
+    spacing: 3,
+    children: [ zeroNode, phaseBandIcon, twoPiNode ]
+  } );
 }
 
 quantumBoundStates.register( 'WaveFunctionComponentsCheckboxGroup', WaveFunctionComponentsCheckboxGroup );

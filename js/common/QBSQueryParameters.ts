@@ -16,7 +16,7 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
   // Whether the Phase checkbox is visible in the controls panel.
   phaseCheckboxVisible: {
     type: 'boolean',
-    defaultValue: false,
+    defaultValue: true, //TODO default should be false
     public: true
   }
 } );
