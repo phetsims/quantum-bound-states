@@ -37,18 +37,18 @@ addToMapIfDefined( 'totalEnergy', 'totalEnergyStringProperty' );
 addToMapIfDefined( 'position_nm', 'position_nmStringProperty' );
 addToMapIfDefined( 'energy_eV', 'energy_eVStringProperty' );
 addToMapIfDefined( 'probabilityDensity', 'probabilityDensityStringProperty' );
+addToMapIfDefined( 'waveFunction', 'waveFunctionStringProperty' );
 addToMapIfDefined( 'magnifierTool', 'magnifierToolStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
+addToMapIfDefined( 'realPart', 'realPartStringProperty' );
+addToMapIfDefined( 'imaginaryPart', 'imaginaryPartStringProperty' );
+addToMapIfDefined( 'magnitude', 'magnitudeStringProperty' );
+addToMapIfDefined( 'phase', 'phaseStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_currentDetails', 'a11y.oneWellScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_interactionHint', 'a11y.oneWellScreen.screenSummary.interactionHintStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenButtonsHelpText', 'a11y.superpositionScreen.screenButtonsHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_playArea', 'a11y.superpositionScreen.screenSummary.playAreaStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_controlArea', 'a11y.superpositionScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_currentDetails', 'a11y.superpositionScreen.screenSummary.currentDetailsStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_interactionHint', 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_twoWellsScreen_screenButtonsHelpText', 'a11y.twoWellsScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_twoWellsScreen_screenSummary_playArea', 'a11y.twoWellsScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_twoWellsScreen_screenSummary_controlArea', 'a11y.twoWellsScreen.screenSummary.controlAreaStringProperty' );
@@ -59,6 +59,15 @@ addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_playArea', 'a11y.manyWell
 addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_controlArea', 'a11y.manyWellsScreen.screenSummary.controlAreaStringProperty' );
 addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_currentDetails', 'a11y.manyWellsScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_interactionHint', 'a11y.manyWellsScreen.screenSummary.interactionHintStringProperty' );
+addToMapIfDefined( 'a11y_superpositionScreen_screenButtonsHelpText', 'a11y.superpositionScreen.screenButtonsHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_playArea', 'a11y.superpositionScreen.screenSummary.playAreaStringProperty' );
+addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_controlArea', 'a11y.superpositionScreen.screenSummary.controlAreaStringProperty' );
+addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_currentDetails', 'a11y.superpositionScreen.screenSummary.currentDetailsStringProperty' );
+addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_interactionHint', 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' );
+addToMapIfDefined( 'a11y_realPartCheckbox_accessibleHelpText', 'a11y.realPartCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_imaginaryPartCheckbox_accessibleHelpText', 'a11y.imaginaryPartCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_magnitudeCheckbox_accessibleHelpText', 'a11y.magnitudeCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_phaseCheckbox_accessibleHelpText', 'a11y.phaseCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_magnifierToolCheckbox_accessibleHelpText', 'a11y.magnifierToolCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_magnifierToolCheckbox_accessibleContextResponseChecked', 'a11y.magnifierToolCheckbox.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_magnifierToolCheckbox_accessibleContextResponseUnchecked', 'a11y.magnifierToolCheckbox.accessibleContextResponseUncheckedStringProperty' );
@@ -103,10 +112,19 @@ const QuantumBoundStatesFluent = {
   position_nmStringProperty: _.get( QuantumBoundStatesStrings, 'position_nmStringProperty' ),
   energy_eVStringProperty: _.get( QuantumBoundStatesStrings, 'energy_eVStringProperty' ),
   probabilityDensityStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityStringProperty' ),
+  waveFunctionStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionStringProperty' ),
   magnifierToolStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierToolStringProperty' ),
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
-  _comment_1: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  _comment_1: new FluentComment( {"comment":"Checkboxes","associatedKey":"realPart"} ),
+  realPartStringProperty: _.get( QuantumBoundStatesStrings, 'realPartStringProperty' ),
+  imaginaryPartStringProperty: _.get( QuantumBoundStatesStrings, 'imaginaryPartStringProperty' ),
+  magnitudeStringProperty: _.get( QuantumBoundStatesStrings, 'magnitudeStringProperty' ),
+  phaseStringProperty: _.get( QuantumBoundStatesStrings, 'phaseStringProperty' ),
+  _comment_2: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
+    _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"oneWellScreen"} ),
+    _comment_1: new FluentComment( {"comment":"Screen Summaries","associatedKey":"oneWellScreen"} ),
+    _comment_2: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"oneWellScreen"} ),
     oneWellScreen: {
       screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' ) ),
       screenSummary: {
@@ -114,15 +132,6 @@ const QuantumBoundStatesFluent = {
         controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' ) ),
         currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenSummary.currentDetailsStringProperty' ) ),
         interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenSummary.interactionHintStringProperty' ) )
-      }
-    },
-    superpositionScreen: {
-      screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenButtonsHelpTextStringProperty' ) ),
-      screenSummary: {
-        playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.playAreaStringProperty' ) ),
-        controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.controlAreaStringProperty' ) ),
-        currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.currentDetailsStringProperty' ) ),
-        interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' ) )
       }
     },
     twoWellsScreen: {
@@ -143,6 +152,30 @@ const QuantumBoundStatesFluent = {
         interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_manyWellsScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.manyWellsScreen.screenSummary.interactionHintStringProperty' ) )
       }
     },
+    superpositionScreen: {
+      screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenButtonsHelpTextStringProperty' ) ),
+      screenSummary: {
+        playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.playAreaStringProperty' ) ),
+        controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.controlAreaStringProperty' ) ),
+        currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.currentDetailsStringProperty' ) ),
+        interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' ) )
+      }
+    },
+    _comment_3: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"realPartCheckbox"} ),
+    _comment_4: new FluentComment( {"comment":"Checkboxes","associatedKey":"realPartCheckbox"} ),
+    _comment_5: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"realPartCheckbox"} ),
+    realPartCheckbox: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_realPartCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.realPartCheckbox.accessibleHelpTextStringProperty' ) )
+    },
+    imaginaryPartCheckbox: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_imaginaryPartCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.imaginaryPartCheckbox.accessibleHelpTextStringProperty' ) )
+    },
+    magnitudeCheckbox: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnitudeCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnitudeCheckbox.accessibleHelpTextStringProperty' ) )
+    },
+    phaseCheckbox: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_phaseCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.phaseCheckbox.accessibleHelpTextStringProperty' ) )
+    },
     magnifierToolCheckbox: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierToolCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnifierToolCheckbox.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierToolCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.magnifierToolCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
@@ -153,6 +186,9 @@ const QuantumBoundStatesFluent = {
       accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
       accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     },
+    _comment_6: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
+    _comment_7: new FluentComment( {"comment":"Tools","associatedKey":"referenceLineHandleNode"} ),
+    _comment_8: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
     referenceLineHandleNode: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleHelpTextStringProperty' ) ),

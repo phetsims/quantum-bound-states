@@ -73,6 +73,18 @@ export default class QBSColors {
   public static readonly referenceLineHandleColorProperty = new ProfileColorProperty( quantumBoundStates, 'referenceLineHandleColor', {
     default: PhetColorScheme.RED_COLORBLIND
   } );
+
+  public static readonly realPartStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'realPartStroke', {
+    default: 'rgb( 31, 69, 240 )'
+  } );
+
+  public static readonly imaginaryPartStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'imaginaryPartStroke', {
+    default: 'rgb( 211, 127, 51 )'
+  } );
+
+  public static readonly magnitudeStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnitudeStroke', {
+    default: 'black'
+  } );
 }
 
 quantumBoundStates.register( 'QBSColors', QBSColors );

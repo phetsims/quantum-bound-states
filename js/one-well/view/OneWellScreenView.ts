@@ -39,7 +39,7 @@ export default class OneWellScreenView extends ScreenView {
     const toolsCheckboxGroup = new ToolsCheckboxGroup( model.magnifierTool.visibleProperty,
       model.referenceLine.visibleProperty, tandem.createTandem( 'toolsCheckboxGroup' ) );
 
-    const controlPanel = new OneWellControlPanel( tandem.createTandem( 'controlPanel' ) );
+    const controlPanel = new OneWellControlPanel( model, tandem.createTandem( 'controlPanel' ) );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {

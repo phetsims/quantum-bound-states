@@ -12,11 +12,13 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import WaveFunctionComponentsCheckboxGroup from '../../common/view/WaveFunctionComponentsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import OneWellModel from '../model/OneWellModel.js';
 
 export default class OneWellControlPanel extends Panel {
 
-  public constructor( tandem: Tandem ) {
+  public constructor( model: OneWellModel, tandem: Tandem ) {
 
     const options = combineOptions<PanelOptions>( {
       isDisposable: false,
@@ -25,11 +27,20 @@ export default class OneWellControlPanel extends Panel {
 
     const energyLevelSpinner = new Text( 'Energy Level' );
 
+    const checkboxGroup = new WaveFunctionComponentsCheckboxGroup(
+      model.realPartVisibleProperty,
+      model.imaginaryPartVisibleProperty,
+      model.magnitudeVisibleProperty,
+      model.phaseVisibleProperty,
+      tandem.createTandem( 'checkboxGroup' )
+    );
+
     const content = new VBox( {
       align: 'left',
       spacing: 5,
       children: [
-        energyLevelSpinner
+        energyLevelSpinner,
+        checkboxGroup
       ]
     } );
 

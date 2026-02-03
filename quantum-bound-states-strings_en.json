@@ -37,11 +37,26 @@
   "probabilityDensity": {
     "value": "Probability Density"
   },
+  "waveFunction": {
+    "value": "Wave Function"
+  },
   "magnifierTool": {
     "value": "Magnifier Tool"
   },
   "referenceLine": {
     "value": "Reference Line"
+  },
+  "realPart": {
+    "value": "Real Part"
+  },
+  "imaginaryPart": {
+    "value": "Imaginary Part"
+  },
+  "magnitude": {
+    "value": "Magnitude"
+  },
+  "phase": {
+    "value": "Phase"
   },
   "a11y": {
     "oneWellScreen": {
@@ -60,25 +75,6 @@
         },
         "interactionHint": {
           "value": "TODO.oneWellScreen.screenSummary.interactionHint"
-        }
-      }
-    },
-    "superpositionScreen": {
-      "screenButtonsHelpText": {
-        "value": "TODO.oneWellScreen.screenButtonsHelpText"
-      },
-      "screenSummary": {
-        "playArea": {
-          "value": "TODO.superpositionScreen.screenSummary.playArea"
-        },
-        "controlArea": {
-          "value": "TODO.superpositionScreen.screenSummary.controlArea"
-        },
-        "currentDetails": {
-          "value": "TODO.superpositionScreen.screenSummary.currentDetails"
-        },
-        "interactionHint": {
-          "value": "TODO.superpositionScreen.screenSummary.interactionHint"
         }
       }
     },
@@ -118,6 +114,45 @@
         "interactionHint": {
           "value": "TODO.manyWellsScreen.screenSummary.interactionHint"
         }
+      }
+    },
+    "superpositionScreen": {
+      "screenButtonsHelpText": {
+        "value": "TODO.oneWellScreen.screenButtonsHelpText"
+      },
+      "screenSummary": {
+        "playArea": {
+          "value": "TODO.superpositionScreen.screenSummary.playArea"
+        },
+        "controlArea": {
+          "value": "TODO.superpositionScreen.screenSummary.controlArea"
+        },
+        "currentDetails": {
+          "value": "TODO.superpositionScreen.screenSummary.currentDetails"
+        },
+        "interactionHint": {
+          "value": "TODO.superpositionScreen.screenSummary.interactionHint"
+        }
+      }
+    },
+    "realPartCheckbox": {
+      "accessibleHelpText": {
+        "value": "TODO.realPartCheckbox.accessibleHelpText"
+      }
+    },
+    "imaginaryPartCheckbox": {
+      "accessibleHelpText": {
+        "value": "TODO.imaginaryPartCheckbox.accessibleHelpText"
+      }
+    },
+    "magnitudeCheckbox": {
+      "accessibleHelpText": {
+        "value": "TODO.magnitudeCheckbox.accessibleHelpText"
+      }
+    },
+    "phaseCheckbox": {
+      "accessibleHelpText": {
+        "value": "TODO.phaseCheckbox.accessibleHelpText"
       }
     },
     "magnifierToolCheckbox": {

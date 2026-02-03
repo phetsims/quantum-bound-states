@@ -50,7 +50,7 @@ export default class QBSConstants {
   public static readonly LEGEND_FONT = new PhetFont( 14 ); // for text in the legend
   public static readonly AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } ); // for axis labels on graphs
   public static readonly TICK_LABEL_FONT = new PhetFont( 12 ); // for tick labels on graphs
-  public static readonly CONTROL_FONT = new PhetFont( 16 ); // for text on checkboxes, radio buttons, push buttons, etc.
+  public static readonly CONTROL_FONT = new PhetFont( 14 ); // for text on checkboxes, radio buttons, push buttons, etc.
 
   // Graphs
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 675;

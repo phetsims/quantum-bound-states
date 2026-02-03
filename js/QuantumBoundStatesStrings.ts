@@ -30,19 +30,15 @@ type StringsType = {
   'position_nmStringProperty': LocalizedStringProperty;
   'energy_eVStringProperty': LocalizedStringProperty;
   'probabilityDensityStringProperty': LocalizedStringProperty;
+  'waveFunctionStringProperty': LocalizedStringProperty;
   'magnifierToolStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
+  'realPartStringProperty': LocalizedStringProperty;
+  'imaginaryPartStringProperty': LocalizedStringProperty;
+  'magnitudeStringProperty': LocalizedStringProperty;
+  'phaseStringProperty': LocalizedStringProperty;
   'a11y': {
     'oneWellScreen': {
-      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
-      'screenSummary': {
-        'playAreaStringProperty': LocalizedStringProperty;
-        'controlAreaStringProperty': LocalizedStringProperty;
-        'currentDetailsStringProperty': LocalizedStringProperty;
-        'interactionHintStringProperty': LocalizedStringProperty;
-      }
-    };
-    'superpositionScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
       'screenSummary': {
         'playAreaStringProperty': LocalizedStringProperty;
@@ -68,6 +64,27 @@ type StringsType = {
         'currentDetailsStringProperty': LocalizedStringProperty;
         'interactionHintStringProperty': LocalizedStringProperty;
       }
+    };
+    'superpositionScreen': {
+      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      'screenSummary': {
+        'playAreaStringProperty': LocalizedStringProperty;
+        'controlAreaStringProperty': LocalizedStringProperty;
+        'currentDetailsStringProperty': LocalizedStringProperty;
+        'interactionHintStringProperty': LocalizedStringProperty;
+      }
+    };
+    'realPartCheckbox': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'imaginaryPartCheckbox': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'magnitudeCheckbox': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'phaseCheckbox': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'magnifierToolCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

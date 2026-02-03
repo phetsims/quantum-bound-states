@@ -19,11 +19,23 @@ totalEnergy: Total Energy
 position_nm: Position (nm)
 energy_eV: Energy (eV)
 probabilityDensity: Probability Density
+waveFunction: Wave Function
 magnifierTool: Magnifier Tool
 referenceLine: Reference Line
 
+# Checkboxes
+realPart: Real Part
+imaginaryPart: Imaginary Part
+magnitude: Magnitude
+phase: Phase
+
 # Strings that are specific to accessibility
 a11y:
+
+  #=======================================================================================================
+  # Screen Summaries
+  #=======================================================================================================
+
   oneWellScreen:
     screenButtonsHelpText: TODO.oneWellScreen.screenButtonsHelpText
     screenSummary:
@@ -31,13 +43,7 @@ a11y:
       controlArea:     TODO.oneWellScreen.screenSummary.controlArea
       currentDetails:  TODO.oneWellScreen.screenSummary.currentDetails
       interactionHint: TODO.oneWellScreen.screenSummary.interactionHint
-  superpositionScreen:
-    screenButtonsHelpText: TODO.oneWellScreen.screenButtonsHelpText
-    screenSummary:
-      playArea:        TODO.superpositionScreen.screenSummary.playArea
-      controlArea:     TODO.superpositionScreen.screenSummary.controlArea
-      currentDetails:  TODO.superpositionScreen.screenSummary.currentDetails
-      interactionHint: TODO.superpositionScreen.screenSummary.interactionHint
+
   twoWellsScreen:
     screenButtonsHelpText: TODO.twoWellsScreen.screenButtonsHelpText
     screenSummary:
@@ -45,6 +51,7 @@ a11y:
       controlArea:     TODO.twoWellsScreen.screenSummary.controlArea
       currentDetails:  TODO.twoWellsScreen.screenSummary.currentDetails
       interactionHint: TODO.twoWellsScreen.screenSummary.interactionHint
+
   manyWellsScreen:
     screenButtonsHelpText: TODO.manyWellsScreen.screenButtonsHelpText
     screenSummary:
@@ -52,14 +59,45 @@ a11y:
       controlArea:     TODO.manyWellsScreen.screenSummary.controlArea
       currentDetails:  TODO.manyWellsScreen.screenSummary.currentDetails
       interactionHint: TODO.manyWellsScreen.screenSummary.interactionHint
+
+  superpositionScreen:
+    screenButtonsHelpText: TODO.oneWellScreen.screenButtonsHelpText
+    screenSummary:
+      playArea:        TODO.superpositionScreen.screenSummary.playArea
+      controlArea:     TODO.superpositionScreen.screenSummary.controlArea
+      currentDetails:  TODO.superpositionScreen.screenSummary.currentDetails
+      interactionHint: TODO.superpositionScreen.screenSummary.interactionHint
+
+  #=======================================================================================================
+  # Checkboxes
+  #=======================================================================================================
+
+  realPartCheckbox:
+    accessibleHelpText: TODO.realPartCheckbox.accessibleHelpText
+
+  imaginaryPartCheckbox:
+    accessibleHelpText: TODO.imaginaryPartCheckbox.accessibleHelpText
+
+  magnitudeCheckbox:
+    accessibleHelpText: TODO.magnitudeCheckbox.accessibleHelpText
+
+  phaseCheckbox:
+    accessibleHelpText: TODO.phaseCheckbox.accessibleHelpText
+
   magnifierToolCheckbox:
     accessibleHelpText:                 TODO.magnifierToolCheckbox.accessibleHelpText
     accessibleContextResponseChecked:   Magnifier Tool shown.
     accessibleContextResponseUnchecked: Magnifier Tool hidden.
+
   referenceLineCheckbox:
     accessibleHelpText: TODO.referenceLineCheckbox.accessibleHelpText
     accessibleContextResponseChecked: Reference Line shown.
     accessibleContextResponseUnchecked: Reference Line hidden.
+
+  #=======================================================================================================
+  # Tools
+  #=======================================================================================================
+
   referenceLineHandleNode:
     accessibleName: Reference Line handle
     accessibleHelpText: TODO.referenceLineHandleNode.accessibleHelpText
