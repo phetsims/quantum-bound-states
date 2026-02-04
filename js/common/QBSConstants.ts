@@ -58,9 +58,9 @@ export default class QBSConstants {
   public static readonly ALL_GRAPHS_X_RANGE = new Range( -3.5, 3.5 );
   public static readonly ALL_GRAPHS_X_TICK_SPACING = 1;
   public static readonly ENERGY_GRAPH_VIEW_HEIGHT = 275;
-  public static readonly ENERGY_GRAPH_Y_RANGE = new Range( 0, 20 );
+  public static readonly ENERGY_GRAPH_Y_RANGE = new Range( -2.5, 22.5 );
   public static readonly PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = 175;
-  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( -1, 1 );
+  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( -1.25, 1.25 );
 
   // Decimal places
   public static readonly ELECTRON_MASS_DECIMAL_PLACES = 2;
