@@ -12,7 +12,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
-import LegendNode from '../../common/view/LegendNode.js';
+import LegendPanel from '../../common/view/LegendPanel.js';
 import ProbabilityDensityGraphNode from '../../common/view/ProbabilityDensityGraphNode.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import ToolsCheckboxGroup from '../../common/view/ToolsCheckboxGroup.js';
@@ -30,7 +30,7 @@ export default class OneWellScreenView extends ScreenView {
       tandem: tandem
     } );
 
-    const legendNode = new LegendNode( tandem.createTandem( 'legendNode' ) );
+    const legendPanel = new LegendPanel( tandem.createTandem( 'legendPanel' ) );
 
     const energyGraphNode = new EnergyGraphNode( tandem.createTandem( 'energyGraphNode' ) );
 
@@ -51,9 +51,9 @@ export default class OneWellScreenView extends ScreenView {
 
     // Layout
     energyGraphNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
-    legendNode.right = energyGraphNode.right;
-    legendNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
-    energyGraphNode.top = legendNode.bottom + 3;
+    legendPanel.right = energyGraphNode.right;
+    legendPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    energyGraphNode.top = legendPanel.bottom + 3;
     probabilityDensityGraphNode.left = energyGraphNode.left;
     probabilityDensityGraphNode.top = energyGraphNode.bottom + 3;
     controlPanel.left = energyGraphNode.right + 10;
@@ -64,9 +64,9 @@ export default class OneWellScreenView extends ScreenView {
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Dynamic layout
-    legendNode.boundsProperty.lazyLink( () => {
-      legendNode.right = energyGraphNode.right;
-      legendNode.bottom = energyGraphNode.top - 3;
+    legendPanel.boundsProperty.lazyLink( () => {
+      legendPanel.right = energyGraphNode.right;
+      legendPanel.bottom = energyGraphNode.top - 3;
     } );
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyGraphNode.chartTransform, {
@@ -79,7 +79,7 @@ export default class OneWellScreenView extends ScreenView {
     // Rendering order, from back to front
     const screenViewRootNode = new Node( {
       children: [
-        legendNode,
+        legendPanel,
         energyGraphNode,
         probabilityDensityGraphNode,
         controlPanel,

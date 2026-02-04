@@ -1,26 +1,36 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * LegendNode explains the colors used in the charts.
+ * LegendPanel explains the colors used in the charts.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class LegendNode extends Panel {
+export default class LegendPanel extends Panel {
 
   public constructor( tandem: Tandem ) {
+
+    const options = combineOptions<PanelOptions>( {
+      cornerRadius: 3,
+      xMargin: 10,
+      yMargin: 5,
+      fill: QBSColors.legendFillProperty,
+      stroke: QBSColors.legendStrokeProperty,
+      tandem: tandem
+    }, QBSConstants.PANEL_OPTIONS );
 
     const content = new HBox( {
       spacing: 14,
@@ -30,14 +40,7 @@ export default class LegendNode extends Panel {
       ]
     } );
 
-    super( content, {
-      cornerRadius: 3,
-      xMargin: 10,
-      yMargin: 5,
-      fill: QBSColors.legendFillProperty,
-      stroke: QBSColors.legendStrokeProperty,
-      tandem: tandem
-    } );
+    super( content, options );
   }
 }
 
@@ -62,4 +65,4 @@ class LegendEntryNode extends HBox {
   }
 }
 
-quantumBoundStates.register( 'LegendNode', LegendNode );
+quantumBoundStates.register( 'LegendPanel', LegendPanel );
