@@ -21,6 +21,7 @@ export default class QBSModel implements TModel {
 
   public readonly referenceLine: ReferenceLine;
 
+  public readonly valuesVisibleProperty: Property<boolean>;
   public readonly realPartVisibleProperty: Property<boolean>;
   public readonly imaginaryPartVisibleProperty: Property<boolean>;
   public readonly magnitudeVisibleProperty: Property<boolean>;
@@ -33,6 +34,11 @@ export default class QBSModel implements TModel {
     this.referenceLine = new ReferenceLine( tandem.createTandem( 'referenceLine' ) );
 
     //TODO group *VisibleProperty under a parent tandem?
+
+    this.valuesVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'valuesVisibleProperty' ),
+      phetioFeatured: true
+    } );
 
     this.realPartVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'realPartVisibleProperty' ),

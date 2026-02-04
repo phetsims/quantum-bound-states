@@ -14,20 +14,24 @@ phaseFeatureControl:
   label: Wave Function Phase
   description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
 
+# Titles
 potentialEnergy: Potential Energy
 totalEnergy: Total Energy
 position_nm: Position (nm)
 energy_eV: Energy (eV)
 probabilityDensity: Probability Density
 waveFunction: Wave Function
-magnifierTool: Magnifier Tool
-referenceLine: Reference Line
+display: Display
+properties: Properties
 
 # Checkboxes
+showValues: Show Values
 realPart: Real Part
 imaginaryPart: Imaginary Part
 magnitude: Magnitude
 phase: Phase
+magnifierTool: Magnifier Tool
+referenceLine: Reference Line
 
 # Strings that are specific to accessibility
 a11y:

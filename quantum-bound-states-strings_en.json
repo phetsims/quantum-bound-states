@@ -40,11 +40,14 @@
   "waveFunction": {
     "value": "Wave Function"
   },
-  "magnifierTool": {
-    "value": "Magnifier Tool"
+  "display": {
+    "value": "Display"
   },
-  "referenceLine": {
-    "value": "Reference Line"
+  "properties": {
+    "value": "Properties"
+  },
+  "showValues": {
+    "value": "Show Values"
   },
   "realPart": {
     "value": "Real Part"
@@ -57,6 +60,12 @@
   },
   "phase": {
     "value": "Phase"
+  },
+  "magnifierTool": {
+    "value": "Magnifier Tool"
+  },
+  "referenceLine": {
+    "value": "Reference Line"
   },
   "a11y": {
     "oneWellScreen": {

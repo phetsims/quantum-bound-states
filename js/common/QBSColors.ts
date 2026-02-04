@@ -85,6 +85,10 @@ export default class QBSColors {
   public static readonly magnitudeStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnitudeStroke', {
     default: 'black'
   } );
+
+  public static readonly separatorStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'separatorStroke', {
+    default: Color.grayColor( 200 )
+  } );
 }
 
 quantumBoundStates.register( 'QBSColors', QBSColors );

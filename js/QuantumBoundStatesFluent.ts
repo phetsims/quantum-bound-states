@@ -38,12 +38,15 @@ addToMapIfDefined( 'position_nm', 'position_nmStringProperty' );
 addToMapIfDefined( 'energy_eV', 'energy_eVStringProperty' );
 addToMapIfDefined( 'probabilityDensity', 'probabilityDensityStringProperty' );
 addToMapIfDefined( 'waveFunction', 'waveFunctionStringProperty' );
-addToMapIfDefined( 'magnifierTool', 'magnifierToolStringProperty' );
-addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
+addToMapIfDefined( 'display', 'displayStringProperty' );
+addToMapIfDefined( 'properties', 'propertiesStringProperty' );
+addToMapIfDefined( 'showValues', 'showValuesStringProperty' );
 addToMapIfDefined( 'realPart', 'realPartStringProperty' );
 addToMapIfDefined( 'imaginaryPart', 'imaginaryPartStringProperty' );
 addToMapIfDefined( 'magnitude', 'magnitudeStringProperty' );
 addToMapIfDefined( 'phase', 'phaseStringProperty' );
+addToMapIfDefined( 'magnifierTool', 'magnifierToolStringProperty' );
+addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -107,20 +110,24 @@ const QuantumBoundStatesFluent = {
     labelStringProperty: _.get( QuantumBoundStatesStrings, 'phaseFeatureControl.labelStringProperty' ),
     descriptionStringProperty: _.get( QuantumBoundStatesStrings, 'phaseFeatureControl.descriptionStringProperty' )
   },
+  _comment_1: new FluentComment( {"comment":"Titles","associatedKey":"potentialEnergy"} ),
   potentialEnergyStringProperty: _.get( QuantumBoundStatesStrings, 'potentialEnergyStringProperty' ),
   totalEnergyStringProperty: _.get( QuantumBoundStatesStrings, 'totalEnergyStringProperty' ),
   position_nmStringProperty: _.get( QuantumBoundStatesStrings, 'position_nmStringProperty' ),
   energy_eVStringProperty: _.get( QuantumBoundStatesStrings, 'energy_eVStringProperty' ),
   probabilityDensityStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityStringProperty' ),
   waveFunctionStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionStringProperty' ),
-  magnifierToolStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierToolStringProperty' ),
-  referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
-  _comment_1: new FluentComment( {"comment":"Checkboxes","associatedKey":"realPart"} ),
+  displayStringProperty: _.get( QuantumBoundStatesStrings, 'displayStringProperty' ),
+  propertiesStringProperty: _.get( QuantumBoundStatesStrings, 'propertiesStringProperty' ),
+  _comment_2: new FluentComment( {"comment":"Checkboxes","associatedKey":"showValues"} ),
+  showValuesStringProperty: _.get( QuantumBoundStatesStrings, 'showValuesStringProperty' ),
   realPartStringProperty: _.get( QuantumBoundStatesStrings, 'realPartStringProperty' ),
   imaginaryPartStringProperty: _.get( QuantumBoundStatesStrings, 'imaginaryPartStringProperty' ),
   magnitudeStringProperty: _.get( QuantumBoundStatesStrings, 'magnitudeStringProperty' ),
   phaseStringProperty: _.get( QuantumBoundStatesStrings, 'phaseStringProperty' ),
-  _comment_2: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  magnifierToolStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierToolStringProperty' ),
+  referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
+  _comment_3: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"oneWellScreen"} ),
     _comment_1: new FluentComment( {"comment":"Screen Summaries","associatedKey":"oneWellScreen"} ),

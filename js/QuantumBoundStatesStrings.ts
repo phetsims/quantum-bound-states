@@ -31,12 +31,15 @@ type StringsType = {
   'energy_eVStringProperty': LocalizedStringProperty;
   'probabilityDensityStringProperty': LocalizedStringProperty;
   'waveFunctionStringProperty': LocalizedStringProperty;
-  'magnifierToolStringProperty': LocalizedStringProperty;
-  'referenceLineStringProperty': LocalizedStringProperty;
+  'displayStringProperty': LocalizedStringProperty;
+  'propertiesStringProperty': LocalizedStringProperty;
+  'showValuesStringProperty': LocalizedStringProperty;
   'realPartStringProperty': LocalizedStringProperty;
   'imaginaryPartStringProperty': LocalizedStringProperty;
   'magnitudeStringProperty': LocalizedStringProperty;
   'phaseStringProperty': LocalizedStringProperty;
+  'magnifierToolStringProperty': LocalizedStringProperty;
+  'referenceLineStringProperty': LocalizedStringProperty;
   'a11y': {
     'oneWellScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
