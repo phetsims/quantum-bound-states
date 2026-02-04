@@ -56,12 +56,18 @@ export default class OneWellScreenView extends ScreenView {
     energyGraphNode.top = legendNode.bottom + 3;
     probabilityDensityGraphNode.left = energyGraphNode.left;
     probabilityDensityGraphNode.top = energyGraphNode.bottom + 3;
-    controlPanel.right = this.layoutBounds.right - QBSConstants.SCREEN_VIEW_X_MARGIN;
+    controlPanel.left = energyGraphNode.right + 10;
     controlPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
     toolsCheckboxGroup.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
     toolsCheckboxGroup.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
+
+    // Dynamic layout
+    legendNode.boundsProperty.lazyLink( () => {
+      legendNode.right = energyGraphNode.right;
+      legendNode.bottom = energyGraphNode.top - 3;
+    } );
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyGraphNode.chartTransform, {
       lineTop: energyGraphNode.y,

@@ -51,7 +51,8 @@ class LegendEntryNode extends HBox {
     } );
 
     const labelNode = new Text( labelStringProperty, {
-      font: QBSConstants.LEGEND_FONT
+      font: QBSConstants.LEGEND_FONT,
+      maxWidth: 120
     } );
 
     super( {

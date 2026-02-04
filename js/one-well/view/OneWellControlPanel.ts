@@ -8,7 +8,6 @@
 
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
@@ -25,8 +24,6 @@ export default class OneWellControlPanel extends Panel {
       tandem: tandem
     }, QBSConstants.PANEL_OPTIONS );
 
-    const energyLevelSpinner = new Text( 'Energy Level' );
-
     const checkboxGroup = new WaveFunctionComponentsCheckboxGroup(
       model.realPartVisibleProperty,
       model.imaginaryPartVisibleProperty,
@@ -39,7 +36,6 @@ export default class OneWellControlPanel extends Panel {
       align: 'left',
       spacing: 5,
       children: [
-        energyLevelSpinner,
         checkboxGroup
       ]
     } );
