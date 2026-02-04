@@ -8,8 +8,10 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -27,6 +29,8 @@ type SelfOptions = {
 export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class QBSModel implements TModel {
+
+  public readonly massProperty: NumberProperty;
 
   public readonly magnifierTool: MagnifierTool;
 
@@ -48,6 +52,14 @@ export default class QBSModel implements TModel {
       graphType: 'probabilityDensity',
       graphTypes: [ ...GraphTypeValues ]
     }, providedOptions );
+
+    this.massProperty = new NumberProperty( 1, {
+      numberType: 'FloatingPoint',
+      units: 'm<sub>e</sub>', //TODO create electronMassUnits.ts
+      range: new Range( 0.5, 1.1 ),
+      tandem: options.tandem.createTandem( 'massProperty' ),
+      phetioFeatured: true
+    } );
 
     this.magnifierTool = new MagnifierTool( options.tandem.createTandem( 'magnifierTool' ) );
 
@@ -91,6 +103,7 @@ export default class QBSModel implements TModel {
    * Resets the model.
    */
   public reset(): void {
+    this.massProperty.reset();
     this.magnifierTool.reset();
     this.referenceLine.reset();
     this.graphTypeProperty.reset();

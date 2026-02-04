@@ -70,6 +70,19 @@
   "referenceLine": {
     "value": "Reference Line"
   },
+  "mass": {
+    "value": "Mass"
+  },
+  "units": {
+    "electronMass": {
+      "symbol": {
+        "value": "m<sub>e</sub>"
+      },
+      "symbolPattern": {
+        "value": "{{value}} m<sub>e</sub>"
+      }
+    }
+  },
   "a11y": {
     "oneWellScreen": {
       "screenButtonsHelpText": {
@@ -212,6 +225,11 @@
         }
       }
     },
+    "massControl": {
+      "accessibleHelpText": {
+        "value": "TODO.massControl.accessibleHelpText"
+      }
+    },
     "referenceLineHandleNode": {
       "accessibleName": {
         "value": "Reference Line handle"
@@ -221,6 +239,11 @@
       },
       "accessibleObjectResponse": {
         "value": "TODO.referenceLineHandleNode.accessibleObjectResponse"
+      }
+    },
+    "electronMass": {
+      "pattern": {
+        "value": "{$value} electron mass"
       }
     }
   }

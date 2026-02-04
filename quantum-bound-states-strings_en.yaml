@@ -1,38 +1,48 @@
 # Strings for PhET's Quantum Bound States simulation
 
 # Simulation Title
-quantum-bound-states.title: Quantum Bound States
+quantum-bound-states.title:      Quantum Bound States
 
 # Screen Names
-screen.oneWell:             One Well
-screen.superposition:       Superposition
-screen.twoWells:            Two Wells
-screen.manyWells:           Many Wells
+screen.oneWell:                  One Well
+screen.superposition:            Superposition
+screen.twoWells:                 Two Wells
+screen.manyWells:                Many Wells
 
 # Preferences
 phaseFeatureControl:
-  label: Wave Function Phase
+  label:       Wave Function Phase
   description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
 
 # Titles
-potentialEnergy: Potential Energy
-totalEnergy: Total Energy
-position_nm: Position (nm)
-energy_eV: Energy (eV)
+potentialEnergy:                 Potential Energy
+totalEnergy:                     Total Energy
+position_nm:                     Position (nm)
+energy_eV:                       Energy (eV)
 averageProbabilityDensityOfBand: Average Probability<br>Density of Band
-probabilityDensity: Probability Density
-waveFunction: Wave Function
-display: Display
-properties: Properties
+probabilityDensity:              Probability Density
+waveFunction:                    Wave Function
+display:                         Display
+properties:                      Properties
 
 # Checkboxes
-showValues: Show Values
-realPart: Real Part
-imaginaryPart: Imaginary Part
-magnitude: Magnitude
-phase: Phase
-magnifierTool: Magnifier Tool
-referenceLine: Reference Line
+showValues:                      Show Values
+realPart:                        Real Part
+imaginaryPart:                   Imaginary Part
+magnitude:                       Magnitude
+phase:                           Phase
+magnifierTool:                   Magnifier Tool
+referenceLine:                   Reference Line
+
+# Sliders
+mass:                            Mass
+
+# Units
+units:
+  # TODO: Move electronMass to scenery-phet-strings_en.yaml
+  electronMass:
+    symbol:        m<sub>e</sub>
+    symbolPattern: '{{value}} m<sub>e</sub>'
 
 # Strings that are specific to accessibility
 a11y:
@@ -95,8 +105,8 @@ a11y:
     accessibleContextResponseUnchecked: Magnifier Tool hidden.
 
   referenceLineCheckbox:
-    accessibleHelpText: TODO.referenceLineCheckbox.accessibleHelpText
-    accessibleContextResponseChecked: Reference Line shown.
+    accessibleHelpText:                 TODO.referenceLineCheckbox.accessibleHelpText
+    accessibleContextResponseChecked:   Reference Line shown.
     accessibleContextResponseUnchecked: Reference Line hidden.
 
   #=======================================================================================================
@@ -105,7 +115,7 @@ a11y:
 
   # Radio buttons for selecting which graph to display at the bottom of the screen.
   graphTypeRadioButtonGroup:
-    accessibleName: Graph Type
+    accessibleName:     Graph Type
     accessibleHelpText: TODO.graphTypeRadioButtonGroup.accessibleHelpText
     averageProbabilityDensityOfBandRadioButton:
       accessibleHelpText: TODO.averageProbabilityDensityOfBandRadioButton.accessibleHelpText
@@ -115,10 +125,23 @@ a11y:
       accessibleHelpText: TODO.wavefunctionRadioButton.accessibleHelpText
 
   #=======================================================================================================
+  # Sliders
+  #=======================================================================================================
+
+  massControl:
+    accessibleHelpText: TODO.massControl.accessibleHelpText
+
+  #=======================================================================================================
   # Tools
   #=======================================================================================================
 
   referenceLineHandleNode:
-    accessibleName: Reference Line handle
-    accessibleHelpText: TODO.referenceLineHandleNode.accessibleHelpText
+    accessibleName:           Reference Line handle
+    accessibleHelpText:       TODO.referenceLineHandleNode.accessibleHelpText
     accessibleObjectResponse: TODO.referenceLineHandleNode.accessibleObjectResponse
+
+  #=======================================================================================================
+  # Units
+  #=======================================================================================================
+  electronMass:
+    pattern: '{$value} electron mass'

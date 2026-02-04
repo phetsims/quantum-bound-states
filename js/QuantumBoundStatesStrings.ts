@@ -41,6 +41,13 @@ type StringsType = {
   'phaseStringProperty': LocalizedStringProperty;
   'magnifierToolStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
+  'massStringProperty': LocalizedStringProperty;
+  'units': {
+    'electronMass': {
+      'symbolStringProperty': LocalizedStringProperty;
+      'symbolPatternStringProperty': LocalizedStringProperty;
+    }
+  };
   'a11y': {
     'oneWellScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
@@ -113,10 +120,16 @@ type StringsType = {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
       }
     };
+    'massControl': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
     'referenceLineHandleNode': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+    };
+    'electronMass': {
+      'patternStringProperty': LocalizedStringProperty;
     }
   }
 };

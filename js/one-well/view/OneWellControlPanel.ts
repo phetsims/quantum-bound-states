@@ -17,6 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import GraphTypeRadioButtonGroup from '../../common/view/GraphTypeRadioButtonGroup.js';
+import MassControl from '../../common/view/MassControl.js';
 import WaveFunctionComponentsCheckboxGroup from '../../common/view/WaveFunctionComponentsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -35,6 +36,8 @@ export default class OneWellControlPanel extends Panel {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200
     } );
+
+    const massControl = new MassControl( model.massProperty, tandem.createTandem( 'massControl' ) );
 
     const displayText = new Text( QuantumBoundStatesFluent.displayStringProperty, {
       font: QBSConstants.TITLE_FONT,
@@ -69,6 +72,7 @@ export default class OneWellControlPanel extends Panel {
       spacing: 10,
       children: [
         propertiesText,
+        massControl,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
