@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Stretch pointer areas so that they all have the same width.
 /**
  * WaveFunctionComponentsCheckboxGroup is a group of checkboxes for controlling the visibility of various
  * components of the wave function.
@@ -9,7 +8,9 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import SpectrumNode from '../../../../scenery-phet/js/SpectrumNode.js';
 import VisibleColor from '../../../../scenery-phet/js/VisibleColor.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -17,7 +18,8 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import ProfileColorProperty from '../../../../scenery/js/util/ProfileColorProperty.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -25,14 +27,7 @@ import QBSPreferences from '../model/QBSPreferences.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
-const LINE_LENGTH = 30;
-const LINE_WIDTH = 3;
-const HBOX_SPACING = 10;
-const TEXT_OPTIONS = {
-  font: QBSConstants.CONTROL_FONT,
-  maxWidth: 100
-};
-const BOX_WIDTH = new Text( 'X', TEXT_OPTIONS ).height;
+const LABEL_ICON_SPACING = 10;
 
 export default class WaveFunctionComponentsCheckboxGroup extends VBox {
 
@@ -43,74 +38,40 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
                       tandem: Tandem ) {
 
     // Real Part
-    const realPartIcon = new HBox( {
-      spacing: HBOX_SPACING,
-      children: [
-        new Text( QuantumBoundStatesFluent.realPartStringProperty, TEXT_OPTIONS ),
-        new Line( 0, 0, LINE_LENGTH, 0, {
-          lineWidth: LINE_WIDTH,
-          stroke: QBSColors.realPartStrokeProperty
-        } )
-      ]
-    } );
-    const realPartCheckbox = new Checkbox( realPartVisibleProperty, realPartIcon, {
-      boxWidth: BOX_WIDTH,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.realPartCheckbox.accessibleHelpTextStringProperty,
-      tandem: tandem.createTandem( 'realPartCheckbox' )
-    } );
+    const realPartCheckbox = new Checkbox( realPartVisibleProperty,
+      createLabeledLineIcon( QuantumBoundStatesFluent.realPartStringProperty, QBSColors.realPartStrokeProperty ),
+      combineOptions<CheckboxOptions>( {
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.realPartCheckbox.accessibleHelpTextStringProperty,
+        tandem: tandem.createTandem( 'realPartCheckbox' )
+      }, QBSConstants.CHECKBOX_OPTIONS ) );
 
     // Imaginary Part
-    const imaginaryPartIcon = new HBox( {
-      spacing: HBOX_SPACING,
-      children: [
-        new Text( QuantumBoundStatesFluent.imaginaryPartStringProperty, TEXT_OPTIONS ),
-        new Line( 0, 0, LINE_LENGTH, 0, {
-          lineWidth: LINE_WIDTH,
-          stroke: QBSColors.imaginaryPartStrokeProperty
-        } )
-      ]
-    } );
-    const imaginaryPartCheckbox = new Checkbox( imaginaryPartVisibleProperty, imaginaryPartIcon, {
-      boxWidth: BOX_WIDTH,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.imaginaryPartCheckbox.accessibleHelpTextStringProperty,
-      tandem: tandem.createTandem( 'imaginaryPartCheckbox' )
-    } );
+    const imaginaryPartCheckbox = new Checkbox( imaginaryPartVisibleProperty,
+      createLabeledLineIcon( QuantumBoundStatesFluent.imaginaryPartStringProperty, QBSColors.imaginaryPartStrokeProperty ),
+      combineOptions<CheckboxOptions>( {
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.imaginaryPartCheckbox.accessibleHelpTextStringProperty,
+        tandem: tandem.createTandem( 'imaginaryPartCheckbox' )
+      }, QBSConstants.CHECKBOX_OPTIONS ) );
 
     // Magnitude
-    const magnitudeIcon = new HBox( {
-      spacing: HBOX_SPACING,
-      children: [
-        new Text( QuantumBoundStatesFluent.magnitudeStringProperty, TEXT_OPTIONS ),
-        new Line( 0, 0, LINE_LENGTH, 0, {
-          lineWidth: LINE_WIDTH,
-          stroke: QBSColors.magnitudeStrokeProperty
-        } )
-      ]
-    } );
-    const magnitudeCheckbox = new Checkbox( magnitudeVisibleProperty, magnitudeIcon, {
-      boxWidth: BOX_WIDTH,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.magnitudeCheckbox.accessibleHelpTextStringProperty,
-      tandem: tandem.createTandem( 'magnitudeCheckbox' )
-    } );
+    const magnitudeCheckbox = new Checkbox( magnitudeVisibleProperty,
+      createLabeledLineIcon( QuantumBoundStatesFluent.magnitudeStringProperty, QBSColors.magnitudeStrokeProperty ),
+      combineOptions<CheckboxOptions>( {
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.magnitudeCheckbox.accessibleHelpTextStringProperty,
+        tandem: tandem.createTandem( 'magnitudeCheckbox' )
+      }, QBSConstants.CHECKBOX_OPTIONS ) );
 
     // Phase
-    const phaseIcon = new HBox( {
-      spacing: HBOX_SPACING,
-      children: [
-        new Text( QuantumBoundStatesFluent.phaseStringProperty, TEXT_OPTIONS ),
-        createPhaseIcon()
-      ]
-    } );
-    const phaseCheckbox = new Checkbox( phaseVisibleProperty, phaseIcon, {
-      layoutOptions: {
-        leftMargin: BOX_WIDTH + HBOX_SPACING
-      },
-      boxWidth: BOX_WIDTH,
-      visibleProperty: QBSPreferences.phaseCheckboxVisibleProperty,
-      enabledProperty: magnitudeVisibleProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleHelpTextStringProperty,
-      tandem: tandem.createTandem( 'phaseCheckbox' )
-    } );
+    const phaseCheckbox = new Checkbox( phaseVisibleProperty, createPhaseIcon(),
+      combineOptions<CheckboxOptions>( {
+        layoutOptions: {
+          leftMargin: 25
+        },
+        visibleProperty: QBSPreferences.phaseCheckboxVisibleProperty,
+        enabledProperty: magnitudeVisibleProperty,
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleHelpTextStringProperty,
+        tandem: tandem.createTandem( 'phaseCheckbox' )
+      }, QBSConstants.CHECKBOX_OPTIONS ) );
 
     super( {
       children: [
@@ -121,28 +82,65 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
       ],
       spacing: 10,
       align: 'left',
+      stretch: true,
       tandem: tandem
     } );
   }
 }
 
+/**
+ * Creates a checkbox icon that consists of a text label and a color-coded line.
+ */
+function createLabeledLineIcon( stringProperty: TReadOnlyProperty<string>, strokeProperty: ProfileColorProperty ): Node {
+  return new HBox( {
+    spacing: LABEL_ICON_SPACING,
+    children: [
+      new Text( stringProperty, {
+        font: QBSConstants.CONTROL_FONT,
+        maxWidth: 140
+      } ),
+      new Line( 0, 0, 30, 0, {
+        lineWidth: 3,
+        stroke: strokeProperty
+      } )
+    ]
+  } );
+}
+
+/**
+ * Creates the icon for the Phase checkbox.
+ */
 function createPhaseIcon(): Node {
+
+  const phaseText = new Text( QuantumBoundStatesFluent.phaseStringProperty, {
+    font: QBSConstants.CONTROL_FONT,
+    maxWidth: 80
+  } );
+
   const zeroNode = new Text( '0', {
     font: QBSConstants.CONTROL_FONT
   } );
-  const phaseBandIcon = new SpectrumNode( {
+
+  const spectrumNode = new SpectrumNode( {
     size: new Dimension2( 40, 0.75 * zeroNode.height ),
     minValue: VisibleColor.MIN_WAVELENGTH,
     maxValue: VisibleColor.MAX_WAVELENGTH,
     valueToColor: VisibleColor.wavelengthToColor
   } );
+
   const twoPiNode = new Text( '2\u03C0', {
     font: QBSConstants.CONTROL_FONT
   } );
 
   return new HBox( {
-    spacing: 3,
-    children: [ zeroNode, phaseBandIcon, twoPiNode ]
+    spacing: LABEL_ICON_SPACING,
+    children: [
+      phaseText,
+      new HBox( {
+        spacing: 3,
+        children: [ zeroNode, spectrumNode, twoPiNode ]
+      } )
+    ]
   } );
 }
 
