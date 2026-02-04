@@ -42,6 +42,7 @@ type StringsType = {
   'magnifierToolStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
+  'energyLevelStringProperty': LocalizedStringProperty;
   'units': {
     'electronMass': {
       'symbolStringProperty': LocalizedStringProperty;
@@ -121,6 +122,10 @@ type StringsType = {
       }
     };
     'massControl': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'energyLevelSpinner': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'referenceLineHandleNode': {

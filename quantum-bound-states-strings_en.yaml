@@ -37,6 +37,9 @@ referenceLine:                   Reference Line
 # Sliders
 mass:                            Mass
 
+# Spinners
+energyLevel:                     Energy Level
+
 # Units
 units:
   # TODO: Move electronMass to scenery-phet-strings_en.yaml
@@ -130,6 +133,14 @@ a11y:
 
   massControl:
     accessibleHelpText: TODO.massControl.accessibleHelpText
+
+  #=======================================================================================================
+  # Spinners
+  #=======================================================================================================
+
+  energyLevelSpinner:
+    accessibleName: Energy Level
+    accessibleHelpText: TODO.energyLevelSpinner.accessibleHelpText
 
   #=======================================================================================================
   # Tools

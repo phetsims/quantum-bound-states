@@ -16,6 +16,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import GraphTypeRadioButtonGroup from '../../common/view/GraphTypeRadioButtonGroup.js';
 import MassControl from '../../common/view/MassControl.js';
 import WaveFunctionComponentsCheckboxGroup from '../../common/view/WaveFunctionComponentsCheckboxGroup.js';
@@ -36,6 +37,9 @@ export default class OneWellControlPanel extends Panel {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200
     } );
+
+    const energyLevelControl = new EnergyLevelControl( model.energyLevelProperty, model.energyLevelRangeProperty,
+      tandem.createTandem( 'energyLevelControl' ) );
 
     const massControl = new MassControl( model.massProperty, tandem.createTandem( 'massControl' ) );
 
@@ -72,6 +76,7 @@ export default class OneWellControlPanel extends Panel {
       spacing: 10,
       children: [
         propertiesText,
+        energyLevelControl,
         massControl,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty

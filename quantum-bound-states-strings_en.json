@@ -73,6 +73,9 @@
   "mass": {
     "value": "Mass"
   },
+  "energyLevel": {
+    "value": "Energy Level"
+  },
   "units": {
     "electronMass": {
       "symbol": {
@@ -228,6 +231,14 @@
     "massControl": {
       "accessibleHelpText": {
         "value": "TODO.massControl.accessibleHelpText"
+      }
+    },
+    "energyLevelSpinner": {
+      "accessibleName": {
+        "value": "Energy Level"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.energyLevelSpinner.accessibleHelpText"
       }
     },
     "referenceLineHandleNode": {

@@ -30,6 +30,9 @@ export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 't
 
 export default class QBSModel implements TModel {
 
+  public readonly energyLevelRangeProperty: Property<Range>;
+  public readonly energyLevelProperty: NumberProperty;
+
   public readonly massProperty: NumberProperty;
 
   public readonly magnifierTool: MagnifierTool;
@@ -55,10 +58,26 @@ export default class QBSModel implements TModel {
 
     this.massProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
-      units: 'm<sub>e</sub>', //TODO create electronMassUnits.ts
+      units: 'm<sub>e</sub>', //TODO https://github.com/phetsims/quantum-bound-states/issues/11
       range: new Range( 0.5, 1.1 ),
       tandem: options.tandem.createTandem( 'massProperty' ),
       phetioFeatured: true
+    } );
+
+    //TODO energyLevelRangeProperty is dynamic, so the initial value must be computed.
+    this.energyLevelRangeProperty = new Property( new Range( 1, 25 ), {
+      tandem: options.tandem.createTandem( 'energyLevelRangeProperty' ),
+      phetioValueType: Range.RangeIO,
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+
+    this.energyLevelProperty = new NumberProperty( 1, {
+      numberType: 'FloatingPoint',
+      range: this.energyLevelRangeProperty,
+      tandem: options.tandem.createTandem( 'energyLevelProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     this.magnifierTool = new MagnifierTool( options.tandem.createTandem( 'magnifierTool' ) );
@@ -71,7 +90,7 @@ export default class QBSModel implements TModel {
       phetioFeatured: true
     } );
 
-    //TODO group *VisibleProperty under a parent tandem?
+    //TODO group *VisibleProperty under a parent tandem? Or move some under model.waveFunction?
 
     this.valuesVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'valuesVisibleProperty' ),
@@ -103,6 +122,8 @@ export default class QBSModel implements TModel {
    * Resets the model.
    */
   public reset(): void {
+    this.energyLevelRangeProperty.reset();
+    this.energyLevelProperty.reset();
     this.massProperty.reset();
     this.magnifierTool.reset();
     this.referenceLine.reset();
