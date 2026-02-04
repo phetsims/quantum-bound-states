@@ -24,6 +24,7 @@ export default class ToolsCheckboxGroup extends VBox {
     const referenceLineCheckbox = new ReferenceLineCheckbox( magnifierToolVisibleProperty, tandem.createTandem( 'referenceLineCheckbox' ) );
 
     super( {
+      isDisposable: false,
       children: [ magnifierToolCheckbox, referenceLineCheckbox ],
       spacing: 6,
       align: 'left',

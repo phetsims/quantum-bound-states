@@ -47,6 +47,7 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
     const options = optionize<WaveFunctionComponentsCheckboxGroupOptions, SelfOptions, VBoxOptions>()( {
 
       // VBoxOptions
+      isDisposable: false,
       spacing: 10,
       align: 'left',
       stretch: true

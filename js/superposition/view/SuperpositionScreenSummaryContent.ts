@@ -15,6 +15,7 @@ export default class SuperpositionScreenSummaryContent extends ScreenSummaryCont
   public constructor() {
 
     super( {
+      isDisposable: false,
       playAreaContent: QuantumBoundStatesFluent.a11y.superpositionScreen.screenSummary.playAreaStringProperty,
       controlAreaContent: QuantumBoundStatesFluent.a11y.superpositionScreen.screenSummary.controlAreaStringProperty,
       currentDetailsContent: QuantumBoundStatesFluent.a11y.superpositionScreen.screenSummary.currentDetailsStringProperty,

@@ -96,7 +96,10 @@ export default class QBSGraphNode extends Node {
       chartRectangleOptions: {
         fill: QBSColors.graphRectangleFillProperty,
         stroke: QBSColors.graphRectangleStrokeProperty
-      }
+      },
+
+      // NodeOptions
+      isDisposable: false
     }, providedOptions );
 
     super();

@@ -15,6 +15,7 @@ export default class OneWellScreenSummaryContent extends ScreenSummaryContent {
   public constructor() {
 
     super( {
+      isDisposable: false,
       playAreaContent: QuantumBoundStatesFluent.a11y.oneWellScreen.screenSummary.playAreaStringProperty,
       controlAreaContent: QuantumBoundStatesFluent.a11y.oneWellScreen.screenSummary.controlAreaStringProperty,
       currentDetailsContent: QuantumBoundStatesFluent.a11y.oneWellScreen.screenSummary.currentDetailsStringProperty,
