@@ -73,7 +73,7 @@ export default class QBSModel implements TModel {
     } );
 
     this.energyLevelProperty = new NumberProperty( 1, {
-      numberType: 'FloatingPoint',
+      numberType: 'Integer',
       range: this.energyLevelRangeProperty,
       tandem: options.tandem.createTandem( 'energyLevelProperty' ),
       phetioFeatured: true,
