@@ -34,6 +34,9 @@
   "energy_eV": {
     "value": "Energy (eV)"
   },
+  "averageProbabilityDensityOfBand": {
+    "value": "Average Probability<br>Density of Band"
+  },
   "probabilityDensity": {
     "value": "Probability Density"
   },
@@ -184,6 +187,29 @@
       },
       "accessibleContextResponseUnchecked": {
         "value": "Reference Line hidden."
+      }
+    },
+    "graphTypeRadioButtonGroup": {
+      "accessibleName": {
+        "value": "Graph Type"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.graphTypeRadioButtonGroup.accessibleHelpText"
+      },
+      "averageProbabilityDensityOfBandRadioButton": {
+        "accessibleHelpText": {
+          "value": "TODO.averageProbabilityDensityOfBandRadioButton.accessibleHelpText"
+        }
+      },
+      "probabilityDensityRadioButton": {
+        "accessibleHelpText": {
+          "value": "TODO.probabilityDensityRadioButton.accessibleHelpText"
+        }
+      },
+      "wavefunctionRadioButton": {
+        "accessibleHelpText": {
+          "value": "TODO.wavefunctionRadioButton.accessibleHelpText"
+        }
       }
     },
     "referenceLineHandleNode": {

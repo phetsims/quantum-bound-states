@@ -19,6 +19,7 @@ potentialEnergy: Potential Energy
 totalEnergy: Total Energy
 position_nm: Position (nm)
 energy_eV: Energy (eV)
+averageProbabilityDensityOfBand: Average Probability<br>Density of Band
 probabilityDensity: Probability Density
 waveFunction: Wave Function
 display: Display
@@ -97,6 +98,21 @@ a11y:
     accessibleHelpText: TODO.referenceLineCheckbox.accessibleHelpText
     accessibleContextResponseChecked: Reference Line shown.
     accessibleContextResponseUnchecked: Reference Line hidden.
+
+  #=======================================================================================================
+  # Radio Buttons
+  #=======================================================================================================
+
+  # Radio buttons for selecting which graph to display at the bottom of the screen.
+  graphTypeRadioButtonGroup:
+    accessibleName: Graph Type
+    accessibleHelpText: TODO.graphTypeRadioButtonGroup.accessibleHelpText
+    averageProbabilityDensityOfBandRadioButton:
+      accessibleHelpText: TODO.averageProbabilityDensityOfBandRadioButton.accessibleHelpText
+    probabilityDensityRadioButton:
+      accessibleHelpText: TODO.probabilityDensityRadioButton.accessibleHelpText
+    wavefunctionRadioButton:
+      accessibleHelpText: TODO.wavefunctionRadioButton.accessibleHelpText
 
   #=======================================================================================================
   # Tools

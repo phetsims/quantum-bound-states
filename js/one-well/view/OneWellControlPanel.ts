@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
@@ -15,6 +16,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import GraphTypeRadioButtonGroup from '../../common/view/GraphTypeRadioButtonGroup.js';
 import WaveFunctionComponentsCheckboxGroup from '../../common/view/WaveFunctionComponentsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -47,13 +49,20 @@ export default class OneWellControlPanel extends Panel {
         tandem: tandem.createTandem( 'showValuesCheckbox' )
       }, QBSConstants.CHECKBOX_OPTIONS ) );
 
+    const graphTypeRadioButtonGroup = new GraphTypeRadioButtonGroup( model.graphTypeProperty, tandem.createTandem( 'graphTypeRadioButtonGroup' ) );
+
     const checkboxGroup = new WaveFunctionComponentsCheckboxGroup(
       model.realPartVisibleProperty,
       model.imaginaryPartVisibleProperty,
       model.magnitudeVisibleProperty,
       model.phaseVisibleProperty,
-      tandem.createTandem( 'checkboxGroup' )
-    );
+      {
+        layoutOptions: {
+          leftMargin: 25 // indent below graphTypeRadioButtonGroup
+        },
+        enabledProperty: new DerivedProperty( [ model.graphTypeProperty ], graphType => graphType === 'waveFunction' ),
+        tandem: tandem.createTandem( 'checkboxGroup' )
+      } );
 
     const content = new VBox( {
       align: 'left',
@@ -68,6 +77,7 @@ export default class OneWellControlPanel extends Panel {
           stroke: QBSColors.separatorStrokeProperty
         } ),
         displayText,
+        graphTypeRadioButtonGroup,
         checkboxGroup
       ]
     } );

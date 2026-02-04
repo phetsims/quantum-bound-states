@@ -29,6 +29,7 @@ type StringsType = {
   'totalEnergyStringProperty': LocalizedStringProperty;
   'position_nmStringProperty': LocalizedStringProperty;
   'energy_eVStringProperty': LocalizedStringProperty;
+  'averageProbabilityDensityOfBandStringProperty': LocalizedStringProperty;
   'probabilityDensityStringProperty': LocalizedStringProperty;
   'waveFunctionStringProperty': LocalizedStringProperty;
   'displayStringProperty': LocalizedStringProperty;
@@ -98,6 +99,19 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+    };
+    'graphTypeRadioButtonGroup': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'averageProbabilityDensityOfBandRadioButton': {
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      };
+      'probabilityDensityRadioButton': {
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      };
+      'wavefunctionRadioButton': {
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      }
     };
     'referenceLineHandleNode': {
       'accessibleNameStringProperty': LocalizedStringProperty;
