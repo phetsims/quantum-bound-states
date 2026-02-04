@@ -13,7 +13,10 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 export default class SuperpositionModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
-    super( tandem );
+    super( {
+      graphTypes: [ 'probabilityDensity', 'waveFunction' ],
+      tandem: tandem
+    } );
   }
 }
 

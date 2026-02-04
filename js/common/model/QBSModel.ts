@@ -9,11 +9,22 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import TModel from '../../../../joist/js/TModel.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import { GraphType, GraphTypeValues } from './GraphType.js';
 import MagnifierTool from './MagnifierTool.js';
 import ReferenceLine from './ReferenceLine.js';
+
+type SelfOptions = {
+  graphType?: GraphType;
+  graphTypes?: GraphType[];
+};
+
+export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class QBSModel implements TModel {
 
@@ -21,42 +32,57 @@ export default class QBSModel implements TModel {
 
   public readonly referenceLine: ReferenceLine;
 
+  public readonly graphTypeProperty: Property<GraphType>;
+
   public readonly valuesVisibleProperty: Property<boolean>;
   public readonly realPartVisibleProperty: Property<boolean>;
   public readonly imaginaryPartVisibleProperty: Property<boolean>;
   public readonly magnitudeVisibleProperty: Property<boolean>;
   public readonly phaseVisibleProperty: Property<boolean>;
 
-  protected constructor( tandem: Tandem ) {
+  protected constructor( providedOptions: QBSModelOptions ) {
 
-    this.magnifierTool = new MagnifierTool( tandem.createTandem( 'magnifierTool' ) );
+    const options = optionize<QBSModelOptions, SelfOptions, PhetioObjectOptions>()( {
 
-    this.referenceLine = new ReferenceLine( tandem.createTandem( 'referenceLine' ) );
+      // SelfOptions
+      graphType: 'probabilityDensity',
+      graphTypes: [ ...GraphTypeValues ]
+    }, providedOptions );
+
+    this.magnifierTool = new MagnifierTool( options.tandem.createTandem( 'magnifierTool' ) );
+
+    this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
+
+    this.graphTypeProperty = new StringUnionProperty( options.graphType, {
+      validValues: options.graphTypes,
+      tandem: options.tandem.createTandem( 'graphTypeProperty' ),
+      phetioFeatured: true
+    } );
 
     //TODO group *VisibleProperty under a parent tandem?
 
     this.valuesVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'valuesVisibleProperty' ),
+      tandem: options.tandem.createTandem( 'valuesVisibleProperty' ),
       phetioFeatured: true
     } );
 
     this.realPartVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'realPartVisibleProperty' ),
+      tandem: options.tandem.createTandem( 'realPartVisibleProperty' ),
       phetioFeatured: true
     } );
 
     this.imaginaryPartVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'imaginaryPartVisibleProperty' ),
+      tandem: options.tandem.createTandem( 'imaginaryPartVisibleProperty' ),
       phetioFeatured: true
     } );
 
     this.magnitudeVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'magnitudeVisibleProperty' ),
+      tandem: options.tandem.createTandem( 'magnitudeVisibleProperty' ),
       phetioFeatured: true
     } );
 
     this.phaseVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'phaseVisibleProperty' ),
+      tandem: options.tandem.createTandem( 'phaseVisibleProperty' ),
       phetioFeatured: true
     } );
   }

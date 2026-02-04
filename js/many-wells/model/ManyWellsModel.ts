@@ -13,7 +13,9 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 export default class ManyWellsModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
-    super( tandem );
+    super( {
+      tandem: tandem
+    } );
   }
 }
 
