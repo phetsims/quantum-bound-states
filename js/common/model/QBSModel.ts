@@ -93,6 +93,7 @@ export default class QBSModel implements TModel {
   public reset(): void {
     this.magnifierTool.reset();
     this.referenceLine.reset();
+    this.graphTypeProperty.reset();
     this.realPartVisibleProperty.reset();
     this.imaginaryPartVisibleProperty.reset();
     this.magnitudeVisibleProperty.reset();
