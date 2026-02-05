@@ -50,7 +50,8 @@ export default class PhaseCheckbox extends WaveFunctionComponentCheckbox {
 }
 
 /**
- * Creates the content for the PhaseCheckbox.
+ * Creates the content for the PhaseCheckbox: a horizontal spectrum of visible wavelengths, with '0' at the left
+ * end and '2π' at the right end.
  */
 function createContent( stringProperty: TReadOnlyProperty<string>, strokeProperty: TReadOnlyProperty<TColor> ): Node {
 

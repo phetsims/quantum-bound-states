@@ -22,9 +22,15 @@ import QBSConstants from '../QBSConstants.js';
 const DEFAULT_STROKE_PROPERTY = new Property<Color>( Color.BLACK );
 
 type SelfOptions = {
-  stringProperty: TReadOnlyProperty<string>;
-  strokeProperty?: TReadOnlyProperty<Color>;
+
+  // Function to create the content for the checkbox.
   createContent?: ( stringProperty: TReadOnlyProperty<string>, strokeProperty: TReadOnlyProperty<Color> ) => Node;
+
+  // String that is used to label the checkbox.
+  stringProperty: TReadOnlyProperty<string>;
+
+  // Color of the horizontal line.
+  strokeProperty?: TReadOnlyProperty<Color>;
 };
 
 export type WaveFunctionComponentCheckboxOptions = SelfOptions & CheckboxOptions & PickRequired<CheckboxOptions, 'tandem'>;
@@ -36,8 +42,13 @@ export default class WaveFunctionComponentCheckbox extends Checkbox {
 
     const options = optionize4<WaveFunctionComponentCheckboxOptions, SelfOptions, CheckboxOptions>()(
       {}, QBSConstants.CHECKBOX_OPTIONS, {
+
+        // SelfOptions
         strokeProperty: DEFAULT_STROKE_PROPERTY,
-        createContent: createContent
+        createContent: createContent,
+
+        // CheckboxOptions
+        isDisposable: false
       }, providedOptions );
 
     const content = options.createContent( options.stringProperty, options.strokeProperty );
@@ -46,6 +57,9 @@ export default class WaveFunctionComponentCheckbox extends Checkbox {
   }
 }
 
+/**
+ * Creates the default content for this class of checkbox. The default is a label and a horizontal line that serves as a legend.
+ */
 function createContent( stringProperty: TReadOnlyProperty<string>, strokeProperty: TReadOnlyProperty<Color> ): Node {
   return new HBox( {
     spacing: 10,
