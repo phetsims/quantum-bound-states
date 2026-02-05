@@ -7,48 +7,54 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import SpectrumNode from '../../../../scenery-phet/js/SpectrumNode.js';
 import VisibleColor from '../../../../scenery-phet/js/VisibleColor.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSConstants from '../QBSConstants.js';
+import WaveFunctionComponentCheckbox, { WaveFunctionComponentCheckboxOptions } from './WaveFunctionComponentCheckbox.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type PhaseCheckboxOptions = SelfOptions &
-  PickOptional<CheckboxOptions, 'layoutOptions' | 'visibleProperty' | 'enabledProperty'> &
-  PickRequired<CheckboxOptions, 'tandem'>;
+  PickOptional<WaveFunctionComponentCheckboxOptions, 'layoutOptions' | 'visibleProperty' | 'enabledProperty'> &
+  PickRequired<WaveFunctionComponentCheckboxOptions, 'tandem'>;
 
-export default class PhaseCheckbox extends Checkbox {
+export default class PhaseCheckbox extends WaveFunctionComponentCheckbox {
 
   public constructor( phaseVisibleProperty: Property<boolean>, providedOptions: PhaseCheckboxOptions ) {
 
-    const options = optionize4<PhaseCheckboxOptions, SelfOptions, CheckboxOptions>()( {}, QBSConstants.CHECKBOX_OPTIONS, {
-      visibleProperty: QBSPreferences.phaseCheckboxVisibleProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleHelpTextStringProperty,
-      accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleContextResponseCheckedStringProperty,
-      accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleContextResponseUncheckedStringProperty
-    }, providedOptions );
+    const options = optionize4<PhaseCheckboxOptions, SelfOptions, StrictOmit<WaveFunctionComponentCheckboxOptions, 'tandem'>>()(
+      {}, QBSConstants.CHECKBOX_OPTIONS, {
+        createContent: createContent,
+        stringProperty: QuantumBoundStatesFluent.phaseStringProperty,
+        visibleProperty: QBSPreferences.phaseCheckboxVisibleProperty,
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleContextResponseUncheckedStringProperty
+      }, providedOptions );
 
-    super( phaseVisibleProperty, createPhaseIcon(), options );
+    super( phaseVisibleProperty, options );
   }
 }
 
 /**
- * Creates the icon for the Phase checkbox.
+ * Creates the content for the PhaseCheckbox.
  */
-function createPhaseIcon(): Node {
+function createContent( stringProperty: TReadOnlyProperty<string>, strokeProperty: TReadOnlyProperty<TColor> ): Node {
 
-  const phaseText = new Text( QuantumBoundStatesFluent.phaseStringProperty, {
+  const phaseText = new Text( stringProperty, {
     font: QBSConstants.CONTROL_FONT,
     maxWidth: 80
   } );
