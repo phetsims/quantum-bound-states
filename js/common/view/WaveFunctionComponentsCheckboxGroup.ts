@@ -56,6 +56,8 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
       createLabeledLineIcon( QuantumBoundStatesFluent.realPartStringProperty, QBSColors.realPartStrokeProperty ),
       combineOptions<CheckboxOptions>( {
         accessibleHelpText: QuantumBoundStatesFluent.a11y.realPartCheckbox.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.realPartCheckbox.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.realPartCheckbox.accessibleContextResponseUncheckedStringProperty,
         tandem: options.tandem.createTandem( 'realPartCheckbox' )
       }, QBSConstants.CHECKBOX_OPTIONS ) );
 
@@ -64,6 +66,8 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
       createLabeledLineIcon( QuantumBoundStatesFluent.imaginaryPartStringProperty, QBSColors.imaginaryPartStrokeProperty ),
       combineOptions<CheckboxOptions>( {
         accessibleHelpText: QuantumBoundStatesFluent.a11y.imaginaryPartCheckbox.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.imaginaryPartCheckbox.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.imaginaryPartCheckbox.accessibleContextResponseUncheckedStringProperty,
         tandem: options.tandem.createTandem( 'imaginaryPartCheckbox' )
       }, QBSConstants.CHECKBOX_OPTIONS ) );
 
@@ -72,6 +76,8 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
       createLabeledLineIcon( QuantumBoundStatesFluent.magnitudeStringProperty, QBSColors.magnitudeStrokeProperty ),
       combineOptions<CheckboxOptions>( {
         accessibleHelpText: QuantumBoundStatesFluent.a11y.magnitudeCheckbox.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.magnitudeCheckbox.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.magnitudeCheckbox.accessibleContextResponseUncheckedStringProperty,
         tandem: options.tandem.createTandem( 'magnitudeCheckbox' )
       }, QBSConstants.CHECKBOX_OPTIONS ) );
 
