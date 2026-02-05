@@ -657,10 +657,12 @@ Slider thumb moves with pointer/keyboard.
 ```yaml
 accessibleName: "Mass".
 
-accessibleHelpText: "Adjust the particle mass relative to the electron mass."
+accessibleHelpText: "Adjust the relative mass of the system."
 
-accessibleObjectResponse: "mass {value} times electron mass"
+accessibleObjectResponse: "{value} times electron mass"
 ```
+
+RELATED ISSUE: <https://github.com/phetsims/quantum-bound-states/issues/11>
 
 **Visual ordering/overlap:**
 
@@ -682,7 +684,7 @@ Checkbox (phet/sun)
 
 **Mockup image:**
 
-![Value Labels checkbox mockup](./show-values-toggle-mockup.png)
+![Value Labels checkbox mockup](value-labels-checkbox-mockup.png)
 
 **Screens:**
 
