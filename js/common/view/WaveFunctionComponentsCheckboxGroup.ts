@@ -9,12 +9,9 @@
 
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import SpectrumNode from '../../../../scenery-phet/js/SpectrumNode.js';
-import VisibleColor from '../../../../scenery-phet/js/VisibleColor.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -27,6 +24,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import PhaseCheckbox from './PhaseCheckbox.js';
 
 const LABEL_ICON_SPACING = 10;
 
@@ -78,16 +76,14 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
       }, QBSConstants.CHECKBOX_OPTIONS ) );
 
     // Phase
-    const phaseCheckbox = new Checkbox( phaseVisibleProperty, createPhaseIcon(),
-      combineOptions<CheckboxOptions>( {
-        layoutOptions: {
-          leftMargin: 25 // indent below magnitudeCheckbox
-        },
-        visibleProperty: QBSPreferences.phaseCheckboxVisibleProperty,
-        enabledProperty: magnitudeVisibleProperty,
-        accessibleHelpText: QuantumBoundStatesFluent.a11y.phaseCheckbox.accessibleHelpTextStringProperty,
-        tandem: options.tandem.createTandem( 'phaseCheckbox' )
-      }, QBSConstants.CHECKBOX_OPTIONS ) );
+    const phaseCheckbox = new PhaseCheckbox( phaseVisibleProperty, {
+      layoutOptions: {
+        leftMargin: 25 // indent below magnitudeCheckbox
+      },
+      visibleProperty: QBSPreferences.phaseCheckboxVisibleProperty,
+      enabledProperty: magnitudeVisibleProperty,
+      tandem: options.tandem.createTandem( 'phaseCheckbox' )
+    } );
 
     options.children = [
       realPartCheckbox,
@@ -114,43 +110,6 @@ function createLabeledLineIcon( stringProperty: TReadOnlyProperty<string>, strok
       new Line( 0, 0, 30, 0, {
         lineWidth: 3,
         stroke: strokeProperty
-      } )
-    ]
-  } );
-}
-
-/**
- * Creates the icon for the Phase checkbox.
- */
-function createPhaseIcon(): Node {
-
-  const phaseText = new Text( QuantumBoundStatesFluent.phaseStringProperty, {
-    font: QBSConstants.CONTROL_FONT,
-    maxWidth: 80
-  } );
-
-  const zeroNode = new Text( '0', {
-    font: QBSConstants.CONTROL_FONT
-  } );
-
-  const spectrumNode = new SpectrumNode( {
-    size: new Dimension2( 40, 0.75 * zeroNode.height ),
-    minValue: VisibleColor.MIN_WAVELENGTH,
-    maxValue: VisibleColor.MAX_WAVELENGTH,
-    valueToColor: VisibleColor.wavelengthToColor
-  } );
-
-  const twoPiNode = new Text( '2\u03C0', {
-    font: QBSConstants.CONTROL_FONT
-  } );
-
-  return new HBox( {
-    spacing: LABEL_ICON_SPACING,
-    children: [
-      phaseText,
-      new HBox( {
-        spacing: 3,
-        children: [ zeroNode, spectrumNode, twoPiNode ]
       } )
     ]
   } );
