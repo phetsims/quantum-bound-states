@@ -26,6 +26,7 @@ export default class TimeButtonGroup extends HBox {
       listener: () => time.currentTimeProperty.reset(),
       accessibleName: QuantumBoundStatesFluent.a11y.restartButton.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.restartButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.restartButton.accessibleContextResponseStringProperty,
       tandem: tandem.createTandem( 'restartButton' )
     } );
 
@@ -47,6 +48,9 @@ export default class TimeButtonGroup extends HBox {
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
       accessibleName: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponse.createProperty( {
+        value: Time.STEP_FORWARD_DELTA
+      } ),
       tandem: tandem.createTandem( 'stepButton' )
     } );
 

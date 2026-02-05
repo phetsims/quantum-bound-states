@@ -98,6 +98,7 @@ type StringsType = {
     'restartButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'playPauseButton': {
       'accessibleNamePlayingStringProperty': LocalizedStringProperty;
@@ -108,6 +109,7 @@ type StringsType = {
     'stepForwardButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'valueLabelsCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

@@ -184,6 +184,9 @@
       },
       "accessibleHelpText": {
         "value": "Reset simulation time to zero."
+      },
+      "accessibleContextResponse": {
+        "value": "Simulation time reset to zero femtoseconds."
       }
     },
     "playPauseButton": {
@@ -206,6 +209,9 @@
       },
       "accessibleHelpText": {
         "value": "Step forward one time step when simulation is paused."
+      },
+      "accessibleContextResponse": {
+        "value": "Simulation stepped forward {$value} femtoseconds."
       }
     },
     "valueLabelsCheckbox": {

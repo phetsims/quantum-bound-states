@@ -12,13 +12,13 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
-const STEP_ONCE_DELTA = 0.1;
-
 export default class Time {
 
   public readonly currentTimeProperty: Property<number>;
   public readonly isPlayingProperty: Property<boolean>;
   public readonly timeSpeedFactorProperty: Property<number>;
+
+  public static readonly STEP_FORWARD_DELTA = 1; // fs
 
   public constructor( tandem: Tandem ) {
 
@@ -52,7 +52,7 @@ export default class Time {
   }
 
   public stepOnce(): void {
-    this.currentTimeProperty.value += STEP_ONCE_DELTA * this.timeSpeedFactorProperty.value;
+    this.currentTimeProperty.value += Time.STEP_FORWARD_DELTA;
   }
 }
 

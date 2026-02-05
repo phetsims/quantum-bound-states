@@ -104,18 +104,20 @@ a11y:
     accessibleHeading: Time Buttons
 
   restartButton:
-    accessibleName:     Reset Time
-    accessibleHelpText: Reset simulation time to zero.
+    accessibleName:            Reset Time
+    accessibleHelpText:        Reset simulation time to zero.
+    accessibleContextResponse: Simulation time reset to zero femtoseconds.
 
   playPauseButton:
-    accessibleNamePlaying:  Pause
-    accessibleNamePaused:   Play
+    accessibleNamePlaying:     Pause
+    accessibleNamePaused:      Play
     accessibleHelpTextPlaying: Pause simulation.
     accessibleHelpTextPaused:  Play simulation.
 
   stepForwardButton:
-    accessibleName:     Step Forward
-    accessibleHelpText: Step forward one time step when simulation is paused.
+    accessibleName:            Step Forward
+    accessibleHelpText:        Step forward one time step when simulation is paused.
+    accessibleContextResponse: Simulation stepped forward {$value} femtoseconds.
 
   #=======================================================================================================
   # Checkboxes
