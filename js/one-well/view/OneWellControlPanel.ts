@@ -44,13 +44,13 @@ export default class OneWellControlPanel extends Panel {
 
     const massControl = new MassControl( model.massProperty, tandem.createTandem( 'massControl' ) );
 
+    const valueLabelsCheckbox = new ValueLabelsCheckbox( model.valueLabelsVisibleProperty,
+      tandem.createTandem( 'valueLabelsCheckbox' ) );
+
     const displayText = new Text( QuantumBoundStatesFluent.displayStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200
     } );
-
-    const valueLabelsCheckbox = new ValueLabelsCheckbox( model.valueLabelsVisibleProperty,
-      tandem.createTandem( 'valueLabelsCheckbox' ) );
 
     const graphTypeRadioButtonGroup = new GraphTypeRadioButtonGroup( model.graphTypeProperty, tandem.createTandem( 'graphTypeRadioButtonGroup' ) );
 
