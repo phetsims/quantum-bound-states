@@ -89,7 +89,7 @@
   "a11y": {
     "oneWellScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO.oneWellScreen.screenButtonsHelpText"
+        "value": "Explore bound states in various single well potentials."
       },
       "screenSummary": {
         "playArea": {
@@ -108,7 +108,7 @@
     },
     "twoWellsScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO.twoWellsScreen.screenButtonsHelpText"
+        "value": "Explore bound states and molecular bonding in two closely separated wells."
       },
       "screenSummary": {
         "playArea": {
@@ -127,7 +127,7 @@
     },
     "manyWellsScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO.manyWellsScreen.screenButtonsHelpText"
+        "value": "Explore bound states and band structure in a periodic array of potential wells."
       },
       "screenSummary": {
         "playArea": {
@@ -146,7 +146,7 @@
     },
     "superpositionScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO.oneWellScreen.screenButtonsHelpText"
+        "value": "Explore superposition states and their time-dependent behavior in various potentials."
       },
       "screenSummary": {
         "playArea": {
