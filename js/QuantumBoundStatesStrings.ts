@@ -86,6 +86,10 @@ type StringsType = {
         'interactionHintStringProperty': LocalizedStringProperty;
       }
     };
+    'restartButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
     'valueLabelsCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;

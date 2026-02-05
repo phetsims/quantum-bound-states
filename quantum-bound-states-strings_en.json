@@ -163,6 +163,14 @@
         }
       }
     },
+    "restartButton": {
+      "accessibleName": {
+        "value": "Restart"
+      },
+      "accessibleHelpText": {
+        "value": "Restart simulation time."
+      }
+    },
     "valueLabelsCheckbox": {
       "accessibleHelpText": {
         "value": "TODO.valueLabelsCheckbox.accessibleHelpText"

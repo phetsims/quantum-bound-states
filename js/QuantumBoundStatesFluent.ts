@@ -73,6 +73,8 @@ addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_playArea', 'a11y.supe
 addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_controlArea', 'a11y.superpositionScreen.screenSummary.controlAreaStringProperty' );
 addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_currentDetails', 'a11y.superpositionScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_interactionHint', 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' );
+addToMapIfDefined( 'a11y_restartButton_accessibleName', 'a11y.restartButton.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_restartButton_accessibleHelpText', 'a11y.restartButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleHelpText', 'a11y.valueLabelsCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleContextResponseChecked', 'a11y.valueLabelsCheckbox.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleContextResponseUnchecked', 'a11y.valueLabelsCheckbox.accessibleContextResponseUncheckedStringProperty' );
@@ -210,9 +212,16 @@ const QuantumBoundStatesFluent = {
         interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' ) )
       }
     },
-    _comment_3: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"valueLabelsCheckbox"} ),
-    _comment_4: new FluentComment( {"comment":"Checkboxes","associatedKey":"valueLabelsCheckbox"} ),
-    _comment_5: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"valueLabelsCheckbox"} ),
+    _comment_3: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"restartButton"} ),
+    _comment_4: new FluentComment( {"comment":"Push Buttons","associatedKey":"restartButton"} ),
+    _comment_5: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"restartButton"} ),
+    restartButton: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_restartButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.restartButton.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_restartButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.restartButton.accessibleHelpTextStringProperty' ) )
+    },
+    _comment_6: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"valueLabelsCheckbox"} ),
+    _comment_7: new FluentComment( {"comment":"Checkboxes","associatedKey":"valueLabelsCheckbox"} ),
+    _comment_8: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"valueLabelsCheckbox"} ),
     valueLabelsCheckbox: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_valueLabelsCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.valueLabelsCheckbox.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_valueLabelsCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.valueLabelsCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
@@ -248,10 +257,10 @@ const QuantumBoundStatesFluent = {
       accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
       accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     },
-    _comment_6: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
-    _comment_7: new FluentComment( {"comment":"Radio Buttons","associatedKey":"graphTypeRadioButtonGroup"} ),
-    _comment_8: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
-    _comment_9: new FluentComment( {"comment":"Radio buttons for selecting which graph to display at the bottom of the screen.","associatedKey":"graphTypeRadioButtonGroup"} ),
+    _comment_9: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
+    _comment_10: new FluentComment( {"comment":"Radio Buttons","associatedKey":"graphTypeRadioButtonGroup"} ),
+    _comment_11: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
+    _comment_12: new FluentComment( {"comment":"Radio buttons for selecting which graph to display at the bottom of the screen.","associatedKey":"graphTypeRadioButtonGroup"} ),
     graphTypeRadioButtonGroup: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphTypeRadioButtonGroup_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.graphTypeRadioButtonGroup.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphTypeRadioButtonGroup_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.graphTypeRadioButtonGroup.accessibleHelpTextStringProperty' ) ),
@@ -265,31 +274,31 @@ const QuantumBoundStatesFluent = {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphTypeRadioButtonGroup_wavefunctionRadioButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.graphTypeRadioButtonGroup.wavefunctionRadioButton.accessibleHelpTextStringProperty' ) )
       }
     },
-    _comment_10: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
-    _comment_11: new FluentComment( {"comment":"Sliders","associatedKey":"massControl"} ),
-    _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
+    _comment_13: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
+    _comment_14: new FluentComment( {"comment":"Sliders","associatedKey":"massControl"} ),
+    _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
     massControl: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_massControl_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.massControl.accessibleHelpTextStringProperty' ) )
     },
-    _comment_13: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyLevelSpinner"} ),
-    _comment_14: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevelSpinner"} ),
-    _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyLevelSpinner"} ),
+    _comment_16: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyLevelSpinner"} ),
+    _comment_17: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevelSpinner"} ),
+    _comment_18: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyLevelSpinner"} ),
     energyLevelSpinner: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' ) )
     },
-    _comment_16: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
-    _comment_17: new FluentComment( {"comment":"Tools","associatedKey":"referenceLineHandleNode"} ),
-    _comment_18: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
+    _comment_19: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
+    _comment_20: new FluentComment( {"comment":"Tools","associatedKey":"referenceLineHandleNode"} ),
+    _comment_21: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
     referenceLineHandleNode: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleHelpTextStringProperty' ) ),
       accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty' ) )
     },
-    _comment_19: new FluentComment( {"comment":"TODO: Move electronMass to scenery-phet-strings_en.yaml","associatedKey":"electronMass"} ),
-    _comment_20: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"electronMass"} ),
-    _comment_21: new FluentComment( {"comment":"Units","associatedKey":"electronMass"} ),
-    _comment_22: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"electronMass"} ),
+    _comment_22: new FluentComment( {"comment":"TODO: Move electronMass to scenery-phet-strings_en.yaml","associatedKey":"electronMass"} ),
+    _comment_23: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"electronMass"} ),
+    _comment_24: new FluentComment( {"comment":"Units","associatedKey":"electronMass"} ),
+    _comment_25: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"electronMass"} ),
     electronMass: {
       pattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_electronMass_pattern', _.get( QuantumBoundStatesStrings, 'a11y.electronMass.patternStringProperty' ), [{"name":"value"}] )
     }

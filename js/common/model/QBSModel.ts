@@ -20,6 +20,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import { GraphType, GraphTypeValues } from './GraphType.js';
 import MagnifierTool from './MagnifierTool.js';
 import ReferenceLine from './ReferenceLine.js';
+import Time from './Time.js';
 
 type SelfOptions = {
   graphType?: GraphType;
@@ -29,6 +30,8 @@ type SelfOptions = {
 export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class QBSModel implements TModel {
+
+  public readonly time: Time;
 
   public readonly energyLevelRangeProperty: Property<Range>;
   public readonly energyLevelProperty: NumberProperty;
@@ -55,6 +58,8 @@ export default class QBSModel implements TModel {
       graphType: 'probabilityDensity',
       graphTypes: [ ...GraphTypeValues ]
     }, providedOptions );
+
+    this.time = new Time( options.tandem.createTandem( 'time' ) );
 
     this.massProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
@@ -122,7 +127,7 @@ export default class QBSModel implements TModel {
    * Resets the model.
    */
   public reset(): void {
-
+    this.time.reset();
     this.energyLevelRangeProperty.reset();
     this.energyLevelProperty.reset();
     this.massProperty.reset();
@@ -142,7 +147,7 @@ export default class QBSModel implements TModel {
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
-    //TODO
+    this.time.currentTimeProperty.value += dt * this.time.timeSpeedFactorProperty.value;
   }
 }
 

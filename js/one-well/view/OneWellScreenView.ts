@@ -14,6 +14,7 @@ import QBSConstants from '../../common/QBSConstants.js';
 import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
 import LegendPanel from '../../common/view/LegendPanel.js';
 import ProbabilityDensityGraphNode from '../../common/view/ProbabilityDensityGraphNode.js';
+import QBSTimeControl from '../../common/view/QBSTimeControl.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import ToolsCheckboxGroup from '../../common/view/ToolsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -41,6 +42,8 @@ export default class OneWellScreenView extends ScreenView {
 
     const controlPanel = new OneWellControlPanel( model, tandem.createTandem( 'controlPanel' ) );
 
+    const timeControl = new QBSTimeControl( model.time, tandem.createTandem( 'timeControl' ) );
+
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
@@ -60,6 +63,8 @@ export default class OneWellScreenView extends ScreenView {
     controlPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
     toolsCheckboxGroup.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
     toolsCheckboxGroup.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    timeControl.right = energyGraphNode.right;
+    timeControl.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
@@ -85,6 +90,7 @@ export default class OneWellScreenView extends ScreenView {
         controlPanel,
         toolsCheckboxGroup,
         referenceLineNode,
+        timeControl,
         resetAllButton
       ]
     } );
@@ -101,6 +107,7 @@ export default class OneWellScreenView extends ScreenView {
     this.pdomControlAreaNode.pdomOrder = [
       //TODO
       toolsCheckboxGroup,
+      timeControl,
       resetAllButton
     ];
   }
