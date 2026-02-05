@@ -163,12 +163,49 @@
         }
       }
     },
+    "controlPanel": {
+      "accessibleHeading": {
+        "value": "Control Panel"
+      }
+    },
+    "timeControls": {
+      "accessibleHeading": {
+        "value": "Time Controls"
+      }
+    },
+    "timeButtonGroup": {
+      "accessibleHeading": {
+        "value": "Time Buttons"
+      }
+    },
     "restartButton": {
       "accessibleName": {
-        "value": "Restart"
+        "value": "Reset Time"
       },
       "accessibleHelpText": {
-        "value": "Restart simulation time."
+        "value": "Reset simulation time to zero."
+      }
+    },
+    "playPauseButton": {
+      "accessibleNamePlaying": {
+        "value": "Pause"
+      },
+      "accessibleNamePaused": {
+        "value": "Play"
+      },
+      "accessibleHelpTextPlaying": {
+        "value": "Pause simulation."
+      },
+      "accessibleHelpTextPaused": {
+        "value": "Play simulation."
+      }
+    },
+    "stepForwardButton": {
+      "accessibleName": {
+        "value": "Step Forward"
+      },
+      "accessibleHelpText": {
+        "value": "Step forward one time step when simulation is paused."
       }
     },
     "valueLabelsCheckbox": {
@@ -182,9 +219,14 @@
         "value": "Value labels hidden."
       }
     },
+    "waveFunctionComponentsCheckboxGroup": {
+      "accessibleHeading": {
+        "value": "Wave Function Components Checkbox Group"
+      }
+    },
     "realPartCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO.realPartCheckbox.accessibleHelpText"
+        "value": "Show or hide the real part of the wave function."
       },
       "accessibleContextResponseChecked": {
         "value": "Real part shown."
@@ -195,7 +237,7 @@
     },
     "imaginaryPartCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO.imaginaryPartCheckbox.accessibleHelpText"
+        "value": "Show or hide the imaginary part of the wave function."
       },
       "accessibleContextResponseChecked": {
         "value": "Imaginary part shown."
@@ -206,7 +248,7 @@
     },
     "magnitudeCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO.magnitudeCheckbox.accessibleHelpText"
+        "value": "Show or hide the magnitude of the wave function."
       },
       "accessibleContextResponseChecked": {
         "value": "Magnitude shown."
@@ -217,7 +259,7 @@
     },
     "phaseCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO.phaseCheckbox.accessibleHelpText"
+        "value": "Show or hide the phase of the wave function."
       },
       "accessibleContextResponseChecked": {
         "value": "Phase shown."

@@ -86,7 +86,26 @@ type StringsType = {
         'interactionHintStringProperty': LocalizedStringProperty;
       }
     };
+    'controlPanel': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+    };
+    'timeControls': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+    };
+    'timeButtonGroup': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+    };
     'restartButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'playPauseButton': {
+      'accessibleNamePlayingStringProperty': LocalizedStringProperty;
+      'accessibleNamePausedStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextPlayingStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextPausedStringProperty': LocalizedStringProperty;
+    };
+    'stepForwardButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
@@ -94,6 +113,9 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+    };
+    'waveFunctionComponentsCheckboxGroup': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
     'realPartCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

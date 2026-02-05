@@ -13,6 +13,7 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import ImaginaryPartCheckbox from './ImaginaryPartCheckbox.js';
 import MagnitudeCheckbox from './MagnitudeCheckbox.js';
@@ -39,7 +40,8 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
       isDisposable: false,
       spacing: 10,
       align: 'left',
-      stretch: true
+      stretch: true,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.waveFunctionComponentsCheckboxGroup.accessibleHeadingStringProperty
     }, providedOptions );
 
     // Real Part

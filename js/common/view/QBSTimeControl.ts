@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/scenery-phet/issues/968 Revisit accessible options for buttons used herein.
 /**
  * QBSTimeControl is a custom time control for this simulation.
  *
@@ -10,8 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PlayPauseButton from '../../../../scenery-phet/js/buttons/PlayPauseButton.js';
 import RestartButton from '../../../../scenery-phet/js/buttons/RestartButton.js';
-import StepButton from '../../../../scenery-phet/js/buttons/StepButton.js';
-import SceneryPhetFluent from '../../../../scenery-phet/js/SceneryPhetFluent.js';
+import StepForwardButton from '../../../../scenery-phet/js/buttons/StepForwardButton.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -27,6 +27,7 @@ export default class QBSTimeControl extends HBox {
     super( {
       children: [ buttonGroup ],
       spacing: 20,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.timeControls.accessibleHeadingStringProperty,
       tandem: tandem
     } );
   }
@@ -46,19 +47,24 @@ class ButtonGroup extends HBox {
       tandem: tandem.createTandem( 'restartButton' )
     } );
 
-    const playPauseButton = new PlayPauseButton( time.isRunningProperty, {
+    const playPauseButton = new PlayPauseButton( time.isPlayingProperty, {
+      accessibleNameOn: QuantumBoundStatesFluent.a11y.playPauseButton.accessibleNamePlayingStringProperty,
+      accessibleNameOff: QuantumBoundStatesFluent.a11y.playPauseButton.accessibleNamePausedStringProperty,
+      accessibleHelpText: new DerivedStringProperty( [
+          time.isPlayingProperty,
+          QuantumBoundStatesFluent.a11y.playPauseButton.accessibleHelpTextPlayingStringProperty,
+          QuantumBoundStatesFluent.a11y.playPauseButton.accessibleHelpTextPausedStringProperty
+        ],
+        ( isPlaying, accessibleHelpTextPlayingString, accessibleHelpTextPausedString ) =>
+          isPlaying ? accessibleHelpTextPlayingString : accessibleHelpTextPausedString ),
       tandem: tandem.createTandem( 'playPauseButton' )
     } );
 
-    const stepButton = new StepButton( {
+    const stepButton = new StepForwardButton( {
       listener: () => time.stepOnce(),
-      enabledProperty: DerivedProperty.not( time.isRunningProperty ),
-      accessibleName: SceneryPhetFluent.a11y.stepButton.stepForwardStringProperty,
-      accessibleHelpText: new DerivedStringProperty( [
-        time.isRunningProperty,
-        SceneryPhetFluent.a11y.stepButton.playingDescriptionStringProperty,
-        SceneryPhetFluent.a11y.stepButton.pausedDescriptionStringProperty
-      ], ( isRunning, playingDescription, pausedDescription ) => ( isRunning ? playingDescription : pausedDescription ) ),
+      enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
+      accessibleName: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
       tandem: tandem.createTandem( 'stepButton' ),
       phetioDocumentation: 'Progress the simulation a single model step forwards.'
     } );
@@ -66,6 +72,7 @@ class ButtonGroup extends HBox {
     super( {
       children: [ restartButton, playPauseButton, stepButton ],
       spacing: 8,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.timeButtonGroup.accessibleHeadingStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: true
     } );

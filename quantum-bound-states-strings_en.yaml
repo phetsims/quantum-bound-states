@@ -87,39 +87,65 @@ a11y:
       interactionHint: TODO.superpositionScreen.screenSummary.interactionHint
 
   #=======================================================================================================
+  # Headings
+  #=======================================================================================================
+
+  controlPanel:
+    accessibleHeading: Control Panel
+
+  timeControls:
+    accessibleHeading: Time Controls
+
+  #=======================================================================================================
   # Push Buttons
   #=======================================================================================================
 
+  timeButtonGroup:
+    accessibleHeading: Time Buttons
+
   restartButton:
-    accessibleName: Restart
-    accessibleHelpText: Restart simulation time.
+    accessibleName:     Reset Time
+    accessibleHelpText: Reset simulation time to zero.
+
+  playPauseButton:
+    accessibleNamePlaying:  Pause
+    accessibleNamePaused:   Play
+    accessibleHelpTextPlaying: Pause simulation.
+    accessibleHelpTextPaused:  Play simulation.
+
+  stepForwardButton:
+    accessibleName:     Step Forward
+    accessibleHelpText: Step forward one time step when simulation is paused.
 
   #=======================================================================================================
   # Checkboxes
   #=======================================================================================================
 
   valueLabelsCheckbox:
-    accessibleHelpText: TODO.valueLabelsCheckbox.accessibleHelpText
-    accessibleContextResponseChecked: 'Value labels shown.'
+    accessibleHelpText:                 TODO.valueLabelsCheckbox.accessibleHelpText
+    accessibleContextResponseChecked:   'Value labels shown.'
     accessibleContextResponseUnchecked: 'Value labels hidden.'
 
+  waveFunctionComponentsCheckboxGroup:
+    accessibleHeading: Wave Function Components Checkbox Group
+
   realPartCheckbox:
-    accessibleHelpText: TODO.realPartCheckbox.accessibleHelpText
+    accessibleHelpText:                 Show or hide the real part of the wave function.
     accessibleContextResponseChecked:   'Real part shown.'
     accessibleContextResponseUnchecked: 'Real part hidden.'
 
   imaginaryPartCheckbox:
-    accessibleHelpText: TODO.imaginaryPartCheckbox.accessibleHelpText
+    accessibleHelpText:                 Show or hide the imaginary part of the wave function.
     accessibleContextResponseChecked:   'Imaginary part shown.'
     accessibleContextResponseUnchecked: 'Imaginary part hidden.'
 
   magnitudeCheckbox:
-    accessibleHelpText: TODO.magnitudeCheckbox.accessibleHelpText
+    accessibleHelpText:                 Show or hide the magnitude of the wave function.
     accessibleContextResponseChecked:   'Magnitude shown.'
     accessibleContextResponseUnchecked: 'Magnitude hidden.'
 
   phaseCheckbox:
-    accessibleHelpText: TODO.phaseCheckbox.accessibleHelpText
+    accessibleHelpText:                 Show or hide the phase of the wave function.
     accessibleContextResponseChecked:   'Phase shown.'
     accessibleContextResponseUnchecked: 'Phase hidden.'
 
@@ -160,7 +186,7 @@ a11y:
   #=======================================================================================================
 
   energyLevelSpinner:
-    accessibleName: Energy Level
+    accessibleName:     Energy Level
     accessibleHelpText: TODO.energyLevelSpinner.accessibleHelpText
 
   #=======================================================================================================

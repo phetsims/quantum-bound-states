@@ -17,7 +17,7 @@ const STEP_ONCE_DELTA = 0.1;
 export default class Time {
 
   public readonly currentTimeProperty: Property<number>;
-  public readonly isRunningProperty: Property<boolean>;
+  public readonly isPlayingProperty: Property<boolean>;
   public readonly timeSpeedFactorProperty: Property<number>;
 
   public constructor( tandem: Tandem ) {
@@ -31,8 +31,8 @@ export default class Time {
       phetioReadOnly: true
     } );
 
-    this.isRunningProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'isRunningProperty' ),
+    this.isPlayingProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isPlayingProperty' ),
       phetioFeatured: true
     } );
 
@@ -47,7 +47,7 @@ export default class Time {
 
   public reset(): void {
     this.currentTimeProperty.reset();
-    this.isRunningProperty.reset();
+    this.isPlayingProperty.reset();
     this.timeSpeedFactorProperty.reset();
   }
 

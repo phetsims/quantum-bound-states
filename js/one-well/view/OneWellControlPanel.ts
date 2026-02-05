@@ -30,6 +30,7 @@ export default class OneWellControlPanel extends Panel {
 
     const options = combineOptions<PanelOptions>( {
       isDisposable: false,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.controlPanel.accessibleHeadingStringProperty,
       tandem: tandem
     }, QBSConstants.PANEL_OPTIONS );
 
