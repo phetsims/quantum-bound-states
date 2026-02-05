@@ -43,7 +43,7 @@ addToMapIfDefined( 'probabilityDensity', 'probabilityDensityStringProperty' );
 addToMapIfDefined( 'waveFunction', 'waveFunctionStringProperty' );
 addToMapIfDefined( 'display', 'displayStringProperty' );
 addToMapIfDefined( 'properties', 'propertiesStringProperty' );
-addToMapIfDefined( 'showValues', 'showValuesStringProperty' );
+addToMapIfDefined( 'valueLabels', 'valueLabelsStringProperty' );
 addToMapIfDefined( 'realPart', 'realPartStringProperty' );
 addToMapIfDefined( 'imaginaryPart', 'imaginaryPartStringProperty' );
 addToMapIfDefined( 'magnitude', 'magnitudeStringProperty' );
@@ -73,10 +73,21 @@ addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_playArea', 'a11y.supe
 addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_controlArea', 'a11y.superpositionScreen.screenSummary.controlAreaStringProperty' );
 addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_currentDetails', 'a11y.superpositionScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_interactionHint', 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' );
+addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleHelpText', 'a11y.valueLabelsCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleContextResponseChecked', 'a11y.valueLabelsCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleContextResponseUnchecked', 'a11y.valueLabelsCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_realPartCheckbox_accessibleHelpText', 'a11y.realPartCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_realPartCheckbox_accessibleContextResponseChecked', 'a11y.realPartCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_realPartCheckbox_accessibleContextResponseUnchecked', 'a11y.realPartCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_imaginaryPartCheckbox_accessibleHelpText', 'a11y.imaginaryPartCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_imaginaryPartCheckbox_accessibleContextResponseChecked', 'a11y.imaginaryPartCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_imaginaryPartCheckbox_accessibleContextResponseUnchecked', 'a11y.imaginaryPartCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_magnitudeCheckbox_accessibleHelpText', 'a11y.magnitudeCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_magnitudeCheckbox_accessibleContextResponseChecked', 'a11y.magnitudeCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_magnitudeCheckbox_accessibleContextResponseUnchecked', 'a11y.magnitudeCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_phaseCheckbox_accessibleHelpText', 'a11y.phaseCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_phaseCheckbox_accessibleContextResponseChecked', 'a11y.phaseCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_phaseCheckbox_accessibleContextResponseUnchecked', 'a11y.phaseCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_magnifierToolCheckbox_accessibleHelpText', 'a11y.magnifierToolCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_magnifierToolCheckbox_accessibleContextResponseChecked', 'a11y.magnifierToolCheckbox.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_magnifierToolCheckbox_accessibleContextResponseUnchecked', 'a11y.magnifierToolCheckbox.accessibleContextResponseUncheckedStringProperty' );
@@ -135,8 +146,8 @@ const QuantumBoundStatesFluent = {
   waveFunctionStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionStringProperty' ),
   displayStringProperty: _.get( QuantumBoundStatesStrings, 'displayStringProperty' ),
   propertiesStringProperty: _.get( QuantumBoundStatesStrings, 'propertiesStringProperty' ),
-  _comment_2: new FluentComment( {"comment":"Checkboxes","associatedKey":"showValues"} ),
-  showValuesStringProperty: _.get( QuantumBoundStatesStrings, 'showValuesStringProperty' ),
+  _comment_2: new FluentComment( {"comment":"Checkboxes","associatedKey":"valueLabels"} ),
+  valueLabelsStringProperty: _.get( QuantumBoundStatesStrings, 'valueLabelsStringProperty' ),
   realPartStringProperty: _.get( QuantumBoundStatesStrings, 'realPartStringProperty' ),
   imaginaryPartStringProperty: _.get( QuantumBoundStatesStrings, 'imaginaryPartStringProperty' ),
   magnitudeStringProperty: _.get( QuantumBoundStatesStrings, 'magnitudeStringProperty' ),
@@ -199,20 +210,33 @@ const QuantumBoundStatesFluent = {
         interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' ) )
       }
     },
-    _comment_3: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"realPartCheckbox"} ),
-    _comment_4: new FluentComment( {"comment":"Checkboxes","associatedKey":"realPartCheckbox"} ),
-    _comment_5: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"realPartCheckbox"} ),
+    _comment_3: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"valueLabelsCheckbox"} ),
+    _comment_4: new FluentComment( {"comment":"Checkboxes","associatedKey":"valueLabelsCheckbox"} ),
+    _comment_5: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"valueLabelsCheckbox"} ),
+    valueLabelsCheckbox: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_valueLabelsCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.valueLabelsCheckbox.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_valueLabelsCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.valueLabelsCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+      accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_valueLabelsCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.valueLabelsCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
+    },
     realPartCheckbox: {
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_realPartCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.realPartCheckbox.accessibleHelpTextStringProperty' ) )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_realPartCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.realPartCheckbox.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_realPartCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.realPartCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+      accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_realPartCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.realPartCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     },
     imaginaryPartCheckbox: {
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_imaginaryPartCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.imaginaryPartCheckbox.accessibleHelpTextStringProperty' ) )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_imaginaryPartCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.imaginaryPartCheckbox.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_imaginaryPartCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.imaginaryPartCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+      accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_imaginaryPartCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.imaginaryPartCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     },
     magnitudeCheckbox: {
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnitudeCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnitudeCheckbox.accessibleHelpTextStringProperty' ) )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnitudeCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnitudeCheckbox.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnitudeCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.magnitudeCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+      accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnitudeCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.magnitudeCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     },
     phaseCheckbox: {
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_phaseCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.phaseCheckbox.accessibleHelpTextStringProperty' ) )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_phaseCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.phaseCheckbox.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_phaseCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.phaseCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+      accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_phaseCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.phaseCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     },
     magnifierToolCheckbox: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierToolCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnifierToolCheckbox.accessibleHelpTextStringProperty' ) ),

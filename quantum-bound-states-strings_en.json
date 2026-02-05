@@ -49,8 +49,8 @@
   "properties": {
     "value": "Properties"
   },
-  "showValues": {
-    "value": "Show Values"
+  "valueLabels": {
+    "value": "Value Labels"
   },
   "realPart": {
     "value": "Real Part"
@@ -163,24 +163,59 @@
         }
       }
     },
+    "valueLabelsCheckbox": {
+      "accessibleHelpText": {
+        "value": "TODO.valueLabelsCheckbox.accessibleHelpText"
+      },
+      "accessibleContextResponseChecked": {
+        "value": "Value labels shown."
+      },
+      "accessibleContextResponseUnchecked": {
+        "value": "Value labels hidden."
+      }
+    },
     "realPartCheckbox": {
       "accessibleHelpText": {
         "value": "TODO.realPartCheckbox.accessibleHelpText"
+      },
+      "accessibleContextResponseChecked": {
+        "value": "Real part shown."
+      },
+      "accessibleContextResponseUnchecked": {
+        "value": "Real part hidden."
       }
     },
     "imaginaryPartCheckbox": {
       "accessibleHelpText": {
         "value": "TODO.imaginaryPartCheckbox.accessibleHelpText"
+      },
+      "accessibleContextResponseChecked": {
+        "value": "Imaginary part shown."
+      },
+      "accessibleContextResponseUnchecked": {
+        "value": "Imaginary part hidden."
       }
     },
     "magnitudeCheckbox": {
       "accessibleHelpText": {
         "value": "TODO.magnitudeCheckbox.accessibleHelpText"
+      },
+      "accessibleContextResponseChecked": {
+        "value": "Magnitude shown."
+      },
+      "accessibleContextResponseUnchecked": {
+        "value": "Magnitude hidden."
       }
     },
     "phaseCheckbox": {
       "accessibleHelpText": {
         "value": "TODO.phaseCheckbox.accessibleHelpText"
+      },
+      "accessibleContextResponseChecked": {
+        "value": "Phase shown."
+      },
+      "accessibleContextResponseUnchecked": {
+        "value": "Phase hidden."
       }
     },
     "magnifierToolCheckbox": {

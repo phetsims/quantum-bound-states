@@ -73,6 +73,8 @@ export default class GraphTypeRadioButtonGroup extends AquaRadioButtonGroup<Grap
 
     super( graphTypeProperty, items, {
       spacing: 10,
+      accessibleName: QuantumBoundStatesFluent.a11y.graphTypeRadioButtonGroup.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.graphTypeRadioButtonGroup.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
   }

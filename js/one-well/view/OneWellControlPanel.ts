@@ -11,7 +11,6 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSColors from '../../common/QBSColors.js';
@@ -19,6 +18,7 @@ import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import GraphTypeRadioButtonGroup from '../../common/view/GraphTypeRadioButtonGroup.js';
 import MassControl from '../../common/view/MassControl.js';
+import ValueLabelsCheckbox from '../../common/view/ValueLabelsCheckbox.js';
 import WaveFunctionComponentsCheckboxGroup from '../../common/view/WaveFunctionComponentsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -48,13 +48,8 @@ export default class OneWellControlPanel extends Panel {
       maxWidth: 200
     } );
 
-    const showValuesCheckbox = new Checkbox( model.valuesVisibleProperty,
-      new Text( QuantumBoundStatesFluent.showValuesStringProperty, {
-        font: QBSConstants.CONTROL_FONT,
-        maxWidth: 150
-      } ), combineOptions<CheckboxOptions>( {
-        tandem: tandem.createTandem( 'showValuesCheckbox' )
-      }, QBSConstants.CHECKBOX_OPTIONS ) );
+    const valueLabelsCheckbox = new ValueLabelsCheckbox( model.valueLabelsVisibleProperty,
+      tandem.createTandem( 'valueLabelsCheckbox' ) );
 
     const graphTypeRadioButtonGroup = new GraphTypeRadioButtonGroup( model.graphTypeProperty, tandem.createTandem( 'graphTypeRadioButtonGroup' ) );
 
@@ -81,7 +76,7 @@ export default class OneWellControlPanel extends Panel {
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
-        showValuesCheckbox,
+        valueLabelsCheckbox,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),

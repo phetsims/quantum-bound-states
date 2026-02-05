@@ -34,7 +34,7 @@ type StringsType = {
   'waveFunctionStringProperty': LocalizedStringProperty;
   'displayStringProperty': LocalizedStringProperty;
   'propertiesStringProperty': LocalizedStringProperty;
-  'showValuesStringProperty': LocalizedStringProperty;
+  'valueLabelsStringProperty': LocalizedStringProperty;
   'realPartStringProperty': LocalizedStringProperty;
   'imaginaryPartStringProperty': LocalizedStringProperty;
   'magnitudeStringProperty': LocalizedStringProperty;
@@ -86,17 +86,30 @@ type StringsType = {
         'interactionHintStringProperty': LocalizedStringProperty;
       }
     };
+    'valueLabelsCheckbox': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+    };
     'realPartCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     };
     'imaginaryPartCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     };
     'magnitudeCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     };
     'phaseCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     };
     'magnifierToolCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

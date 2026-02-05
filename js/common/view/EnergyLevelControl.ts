@@ -52,6 +52,8 @@ class EnergyLevelSpinner extends NumberSpinner {
           font: QBSConstants.CONTROL_FONT
         }
       },
+      accessibleName: QuantumBoundStatesFluent.a11y.energyLevelSpinner.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.energyLevelSpinner.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
   }

@@ -41,7 +41,7 @@ export default class QBSModel implements TModel {
 
   public readonly graphTypeProperty: Property<GraphType>;
 
-  public readonly valuesVisibleProperty: Property<boolean>;
+  public readonly valueLabelsVisibleProperty: Property<boolean>;
   public readonly realPartVisibleProperty: Property<boolean>;
   public readonly imaginaryPartVisibleProperty: Property<boolean>;
   public readonly magnitudeVisibleProperty: Property<boolean>;
@@ -92,8 +92,8 @@ export default class QBSModel implements TModel {
 
     //TODO group *VisibleProperty under a parent tandem? Or move some under model.waveFunction?
 
-    this.valuesVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'valuesVisibleProperty' ),
+    this.valueLabelsVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'valueLabelsVisibleProperty' ),
       phetioFeatured: true
     } );
 
@@ -122,12 +122,15 @@ export default class QBSModel implements TModel {
    * Resets the model.
    */
   public reset(): void {
+
     this.energyLevelRangeProperty.reset();
     this.energyLevelProperty.reset();
     this.massProperty.reset();
     this.magnifierTool.reset();
     this.referenceLine.reset();
     this.graphTypeProperty.reset();
+
+    this.valueLabelsVisibleProperty.reset();
     this.realPartVisibleProperty.reset();
     this.imaginaryPartVisibleProperty.reset();
     this.magnitudeVisibleProperty.reset();
