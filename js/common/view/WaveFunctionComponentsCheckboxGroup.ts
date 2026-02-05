@@ -22,8 +22,8 @@ import RealPartCheckbox from './RealPartCheckbox.js';
 type SelfOptions = EmptySelfOptions;
 
 type WaveFunctionComponentsCheckboxGroupOptions = SelfOptions &
-  PickOptional<VBoxOptions, 'layoutOptions'> &
-  PickRequired<VBoxOptions, 'enabledProperty' | 'tandem'>;
+  PickOptional<VBoxOptions, 'layoutOptions' | 'enabledProperty'> &
+  PickRequired<VBoxOptions, 'tandem'>;
 
 export default class WaveFunctionComponentsCheckboxGroup extends VBox {
 
