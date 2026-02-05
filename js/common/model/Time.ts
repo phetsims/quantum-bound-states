@@ -18,6 +18,9 @@ export default class Time {
   public readonly isPlayingProperty: Property<boolean>;
   public readonly timeSpeedFactorProperty: Property<number>;
 
+  // Conversion of real time (seconds) to simulation time (femtoseconds).
+  public static readonly FEMTOSECONDS_PER_SECOND = 1;
+
   public static readonly STEP_FORWARD_DELTA = 1; // fs
 
   public constructor( tandem: Tandem ) {
