@@ -54,6 +54,8 @@ export default class ReferenceLineNode extends Node {
     } );
 
     const options = optionize<ReferenceLineNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
       isDisposable: false,
       children: [ verticalLine, handleNode ],
       visibleProperty: referenceLine.visibleProperty
