@@ -44,7 +44,7 @@ export default class TimeButtonGroup extends HBox {
     } );
 
     const stepButton = new StepForwardButton( {
-      listener: () => time.stepOnce(),
+      listener: () => time.stepForward(),
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
       accessibleName: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,

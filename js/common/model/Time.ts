@@ -54,7 +54,7 @@ export default class Time {
     this.timeSpeedFactorProperty.reset();
   }
 
-  public stepOnce(): void {
+  public stepForward(): void {
     this.currentTimeProperty.value += Time.STEP_FORWARD_DELTA;
   }
 }
