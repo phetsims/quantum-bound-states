@@ -47,8 +47,7 @@ export default class TimeButtonGroup extends HBox {
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
       accessibleName: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
-      tandem: tandem.createTandem( 'stepButton' ),
-      phetioDocumentation: 'Progress the simulation a single model step forwards.'
+      tandem: tandem.createTandem( 'stepButton' )
     } );
 
     super( {
