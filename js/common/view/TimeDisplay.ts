@@ -25,10 +25,8 @@ export default class TimeDisplay extends HBox {
 
   public constructor( currentTimeProperty: TReadOnlyProperty<number>, tandem: Tandem ) {
 
-    const timeDisplayTandem = tandem.createTandem( 'timeDisplay' );
-
-    const visibleProperty = new BooleanProperty( true, {
-      tandem: timeDisplayTandem.createTandem( 'visibleProperty' ),
+    const timeVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'timeVisibleProperty' ),
       phetioReadOnly: true // because this is controlled by toggleButton
     } );
 
@@ -36,20 +34,20 @@ export default class TimeDisplay extends HBox {
       textOptions: {
         font: QBSConstants.TIME_FONT,
         // Hide the value by making it transparent.
-        fill: new DerivedProperty( [ visibleProperty ], visible => visible ? 'black' : 'transparent' )
+        fill: new DerivedProperty( [ timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
       },
       numberFormatter: value => StringUtils.fillIn( QuantumBoundStatesFluent.units.femtoSeconds.symbolPatternStringProperty, {
         // Use toFixed so that trailing zeros are preserved.
         value: toFixed( value, QBSConstants.TIME_DECIMAL_PLACES )
       } ),
-      tandem: timeDisplayTandem
+      tandem: tandem.createTandem( 'valueDisplay' )
     } );
 
-    const toggleButton = new EyeToggleButton( visibleProperty, {
+    const toggleButton = new EyeToggleButton( timeVisibleProperty, {
       scale: 0.5,
       baseColor: new DerivedProperty(
-        [ visibleProperty, QBSColors.timeShownColorProperty, QBSColors.timeHiddenColorProperty ],
-        ( visible, timeShownColor, timeHiddenColor ) => visible ? timeShownColor : timeHiddenColor ),
+        [ timeVisibleProperty, QBSColors.timeShownColorProperty, QBSColors.timeHiddenColorProperty ],
+        ( timeVisible, timeShownColor, timeHiddenColor ) => timeVisible ? timeShownColor : timeHiddenColor ),
       accessibleNameOn: QuantumBoundStatesFluent.a11y.timeDisplayToggleButton.accessibleNameOnStringProperty,
       accessibleNameOff: QuantumBoundStatesFluent.a11y.timeDisplayToggleButton.accessibleNameOffStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.timeDisplayToggleButton.accessibleHelpTextStringProperty,
