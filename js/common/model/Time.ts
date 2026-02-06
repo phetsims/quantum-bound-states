@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Time is the model of the simulation clock, which controls the passage of time.
+ * Time is the model of simulation time. Real time (seconds) is transformed to simulation time (femtoseconds).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
