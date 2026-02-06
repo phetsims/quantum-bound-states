@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ToolsCheckboxGroup is a group of checkboxes for controlling the visibility of tools.
+ * ToolsPanel is a group of checkboxes for controlling the visibility of tools.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ import QBSConstants from '../QBSConstants.js';
 import MagnifierToolCheckbox from './MagnifierToolCheckbox.js';
 import ReferenceLineCheckbox from './ReferenceLineCheckbox.js';
 
-export default class ToolsCheckboxGroup extends Panel {
+export default class ToolsPanel extends Panel {
 
   public constructor( referenceLineVisibleProperty: Property<boolean>,
                       magnifierToolVisibleProperty: Property<boolean>,
@@ -44,4 +44,4 @@ export default class ToolsCheckboxGroup extends Panel {
   }
 }
 
-quantumBoundStates.register( 'ToolsCheckboxGroup', ToolsCheckboxGroup );
+quantumBoundStates.register( 'ToolsPanel', ToolsPanel );

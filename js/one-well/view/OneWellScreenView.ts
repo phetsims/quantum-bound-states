@@ -16,7 +16,7 @@ import LegendPanel from '../../common/view/LegendPanel.js';
 import ProbabilityDensityGraphNode from '../../common/view/ProbabilityDensityGraphNode.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import TimePanel from '../../common/view/TimePanel.js';
-import ToolsCheckboxGroup from '../../common/view/ToolsCheckboxGroup.js';
+import ToolsPanel from '../../common/view/ToolsPanel.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
 import OneWellControlPanel from './OneWellControlPanel.js';
@@ -37,8 +37,8 @@ export default class OneWellScreenView extends ScreenView {
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( tandem.createTandem( 'probabilityDensityGraphNode' ) );
 
-    const toolsCheckboxGroup = new ToolsCheckboxGroup( model.magnifierTool.visibleProperty,
-      model.referenceLine.visibleProperty, tandem.createTandem( 'toolsCheckboxGroup' ) );
+    const toolsPanel = new ToolsPanel( model.magnifierTool.visibleProperty,
+      model.referenceLine.visibleProperty, tandem.createTandem( 'toolsPanel' ) );
 
     const controlPanel = new OneWellControlPanel( model, tandem.createTandem( 'controlPanel' ) );
 
@@ -61,8 +61,8 @@ export default class OneWellScreenView extends ScreenView {
     probabilityDensityGraphNode.top = energyGraphNode.bottom + 3;
     controlPanel.left = energyGraphNode.right + 10;
     controlPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
-    toolsCheckboxGroup.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
-    toolsCheckboxGroup.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    toolsPanel.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
+    toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     timePanel.right = energyGraphNode.right;
     timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
@@ -88,7 +88,7 @@ export default class OneWellScreenView extends ScreenView {
         energyGraphNode,
         probabilityDensityGraphNode,
         controlPanel,
-        toolsCheckboxGroup,
+        toolsPanel,
         referenceLineNode,
         timePanel,
         resetAllButton
@@ -106,7 +106,7 @@ export default class OneWellScreenView extends ScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       //TODO
-      toolsCheckboxGroup,
+      toolsPanel,
       timePanel,
       resetAllButton
     ];
