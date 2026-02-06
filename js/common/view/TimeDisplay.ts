@@ -28,7 +28,8 @@ export default class TimeDisplay extends HBox {
     const timeDisplayTandem = tandem.createTandem( 'timeDisplay' );
 
     const visibleProperty = new BooleanProperty( true, {
-      tandem: timeDisplayTandem.createTandem( 'visibleProperty' )
+      tandem: timeDisplayTandem.createTandem( 'visibleProperty' ),
+      phetioReadOnly: true // because this is controlled by toggleButton
     } );
 
     const valueDisplay = new NumberDisplay( currentTimeProperty, new Range( 0, 1000 ), {
