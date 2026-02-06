@@ -74,7 +74,9 @@ addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_controlArea', 'a11y.s
 addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_currentDetails', 'a11y.superpositionScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_interactionHint', 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_controlPanel_accessibleHeading', 'a11y.controlPanel.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_waveFunctionComponents_accessibleHeading', 'a11y.waveFunctionComponents.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeControls_accessibleHeading', 'a11y.timeControls.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_toolControls_accessibleHeading', 'a11y.toolControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeButtonGroup_accessibleHeading', 'a11y.timeButtonGroup.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_restartButton_accessibleName', 'a11y.restartButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_restartButton_accessibleHelpText', 'a11y.restartButton.accessibleHelpTextStringProperty' );
@@ -89,7 +91,6 @@ addToMapIfDefined( 'a11y_stepForwardButton_accessibleContextResponse', 'a11y.ste
 addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleHelpText', 'a11y.valueLabelsCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleContextResponseChecked', 'a11y.valueLabelsCheckbox.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleContextResponseUnchecked', 'a11y.valueLabelsCheckbox.accessibleContextResponseUncheckedStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionComponentsCheckboxGroup_accessibleHeading', 'a11y.waveFunctionComponentsCheckboxGroup.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_realPartCheckbox_accessibleHelpText', 'a11y.realPartCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_realPartCheckbox_accessibleContextResponseChecked', 'a11y.realPartCheckbox.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_realPartCheckbox_accessibleContextResponseUnchecked', 'a11y.realPartCheckbox.accessibleContextResponseUncheckedStringProperty' );
@@ -230,8 +231,14 @@ const QuantumBoundStatesFluent = {
     controlPanel: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_controlPanel_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.controlPanel.accessibleHeadingStringProperty' ) )
     },
+    waveFunctionComponents: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionComponents_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionComponents.accessibleHeadingStringProperty' ) )
+    },
     timeControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.accessibleHeadingStringProperty' ) )
+    },
+    toolControls: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_toolControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.toolControls.accessibleHeadingStringProperty' ) )
     },
     _comment_6: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeButtonGroup"} ),
     _comment_7: new FluentComment( {"comment":"Push Buttons","associatedKey":"timeButtonGroup"} ),
@@ -262,9 +269,6 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_valueLabelsCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.valueLabelsCheckbox.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_valueLabelsCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.valueLabelsCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
       accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_valueLabelsCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.valueLabelsCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
-    },
-    waveFunctionComponentsCheckboxGroup: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionComponentsCheckboxGroup_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionComponentsCheckboxGroup.accessibleHeadingStringProperty' ) )
     },
     realPartCheckbox: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_realPartCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.realPartCheckbox.accessibleHelpTextStringProperty' ) ),

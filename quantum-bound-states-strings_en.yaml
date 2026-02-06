@@ -93,8 +93,14 @@ a11y:
   controlPanel:
     accessibleHeading: Control Panel
 
+  waveFunctionComponents:
+    accessibleHeading: Wave Function Components
+
   timeControls:
     accessibleHeading: Time Controls
+
+  toolControls:
+    accessibleHeading: Tool Controls
 
   #=======================================================================================================
   # Push Buttons
@@ -127,9 +133,6 @@ a11y:
     accessibleHelpText:                 TODO.valueLabelsCheckbox.accessibleHelpText
     accessibleContextResponseChecked:   'Value labels shown.'
     accessibleContextResponseUnchecked: 'Value labels hidden.'
-
-  waveFunctionComponentsCheckboxGroup:
-    accessibleHeading: Wave Function Components Checkbox Group
 
   realPartCheckbox:
     accessibleHelpText:                 Show or hide the real part of the wave function.

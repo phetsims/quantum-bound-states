@@ -89,7 +89,13 @@ type StringsType = {
     'controlPanel': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
+    'waveFunctionComponents': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+    };
     'timeControls': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+    };
+    'toolControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
     'timeButtonGroup': {
@@ -115,9 +121,6 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
-    };
-    'waveFunctionComponentsCheckboxGroup': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
     'realPartCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

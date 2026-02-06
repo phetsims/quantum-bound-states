@@ -168,9 +168,19 @@
         "value": "Control Panel"
       }
     },
+    "waveFunctionComponents": {
+      "accessibleHeading": {
+        "value": "Wave Function Components"
+      }
+    },
     "timeControls": {
       "accessibleHeading": {
         "value": "Time Controls"
+      }
+    },
+    "toolControls": {
+      "accessibleHeading": {
+        "value": "Tool Controls"
       }
     },
     "timeButtonGroup": {
@@ -223,11 +233,6 @@
       },
       "accessibleContextResponseUnchecked": {
         "value": "Value labels hidden."
-      }
-    },
-    "waveFunctionComponentsCheckboxGroup": {
-      "accessibleHeading": {
-        "value": "Wave Function Components Checkbox Group"
       }
     },
     "realPartCheckbox": {

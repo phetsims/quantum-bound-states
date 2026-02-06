@@ -41,7 +41,7 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
       spacing: 10,
       align: 'left',
       stretch: true,
-      accessibleHeading: QuantumBoundStatesFluent.a11y.waveFunctionComponentsCheckboxGroup.accessibleHeadingStringProperty
+      accessibleHeading: QuantumBoundStatesFluent.a11y.waveFunctionComponents.accessibleHeadingStringProperty
     }, providedOptions );
 
     // Real Part

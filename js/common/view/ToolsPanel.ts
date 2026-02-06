@@ -12,6 +12,7 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 import MagnifierToolCheckbox from './MagnifierToolCheckbox.js';
 import ReferenceLineCheckbox from './ReferenceLineCheckbox.js';
@@ -26,6 +27,7 @@ export default class ToolsPanel extends Panel {
       isDisposable: false,
       stroke: null,
       fill: null,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.toolControls.accessibleHeadingStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: true
     } );
