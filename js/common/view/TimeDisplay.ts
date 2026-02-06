@@ -34,13 +34,14 @@ export default class TimeDisplay extends HBox {
 
     const valueDisplay = new NumberDisplay( currentTimeProperty, new Range( 0, 1000 ), {
       textOptions: {
-        font: QBSConstants.TIME_FONT
+        font: QBSConstants.TIME_FONT,
+        // Hide the value by making it transparent.
+        fill: new DerivedProperty( [ visibleProperty ], visible => visible ? 'black' : 'transparent' )
       },
       numberFormatter: value => StringUtils.fillIn( QuantumBoundStatesFluent.units.femtoSeconds.symbolPatternStringProperty, {
         // Use toFixed so that trailing zeros are preserved.
         value: toFixed( value, QBSConstants.TIME_DECIMAL_PLACES )
       } ),
-      visibleProperty: visibleProperty,
       tandem: timeDisplayTandem
     } );
 
@@ -58,7 +59,6 @@ export default class TimeDisplay extends HBox {
     } );
 
     super( {
-      excludeInvisibleChildrenFromBounds: false,
       children: [ toggleButton, valueDisplay ],
       spacing: 3,
       tandem: tandem,
