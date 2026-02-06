@@ -35,7 +35,8 @@ export default class ReferenceLine extends PhetioObject {
       phetioFeatured: true
     } );
 
-    this.xProperty = new NumberProperty( 0, {
+    //TODO Initial value of 0 seems more typical, but that overlaps the x-axis 'Position' label.
+    this.xProperty = new NumberProperty( -1, {
       range: QBSConstants.ALL_GRAPHS_X_RANGE,
       tandem: tandem.createTandem( 'xProperty' ),
       phetioFeatured: true
