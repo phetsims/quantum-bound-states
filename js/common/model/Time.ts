@@ -24,7 +24,7 @@ export default class Time {
 
   // Scale factor that is applied to time while the simulation is playing.
   // Values > 1 make the sim run faster, values < 1 make it run slower.
-  public readonly timeScaleProperty: Property<number>;
+  public readonly timeScaleProperty: NumberProperty;
 
   // Conversion of real time (seconds) to simulation time (femtoseconds).
   public static readonly FEMTOSECONDS_PER_SECOND = 1;

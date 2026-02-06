@@ -17,6 +17,7 @@ import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import TimeButtonGroup from './TimeButtonGroup.js';
 import TimeDisplay from './TimeDisplay.js';
+import TimeScaleSlider from './TimeScaleSlider.js';
 
 export default class TimePanel extends Panel {
 
@@ -34,8 +35,10 @@ export default class TimePanel extends Panel {
 
     const buttonGroup = new TimeButtonGroup( time, tandem.createTandem( 'buttonGroup' ) );
 
+    const timeScaleSlider = new TimeScaleSlider( time.timeScaleProperty, tandem.createTandem( 'timeScaleSlider' ) );
+
     const content = new HBox( {
-      children: [ timeDisplay, buttonGroup ],
+      children: [ timeDisplay, buttonGroup, timeScaleSlider ],
       spacing: 20
     } );
 

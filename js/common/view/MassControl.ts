@@ -50,7 +50,8 @@ export default class MassControl extends NumberControl {
         minBackgroundWidth: 50
       },
       sliderOptions: {
-        trackSize: new Dimension2( 135, 5 ),
+        trackSize: new Dimension2( 135, 3 ),
+        thumbSize: new Dimension2( 15, 25 ),
         majorTicks: createMajorTicks( massProperty.range ),
         majorTickLength: 16,
         keyboardStep: 0.1,
