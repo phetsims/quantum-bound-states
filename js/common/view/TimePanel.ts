@@ -13,6 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Time from '../model/Time.js';
+import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import TimeButtonGroup from './TimeButtonGroup.js';
 
@@ -21,7 +22,8 @@ export default class TimePanel extends Panel {
   public constructor( time: Time, tandem: Tandem ) {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
-      fill: null,
+      fill: QBSColors.timePanelFillProperty,
+      stroke: QBSColors.timePanelStrokeProperty,
       accessibleHeading: QuantumBoundStatesFluent.a11y.timeControls.accessibleHeadingStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: true

@@ -17,6 +17,9 @@ import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 
+const PANEL_FILL = 'white';
+const PANEL_STROKE = 'rgb( 200, 200, 200 )';
+
 export default class QBSColors {
 
   private constructor() {
@@ -54,11 +57,27 @@ export default class QBSColors {
   } );
 
   public static readonly controlPanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'controlPanelFill', {
-    default: 'white'
+    default: PANEL_FILL
   } );
 
   public static readonly controlPanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'controlPanelStroke', {
-    default: 'rgb( 200, 200, 200 )'
+    default: PANEL_STROKE
+  } );
+
+  public static readonly timePanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'timePanelFill', {
+    default: 'rgba( 255, 255, 255, 0 )'
+  } );
+
+  public static readonly timePanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'timePanelStroke', {
+    default: PANEL_STROKE
+  } );
+
+  public static readonly toolsPanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'toolsPanelFill', {
+    default: Color.TRANSPARENT
+  } );
+
+  public static readonly toolsPanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'toolsPanelStroke', {
+    default: Color.TRANSPARENT
   } );
 
   public static readonly gridLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'gridLinesStroke', {

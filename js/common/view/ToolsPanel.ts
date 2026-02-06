@@ -13,6 +13,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import MagnifierToolCheckbox from './MagnifierToolCheckbox.js';
 import ReferenceLineCheckbox from './ReferenceLineCheckbox.js';
@@ -25,8 +26,8 @@ export default class ToolsPanel extends Panel {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       isDisposable: false,
-      stroke: null,
-      fill: null,
+      fill: QBSColors.toolsPanelFillProperty,
+      stroke: QBSColors.toolsPanelStrokeProperty,
       accessibleHeading: QuantumBoundStatesFluent.a11y.toolControls.accessibleHeadingStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: true
