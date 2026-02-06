@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * QBSTimeControl is a custom time control for this simulation.
+ * TimePanel is the panel containing time controls.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ import Time from '../model/Time.js';
 import QBSConstants from '../QBSConstants.js';
 import TimeButtonGroup from './TimeButtonGroup.js';
 
-export default class QBSTimeControl extends Panel {
+export default class TimePanel extends Panel {
 
   public constructor( time: Time, tandem: Tandem ) {
 
@@ -24,7 +24,8 @@ export default class QBSTimeControl extends Panel {
       stroke: 'rgb( 200, 200, 200 )',
       fill: null,
       accessibleHeading: QuantumBoundStatesFluent.a11y.timeControls.accessibleHeadingStringProperty,
-      tandem: tandem
+      tandem: tandem,
+      phetioVisiblePropertyInstrumented: true
     } );
 
     const buttonGroup = new TimeButtonGroup( time, tandem.createTandem( 'buttonGroup' ) );
@@ -38,4 +39,4 @@ export default class QBSTimeControl extends Panel {
   }
 }
 
-quantumBoundStates.register( 'QBSTimeControl', QBSTimeControl );
+quantumBoundStates.register( 'TimePanel', TimePanel );
