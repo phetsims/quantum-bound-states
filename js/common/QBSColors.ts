@@ -108,6 +108,14 @@ export default class QBSColors {
   public static readonly separatorStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'separatorStroke', {
     default: Color.grayColor( 200 )
   } );
+
+  public static readonly timeShownColorProperty = new ProfileColorProperty( quantumBoundStates, 'timeShownColor', {
+    default: 'white'
+  } );
+
+  public static readonly timeHiddenColorProperty = new ProfileColorProperty( quantumBoundStates, 'timeHiddenColor', {
+    default: PhetColorScheme.BUTTON_YELLOW
+  } );
 }
 
 quantumBoundStates.register( 'QBSColors', QBSColors );

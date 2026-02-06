@@ -53,6 +53,7 @@ addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
 addToMapIfDefined( 'energyLevel', 'energyLevelStringProperty' );
 addToMapIfDefined( 'units_electronMass_symbol', 'units.electronMass.symbolStringProperty' );
+addToMapIfDefined( 'units_femtoSeconds_symbol', 'units.femtoSeconds.symbolStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -117,6 +118,11 @@ addToMapIfDefined( 'a11y_graphTypeRadioButtonGroup_wavefunctionRadioButton_acces
 addToMapIfDefined( 'a11y_massControl_accessibleHelpText', 'a11y.massControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_energyLevelSpinner_accessibleName', 'a11y.energyLevelSpinner.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_energyLevelSpinner_accessibleHelpText', 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleNameOn', 'a11y.timeDisplayToggleButton.accessibleNameOnStringProperty' );
+addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleNameOff', 'a11y.timeDisplayToggleButton.accessibleNameOffStringProperty' );
+addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleHelpText', 'a11y.timeDisplayToggleButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleContextResponseOn', 'a11y.timeDisplayToggleButton.accessibleContextResponseOnStringProperty' );
+addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleContextResponseOff', 'a11y.timeDisplayToggleButton.accessibleContextResponseOffStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleName', 'a11y.referenceLineHandleNode.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleHelpText', 'a11y.referenceLineHandleNode.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleObjectResponse', 'a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty' );
@@ -182,6 +188,11 @@ const QuantumBoundStatesFluent = {
     electronMass: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMass.symbolStringProperty' ),
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMass.symbolPatternStringProperty' )
+    },
+    _comment_4: new FluentComment( {"comment":"TODO: Move femtoSeconds to scenery-phet-strings_en.yaml","associatedKey":"femtoSeconds"} ),
+    femtoSeconds: {
+      symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolStringProperty' ),
+      symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolPatternStringProperty' )
     }
   },
   _comment_6: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
@@ -330,18 +341,28 @@ const QuantumBoundStatesFluent = {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' ) )
     },
-    _comment_22: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
-    _comment_23: new FluentComment( {"comment":"Tools","associatedKey":"referenceLineHandleNode"} ),
-    _comment_24: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
+    _comment_22: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeDisplayToggleButton"} ),
+    _comment_23: new FluentComment( {"comment":"Toggle Buttons","associatedKey":"timeDisplayToggleButton"} ),
+    _comment_24: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeDisplayToggleButton"} ),
+    timeDisplayToggleButton: {
+      accessibleNameOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleNameOn', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleNameOnStringProperty' ) ),
+      accessibleNameOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleNameOff', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleNameOffStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleContextResponseOnStringProperty' ) ),
+      accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleContextResponseOffStringProperty' ) )
+    },
+    _comment_25: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
+    _comment_26: new FluentComment( {"comment":"Tools","associatedKey":"referenceLineHandleNode"} ),
+    _comment_27: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
     referenceLineHandleNode: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleHelpTextStringProperty' ) ),
       accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty' ) )
     },
-    _comment_25: new FluentComment( {"comment":"TODO: Move electronMass to scenery-phet-strings_en.yaml","associatedKey":"electronMass"} ),
-    _comment_26: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"electronMass"} ),
-    _comment_27: new FluentComment( {"comment":"Units","associatedKey":"electronMass"} ),
-    _comment_28: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"electronMass"} ),
+    _comment_28: new FluentComment( {"comment":"TODO: Move electronMass to scenery-phet-strings_en.yaml","associatedKey":"electronMass"} ),
+    _comment_29: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"electronMass"} ),
+    _comment_30: new FluentComment( {"comment":"Units","associatedKey":"electronMass"} ),
+    _comment_31: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"electronMass"} ),
     electronMass: {
       pattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_electronMass_pattern', _.get( QuantumBoundStatesStrings, 'a11y.electronMass.patternStringProperty' ), [{"name":"value"}] )
     }

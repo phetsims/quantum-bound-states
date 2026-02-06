@@ -84,6 +84,14 @@
       "symbolPattern": {
         "value": "{{value}} m<sub>e</sub>"
       }
+    },
+    "femtoSeconds": {
+      "symbol": {
+        "value": "fs"
+      },
+      "symbolPattern": {
+        "value": "{{value}} fs"
+      }
     }
   },
   "a11y": {
@@ -335,6 +343,23 @@
       },
       "accessibleHelpText": {
         "value": "TODO.energyLevelSpinner.accessibleHelpText"
+      }
+    },
+    "timeDisplayToggleButton": {
+      "accessibleNameOn": {
+        "value": "Hide Time Display"
+      },
+      "accessibleNameOff": {
+        "value": "Show Time Display"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.timeDisplayToggleButton.accessibleHelpText"
+      },
+      "accessibleContextResponseOn": {
+        "value": "Time display shown."
+      },
+      "accessibleContextResponseOff": {
+        "value": "Time display hidden."
       }
     },
     "referenceLineHandleNode": {

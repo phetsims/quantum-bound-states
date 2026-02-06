@@ -47,6 +47,10 @@ type StringsType = {
     'electronMass': {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
+    };
+    'femtoSeconds': {
+      'symbolStringProperty': LocalizedStringProperty;
+      'symbolPatternStringProperty': LocalizedStringProperty;
     }
   };
   'a11y': {
@@ -171,6 +175,13 @@ type StringsType = {
     'energyLevelSpinner': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'timeDisplayToggleButton': {
+      'accessibleNameOnStringProperty': LocalizedStringProperty;
+      'accessibleNameOffStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
     };
     'referenceLineHandleNode': {
       'accessibleNameStringProperty': LocalizedStringProperty;

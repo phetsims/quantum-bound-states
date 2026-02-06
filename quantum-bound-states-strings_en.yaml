@@ -46,6 +46,10 @@ units:
   electronMass:
     symbol:        m<sub>e</sub>
     symbolPattern: '{{value}} m<sub>e</sub>'
+  # TODO: Move femtoSeconds to scenery-phet-strings_en.yaml
+  femtoSeconds:
+    symbol:        fs
+    symbolPattern: '{{value}} fs'
 
 # Strings that are specific to accessibility
 a11y:
@@ -193,6 +197,17 @@ a11y:
   energyLevelSpinner:
     accessibleName:     Energy Level
     accessibleHelpText: TODO.energyLevelSpinner.accessibleHelpText
+
+  #=======================================================================================================
+  # Toggle Buttons
+  #=======================================================================================================
+
+  timeDisplayToggleButton:
+    accessibleNameOn: Hide Time Display
+    accessibleNameOff: Show Time Display
+    accessibleHelpText: TODO.timeDisplayToggleButton.accessibleHelpText
+    accessibleContextResponseOn: Time display shown.
+    accessibleContextResponseOff: Time display hidden.
 
   #=======================================================================================================
   # Tools
