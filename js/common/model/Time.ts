@@ -9,12 +9,15 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class Time {
 
-  public readonly currentTimeProperty: Property<number>;
+  private readonly _currentTimeProperty: Property<number>;
+  public readonly currentTimeProperty: TReadOnlyProperty<number>;
+
   public readonly isPlayingProperty: Property<boolean>;
   public readonly timeScaleProperty: Property<number>;
 
@@ -25,7 +28,7 @@ export default class Time {
 
   public constructor( tandem: Tandem ) {
 
-    this.currentTimeProperty = new NumberProperty( 0, {
+    this._currentTimeProperty = new NumberProperty( 0, {
       units: 'fs',
       numberType: 'FloatingPoint',
       isValidValue: time => time >= 0,
@@ -33,6 +36,7 @@ export default class Time {
       phetioFeatured: true,
       phetioReadOnly: true
     } );
+    this.currentTimeProperty = this._currentTimeProperty;
 
     this.isPlayingProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'isPlayingProperty' ),
@@ -49,7 +53,7 @@ export default class Time {
   }
 
   public reset(): void {
-    this.currentTimeProperty.reset();
+    this._currentTimeProperty.reset();
     this.isPlayingProperty.reset();
     this.timeScaleProperty.reset();
   }
@@ -59,14 +63,21 @@ export default class Time {
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
-    this.currentTimeProperty.value += Time.FEMTOSECONDS_PER_SECOND * dt * this.timeScaleProperty.value;
+    this._currentTimeProperty.value += Time.FEMTOSECONDS_PER_SECOND * dt * this.timeScaleProperty.value;
   }
 
   /**
    * Steps time forward by one step.
    */
   public stepForward(): void {
-    this.currentTimeProperty.value += Time.STEP_FORWARD_DELTA;
+    this._currentTimeProperty.value += Time.STEP_FORWARD_DELTA;
+  }
+
+  /**
+   * Restart time, setting it back to zero.
+   */
+  public restart(): void {
+    this._currentTimeProperty.reset();
   }
 }
 

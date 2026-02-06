@@ -23,7 +23,7 @@ export default class TimeButtonGroup extends HBox {
   public constructor( time: Time, tandem: Tandem ) {
 
     const restartButton = new RestartButton( {
-      listener: () => time.currentTimeProperty.reset(),
+      listener: () => time.restart(),
 
       // TODO: These accessibleName and accessibleHelpText are now the defaults for RestartButton and
       //  can be removed, see https://github.com/phetsims/scenery-phet/issues/968
