@@ -15,18 +15,29 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class Time {
 
+  // Whether the simulation is currently playing.
+  public readonly isPlayingProperty: Property<boolean>;
+
+  // The current time, in femtoseconds.
   private readonly _currentTimeProperty: Property<number>;
   public readonly currentTimeProperty: TReadOnlyProperty<number>;
 
-  public readonly isPlayingProperty: Property<boolean>;
+  // Scale factor that is applied to time while the simulation is playing.
+  // Values > 1 make the sim run faster, values < 1 make it run slower.
   public readonly timeScaleProperty: Property<number>;
 
   // Conversion of real time (seconds) to simulation time (femtoseconds).
   public static readonly FEMTOSECONDS_PER_SECOND = 1;
 
-  public static readonly STEP_FORWARD_DELTA = 1; // fs
+  // How much to step time forward (in femtoseconds) when the user presses the 'Step Forward' button.
+  public static readonly STEP_FORWARD_DELTA = 1;
 
   public constructor( tandem: Tandem ) {
+
+    this.isPlayingProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isPlayingProperty' ),
+      phetioFeatured: true
+    } );
 
     this._currentTimeProperty = new NumberProperty( 0, {
       units: 'fs',
@@ -38,13 +49,9 @@ export default class Time {
     } );
     this.currentTimeProperty = this._currentTimeProperty;
 
-    this.isPlayingProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'isPlayingProperty' ),
-      phetioFeatured: true
-    } );
-
     this.timeScaleProperty = new NumberProperty( 1, {
       validValues: [ 1, 2, 3, 4 ],
+      isValidValue: timeScale => timeScale > 0,
       numberType: 'FloatingPoint',
       tandem: tandem.createTandem( 'timeScaleProperty' ),
       phetioFeatured: true,
@@ -67,14 +74,14 @@ export default class Time {
   }
 
   /**
-   * Steps time forward by one step.
+   * Steps time forward by one step, called when the user presses the 'Step Forward' button.
    */
   public stepForward(): void {
     this._currentTimeProperty.value += Time.STEP_FORWARD_DELTA;
   }
 
   /**
-   * Restart time, setting it back to zero.
+   * Restart time, called when the user presses the 'Restart' button.
    */
   public restart(): void {
     this._currentTimeProperty.reset();
