@@ -21,7 +21,6 @@ export default class TimePanel extends Panel {
   public constructor( time: Time, tandem: Tandem ) {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
-      stroke: 'rgb( 200, 200, 200 )',
       fill: null,
       accessibleHeading: QuantumBoundStatesFluent.a11y.timeControls.accessibleHeadingStringProperty,
       tandem: tandem,

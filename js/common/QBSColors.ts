@@ -58,7 +58,7 @@ export default class QBSColors {
   } );
 
   public static readonly controlPanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'controlPanelStroke', {
-    default: 'black'
+    default: 'rgb( 200, 200, 200 )'
   } );
 
   public static readonly gridLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'gridLinesStroke', {
