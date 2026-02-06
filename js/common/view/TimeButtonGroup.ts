@@ -85,6 +85,7 @@ export default class TimeButtonGroup extends HBox {
       isDisposable: false,
       children: [ restartButton, playPauseButton, stepButton ],
       spacing: 8,
+      scale: 0.75,
       accessibleHeading: QuantumBoundStatesFluent.a11y.timeButtonGroup.accessibleHeadingStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: true
