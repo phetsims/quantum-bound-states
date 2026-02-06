@@ -147,7 +147,7 @@ export default class QBSModel implements TModel {
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
-    this.time.currentTimeProperty.value += Time.FEMTOSECONDS_PER_SECOND * dt * this.time.timeSpeedFactorProperty.value;
+    this.time.step( dt );
   }
 }
 

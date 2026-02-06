@@ -16,7 +16,7 @@ export default class Time {
 
   public readonly currentTimeProperty: Property<number>;
   public readonly isPlayingProperty: Property<boolean>;
-  public readonly timeSpeedFactorProperty: Property<number>;
+  public readonly timeScaleProperty: Property<number>;
 
   // Conversion of real time (seconds) to simulation time (femtoseconds).
   public static readonly FEMTOSECONDS_PER_SECOND = 1;
@@ -39,10 +39,10 @@ export default class Time {
       phetioFeatured: true
     } );
 
-    this.timeSpeedFactorProperty = new NumberProperty( 1, {
+    this.timeScaleProperty = new NumberProperty( 1, {
       validValues: [ 1, 2, 3, 4 ],
       numberType: 'FloatingPoint',
-      tandem: tandem.createTandem( 'timeSpeedFactorProperty' ),
+      tandem: tandem.createTandem( 'timeScaleProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'The factor by which time is sped up (> 1) or slowed down (< 1).'
     } );
@@ -51,9 +51,20 @@ export default class Time {
   public reset(): void {
     this.currentTimeProperty.reset();
     this.isPlayingProperty.reset();
-    this.timeSpeedFactorProperty.reset();
+    this.timeScaleProperty.reset();
   }
 
+  /**
+   * Steps time.
+   * @param dt - time step, in seconds
+   */
+  public step( dt: number ): void {
+    this.currentTimeProperty.value += Time.FEMTOSECONDS_PER_SECOND * dt * this.timeScaleProperty.value;
+  }
+
+  /**
+   * Steps time forward by one step.
+   */
   public stepForward(): void {
     this.currentTimeProperty.value += Time.STEP_FORWARD_DELTA;
   }
