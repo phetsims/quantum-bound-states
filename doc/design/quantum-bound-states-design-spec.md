@@ -4,6 +4,7 @@
 This document is the pre-implementation design specification for the Quantum Bound States HTML5 redesign. It replaces the legacy Java UI and re-organizes features into four screens.
 
 - [Quantum Bound States Simulation Design Specification](#quantum-bound-states-simulation-design-specification)
+  - [TBD Questions](#tbd-questions)
   - [1. Simulation Design Overview](#1-simulation-design-overview)
   - [Learning Goals](#learning-goals)
   - [1. Scope: 1.0 Release](#1-scope-10-release)
@@ -28,7 +29,7 @@ This document is the pre-implementation design specification for the Quantum Bou
     - [3.4 Number of Wells Slider](#34-number-of-wells-slider)
     - [3.5 Electric Field Slider](#35-electric-field-slider)
     - [3.6 Superposition Mode Toggle](#36-superposition-mode-toggle)
-    - [3.7 Superposition Preset/Custom Dropdown](#37-superposition-presetcustom-dropdown)
+    - [{NEEDS DESIGN REVIEW BEFORE IMPLEMENTATION} 3.7 Superposition Preset/Custom Dropdown](#needs-design-review-before-implementation-37-superposition-presetcustom-dropdown)
     - [3.8 View Superposition Details Button](#38-view-superposition-details-button)
     - [3.9 Customize Button](#39-customize-button)
     - [3.10 Display Graph Radio Button Group](#310-display-graph-radio-button-group)
@@ -38,7 +39,7 @@ This document is the pre-implementation design specification for the Quantum Bou
     - [3.14 Well Height Handle](#314-well-height-handle)
     - [3.15 Well Width Handles](#315-well-width-handles)
     - [3.16 Well Separation Handle](#316-well-separation-handle)
-    - [3.17 Energy Offset Handle](#317-energy-offset-handle)
+    - [{NEEDS DESIGN REVIEW BEFORE IMPLEMENTATION} 3.17 Energy Offset Handle](#needs-design-review-before-implementation-317-energy-offset-handle)
     - [3.18 Magnifier Tool (draggable probe)](#318-magnifier-tool-draggable-probe)
     - [3.19 Display Graph](#319-display-graph)
     - [3.20 Display Graph Visibility Toggle](#320-display-graph-visibility-toggle)
@@ -61,6 +62,79 @@ This document is the pre-implementation design specification for the Quantum Bou
     - [3.30f Clear Button](#330f-clear-button)
     - [3.30g Normalize and Save Button](#330g-normalize-and-save-button)
     - [3.31 Keyboard Help Dialog](#331-keyboard-help-dialog)
+
+---
+
+## TBD Questions
+
+| Pertains to | TBD question/decision |
+| --- | --- |
+| Scope: Standalone Sims | Should Superposition be a standalone sim? |
+| Shared layout: play area visual layering | Verify tab order with team. |
+| 2.1 One Well screen summary | Write Play Area summary text. |
+| 2.1 One Well screen summary | Write Control Area summary text. |
+| 2.2 Two Wells screen summary | Write Play Area summary text. |
+| 2.2 Two Wells screen summary | Write Control Area summary text. |
+| 2.3 Many Wells screen summary | Write Play Area summary text. |
+| 2.3 Many Wells screen summary | Write Control Area summary text. |
+| 2.4 Superposition screen summary | Write Play Area summary text. |
+| 2.4 Superposition screen summary | Write Control Area summary text. |
+| 3.a Narrative flow: Superposition Details dialog | Provide accessible paragraph description/on-screen text. |
+| 3.a Narrative flow: Customize Superposition dialog | Provide accessible paragraph description/on-screen text. |
+| 3.a Narrative flow: Energy Graph | Provide accessible paragraph description. |
+| 3.a Narrative flow: Display Graph | Provide accessible paragraph description. |
+| 3.a Narrative flow: Equation Details dialog | Provide accessible paragraph description/on-screen text. |
+| 3.1 Energy Level Selector | Define initial state (default selection). |
+| 3.2 Mass Slider | Define initial state (default mass). |
+| 3.3 Value Labels Toggle | Add missing component description detail. |
+| 3.3 Value Labels Toggle | Define initial state (default on/off). |
+| 3.4 Number of Wells Slider | Define initial state (default well count). |
+| 3.5 Electric Field Slider | Define initial state (default field). |
+| 3.6 Superposition Mode Toggle | Add missing component description detail. |
+| 3.6 Superposition Mode Toggle | Define initial state (default mode). |
+| 3.7 Superposition Preset/Custom Dropdown | Define initial state (default preset/custom selection). |
+| 3.7 Preset list | Define exact coefficients for "Localized particle" (consult MV). |
+| 3.7 Preset list | Are more or different presets needed per potential? |
+| 3.7 Custom slots | Are custom slots attached to potential type? |
+| 3.8 View Superposition Details Button | Define initial state (enabled/disabled default). |
+| 3.9 Customize Button | Define initial state (enabled/disabled default). |
+| 3.10 Display Graph Radio Button Group | Define initial state (default selection per screen). |
+| 3.11 Wave Function Display Options | Define initial state (which parts on by default). |
+| 3.11 Wave Function Display Options | Define visual stacking order (magnitude vs real/imaginary, or based on selection order). |
+| 3.12 Potential Well Selector | Decide whether changing potential resets selected level/mass/display graph mode. |
+| 3.12 Potential Well Selector | Decide whether Many Wells should include anharmonic oscillator. |
+| 3.12 Potential Well Selector | Confirm whether switching potential resets height/width/separation to defaults. |
+| 3.13 Energy Graph | Define initial state. |
+| 3.13 Energy Graph | Confirm default axis ranges. |
+| 3.13 Energy Graph | Define edge cases. |
+| 3.14 Well Height Handle | Define initial state (default height). |
+| 3.15 Well Width Handles | Define initial state (default width). |
+| 3.16 Well Separation Handle | Define edge cases. |
+| 3.16 Well Separation Handle | Define sound design. |
+| 3.17 Energy Offset Handle | Define default energy offset/zero position per potential (why positive vs negative), per model. |
+| 3.18 Magnifier Tool | Can the zoomed-in display portion move, or stay fixed top-right? |
+| 3.18 Magnifier Tool | Does Escape do anything for other draggables? |
+| 3.18 Magnifier Tool | Define accessible object response (if any). |
+| 3.19 Display Graph | Decide default display graph mode per screen (including Many Wells default) and whether it persists when switching screens. |
+| 3.20 Display Graph Visibility Toggle | Pick better accessibleName. |
+| 3.21 Equation Button | Define label for Average Probability Density. |
+| 3.21 Equation Button | Define accessibleName for Average Probability Density equation. |
+| 3.22 Reference Line (draggable) | Pick better accessibleName, unique from the tool itself. |
+| 3.23 Magnifier Tool Toggle | Add missing component description detail. |
+| 3.23 Magnifier Tool Toggle | Define initial state (default on/off). |
+| 3.24 Reference Line Toggle | Pick better accessibleName, unique from the tool itself. |
+| 3.24 Reference Line Toggle | Confirm visual ordering (above everything?). |
+| 3.26 Time Controls | Finalize accessibility wording around Step. |
+| 3.27 Reset All Button | Define initial state (enabled/disabled default). |
+| 3.27 Reset All Button | Does Reset All clear custom superposition edits and return to default preset/mode? |
+| 3.29 Superposition Details Preview Dialog | Confirm default representation (wave function vs probability). |
+| 3.29 Superposition Details Preview Dialog | Define accessibleHelpText and other strings. |
+| 3.30 Superposition Customize Dialog | Define accessibility strings for Simple mode. |
+| 3.30 Superposition Customize Dialog | Define accessibility strings for Complex mode. |
+| 3.30 Superposition Customize Dialog | Define accessibility strings for Advanced mode. |
+| 3.30b Coefficient Magnitude Sliders | Define initial state (from current Custom state). |
+| 3.30c Phase Sliders | Clarify accessibility naming to differentiate phase from other components. |
+| 3.31 Keyboard Help Dialog | Provide sim-specific shortcuts content. |
 
 ---
 
@@ -123,7 +197,7 @@ Standalone Sims: The Two Well and Many Wells screens will again become standalon
 
 #### Global preferences (Preferences dialog)
 
-![Phase preference mockup](phase-pref-mockup.png)
+![Phase preference mockup](images/phase-pref-mockup.png)
 
 The simulation has one sim-specific control to add a Phase checkbox as a child to the Magnitude checkbox that affects the display for the Wave Function graph. During design discussions, it was decided that the Phase overlay only makes sense in the context of the Magnitude display option for the wave function and should depend on whether the Magnitude is enabled. In the legacy sim, this checkbox was always visible. In the new simulation, it is default NOT visible and must be added in the Preferences. This is available for the Display Graph in all 4 screens.
 
@@ -142,7 +216,7 @@ For drag handles and sliders that adjust numeric parameters (height, width, sepa
 
 ### Home Screen
 
-![Home screen mockup with four screen selection buttons](home-screen-mockup.png)
+![Home screen mockup with four screen selection buttons](images/home-screen-mockup.png)
 
 #### Screen Summary
 
@@ -188,9 +262,9 @@ accessibleHelpText: Explore superposition states and their time-dependent behavi
 
 **Mockup image:**
 
-![One well screen mockup](one-well-mockup.png)
+![One well screen mockup](images/one-well-mockup.png)
 
-![One well screen mockup closer](one-well-screen-mockup-closeup.png)
+![One well screen mockup closer](images/one-well-screen-mockup-closeup.png)
 
 **Screen Summary:**
 
@@ -241,7 +315,7 @@ This screen has custom interactions. If needed, check out keyboard shortcuts und
 ### 2.2 Two Wells (Molecular Bonding)
 
 **Mockup image:**
-![Two wells screen mockup](two-wells-screen-mockup.png)
+![Two wells screen mockup](images/two-wells-screen-mockup.png)
 
 **Screen Summary:**
 
@@ -291,7 +365,7 @@ Move the separation handle to see bonding and antibonding pairs split. Adjust he
 
 **Mockup image:**
 
-![Many Wells screen mockup](many-wells-screen-mockup.png)
+![Many Wells screen mockup](images/many-wells-screen-mockup.png)
 
 **Screen Summary:**
 
@@ -344,9 +418,9 @@ Change the the number of wells and explore the controls to change the potential 
 
 **Mockup image:**
 
-![Superposition screen mockup](superposition-screen-mockup.png)
+![Superposition screen mockup](images/superposition-screen-mockup.png)
 
-![Superposition screen mockup closer](superposition-screen-mockup-closeup.png)
+![Superposition screen mockup closer](images/superposition-screen-mockup-closeup.png)
 
 **Screen Summary:**
 
@@ -488,13 +562,6 @@ SIM RESOURCES
        2. Basic Actions
        3. Close Dialog (X)
   
-<!-- **Per-screen narrative flow (designer intent):**
-
-- One Well: Screen Summary -> Potential Well selector -> Energy Graph -> Height/Width handles -> Magnifier (if on) -> Display Graph -> Display Graph visibility -> Equation button -> Reference Line (if on) -> Energy level selector -> Mass -> Value Labels -> Display Graph Radio Button Group -> Wave Function Parts -> Magnifier toggle -> Reference Line toggle -> Timer accordion box -> Time Controls -> Reset All.
-- Two Wells: Screen Summary -> Potential Well selector -> Energy Graph -> Height/Width/Separation handles -> Magnifier (if on) -> Display Graph -> Display Graph visibility -> Equation button -> Reference Line (if on) -> Energy level selector -> Mass (if present) -> Value Labels -> Display Graph Radio Button Group -> Wave Function Parts -> Magnifier toggle -> Reference Line toggle -> Timer accordion box -> Time Controls -> Reset All.
-- Many Wells: Screen Summary -> Potential Well selector -> Energy Graph -> Height/Width/Separation/Offset handles -> Magnifier (if on) -> Display Graph -> Display Graph visibility -> Equation button -> Reference Line (if on) -> Energy level selector (disabled when bands form) -> Mass -> Value Labels -> Number of Wells -> Electric Field -> Display Graph Radio Button Group -> Wave Function Parts -> Magnifier toggle -> Reference Line toggle -> Timer accordion box -> Time Controls -> Reset All.
-- Superposition: Screen Summary -> Potential Preset -> Energy Graph (reference only) -> Width handle -> Magnifier (if on) -> Display Graph -> Display Graph visibility -> Equation button -> Reference Line (if on) -> Value Labels -> Superposition Mode -> Superposition State -> View Details -> Customize -> Display Graph Radio Button Group -> Wave Function Parts -> Magnifier toggle -> Reference Line toggle -> Timer accordion box -> Time Controls -> Reset All. -->
-
 **Narrative details to confirm (designer intent):**
 
 - Whether the timer readout should announce continuously while playing or only on focus/pause.
@@ -518,13 +585,13 @@ NumberControl (phet/sun)
 
 **Mockup image:**
 
-![Energy Level Selector mockup](./energy-level-selector-mockup.png)
+![Energy Level Selector mockup](images/energy-level-selector-mockup.png)
 
-![Energy level selector close-up with stepper arrows and energy readout](energy-level-selector-closeup.png)
+![Energy level selector close-up with stepper arrows and energy readout](images/energy-level-selector-closeup.png)
 
-![Energy level selector in the play-area panel layout](energy-level-selector-wide.png)
+![Energy level selector in the play-area panel layout](images/energy-level-selector-wide.png)
 
-![Energy level selector compact layout with level index and energy value](energy-level-selector-compact.png)
+![Energy level selector compact layout with level index and energy value](images/energy-level-selector-compact.png)
 
 **Screens:**
 
@@ -602,7 +669,7 @@ NumberControl (phet/sun)
 
 **Mockup image:**
 
-![particle mass slider mockup](./mass-slider-mockup.png)
+![particle mass slider mockup](images/mass-slider-mockup.png)
 
 **Screens:**
 
@@ -684,7 +751,7 @@ Checkbox (phet/sun)
 
 **Mockup image:**
 
-![Value Labels checkbox mockup](value-labels-checkbox-mockup.png)
+![Value Labels checkbox mockup](images/value-labels-checkbox-mockup.png)
 
 **Screens:**
 
@@ -766,7 +833,7 @@ NumberControl (phet/sun)
 
 **Mockup image:**
 
-![number of wells slider mockup](./number-of-wells-slider-mockup.png)
+![number of wells slider mockup](images/number-of-wells-slider-mockup.png)
 
 **Screens:**
 
@@ -846,7 +913,7 @@ NumberControl (phet/sun)
 
 **Mockup image:**
 
-![electric field slider mockup](./electric-field-slider-mockup.png)
+![electric field slider mockup](images/electric-field-slider-mockup.png)
 
 **Screens:**
 
@@ -924,7 +991,7 @@ ToggleButton (phet/sun)
 
 **Mockup image:**
 
-![superposition preset mode toggle mockup](./superposition-mode-toggle-mockup.png)
+![superposition preset mode toggle mockup](images/superposition-mode-toggle-mockup.png)
 
 **Screens:**
 
@@ -946,9 +1013,7 @@ TBD
 
 **Design questions (default behavior):**
 
-- Which mode should be default (Preset or Custom), and should it persist across sessions?
 - When switching modes, should the selected state persist if it exists in both modes?
-- If no custom states exist yet, should Custom mode be disabled or show placeholders?
 
 **Adjustable values:**
 
@@ -990,13 +1055,13 @@ N/A.
 
 **Edge cases:**
 
-Custom mode always shows five fixed slots ("Custom 1" through "Custom 5"). Empty slots load a default blank state when selected. Slots cannot be renamed or deleted.
+Custom mode always shows five fixed slots ("Custom 1" through "Custom 5"). Empty slots load a default state ("c*Psi1 + c*Psi2 + c*Psi3") when selected. Slots cannot be renamed or deleted.
 
 **Sound design:**
 
 Default toggle click sound.
 
-### 3.7 Superposition Preset/Custom Dropdown
+### {NEEDS DESIGN REVIEW BEFORE IMPLEMENTATION} 3.7 Superposition Preset/Custom Dropdown
 
 **Component Type:**
 
@@ -1004,8 +1069,8 @@ ComboBox (phet/sun)
 
 **Mockup image:**
 
-![preset states mockup](./superposition-preset-states-mockup.png)
-![custom states mockup](custom-states-mockup.png)
+![preset states mockup](images/superposition-preset-states-mockup.png)
+![custom states mockup](images/custom-states-mockup.png)
 
 **Screens:**
 
@@ -1021,7 +1086,8 @@ Provides curated states for comparing interference patterns and time evolution.
 
 **Initial State:**
 
-TBD
+- c*Psi1 + c*Psi2 preset selected.
+- Custom 1 selected (Initially, "c*Psi1 + c*Psi2 + c*Psi3" unless studio customized) when in Custom mode.
 
 **Design questions (default behavior):**
 
@@ -1031,13 +1097,21 @@ TBD
 
 **Adjustable values:**
 
-  **Preset list:** "c*Psi1 + c*Psi2", "c*Psi1 + c*Psi3", "c*Psi1 - c*Psi2", "c*Psi1 + c*Psi2 + c*Psi3", "Localized particle".
+Preset list:
 
-  TBD: Are there more or different presets needed per potential?
+1. "c*Psi1 + c*Psi2"
+2. "c*Psi1 + c*Psi3"
+3. "c*Psi1 - c*Psi2"
+4. "c*Psi1 + c*Psi2 + c*Psi3"
+5. "Localized particle" (TBD: exact coefficients, consult MV)
 
-  **Custom list:** fixed slots "Custom 1" through "Custom 5". Default: first item in the active list.
+TBD: Are there more or different presets needed per potential?
 
-  TBD: Are custom slots attached to potential type
+**Custom list:** fixed slots "Custom 1" through "Custom 5". Default: first item in the active list.
+
+TBD: Are custom slots attached to potential type
+
+We will want an expanded number of custom slots to be added via customization (phet-io), up to 10
 
 Selected state name and its coefficients.
 
@@ -1091,7 +1165,7 @@ TextPushButton (phet/sun)
 
 **Mockup image:**
 
-![Superposition details button](./superposition-details-button-mockup.png)
+![Superposition details button](images/superposition-details-button-mockup.png)
 
 **Screens:**
 
@@ -1169,7 +1243,7 @@ TextPushButton (phet/sun)
 
 **Mockup image:**
 
-![customize superposition button](./superposition-customize-button-mockup.png)
+![customize superposition button](images/superposition-customize-button-mockup.png)
 
 **Screens:**
 
@@ -1247,7 +1321,7 @@ RadioButtonGroup (phet/sun)
 
 **Mockup image:**
 
-![Display graph radio button group mockup](./display-graph-display-selector-mockup.png)
+![Display graph radio button group mockup](images/display-graph-display-selector-mockup.png)
 
 **Screens:**
 
@@ -1327,7 +1401,7 @@ CheckboxGroup (phet/sun)
 
 **Mockup image:**
 
-![Wave Function Display Options mockup](./wave-function-display-options-mockup.png)
+![Wave Function Display Options mockup](images/wave-function-display-options-mockup.png)
 
 **Screens:**
 
@@ -1435,7 +1509,7 @@ ComboBox (phet/sun)
 
 **Mockup image:**
 
-![potential well selector mockup](./potential-type-selector-mockup.png)
+![potential well selector mockup](images/potential-type-selector-mockup.png)
 
 **Screens:**
 
@@ -1443,19 +1517,19 @@ All (options vary by screen)
 
 Screen 1 One Well
 
-![Potential well selector options for the One Well screen](potential-selector-one-well-options.png)
+![Potential well selector options for the One Well screen](images/potential-selector-one-well-options.png)
 
 Screen 2 Two Wells
 
-![Potential well selector options for the Two Wells screen](potential-selector-two-and-many-wells-options.png)
+![Potential well selector options for the Two Wells screen](images/potential-selector-two-and-many-wells-options.png)
 
 Screen 3 Many Wells
 
-![Potential well selector options for the Many Wells screen](potential-selector-two-and-many-wells-options.png)
+![Potential well selector options for the Many Wells screen](images/potential-selector-two-and-many-wells-options.png)
 
 Screen 4 Superposition
 
-![Potential preset selector options for the Superposition screen](potential-selector-superposition-options.png)
+![Potential preset selector options for the Superposition screen](images/potential-selector-superposition-options.png)
 
 **Component Description:**
 
@@ -1545,9 +1619,9 @@ Graph
 
 **Mockup image:**
 
-![energy graph mockup](energy-graph-mockup.png)
+![energy graph mockup](images/energy-graph-mockup.png)
 
-![energy graph on superposition screen](energy-graph-superposition-mockup.png)
+![energy graph on superposition screen](images/energy-graph-superposition-mockup.png)
 
 **Screens:**
 
@@ -1623,7 +1697,7 @@ Drag Handle
 
 **Mockup image:**
 
-![Well Height handle mockup](well-height-handle-mockup.png)
+![Well Height handle mockup](images/well-height-handle-mockup.png)
 
 **Screens:**
 
@@ -1705,7 +1779,7 @@ Drag Handle
 
 **Mockup image:**
 
-![Well Width handle mockup](well-width-handle-mockup.png)
+![Well Width handle mockup](images/well-width-handle-mockup.png)
 
 **Screens:**
 
@@ -1791,7 +1865,7 @@ Drag Handle
 
 **Mockup image:**
 
-![Well separation handle mockup](well-separation-handle-mockup.png)
+![Well separation handle mockup](images/well-separation-handle-mockup.png)
 
 **Screens:**
 
@@ -1868,7 +1942,7 @@ TBD
 
 TBD
 
-### 3.17 Energy Offset Handle
+### {NEEDS DESIGN REVIEW BEFORE IMPLEMENTATION} 3.17 Energy Offset Handle
 
 **Component Type:**
 
@@ -1876,7 +1950,7 @@ Drag Handle
 
 **Mockup image:**
 
-![Energy Offset handle](energy-offset-handle-mockup.png)
+![Energy Offset handle](images/energy-offset-handle-mockup.png)
 
 **Screens:**
 
@@ -1892,7 +1966,7 @@ Separates absolute energy reference from relative spacing, supporting interpreta
 
 **Initial State:**
 
-TBD
+TBD: We need to figure out from the model where the best place to position 0 by default is. It changes per potential. Is there are reason to explore the more positive potentials vs. negative???? This is why we had the scale adjustable from the beginning (number entry on the mockup)
 
 **Design questions (default behavior):**
 
@@ -1958,7 +2032,7 @@ None.
 
 **Mockup image:**
 
-![Magnifier mockup](./magnifier-mockup.png)
+![Magnifier mockup](images/magnifier-mockup.png)
 
 **Screens:**
 
@@ -2028,9 +2102,9 @@ None.
 
 **Mockup image:**
 
-![wave function display mockup](./wave-function-display-mockup.png)
+![wave function display mockup](images/wave-function-display-mockup.png)
 
-![probability display mockup](./probability-display-mockup.png)
+![probability display mockup](images/probability-display-mockup.png)
 
 **Screens:**
 
@@ -2052,9 +2126,9 @@ On superposition screen, shows the 1st preset (cPsi1 + cPsi2)
 
 **Design questions (default behavior):**
 
-- What is the default display graph mode per screen, and should it persist when switching screens?
-- Should the display graph auto-rescale to fit the current state, or keep a fixed scale to compare changes?
+- TBD: What is the default display graph mode per screen, and should it persist when switching screens?
 - When the display graph is hidden, should its state (mode/parts) still update in the background or pause?
+  - Updates in background so when shown again it is current.
 
 **Adjustable values:**
 
@@ -2092,7 +2166,10 @@ Drawn below the energy graph; does not overlap the main graph.
 
 **Edge cases:**
 
-When hidden, Screen Summary details omit display graph descriptions.
+- When hidden, Screen Summary details omit display graph descriptions.
+
+- [SUPERPOSITION SCREEN ONLY] When a user changes the potential such that some or all of the selected custom superposition's states become invalid (e.g., changing from Infinite to Finite Square well when the custom state includes unbound states, or changing the mass or other parameters of the potential well), the display graph should clear and display a message indicating that the current superposition is invalid for the selected potential. Once the user selects a valid superposition state (either by choosing a preset or adjusting the custom state to valid parameters), the display graph should update to show the new valid state.
+  - "Current superposition is invalid for this potential configuration. Please choose a different superposition preset or adjust the potential."
 
 **Sound design:**
 
@@ -2106,7 +2183,7 @@ Checkbox (phet/sun)
 
 **Mockup image:**
 
-![Display graph visibility toggle button mockup](./display-graph-visibility-toggle-mockup.png)
+![Display graph visibility toggle button mockup](images/display-graph-visibility-toggle-mockup.png)
 
 **Screens:**
 
@@ -2129,6 +2206,7 @@ Graph Visible
 - Should the display graph be visible by default on every screen, or only on specific screens?
   - All screens
 - Should the visibility toggle remember state per screen or globally?
+  - Per screen (which I believe is standard PhET behavior)
 
 **Adjustable values:**
 
@@ -2182,11 +2260,11 @@ TextPushButton (phet/sun)
 
 **Mockup image:**
 
-![Equation button labeled |psi(x,t)|^2 for probability density](equation-button-probability-density-label.png)
+![Equation button labeled |psi(x,t)|^2 for probability density](images/equation-button-probability-density-label.png)
 
-![Equation button positioned on the Display Graph overlay](equation-button-on-display-graph.png)
+![Equation button positioned on the Display Graph overlay](images/equation-button-on-display-graph.png)
 
-![Equation button labeled psi(x,t) for wave function](equation-button-wave-function-label.png)
+![Equation button labeled psi(x,t) for wave function](images/equation-button-wave-function-label.png)
 
 **Screens:**
 
@@ -2267,7 +2345,7 @@ None.
 
 **Mockup image:**
 
-![reference line mockup on graphs](./reference-line-on-graphs-mockup.png) ![reference line mockup isolated](./reference-line-isolated-mockup.png)
+![reference line mockup on graphs](images/reference-line-on-graphs-mockup.png) ![reference line mockup isolated](images/reference-line-isolated-mockup.png)
 
 **Screens:**
 
@@ -2340,7 +2418,7 @@ Checkbox (phet/sun)
 
 **Mockup image:**
 
-![Magnifier tool checkbox mockup](./magnifier-toggle-mockup.png)
+![Magnifier tool checkbox mockup](images/magnifier-toggle-mockup.png)
 
 **Screens:**
 
@@ -2422,7 +2500,7 @@ Checkbox (phet/sun)
 
 **Mockup image:**
 
-![Reference line checkbox mockup](./reference-line-toggle-mockup.png)
+![Reference line checkbox mockup](images/reference-line-toggle-mockup.png)
 
 **Screens:**
 
@@ -2499,7 +2577,7 @@ AccordionBox (phet/sun)
 
 **Mockup image:**
 
-![Timer accordion box expanded mockup](./timer-expanded.png) ![Timer accordion box collapsed mockup](./timer-collapsed.png)
+![Timer accordion box expanded mockup](images/timer-expanded.png) ![Timer accordion box collapsed mockup](images/timer-collapsed.png)
 
 **Screens:**
 
@@ -2580,7 +2658,7 @@ TimeControlNode (scenery-phet)
 
 **Mockup image:**
 
-![time controls mockup](./time-controls-mockup.png)
+![time controls mockup](images/time-controls-mockup.png)
 
 **Screens:**
 
@@ -2663,7 +2741,7 @@ Slider
 
 **Mockup image:**
 
-![time controls mockup](./time-controls-mockup.png)
+![time controls mockup](images/time-controls-mockup.png)
 
 **Screens:**
 
@@ -2736,7 +2814,7 @@ ResetAllButton (scenery-phet)
 
 **Mockup image:**
 
-![Reset All button mockup](reset-all-button-mockup.png)
+![Reset All button mockup](images/reset-all-button-mockup.png)
 
 **Screens:**
 
@@ -2804,7 +2882,7 @@ Dialog (phet/sun)
 
 **Mockup image:**
 
-![Equation Details dialog showing the full equation](equation-details-dialog-mockup.png)
+![Equation Details dialog showing the full equation](images/equation-details-dialog-mockup.png)
 
 **Screens:**
 
@@ -2877,7 +2955,7 @@ Dialog (phet/sun)
 
 **Mockup image:**
 
-![Superposition details dialog](superposition-details-dialog-mockup.png)
+![Superposition details dialog](images/superposition-details-dialog-mockup.png)
 
 **Screens:**
 
@@ -2956,9 +3034,9 @@ Dialog (phet/sun)
 
 **Mockup image:**
 
-![superposition customize dialog simple view mockup](superposition-customize-dialog-simple.png)
-![superposition customize dialog complex view mockup](superposition-customize-dialog-complex.png)
-![superposition customize dialog advanced view mockup](superposition-customize-dialog-advanced.png)
+![superposition customize dialog simple view mockup](images/superposition-customize-dialog-simple.png)
+![superposition customize dialog complex view mockup](images/superposition-customize-dialog-complex.png)
+![superposition customize dialog advanced view mockup](images/superposition-customize-dialog-advanced.png)
 
 **Screens:**
 
@@ -3055,7 +3133,7 @@ None.
   
   **Mockup image:**
   
-  ![superposition customize dialog checkbox row](superposition-customize-dialog-simple.png)
+  ![superposition customize dialog checkbox row](images/superposition-customize-dialog-simple.png)
   
   **Screens:**
   
@@ -3132,7 +3210,7 @@ accessibleObjectResponse: "Included." / "Excluded."
   
   **Mockup image:**
   
-  ![superposition customize dialog coefficient sliders](superposition-customize-dialog-simple.png)
+  ![superposition customize dialog coefficient sliders](images/superposition-customize-dialog-simple.png)
   
   **Screens:**
   
@@ -3208,7 +3286,7 @@ accessibleObjectResponse: "Magnitude {value}."
   
   **Mockup image:**
   
-  ![superposition customize dialog phase sliders](superposition-customize-dialog-complex.png)
+  ![superposition customize dialog phase sliders](images/superposition-customize-dialog-complex.png)
   
   **Screens:**
   
@@ -3285,7 +3363,7 @@ accessibleObjectResponse: "Phase {value} pi."
   
   **Mockup image:**
   
-  ![superposition customize dialog preview graph](superposition-customize-dialog-simple.png)
+  ![superposition customize dialog preview graph](images/superposition-customize-dialog-simple.png)
   
   **Screens:**
   
@@ -3357,7 +3435,7 @@ accessibleHelpText: "Preview of the psi {number} wave function contribution."
   
   **Mockup image:**
   
-  ![superposition customize dialog advanced spinners](superposition-customize-dialog-advanced.png)
+  ![superposition customize dialog advanced spinners](images/superposition-customize-dialog-advanced.png)
   
   **Screens:**
   
@@ -3429,7 +3507,7 @@ accessibleObjectResponse: "Magnitude {value}." / "Phase {value} pi."
   
   **Mockup image:**
   
-  ![superposition customize dialog clear button](superposition-customize-dialog-simple.png)
+  ![superposition customize dialog clear button](images/superposition-customize-dialog-simple.png)
   
   **Screens:**
   
@@ -3504,7 +3582,7 @@ accessibleContextResponse (Clear): "All coefficients cleared."
   
   **Mockup image:**
   
-  ![superposition customize dialog save button](superposition-customize-dialog-simple.png)
+  ![superposition customize dialog save button](images/superposition-customize-dialog-simple.png)
   
   **Screens:**
   
@@ -3574,7 +3652,7 @@ KeyboardHelpDialog (scenery-phet)
 
 **Mockup image:**
 
-![KEYBOARD DIALOG PLACEHOLDER FROM GREENHOUSE EFFECT](keyboard-help-dialog-placeholder.png)
+![KEYBOARD DIALOG PLACEHOLDER FROM GREENHOUSE EFFECT](images/keyboard-help-dialog-placeholder.png)
 
 **Screens:**
 
