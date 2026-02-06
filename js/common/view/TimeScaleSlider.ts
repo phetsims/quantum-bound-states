@@ -10,6 +10,9 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import HSlider, { HSliderOptions } from '../../../../sun/js/HSlider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -24,7 +27,7 @@ export default class TimeScaleSlider extends HSlider {
     const range = new Range( validValues[ 0 ], validValues[ validValues.length - 1 ] );
 
     const options: HSliderOptions = {
-      trackSize: new Dimension2( 100, 2 ),
+      trackSize: new Dimension2( 75, 2 ),
       thumbSize: new Dimension2( 15, 25 ),
       majorTickLength: 15,
       constrainValue: value => findClosestValue( value, validValues ),
@@ -33,7 +36,23 @@ export default class TimeScaleSlider extends HSlider {
 
     super( timeScaleProperty, range, options );
 
-    validValues.forEach( value => this.addMajorTick( value ) );
+    const tickTextOptions = {
+      font: new PhetFont( 16 ),
+      maxWidth: 50
+    };
+
+    // Add tick marks at each valid value, with the min and max ticks labeled.
+    validValues.forEach( ( value, index ) => {
+      if ( index === 0 ) {
+        this.addMajorTick( value, new Text( MathSymbols.MINUS, tickTextOptions ) );
+      }
+      else if ( index === validValues.length - 1 ) {
+        this.addMajorTick( value, new Text( MathSymbols.PLUS, tickTextOptions ) );
+      }
+      else {
+        this.addMajorTick( value );
+      }
+    } );
   }
 }
 

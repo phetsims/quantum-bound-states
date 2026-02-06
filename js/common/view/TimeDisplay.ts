@@ -46,7 +46,7 @@ export default class TimeDisplay extends HBox {
     } );
 
     const toggleButton = new EyeToggleButton( visibleProperty, {
-      scale: 0.4,
+      scale: 0.5,
       baseColor: new DerivedProperty(
         [ visibleProperty, QBSColors.timeShownColorProperty, QBSColors.timeHiddenColorProperty ],
         ( visible, timeShownColor, timeHiddenColor ) => visible ? timeShownColor : timeHiddenColor ),
