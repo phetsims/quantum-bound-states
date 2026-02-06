@@ -33,6 +33,9 @@ export default class TimeDisplay extends HBox {
     } );
 
     const valueDisplay = new NumberDisplay( currentTimeProperty, new Range( 0, 1000 ), {
+      textOptions: {
+        font: QBSConstants.TIME_FONT
+      },
       numberFormatter: value => StringUtils.fillIn( QuantumBoundStatesFluent.units.femtoSeconds.symbolPatternStringProperty, {
         // Use toFixed so that trailing zeros are preserved.
         value: toFixed( value, QBSConstants.TIME_DECIMAL_PLACES )
@@ -42,7 +45,7 @@ export default class TimeDisplay extends HBox {
     } );
 
     const toggleButton = new EyeToggleButton( visibleProperty, {
-      scale: 0.5,
+      scale: 0.4,
       baseColor: new DerivedProperty(
         [ visibleProperty, QBSColors.timeShownColorProperty, QBSColors.timeHiddenColorProperty ],
         ( visible, timeShownColor, timeHiddenColor ) => visible ? timeShownColor : timeHiddenColor ),
@@ -57,7 +60,7 @@ export default class TimeDisplay extends HBox {
     super( {
       excludeInvisibleChildrenFromBounds: false,
       children: [ toggleButton, valueDisplay ],
-      spacing: 5,
+      spacing: 3,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: true
     } );
