@@ -24,15 +24,25 @@ export default class TimeButtonGroup extends HBox {
 
     const restartButton = new RestartButton( {
       listener: () => time.currentTimeProperty.reset(),
-      accessibleName: QuantumBoundStatesFluent.a11y.restartButton.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.restartButton.accessibleHelpTextStringProperty,
+
+      // TODO: These accessibleName and accessibleHelpText are now the defaults for RestartButton and
+      //  can be removed, see https://github.com/phetsims/scenery-phet/issues/968
+      // accessibleName: QuantumBoundStatesFluent.a11y.restartButton.accessibleNameStringProperty,
+      // accessibleHelpText: QuantumBoundStatesFluent.a11y.restartButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.restartButton.accessibleContextResponseStringProperty,
       tandem: tandem.createTandem( 'restartButton' )
     } );
 
     const playPauseButton = new PlayPauseButton( time.isPlayingProperty, {
-      accessibleNameOn: QuantumBoundStatesFluent.a11y.playPauseButton.accessibleNamePlayingStringProperty,
-      accessibleNameOff: QuantumBoundStatesFluent.a11y.playPauseButton.accessibleNamePausedStringProperty,
+
+      // TODO: These are already the defaults for PlayPauseButton and can be removed, see
+      //  https://github.com/phetsims/scenery-phet/issues/968
+      // accessibleNameOn: QuantumBoundStatesFluent.a11y.playPauseButton.accessibleNamePlayingStringProperty,
+      // accessibleNameOff: QuantumBoundStatesFluent.a11y.playPauseButton.accessibleNamePausedStringProperty,
+
+      // TODO: I didn't see a better place for this in common code. accessibleHelpText is only
+      //  necessary for a PlayPauseButton when there is also a step button to describe - as is done
+      //  in PlayPauseStepButtonGroup.
       accessibleHelpText: new DerivedStringProperty( [
           time.isPlayingProperty,
           QuantumBoundStatesFluent.a11y.playPauseButton.accessibleHelpTextPlayingStringProperty,
@@ -46,13 +56,30 @@ export default class TimeButtonGroup extends HBox {
     const stepButton = new StepForwardButton( {
       listener: () => time.stepForward(),
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
-      accessibleName: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
+
+      // TODO: This is now the default for StepFrowardButton and can be removed, see
+      //   https://github.com/phetsims/scenery-phet/issues/968
+      // accessibleName: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleNameStringProperty,
+
+      // TODO: StepForwardButton doesn't have defaults in common code. I think it is OK to remove this.
+      // accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponse.createProperty( {
         value: Time.STEP_FORWARD_DELTA
       } ),
       tandem: tandem.createTandem( 'stepButton' )
     } );
+
+    // TODO: One thing that you could do is use PlayPauseStepButtonGroup here. Then
+    //   the above two buttons would be replaced by this. And this group implements the description
+    //   structure and accessibleHelpText for play/pause/step buttons that Taliesin designed.
+    //   See https://github.com/phetsims/scenery-phet/issues/968.
+    // const playPauseStepButtonGroup = new PlayPauseStepButtonGroup( time.isPlayingProperty, {
+    //   stepForwardButtonOptions: {
+    //     accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponse.createProperty( {
+    //       value: Time.STEP_FORWARD_DELTA
+    //     } )
+    //   }
+    // } );
 
     super( {
       isDisposable: false,
