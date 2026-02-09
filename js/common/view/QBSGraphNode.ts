@@ -201,21 +201,17 @@ export default class QBSGraphNode extends Node {
       } );
     }
 
-    // Parents for all non-interactive decorations.
-    const decorationsBackNode = new Node( {
-      children: decorationsBack,
-      pickable: false // optimization
-    } );
-    const decorationsFrontNode = new Node( {
-      children: decorationsFront,
-      pickable: false // optimization
+    // Parents for all non-interactive elements.
+    const pickableFalseNode = new Node( {
+      pickable: false, // optimization
+      children: [
+        ...decorationsBack,
+        this.chartRectangle,
+        ...decorationsFront
+      ]
     } );
 
-    this.children = [
-      decorationsBackNode,
-      this.chartRectangle,
-      decorationsFrontNode
-    ];
+    this.children = [ pickableFalseNode ];
   }
 
   public setXRange( xRange: Range ): void {
