@@ -53,7 +53,8 @@ export default class QBSColors {
   } );
 
   public static readonly graphRectangleStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'graphRectangleStroke', {
-    default: 'black'
+    default: Color.grayColor( 100 ),
+    projector: Color.grayColor( 200 )
   } );
 
   public static readonly controlPanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'controlPanelFill', {
@@ -78,6 +79,11 @@ export default class QBSColors {
 
   public static readonly toolsPanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'toolsPanelStroke', {
     default: Color.TRANSPARENT
+  } );
+
+  public static readonly xAxisStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'xAxisStroke', {
+    default: Color.grayColor( 100 ),
+    projector: Color.grayColor( 200 )
   } );
 
   public static readonly gridLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'gridLinesStroke', {

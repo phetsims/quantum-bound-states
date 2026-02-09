@@ -7,6 +7,7 @@
  */
 
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle, { ChartRectangleOptions } from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -131,6 +132,14 @@ export default class QBSGraphNode extends Node {
       stroke: QBSColors.gridLinesStrokeProperty
     } );
     decorations.push( this.horizontalGridLines );
+
+    // x-axis
+    const xAxis = new AxisLine( this.chartTransform, Orientation.HORIZONTAL, {
+      extension: 0,
+      lineWidth: 1,
+      stroke: QBSColors.xAxisStrokeProperty
+    } );
+    decorations.push( xAxis );
 
     // x-axis ticks
     if ( options.hasXTicks ) {
