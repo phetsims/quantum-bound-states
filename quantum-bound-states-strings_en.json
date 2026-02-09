@@ -194,6 +194,9 @@
     "timeButtonGroup": {
       "accessibleHeading": {
         "value": "Time Buttons"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.timeButtonGroup.accessibleHelpText"
       }
     },
     "restartButton": {

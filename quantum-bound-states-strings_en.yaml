@@ -112,6 +112,7 @@ a11y:
 
   timeButtonGroup:
     accessibleHeading: Time Buttons
+    accessibleHelpText: TODO.timeButtonGroup.accessibleHelpText
 
   restartButton:
     accessibleName:            Reset Time

@@ -18,31 +18,27 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Time from '../model/Time.js';
 
+
+const RESTART_BUTTON_RADIUS = 15;
+const STEP_FORWARD_BUTTON_RADIUS = RESTART_BUTTON_RADIUS;
+const PLAY_PAUSE_BUTTON_RADIUS = 28;
+const BUTTON_SPACING = 8;
+
 export default class TimeButtonGroup extends HBox {
 
   public constructor( time: Time, tandem: Tandem ) {
 
     const restartButton = new RestartButton( {
       listener: () => time.restart(),
-
-      // TODO: These accessibleName and accessibleHelpText are now the defaults for RestartButton and
-      //  can be removed, see https://github.com/phetsims/scenery-phet/issues/968
-      // accessibleName: QuantumBoundStatesFluent.a11y.restartButton.accessibleNameStringProperty,
-      // accessibleHelpText: QuantumBoundStatesFluent.a11y.restartButton.accessibleHelpTextStringProperty,
+      radius: RESTART_BUTTON_RADIUS,
+      accessibleName: QuantumBoundStatesFluent.a11y.restartButton.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.restartButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.restartButton.accessibleContextResponseStringProperty,
       tandem: tandem.createTandem( 'restartButton' )
     } );
 
     const playPauseButton = new PlayPauseButton( time.isPlayingProperty, {
-
-      // TODO: These are already the defaults for PlayPauseButton and can be removed, see
-      //  https://github.com/phetsims/scenery-phet/issues/968
-      // accessibleNameOn: QuantumBoundStatesFluent.a11y.playPauseButton.accessibleNamePlayingStringProperty,
-      // accessibleNameOff: QuantumBoundStatesFluent.a11y.playPauseButton.accessibleNamePausedStringProperty,
-
-      // TODO: I didn't see a better place for this in common code. accessibleHelpText is only
-      //  necessary for a PlayPauseButton when there is also a step button to describe - as is done
-      //  in PlayPauseStepButtonGroup.
+      radius: PLAY_PAUSE_BUTTON_RADIUS,
       accessibleHelpText: new DerivedStringProperty( [
           time.isPlayingProperty,
           QuantumBoundStatesFluent.a11y.playPauseButton.accessibleHelpTextPlayingStringProperty,
@@ -53,40 +49,24 @@ export default class TimeButtonGroup extends HBox {
       tandem: tandem.createTandem( 'playPauseButton' )
     } );
 
-    const stepButton = new StepForwardButton( {
+    const stepForwardButton = new StepForwardButton( {
       listener: () => time.stepForward(),
+      radius: STEP_FORWARD_BUTTON_RADIUS,
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
-
-      // TODO: This is now the default for StepFrowardButton and can be removed, see
-      //   https://github.com/phetsims/scenery-phet/issues/968
-      // accessibleName: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleNameStringProperty,
-
-      // TODO: StepForwardButton doesn't have defaults in common code. I think it is OK to remove this.
-      // accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponse.createProperty( {
         value: Time.STEP_FORWARD_DELTA
       } ),
-      tandem: tandem.createTandem( 'stepButton' )
+      tandem: tandem.createTandem( 'stepForwardButton' )
     } );
-
-    // TODO: One thing that you could do is use PlayPauseStepButtonGroup here. Then
-    //   the above two buttons would be replaced by this. And this group implements the description
-    //   structure and accessibleHelpText for play/pause/step buttons that Taliesin designed.
-    //   See https://github.com/phetsims/scenery-phet/issues/968.
-    // const playPauseStepButtonGroup = new PlayPauseStepButtonGroup( time.isPlayingProperty, {
-    //   stepForwardButtonOptions: {
-    //     accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponse.createProperty( {
-    //       value: Time.STEP_FORWARD_DELTA
-    //     } )
-    //   }
-    // } );
 
     super( {
       isDisposable: false,
-      children: [ restartButton, playPauseButton, stepButton ],
-      spacing: 8,
+      children: [ restartButton, playPauseButton, stepForwardButton ],
+      spacing: BUTTON_SPACING,
       scale: 0.75,
       accessibleHeading: QuantumBoundStatesFluent.a11y.timeButtonGroup.accessibleHeadingStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.timeButtonGroup.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: true
     } );

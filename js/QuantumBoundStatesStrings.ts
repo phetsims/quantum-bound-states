@@ -104,6 +104,7 @@ type StringsType = {
     };
     'timeButtonGroup': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'restartButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;

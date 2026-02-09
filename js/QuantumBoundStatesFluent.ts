@@ -79,6 +79,7 @@ addToMapIfDefined( 'a11y_waveFunctionComponents_accessibleHeading', 'a11y.waveFu
 addToMapIfDefined( 'a11y_timeControls_accessibleHeading', 'a11y.timeControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_toolControls_accessibleHeading', 'a11y.toolControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeButtonGroup_accessibleHeading', 'a11y.timeButtonGroup.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_timeButtonGroup_accessibleHelpText', 'a11y.timeButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_restartButton_accessibleName', 'a11y.restartButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_restartButton_accessibleHelpText', 'a11y.restartButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_restartButton_accessibleContextResponse', 'a11y.restartButton.accessibleContextResponseStringProperty' );
@@ -255,7 +256,8 @@ const QuantumBoundStatesFluent = {
     _comment_7: new FluentComment( {"comment":"Push Buttons","associatedKey":"timeButtonGroup"} ),
     _comment_8: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeButtonGroup"} ),
     timeButtonGroup: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeButtonGroup_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeButtonGroup.accessibleHeadingStringProperty' ) )
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeButtonGroup_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeButtonGroup.accessibleHeadingStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeButtonGroup_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.timeButtonGroup.accessibleHelpTextStringProperty' ) )
     },
     restartButton: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_restartButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.restartButton.accessibleNameStringProperty' ) ),
