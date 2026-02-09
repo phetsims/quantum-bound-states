@@ -48,6 +48,10 @@ type StringsType = {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
     };
+    'electronVolts': {
+      'symbolStringProperty': LocalizedStringProperty;
+      'symbolPatternStringProperty': LocalizedStringProperty;
+    };
     'femtoSeconds': {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
@@ -185,8 +189,16 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
-    'electronMass': {
-      'patternStringProperty': LocalizedStringProperty;
+    'units': {
+      'electronMass': {
+        'patternStringProperty': LocalizedStringProperty;
+      };
+      'electronVolts': {
+        'patternStringProperty': LocalizedStringProperty;
+      };
+      'femtoseconds': {
+        'patternStringProperty': LocalizedStringProperty;
+      }
     }
   }
 };

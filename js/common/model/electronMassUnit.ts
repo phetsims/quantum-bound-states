@@ -1,0 +1,21 @@
+// Copyright 2025, University of Colorado Boulder
+
+//TODO https://github.com/phetsims/quantum-bound-states/issues/11 Move to scenery-phet/js/units/
+/**
+ * Unit for electron mass, m<sub>e</sub>
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
+import PhetUnit from '../../../../scenery-phet/js/PhetUnit.js';
+import quantumBoundStates from '../../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+
+export const electronMassUnit = new PhetUnit<ReadOnlyProperty<string>>( 'm<sub>e</sub>', {
+  visualSymbolStringProperty: QuantumBoundStatesFluent.units.electronMass.symbolStringProperty,
+  visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.electronMass.symbolPatternStringProperty,
+  accessiblePattern: QuantumBoundStatesFluent.a11y.units.electronMass.pattern
+} );
+
+quantumBoundStates.register( 'electronMassUnit', electronMassUnit );

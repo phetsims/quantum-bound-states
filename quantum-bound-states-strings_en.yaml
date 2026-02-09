@@ -42,11 +42,12 @@ energyLevel:                     Energy Level
 
 # Units
 units:
-  # TODO: Move electronMass to scenery-phet-strings_en.yaml
   electronMass:
     symbol:        m<sub>e</sub>
     symbolPattern: '{{value}} m<sub>e</sub>'
-  # TODO: Move femtoSeconds to scenery-phet-strings_en.yaml
+  electronVolts:
+    symbol:        eV
+    symbolPattern: '{{value}} eV'
   femtoSeconds:
     symbol:        fs
     symbolPattern: '{{value}} fs'
@@ -219,5 +220,10 @@ a11y:
   # Units
   #=======================================================================================================
 
-  electronMass:
-    pattern: '{$value} electron mass'
+  units:
+    electronMass:
+      pattern: '{$value} electron mass'
+    electronVolts:
+      pattern: '{$value} eV'
+    femtoseconds:
+        pattern: '{$value} fs'

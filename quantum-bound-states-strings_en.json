@@ -85,6 +85,14 @@
         "value": "{{value}} m<sub>e</sub>"
       }
     },
+    "electronVolts": {
+      "symbol": {
+        "value": "eV"
+      },
+      "symbolPattern": {
+        "value": "{{value}} eV"
+      }
+    },
     "femtoSeconds": {
       "symbol": {
         "value": "fs"
@@ -364,9 +372,21 @@
         "value": "TODO.referenceLineHandleNode.accessibleObjectResponse"
       }
     },
-    "electronMass": {
-      "pattern": {
-        "value": "{$value} electron mass"
+    "units": {
+      "electronMass": {
+        "pattern": {
+          "value": "{$value} electron mass"
+        }
+      },
+      "electronVolts": {
+        "pattern": {
+          "value": "{$value} eV"
+        }
+      },
+      "femtoseconds": {
+        "pattern": {
+          "value": "{$value} fs"
+        }
       }
     }
   }

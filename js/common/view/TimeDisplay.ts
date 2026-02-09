@@ -10,14 +10,14 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import { femtosecondsUnit } from '../model/femtosecondsUnit.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
@@ -36,10 +36,9 @@ export default class TimeDisplay extends HBox {
         // Hide the value by making it transparent.
         fill: new DerivedProperty( [ timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
       },
-      numberFormatter: value => StringUtils.fillIn( QuantumBoundStatesFluent.units.femtoSeconds.symbolPatternStringProperty, {
-        // Use toFixed so that trailing zeros are preserved.
-        value: toFixed( value, QBSConstants.TIME_DECIMAL_PLACES )
-      } ),
+      numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString(
+        //TODO Use toFixed so that trailing zeros are preserved.
+        toFixedNumber( value, QBSConstants.TIME_DECIMAL_PLACES ) ),
       tandem: tandem.createTandem( 'valueDisplay' )
     } );
 

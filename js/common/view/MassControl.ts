@@ -7,12 +7,9 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl, { NumberControlMajorTick } from '../../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -20,6 +17,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import { electronMassUnit } from '../model/electronMassUnit.js';
 import QBSConstants from '../QBSConstants.js';
 
 export default class MassControl extends NumberControl {
@@ -39,10 +37,9 @@ export default class MassControl extends NumberControl {
         arrowButtonsXSpacing: 5
       } ),
       numberDisplayOptions: {
-        numberFormatter: value => StringUtils.fillIn( QuantumBoundStatesFluent.units.electronMass.symbolPatternStringProperty, {
-          // Use toFixed so that trailing zeros are preserved.
-          value: toFixed( value, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES )
-        } ),
+        numberFormatter: value => electronMassUnit.getVisualSymbolPatternString(
+          //TODO Use toFixed so that trailing zeros are preserved.
+          toFixedNumber( value, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) ),
         useRichText: true,
         textOptions: {
           maxWidth: 50
@@ -57,9 +54,9 @@ export default class MassControl extends NumberControl {
         keyboardStep: 0.1,
         shiftKeyboardStep: 0.01,
         pageKeyboardStep: 0.2,
-        createAriaValueText: value => QuantumBoundStatesFluent.a11y.electronMass.pattern.format( {
-          value: toFixedNumber( value, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES )
-        } )
+        createAriaValueText: value => electronMassUnit.getAccessibleString(
+          // Use toFixedNumber so that trailing zeros are removed.
+          toFixedNumber( value, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) )
       },
       accessibleHelpText: QuantumBoundStatesFluent.a11y.massControl.accessibleHelpTextStringProperty,
       tandem: tandem
@@ -72,15 +69,13 @@ export default class MassControl extends NumberControl {
  */
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
-  const minStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.units.electronMass.symbolPatternStringProperty, {
+  const minStringProperty = electronMassUnit.getVisualSymbolPatternString(
     // Use toFixedNumber so that trailing zeros are removed.
-    value: toFixedNumber( range.min, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES )
-  } );
+    toFixedNumber( range.min, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) );
 
-  const maxStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.units.electronMass.symbolPatternStringProperty, {
+  const maxStringProperty = electronMassUnit.getVisualSymbolPatternString(
     // Use toFixedNumber so that trailing zeros are removed.
-    value: toFixedNumber( range.max, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES )
-  } );
+    toFixedNumber( range.max, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) );
 
   const tickTextOptions = {
     font: new PhetFont( 10 ),
