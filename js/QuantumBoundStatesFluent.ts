@@ -52,7 +52,7 @@ addToMapIfDefined( 'magnifierTool', 'magnifierToolStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
 addToMapIfDefined( 'energyLevel', 'energyLevelStringProperty' );
-addToMapIfDefined( 'units_electronMass_symbol', 'units.electronMass.symbolStringProperty' );
+addToMapIfDefined( 'units_electronMasses_symbol', 'units.electronMasses.symbolStringProperty' );
 addToMapIfDefined( 'units_electronVolts_symbol', 'units.electronVolts.symbolStringProperty' );
 addToMapIfDefined( 'units_femtoSeconds_symbol', 'units.femtoSeconds.symbolStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
@@ -124,7 +124,7 @@ addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleContextResponseOff', 
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleName', 'a11y.referenceLineHandleNode.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleHelpText', 'a11y.referenceLineHandleNode.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleObjectResponse', 'a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty' );
-addToMapIfDefined( 'a11y_units_electronMass_pattern', 'a11y.units.electronMass.patternStringProperty' );
+addToMapIfDefined( 'a11y_units_electronMasses_pattern', 'a11y.units.electronMasses.patternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVolts_pattern', 'a11y.units.electronVolts.patternStringProperty' );
 addToMapIfDefined( 'a11y_units_femtoseconds_pattern', 'a11y.units.femtoseconds.patternStringProperty' );
 
@@ -184,9 +184,9 @@ const QuantumBoundStatesFluent = {
   _comment_7: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
   _comment_8: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
   units: {
-    electronMass: {
-      symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMass.symbolStringProperty' ),
-      symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMass.symbolPatternStringProperty' )
+    electronMasses: {
+      symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMasses.symbolStringProperty' ),
+      symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMasses.symbolPatternStringProperty' )
     },
     electronVolts: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronVolts.symbolStringProperty' ),
@@ -363,8 +363,8 @@ const QuantumBoundStatesFluent = {
     _comment_30: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
     _comment_31: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
     units: {
-      electronMass: {
-        pattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronMass_pattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronMass.patternStringProperty' ), [{"name":"value"}] )
+      electronMasses: {
+        pattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronMasses_pattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronMasses.patternStringProperty' ), [{"name":"value"}] )
       },
       electronVolts: {
         pattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronVolts_pattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronVolts.patternStringProperty' ), [{"name":"value"}] )

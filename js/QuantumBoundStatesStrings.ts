@@ -44,7 +44,7 @@ type StringsType = {
   'massStringProperty': LocalizedStringProperty;
   'energyLevelStringProperty': LocalizedStringProperty;
   'units': {
-    'electronMass': {
+    'electronMasses': {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
     };
@@ -190,7 +190,7 @@ type StringsType = {
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'units': {
-      'electronMass': {
+      'electronMasses': {
         'patternStringProperty': LocalizedStringProperty;
       };
       'electronVolts': {

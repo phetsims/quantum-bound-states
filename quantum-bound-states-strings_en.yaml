@@ -42,7 +42,7 @@ energyLevel:                     Energy Level
 
 # Units
 units:
-  electronMass:
+  electronMasses:
     symbol:        m<sub>e</sub>
     symbolPattern: '{{value}} m<sub>e</sub>'
   electronVolts:
@@ -221,8 +221,8 @@ a11y:
   #=======================================================================================================
 
   units:
-    electronMass:
-      pattern: '{$value} electron mass'
+    electronMasses:
+      pattern: '{$value} electron masses'
     electronVolts:
       pattern: '{$value} eV'
     femtoseconds:

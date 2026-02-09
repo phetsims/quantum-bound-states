@@ -77,7 +77,7 @@
     "value": "Energy Level"
   },
   "units": {
-    "electronMass": {
+    "electronMasses": {
       "symbol": {
         "value": "m<sub>e</sub>"
       },
@@ -373,9 +373,9 @@
       }
     },
     "units": {
-      "electronMass": {
+      "electronMasses": {
         "pattern": {
-          "value": "{$value} electron mass"
+          "value": "{$value} electron masses"
         }
       },
       "electronVolts": {
