@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ProbabilityDensityGraphNode is the view for the 'Probability Density' graph.
+ * WaveFunctionGraphNode is the view for the 'Wave Function' graph.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,19 +15,19 @@ import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ProbabilityDensityGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptions, 'tandem' | 'visibleProperty'>;
+type WaveFunctionGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptions, 'tandem' | 'visibleProperty'>;
 
-export default class ProbabilityDensityGraphNode extends QBSGraphNode {
+export default class WaveFunctionGraphNode extends QBSGraphNode {
 
-  public constructor( providedOptions: ProbabilityDensityGraphNodeOptions ) {
+  public constructor( providedOptions: WaveFunctionGraphNodeOptions ) {
 
-    const options = optionize<ProbabilityDensityGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
+    const options = optionize<WaveFunctionGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
       xAxisLabelStringProperty: QuantumBoundStatesFluent.position_nmStringProperty,
-      yAxisLabelStringProperty: QuantumBoundStatesFluent.probabilityDensityStringProperty,
+      yAxisLabelStringProperty: QuantumBoundStatesFluent.waveFunctionStringProperty,
       viewWidth: QBSConstants.ALL_GRAPHS_VIEW_WIDTH,
-      viewHeight: QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT,
+      viewHeight: QBSConstants.WAVE_FUNCTION_GRAPH_VIEW_HEIGHT,
       xRange: QBSConstants.ALL_GRAPHS_X_RANGE,
-      yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
+      yRange: QBSConstants.WAVE_FUNCTION_GRAPH_Y_RANGE,
       xTickSpacing: QBSConstants.ALL_GRAPHS_X_TICK_SPACING,
       yTickSpacing: 0.5,
       hasYTickLabels: false
@@ -37,4 +37,4 @@ export default class ProbabilityDensityGraphNode extends QBSGraphNode {
   }
 }
 
-quantumBoundStates.register( 'ProbabilityDensityGraphNode', ProbabilityDensityGraphNode );
+quantumBoundStates.register( 'WaveFunctionGraphNode', WaveFunctionGraphNode );

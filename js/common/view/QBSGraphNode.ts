@@ -16,6 +16,7 @@ import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -59,7 +60,9 @@ type SelfOptions = {
   chartRectangleOptions?: ChartRectangleOptions;
 };
 
-export type QBSGraphNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
+export type QBSGraphNodeOptions = SelfOptions &
+  PickOptional<NodeOptions, 'visibleProperty'> &
+  PickRequired<NodeOptions, 'tandem'>;
 
 export default class QBSGraphNode extends Node {
 
@@ -102,7 +105,7 @@ export default class QBSGraphNode extends Node {
       isDisposable: false
     }, providedOptions );
 
-    super();
+    super( options );
 
     this.chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,

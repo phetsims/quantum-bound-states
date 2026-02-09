@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -17,6 +18,7 @@ import ProbabilityDensityGraphNode from '../../common/view/ProbabilityDensityGra
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import TimePanel from '../../common/view/TimePanel.js';
 import ToolsPanel from '../../common/view/ToolsPanel.js';
+import WaveFunctionGraphNode from '../../common/view/WaveFunctionGraphNode.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
 import OneWellControlPanel from './OneWellControlPanel.js';
@@ -35,7 +37,15 @@ export default class OneWellScreenView extends ScreenView {
 
     const energyGraphNode = new EnergyGraphNode( tandem.createTandem( 'energyGraphNode' ) );
 
-    const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( tandem.createTandem( 'probabilityDensityGraphNode' ) );
+    const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( {
+      visibleProperty: new DerivedProperty( [ model.graphTypeProperty ], graphType => graphType === 'probabilityDensity' ),
+      tandem: tandem.createTandem( 'probabilityDensityGraphNode' )
+    } );
+
+    const waveFunctionGraphNode = new WaveFunctionGraphNode( {
+      visibleProperty: new DerivedProperty( [ model.graphTypeProperty ], graphType => graphType === 'waveFunction' ),
+      tandem: tandem.createTandem( 'waveFunctionGraphNode' )
+    } );
 
     const toolsPanel = new ToolsPanel( model.magnifierTool.visibleProperty,
       model.referenceLine.visibleProperty, tandem.createTandem( 'toolsPanel' ) );
@@ -59,6 +69,7 @@ export default class OneWellScreenView extends ScreenView {
     energyGraphNode.top = legendPanel.bottom + 3;
     probabilityDensityGraphNode.left = energyGraphNode.left;
     probabilityDensityGraphNode.top = energyGraphNode.bottom + 3;
+    waveFunctionGraphNode.translation = probabilityDensityGraphNode.translation;
     controlPanel.left = energyGraphNode.right + 10;
     controlPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
     toolsPanel.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
@@ -87,6 +98,7 @@ export default class OneWellScreenView extends ScreenView {
         legendPanel,
         energyGraphNode,
         probabilityDensityGraphNode,
+        waveFunctionGraphNode,
         controlPanel,
         toolsPanel,
         referenceLineNode,
@@ -98,7 +110,9 @@ export default class OneWellScreenView extends ScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      //TODO
+      energyGraphNode,
+      probabilityDensityGraphNode,
+      waveFunctionGraphNode,
       controlPanel,
       referenceLineNode
     ];

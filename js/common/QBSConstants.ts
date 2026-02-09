@@ -62,6 +62,8 @@ export default class QBSConstants {
   public static readonly ENERGY_GRAPH_Y_RANGE = new Range( -2.5, 22.5 );
   public static readonly PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = 175;
   public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( -1.25, 1.25 );
+  public static readonly WAVE_FUNCTION_GRAPH_VIEW_HEIGHT = QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT;
+  public static readonly WAVE_FUNCTION_GRAPH_Y_RANGE = new Range( -1.25, 1.25 );
 
   // Decimal places
   public static readonly ELECTRON_MASS_DECIMAL_PLACES = 2;
