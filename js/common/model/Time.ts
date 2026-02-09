@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
@@ -49,8 +50,10 @@ export default class Time {
     } );
     this.currentTimeProperty = this._currentTimeProperty;
 
+    const validValues = _.sortBy( [ 1, 2, 3, 4 ] );
     this.timeScaleProperty = new NumberProperty( 1, {
-      validValues: [ 1, 2, 3, 4 ],
+      validValues: validValues,
+      range: new Range( validValues[ 0 ], validValues[ validValues.length - 1 ] ),
       isValidValue: timeScale => timeScale > 0,
       numberType: 'FloatingPoint',
       tandem: tandem.createTandem( 'timeScaleProperty' ),
