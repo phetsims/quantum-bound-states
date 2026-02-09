@@ -25,6 +25,10 @@ waveFunction:                    Wave Function
 display:                         Display
 properties:                      Properties
 
+# Buttons
+probabilityDensityEquationButtonLabel: '|Ψ(x,t)|<sup>2</sup> = ...'
+waveFunctionEquationButtonLabel: 'Ψ(x,t) = ...'
+
 # Checkboxes
 valueLabels:                     Value Labels
 realPart:                        Real Part
@@ -128,6 +132,16 @@ a11y:
   stepForwardButton:
     accessibleHelpText:        Step forward {$value} femtoseconds.
     accessibleContextResponse: Simulation stepped forward {$value} femtoseconds.
+
+  probabilityDensityEquationButton:
+    accessibleName:            TODO.probabilityDensityEquationButton.accessibleName
+    accessibleHelpText:        TODO.probabilityDensityEquationButton.accessibleHelpText
+    accessibleContextResponse: TODO.probabilityDensityEquationButton.accessibleContextResponse
+
+  waveFunctionEquationButton:
+    accessibleName:            TODO.waveFunctionEquationButton.accessibleName
+    accessibleHelpText:        TODO.waveFunctionEquationButton.accessibleHelpText
+    accessibleContextResponse: TODO.waveFunctionEquationButton.accessibleContextResponse
 
   #=======================================================================================================
   # Checkboxes

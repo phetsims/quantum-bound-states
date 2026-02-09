@@ -71,7 +71,7 @@ export default class QBSGraphNode extends Node {
   public readonly chartTransform: ChartTransform;
 
   // Outer rectangle of the chart
-  private readonly chartRectangle: ChartRectangle;
+  protected readonly chartRectangle: ChartRectangle;
 
   // x-axis tick marks and labels are optional.
   private readonly xTickMarkSet?: TickMarkSet;

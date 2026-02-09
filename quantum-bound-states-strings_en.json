@@ -49,6 +49,12 @@
   "properties": {
     "value": "Properties"
   },
+  "probabilityDensityEquationButtonLabel": {
+    "value": "|Ψ(x,t)|<sup>2</sup> = ..."
+  },
+  "waveFunctionEquationButtonLabel": {
+    "value": "Ψ(x,t) = ..."
+  },
   "valueLabels": {
     "value": "Value Labels"
   },
@@ -235,6 +241,28 @@
       },
       "accessibleContextResponse": {
         "value": "Simulation stepped forward {$value} femtoseconds."
+      }
+    },
+    "probabilityDensityEquationButton": {
+      "accessibleName": {
+        "value": "TODO.probabilityDensityEquationButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.probabilityDensityEquationButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.probabilityDensityEquationButton.accessibleContextResponse"
+      }
+    },
+    "waveFunctionEquationButton": {
+      "accessibleName": {
+        "value": "TODO.waveFunctionEquationButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.waveFunctionEquationButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.waveFunctionEquationButton.accessibleContextResponse"
       }
     },
     "valueLabelsCheckbox": {

@@ -34,6 +34,8 @@ type StringsType = {
   'waveFunctionStringProperty': LocalizedStringProperty;
   'displayStringProperty': LocalizedStringProperty;
   'propertiesStringProperty': LocalizedStringProperty;
+  'probabilityDensityEquationButtonLabelStringProperty': LocalizedStringProperty;
+  'waveFunctionEquationButtonLabelStringProperty': LocalizedStringProperty;
   'valueLabelsStringProperty': LocalizedStringProperty;
   'realPartStringProperty': LocalizedStringProperty;
   'imaginaryPartStringProperty': LocalizedStringProperty;
@@ -121,6 +123,16 @@ type StringsType = {
       'accessibleHelpTextPausedStringProperty': LocalizedStringProperty;
     };
     'stepForwardButton': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
+    'probabilityDensityEquationButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
+    'waveFunctionEquationButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };

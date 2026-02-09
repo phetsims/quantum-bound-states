@@ -1,12 +1,13 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Symbols used throughout this simulation. These symbols contain RichText markup that renders them with MathSymbolFont.
+ * Symbols used throughout this simulation.
+ *
+ * Note: It was an intentional design decision not to use MathSymbolFont for displaying symbols in this sim.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 
 export default class QBSSymbols {
@@ -15,7 +16,7 @@ export default class QBSSymbols {
     // Not intended for instantiation.
   }
 
-  public static readonly psiSymbolProperty = MathSymbolFont.getRichTextMarkup( 'φ' );
+  //TODO
 }
 
 quantumBoundStates.register( 'QBSSymbols', QBSSymbols );

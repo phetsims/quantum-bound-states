@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import PreferencesControl from '../../../../joist/js/preferences/PreferencesControl.js';
 import PreferencesDialogConstants from '../../../../joist/js/preferences/PreferencesDialogConstants.js';
@@ -19,7 +18,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
-import QBSSymbols from '../QBSSymbols.js';
 
 export default class PhaseFeatureControl extends PreferencesControl {
 
@@ -37,11 +35,7 @@ export default class PhaseFeatureControl extends PreferencesControl {
         phetioVisiblePropertyInstrumented: false
       } ) );
 
-    const descriptionStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.phaseFeatureControl.descriptionStringProperty, {
-      psi: QBSSymbols.psiSymbolProperty
-    } );
-
-    const descriptionText = new RichText( descriptionStringProperty, {
+    const descriptionText = new RichText( QuantumBoundStatesFluent.phaseFeatureControl.descriptionStringProperty, {
       lineWrap: QBSConstants.PREFERENCES_DESCRIPTION_LINE_WRAP,
       maxHeight: 50,
       font: QBSConstants.PREFERENCES_DESCRIPTION_FONT,

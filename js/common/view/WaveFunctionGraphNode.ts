@@ -12,6 +12,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
+import WaveFunctionEquationButton from './WaveFunctionEquationButton.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -34,6 +35,13 @@ export default class WaveFunctionGraphNode extends QBSGraphNode {
     }, providedOptions );
 
     super( options );
+
+    const equationButton = new WaveFunctionEquationButton( options.tandem.createTandem( 'equationButton' ) );
+    this.addChild( equationButton );
+    equationButton.boundsProperty.link( () => {
+      equationButton.top = this.chartRectangle.y + 8;
+      equationButton.right = this.chartRectangle.right - 8;
+    } );
   }
 }
 
