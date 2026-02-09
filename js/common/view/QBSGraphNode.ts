@@ -99,7 +99,8 @@ export default class QBSGraphNode extends Node {
       hasYTickLabels: true,
       chartRectangleOptions: {
         fill: QBSColors.graphRectangleFillProperty,
-        stroke: QBSColors.graphRectangleStrokeProperty
+        stroke: QBSColors.graphRectangleStrokeProperty,
+        pickable: false // optimization
       },
 
       // NodeOptions
@@ -117,7 +118,9 @@ export default class QBSGraphNode extends Node {
 
     this.chartRectangle = new ChartRectangle( this.chartTransform, options.chartRectangleOptions );
 
-    const decorations: Node[] = [];
+    // Decorations behind and in front of the chartRectangle.
+    const decorationsBack: Node[] = [];
+    const decorationsFront: Node[] = [];
 
     // grid lines
     this.verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL, options.xTickSpacing, {
@@ -125,13 +128,13 @@ export default class QBSGraphNode extends Node {
       lineDash: [ 4, 4 ],
       stroke: QBSColors.gridLinesStrokeProperty
     } );
-    decorations.push( this.verticalGridLines );
+    decorationsFront.push( this.verticalGridLines );
     this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
       lineWidth: 1,
       lineDash: [ 4, 4 ],
       stroke: QBSColors.gridLinesStrokeProperty
     } );
-    decorations.push( this.horizontalGridLines );
+    decorationsFront.push( this.horizontalGridLines );
 
     // x-axis
     const xAxis = new AxisLine( this.chartTransform, Orientation.HORIZONTAL, {
@@ -139,14 +142,14 @@ export default class QBSGraphNode extends Node {
       lineWidth: 1,
       stroke: QBSColors.xAxisStrokeProperty
     } );
-    decorations.push( xAxis );
+    decorationsFront.push( xAxis );
 
     // x-axis ticks
     if ( options.hasXTicks ) {
       this.xTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.HORIZONTAL, options.xTickSpacing, {
         edge: 'min'
       } );
-      decorations.push( this.xTickMarkSet );
+      decorationsBack.push( this.xTickMarkSet );
 
       this.xTickLabelSet = new TickLabelSet( this.chartTransform, Orientation.HORIZONTAL, options.xTickSpacing, {
         edge: 'min',
@@ -154,14 +157,14 @@ export default class QBSGraphNode extends Node {
           font: QBSConstants.TICK_LABEL_FONT
         } )
       } );
-      decorations.push( this.xTickLabelSet );
+      decorationsBack.push( this.xTickLabelSet );
     }
 
     // y-axis ticks
     this.yTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
       edge: 'min'
     } );
-    decorations.push( this.yTickMarkSet );
+    decorationsBack.push( this.yTickMarkSet );
 
     if ( options.hasYTickLabels ) {
       this.yTickLabelSet = new TickLabelSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
@@ -170,7 +173,7 @@ export default class QBSGraphNode extends Node {
           font: QBSConstants.TICK_LABEL_FONT
         } )
       } );
-      decorations.push( this.yTickLabelSet );
+      decorationsBack.push( this.yTickLabelSet );
     }
 
     // x-axis label
@@ -179,7 +182,7 @@ export default class QBSGraphNode extends Node {
         font: QBSConstants.AXIS_LABEL_FONT,
         maxWidth: 0.85 * this.chartRectangle.width
       } );
-      decorations.push( xAxisLabelNode );
+      decorationsBack.push( xAxisLabelNode );
       xAxisLabelNode.boundsProperty.link( () => {
         xAxisLabelNode.centerTop = this.chartRectangle.centerBottom.addXY( 0, X_AXIS_LABEL_OFFSET );
       } );
@@ -192,21 +195,26 @@ export default class QBSGraphNode extends Node {
         rotation: -Math.PI / 2,
         maxWidth: 0.85 * this.chartRectangle.height
       } );
-      decorations.push( yAxisLabelNode );
+      decorationsBack.push( yAxisLabelNode );
       yAxisLabelNode.boundsProperty.link( () => {
         yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( Y_AXIS_LABEL_OFFSET, 0 );
       } );
     }
 
-    // Parent for all non-interactive decorations.
-    const decorationsNode = new Node( {
-      children: decorations,
+    // Parents for all non-interactive decorations.
+    const decorationsBackNode = new Node( {
+      children: decorationsBack,
+      pickable: false // optimization
+    } );
+    const decorationsFrontNode = new Node( {
+      children: decorationsFront,
       pickable: false // optimization
     } );
 
     this.children = [
+      decorationsBackNode,
       this.chartRectangle,
-      decorationsNode
+      decorationsFrontNode
     ];
   }
 
