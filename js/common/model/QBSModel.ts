@@ -17,7 +17,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
-import { electronMassUnit } from './electronMassUnit.js';
+import { electronMassesUnit } from './electronMassesUnit.js';
 import { GraphType, GraphTypeValues } from './GraphType.js';
 import MagnifierTool from './MagnifierTool.js';
 import ReferenceLine from './ReferenceLine.js';
@@ -64,7 +64,7 @@ export default class QBSModel implements TModel {
 
     this.massProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
-      units: electronMassUnit,
+      units: electronMassesUnit,
       range: new Range( 0.5, 1.1 ),
       tandem: options.tandem.createTandem( 'massProperty' ),
       phetioFeatured: true

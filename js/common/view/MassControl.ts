@@ -17,7 +17,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import { electronMassUnit } from '../model/electronMassUnit.js';
+import { electronMassesUnit } from '../model/electronMassesUnit.js';
 import QBSConstants from '../QBSConstants.js';
 
 export default class MassControl extends NumberControl {
@@ -37,7 +37,7 @@ export default class MassControl extends NumberControl {
         arrowButtonsXSpacing: 5
       } ),
       numberDisplayOptions: {
-        numberFormatter: value => electronMassUnit.getVisualSymbolPatternString(
+        numberFormatter: value => electronMassesUnit.getVisualSymbolPatternString(
           //TODO Use toFixed so that trailing zeros are preserved.
           toFixedNumber( value, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) ),
         useRichText: true,
@@ -54,7 +54,7 @@ export default class MassControl extends NumberControl {
         keyboardStep: 0.1,
         shiftKeyboardStep: 0.01,
         pageKeyboardStep: 0.2,
-        createAriaValueText: value => electronMassUnit.getAccessibleString(
+        createAriaValueText: value => electronMassesUnit.getAccessibleString(
           // Use toFixedNumber so that trailing zeros are removed.
           toFixedNumber( value, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) )
       },
@@ -69,11 +69,11 @@ export default class MassControl extends NumberControl {
  */
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
-  const minStringProperty = electronMassUnit.getVisualSymbolPatternString(
+  const minStringProperty = electronMassesUnit.getVisualSymbolPatternString(
     // Use toFixedNumber so that trailing zeros are removed.
     toFixedNumber( range.min, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) );
 
-  const maxStringProperty = electronMassUnit.getVisualSymbolPatternString(
+  const maxStringProperty = electronMassesUnit.getVisualSymbolPatternString(
     // Use toFixedNumber so that trailing zeros are removed.
     toFixedNumber( range.max, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) );
 
