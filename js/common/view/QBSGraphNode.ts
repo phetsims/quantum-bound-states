@@ -214,18 +214,8 @@ export default class QBSGraphNode extends Node {
     this.children = [ pickableFalseNode ];
   }
 
-  public setXRange( xRange: Range ): void {
-    this.chartTransform.setModelXRange( xRange );
-  }
-
   public setYRange( yRange: Range ): void {
     this.chartTransform.setModelYRange( yRange );
-  }
-
-  public setXTickSpacing( spacing: number ): void {
-    this.xTickMarkSet && this.xTickMarkSet.setSpacing( spacing );
-    this.xTickLabelSet && this.xTickLabelSet.setSpacing( spacing );
-    this.verticalGridLines.setSpacing( spacing );
   }
 
   public setYTickSpacing( spacing: number ): void {
