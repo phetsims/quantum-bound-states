@@ -200,23 +200,14 @@
       }
     },
     "restartButton": {
-      "accessibleName": {
-        "value": "Reset Time"
-      },
       "accessibleHelpText": {
-        "value": "Reset simulation time to zero."
+        "value": "Restart simulation time at zero."
       },
       "accessibleContextResponse": {
-        "value": "Simulation time reset to zero femtoseconds."
+        "value": "Simulation time set to zero femtoseconds."
       }
     },
     "playPauseButton": {
-      "accessibleNamePlaying": {
-        "value": "Pause"
-      },
-      "accessibleNamePaused": {
-        "value": "Play"
-      },
       "accessibleHelpTextPlaying": {
         "value": "Pause simulation."
       },
@@ -225,11 +216,8 @@
       }
     },
     "stepForwardButton": {
-      "accessibleName": {
-        "value": "Step Forward"
-      },
       "accessibleHelpText": {
-        "value": "Step forward one time step when simulation is paused."
+        "value": "Step forward {$value} femtoseconds."
       },
       "accessibleContextResponse": {
         "value": "Simulation stepped forward {$value} femtoseconds."

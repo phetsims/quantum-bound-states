@@ -115,19 +115,15 @@ a11y:
     accessibleHelpText: TODO.timeButtonGroup.accessibleHelpText
 
   restartButton:
-    accessibleName:            Reset Time
-    accessibleHelpText:        Reset simulation time to zero.
-    accessibleContextResponse: Simulation time reset to zero femtoseconds.
+    accessibleHelpText:        Restart simulation time at zero.
+    accessibleContextResponse: Simulation time set to zero femtoseconds.
 
   playPauseButton:
-    accessibleNamePlaying:     Pause
-    accessibleNamePaused:      Play
     accessibleHelpTextPlaying: Pause simulation.
     accessibleHelpTextPaused:  Play simulation.
 
   stepForwardButton:
-    accessibleName:            Step Forward
-    accessibleHelpText:        Step forward one time step when simulation is paused.
+    accessibleHelpText:        Step forward {$value} femtoseconds.
     accessibleContextResponse: Simulation stepped forward {$value} femtoseconds.
 
   #=======================================================================================================

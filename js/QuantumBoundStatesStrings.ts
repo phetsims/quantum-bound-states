@@ -107,18 +107,14 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'restartButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'playPauseButton': {
-      'accessibleNamePlayingStringProperty': LocalizedStringProperty;
-      'accessibleNamePausedStringProperty': LocalizedStringProperty;
       'accessibleHelpTextPlayingStringProperty': LocalizedStringProperty;
       'accessibleHelpTextPausedStringProperty': LocalizedStringProperty;
     };
     'stepForwardButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
