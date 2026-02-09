@@ -56,7 +56,10 @@ export default class MassControl extends NumberControl {
         majorTickLength: 16,
         keyboardStep: 0.1,
         shiftKeyboardStep: 0.01,
-        pageKeyboardStep: 0.2
+        pageKeyboardStep: 0.2,
+        createAriaValueText: value => QuantumBoundStatesFluent.a11y.electronMass.pattern.format( {
+          value: toFixedNumber( value, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES )
+        } )
       },
       accessibleHelpText: QuantumBoundStatesFluent.a11y.massControl.accessibleHelpTextStringProperty,
       tandem: tandem
