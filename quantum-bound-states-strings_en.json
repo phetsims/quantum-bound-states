@@ -73,6 +73,12 @@
   "mass": {
     "value": "Mass"
   },
+  "normal": {
+    "value": "normal"
+  },
+  "fast": {
+    "value": "fast"
+  },
   "energyLevel": {
     "value": "Energy Level"
   },

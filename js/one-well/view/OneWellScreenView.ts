@@ -84,6 +84,10 @@ export default class OneWellScreenView extends ScreenView {
       legendPanel.right = energyGraphNode.right;
       legendPanel.bottom = energyGraphNode.top - 3;
     } );
+    timePanel.boundsProperty.lazyLink( () => {
+      timePanel.right = energyGraphNode.right;
+      timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    } );
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyGraphNode.chartTransform, {
       lineTop: energyGraphNode.y,

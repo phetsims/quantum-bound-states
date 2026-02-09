@@ -51,6 +51,8 @@ addToMapIfDefined( 'phase', 'phaseStringProperty' );
 addToMapIfDefined( 'magnifierTool', 'magnifierToolStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
+addToMapIfDefined( 'normal', 'normalStringProperty' );
+addToMapIfDefined( 'fast', 'fastStringProperty' );
 addToMapIfDefined( 'energyLevel', 'energyLevelStringProperty' );
 addToMapIfDefined( 'units_electronMasses_symbol', 'units.electronMasses.symbolStringProperty' );
 addToMapIfDefined( 'units_electronVolts_symbol', 'units.electronVolts.symbolStringProperty' );
@@ -177,6 +179,8 @@ const QuantumBoundStatesFluent = {
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
   _comment_3: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
+  normalStringProperty: _.get( QuantumBoundStatesStrings, 'normalStringProperty' ),
+  fastStringProperty: _.get( QuantumBoundStatesStrings, 'fastStringProperty' ),
   _comment_4: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
   energyLevelStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelStringProperty' ),
   _comment_5: new FluentComment( {"comment":"Units","associatedKey":"units"} ),

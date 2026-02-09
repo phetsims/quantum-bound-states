@@ -42,6 +42,8 @@ type StringsType = {
   'magnifierToolStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
+  'normalStringProperty': LocalizedStringProperty;
+  'fastStringProperty': LocalizedStringProperty;
   'energyLevelStringProperty': LocalizedStringProperty;
   'units': {
     'electronMasses': {

@@ -10,12 +10,12 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import HSlider, { HSliderOptions } from '../../../../sun/js/HSlider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class TimeScaleSlider extends HSlider {
 
@@ -37,17 +37,17 @@ export default class TimeScaleSlider extends HSlider {
     super( timeScaleProperty, range, options );
 
     const tickTextOptions = {
-      font: new PhetFont( 16 ),
+      font: new PhetFont( 12 ),
       maxWidth: 50
     };
 
     // Add tick marks at each valid value, with the min and max ticks labeled.
     validValues.forEach( ( value, index ) => {
       if ( index === 0 ) {
-        this.addMajorTick( value, new Text( MathSymbols.MINUS, tickTextOptions ) );
+        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.normalStringProperty, tickTextOptions ) );
       }
       else if ( index === validValues.length - 1 ) {
-        this.addMajorTick( value, new Text( MathSymbols.PLUS, tickTextOptions ) );
+        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.fastStringProperty, tickTextOptions ) );
       }
       else {
         this.addMajorTick( value );

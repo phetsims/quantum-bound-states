@@ -36,6 +36,8 @@ referenceLine:                   Reference Line
 
 # Sliders
 mass:                            Mass
+normal:                          normal
+fast:                            fast
 
 # Spinners
 energyLevel:                     Energy Level
@@ -112,7 +114,7 @@ a11y:
   #=======================================================================================================
 
   timeButtonGroup:
-    accessibleHeading: Time Buttons
+    accessibleHeading:  Time Buttons
     accessibleHelpText: TODO.timeButtonGroup.accessibleHelpText
 
   restartButton:
@@ -201,10 +203,10 @@ a11y:
   #=======================================================================================================
 
   timeDisplayToggleButton:
-    accessibleNameOn: Hide Time Display
-    accessibleNameOff: Show Time Display
-    accessibleHelpText: TODO.timeDisplayToggleButton.accessibleHelpText
-    accessibleContextResponseOn: Time display shown.
+    accessibleNameOn:             Hide Time Display
+    accessibleNameOff:            Show Time Display
+    accessibleHelpText:           TODO.timeDisplayToggleButton.accessibleHelpText
+    accessibleContextResponseOn:  Time display shown.
     accessibleContextResponseOff: Time display hidden.
 
   #=======================================================================================================
@@ -226,4 +228,4 @@ a11y:
     electronVolts:
       pattern: '{$value} eV'
     femtoseconds:
-        pattern: '{$value} fs'
+      pattern: '{$value} fs'
