@@ -57,7 +57,7 @@ function createContent( stringProperty: TReadOnlyProperty<string>, strokePropert
 
   const phaseText = new Text( stringProperty, {
     font: QBSConstants.CONTROL_FONT,
-    maxWidth: 80
+    maxWidth: 60
   } );
 
   const zeroNode = new Text( '0', {

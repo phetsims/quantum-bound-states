@@ -56,7 +56,7 @@ export default class QBSConstants {
   public static readonly TIME_FONT = new PhetFont( 16 );
 
   // Graphs
-  public static readonly ALL_GRAPHS_VIEW_WIDTH = 675;
+  public static readonly ALL_GRAPHS_VIEW_WIDTH = 700;
   public static readonly ALL_GRAPHS_X_RANGE = new Range( -3.5, 3.5 );
   public static readonly ALL_GRAPHS_X_TICK_SPACING = 1;
   public static readonly ENERGY_GRAPH_VIEW_HEIGHT = 265;

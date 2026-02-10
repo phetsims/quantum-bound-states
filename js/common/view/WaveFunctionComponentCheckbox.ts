@@ -66,7 +66,7 @@ function createContent( stringProperty: TReadOnlyProperty<string>, strokePropert
     children: [
       new Text( stringProperty, {
         font: QBSConstants.CONTROL_FONT,
-        maxWidth: 140
+        maxWidth: 120
       } ),
       new Line( 0, 0, 30, 0, {
         lineWidth: 3,
