@@ -63,7 +63,7 @@ type StringsType = {
       'symbolPatternStringProperty': LocalizedStringProperty;
     }
   };
-  'wells': {
+  'potentialWells': {
     'finiteSquareStringProperty': LocalizedStringProperty;
     'infiniteSquareStringProperty': LocalizedStringProperty;
   };
@@ -242,14 +242,6 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
-    };
-    'wells': {
-      'finiteSquare': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-      };
-      'infiniteSquare': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-      }
     };
     'potentialComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;

@@ -61,9 +61,9 @@ units:
     symbolPattern: '{{value}} fs'
 
 # Potential Wells
-wells:
-  finiteSquare:   Square (Finite)
-  infiniteSquare: Square (Infinite)
+potentialWells:
+  finiteSquare:   Finite Square
+  infiniteSquare: Infinite Square
 
 # Strings that are specific to accessibility
 a11y:
@@ -280,12 +280,6 @@ a11y:
   #=======================================================================================================
   # Potentials
   #=======================================================================================================
-
-  wells:
-    finiteSquare:
-      accessibleName: Square Finite
-    infiniteSquare:
-      accessibleName: Square Infinite
 
   potentialComboBox:
     accessibleName: Potential

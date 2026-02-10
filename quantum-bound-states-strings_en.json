@@ -120,12 +120,12 @@
       }
     }
   },
-  "wells": {
+  "potentialWells": {
     "finiteSquare": {
-      "value": "Square (Finite)"
+      "value": "Finite Square"
     },
     "infiniteSquare": {
-      "value": "Square (Infinite)"
+      "value": "Infinite Square"
     }
   },
   "a11y": {
@@ -492,18 +492,6 @@
       },
       "accessibleObjectResponse": {
         "value": "TODO.referenceLineHandleNode.accessibleObjectResponse"
-      }
-    },
-    "wells": {
-      "finiteSquare": {
-        "accessibleName": {
-          "value": "Square Finite"
-        }
-      },
-      "infiniteSquare": {
-        "accessibleName": {
-          "value": "Square Infinite"
-        }
       }
     },
     "potentialComboBox": {
