@@ -43,6 +43,7 @@ addToMapIfDefined( 'probabilityDensity', 'probabilityDensityStringProperty' );
 addToMapIfDefined( 'waveFunction', 'waveFunctionStringProperty' );
 addToMapIfDefined( 'display', 'displayStringProperty' );
 addToMapIfDefined( 'properties', 'propertiesStringProperty' );
+addToMapIfDefined( 'probabilityDensityFunction', 'probabilityDensityFunctionStringProperty' );
 addToMapIfDefined( 'probabilityDensityFunctionButtonLabel', 'probabilityDensityFunctionButtonLabelStringProperty' );
 addToMapIfDefined( 'waveFunctionButtonLabel', 'waveFunctionButtonLabelStringProperty' );
 addToMapIfDefined( 'valueLabels', 'valueLabelsStringProperty' );
@@ -202,6 +203,7 @@ const QuantumBoundStatesFluent = {
   waveFunctionStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionStringProperty' ),
   displayStringProperty: _.get( QuantumBoundStatesStrings, 'displayStringProperty' ),
   propertiesStringProperty: _.get( QuantumBoundStatesStrings, 'propertiesStringProperty' ),
+  probabilityDensityFunctionStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityFunctionStringProperty' ),
   _comment_2: new FluentComment( {"comment":"Buttons","associatedKey":"probabilityDensityFunctionButtonLabel"} ),
   probabilityDensityFunctionButtonLabelStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityFunctionButtonLabelStringProperty' ),
   waveFunctionButtonLabelStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionButtonLabelStringProperty' ),

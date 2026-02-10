@@ -49,6 +49,9 @@
   "properties": {
     "value": "Properties"
   },
+  "probabilityDensityFunction": {
+    "value": "Probability Density Function"
+  },
   "probabilityDensityFunctionButtonLabel": {
     "value": "|Ψ(x,t)|<sup>2</sup> = ..."
   },

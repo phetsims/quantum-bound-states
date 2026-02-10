@@ -8,6 +8,7 @@
 
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -18,13 +19,18 @@ export default class ProbabilityDensityFunctionDialog extends Dialog {
 
   public constructor( potential: Potential ) {
 
-    const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
-      accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionDialog.accessibleNameStringProperty
+    const titleNode = new Text( QuantumBoundStatesFluent.probabilityDensityFunctionStringProperty, {
+      font: QBSConstants.TITLE_FONT
     } );
 
     //TODO Create function from potential.
     const content = new RichText( QuantumBoundStatesFluent.probabilityDensityFunctionButtonLabelStringProperty, {
       font: QBSConstants.CONTROL_FONT
+    } );
+
+    const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
+      title: titleNode,
+      accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionDialog.accessibleNameStringProperty
     } );
 
     super( content, options );

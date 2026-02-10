@@ -24,6 +24,7 @@ probabilityDensity:                    Probability Density
 waveFunction:                          Wave Function
 display:                               Display
 properties:                            Properties
+probabilityDensityFunction:            Probability Density Function
 
 # Buttons
 probabilityDensityFunctionButtonLabel: '|Ψ(x,t)|<sup>2</sup> = ...'
