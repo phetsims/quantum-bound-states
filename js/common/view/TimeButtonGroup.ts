@@ -21,7 +21,7 @@ import Time from '../model/Time.js';
 const RESTART_BUTTON_RADIUS = 15;
 const STEP_FORWARD_BUTTON_RADIUS = RESTART_BUTTON_RADIUS;
 const PLAY_PAUSE_BUTTON_RADIUS = 21;
-const BUTTON_SPACING = 8;
+const BUTTON_SPACING = 10;
 const BUTTON_TOUCH_AREA_DILATION = 5;
 
 export default class TimeButtonGroup extends HBox {
