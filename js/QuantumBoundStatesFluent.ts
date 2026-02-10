@@ -219,6 +219,7 @@ const QuantumBoundStatesFluent = {
   fastStringProperty: _.get( QuantumBoundStatesStrings, 'fastStringProperty' ),
   _comment_5: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
   energyLevelStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelStringProperty' ),
+  energyLevelPatternStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelPatternStringProperty' ),
   _comment_6: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
   _comment_7: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
   _comment_8: new FluentComment( {"comment":"Units","associatedKey":"units"} ),

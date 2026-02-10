@@ -88,6 +88,9 @@
   "energyLevel": {
     "value": "Energy Level"
   },
+  "energyLevelPattern": {
+    "value": "E<sub>{{index}}</sub>"
+  },
   "units": {
     "electronMasses": {
       "symbol": {

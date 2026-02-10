@@ -47,6 +47,7 @@ type StringsType = {
   'normalStringProperty': LocalizedStringProperty;
   'fastStringProperty': LocalizedStringProperty;
   'energyLevelStringProperty': LocalizedStringProperty;
+  'energyLevelPatternStringProperty': LocalizedStringProperty;
   'units': {
     'electronMasses': {
       'symbolStringProperty': LocalizedStringProperty;

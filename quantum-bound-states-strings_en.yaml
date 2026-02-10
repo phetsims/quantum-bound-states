@@ -45,6 +45,7 @@ fast:                                  fast
 
 # Spinners
 energyLevel:                           Energy Level
+energyLevelPattern:                    E<sub>{{index}}</sub>
 
 # Units
 units:
