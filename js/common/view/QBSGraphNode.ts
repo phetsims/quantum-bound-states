@@ -180,7 +180,7 @@ export default class QBSGraphNode extends Node {
     if ( options.xAxisLabelStringProperty ) {
       const xAxisLabelNode = new RichText( options.xAxisLabelStringProperty, {
         font: QBSConstants.AXIS_LABEL_FONT,
-        maxWidth: 0.85 * this.chartRectangle.width
+        maxWidth: 0.5 * this.chartRectangle.width
       } );
       decorationsBack.push( xAxisLabelNode );
       xAxisLabelNode.boundsProperty.link( () => {
