@@ -29,7 +29,7 @@ export default class TimeDisplay extends HBox {
       phetioReadOnly: true // because this is controlled by toggleButton
     } );
 
-    const valueDisplay = new NumberDisplay( currentTimeProperty, new Range( 0, 1000 ), {
+    const valueDisplay = new NumberDisplay( currentTimeProperty, new Range( 0, 10000 ), {
       textOptions: {
         font: QBSConstants.TIME_FONT,
         // Hide the value by making it transparent.
