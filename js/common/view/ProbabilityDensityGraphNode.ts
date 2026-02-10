@@ -11,8 +11,8 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
-import { ProbabilityDensityEquationButton } from './ProbabilityDensityEquationButton.js';
-import ProbabilityDensityEquationDialog from './ProbabilityDensityEquationDialog.js';
+import { ProbabilityDensityFunctionButton } from './ProbabilityDensityFunctionButton.js';
+import ProbabilityDensityFunctionDialog from './ProbabilityDensityFunctionDialog.js';
 import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -37,18 +37,18 @@ export default class ProbabilityDensityGraphNode extends QBSGraphNode {
 
     super( options );
 
-    const probabilityDensityEquationDialog = new ProbabilityDensityEquationDialog( options.tandem.createTandem( 'probabilityDensityEquationDialog' ) );
+    const probabilityDensityFunctionDialog = new ProbabilityDensityFunctionDialog( options.tandem.createTandem( 'probabilityDensityEquationDialog' ) );
 
-    const probabilityDensityEquationButton = new ProbabilityDensityEquationButton( {
-      listener: () => probabilityDensityEquationDialog.show(),
-      tandem: options.tandem.createTandem( 'probabilityDensityEquationButton' )
+    const probabilityDensityFunctionButton = new ProbabilityDensityFunctionButton( {
+      listener: () => probabilityDensityFunctionDialog.show(),
+      tandem: options.tandem.createTandem( 'probabilityDensityFunctionButton' )
     } );
-    this.addChild( probabilityDensityEquationButton );
+    this.addChild( probabilityDensityFunctionButton );
 
     // Dynamically position the button in the top-right corner of the chart rectangle.
-    probabilityDensityEquationButton.boundsProperty.link( () => {
-      probabilityDensityEquationButton.top = this.chartRectangle.y + 8;
-      probabilityDensityEquationButton.right = this.chartRectangle.right - 8;
+    probabilityDensityFunctionButton.boundsProperty.link( () => {
+      probabilityDensityFunctionButton.top = this.chartRectangle.y + 8;
+      probabilityDensityFunctionButton.right = this.chartRectangle.right - 8;
     } );
   }
 }
