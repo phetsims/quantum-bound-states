@@ -21,8 +21,9 @@ import Time from '../model/Time.js';
 
 const RESTART_BUTTON_RADIUS = 15;
 const STEP_FORWARD_BUTTON_RADIUS = RESTART_BUTTON_RADIUS;
-const PLAY_PAUSE_BUTTON_RADIUS = 28;
+const PLAY_PAUSE_BUTTON_RADIUS = 21;
 const BUTTON_SPACING = 8;
+const BUTTON_TOUCH_AREA_DILATION = 5;
 
 export default class TimeButtonGroup extends HBox {
 
@@ -31,6 +32,7 @@ export default class TimeButtonGroup extends HBox {
     const restartButton = new RestartButton( {
       listener: () => time.restart(),
       radius: RESTART_BUTTON_RADIUS,
+      touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.restartButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.restartButton.accessibleContextResponseStringProperty,
       tandem: tandem.createTandem( 'restartButton' )
@@ -38,6 +40,7 @@ export default class TimeButtonGroup extends HBox {
 
     const playPauseButton = new PlayPauseButton( time.isPlayingProperty, {
       radius: PLAY_PAUSE_BUTTON_RADIUS,
+      touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
       accessibleHelpText: new DerivedStringProperty( [
           time.isPlayingProperty,
           QuantumBoundStatesFluent.a11y.playPauseButton.accessibleHelpTextPlayingStringProperty,
@@ -51,6 +54,7 @@ export default class TimeButtonGroup extends HBox {
     const stepForwardButton = new StepForwardButton( {
       listener: () => time.stepForward(),
       radius: STEP_FORWARD_BUTTON_RADIUS,
+      touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
       accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpText.createProperty( {
         value: Time.STEP_FORWARD_DELTA
@@ -65,7 +69,6 @@ export default class TimeButtonGroup extends HBox {
       isDisposable: false,
       children: [ restartButton, playPauseButton, stepForwardButton ],
       spacing: BUTTON_SPACING,
-      scale: 0.75,
       accessibleHeading: QuantumBoundStatesFluent.a11y.timeButtonGroup.accessibleHeadingStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.timeButtonGroup.accessibleHelpTextStringProperty,
       tandem: tandem,
