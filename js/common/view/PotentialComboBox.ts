@@ -30,7 +30,7 @@ export default class PotentialComboBox extends ComboBox<Potential> {
         //TODO Add icon
         createNode: () => new Text( potential.visualNameProperty, {
           font: QBSConstants.CONTROL_FONT,
-          maxWidth: 200
+          maxWidth: 250
         } )
       };
     } );
