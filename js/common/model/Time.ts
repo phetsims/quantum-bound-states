@@ -51,6 +51,7 @@ export default class Time {
     } );
     this.currentTimeProperty = this._currentTimeProperty;
 
+    //TODO Java scale factors were [ 0.01, 0.1, 1, 10 ], which is problematic with a linear slider.
     const validValues = _.sortBy( [ 1, 2, 3, 4 ] );
     this.timeScaleProperty = new NumberProperty( 1, {
       validValues: validValues,
