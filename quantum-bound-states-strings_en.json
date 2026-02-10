@@ -219,6 +219,30 @@
         "value": "Tool Controls"
       }
     },
+    "energyGraph": {
+      "accessibleHeading": {
+        "value": "Energy Graph"
+      },
+      "accessibleParagraph": {
+        "value": "TODO.energyGraph.accessibleParagraph"
+      }
+    },
+    "probabilityDensityGraph": {
+      "accessibleHeading": {
+        "value": "Probability Density Graph"
+      },
+      "accessibleParagraph": {
+        "value": "TODO.probabilityDensityGraph.accessibleParagraph"
+      }
+    },
+    "waveFunctionGraph": {
+      "accessibleHeading": {
+        "value": "Wave Function Graph"
+      },
+      "accessibleParagraph": {
+        "value": "TODO.waveFunctionGraph.accessibleParagraph"
+      }
+    },
     "timeButtonGroup": {
       "accessibleHeading": {
         "value": "Time Buttons"

@@ -118,6 +118,18 @@ a11y:
   toolControls:
     accessibleHeading: Tool Controls
 
+  energyGraph:
+    accessibleHeading: Energy Graph
+    accessibleParagraph: TODO.energyGraph.accessibleParagraph
+
+  probabilityDensityGraph:
+    accessibleHeading: Probability Density Graph
+    accessibleParagraph: TODO.probabilityDensityGraph.accessibleParagraph
+
+  waveFunctionGraph:
+    accessibleHeading: Wave Function Graph
+    accessibleParagraph: TODO.waveFunctionGraph.accessibleParagraph
+
   #=======================================================================================================
   # Push Buttons
   #=======================================================================================================

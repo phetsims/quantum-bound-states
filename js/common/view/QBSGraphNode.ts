@@ -63,7 +63,7 @@ type SelfOptions = {
 
 export type QBSGraphNodeOptions = SelfOptions &
   PickOptional<NodeOptions, 'visibleProperty'> &
-  PickRequired<NodeOptions, 'tandem'>;
+  PickRequired<NodeOptions, 'tandem' | 'accessibleHeading' | 'accessibleParagraph'>;
 
 export default class QBSGraphNode extends Node {
 
