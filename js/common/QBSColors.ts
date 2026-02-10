@@ -122,6 +122,16 @@ export default class QBSColors {
   public static readonly timeHiddenColorProperty = new ProfileColorProperty( quantumBoundStates, 'timeHiddenColor', {
     default: PhetColorScheme.BUTTON_YELLOW
   } );
+
+  //TODO rename
+  public static readonly graphShownProperty = new ProfileColorProperty( quantumBoundStates, 'graphShownProperty', {
+    default: 'white'
+  } );
+
+  //TODO rename
+  public static readonly graphHiddenColorProperty = new ProfileColorProperty( quantumBoundStates, 'graphHiddenColor', {
+    default: PhetColorScheme.BUTTON_YELLOW
+  } );
 }
 
 quantumBoundStates.register( 'QBSColors', QBSColors );

@@ -6,20 +6,27 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import { ProbabilityDensityFunctionButton } from './ProbabilityDensityFunctionButton.js';
 import ProbabilityDensityFunctionDialog from './ProbabilityDensityFunctionDialog.js';
 import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
 
+const BUTTON_X_MARGIN = 8;
+const BUTTON_Y_MARGIN = 8;
+
 type SelfOptions = EmptySelfOptions;
 
 type ProbabilityDensityGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptions, 'tandem' | 'visibleProperty'>;
 
-export default class ProbabilityDensityGraphNode extends QBSGraphNode {
+export class ProbabilityDensityGraphNode extends QBSGraphNode {
 
   public constructor( providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
@@ -37,6 +44,21 @@ export default class ProbabilityDensityGraphNode extends QBSGraphNode {
 
     super( options );
 
+    //TODO Which Property should be passed in here?
+    const somethingVisibleProperty = new Property( true );
+
+    //TODO Rename to reflect what this button does.
+    const eyeToggleButton = new EyeToggleButton( somethingVisibleProperty, {
+      scale: 0.5,
+      baseColor: new DerivedProperty(
+        [ somethingVisibleProperty, QBSColors.graphShownProperty, QBSColors.graphHiddenColorProperty ],
+        ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor ),
+      tandem: options.tandem.createTandem( 'eyeToggleButton' )
+    } );
+    this.addChild( eyeToggleButton );
+    eyeToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
+    eyeToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
+
     const probabilityDensityFunctionDialog = new ProbabilityDensityFunctionDialog( options.tandem.createTandem( 'probabilityDensityEquationDialog' ) );
 
     const probabilityDensityFunctionButton = new ProbabilityDensityFunctionButton( {
@@ -47,8 +69,8 @@ export default class ProbabilityDensityGraphNode extends QBSGraphNode {
 
     // Dynamically position the button in the top-right corner of the chart rectangle.
     probabilityDensityFunctionButton.boundsProperty.link( () => {
-      probabilityDensityFunctionButton.top = this.chartRectangle.y + 8;
-      probabilityDensityFunctionButton.right = this.chartRectangle.right - 8;
+      probabilityDensityFunctionButton.right = this.chartRectangle.right - BUTTON_X_MARGIN;
+      probabilityDensityFunctionButton.top = this.chartRectangle.y + BUTTON_Y_MARGIN;
     } );
   }
 }

@@ -6,14 +6,21 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
 import WaveFunctionButton from './WaveFunctionButton.js';
 import WaveFunctionDialog from './WaveFunctionDialog.js';
+
+const BUTTON_X_MARGIN = 8;
+const BUTTON_Y_MARGIN = 8;
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,6 +43,21 @@ export default class WaveFunctionGraphNode extends QBSGraphNode {
     }, providedOptions );
 
     super( options );
+
+    //TODO Which Property should be passed in here?
+    const somethingVisibleProperty = new Property( true );
+
+    //TODO Rename to reflect what this button does.
+    const eyeToggleButton = new EyeToggleButton( somethingVisibleProperty, {
+      scale: 0.5,
+      baseColor: new DerivedProperty(
+        [ somethingVisibleProperty, QBSColors.graphShownProperty, QBSColors.graphHiddenColorProperty ],
+        ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor ),
+      tandem: options.tandem.createTandem( 'eyeToggleButton' )
+    } );
+    this.addChild( eyeToggleButton );
+    eyeToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
+    eyeToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
     const waveFunctionDialog = new WaveFunctionDialog( options.tandem.createTandem( 'waveFunctionDialog' ) );
 

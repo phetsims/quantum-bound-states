@@ -46,7 +46,7 @@ export default class TimeDisplay extends HBox {
       scale: 0.5,
       baseColor: new DerivedProperty(
         [ timeVisibleProperty, QBSColors.timeShownColorProperty, QBSColors.timeHiddenColorProperty ],
-        ( timeVisible, timeShownColor, timeHiddenColor ) => timeVisible ? timeShownColor : timeHiddenColor ),
+        ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor ),
       accessibleNameOn: QuantumBoundStatesFluent.a11y.timeDisplayToggleButton.accessibleNameOnStringProperty,
       accessibleNameOff: QuantumBoundStatesFluent.a11y.timeDisplayToggleButton.accessibleNameOffStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.timeDisplayToggleButton.accessibleHelpTextStringProperty,
