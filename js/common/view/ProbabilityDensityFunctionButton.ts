@@ -9,29 +9,20 @@
 
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
-import RectangularPushButton, { RectangularPushButtonOptions } from '../../../../sun/js/buttons/RectangularPushButton.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import QBSConstants from '../QBSConstants.js';
+import QBSFunctionButton, { QBSFunctionButtonOptions } from './QBSFunctionButton.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ProbabilityDensityEquationButtonOptions = SelfOptions & PickRequired<RectangularPushButtonOptions, 'listener' | 'tandem'>;
+type ProbabilityDensityEquationButtonOptions = SelfOptions & PickRequired<QBSFunctionButtonOptions, 'listener' | 'tandem'>;
 
-export class ProbabilityDensityFunctionButton extends RectangularPushButton {
+export class ProbabilityDensityFunctionButton extends QBSFunctionButton {
 
   public constructor( providedOptions: ProbabilityDensityEquationButtonOptions ) {
 
-    const labelText = new RichText( QuantumBoundStatesFluent.probabilityDensityFunctionButtonLabelStringProperty, {
-      font: QBSConstants.CONTROL_FONT
-    } );
-
-    const options = optionize<ProbabilityDensityEquationButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
-
-      // RectangularPushButtonOptions
-      isDisposable: false,
-      content: labelText,
+    const options = optionize<ProbabilityDensityEquationButtonOptions, SelfOptions, QBSFunctionButtonOptions>()( {
+      labelStringProperty: QuantumBoundStatesFluent.probabilityDensityFunctionButtonLabelStringProperty,
       accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionButton.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionButton.accessibleContextResponseStringProperty

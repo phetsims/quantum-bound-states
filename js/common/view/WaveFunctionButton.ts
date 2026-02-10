@@ -9,29 +9,20 @@
 
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
-import RectangularPushButton, { RectangularPushButtonOptions } from '../../../../sun/js/buttons/RectangularPushButton.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import QBSConstants from '../QBSConstants.js';
+import QBSFunctionButton, { QBSFunctionButtonOptions } from './QBSFunctionButton.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type WaveFunctionButtonButtonOptions = SelfOptions & PickRequired<RectangularPushButtonOptions, 'listener' | 'tandem'>;
+type WaveFunctionButtonButtonOptions = SelfOptions & PickRequired<QBSFunctionButtonOptions, 'listener' | 'tandem'>;
 
-export default class WaveFunctionButton extends RectangularPushButton {
+export default class WaveFunctionButton extends QBSFunctionButton {
 
   public constructor( providedOptions: WaveFunctionButtonButtonOptions ) {
 
-    const labelText = new RichText( QuantumBoundStatesFluent.waveFunctionButtonLabelStringProperty, {
-      font: QBSConstants.CONTROL_FONT
-    } );
-
-    const options = optionize<WaveFunctionButtonButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
-
-      // RectangularPushButtonOptions
-      isDisposable: false,
-      content: labelText,
+    const options = optionize<WaveFunctionButtonButtonOptions, SelfOptions, QBSFunctionButtonOptions>()( {
+      labelStringProperty: QuantumBoundStatesFluent.waveFunctionButtonLabelStringProperty,
       accessibleName: QuantumBoundStatesFluent.a11y.waveFunctionButton.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.waveFunctionButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.waveFunctionButton.accessibleContextResponseStringProperty
