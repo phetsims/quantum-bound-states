@@ -114,6 +114,12 @@
       }
     }
   },
+  "squareFinite": {
+    "value": "Square (Finite)"
+  },
+  "squareInfinite": {
+    "value": "Square (Infinite)"
+  },
   "a11y": {
     "oneWellScreen": {
       "screenButtonsHelpText": {
@@ -454,6 +460,16 @@
       },
       "accessibleObjectResponse": {
         "value": "TODO.referenceLineHandleNode.accessibleObjectResponse"
+      }
+    },
+    "squareFinite": {
+      "accessibleName": {
+        "value": "Square Finite"
+      }
+    },
+    "squareInfinite": {
+      "accessibleName": {
+        "value": "Square Infinite"
       }
     },
     "units": {

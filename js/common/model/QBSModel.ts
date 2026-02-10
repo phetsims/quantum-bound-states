@@ -18,14 +18,17 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import { electronMassesUnit } from './electronMassesUnit.js';
-import { GraphType, GraphTypeValues } from './GraphType.js';
+import { GraphType } from './GraphType.js';
 import MagnifierTool from './MagnifierTool.js';
 import ReferenceLine from './ReferenceLine.js';
 import Time from './Time.js';
+import PotentialWell from './wells/PotentialWell.js';
 
 type SelfOptions = {
-  graphType?: GraphType;
-  graphTypes?: GraphType[];
+  potentialWell: PotentialWell;
+  potentialWells: PotentialWell[];
+  graphType: GraphType;
+  graphTypes: GraphType[];
 };
 
 export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -33,6 +36,8 @@ export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 't
 export default class QBSModel implements TModel {
 
   public readonly time: Time;
+
+  public readonly potentialWellProperty: Property<PotentialWell>;
 
   public readonly energyLevelRangeProperty: Property<Range>;
   public readonly energyLevelProperty: NumberProperty;
@@ -54,13 +59,16 @@ export default class QBSModel implements TModel {
   protected constructor( providedOptions: QBSModelOptions ) {
 
     const options = optionize<QBSModelOptions, SelfOptions, PhetioObjectOptions>()( {
-
-      // SelfOptions
-      graphType: 'probabilityDensity',
-      graphTypes: [ ...GraphTypeValues ]
+      //TODO
     }, providedOptions );
 
     this.time = new Time( options.tandem.createTandem( 'time' ) );
+
+    this.potentialWellProperty = new Property( options.potentialWell, {
+      validValues: options.potentialWells
+      //TODO phetioValueType: PotentialWellIO
+      //TODO tandem: options.tandem.createTandem( 'potentialWellProperty' )
+    } );
 
     this.massProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
@@ -80,6 +88,7 @@ export default class QBSModel implements TModel {
 
     this.energyLevelProperty = new NumberProperty( 1, {
       numberType: 'Integer',
+      //TODO Range varies depending on the selected potential and how it is configured.
       range: this.energyLevelRangeProperty,
       tandem: options.tandem.createTandem( 'energyLevelProperty' ),
       phetioFeatured: true,
@@ -128,7 +137,11 @@ export default class QBSModel implements TModel {
    * Resets the model.
    */
   public reset(): void {
+
     this.time.reset();
+
+    this.potentialWellProperty.reset();
+
     this.energyLevelRangeProperty.reset();
     this.energyLevelProperty.reset();
     this.massProperty.reset();

@@ -59,6 +59,8 @@ addToMapIfDefined( 'energyLevel', 'energyLevelStringProperty' );
 addToMapIfDefined( 'units_electronMasses_symbol', 'units.electronMasses.symbolStringProperty' );
 addToMapIfDefined( 'units_electronVolts_symbol', 'units.electronVolts.symbolStringProperty' );
 addToMapIfDefined( 'units_femtoSeconds_symbol', 'units.femtoSeconds.symbolStringProperty' );
+addToMapIfDefined( 'squareFinite', 'squareFiniteStringProperty' );
+addToMapIfDefined( 'squareInfinite', 'squareInfiniteStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -148,6 +150,8 @@ addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleContextResponseOff', 
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleName', 'a11y.referenceLineHandleNode.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleHelpText', 'a11y.referenceLineHandleNode.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleObjectResponse', 'a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_squareFinite_accessibleName', 'a11y.squareFinite.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_squareInfinite_accessibleName', 'a11y.squareInfinite.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_units_electronMasses_pattern', 'a11y.units.electronMasses.patternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVolts_pattern', 'a11y.units.electronVolts.patternStringProperty' );
 addToMapIfDefined( 'a11y_units_femtoseconds_pattern', 'a11y.units.femtoseconds.patternStringProperty' );
@@ -226,7 +230,13 @@ const QuantumBoundStatesFluent = {
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolPatternStringProperty' )
     }
   },
-  _comment_10: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  _comment_10: new FluentComment( {"comment":"Potential Wells","associatedKey":"squareFinite"} ),
+  _comment_11: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"squareFinite"} ),
+  _comment_12: new FluentComment( {"comment":"Potential Wells","associatedKey":"squareFinite"} ),
+  _comment_13: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"squareFinite"} ),
+  squareFiniteStringProperty: _.get( QuantumBoundStatesStrings, 'squareFiniteStringProperty' ),
+  squareInfiniteStringProperty: _.get( QuantumBoundStatesStrings, 'squareInfiniteStringProperty' ),
+  _comment_14: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"oneWellScreen"} ),
     _comment_1: new FluentComment( {"comment":"Screen Summaries","associatedKey":"oneWellScreen"} ),
@@ -422,10 +432,20 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleHelpTextStringProperty' ) ),
       accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty' ) )
     },
-    _comment_31: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-    _comment_32: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
-    _comment_33: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-    _comment_34: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+    _comment_31: new FluentComment( {"comment":"Potential Wells","associatedKey":"squareFinite"} ),
+    _comment_32: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"squareFinite"} ),
+    _comment_33: new FluentComment( {"comment":"Potential Wells","associatedKey":"squareFinite"} ),
+    _comment_34: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"squareFinite"} ),
+    squareFinite: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_squareFinite_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.squareFinite.accessibleNameStringProperty' ) )
+    },
+    squareInfinite: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_squareInfinite_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.squareInfinite.accessibleNameStringProperty' ) )
+    },
+    _comment_35: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+    _comment_36: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+    _comment_37: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+    _comment_38: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
     units: {
       electronMasses: {
         pattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronMasses_pattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronMasses.patternStringProperty' ), [{"name":"value"}] )

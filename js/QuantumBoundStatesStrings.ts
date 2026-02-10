@@ -61,6 +61,8 @@ type StringsType = {
       'symbolPatternStringProperty': LocalizedStringProperty;
     }
   };
+  'squareFiniteStringProperty': LocalizedStringProperty;
+  'squareInfiniteStringProperty': LocalizedStringProperty;
   'a11y': {
     'oneWellScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
@@ -224,6 +226,12 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+    };
+    'squareFinite': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+    };
+    'squareInfinite': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
     };
     'units': {
       'electronMasses': {

@@ -58,6 +58,10 @@ units:
     symbol:        fs
     symbolPattern: '{{value}} fs'
 
+# Potential Wells
+squareFinite:                          Square (Finite)
+squareInfinite:                        Square (Infinite)
+
 # Strings that are specific to accessibility
 a11y:
 
@@ -257,6 +261,16 @@ a11y:
     accessibleName:           Reference Line handle
     accessibleHelpText:       TODO.referenceLineHandleNode.accessibleHelpText
     accessibleObjectResponse: TODO.referenceLineHandleNode.accessibleObjectResponse
+
+  #=======================================================================================================
+  # Potential Wells
+  #=======================================================================================================
+
+  squareFinite:
+    accessibleName: Square Finite
+
+  squareInfinite:
+    accessibleName: Square Infinite
 
   #=======================================================================================================
   # Units

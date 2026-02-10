@@ -8,12 +8,21 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../../common/model/QBSModel.js';
+import SquareFiniteWell from '../../common/model/wells/SquareFiniteWell.js';
+import SquareInfiniteWell from '../../common/model/wells/SquareInfiniteWell.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class OneWellModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
+
+    const squareFiniteWell = new SquareFiniteWell( tandem.createTandem( 'squareFiniteWell' ) );
+    const squareInfiniteWell = new SquareInfiniteWell( tandem.createTandem( 'squareInfiniteWell' ) );
+
     super( {
+      potentialWell: squareFiniteWell,
+      potentialWells: [ squareFiniteWell, squareInfiniteWell ],
+      graphType: 'probabilityDensity',
       graphTypes: [ 'probabilityDensity', 'waveFunction' ],
       tandem: tandem
     } );
