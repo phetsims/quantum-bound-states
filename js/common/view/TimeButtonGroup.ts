@@ -18,7 +18,6 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Time from '../model/Time.js';
 
-
 const RESTART_BUTTON_RADIUS = 15;
 const STEP_FORWARD_BUTTON_RADIUS = RESTART_BUTTON_RADIUS;
 const PLAY_PAUSE_BUTTON_RADIUS = 21;
