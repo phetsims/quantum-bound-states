@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2026, University of Colorado Boulder
 
 //TODO https://github.com/phetsims/quantum-bound-states/issues/11 Move to scenery-phet/js/units/
 /**
