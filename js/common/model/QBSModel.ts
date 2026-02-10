@@ -8,15 +8,20 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { kilogramsUnit } from '../../../../scenery-phet/js/units/kilogramsUnit.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QBSConstants from '../QBSConstants.js';
 import { electronMassesUnit } from './electronMassesUnit.js';
 import { GraphType } from './GraphType.js';
 import MagnifierTool from './MagnifierTool.js';
@@ -42,7 +47,8 @@ export default class QBSModel implements TModel {
   public readonly energyLevelRangeProperty: Property<Range>;
   public readonly energyLevelProperty: NumberProperty;
 
-  public readonly massProperty: NumberProperty;
+  public readonly electronMassesProperty: NumberProperty;
+  public readonly massProperty: TReadOnlyProperty<number>;
 
   public readonly magnifierTool: MagnifierTool;
 
@@ -70,13 +76,21 @@ export default class QBSModel implements TModel {
       //TODO tandem: options.tandem.createTandem( 'potentialProperty' )
     } );
 
-    this.massProperty = new NumberProperty( 1, {
+    this.electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
       range: new Range( 0.5, 1.1 ),
-      tandem: options.tandem.createTandem( 'massProperty' ),
-      phetioFeatured: true
+      tandem: options.tandem.createTandem( 'electronMassesProperty' ),
+      phetioFeatured: true,
+      phetioDocumentation: 'The number of electron masses used to compute the value of massProperty.'
     } );
+
+    this.massProperty = new DerivedProperty( [ this.electronMassesProperty ],
+      electronMasses => electronMasses * QBSConstants.ELECTRON_MASS, {
+        units: kilogramsUnit,
+        tandem: options.tandem.createTandem( 'massProperty' ),
+        phetioValueType: NumberIO
+      } );
 
     //TODO energyLevelRangeProperty is dynamic, so the initial value must be computed.
     this.energyLevelRangeProperty = new Property( new Range( 1, 25 ), {
@@ -144,7 +158,7 @@ export default class QBSModel implements TModel {
 
     this.energyLevelRangeProperty.reset();
     this.energyLevelProperty.reset();
-    this.massProperty.reset();
+    this.electronMassesProperty.reset();
     this.magnifierTool.reset();
     this.referenceLine.reset();
     this.graphTypeProperty.reset();

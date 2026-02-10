@@ -42,7 +42,7 @@ export default class OneWellControlPanel extends Panel {
     const energyLevelControl = new EnergyLevelControl( model.energyLevelProperty, model.energyLevelRangeProperty,
       tandem.createTandem( 'energyLevelControl' ) );
 
-    const massControl = new MassControl( model.massProperty, tandem.createTandem( 'massControl' ) );
+    const massControl = new MassControl( model.electronMassesProperty, tandem.createTandem( 'massControl' ) );
 
     const valueLabelsCheckbox = new ValueLabelsCheckbox( model.valueLabelsVisibleProperty,
       tandem.createTandem( 'valueLabelsCheckbox' ) );
