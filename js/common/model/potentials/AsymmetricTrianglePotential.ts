@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * InfiniteSquarePotential is a quantum potential composed of 1 infinite square well.
+ * AsymmetricTrianglePotential is a quantum potential composed of 1 asymmetric triangle well.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,15 +11,15 @@ import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import Potential from './Potential.js';
 
-export default class InfiniteSquarePotential extends Potential {
+export default class AsymmetricTrianglePotential extends Potential {
 
   public constructor( tandem: Tandem ) {
     super( {
-      visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteSquareStringProperty,
-      tandemPrefix: 'infiniteSquarePotential',
+      visualNameProperty: QuantumBoundStatesFluent.potentialWells.asymmetricTriangleStringProperty,
+      tandemPrefix: 'asymmetricTrianglePotential',
       tandem: tandem
     } );
   }
 }
 
-quantumBoundStates.register( 'InfiniteSquarePotential', InfiniteSquarePotential );
+quantumBoundStates.register( 'AsymmetricTrianglePotential', AsymmetricTrianglePotential );

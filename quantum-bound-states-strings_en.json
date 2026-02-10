@@ -126,6 +126,18 @@
     },
     "infiniteSquare": {
       "value": "Infinite Square"
+    },
+    "asymmetricTriangle": {
+      "value": "Asymmetric Triangle"
+    },
+    "harmonicOscillator": {
+      "value": "Harmonic Oscillator"
+    },
+    "anharmonicOscillator": {
+      "value": "Anharmonic Oscillator"
+    },
+    "coulomb": {
+      "value": "Coulomb"
     }
   },
   "a11y": {

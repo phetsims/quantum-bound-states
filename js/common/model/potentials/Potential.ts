@@ -14,7 +14,7 @@ import quantumBoundStates from '../../../quantumBoundStates.js';
 
 type SelfOptions = {
   visualNameProperty: TReadOnlyProperty<string>;
-  accessibleNameProperty: TReadOnlyProperty<string>;
+  accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
 };
 
@@ -29,7 +29,9 @@ export default class Potential extends PhetioObject {
   protected constructor( providedOptions: PotentialWellOptions ) {
 
     const options = optionize<PotentialWellOptions, SelfOptions, PhetioObjectOptions>()( {
-      //TODO
+
+      // SelfOptions
+      accessibleNameProperty: providedOptions.visualNameProperty
     }, providedOptions );
 
     super( options );

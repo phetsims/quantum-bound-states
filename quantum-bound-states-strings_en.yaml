@@ -62,8 +62,12 @@ units:
 
 # Potential Wells
 potentialWells:
-  finiteSquare:   Finite Square
-  infiniteSquare: Infinite Square
+  finiteSquare:         Finite Square
+  infiniteSquare:       Infinite Square
+  asymmetricTriangle:   Asymmetric Triangle
+  harmonicOscillator:   Harmonic Oscillator
+  anharmonicOscillator: Anharmonic Oscillator
+  coulomb:              Coulomb
 
 # Strings that are specific to accessibility
 a11y:
@@ -121,15 +125,15 @@ a11y:
     accessibleHeading: Tool Controls
 
   energyGraph:
-    accessibleHeading: Energy Graph
+    accessibleHeading:   Energy Graph
     accessibleParagraph: TODO.energyGraph.accessibleParagraph
 
   probabilityDensityGraph:
-    accessibleHeading: Probability Density Graph
+    accessibleHeading:   Probability Density Graph
     accessibleParagraph: TODO.probabilityDensityGraph.accessibleParagraph
 
   waveFunctionGraph:
-    accessibleHeading: Wave Function Graph
+    accessibleHeading:   Wave Function Graph
     accessibleParagraph: TODO.waveFunctionGraph.accessibleParagraph
 
   #=======================================================================================================

@@ -66,6 +66,10 @@ type StringsType = {
   'potentialWells': {
     'finiteSquareStringProperty': LocalizedStringProperty;
     'infiniteSquareStringProperty': LocalizedStringProperty;
+    'asymmetricTriangleStringProperty': LocalizedStringProperty;
+    'harmonicOscillatorStringProperty': LocalizedStringProperty;
+    'anharmonicOscillatorStringProperty': LocalizedStringProperty;
+    'coulombStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'oneWellScreen': {

@@ -62,6 +62,10 @@ addToMapIfDefined( 'units_electronVolts_symbol', 'units.electronVolts.symbolStri
 addToMapIfDefined( 'units_femtoSeconds_symbol', 'units.femtoSeconds.symbolStringProperty' );
 addToMapIfDefined( 'potentialWells_finiteSquare', 'potentialWells.finiteSquareStringProperty' );
 addToMapIfDefined( 'potentialWells_infiniteSquare', 'potentialWells.infiniteSquareStringProperty' );
+addToMapIfDefined( 'potentialWells_asymmetricTriangle', 'potentialWells.asymmetricTriangleStringProperty' );
+addToMapIfDefined( 'potentialWells_harmonicOscillator', 'potentialWells.harmonicOscillatorStringProperty' );
+addToMapIfDefined( 'potentialWells_anharmonicOscillator', 'potentialWells.anharmonicOscillatorStringProperty' );
+addToMapIfDefined( 'potentialWells_coulomb', 'potentialWells.coulombStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -241,7 +245,11 @@ const QuantumBoundStatesFluent = {
   _comment_10: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
   potentialWells: {
     finiteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.finiteSquareStringProperty' ),
-    infiniteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteSquareStringProperty' )
+    infiniteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteSquareStringProperty' ),
+    asymmetricTriangleStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.asymmetricTriangleStringProperty' ),
+    harmonicOscillatorStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.harmonicOscillatorStringProperty' ),
+    anharmonicOscillatorStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.anharmonicOscillatorStringProperty' ),
+    coulombStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.coulombStringProperty' )
   },
   _comment_11: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
