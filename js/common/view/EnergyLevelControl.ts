@@ -46,6 +46,7 @@ class EnergyLevelSpinner extends NumberSpinner {
                       tandem: Tandem ) {
 
     super( energyLevelProperty, rangeProperty, {
+      arrowsScale: 2,
       numberDisplayOptions: {
         cornerRadius: 0,
         backgroundStroke: 'rgb( 200, 200, 200 )',
