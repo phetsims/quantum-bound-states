@@ -265,6 +265,46 @@
         "value": "TODO.waveFunctionButton.accessibleContextResponse"
       }
     },
+    "probabilityDensityToggleButton": {
+      "accessibleNameOn": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleNameOn"
+      },
+      "accessibleNameOff": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleNameOff"
+      },
+      "accessibleHelpTextOn": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleHelpTextOn"
+      },
+      "accessibleHelpTextOff": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleHelpTextOff"
+      },
+      "accessibleContextResponseOn": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleContextResponseOn"
+      },
+      "accessibleContextResponseOff": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleContextResponseOff"
+      }
+    },
+    "waveFunctionToggleButton": {
+      "accessibleNameOn": {
+        "value": "TODO.waveFunctionToggleButton.accessibleNameOn"
+      },
+      "accessibleNameOff": {
+        "value": "TODO.waveFunctionToggleButton.accessibleNameOff"
+      },
+      "accessibleHelpTextOn": {
+        "value": "TODO.waveFunctionToggleButton.accessibleHelpTextOn"
+      },
+      "accessibleHelpTextOff": {
+        "value": "TODO.waveFunctionToggleButton.accessibleHelpTextOff"
+      },
+      "accessibleContextResponseOn": {
+        "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOn"
+      },
+      "accessibleContextResponseOff": {
+        "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOff"
+      }
+    },
     "valueLabelsCheckbox": {
       "accessibleHelpText": {
         "value": "TODO.valueLabelsCheckbox.accessibleHelpText"

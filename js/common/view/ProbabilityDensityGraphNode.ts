@@ -53,6 +53,15 @@ export class ProbabilityDensityGraphNode extends QBSGraphNode {
       baseColor: new DerivedProperty(
         [ somethingVisibleProperty, QBSColors.graphShownProperty, QBSColors.graphHiddenColorProperty ],
         ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor ),
+      accessibleNameOn: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleNameOnStringProperty,
+      accessibleNameOff: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleNameOffStringProperty,
+      accessibleHelpText: new DerivedProperty( [
+        somethingVisibleProperty,
+        QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleHelpTextOnStringProperty,
+        QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleHelpTextOffStringProperty
+      ], ( visible, onString, offString ) => visible ? onString : offString ),
+      accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleContextResponseOnStringProperty,
+      accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleContextResponseOffStringProperty,
       tandem: options.tandem.createTandem( 'eyeToggleButton' )
     } );
     this.addChild( eyeToggleButton );

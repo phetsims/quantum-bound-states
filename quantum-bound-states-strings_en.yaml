@@ -143,6 +143,22 @@ a11y:
     accessibleHelpText:        TODO.waveFunctionButton.accessibleHelpText
     accessibleContextResponse: TODO.waveFunctionButton.accessibleContextResponse
 
+  probabilityDensityToggleButton:
+    accessibleNameOn:             TODO.probabilityDensityToggleButton.accessibleNameOn
+    accessibleNameOff:            TODO.probabilityDensityToggleButton.accessibleNameOff
+    accessibleHelpTextOn:         TODO.probabilityDensityToggleButton.accessibleHelpTextOn
+    accessibleHelpTextOff:        TODO.probabilityDensityToggleButton.accessibleHelpTextOff
+    accessibleContextResponseOn:  TODO.probabilityDensityToggleButton.accessibleContextResponseOn
+    accessibleContextResponseOff: TODO.probabilityDensityToggleButton.accessibleContextResponseOff
+
+  waveFunctionToggleButton:
+    accessibleNameOn:             TODO.waveFunctionToggleButton.accessibleNameOn
+    accessibleNameOff:            TODO.waveFunctionToggleButton.accessibleNameOff
+    accessibleHelpTextOn:         TODO.waveFunctionToggleButton.accessibleHelpTextOn
+    accessibleHelpTextOff:        TODO.waveFunctionToggleButton.accessibleHelpTextOff
+    accessibleContextResponseOn:  TODO.waveFunctionToggleButton.accessibleContextResponseOn
+    accessibleContextResponseOff: TODO.waveFunctionToggleButton.accessibleContextResponseOff
+
   #=======================================================================================================
   # Checkboxes
   #=======================================================================================================

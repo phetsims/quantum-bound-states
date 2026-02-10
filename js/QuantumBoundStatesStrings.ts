@@ -136,6 +136,22 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
+    'probabilityDensityToggleButton': {
+      'accessibleNameOnStringProperty': LocalizedStringProperty;
+      'accessibleNameOffStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
+    };
+    'waveFunctionToggleButton': {
+      'accessibleNameOnStringProperty': LocalizedStringProperty;
+      'accessibleNameOffStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
+    };
     'valueLabelsCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
