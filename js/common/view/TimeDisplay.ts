@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -36,9 +35,10 @@ export default class TimeDisplay extends HBox {
         // Hide the value by making it transparent.
         fill: new DerivedProperty( [ timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
       },
-      numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString(
-        //TODO Use toFixed so that trailing zeros are preserved.
-        toFixedNumber( value, QBSConstants.TIME_DECIMAL_PLACES ) ),
+      numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString( value, {
+        decimalPlaces: QBSConstants.TIME_DECIMAL_PLACES,
+        showTrailingZeros: true
+      } ),
       tandem: tandem.createTandem( 'valueDisplay' )
     } );
 

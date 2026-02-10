@@ -9,7 +9,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import NumberControl, { NumberControlMajorTick } from '../../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -37,9 +36,10 @@ export default class MassControl extends NumberControl {
         arrowButtonsXSpacing: 5
       } ),
       numberDisplayOptions: {
-        numberFormatter: value => electronMassesUnit.getVisualSymbolPatternString(
-          //TODO Use toFixed so that trailing zeros are preserved.
-          toFixedNumber( value, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) ),
+        numberFormatter: value => electronMassesUnit.getVisualSymbolPatternString( value, {
+          decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
+          showTrailingZeros: true
+        } ),
         useRichText: true,
         textOptions: {
           maxWidth: 50
@@ -54,9 +54,10 @@ export default class MassControl extends NumberControl {
         keyboardStep: 0.1,
         shiftKeyboardStep: 0.01,
         pageKeyboardStep: 0.2,
-        createAriaValueText: value => electronMassesUnit.getAccessibleString(
-          // Use toFixedNumber so that trailing zeros are removed.
-          toFixedNumber( value, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) )
+        createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {
+          decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
+          showTrailingZeros: false
+        } )
       },
       accessibleHelpText: QuantumBoundStatesFluent.a11y.massControl.accessibleHelpTextStringProperty,
       tandem: tandem
@@ -69,13 +70,15 @@ export default class MassControl extends NumberControl {
  */
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
-  const minStringProperty = electronMassesUnit.getVisualSymbolPatternString(
-    // Use toFixedNumber so that trailing zeros are removed.
-    toFixedNumber( range.min, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) );
+  const minStringProperty = electronMassesUnit.getVisualSymbolPatternString( range.min, {
+    decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
+    showTrailingZeros: false
+  } );
 
-  const maxStringProperty = electronMassesUnit.getVisualSymbolPatternString(
-    // Use toFixedNumber so that trailing zeros are removed.
-    toFixedNumber( range.max, QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ) );
+  const maxStringProperty = electronMassesUnit.getVisualSymbolPatternString( range.max, {
+    decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
+    showTrailingZeros: false
+  } );
 
   const tickTextOptions = {
     font: new PhetFont( 10 ),
