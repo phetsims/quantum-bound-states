@@ -17,7 +17,8 @@ export default class AnharmonicOscillatorPotential extends Potential {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.anharmonicOscillatorStringProperty,
       tandemPrefix: 'anharmonicOscillatorPotential',
-      tandem: tandem
+      tandem: tandem,
+      phetioDocumentation: 'A quantum potential with one anharmonic oscillator.'
     } );
   }
 }

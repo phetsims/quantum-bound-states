@@ -17,7 +17,8 @@ export default class HarmonicOscillatorPotential extends Potential {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.harmonicOscillatorStringProperty,
       tandemPrefix: 'harmonicOscillatorPotential',
-      tandem: tandem
+      tandem: tandem,
+      phetioDocumentation: 'A quantum potential with one harmonic oscillator.'
     } );
   }
 }

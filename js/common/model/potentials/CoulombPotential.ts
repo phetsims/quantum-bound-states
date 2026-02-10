@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * CoulombPotential is a quantum potential composed of 1 coulomb well.
+ * CoulombPotential is a quantum potential composed of 1 Coulomb well.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +17,8 @@ export default class CoulombPotential extends Potential {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
       tandemPrefix: 'coulombPotential',
-      tandem: tandem
+      tandem: tandem,
+      phetioDocumentation: 'A quantum potential with one Coulomb well.'
     } );
   }
 }

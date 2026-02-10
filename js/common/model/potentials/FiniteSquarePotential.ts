@@ -17,7 +17,8 @@ export default class FiniteSquarePotential extends Potential {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
       tandemPrefix: 'finiteSquarePotential',
-      tandem: tandem
+      tandem: tandem,
+      phetioDocumentation: 'A quantum potential with one finite square well.'
     } );
   }
 }
