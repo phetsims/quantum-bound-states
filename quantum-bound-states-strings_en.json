@@ -476,6 +476,11 @@
         }
       }
     },
+    "potentialComboBox": {
+      "accessibleName": {
+        "value": "Potential"
+      }
+    },
     "units": {
       "electronMasses": {
         "pattern": {

@@ -13,6 +13,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Potential from '../model/potentials/Potential.js';
 import QBSConstants from '../QBSConstants.js';
 
@@ -26,6 +27,7 @@ export default class PotentialComboBox extends ComboBox<Potential> {
     const items: ComboBoxItem<Potential>[] = potentials.map( potential => {
       return {
         value: potential,
+        accessibleName: potential.accessibleNameProperty,
         tandemName: `${potential.tandemPrefix}Item`,
         //TODO Add icon
         createNode: () => new Text( potential.visualNameProperty, {
@@ -38,6 +40,7 @@ export default class PotentialComboBox extends ComboBox<Potential> {
     super( potentialProperty, items, listboxParent, {
       xMargin: 10,
       yMargin: 6,
+      accessibleName: QuantumBoundStatesFluent.a11y.potentialComboBox.accessibleNameStringProperty,
       tandem: tandem
     } );
   }

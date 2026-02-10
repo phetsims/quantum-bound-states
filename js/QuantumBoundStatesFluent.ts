@@ -152,6 +152,7 @@ addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleHelpText', 'a11y.refe
 addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleObjectResponse', 'a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_wells_finiteSquare_accessibleName', 'a11y.wells.finiteSquare.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_wells_infiniteSquare_accessibleName', 'a11y.wells.infiniteSquare.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_potentialComboBox_accessibleName', 'a11y.potentialComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_units_electronMasses_pattern', 'a11y.units.electronMasses.patternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVolts_pattern', 'a11y.units.electronVolts.patternStringProperty' );
 addToMapIfDefined( 'a11y_units_femtoseconds_pattern', 'a11y.units.femtoseconds.patternStringProperty' );
@@ -445,6 +446,9 @@ const QuantumBoundStatesFluent = {
       infiniteSquare: {
         accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_wells_infiniteSquare_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.wells.infiniteSquare.accessibleNameStringProperty' ) )
       }
+    },
+    potentialComboBox: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_potentialComboBox_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.potentialComboBox.accessibleNameStringProperty' ) )
     },
     _comment_35: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
     _comment_36: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),

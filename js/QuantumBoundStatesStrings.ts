@@ -237,6 +237,9 @@ type StringsType = {
         'accessibleNameStringProperty': LocalizedStringProperty;
       }
     };
+    'potentialComboBox': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+    };
     'units': {
       'electronMasses': {
         'patternStringProperty': LocalizedStringProperty;
