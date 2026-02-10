@@ -106,6 +106,9 @@ class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode 
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
 
+      dragListenerOptions: {
+        useParentOffset: true
+      },
       keyboardDragListenerOptions: {
         dragSpeed: 300, // in view coordinates per second
         shiftDragSpeed: 75
