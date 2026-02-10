@@ -13,6 +13,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import { ProbabilityDensityFunctionButton } from './ProbabilityDensityFunctionButton.js';
@@ -28,7 +29,7 @@ type ProbabilityDensityGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNod
 
 export class ProbabilityDensityGraphNode extends QBSGraphNode {
 
-  public constructor( providedOptions: ProbabilityDensityGraphNodeOptions ) {
+  public constructor( model: QBSModel, providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
     const options = optionize<ProbabilityDensityGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
       xAxisLabelStringProperty: QuantumBoundStatesFluent.position_nmStringProperty,
@@ -70,10 +71,8 @@ export class ProbabilityDensityGraphNode extends QBSGraphNode {
     eyeToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
     eyeToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
-    const probabilityDensityFunctionDialog = new ProbabilityDensityFunctionDialog( options.tandem.createTandem( 'probabilityDensityEquationDialog' ) );
-
     const probabilityDensityFunctionButton = new ProbabilityDensityFunctionButton( {
-      listener: () => probabilityDensityFunctionDialog.show(),
+      listener: () => new ProbabilityDensityFunctionDialog( model.potentialProperty.value ).show(),
       tandem: options.tandem.createTandem( 'probabilityDensityFunctionButton' )
     } );
     this.addChild( probabilityDensityFunctionButton );

@@ -13,6 +13,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
@@ -28,7 +29,7 @@ type WaveFunctionGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptio
 
 export default class WaveFunctionGraphNode extends QBSGraphNode {
 
-  public constructor( providedOptions: WaveFunctionGraphNodeOptions ) {
+  public constructor( model: QBSModel, providedOptions: WaveFunctionGraphNodeOptions ) {
 
     const options = optionize<WaveFunctionGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
       xAxisLabelStringProperty: QuantumBoundStatesFluent.position_nmStringProperty,
@@ -70,10 +71,8 @@ export default class WaveFunctionGraphNode extends QBSGraphNode {
     eyeToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
     eyeToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
-    const waveFunctionDialog = new WaveFunctionDialog( options.tandem.createTandem( 'waveFunctionDialog' ) );
-
     const waveFunctionButton = new WaveFunctionButton( {
-      listener: () => waveFunctionDialog.show(),
+      listener: () => new WaveFunctionDialog( model.potentialProperty.value ).show(),
       tandem: options.tandem.createTandem( 'waveFunctionButton' )
     } );
     this.addChild( waveFunctionButton );
