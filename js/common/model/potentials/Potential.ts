@@ -15,6 +15,7 @@ import quantumBoundStates from '../../../quantumBoundStates.js';
 type SelfOptions = {
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty: TReadOnlyProperty<string>;
+  tandemPrefix: string;
 };
 
 export type PotentialWellOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -23,6 +24,7 @@ export default class Potential extends PhetioObject {
 
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
+  public readonly tandemPrefix: string;
 
   protected constructor( providedOptions: PotentialWellOptions ) {
 
@@ -34,6 +36,7 @@ export default class Potential extends PhetioObject {
 
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
+    this.tandemPrefix = options.tandemPrefix;
   }
 }
 

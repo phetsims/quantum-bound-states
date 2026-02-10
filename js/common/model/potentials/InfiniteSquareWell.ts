@@ -17,6 +17,7 @@ export default class InfiniteSquareWell extends Potential {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.wells.infiniteSquareStringProperty,
       accessibleNameProperty: QuantumBoundStatesFluent.a11y.wells.infiniteSquare.accessibleNameStringProperty,
+      tandemPrefix: 'infiniteSquareWell',
       tandem: tandem
     } );
   }

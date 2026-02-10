@@ -14,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
 import LegendPanel from '../../common/view/LegendPanel.js';
+import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import { ProbabilityDensityGraphNode } from '../../common/view/ProbabilityDensityGraphNode.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import TimePanel from '../../common/view/TimePanel.js';
@@ -32,6 +33,10 @@ export default class OneWellScreenView extends ScreenView {
       screenSummaryContent: new OneWellScreenSummaryContent(),
       tandem: tandem
     } );
+
+    const listboxParent = new Node();
+
+    const potentialComboBox = new PotentialComboBox( model.potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) );
 
     const legendPanel = new LegendPanel( tandem.createTandem( 'legendPanel' ) );
 
@@ -62,11 +67,9 @@ export default class OneWellScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Layout
+    // Static Layout
     energyGraphNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
-    legendPanel.right = energyGraphNode.right;
-    legendPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
-    energyGraphNode.top = legendPanel.bottom + 3;
+    energyGraphNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + potentialComboBox.height + 3;
     probabilityDensityGraphNode.left = energyGraphNode.left;
     probabilityDensityGraphNode.top = energyGraphNode.bottom + 5;
     waveFunctionGraphNode.translation = probabilityDensityGraphNode.translation;
@@ -74,17 +77,19 @@ export default class OneWellScreenView extends ScreenView {
     controlPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
     toolsPanel.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
-    timePanel.right = energyGraphNode.right;
-    timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
-    // Dynamic layout
-    legendPanel.boundsProperty.lazyLink( () => {
+    // Dynamic Layout
+    potentialComboBox.boundsProperty.link( () => {
+      potentialComboBox.left = energyGraphNode.x;
+      potentialComboBox.bottom = energyGraphNode.top - 3;
+    } );
+    legendPanel.boundsProperty.link( () => {
       legendPanel.right = energyGraphNode.right;
       legendPanel.bottom = energyGraphNode.top - 3;
     } );
-    timePanel.boundsProperty.lazyLink( () => {
+    timePanel.boundsProperty.link( () => {
       timePanel.right = energyGraphNode.right;
       timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     } );
@@ -99,6 +104,7 @@ export default class OneWellScreenView extends ScreenView {
     // Rendering order, from back to front
     const screenViewRootNode = new Node( {
       children: [
+        potentialComboBox,
         legendPanel,
         energyGraphNode,
         probabilityDensityGraphNode,
@@ -107,13 +113,15 @@ export default class OneWellScreenView extends ScreenView {
         toolsPanel,
         referenceLineNode,
         timePanel,
-        resetAllButton
+        resetAllButton,
+        listboxParent // on top of everything else
       ]
     } );
     this.addChild( screenViewRootNode );
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
+      potentialComboBox,
       energyGraphNode,
       probabilityDensityGraphNode,
       waveFunctionGraphNode,
