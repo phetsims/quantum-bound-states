@@ -11,6 +11,7 @@ import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../scenery/js/nodes/Text.js';
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
+import { DialogOptions } from '../../../sun/js/Dialog.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 import QBSColors from './QBSColors.js';
@@ -77,6 +78,10 @@ export default class QBSConstants {
     touchAreaYDilation: 3,
     mouseAreaXDilation: 6,
     mouseAreaYDilation: 3
+  };
+
+  public static readonly DIALOG_OPTIONS: DialogOptions = {
+    //TODO
   };
 
   public static readonly PANEL_OPTIONS: PanelOptions = {

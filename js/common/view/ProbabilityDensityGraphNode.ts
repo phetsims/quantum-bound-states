@@ -11,7 +11,8 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
-import ProbabilityDensityEquationButton from './ProbabilityDensityEquationButton.js';
+import { ProbabilityDensityEquationButton } from './ProbabilityDensityEquationButton.js';
+import ProbabilityDensityEquationDialog from './ProbabilityDensityEquationDialog.js';
 import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -36,11 +37,18 @@ export default class ProbabilityDensityGraphNode extends QBSGraphNode {
 
     super( options );
 
-    const equationButton = new ProbabilityDensityEquationButton( options.tandem.createTandem( 'equationButton' ) );
-    this.addChild( equationButton );
-    equationButton.boundsProperty.link( () => {
-      equationButton.top = this.chartRectangle.y + 8;
-      equationButton.right = this.chartRectangle.right - 8;
+    const probabilityDensityEquationDialog = new ProbabilityDensityEquationDialog( options.tandem.createTandem( 'probabilityDensityEquationDialog' ) );
+
+    const probabilityDensityEquationButton = new ProbabilityDensityEquationButton( {
+      listener: () => probabilityDensityEquationDialog.show(),
+      tandem: options.tandem.createTandem( 'probabilityDensityEquationButton' )
+    } );
+    this.addChild( probabilityDensityEquationButton );
+
+    // Dynamically position the button in the top-right corner of the chart rectangle.
+    probabilityDensityEquationButton.boundsProperty.link( () => {
+      probabilityDensityEquationButton.top = this.chartRectangle.y + 8;
+      probabilityDensityEquationButton.right = this.chartRectangle.right - 8;
     } );
   }
 }

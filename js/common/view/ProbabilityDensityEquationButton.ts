@@ -7,28 +7,37 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import RectangularPushButton, { RectangularPushButtonOptions } from '../../../../sun/js/buttons/RectangularPushButton.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class ProbabilityDensityEquationButton extends RectangularPushButton {
+type SelfOptions = EmptySelfOptions;
 
-  public constructor( tandem: Tandem ) {
+type ProbabilityDensityEquationButtonOptions = SelfOptions & PickRequired<RectangularPushButtonOptions, 'listener' | 'tandem'>;
 
-    const labelText = new RichText( QuantumBoundStatesFluent.probabilityDensityEquationButtonLabelStringProperty, {
+export class ProbabilityDensityEquationButton extends RectangularPushButton {
+
+  public constructor( providedOptions: ProbabilityDensityEquationButtonOptions ) {
+
+    const labelText = new RichText( QuantumBoundStatesFluent.probabilityDensityFunctionButtonLabelStringProperty, {
       font: QBSConstants.CONTROL_FONT
     } );
 
-    super( {
+    const options = optionize<ProbabilityDensityEquationButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
+
+      // RectangularPushButtonOptions
+      isDisposable: false,
       content: labelText,
-      accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityEquationButton.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.probabilityDensityEquationButton.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.probabilityDensityEquationButton.accessibleContextResponseStringProperty,
-      tandem: tandem
-    } );
+      accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionButton.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionButton.accessibleContextResponseStringProperty
+    }, providedOptions );
+
+    super( options );
   }
 }
 

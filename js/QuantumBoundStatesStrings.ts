@@ -34,8 +34,8 @@ type StringsType = {
   'waveFunctionStringProperty': LocalizedStringProperty;
   'displayStringProperty': LocalizedStringProperty;
   'propertiesStringProperty': LocalizedStringProperty;
-  'probabilityDensityEquationButtonLabelStringProperty': LocalizedStringProperty;
-  'waveFunctionEquationButtonLabelStringProperty': LocalizedStringProperty;
+  'probabilityDensityFunctionButtonLabelStringProperty': LocalizedStringProperty;
+  'waveFunctionButtonLabelStringProperty': LocalizedStringProperty;
   'valueLabelsStringProperty': LocalizedStringProperty;
   'realPartStringProperty': LocalizedStringProperty;
   'imaginaryPartStringProperty': LocalizedStringProperty;
@@ -126,12 +126,12 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
-    'probabilityDensityEquationButton': {
+    'probabilityDensityFunctionButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
-    'waveFunctionEquationButton': {
+    'waveFunctionButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
@@ -170,6 +170,12 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+    };
+    'probabilityDensityFunctionDialog': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+    };
+    'waveFunctionDialog': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
     };
     'graphTypeRadioButtonGroup': {
       'accessibleNameStringProperty': LocalizedStringProperty;

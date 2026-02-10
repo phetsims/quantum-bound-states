@@ -49,10 +49,10 @@
   "properties": {
     "value": "Properties"
   },
-  "probabilityDensityEquationButtonLabel": {
+  "probabilityDensityFunctionButtonLabel": {
     "value": "|Ψ(x,t)|<sup>2</sup> = ..."
   },
-  "waveFunctionEquationButtonLabel": {
+  "waveFunctionButtonLabel": {
     "value": "Ψ(x,t) = ..."
   },
   "valueLabels": {
@@ -243,26 +243,26 @@
         "value": "Simulation stepped forward {$value} femtoseconds."
       }
     },
-    "probabilityDensityEquationButton": {
+    "probabilityDensityFunctionButton": {
       "accessibleName": {
-        "value": "TODO.probabilityDensityEquationButton.accessibleName"
+        "value": "TODO.probabilityDensityFunctionButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO.probabilityDensityEquationButton.accessibleHelpText"
+        "value": "TODO.probabilityDensityFunctionButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "TODO.probabilityDensityEquationButton.accessibleContextResponse"
+        "value": "TODO.probabilityDensityFunctionButton.accessibleContextResponse"
       }
     },
-    "waveFunctionEquationButton": {
+    "waveFunctionButton": {
       "accessibleName": {
-        "value": "TODO.waveFunctionEquationButton.accessibleName"
+        "value": "TODO.waveFunctionButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO.waveFunctionEquationButton.accessibleHelpText"
+        "value": "TODO.waveFunctionButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "TODO.waveFunctionEquationButton.accessibleContextResponse"
+        "value": "TODO.waveFunctionButton.accessibleContextResponse"
       }
     },
     "valueLabelsCheckbox": {
@@ -340,6 +340,16 @@
       },
       "accessibleContextResponseUnchecked": {
         "value": "Reference Line hidden."
+      }
+    },
+    "probabilityDensityFunctionDialog": {
+      "accessibleName": {
+        "value": "Probability Density Function Dialog"
+      }
+    },
+    "waveFunctionDialog": {
+      "accessibleName": {
+        "value": "Wave Function Dialog"
       }
     },
     "graphTypeRadioButtonGroup": {

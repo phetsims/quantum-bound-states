@@ -1,13 +1,13 @@
 # Strings for PhET's Quantum Bound States simulation
 
 # Simulation Title
-quantum-bound-states.title:      Quantum Bound States
+quantum-bound-states.title:            Quantum Bound States
 
 # Screen Names
-screen.oneWell:                  One Well
-screen.superposition:            Superposition
-screen.twoWells:                 Two Wells
-screen.manyWells:                Many Wells
+screen.oneWell:                        One Well
+screen.superposition:                  Superposition
+screen.twoWells:                       Two Wells
+screen.manyWells:                      Many Wells
 
 # Preferences
 phaseFeatureControl:
@@ -15,36 +15,36 @@ phaseFeatureControl:
   description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
 
 # Titles
-potentialEnergy:                 Potential Energy
-totalEnergy:                     Total Energy
-position_nm:                     Position (nm)
-energy_eV:                       Energy (eV)
-averageProbabilityDensityOfBand: Average Probability<br>Density of Band
-probabilityDensity:              Probability Density
-waveFunction:                    Wave Function
-display:                         Display
-properties:                      Properties
+potentialEnergy:                       Potential Energy
+totalEnergy:                           Total Energy
+position_nm:                           Position (nm)
+energy_eV:                             Energy (eV)
+averageProbabilityDensityOfBand:       Average Probability<br>Density of Band
+probabilityDensity:                    Probability Density
+waveFunction:                          Wave Function
+display:                               Display
+properties:                            Properties
 
 # Buttons
-probabilityDensityEquationButtonLabel: '|Ψ(x,t)|<sup>2</sup> = ...'
-waveFunctionEquationButtonLabel: 'Ψ(x,t) = ...'
+probabilityDensityFunctionButtonLabel: '|Ψ(x,t)|<sup>2</sup> = ...'
+waveFunctionButtonLabel:               'Ψ(x,t) = ...'
 
 # Checkboxes
-valueLabels:                     Value Labels
-realPart:                        Real Part
-imaginaryPart:                   Imaginary Part
-magnitude:                       Magnitude
-phase:                           Phase
-magnifierTool:                   Magnifier Tool
-referenceLine:                   Reference Line
+valueLabels:                           Value Labels
+realPart:                              Real Part
+imaginaryPart:                         Imaginary Part
+magnitude:                             Magnitude
+phase:                                 Phase
+magnifierTool:                         Magnifier Tool
+referenceLine:                         Reference Line
 
 # Sliders
-mass:                            Mass
-normal:                          normal
-fast:                            fast
+mass:                                  Mass
+normal:                                normal
+fast:                                  fast
 
 # Spinners
-energyLevel:                     Energy Level
+energyLevel:                           Energy Level
 
 # Units
 units:
@@ -133,15 +133,15 @@ a11y:
     accessibleHelpText:        Step forward {$value} femtoseconds.
     accessibleContextResponse: Simulation stepped forward {$value} femtoseconds.
 
-  probabilityDensityEquationButton:
-    accessibleName:            TODO.probabilityDensityEquationButton.accessibleName
-    accessibleHelpText:        TODO.probabilityDensityEquationButton.accessibleHelpText
-    accessibleContextResponse: TODO.probabilityDensityEquationButton.accessibleContextResponse
+  probabilityDensityFunctionButton:
+    accessibleName:            TODO.probabilityDensityFunctionButton.accessibleName
+    accessibleHelpText:        TODO.probabilityDensityFunctionButton.accessibleHelpText
+    accessibleContextResponse: TODO.probabilityDensityFunctionButton.accessibleContextResponse
 
-  waveFunctionEquationButton:
-    accessibleName:            TODO.waveFunctionEquationButton.accessibleName
-    accessibleHelpText:        TODO.waveFunctionEquationButton.accessibleHelpText
-    accessibleContextResponse: TODO.waveFunctionEquationButton.accessibleContextResponse
+  waveFunctionButton:
+    accessibleName:            TODO.waveFunctionButton.accessibleName
+    accessibleHelpText:        TODO.waveFunctionButton.accessibleHelpText
+    accessibleContextResponse: TODO.waveFunctionButton.accessibleContextResponse
 
   #=======================================================================================================
   # Checkboxes
@@ -181,6 +181,16 @@ a11y:
     accessibleHelpText:                 TODO.referenceLineCheckbox.accessibleHelpText
     accessibleContextResponseChecked:   Reference Line shown.
     accessibleContextResponseUnchecked: Reference Line hidden.
+
+  #=======================================================================================================
+  # Dialogs
+  #=======================================================================================================
+
+  probabilityDensityFunctionDialog:
+    accessibleName: Probability Density Function Dialog
+
+  waveFunctionDialog:
+    accessibleName: Wave Function Dialog
 
   #=======================================================================================================
   # Radio Buttons

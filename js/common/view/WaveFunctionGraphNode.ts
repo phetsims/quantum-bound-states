@@ -12,7 +12,8 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
-import WaveFunctionEquationButton from './WaveFunctionEquationButton.js';
+import WaveFunctionButton from './WaveFunctionButton.js';
+import WaveFunctionDialog from './WaveFunctionDialog.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,11 +37,18 @@ export default class WaveFunctionGraphNode extends QBSGraphNode {
 
     super( options );
 
-    const equationButton = new WaveFunctionEquationButton( options.tandem.createTandem( 'equationButton' ) );
-    this.addChild( equationButton );
-    equationButton.boundsProperty.link( () => {
-      equationButton.top = this.chartRectangle.y + 8;
-      equationButton.right = this.chartRectangle.right - 8;
+    const waveFunctionDialog = new WaveFunctionDialog( options.tandem.createTandem( 'waveFunctionDialog' ) );
+
+    const waveFunctionButton = new WaveFunctionButton( {
+      listener: () => waveFunctionDialog.show(),
+      tandem: options.tandem.createTandem( 'waveFunctionButton' )
+    } );
+    this.addChild( waveFunctionButton );
+
+    // Dynamically position the button in the top-right corner of the chart rectangle.
+    waveFunctionButton.boundsProperty.link( () => {
+      waveFunctionButton.top = this.chartRectangle.y + 8;
+      waveFunctionButton.right = this.chartRectangle.right - 8;
     } );
   }
 }
