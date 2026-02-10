@@ -61,8 +61,10 @@ type StringsType = {
       'symbolPatternStringProperty': LocalizedStringProperty;
     }
   };
-  'squareFiniteStringProperty': LocalizedStringProperty;
-  'squareInfiniteStringProperty': LocalizedStringProperty;
+  'wells': {
+    'finiteSquareStringProperty': LocalizedStringProperty;
+    'infiniteSquareStringProperty': LocalizedStringProperty;
+  };
   'a11y': {
     'oneWellScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
@@ -227,11 +229,13 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
-    'squareFinite': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-    };
-    'squareInfinite': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
+    'wells': {
+      'finiteSquare': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      };
+      'infiniteSquare': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      }
     };
     'units': {
       'electronMasses': {

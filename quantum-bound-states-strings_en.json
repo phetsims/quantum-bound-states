@@ -114,11 +114,13 @@
       }
     }
   },
-  "squareFinite": {
-    "value": "Square (Finite)"
-  },
-  "squareInfinite": {
-    "value": "Square (Infinite)"
+  "wells": {
+    "finiteSquare": {
+      "value": "Square (Finite)"
+    },
+    "infiniteSquare": {
+      "value": "Square (Infinite)"
+    }
   },
   "a11y": {
     "oneWellScreen": {
@@ -142,7 +144,7 @@
     },
     "twoWellsScreen": {
       "screenButtonsHelpText": {
-        "value": "Explore bound states and molecular bonding in two closely separated wells."
+        "value": "Explore bound states and molecular bonding in two closely separated potentials."
       },
       "screenSummary": {
         "playArea": {
@@ -161,7 +163,7 @@
     },
     "manyWellsScreen": {
       "screenButtonsHelpText": {
-        "value": "Explore bound states and band structure in a periodic array of potential wells."
+        "value": "Explore bound states and band structure in a periodic array of potential potentials."
       },
       "screenSummary": {
         "playArea": {
@@ -462,14 +464,16 @@
         "value": "TODO.referenceLineHandleNode.accessibleObjectResponse"
       }
     },
-    "squareFinite": {
-      "accessibleName": {
-        "value": "Square Finite"
-      }
-    },
-    "squareInfinite": {
-      "accessibleName": {
-        "value": "Square Infinite"
+    "wells": {
+      "finiteSquare": {
+        "accessibleName": {
+          "value": "Square Finite"
+        }
+      },
+      "infiniteSquare": {
+        "accessibleName": {
+          "value": "Square Infinite"
+        }
       }
     },
     "units": {

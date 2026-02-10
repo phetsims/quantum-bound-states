@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialWell is the base class for all potential wells.
+ * Potential is the base class for all potential potentials.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +19,7 @@ type SelfOptions = {
 
 export type PotentialWellOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class PotentialWell extends PhetioObject {
+export default class Potential extends PhetioObject {
 
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
@@ -37,4 +37,4 @@ export default class PotentialWell extends PhetioObject {
   }
 }
 
-quantumBoundStates.register( 'PotentialWell', PotentialWell );
+quantumBoundStates.register( 'Potential', Potential );

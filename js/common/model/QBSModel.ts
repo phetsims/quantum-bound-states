@@ -20,13 +20,13 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import { electronMassesUnit } from './electronMassesUnit.js';
 import { GraphType } from './GraphType.js';
 import MagnifierTool from './MagnifierTool.js';
+import Potential from './potentials/Potential.js';
 import ReferenceLine from './ReferenceLine.js';
 import Time from './Time.js';
-import PotentialWell from './wells/PotentialWell.js';
 
 type SelfOptions = {
-  potentialWell: PotentialWell;
-  potentialWells: PotentialWell[];
+  potential: Potential;
+  potentials: Potential[];
   graphType: GraphType;
   graphTypes: GraphType[];
 };
@@ -37,7 +37,7 @@ export default class QBSModel implements TModel {
 
   public readonly time: Time;
 
-  public readonly potentialWellProperty: Property<PotentialWell>;
+  public readonly potentialProperty: Property<Potential>;
 
   public readonly energyLevelRangeProperty: Property<Range>;
   public readonly energyLevelProperty: NumberProperty;
@@ -64,10 +64,10 @@ export default class QBSModel implements TModel {
 
     this.time = new Time( options.tandem.createTandem( 'time' ) );
 
-    this.potentialWellProperty = new Property( options.potentialWell, {
-      validValues: options.potentialWells
-      //TODO phetioValueType: PotentialWellIO
-      //TODO tandem: options.tandem.createTandem( 'potentialWellProperty' )
+    this.potentialProperty = new Property( options.potential, {
+      validValues: options.potentials
+      //TODO phetioValueType: PotentialIO
+      //TODO tandem: options.tandem.createTandem( 'potentialProperty' )
     } );
 
     this.massProperty = new NumberProperty( 1, {
@@ -140,7 +140,7 @@ export default class QBSModel implements TModel {
 
     this.time.reset();
 
-    this.potentialWellProperty.reset();
+    this.potentialProperty.reset();
 
     this.energyLevelRangeProperty.reset();
     this.energyLevelProperty.reset();

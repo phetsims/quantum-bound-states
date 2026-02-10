@@ -59,8 +59,9 @@ units:
     symbolPattern: '{{value}} fs'
 
 # Potential Wells
-squareFinite:                          Square (Finite)
-squareInfinite:                        Square (Infinite)
+wells:
+  finiteSquare:   Square (Finite)
+  infiniteSquare: Square (Infinite)
 
 # Strings that are specific to accessibility
 a11y:
@@ -78,7 +79,7 @@ a11y:
       interactionHint: TODO.oneWellScreen.screenSummary.interactionHint
 
   twoWellsScreen:
-    screenButtonsHelpText: Explore bound states and molecular bonding in two closely separated wells.
+    screenButtonsHelpText: Explore bound states and molecular bonding in two closely separated potentials.
     screenSummary:
       playArea:        TODO.twoWellsScreen.screenSummary.playArea
       controlArea:     TODO.twoWellsScreen.screenSummary.controlArea
@@ -86,7 +87,7 @@ a11y:
       interactionHint: TODO.twoWellsScreen.screenSummary.interactionHint
 
   manyWellsScreen:
-    screenButtonsHelpText: Explore bound states and band structure in a periodic array of potential wells.
+    screenButtonsHelpText: Explore bound states and band structure in a periodic array of potential potentials.
     screenSummary:
       playArea:        TODO.manyWellsScreen.screenSummary.playArea
       controlArea:     TODO.manyWellsScreen.screenSummary.controlArea
@@ -263,14 +264,14 @@ a11y:
     accessibleObjectResponse: TODO.referenceLineHandleNode.accessibleObjectResponse
 
   #=======================================================================================================
-  # Potential Wells
+  # Potentials
   #=======================================================================================================
 
-  squareFinite:
-    accessibleName: Square Finite
-
-  squareInfinite:
-    accessibleName: Square Infinite
+  wells:
+    finiteSquare:
+      accessibleName: Square Finite
+    infiniteSquare:
+      accessibleName: Square Infinite
 
   #=======================================================================================================
   # Units
