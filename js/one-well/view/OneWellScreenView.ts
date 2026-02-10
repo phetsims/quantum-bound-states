@@ -99,7 +99,13 @@ export default class OneWellScreenView extends ScreenView {
       lineBottom: probabilityDensityGraphNode.bottom - QBSConstants.HANDLE_DIAMETER / 2,
       tandem: tandem.createTandem( 'referenceLineNode' )
     } );
-    referenceLineNode.x = energyGraphNode.x; //TODO
+
+    // Wrap referenceLineNode in a Node so that it drags in the same coordinate frame as the graphs.
+    const referenceLineWrapper = new Node( {
+      children: [ referenceLineNode ],
+      x: energyGraphNode.x,
+      y: 0
+    } );
 
     // Rendering order, from back to front
     const screenViewRootNode = new Node( {
@@ -111,7 +117,7 @@ export default class OneWellScreenView extends ScreenView {
         waveFunctionGraphNode,
         controlPanel,
         toolsPanel,
-        referenceLineNode,
+        referenceLineWrapper,
         timePanel,
         resetAllButton,
         listboxParent // on top of everything else
