@@ -82,7 +82,7 @@ export default class QBSModel implements TModel {
       range: new Range( 0.5, 1.1 ),
       tandem: options.tandem.createTandem( 'electronMassesProperty' ),
       phetioFeatured: true,
-      phetioDocumentation: 'The number of electron masses used to compute the value of massProperty.'
+      phetioDocumentation: 'The number of electron masses, used to compute the value of massProperty.'
     } );
 
     this.massProperty = new DerivedProperty( [ this.electronMassesProperty ],
