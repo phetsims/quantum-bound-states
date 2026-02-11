@@ -71,9 +71,10 @@ export default class QBSModel implements TModel {
     this.time = new Time( options.tandem.createTandem( 'time' ) );
 
     this.potentialProperty = new Property( options.potential, {
-      validValues: options.potentials
-      //TODO phetioValueType: PotentialIO
-      //TODO tandem: options.tandem.createTandem( 'potentialProperty' )
+      validValues: options.potentials,
+      phetioValueType: Potential.PotentialIO,
+      tandem: options.tandem.createTandem( 'potentialProperty' ),
+      phetioFeatured: true
     } );
 
     this.electronMassesProperty = new NumberProperty( 1, {

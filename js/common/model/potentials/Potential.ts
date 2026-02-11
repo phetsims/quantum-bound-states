@@ -10,6 +10,8 @@ import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
+import IOType from '../../../../../tandem/js/types/IOType.js';
+import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
 
 type SelfOptions = {
@@ -31,7 +33,10 @@ export default class Potential extends PhetioObject {
     const options = optionize<PotentialWellOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      accessibleNameProperty: providedOptions.visualNameProperty
+      accessibleNameProperty: providedOptions.visualNameProperty,
+
+      // PhetioObjectOptions
+      phetioState: false // because PotentialIO implements reference-type serialization.
     }, providedOptions );
 
     super( options );
@@ -40,6 +45,15 @@ export default class Potential extends PhetioObject {
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
   }
+
+  /**
+   * PotentialIO handles PhET-iO serialization of Potential instances, as described in the Serialization section of
+   * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
+   */
+  public static readonly PotentialIO = new IOType<Potential, ReferenceIOState>( 'VectorIO', {
+    valueType: Potential,
+    supertype: ReferenceIO( IOType.ObjectIO )
+  } );
 }
 
 quantumBoundStates.register( 'Potential', Potential );
