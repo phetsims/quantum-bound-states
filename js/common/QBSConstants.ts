@@ -13,6 +13,7 @@ import Text from '../../../scenery/js/nodes/Text.js';
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import { DialogOptions } from '../../../sun/js/Dialog.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 import QBSColors from './QBSColors.js';
 
@@ -84,7 +85,7 @@ export default class QBSConstants {
   };
 
   public static readonly DIALOG_OPTIONS: DialogOptions = {
-    //TODO
+    tandem: Tandem.OPT_OUT
   };
 
   public static readonly PANEL_OPTIONS: PanelOptions = {
