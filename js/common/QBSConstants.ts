@@ -85,7 +85,7 @@ export default class QBSConstants {
   };
 
   public static readonly DIALOG_OPTIONS: DialogOptions = {
-    tandem: Tandem.OPT_OUT
+    tandem: Tandem.OPT_OUT // Not instrumenting dialogs was a design decision.
   };
 
   public static readonly PANEL_OPTIONS: PanelOptions = {
