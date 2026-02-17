@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -23,8 +24,8 @@ export default class ProbabilityDensityFunctionDialog extends Dialog {
       font: QBSConstants.TITLE_FONT
     } );
 
-    //TODO Create function from potential.
-    const content = new RichText( QuantumBoundStatesFluent.probabilityDensityFunctionButtonLabelStringProperty, {
+    const contentStringProperty = new StringProperty( '|Ψ(x,t)|<sup>2</sup> = TODO.expandedFunction' ); //TODO
+    const content = new RichText( contentStringProperty, {
       font: QBSConstants.CONTROL_FONT
     } );
 
