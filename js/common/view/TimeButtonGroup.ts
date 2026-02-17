@@ -55,12 +55,8 @@ export default class TimeButtonGroup extends HBox {
       radius: STEP_FORWARD_BUTTON_RADIUS,
       touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpText.createProperty( {
-        value: Time.STEP_FORWARD_DELTA
-      } ),
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponse.createProperty( {
-        value: Time.STEP_FORWARD_DELTA
-      } ),
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponseStringProperty,
       tandem: tandem.createTandem( 'stepForwardButton' )
     } );
 
