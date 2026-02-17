@@ -254,7 +254,7 @@ const QuantumBoundStatesFluent = {
   _comment_11: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
-    _comment_1: new FluentComment( {"comment":"Screen Summaries","associatedKey":"screens"} ),
+    _comment_1: new FluentComment( {"comment":"Screens (screen summaries, screen buttons)","associatedKey":"screens"} ),
     _comment_2: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
     screens: {
       oneWellScreen: {
