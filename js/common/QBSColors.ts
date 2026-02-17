@@ -155,6 +155,10 @@ export default class QBSColors {
     default: 'black',
     projector: 'white'
   } );
+
+  public static readonly magnifierToolWireStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolWireStroke', {
+    default: Color.grayColor( 128 )
+  } );
 }
 
 quantumBoundStates.register( 'QBSColors', QBSColors );

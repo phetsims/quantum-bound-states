@@ -7,14 +7,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import { linear } from '../../../../dot/js/util/linear.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ProbeNode, { ProbeNodeOptions } from '../../../../scenery-phet/js/ProbeNode.js';
 import ShadedRectangle from '../../../../scenery-phet/js/ShadedRectangle.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -35,8 +40,10 @@ export default class MagnifierToolNode extends Node {
 
     const probeNode = new MagnifierToolProbeNode( tandem.createTandem( 'probeNode' ) );
 
+    const wireNode = new MagnifierToolWireNode( bodyNode, probeNode );
+
     super( {
-      children: [ bodyNode, probeNode ],
+      children: [ wireNode, bodyNode, probeNode ],
       visibleProperty: magnifierTool.visibleProperty,
       accessibleHeading: QuantumBoundStatesFluent.a11y.magnifierTool.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.magnifierTool.accessibleParagraphStringProperty,
@@ -85,15 +92,17 @@ class MagnifierToolProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
     const options = combineOptions<ProbeNodeOptions>( {
       cursor: 'pointer',
-      radius: 26,
-      innerRadius: 20,
-      handleWidth: 34,
-      handleHeight: 30,
-      handleCornerRadius: 11,
+      radius: 18,
+      innerRadius: 14,
+      handleWidth: 20,
+      handleHeight: 20,
+      handleCornerRadius: 8,
       lightAngle: 1.25 * Math.PI,
       color: QBSColors.magnifierToolProbeColorProperty,
       sensorTypeFunction: ProbeNode.crosshairs( {
-        stroke: QBSColors.magnifierToolCrosshairsStrokeProperty
+        stroke: QBSColors.magnifierToolCrosshairsStrokeProperty,
+        lineWidth: 2,
+        intersectionRadius: 4
       } ),
       accessibleName: QuantumBoundStatesFluent.a11y.magnifierTool.probe.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifierTool.probe.accessibleHelpTextStringProperty,
@@ -104,7 +113,44 @@ class MagnifierToolProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
     super( options );
   }
+}
 
+/**
+ * MagnifierToolWireNode is the wire that connects the body and probe.
+ */
+class MagnifierToolWireNode extends Path {
+
+  public constructor( bodyNode: Node, probeNode: Node ) {
+
+    const shapeProperty = new DerivedProperty( [ bodyNode.boundsProperty, probeNode.boundsProperty ], () => {
+
+      // connection points
+      const bodyConnectionPoint = new Vector2( bodyNode.centerX, bodyNode.bottom );
+      const probeConnectionPoint = new Vector2( probeNode.centerX, probeNode.bottom );
+
+      // control points
+      // The y coordinate of the body's control point varies with the x distance between the body and probe.
+      const c1Offset = new Vector2( 0, linear( 0, 800, 0, 200, bodyNode.centerX - probeNode.left ) ); // x distance -> y coordinate
+      const c2Offset = new Vector2( 50, 150 );
+      const c1 = new Vector2( bodyConnectionPoint.x + c1Offset.x, bodyConnectionPoint.y + c1Offset.y );
+      const c2 = new Vector2( probeConnectionPoint.x + c2Offset.x, probeConnectionPoint.y + c2Offset.y );
+
+      // cubic curve
+      return new Shape()
+        .moveTo( bodyConnectionPoint.x, bodyConnectionPoint.y )
+        .cubicCurveTo( c1.x, c1.y, c2.x, c2.y, probeConnectionPoint.x, probeConnectionPoint.y );
+    } );
+
+    super( shapeProperty, {
+
+      // PathOptions
+      stroke: QBSColors.magnifierToolWireStrokeProperty,
+      lineWidth: 3,
+      lineCap: 'square',
+      lineJoin: 'round',
+      pickable: false
+    } );
+  }
 }
 
 quantumBoundStates.register( 'MagnifierToolNode', MagnifierToolNode );
