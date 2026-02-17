@@ -250,10 +250,23 @@ type StringsType = {
       'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
       'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
     };
-    'referenceLineHandleNode': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+    'magnifierTool': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+      'probe': {
+        'accessibleHeadingStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      }
+    };
+    'referenceLine': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+      'handle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      }
     };
     'potentialComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;

@@ -13,6 +13,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import MagnifierTool from '../model/MagnifierTool.js';
 import QBSColors from '../QBSColors.js';
 
@@ -24,7 +25,7 @@ export default class MagnifierToolNode extends Node {
 
   public constructor( magnifierTool: MagnifierTool, tandem: Tandem ) {
 
-    const bodyNode = new ShadedRectangle( new Bounds2( 0, 0, BODY_SIZE.width, BODY_SIZE.height ), {
+    const shadedRectangle = new ShadedRectangle( new Bounds2( 0, 0, BODY_SIZE.width, BODY_SIZE.height ), {
       baseColor: QBSColors.magnifierToolBodyColorProperty,
       lightOffset: 0.95
     } );
@@ -33,12 +34,18 @@ export default class MagnifierToolNode extends Node {
     const displayNode = new Rectangle( 0, 0, BODY_SIZE.width - 2 * X_MARGIN, BODY_SIZE.height - 2 * Y_MARGIN, {
       fill: QBSColors.magnifierToolDisplayFillProperty,
       stroke: QBSColors.magnifierToolDisplayStrokeProperty,
-      center: bodyNode.center
+      center: shadedRectangle.center
+    } );
+
+    const bodyNode = new Node( {
+      children: [ shadedRectangle, displayNode ]
     } );
 
     super( {
-      children: [ bodyNode, displayNode ],
+      children: [ bodyNode ],
       visibleProperty: magnifierTool.visibleProperty,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.magnifierTool.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.magnifierTool.accessibleParagraphStringProperty,
       tandem: tandem
     } );
   }

@@ -160,9 +160,16 @@ addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleHelpTextOn', 'a11y.w
 addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleHelpTextOff', 'a11y.waveFunctionToggleButton.accessibleHelpTextOffStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleContextResponseOn', 'a11y.waveFunctionToggleButton.accessibleContextResponseOnStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleContextResponseOff', 'a11y.waveFunctionToggleButton.accessibleContextResponseOffStringProperty' );
-addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleName', 'a11y.referenceLineHandleNode.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleHelpText', 'a11y.referenceLineHandleNode.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_referenceLineHandleNode_accessibleObjectResponse', 'a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_magnifierTool_accessibleHeading', 'a11y.magnifierTool.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_magnifierTool_accessibleParagraph', 'a11y.magnifierTool.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleHeading', 'a11y.magnifierTool.probe.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleHelpText', 'a11y.magnifierTool.probe.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleObjectResponse', 'a11y.magnifierTool.probe.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleHeading', 'a11y.referenceLine.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleParagraph', 'a11y.referenceLine.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_handle_accessibleName', 'a11y.referenceLine.handle.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_handle_accessibleHelpText', 'a11y.referenceLine.handle.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_handle_accessibleObjectResponse', 'a11y.referenceLine.handle.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_potentialComboBox_accessibleName', 'a11y.potentialComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_units_electronMasses_pattern', 'a11y.units.electronMasses.patternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVolts_pattern', 'a11y.units.electronVolts.patternStringProperty' );
@@ -217,19 +224,22 @@ const QuantumBoundStatesFluent = {
   imaginaryPartStringProperty: _.get( QuantumBoundStatesStrings, 'imaginaryPartStringProperty' ),
   magnitudeStringProperty: _.get( QuantumBoundStatesStrings, 'magnitudeStringProperty' ),
   phaseStringProperty: _.get( QuantumBoundStatesStrings, 'phaseStringProperty' ),
+  _comment_4: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifierTool"} ),
+  _comment_5: new FluentComment( {"comment":"Tools","associatedKey":"magnifierTool"} ),
+  _comment_6: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifierTool"} ),
   magnifierToolStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierToolStringProperty' ),
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
-  _comment_4: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
+  _comment_7: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
   normalStringProperty: _.get( QuantumBoundStatesStrings, 'normalStringProperty' ),
   fastStringProperty: _.get( QuantumBoundStatesStrings, 'fastStringProperty' ),
-  _comment_5: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
+  _comment_8: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
   energyLevelStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelStringProperty' ),
   energyLevelPatternStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelPatternStringProperty' ),
-  _comment_6: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-  _comment_7: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
-  _comment_8: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-  _comment_9: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+  _comment_9: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+  _comment_10: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+  _comment_11: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+  _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
   units: {
     electronMasses: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMasses.symbolStringProperty' ),
@@ -244,7 +254,7 @@ const QuantumBoundStatesFluent = {
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolPatternStringProperty' )
     }
   },
-  _comment_10: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
+  _comment_13: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
   potentialWells: {
     finiteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.finiteSquareStringProperty' ),
     infiniteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteSquareStringProperty' ),
@@ -253,7 +263,7 @@ const QuantumBoundStatesFluent = {
     anharmonicOscillatorStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.anharmonicOscillatorStringProperty' ),
     coulombStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.coulombStringProperty' )
   },
-  _comment_11: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  _comment_14: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
     _comment_1: new FluentComment( {"comment":"Screens (screen summaries, screen buttons)","associatedKey":"screens"} ),
@@ -464,13 +474,26 @@ const QuantumBoundStatesFluent = {
       accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleContextResponseOnStringProperty' ) ),
       accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleContextResponseOffStringProperty' ) )
     },
-    _comment_31: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
-    _comment_32: new FluentComment( {"comment":"Tools","associatedKey":"referenceLineHandleNode"} ),
-    _comment_33: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"referenceLineHandleNode"} ),
-    referenceLineHandleNode: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleHelpTextStringProperty' ) ),
-      accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineHandleNode_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty' ) )
+    _comment_31: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifierTool"} ),
+    _comment_32: new FluentComment( {"comment":"Tools","associatedKey":"magnifierTool"} ),
+    _comment_33: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifierTool"} ),
+    magnifierTool: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.accessibleHeadingStringProperty' ) ),
+      accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.accessibleParagraphStringProperty' ) ),
+      probe: {
+        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_probe_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.probe.accessibleHeadingStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_probe_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.probe.accessibleHelpTextStringProperty' ) ),
+        accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_probe_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.probe.accessibleObjectResponseStringProperty' ) )
+      }
+    },
+    referenceLine: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleHeadingStringProperty' ) ),
+      accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleParagraphStringProperty' ) ),
+      handle: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_handle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.handle.accessibleNameStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_handle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.handle.accessibleHelpTextStringProperty' ) ),
+        accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_handle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.handle.accessibleObjectResponseStringProperty' ) )
+      }
     },
     _comment_34: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"potentialComboBox"} ),
     _comment_35: new FluentComment( {"comment":"Potentials","associatedKey":"potentialComboBox"} ),

@@ -507,15 +507,42 @@
         "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOff"
       }
     },
-    "referenceLineHandleNode": {
-      "accessibleName": {
-        "value": "Reference Line handle"
+    "magnifierTool": {
+      "accessibleHeading": {
+        "value": "Magnifier Tool"
       },
-      "accessibleHelpText": {
-        "value": "TODO.referenceLineHandleNode.accessibleHelpText"
+      "accessibleParagraph": {
+        "value": "TODO.magnifierTool.accessibleParagraph"
       },
-      "accessibleObjectResponse": {
-        "value": "TODO.referenceLineHandleNode.accessibleObjectResponse"
+      "probe": {
+        "accessibleHeading": {
+          "value": "Magnifier Tool Probe"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.magnifierTool.probe.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "TODO.magnifierTool.probe.accessibleObjectResponse"
+        }
+      }
+    },
+    "referenceLine": {
+      "accessibleHeading": {
+        "value": "Reference Line"
+      },
+      "accessibleParagraph": {
+        "value": "TODO.referenceLine.accessibleParagraph"
+      },
+      "handle": {
+        "accessibleName": {
+          "value": "Reference Line Handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.referenceLineHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "TODO.referenceLineHandle.accessibleObjectResponse"
+        }
       }
     },
     "potentialComboBox": {

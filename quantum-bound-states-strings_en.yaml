@@ -288,10 +288,21 @@ a11y:
   # Tools
   #=======================================================================================================
 
-  referenceLineHandleNode:
-    accessibleName:           Reference Line handle
-    accessibleHelpText:       TODO.referenceLineHandleNode.accessibleHelpText
-    accessibleObjectResponse: TODO.referenceLineHandleNode.accessibleObjectResponse
+  magnifierTool:
+    accessibleHeading:   Magnifier Tool
+    accessibleParagraph: TODO.magnifierTool.accessibleParagraph
+    probe:
+      accessibleHeading:        Magnifier Tool Probe
+      accessibleHelpText:       TODO.magnifierTool.probe.accessibleHelpText
+      accessibleObjectResponse: TODO.magnifierTool.probe.accessibleObjectResponse
+
+  referenceLine:
+    accessibleHeading: Reference Line
+    accessibleParagraph: TODO.referenceLine.accessibleParagraph
+    handle:
+      accessibleName:           Reference Line Handle
+      accessibleHelpText:       TODO.referenceLineHandle.accessibleHelpText
+      accessibleObjectResponse: TODO.referenceLineHandle.accessibleObjectResponse
 
   #=======================================================================================================
   # Potentials

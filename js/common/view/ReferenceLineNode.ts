@@ -58,7 +58,9 @@ export default class ReferenceLineNode extends Node {
       // NodeOptions
       isDisposable: false,
       children: [ verticalLine, handleNode ],
-      visibleProperty: referenceLine.visibleProperty
+      visibleProperty: referenceLine.visibleProperty,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.referenceLine.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.referenceLine.accessibleParagraphStringProperty
     }, providedOptions );
 
     super( options );
@@ -80,8 +82,8 @@ class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode 
       isDisposable: false,
       cursor: 'ew-resize',
       mainColor: QBSColors.referenceLineHandleColorProperty,
-      accessibleName: QuantumBoundStatesFluent.a11y.referenceLineHandleNode.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.referenceLineHandleNode.accessibleHelpTextStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.referenceLine.handle.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.referenceLine.handle.accessibleHelpTextStringProperty,
       tandem: tandem
     }, AccessibleDraggableOptions );
 
@@ -136,7 +138,7 @@ class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode 
    * Accessible response when the handle is moved or gets focus.
    */
   public doAccessibleObjectResponse(): void {
-    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.referenceLineHandleNode.accessibleObjectResponseStringProperty );
+    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.referenceLine.handle.accessibleObjectResponseStringProperty );
   }
 }
 
