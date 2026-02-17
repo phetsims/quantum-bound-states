@@ -38,8 +38,8 @@ export default class WaveFunctionGraphNode extends QBSGraphNode {
       xTickSpacing: QBSConstants.ALL_GRAPHS_X_TICK_SPACING,
       yTickSpacing: 0.5,
       hasYTickLabels: false,
-      accessibleHeading: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleParagraphStringProperty
+      accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty
     }, providedOptions );
 
     super( options );

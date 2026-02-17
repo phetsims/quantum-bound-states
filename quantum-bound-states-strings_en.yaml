@@ -126,64 +126,6 @@ a11y:
   toolControls:
     accessibleHeading: Tool Controls
 
-  energyGraph:
-    accessibleHeading:   Energy Graph
-    accessibleParagraph: TODO.energyGraph.accessibleParagraph
-
-  probabilityDensityGraph:
-    accessibleHeading:   Probability Density Graph
-    accessibleParagraph: TODO.probabilityDensityGraph.accessibleParagraph
-
-  waveFunctionGraph:
-    accessibleHeading:   Wave Function Graph
-    accessibleParagraph: TODO.waveFunctionGraph.accessibleParagraph
-
-  #=======================================================================================================
-  # Push Buttons
-  #=======================================================================================================
-
-  timeButtonGroup:
-    accessibleHeading:  Time Buttons
-    accessibleHelpText: TODO.timeButtonGroup.accessibleHelpText
-
-  restartButton:
-    accessibleHelpText:        TODO.restartButton.accessibleHelpText
-    accessibleContextResponse: TODO.restartButton.accessibleContextResponse
-
-  playPauseButton:
-    accessibleHelpTextPlaying: TODO.playPauseButton.accessibleHelpTextPlaying
-    accessibleHelpTextPaused:  TODO.playPauseButton.accessibleHelpTextPaused
-
-  stepForwardButton:
-    accessibleHelpText:        TODO.stepForwardButton.accessibleHelpText
-    accessibleContextResponse: TODO.stepForwardButton.accessibleContextResponse
-
-  probabilityDensityFunctionButton:
-    accessibleName:            TODO.probabilityDensityFunctionButton.accessibleName
-    accessibleHelpText:        TODO.probabilityDensityFunctionButton.accessibleHelpText
-    accessibleContextResponse: TODO.probabilityDensityFunctionButton.accessibleContextResponse
-
-  waveFunctionButton:
-    accessibleName:            TODO.waveFunctionButton.accessibleName
-    accessibleHelpText:        TODO.waveFunctionButton.accessibleHelpText
-    accessibleContextResponse: TODO.waveFunctionButton.accessibleContextResponse
-
-  probabilityDensityToggleButton:
-    accessibleNameOn:             TODO.probabilityDensityToggleButton.accessibleNameOn
-    accessibleNameOff:            TODO.probabilityDensityToggleButton.accessibleNameOff
-    accessibleHelpTextOn:         TODO.probabilityDensityToggleButton.accessibleHelpTextOn
-    accessibleHelpTextOff:        TODO.probabilityDensityToggleButton.accessibleHelpTextOff
-    accessibleContextResponseOn:  TODO.probabilityDensityToggleButton.accessibleContextResponseOn
-    accessibleContextResponseOff: TODO.probabilityDensityToggleButton.accessibleContextResponseOff
-
-  waveFunctionToggleButton:
-    accessibleNameOn:             TODO.waveFunctionToggleButton.accessibleNameOn
-    accessibleNameOff:            TODO.waveFunctionToggleButton.accessibleNameOff
-    accessibleHelpTextOn:         TODO.waveFunctionToggleButton.accessibleHelpTextOn
-    accessibleHelpTextOff:        TODO.waveFunctionToggleButton.accessibleHelpTextOff
-    accessibleContextResponseOn:  TODO.waveFunctionToggleButton.accessibleContextResponseOn
-    accessibleContextResponseOff: TODO.waveFunctionToggleButton.accessibleContextResponseOff
-
   #=======================================================================================================
   # Checkboxes
   #=======================================================================================================
@@ -234,6 +176,58 @@ a11y:
     accessibleName: Wave Function Dialog
 
   #=======================================================================================================
+  # Graphs
+  #=======================================================================================================
+
+  graphs:
+
+    energyGraph:
+      accessibleHeading:   Energy Graph
+      accessibleParagraph: TODO.energyGraph.accessibleParagraph
+
+    averageProbabilityDensityGraph:
+      accessibleHeading:   Average Probability Density Graph
+      accessibleParagraph: TODO.averageProbabilityDensityGraph.accessibleParagraph
+
+    probabilityDensityGraph:
+      accessibleHeading:   Probability Density Graph
+      accessibleParagraph: TODO.probabilityDensityGraph.accessibleParagraph
+
+    waveFunctionGraph:
+      accessibleHeading:   Wave Function Graph
+      accessibleParagraph: TODO.waveFunctionGraph.accessibleParagraph
+
+  #=======================================================================================================
+  # Push Buttons
+  #=======================================================================================================
+
+  timeButtonGroup:
+    accessibleHeading:  Time Buttons
+    accessibleHelpText: TODO.timeButtonGroup.accessibleHelpText
+
+  restartButton:
+    accessibleHelpText:        TODO.restartButton.accessibleHelpText
+    accessibleContextResponse: TODO.restartButton.accessibleContextResponse
+
+  playPauseButton:
+    accessibleHelpTextPlaying: TODO.playPauseButton.accessibleHelpTextPlaying
+    accessibleHelpTextPaused:  TODO.playPauseButton.accessibleHelpTextPaused
+
+  stepForwardButton:
+    accessibleHelpText:        TODO.stepForwardButton.accessibleHelpText
+    accessibleContextResponse: TODO.stepForwardButton.accessibleContextResponse
+
+  probabilityDensityFunctionButton:
+    accessibleName:            TODO.probabilityDensityFunctionButton.accessibleName
+    accessibleHelpText:        TODO.probabilityDensityFunctionButton.accessibleHelpText
+    accessibleContextResponse: TODO.probabilityDensityFunctionButton.accessibleContextResponse
+
+  waveFunctionButton:
+    accessibleName:            TODO.waveFunctionButton.accessibleName
+    accessibleHelpText:        TODO.waveFunctionButton.accessibleHelpText
+    accessibleContextResponse: TODO.waveFunctionButton.accessibleContextResponse
+
+  #=======================================================================================================
   # Radio Buttons
   #=======================================================================================================
 
@@ -273,6 +267,22 @@ a11y:
     accessibleHelpText:           TODO.timeDisplayToggleButton.accessibleHelpText
     accessibleContextResponseOn:  Time display shown.
     accessibleContextResponseOff: Time display hidden.
+
+  probabilityDensityToggleButton:
+    accessibleNameOn:             TODO.probabilityDensityToggleButton.accessibleNameOn
+    accessibleNameOff:            TODO.probabilityDensityToggleButton.accessibleNameOff
+    accessibleHelpTextOn:         TODO.probabilityDensityToggleButton.accessibleHelpTextOn
+    accessibleHelpTextOff:        TODO.probabilityDensityToggleButton.accessibleHelpTextOff
+    accessibleContextResponseOn:  TODO.probabilityDensityToggleButton.accessibleContextResponseOn
+    accessibleContextResponseOff: TODO.probabilityDensityToggleButton.accessibleContextResponseOff
+
+  waveFunctionToggleButton:
+    accessibleNameOn:             TODO.waveFunctionToggleButton.accessibleNameOn
+    accessibleNameOff:            TODO.waveFunctionToggleButton.accessibleNameOff
+    accessibleHelpTextOn:         TODO.waveFunctionToggleButton.accessibleHelpTextOn
+    accessibleHelpTextOff:        TODO.waveFunctionToggleButton.accessibleHelpTextOff
+    accessibleContextResponseOn:  TODO.waveFunctionToggleButton.accessibleContextResponseOn
+    accessibleContextResponseOff: TODO.waveFunctionToggleButton.accessibleContextResponseOff
 
   #=======================================================================================================
   # Tools

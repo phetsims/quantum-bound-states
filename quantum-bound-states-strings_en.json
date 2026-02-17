@@ -239,124 +239,6 @@
         "value": "Tool Controls"
       }
     },
-    "energyGraph": {
-      "accessibleHeading": {
-        "value": "Energy Graph"
-      },
-      "accessibleParagraph": {
-        "value": "TODO.energyGraph.accessibleParagraph"
-      }
-    },
-    "probabilityDensityGraph": {
-      "accessibleHeading": {
-        "value": "Probability Density Graph"
-      },
-      "accessibleParagraph": {
-        "value": "TODO.probabilityDensityGraph.accessibleParagraph"
-      }
-    },
-    "waveFunctionGraph": {
-      "accessibleHeading": {
-        "value": "Wave Function Graph"
-      },
-      "accessibleParagraph": {
-        "value": "TODO.waveFunctionGraph.accessibleParagraph"
-      }
-    },
-    "timeButtonGroup": {
-      "accessibleHeading": {
-        "value": "Time Buttons"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.timeButtonGroup.accessibleHelpText"
-      }
-    },
-    "restartButton": {
-      "accessibleHelpText": {
-        "value": "TODO.restartButton.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.restartButton.accessibleContextResponse"
-      }
-    },
-    "playPauseButton": {
-      "accessibleHelpTextPlaying": {
-        "value": "TODO.playPauseButton.accessibleHelpTextPlaying"
-      },
-      "accessibleHelpTextPaused": {
-        "value": "TODO.playPauseButton.accessibleHelpTextPaused"
-      }
-    },
-    "stepForwardButton": {
-      "accessibleHelpText": {
-        "value": "TODO.stepForwardButton.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.stepForwardButton.accessibleContextResponse"
-      }
-    },
-    "probabilityDensityFunctionButton": {
-      "accessibleName": {
-        "value": "TODO.probabilityDensityFunctionButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.probabilityDensityFunctionButton.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.probabilityDensityFunctionButton.accessibleContextResponse"
-      }
-    },
-    "waveFunctionButton": {
-      "accessibleName": {
-        "value": "TODO.waveFunctionButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.waveFunctionButton.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.waveFunctionButton.accessibleContextResponse"
-      }
-    },
-    "probabilityDensityToggleButton": {
-      "accessibleNameOn": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleNameOn"
-      },
-      "accessibleNameOff": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleNameOff"
-      },
-      "accessibleHelpTextOn": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleHelpTextOn"
-      },
-      "accessibleHelpTextOff": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleHelpTextOff"
-      },
-      "accessibleContextResponseOn": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleContextResponseOn"
-      },
-      "accessibleContextResponseOff": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleContextResponseOff"
-      }
-    },
-    "waveFunctionToggleButton": {
-      "accessibleNameOn": {
-        "value": "TODO.waveFunctionToggleButton.accessibleNameOn"
-      },
-      "accessibleNameOff": {
-        "value": "TODO.waveFunctionToggleButton.accessibleNameOff"
-      },
-      "accessibleHelpTextOn": {
-        "value": "TODO.waveFunctionToggleButton.accessibleHelpTextOn"
-      },
-      "accessibleHelpTextOff": {
-        "value": "TODO.waveFunctionToggleButton.accessibleHelpTextOff"
-      },
-      "accessibleContextResponseOn": {
-        "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOn"
-      },
-      "accessibleContextResponseOff": {
-        "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOff"
-      }
-    },
     "valueLabelsCheckbox": {
       "accessibleHelpText": {
         "value": "TODO.valueLabelsCheckbox.accessibleHelpText"
@@ -444,6 +326,94 @@
         "value": "Wave Function Dialog"
       }
     },
+    "graphs": {
+      "energyGraph": {
+        "accessibleHeading": {
+          "value": "Energy Graph"
+        },
+        "accessibleParagraph": {
+          "value": "TODO.energyGraph.accessibleParagraph"
+        }
+      },
+      "averageProbabilityDensityGraph": {
+        "accessibleHeading": {
+          "value": "Average Probability Density Graph"
+        },
+        "accessibleParagraph": {
+          "value": "TODO.averageProbabilityDensityGraph.accessibleParagraph"
+        }
+      },
+      "probabilityDensityGraph": {
+        "accessibleHeading": {
+          "value": "Probability Density Graph"
+        },
+        "accessibleParagraph": {
+          "value": "TODO.probabilityDensityGraph.accessibleParagraph"
+        }
+      },
+      "waveFunctionGraph": {
+        "accessibleHeading": {
+          "value": "Wave Function Graph"
+        },
+        "accessibleParagraph": {
+          "value": "TODO.waveFunctionGraph.accessibleParagraph"
+        }
+      }
+    },
+    "timeButtonGroup": {
+      "accessibleHeading": {
+        "value": "Time Buttons"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.timeButtonGroup.accessibleHelpText"
+      }
+    },
+    "restartButton": {
+      "accessibleHelpText": {
+        "value": "TODO.restartButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.restartButton.accessibleContextResponse"
+      }
+    },
+    "playPauseButton": {
+      "accessibleHelpTextPlaying": {
+        "value": "TODO.playPauseButton.accessibleHelpTextPlaying"
+      },
+      "accessibleHelpTextPaused": {
+        "value": "TODO.playPauseButton.accessibleHelpTextPaused"
+      }
+    },
+    "stepForwardButton": {
+      "accessibleHelpText": {
+        "value": "TODO.stepForwardButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.stepForwardButton.accessibleContextResponse"
+      }
+    },
+    "probabilityDensityFunctionButton": {
+      "accessibleName": {
+        "value": "TODO.probabilityDensityFunctionButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.probabilityDensityFunctionButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.probabilityDensityFunctionButton.accessibleContextResponse"
+      }
+    },
+    "waveFunctionButton": {
+      "accessibleName": {
+        "value": "TODO.waveFunctionButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.waveFunctionButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.waveFunctionButton.accessibleContextResponse"
+      }
+    },
     "graphTypeRadioButtonGroup": {
       "accessibleName": {
         "value": "Graph Type"
@@ -495,6 +465,46 @@
       },
       "accessibleContextResponseOff": {
         "value": "Time display hidden."
+      }
+    },
+    "probabilityDensityToggleButton": {
+      "accessibleNameOn": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleNameOn"
+      },
+      "accessibleNameOff": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleNameOff"
+      },
+      "accessibleHelpTextOn": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleHelpTextOn"
+      },
+      "accessibleHelpTextOff": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleHelpTextOff"
+      },
+      "accessibleContextResponseOn": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleContextResponseOn"
+      },
+      "accessibleContextResponseOff": {
+        "value": "TODO.probabilityDensityToggleButton.accessibleContextResponseOff"
+      }
+    },
+    "waveFunctionToggleButton": {
+      "accessibleNameOn": {
+        "value": "TODO.waveFunctionToggleButton.accessibleNameOn"
+      },
+      "accessibleNameOff": {
+        "value": "TODO.waveFunctionToggleButton.accessibleNameOff"
+      },
+      "accessibleHelpTextOn": {
+        "value": "TODO.waveFunctionToggleButton.accessibleHelpTextOn"
+      },
+      "accessibleHelpTextOff": {
+        "value": "TODO.waveFunctionToggleButton.accessibleHelpTextOff"
+      },
+      "accessibleContextResponseOn": {
+        "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOn"
+      },
+      "accessibleContextResponseOff": {
+        "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOff"
       }
     },
     "referenceLineHandleNode": {

@@ -122,60 +122,6 @@ type StringsType = {
     'toolControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
-    'energyGraph': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
-    };
-    'probabilityDensityGraph': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
-    };
-    'waveFunctionGraph': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
-    };
-    'timeButtonGroup': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-    };
-    'restartButton': {
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
-    'playPauseButton': {
-      'accessibleHelpTextPlayingStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextPausedStringProperty': LocalizedStringProperty;
-    };
-    'stepForwardButton': {
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
-    'probabilityDensityFunctionButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
-    'waveFunctionButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
-    'probabilityDensityToggleButton': {
-      'accessibleNameOnStringProperty': LocalizedStringProperty;
-      'accessibleNameOffStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
-    };
-    'waveFunctionToggleButton': {
-      'accessibleNameOnStringProperty': LocalizedStringProperty;
-      'accessibleNameOffStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
-    };
     'valueLabelsCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
@@ -217,6 +163,50 @@ type StringsType = {
     'waveFunctionDialog': {
       'accessibleNameStringProperty': LocalizedStringProperty;
     };
+    'graphs': {
+      'energyGraph': {
+        'accessibleHeadingStringProperty': LocalizedStringProperty;
+        'accessibleParagraphStringProperty': LocalizedStringProperty;
+      };
+      'averageProbabilityDensityGraph': {
+        'accessibleHeadingStringProperty': LocalizedStringProperty;
+        'accessibleParagraphStringProperty': LocalizedStringProperty;
+      };
+      'probabilityDensityGraph': {
+        'accessibleHeadingStringProperty': LocalizedStringProperty;
+        'accessibleParagraphStringProperty': LocalizedStringProperty;
+      };
+      'waveFunctionGraph': {
+        'accessibleHeadingStringProperty': LocalizedStringProperty;
+        'accessibleParagraphStringProperty': LocalizedStringProperty;
+      }
+    };
+    'timeButtonGroup': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'restartButton': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
+    'playPauseButton': {
+      'accessibleHelpTextPlayingStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextPausedStringProperty': LocalizedStringProperty;
+    };
+    'stepForwardButton': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
+    'probabilityDensityFunctionButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
+    'waveFunctionButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
     'graphTypeRadioButtonGroup': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
@@ -241,6 +231,22 @@ type StringsType = {
       'accessibleNameOnStringProperty': LocalizedStringProperty;
       'accessibleNameOffStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
+    };
+    'probabilityDensityToggleButton': {
+      'accessibleNameOnStringProperty': LocalizedStringProperty;
+      'accessibleNameOffStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
+    };
+    'waveFunctionToggleButton': {
+      'accessibleNameOnStringProperty': LocalizedStringProperty;
+      'accessibleNameOffStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
       'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
       'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
     };
