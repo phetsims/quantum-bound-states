@@ -6,18 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
-import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import { ProbabilityDensityFunctionButton } from './ProbabilityDensityFunctionButton.js';
 import ProbabilityDensityFunctionDialog from './ProbabilityDensityFunctionDialog.js';
+import { ProbabilityDensityToggleButton } from './ProbabilityDensityToggleButton.js';
 import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
 
 const BUTTON_X_MARGIN = 8;
@@ -50,26 +48,11 @@ export class ProbabilityDensityGraphNode extends QBSGraphNode {
     //TODO Which Property should be passed in here?
     const somethingVisibleProperty = new Property( true );
 
-    //TODO Rename to reflect what this button does.
-    const eyeToggleButton = new EyeToggleButton( somethingVisibleProperty, {
-      scale: 0.5,
-      baseColor: new DerivedProperty(
-        [ somethingVisibleProperty, QBSColors.graphShownProperty, QBSColors.graphHiddenColorProperty ],
-        ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor ),
-      accessibleNameOn: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleNameOnStringProperty,
-      accessibleNameOff: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleNameOffStringProperty,
-      accessibleHelpText: new DerivedProperty( [
-        somethingVisibleProperty,
-        QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleHelpTextOnStringProperty,
-        QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleHelpTextOffStringProperty
-      ], ( visible, onString, offString ) => visible ? onString : offString ),
-      accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleContextResponseOnStringProperty,
-      accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleContextResponseOffStringProperty,
-      tandem: options.tandem.createTandem( 'eyeToggleButton' )
-    } );
-    this.addChild( eyeToggleButton );
-    eyeToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
-    eyeToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
+    const probabilityDensityToggleButton = new ProbabilityDensityToggleButton( somethingVisibleProperty,
+      options.tandem.createTandem( 'probabilityDensityToggleButton' ) );
+    this.addChild( probabilityDensityToggleButton );
+    probabilityDensityToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
+    probabilityDensityToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
     const probabilityDensityFunctionButton = new ProbabilityDensityFunctionButton( {
       listener: () => new ProbabilityDensityFunctionDialog( model.potentialProperty.value ).show(),
