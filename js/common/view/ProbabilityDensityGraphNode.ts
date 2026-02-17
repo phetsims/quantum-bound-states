@@ -37,7 +37,8 @@ export class ProbabilityDensityGraphNode extends QBSGraphNode {
       yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
       xTickSpacing: QBSConstants.ALL_GRAPHS_X_TICK_SPACING,
       yTickSpacing: 0.5,
-      hasYTickLabels: false,
+      yTickLabelDecimals: 1,
+      hasYTickLabels: true, //TODO Should be false.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty
     }, providedOptions );
