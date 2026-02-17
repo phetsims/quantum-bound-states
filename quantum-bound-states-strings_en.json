@@ -515,7 +515,7 @@
         "value": "TODO.magnifierTool.accessibleParagraph"
       },
       "probe": {
-        "accessibleHeading": {
+        "accessibleName": {
           "value": "Magnifier Tool Probe"
         },
         "accessibleHelpText": {

@@ -254,7 +254,7 @@ type StringsType = {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleParagraphStringProperty': LocalizedStringProperty;
       'probe': {
-        'accessibleHeadingStringProperty': LocalizedStringProperty;
+        'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
       }

@@ -101,7 +101,7 @@ export default class OneWellScreenView extends ScreenView {
     const magnifierToolWrapper = new Node( {
       children: [ magnifierToolNode ]
     } );
-    magnifierToolWrapper.x = energyGraphNode.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - magnifierToolWrapper.width - 5;
+    magnifierToolWrapper.right = energyGraphNode.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
     magnifierToolWrapper.y = energyGraphNode.y + 5;
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyGraphNode.chartTransform, {

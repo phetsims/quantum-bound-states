@@ -162,7 +162,7 @@ addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleContextResponseOn', 
 addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleContextResponseOff', 'a11y.waveFunctionToggleButton.accessibleContextResponseOffStringProperty' );
 addToMapIfDefined( 'a11y_magnifierTool_accessibleHeading', 'a11y.magnifierTool.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_magnifierTool_accessibleParagraph', 'a11y.magnifierTool.accessibleParagraphStringProperty' );
-addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleHeading', 'a11y.magnifierTool.probe.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleName', 'a11y.magnifierTool.probe.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleHelpText', 'a11y.magnifierTool.probe.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleObjectResponse', 'a11y.magnifierTool.probe.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleHeading', 'a11y.referenceLine.accessibleHeadingStringProperty' );
@@ -481,7 +481,7 @@ const QuantumBoundStatesFluent = {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.accessibleHeadingStringProperty' ) ),
       accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.accessibleParagraphStringProperty' ) ),
       probe: {
-        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_probe_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.probe.accessibleHeadingStringProperty' ) ),
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_probe_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.probe.accessibleNameStringProperty' ) ),
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_probe_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.probe.accessibleHelpTextStringProperty' ) ),
         accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierTool_probe_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.magnifierTool.probe.accessibleObjectResponseStringProperty' ) )
       }
