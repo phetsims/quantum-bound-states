@@ -145,16 +145,16 @@ a11y:
     accessibleHelpText: TODO.timeButtonGroup.accessibleHelpText
 
   restartButton:
-    accessibleHelpText:        Restart simulation time at zero.
-    accessibleContextResponse: Simulation time set to zero femtoseconds.
+    accessibleHelpText:        TODO.restartButton.accessibleHelpText
+    accessibleContextResponse: TODO.restartButton.accessibleContextResponse
 
   playPauseButton:
-    accessibleHelpTextPlaying: Pause simulation.
-    accessibleHelpTextPaused:  Play simulation.
+    accessibleHelpTextPlaying: TODO.playPauseButton.accessibleHelpTextPlaying
+    accessibleHelpTextPaused:  TODO.playPauseButton.accessibleHelpTextPaused
 
   stepForwardButton:
-    accessibleHelpText:        Step forward {$value} femtoseconds.
-    accessibleContextResponse: Simulation stepped forward {$value} femtoseconds.
+    accessibleHelpText:        TODO.stepForwardButton.accessibleHelpText
+    accessibleContextResponse: TODO.stepForwardButton.accessibleContextResponse
 
   probabilityDensityFunctionButton:
     accessibleName:            TODO.probabilityDensityFunctionButton.accessibleName
