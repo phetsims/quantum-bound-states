@@ -14,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
 import LegendPanel from '../../common/view/LegendPanel.js';
+import MagnifierToolNode from '../../common/view/MagnifierToolNode.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import { ProbabilityDensityGraphNode } from '../../common/view/ProbabilityDensityGraphNode.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
@@ -94,6 +95,15 @@ export default class OneWellScreenView extends ScreenView {
       timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     } );
 
+    const magnifierToolNode = new MagnifierToolNode( model.magnifierTool, tandem.createTandem( 'magnifierToolNode' ) );
+
+    // Wrap magnifierToolNode in a Node so that the probe drags in the same coordinate frame as the graphs.
+    const magnifierToolWrapper = new Node( {
+      children: [ magnifierToolNode ]
+    } );
+    magnifierToolWrapper.x = energyGraphNode.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - magnifierToolWrapper.width - 5;
+    magnifierToolWrapper.y = energyGraphNode.y + 5;
+
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyGraphNode.chartTransform, {
       lineTop: energyGraphNode.y,
       lineBottom: probabilityDensityGraphNode.bottom - QBSConstants.HANDLE_DIAMETER / 2,
@@ -117,6 +127,7 @@ export default class OneWellScreenView extends ScreenView {
         waveFunctionGraphNode,
         controlPanel,
         toolsPanel,
+        magnifierToolWrapper,
         referenceLineWrapper,
         timePanel,
         resetAllButton,
@@ -132,12 +143,12 @@ export default class OneWellScreenView extends ScreenView {
       probabilityDensityGraphNode,
       waveFunctionGraphNode,
       controlPanel,
+      magnifierToolNode,
       referenceLineNode
     ];
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
-      //TODO
       toolsPanel,
       timePanel,
       resetAllButton

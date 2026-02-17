@@ -132,6 +132,19 @@ export default class QBSColors {
   public static readonly graphHiddenColorProperty = new ProfileColorProperty( quantumBoundStates, 'graphHiddenColor', {
     default: PhetColorScheme.BUTTON_YELLOW
   } );
+
+  public static readonly magnifierToolBodyColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolBodyColor', {
+    default: Color.grayColor( 200 )
+  } );
+
+  public static readonly magnifierToolDisplayFillProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolDisplayFill', {
+    default: 'white',
+    projector: 'black'
+  } );
+
+  public static readonly magnifierToolDisplayStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolDisplayStroke', {
+    default: 'black'
+  } );
 }
 
 quantumBoundStates.register( 'QBSColors', QBSColors );
