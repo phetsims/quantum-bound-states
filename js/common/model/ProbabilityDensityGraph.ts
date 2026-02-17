@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ProbabilityDensityGraph is the model for the Probability Density graph.
+ * ProbabilityDensityGraph is the model for the 'Probability Density' graph.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
