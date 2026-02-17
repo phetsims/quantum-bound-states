@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -45,10 +44,7 @@ export class ProbabilityDensityGraphNode extends QBSGraphNode {
 
     super( options );
 
-    //TODO Which Property should be passed in here?
-    const somethingVisibleProperty = new Property( true );
-
-    const probabilityDensityToggleButton = new ProbabilityDensityToggleButton( somethingVisibleProperty,
+    const probabilityDensityToggleButton = new ProbabilityDensityToggleButton( model.probabilityDensityGraph.curvesVisibleProperty,
       options.tandem.createTandem( 'probabilityDensityToggleButton' ) );
     this.addChild( probabilityDensityToggleButton );
     probabilityDensityToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;

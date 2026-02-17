@@ -26,8 +26,10 @@ import { electronMassesUnit } from './electronMassesUnit.js';
 import { GraphType } from './GraphType.js';
 import MagnifierTool from './MagnifierTool.js';
 import Potential from './potentials/Potential.js';
+import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import Time from './Time.js';
+import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
   potential: Potential;
@@ -50,11 +52,12 @@ export default class QBSModel implements TModel {
   public readonly electronMassesProperty: NumberProperty;
   public readonly massProperty: TReadOnlyProperty<number>;
 
+  public readonly probabilityDensityGraph: ProbabilityDensityGraph;
+  public readonly waveFunctionGraph: WaveFunctionGraph;
+  public readonly graphTypeProperty: Property<GraphType>; //TODO Property<QBSGraph>
+
   public readonly magnifierTool: MagnifierTool;
-
   public readonly referenceLine: ReferenceLine;
-
-  public readonly graphTypeProperty: Property<GraphType>;
 
   public readonly valueLabelsVisibleProperty: Property<boolean>;
   public readonly realPartVisibleProperty: Property<boolean>;
@@ -93,6 +96,16 @@ export default class QBSModel implements TModel {
         phetioValueType: NumberIO
       } );
 
+    this.probabilityDensityGraph = new ProbabilityDensityGraph( options.tandem.createTandem( 'probabilityDensityGraph' ) );
+
+    this.waveFunctionGraph = new WaveFunctionGraph( options.tandem.createTandem( 'waveFunctionGraph' ) );
+
+    this.graphTypeProperty = new StringUnionProperty( options.graphType, {
+      validValues: options.graphTypes,
+      tandem: options.tandem.createTandem( 'graphTypeProperty' ),
+      phetioFeatured: true
+    } );
+
     //TODO energyLevelRangeProperty is dynamic, so the initial value must be computed.
     this.energyLevelRangeProperty = new Property( new Range( 1, 25 ), {
       tandem: options.tandem.createTandem( 'energyLevelRangeProperty' ),
@@ -113,12 +126,6 @@ export default class QBSModel implements TModel {
     this.magnifierTool = new MagnifierTool( options.tandem.createTandem( 'magnifierTool' ) );
 
     this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
-
-    this.graphTypeProperty = new StringUnionProperty( options.graphType, {
-      validValues: options.graphTypes,
-      tandem: options.tandem.createTandem( 'graphTypeProperty' ),
-      phetioFeatured: true
-    } );
 
     //TODO group *VisibleProperty under a parent tandem? Or move some under model.waveFunction?
 
@@ -160,9 +167,13 @@ export default class QBSModel implements TModel {
     this.energyLevelRangeProperty.reset();
     this.energyLevelProperty.reset();
     this.electronMassesProperty.reset();
+
+    this.probabilityDensityGraph.reset();
+    this.waveFunctionGraph.reset();
+    this.graphTypeProperty.reset();
+
     this.magnifierTool.reset();
     this.referenceLine.reset();
-    this.graphTypeProperty.reset();
 
     this.valueLabelsVisibleProperty.reset();
     this.realPartVisibleProperty.reset();
