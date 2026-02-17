@@ -271,26 +271,26 @@
     },
     "restartButton": {
       "accessibleHelpText": {
-        "value": "Restart simulation time at zero."
+        "value": "TODO.restartButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "Simulation time set to zero femtoseconds."
+        "value": "TODO.restartButton.accessibleContextResponse"
       }
     },
     "playPauseButton": {
       "accessibleHelpTextPlaying": {
-        "value": "Pause simulation."
+        "value": "TODO.playPauseButton.accessibleHelpTextPlaying"
       },
       "accessibleHelpTextPaused": {
-        "value": "Play simulation."
+        "value": "TODO.playPauseButton.accessibleHelpTextPaused"
       }
     },
     "stepForwardButton": {
       "accessibleHelpText": {
-        "value": "Step forward {$value} femtoseconds."
+        "value": "TODO.stepForwardButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "Simulation stepped forward {$value} femtoseconds."
+        "value": "TODO.stepForwardButton.accessibleContextResponse"
       }
     },
     "probabilityDensityFunctionButton": {

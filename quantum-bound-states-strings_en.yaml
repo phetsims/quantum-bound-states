@@ -188,28 +188,28 @@ a11y:
 
   valueLabelsCheckbox:
     accessibleHelpText:                 TODO.valueLabelsCheckbox.accessibleHelpText
-    accessibleContextResponseChecked:   'Value labels shown.'
-    accessibleContextResponseUnchecked: 'Value labels hidden.'
+    accessibleContextResponseChecked:   Value labels shown.
+    accessibleContextResponseUnchecked: Value labels hidden.
 
   realPartCheckbox:
     accessibleHelpText:                 Show or hide the real part of the wave function.
-    accessibleContextResponseChecked:   'Real part shown.'
-    accessibleContextResponseUnchecked: 'Real part hidden.'
+    accessibleContextResponseChecked:   Real part shown.
+    accessibleContextResponseUnchecked: Real part hidden.
 
   imaginaryPartCheckbox:
     accessibleHelpText:                 Show or hide the imaginary part of the wave function.
-    accessibleContextResponseChecked:   'Imaginary part shown.'
-    accessibleContextResponseUnchecked: 'Imaginary part hidden.'
+    accessibleContextResponseChecked:   Imaginary part shown.
+    accessibleContextResponseUnchecked: Imaginary part hidden.
 
   magnitudeCheckbox:
     accessibleHelpText:                 Show or hide the magnitude of the wave function.
-    accessibleContextResponseChecked:   'Magnitude shown.'
-    accessibleContextResponseUnchecked: 'Magnitude hidden.'
+    accessibleContextResponseChecked:   Magnitude shown.
+    accessibleContextResponseUnchecked: Magnitude hidden.
 
   phaseCheckbox:
     accessibleHelpText:                 Show or hide the phase of the wave function.
-    accessibleContextResponseChecked:   'Phase shown.'
-    accessibleContextResponseUnchecked: 'Phase hidden.'
+    accessibleContextResponseChecked:   Phase shown.
+    accessibleContextResponseUnchecked: Phase hidden.
 
   magnifierToolCheckbox:
     accessibleHelpText:                 TODO.magnifierToolCheckbox.accessibleHelpText

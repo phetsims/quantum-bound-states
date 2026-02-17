@@ -335,8 +335,8 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextPausedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_playPauseButton_accessibleHelpTextPaused', _.get( QuantumBoundStatesStrings, 'a11y.playPauseButton.accessibleHelpTextPausedStringProperty' ) )
     },
     stepForwardButton: {
-      accessibleHelpText: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleHelpTextStringProperty' ), [{"name":"value"}] ),
-      accessibleContextResponse: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleContextResponseStringProperty' ), [{"name":"value"}] )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleContextResponseStringProperty' ) )
     },
     probabilityDensityFunctionButton: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityFunctionButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityFunctionButton.accessibleNameStringProperty' ) ),
