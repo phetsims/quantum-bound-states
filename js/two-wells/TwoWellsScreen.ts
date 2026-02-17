@@ -25,7 +25,7 @@ export default class TwoWellsScreen extends Screen<TwoWellsModel, TwoWellsScreen
       backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
       homeScreenIcon: QBSIconFactory.createTwoWellsScreenIcon(),
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
-      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.twoWellsScreen.screenButtonsHelpTextStringProperty,
+      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.screens.twoWellsScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 

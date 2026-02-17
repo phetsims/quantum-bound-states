@@ -72,40 +72,42 @@ type StringsType = {
     'coulombStringProperty': LocalizedStringProperty;
   };
   'a11y': {
-    'oneWellScreen': {
-      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
-      'screenSummary': {
-        'playAreaStringProperty': LocalizedStringProperty;
-        'controlAreaStringProperty': LocalizedStringProperty;
-        'currentDetailsStringProperty': LocalizedStringProperty;
-        'interactionHintStringProperty': LocalizedStringProperty;
-      }
-    };
-    'twoWellsScreen': {
-      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
-      'screenSummary': {
-        'playAreaStringProperty': LocalizedStringProperty;
-        'controlAreaStringProperty': LocalizedStringProperty;
-        'currentDetailsStringProperty': LocalizedStringProperty;
-        'interactionHintStringProperty': LocalizedStringProperty;
-      }
-    };
-    'manyWellsScreen': {
-      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
-      'screenSummary': {
-        'playAreaStringProperty': LocalizedStringProperty;
-        'controlAreaStringProperty': LocalizedStringProperty;
-        'currentDetailsStringProperty': LocalizedStringProperty;
-        'interactionHintStringProperty': LocalizedStringProperty;
-      }
-    };
-    'superpositionScreen': {
-      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
-      'screenSummary': {
-        'playAreaStringProperty': LocalizedStringProperty;
-        'controlAreaStringProperty': LocalizedStringProperty;
-        'currentDetailsStringProperty': LocalizedStringProperty;
-        'interactionHintStringProperty': LocalizedStringProperty;
+    'screens': {
+      'oneWellScreen': {
+        'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+        'screenSummary': {
+          'playAreaStringProperty': LocalizedStringProperty;
+          'controlAreaStringProperty': LocalizedStringProperty;
+          'currentDetailsStringProperty': LocalizedStringProperty;
+          'interactionHintStringProperty': LocalizedStringProperty;
+        }
+      };
+      'twoWellsScreen': {
+        'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+        'screenSummary': {
+          'playAreaStringProperty': LocalizedStringProperty;
+          'controlAreaStringProperty': LocalizedStringProperty;
+          'currentDetailsStringProperty': LocalizedStringProperty;
+          'interactionHintStringProperty': LocalizedStringProperty;
+        }
+      };
+      'manyWellsScreen': {
+        'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+        'screenSummary': {
+          'playAreaStringProperty': LocalizedStringProperty;
+          'controlAreaStringProperty': LocalizedStringProperty;
+          'currentDetailsStringProperty': LocalizedStringProperty;
+          'interactionHintStringProperty': LocalizedStringProperty;
+        }
+      };
+      'superpositionScreen': {
+        'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+        'screenSummary': {
+          'playAreaStringProperty': LocalizedStringProperty;
+          'controlAreaStringProperty': LocalizedStringProperty;
+          'currentDetailsStringProperty': LocalizedStringProperty;
+          'interactionHintStringProperty': LocalizedStringProperty;
+        }
       }
     };
     'controlPanel': {

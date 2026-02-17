@@ -141,79 +141,81 @@
     }
   },
   "a11y": {
-    "oneWellScreen": {
-      "screenButtonsHelpText": {
-        "value": "Explore bound states in various single well potentials."
-      },
-      "screenSummary": {
-        "playArea": {
-          "value": "TODO.oneWellScreen.screenSummary.playArea"
+    "screens": {
+      "oneWellScreen": {
+        "screenButtonsHelpText": {
+          "value": "Explore bound states in various single well potentials."
         },
-        "controlArea": {
-          "value": "TODO.oneWellScreen.screenSummary.controlArea"
-        },
-        "currentDetails": {
-          "value": "TODO.oneWellScreen.screenSummary.currentDetails"
-        },
-        "interactionHint": {
-          "value": "TODO.oneWellScreen.screenSummary.interactionHint"
+        "screenSummary": {
+          "playArea": {
+            "value": "TODO.oneWellScreen.screenSummary.playArea"
+          },
+          "controlArea": {
+            "value": "TODO.oneWellScreen.screenSummary.controlArea"
+          },
+          "currentDetails": {
+            "value": "TODO.oneWellScreen.screenSummary.currentDetails"
+          },
+          "interactionHint": {
+            "value": "TODO.oneWellScreen.screenSummary.interactionHint"
+          }
         }
-      }
-    },
-    "twoWellsScreen": {
-      "screenButtonsHelpText": {
-        "value": "Explore bound states and molecular bonding in two closely separated potentials."
       },
-      "screenSummary": {
-        "playArea": {
-          "value": "TODO.twoWellsScreen.screenSummary.playArea"
+      "twoWellsScreen": {
+        "screenButtonsHelpText": {
+          "value": "Explore bound states and molecular bonding in two closely separated potentials."
         },
-        "controlArea": {
-          "value": "TODO.twoWellsScreen.screenSummary.controlArea"
-        },
-        "currentDetails": {
-          "value": "TODO.twoWellsScreen.screenSummary.currentDetails"
-        },
-        "interactionHint": {
-          "value": "TODO.twoWellsScreen.screenSummary.interactionHint"
+        "screenSummary": {
+          "playArea": {
+            "value": "TODO.twoWellsScreen.screenSummary.playArea"
+          },
+          "controlArea": {
+            "value": "TODO.twoWellsScreen.screenSummary.controlArea"
+          },
+          "currentDetails": {
+            "value": "TODO.twoWellsScreen.screenSummary.currentDetails"
+          },
+          "interactionHint": {
+            "value": "TODO.twoWellsScreen.screenSummary.interactionHint"
+          }
         }
-      }
-    },
-    "manyWellsScreen": {
-      "screenButtonsHelpText": {
-        "value": "Explore bound states and band structure in a periodic array of potential potentials."
       },
-      "screenSummary": {
-        "playArea": {
-          "value": "TODO.manyWellsScreen.screenSummary.playArea"
+      "manyWellsScreen": {
+        "screenButtonsHelpText": {
+          "value": "Explore bound states and band structure in a periodic array of potential potentials."
         },
-        "controlArea": {
-          "value": "TODO.manyWellsScreen.screenSummary.controlArea"
-        },
-        "currentDetails": {
-          "value": "TODO.manyWellsScreen.screenSummary.currentDetails"
-        },
-        "interactionHint": {
-          "value": "TODO.manyWellsScreen.screenSummary.interactionHint"
+        "screenSummary": {
+          "playArea": {
+            "value": "TODO.manyWellsScreen.screenSummary.playArea"
+          },
+          "controlArea": {
+            "value": "TODO.manyWellsScreen.screenSummary.controlArea"
+          },
+          "currentDetails": {
+            "value": "TODO.manyWellsScreen.screenSummary.currentDetails"
+          },
+          "interactionHint": {
+            "value": "TODO.manyWellsScreen.screenSummary.interactionHint"
+          }
         }
-      }
-    },
-    "superpositionScreen": {
-      "screenButtonsHelpText": {
-        "value": "Explore superposition states and their time-dependent behavior in various potentials."
       },
-      "screenSummary": {
-        "playArea": {
-          "value": "TODO.superpositionScreen.screenSummary.playArea"
+      "superpositionScreen": {
+        "screenButtonsHelpText": {
+          "value": "Explore superposition states and their time-dependent behavior in various potentials."
         },
-        "controlArea": {
-          "value": "TODO.superpositionScreen.screenSummary.controlArea"
-        },
-        "currentDetails": {
-          "value": "TODO.superpositionScreen.screenSummary.currentDetails"
-        },
-        "interactionHint": {
-          "value": "TODO.superpositionScreen.screenSummary.interactionHint"
+        "screenSummary": {
+          "playArea": {
+            "value": "TODO.superpositionScreen.screenSummary.playArea"
+          },
+          "controlArea": {
+            "value": "TODO.superpositionScreen.screenSummary.controlArea"
+          },
+          "currentDetails": {
+            "value": "TODO.superpositionScreen.screenSummary.currentDetails"
+          },
+          "interactionHint": {
+            "value": "TODO.superpositionScreen.screenSummary.interactionHint"
+          }
         }
       }
     },

@@ -25,7 +25,7 @@ export default class ManyWellsScreen extends Screen<ManyWellsModel, ManyWellsScr
       backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
       homeScreenIcon: QBSIconFactory.createManyWellsScreenIcon(),
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
-      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.manyWellsScreen.screenButtonsHelpTextStringProperty,
+      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 

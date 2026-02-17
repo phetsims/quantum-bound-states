@@ -16,10 +16,10 @@ export default class SuperpositionScreenSummaryContent extends ScreenSummaryCont
 
     super( {
       isDisposable: false,
-      playAreaContent: QuantumBoundStatesFluent.a11y.superpositionScreen.screenSummary.playAreaStringProperty,
-      controlAreaContent: QuantumBoundStatesFluent.a11y.superpositionScreen.screenSummary.controlAreaStringProperty,
-      currentDetailsContent: QuantumBoundStatesFluent.a11y.superpositionScreen.screenSummary.currentDetailsStringProperty,
-      interactionHintContent: QuantumBoundStatesFluent.a11y.superpositionScreen.screenSummary.interactionHintStringProperty
+      playAreaContent: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.playAreaStringProperty,
+      controlAreaContent: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.controlAreaStringProperty,
+      currentDetailsContent: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.currentDetailsStringProperty,
+      interactionHintContent: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty
     } );
   }
 }

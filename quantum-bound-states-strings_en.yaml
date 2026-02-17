@@ -76,37 +76,39 @@ a11y:
   # Screen Summaries
   #=======================================================================================================
 
-  oneWellScreen:
-    screenButtonsHelpText: Explore bound states in various single well potentials.
-    screenSummary:
-      playArea:        TODO.oneWellScreen.screenSummary.playArea
-      controlArea:     TODO.oneWellScreen.screenSummary.controlArea
-      currentDetails:  TODO.oneWellScreen.screenSummary.currentDetails
-      interactionHint: TODO.oneWellScreen.screenSummary.interactionHint
+  screens:
 
-  twoWellsScreen:
-    screenButtonsHelpText: Explore bound states and molecular bonding in two closely separated potentials.
-    screenSummary:
-      playArea:        TODO.twoWellsScreen.screenSummary.playArea
-      controlArea:     TODO.twoWellsScreen.screenSummary.controlArea
-      currentDetails:  TODO.twoWellsScreen.screenSummary.currentDetails
-      interactionHint: TODO.twoWellsScreen.screenSummary.interactionHint
+    oneWellScreen:
+      screenButtonsHelpText: Explore bound states in various single well potentials.
+      screenSummary:
+        playArea:        TODO.oneWellScreen.screenSummary.playArea
+        controlArea:     TODO.oneWellScreen.screenSummary.controlArea
+        currentDetails:  TODO.oneWellScreen.screenSummary.currentDetails
+        interactionHint: TODO.oneWellScreen.screenSummary.interactionHint
 
-  manyWellsScreen:
-    screenButtonsHelpText: Explore bound states and band structure in a periodic array of potential potentials.
-    screenSummary:
-      playArea:        TODO.manyWellsScreen.screenSummary.playArea
-      controlArea:     TODO.manyWellsScreen.screenSummary.controlArea
-      currentDetails:  TODO.manyWellsScreen.screenSummary.currentDetails
-      interactionHint: TODO.manyWellsScreen.screenSummary.interactionHint
+    twoWellsScreen:
+      screenButtonsHelpText: Explore bound states and molecular bonding in two closely separated potentials.
+      screenSummary:
+        playArea:        TODO.twoWellsScreen.screenSummary.playArea
+        controlArea:     TODO.twoWellsScreen.screenSummary.controlArea
+        currentDetails:  TODO.twoWellsScreen.screenSummary.currentDetails
+        interactionHint: TODO.twoWellsScreen.screenSummary.interactionHint
 
-  superpositionScreen:
-    screenButtonsHelpText: Explore superposition states and their time-dependent behavior in various potentials.
-    screenSummary:
-      playArea:        TODO.superpositionScreen.screenSummary.playArea
-      controlArea:     TODO.superpositionScreen.screenSummary.controlArea
-      currentDetails:  TODO.superpositionScreen.screenSummary.currentDetails
-      interactionHint: TODO.superpositionScreen.screenSummary.interactionHint
+    manyWellsScreen:
+      screenButtonsHelpText: Explore bound states and band structure in a periodic array of potential potentials.
+      screenSummary:
+        playArea:        TODO.manyWellsScreen.screenSummary.playArea
+        controlArea:     TODO.manyWellsScreen.screenSummary.controlArea
+        currentDetails:  TODO.manyWellsScreen.screenSummary.currentDetails
+        interactionHint: TODO.manyWellsScreen.screenSummary.interactionHint
+
+    superpositionScreen:
+      screenButtonsHelpText: Explore superposition states and their time-dependent behavior in various potentials.
+      screenSummary:
+        playArea:        TODO.superpositionScreen.screenSummary.playArea
+        controlArea:     TODO.superpositionScreen.screenSummary.controlArea
+        currentDetails:  TODO.superpositionScreen.screenSummary.currentDetails
+        interactionHint: TODO.superpositionScreen.screenSummary.interactionHint
 
   #=======================================================================================================
   # Headings

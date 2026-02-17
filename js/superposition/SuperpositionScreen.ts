@@ -23,7 +23,7 @@ export default class SuperpositionScreen extends Screen<SuperpositionModel, Supe
       name: QuantumBoundStatesFluent.screen.superpositionStringProperty,
       backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
-      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.superpositionScreen.screenButtonsHelpTextStringProperty,
+      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 

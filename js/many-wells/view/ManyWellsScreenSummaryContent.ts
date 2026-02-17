@@ -16,10 +16,10 @@ export default class ManyWellsScreenSummaryContent extends ScreenSummaryContent 
 
     super( {
       isDisposable: false,
-      playAreaContent: QuantumBoundStatesFluent.a11y.manyWellsScreen.screenSummary.playAreaStringProperty,
-      controlAreaContent: QuantumBoundStatesFluent.a11y.manyWellsScreen.screenSummary.controlAreaStringProperty,
-      currentDetailsContent: QuantumBoundStatesFluent.a11y.manyWellsScreen.screenSummary.currentDetailsStringProperty,
-      interactionHintContent: QuantumBoundStatesFluent.a11y.manyWellsScreen.screenSummary.interactionHintStringProperty
+      playAreaContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.playAreaStringProperty,
+      controlAreaContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.controlAreaStringProperty,
+      currentDetailsContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.currentDetailsStringProperty,
+      interactionHintContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.interactionHintStringProperty
     } );
   }
 }

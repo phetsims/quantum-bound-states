@@ -66,26 +66,26 @@ addToMapIfDefined( 'potentialWells_asymmetricTriangle', 'potentialWells.asymmetr
 addToMapIfDefined( 'potentialWells_harmonicOscillator', 'potentialWells.harmonicOscillatorStringProperty' );
 addToMapIfDefined( 'potentialWells_anharmonicOscillator', 'potentialWells.anharmonicOscillatorStringProperty' );
 addToMapIfDefined( 'potentialWells_coulomb', 'potentialWells.coulombStringProperty' );
-addToMapIfDefined( 'a11y_oneWellScreen_screenButtonsHelpText', 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_playArea', 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' );
-addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_controlArea', 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_currentDetails', 'a11y.oneWellScreen.screenSummary.currentDetailsStringProperty' );
-addToMapIfDefined( 'a11y_oneWellScreen_screenSummary_interactionHint', 'a11y.oneWellScreen.screenSummary.interactionHintStringProperty' );
-addToMapIfDefined( 'a11y_twoWellsScreen_screenButtonsHelpText', 'a11y.twoWellsScreen.screenButtonsHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_twoWellsScreen_screenSummary_playArea', 'a11y.twoWellsScreen.screenSummary.playAreaStringProperty' );
-addToMapIfDefined( 'a11y_twoWellsScreen_screenSummary_controlArea', 'a11y.twoWellsScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_twoWellsScreen_screenSummary_currentDetails', 'a11y.twoWellsScreen.screenSummary.currentDetailsStringProperty' );
-addToMapIfDefined( 'a11y_twoWellsScreen_screenSummary_interactionHint', 'a11y.twoWellsScreen.screenSummary.interactionHintStringProperty' );
-addToMapIfDefined( 'a11y_manyWellsScreen_screenButtonsHelpText', 'a11y.manyWellsScreen.screenButtonsHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_playArea', 'a11y.manyWellsScreen.screenSummary.playAreaStringProperty' );
-addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_controlArea', 'a11y.manyWellsScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_currentDetails', 'a11y.manyWellsScreen.screenSummary.currentDetailsStringProperty' );
-addToMapIfDefined( 'a11y_manyWellsScreen_screenSummary_interactionHint', 'a11y.manyWellsScreen.screenSummary.interactionHintStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenButtonsHelpText', 'a11y.superpositionScreen.screenButtonsHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_playArea', 'a11y.superpositionScreen.screenSummary.playAreaStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_controlArea', 'a11y.superpositionScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_currentDetails', 'a11y.superpositionScreen.screenSummary.currentDetailsStringProperty' );
-addToMapIfDefined( 'a11y_superpositionScreen_screenSummary_interactionHint', 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' );
+addToMapIfDefined( 'a11y_screens_oneWellScreen_screenButtonsHelpText', 'a11y.screens.oneWellScreen.screenButtonsHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_playArea', 'a11y.screens.oneWellScreen.screenSummary.playAreaStringProperty' );
+addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_controlArea', 'a11y.screens.oneWellScreen.screenSummary.controlAreaStringProperty' );
+addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_currentDetails', 'a11y.screens.oneWellScreen.screenSummary.currentDetailsStringProperty' );
+addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_interactionHint', 'a11y.screens.oneWellScreen.screenSummary.interactionHintStringProperty' );
+addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenButtonsHelpText', 'a11y.screens.twoWellsScreen.screenButtonsHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenSummary_playArea', 'a11y.screens.twoWellsScreen.screenSummary.playAreaStringProperty' );
+addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenSummary_controlArea', 'a11y.screens.twoWellsScreen.screenSummary.controlAreaStringProperty' );
+addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenSummary_currentDetails', 'a11y.screens.twoWellsScreen.screenSummary.currentDetailsStringProperty' );
+addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenSummary_interactionHint', 'a11y.screens.twoWellsScreen.screenSummary.interactionHintStringProperty' );
+addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenButtonsHelpText', 'a11y.screens.manyWellsScreen.screenButtonsHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_playArea', 'a11y.screens.manyWellsScreen.screenSummary.playAreaStringProperty' );
+addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_controlArea', 'a11y.screens.manyWellsScreen.screenSummary.controlAreaStringProperty' );
+addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_currentDetails', 'a11y.screens.manyWellsScreen.screenSummary.currentDetailsStringProperty' );
+addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_interactionHint', 'a11y.screens.manyWellsScreen.screenSummary.interactionHintStringProperty' );
+addToMapIfDefined( 'a11y_screens_superpositionScreen_screenButtonsHelpText', 'a11y.screens.superpositionScreen.screenButtonsHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_playArea', 'a11y.screens.superpositionScreen.screenSummary.playAreaStringProperty' );
+addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_controlArea', 'a11y.screens.superpositionScreen.screenSummary.controlAreaStringProperty' );
+addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_currentDetails', 'a11y.screens.superpositionScreen.screenSummary.currentDetailsStringProperty' );
+addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_interactionHint', 'a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_controlPanel_accessibleHeading', 'a11y.controlPanel.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionComponents_accessibleHeading', 'a11y.waveFunctionComponents.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeControls_accessibleHeading', 'a11y.timeControls.accessibleHeadingStringProperty' );
@@ -253,43 +253,45 @@ const QuantumBoundStatesFluent = {
   },
   _comment_11: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
-    _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"oneWellScreen"} ),
-    _comment_1: new FluentComment( {"comment":"Screen Summaries","associatedKey":"oneWellScreen"} ),
-    _comment_2: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"oneWellScreen"} ),
-    oneWellScreen: {
-      screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenButtonsHelpTextStringProperty' ) ),
-      screenSummary: {
-        playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenSummary.playAreaStringProperty' ) ),
-        controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenSummary.controlAreaStringProperty' ) ),
-        currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenSummary.currentDetailsStringProperty' ) ),
-        interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_oneWellScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.oneWellScreen.screenSummary.interactionHintStringProperty' ) )
-      }
-    },
-    twoWellsScreen: {
-      screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_twoWellsScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.twoWellsScreen.screenButtonsHelpTextStringProperty' ) ),
-      screenSummary: {
-        playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_twoWellsScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.twoWellsScreen.screenSummary.playAreaStringProperty' ) ),
-        controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_twoWellsScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.twoWellsScreen.screenSummary.controlAreaStringProperty' ) ),
-        currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_twoWellsScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.twoWellsScreen.screenSummary.currentDetailsStringProperty' ) ),
-        interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_twoWellsScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.twoWellsScreen.screenSummary.interactionHintStringProperty' ) )
-      }
-    },
-    manyWellsScreen: {
-      screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_manyWellsScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.manyWellsScreen.screenButtonsHelpTextStringProperty' ) ),
-      screenSummary: {
-        playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_manyWellsScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.manyWellsScreen.screenSummary.playAreaStringProperty' ) ),
-        controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_manyWellsScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.manyWellsScreen.screenSummary.controlAreaStringProperty' ) ),
-        currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_manyWellsScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.manyWellsScreen.screenSummary.currentDetailsStringProperty' ) ),
-        interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_manyWellsScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.manyWellsScreen.screenSummary.interactionHintStringProperty' ) )
-      }
-    },
-    superpositionScreen: {
-      screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenButtonsHelpTextStringProperty' ) ),
-      screenSummary: {
-        playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.playAreaStringProperty' ) ),
-        controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.controlAreaStringProperty' ) ),
-        currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.currentDetailsStringProperty' ) ),
-        interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.superpositionScreen.screenSummary.interactionHintStringProperty' ) )
+    _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
+    _comment_1: new FluentComment( {"comment":"Screen Summaries","associatedKey":"screens"} ),
+    _comment_2: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
+    screens: {
+      oneWellScreen: {
+        screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_oneWellScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.screens.oneWellScreen.screenButtonsHelpTextStringProperty' ) ),
+        screenSummary: {
+          playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_oneWellScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.oneWellScreen.screenSummary.playAreaStringProperty' ) ),
+          controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_oneWellScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.oneWellScreen.screenSummary.controlAreaStringProperty' ) ),
+          currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_oneWellScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.screens.oneWellScreen.screenSummary.currentDetailsStringProperty' ) ),
+          interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_oneWellScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.screens.oneWellScreen.screenSummary.interactionHintStringProperty' ) )
+        }
+      },
+      twoWellsScreen: {
+        screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_twoWellsScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.screens.twoWellsScreen.screenButtonsHelpTextStringProperty' ) ),
+        screenSummary: {
+          playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_twoWellsScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.twoWellsScreen.screenSummary.playAreaStringProperty' ) ),
+          controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_twoWellsScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.twoWellsScreen.screenSummary.controlAreaStringProperty' ) ),
+          currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_twoWellsScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.screens.twoWellsScreen.screenSummary.currentDetailsStringProperty' ) ),
+          interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_twoWellsScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.screens.twoWellsScreen.screenSummary.interactionHintStringProperty' ) )
+        }
+      },
+      manyWellsScreen: {
+        screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenButtonsHelpTextStringProperty' ) ),
+        screenSummary: {
+          playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.playAreaStringProperty' ) ),
+          controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.controlAreaStringProperty' ) ),
+          currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetailsStringProperty' ) ),
+          interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.interactionHintStringProperty' ) )
+        }
+      },
+      superpositionScreen: {
+        screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenButtonsHelpText', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenButtonsHelpTextStringProperty' ) ),
+        screenSummary: {
+          playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_playArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.playAreaStringProperty' ) ),
+          controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.controlAreaStringProperty' ) ),
+          currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.currentDetailsStringProperty' ) ),
+          interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty' ) )
+        }
       }
     },
     _comment_3: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"controlPanel"} ),

@@ -25,7 +25,7 @@ export default class OneWellScreen extends Screen<OneWellModel, OneWellScreenVie
       backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
       homeScreenIcon: QBSIconFactory.createOneWellScreenIcon(),
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
-      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.oneWellScreen.screenButtonsHelpTextStringProperty,
+      screenButtonsHelpText: QuantumBoundStatesFluent.a11y.screens.oneWellScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 
