@@ -63,7 +63,7 @@ export default class QBSConstants {
   public static readonly ENERGY_GRAPH_VIEW_HEIGHT = 265;
   public static readonly ENERGY_GRAPH_Y_RANGE = new Range( -5.5, 15.5 );
   public static readonly PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = 175;
-  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1.55 );
+  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1.05 );
   public static readonly WAVE_FUNCTION_GRAPH_VIEW_HEIGHT = QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT;
   public static readonly WAVE_FUNCTION_GRAPH_Y_RANGE = new Range( -1.55, 1.55 );
   public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT;
