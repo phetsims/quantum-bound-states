@@ -70,6 +70,7 @@ type StringsType = {
     'harmonicOscillatorStringProperty': LocalizedStringProperty;
     'anharmonicOscillatorStringProperty': LocalizedStringProperty;
     'coulombStringProperty': LocalizedStringProperty;
+    'infiniteStepStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'screens': {

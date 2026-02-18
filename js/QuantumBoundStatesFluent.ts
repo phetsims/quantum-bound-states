@@ -66,6 +66,7 @@ addToMapIfDefined( 'potentialWells_asymmetricTriangle', 'potentialWells.asymmetr
 addToMapIfDefined( 'potentialWells_harmonicOscillator', 'potentialWells.harmonicOscillatorStringProperty' );
 addToMapIfDefined( 'potentialWells_anharmonicOscillator', 'potentialWells.anharmonicOscillatorStringProperty' );
 addToMapIfDefined( 'potentialWells_coulomb', 'potentialWells.coulombStringProperty' );
+addToMapIfDefined( 'potentialWells_infiniteStep', 'potentialWells.infiniteStepStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenButtonsHelpText', 'a11y.screens.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_playArea', 'a11y.screens.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_controlArea', 'a11y.screens.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -261,7 +262,8 @@ const QuantumBoundStatesFluent = {
     asymmetricTriangleStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.asymmetricTriangleStringProperty' ),
     harmonicOscillatorStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.harmonicOscillatorStringProperty' ),
     anharmonicOscillatorStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.anharmonicOscillatorStringProperty' ),
-    coulombStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.coulombStringProperty' )
+    coulombStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.coulombStringProperty' ),
+    infiniteStepStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteStepStringProperty' )
   },
   _comment_14: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {

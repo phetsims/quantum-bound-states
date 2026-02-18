@@ -138,6 +138,9 @@
     },
     "coulomb": {
       "value": "Coulomb"
+    },
+    "infiniteStep": {
+      "value": "Infinite Step"
     }
   },
   "a11y": {

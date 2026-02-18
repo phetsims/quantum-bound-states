@@ -68,6 +68,7 @@ potentialWells:
   harmonicOscillator:   Harmonic Oscillator
   anharmonicOscillator: Anharmonic Oscillator
   coulomb:              Coulomb
+  infiniteStep:         Infinite Step
 
 # Strings that are specific to accessibility
 a11y:

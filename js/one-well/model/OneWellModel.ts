@@ -13,6 +13,7 @@ import CoulombPotential from '../../common/model/potentials/CoulombPotential.js'
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicOscillatorPotential.js';
 import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
+import InfiniteStepPotential from '../../common/model/potentials/InfiniteStepPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
@@ -27,7 +28,8 @@ export default class OneWellModel extends QBSModel {
       new AsymmetricTrianglePotential( potentialsTandem.createTandem( 'asymmetricTrianglePotential' ) ),
       new HarmonicOscillatorPotential( potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
       new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) ),
-      new CoulombPotential( potentialsTandem.createTandem( 'coulombPotential' ) )
+      new CoulombPotential( potentialsTandem.createTandem( 'coulombPotential' ) ),
+      new InfiniteStepPotential( potentialsTandem.createTandem( 'infiniteStepPotential' ) ) //TODO Order?
     ];
 
     super( {
