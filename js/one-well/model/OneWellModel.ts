@@ -25,11 +25,11 @@ export default class OneWellModel extends QBSModel {
     const potentials = [
       new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) ),
       new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),
+      new InfiniteStepPotential( potentialsTandem.createTandem( 'infiniteStepPotential' ) ),
       new AsymmetricTrianglePotential( potentialsTandem.createTandem( 'asymmetricTrianglePotential' ) ),
       new HarmonicOscillatorPotential( potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
       new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) ),
-      new CoulombPotential( potentialsTandem.createTandem( 'coulombPotential' ) ),
-      new InfiniteStepPotential( potentialsTandem.createTandem( 'infiniteStepPotential' ) ) //TODO Order?
+      new CoulombPotential( potentialsTandem.createTandem( 'coulombPotential' ) )
     ];
 
     super( {
