@@ -15,7 +15,7 @@ export default class InfiniteSquarePotential extends Potential {
 
   public constructor( tandem: Tandem ) {
     super( {
-      visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
+      visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteSquareStringProperty,
       tandemPrefix: 'infiniteSquarePotential',
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with one infinite square well.'

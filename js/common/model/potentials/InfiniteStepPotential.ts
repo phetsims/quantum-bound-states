@@ -16,7 +16,7 @@ export default class InfiniteStepPotential extends Potential {
   public constructor( tandem: Tandem ) {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
-      tandemPrefix: 'infiniteSquarePotential',
+      tandemPrefix: 'infiniteStepPotential',
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with one infinite step well.'
     } );
