@@ -34,9 +34,6 @@ export default class GraphTypeRadioButtonGroup extends AquaRadioButtonGroup<Grap
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
         } ),
-        options: {
-          accessibleHelpText: QuantumBoundStatesFluent.a11y.graphTypeRadioButtonGroup.averageProbabilityDensityOfBandRadioButton.accessibleHelpTextStringProperty
-        },
         tandemName: 'averageProbabilityDensityOfBandRadioButton'
       } );
     }
@@ -49,9 +46,6 @@ export default class GraphTypeRadioButtonGroup extends AquaRadioButtonGroup<Grap
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
         } ),
-        options: {
-          accessibleHelpText: QuantumBoundStatesFluent.a11y.graphTypeRadioButtonGroup.probabilityDensityRadioButton.accessibleHelpTextStringProperty
-        },
         tandemName: 'probabilityDensityRadioButton'
       } );
     }
@@ -64,9 +58,6 @@ export default class GraphTypeRadioButtonGroup extends AquaRadioButtonGroup<Grap
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
         } ),
-        options: {
-          accessibleHelpText: QuantumBoundStatesFluent.a11y.graphTypeRadioButtonGroup.wavefunctionRadioButton.accessibleHelpTextStringProperty
-        },
         tandemName: 'wavefunctionRadioButton'
       } );
     }

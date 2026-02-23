@@ -236,12 +236,6 @@ a11y:
   graphTypeRadioButtonGroup:
     accessibleName:     Graph Type
     accessibleHelpText: TODO.graphTypeRadioButtonGroup.accessibleHelpText
-    averageProbabilityDensityOfBandRadioButton:
-      accessibleHelpText: TODO.averageProbabilityDensityOfBandRadioButton.accessibleHelpText
-    probabilityDensityRadioButton:
-      accessibleHelpText: TODO.probabilityDensityRadioButton.accessibleHelpText
-    wavefunctionRadioButton:
-      accessibleHelpText: TODO.wavefunctionRadioButton.accessibleHelpText
 
   #=======================================================================================================
   # Sliders

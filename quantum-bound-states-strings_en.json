@@ -423,21 +423,6 @@
       },
       "accessibleHelpText": {
         "value": "TODO.graphTypeRadioButtonGroup.accessibleHelpText"
-      },
-      "averageProbabilityDensityOfBandRadioButton": {
-        "accessibleHelpText": {
-          "value": "TODO.averageProbabilityDensityOfBandRadioButton.accessibleHelpText"
-        }
-      },
-      "probabilityDensityRadioButton": {
-        "accessibleHelpText": {
-          "value": "TODO.probabilityDensityRadioButton.accessibleHelpText"
-        }
-      },
-      "wavefunctionRadioButton": {
-        "accessibleHelpText": {
-          "value": "TODO.wavefunctionRadioButton.accessibleHelpText"
-        }
       }
     },
     "massControl": {

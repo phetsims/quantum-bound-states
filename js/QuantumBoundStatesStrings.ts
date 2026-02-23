@@ -211,15 +211,6 @@ type StringsType = {
     'graphTypeRadioButtonGroup': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'averageProbabilityDensityOfBandRadioButton': {
-        'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      };
-      'probabilityDensityRadioButton': {
-        'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      };
-      'wavefunctionRadioButton': {
-        'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      }
     };
     'massControl': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
