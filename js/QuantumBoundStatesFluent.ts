@@ -170,6 +170,7 @@ addToMapIfDefined( 'a11y_referenceLine_handle_accessibleHelpText', 'a11y.referen
 addToMapIfDefined( 'a11y_referenceLine_handle_accessibleObjectResponse', 'a11y.referenceLine.handle.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_potentialTypeComboBox_accessibleName', 'a11y.potentialTypeComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_potentialTypeComboBox_accessibleHelpText', 'a11y.potentialTypeComboBox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_potentialTypeComboBox_accessibleContextResponse', 'a11y.potentialTypeComboBox.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_units_electronMasses_pattern', 'a11y.units.electronMasses.patternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVolts_pattern', 'a11y.units.electronVolts.patternStringProperty' );
 addToMapIfDefined( 'a11y_units_femtoseconds_pattern', 'a11y.units.femtoseconds.patternStringProperty' );
@@ -491,7 +492,8 @@ const QuantumBoundStatesFluent = {
     _comment_36: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"potentialTypeComboBox"} ),
     potentialTypeComboBox: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_potentialTypeComboBox_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.potentialTypeComboBox.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_potentialTypeComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.potentialTypeComboBox.accessibleHelpTextStringProperty' ) )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_potentialTypeComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.potentialTypeComboBox.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponse: new FluentPattern<{ potentialType: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_potentialTypeComboBox_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.potentialTypeComboBox.accessibleContextResponseStringProperty' ), [{"name":"potentialType"}] )
     },
     _comment_37: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
     _comment_38: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),

@@ -539,6 +539,9 @@
       },
       "accessibleHelpText": {
         "value": "Choose a potential shape for the energy graph."
+      },
+      "accessibleContextResponse": {
+        "value": "potential set to {$potentialType}"
       }
     },
     "units": {

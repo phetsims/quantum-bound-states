@@ -263,6 +263,7 @@ type StringsType = {
     'potentialTypeComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'units': {
       'electronMasses': {
