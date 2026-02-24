@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * TimeScaleSlider changes the scaling of time, making the sim run faster or slower.
+ * TimeSpeedSlider changes the scaling of time, making the sim run faster or slower.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
-export default class TimeScaleSlider extends HSlider {
+export default class TimeSpeedSlider extends HSlider {
 
   public constructor( timeScaleProperty: NumberProperty, tandem: Tandem ) {
 
@@ -67,4 +67,4 @@ function findClosestValue( targetValue: number, validValues: number[] ): number 
   return closestValue;
 }
 
-quantumBoundStates.register( 'TimeScaleSlider', TimeScaleSlider );
+quantumBoundStates.register( 'TimeSpeedSlider', TimeSpeedSlider );
