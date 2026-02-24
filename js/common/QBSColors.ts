@@ -115,12 +115,20 @@ export default class QBSColors {
     default: Color.grayColor( 200 )
   } );
 
-  public static readonly timeShownColorProperty = new ProfileColorProperty( quantumBoundStates, 'timeShownColor', {
+  public static readonly timeToggleButtonShownColorProperty = new ProfileColorProperty( quantumBoundStates, 'timeToggleButtonShownColor', {
     default: 'white'
   } );
 
-  public static readonly timeHiddenColorProperty = new ProfileColorProperty( quantumBoundStates, 'timeHiddenColor', {
+  public static readonly timeToggleButtonHiddenColorProperty = new ProfileColorProperty( quantumBoundStates, 'timeToggleButtonHiddenColor', {
     default: PhetColorScheme.BUTTON_YELLOW
+  } );
+
+  public static readonly timeDisplayEnabledProperty = new ProfileColorProperty( quantumBoundStates, 'timeDisplayEnabled', {
+    default: 'white'
+  } );
+
+  public static readonly timeDisplayDisabledProperty = new ProfileColorProperty( quantumBoundStates, 'timeDisplayDisabled', {
+    default: Color.grayColor( 240 )
   } );
 
   //TODO rename
@@ -158,14 +166,6 @@ export default class QBSColors {
 
   public static readonly magnifierWireStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierWireStroke', {
     default: Color.grayColor( 128 )
-  } );
-
-  public static readonly timeDisplayEnabledProperty = new ProfileColorProperty( quantumBoundStates, 'timeDisplayEnabled', {
-    default: 'white'
-  } );
-
-  public static readonly timeDisplayDisabledProperty = new ProfileColorProperty( quantumBoundStates, 'timeDisplayDisabled', {
-    default: Color.grayColor( 240 )
   } );
 }
 
