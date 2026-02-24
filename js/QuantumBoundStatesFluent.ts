@@ -88,7 +88,7 @@ addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_controlArea',
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_currentDetails', 'a11y.screens.superpositionScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_interactionHint', 'a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_controlPanel_accessibleHeading', 'a11y.controlPanel.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionComponents_accessibleHeading', 'a11y.waveFunctionComponents.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_waveFunctionParts_accessibleHeading', 'a11y.waveFunctionParts.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeControls_accessibleHeading', 'a11y.timeControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_toolControls_accessibleHeading', 'a11y.toolControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_valueLabelsCheckbox_accessibleHelpText', 'a11y.valueLabelsCheckbox.accessibleHelpTextStringProperty' );
@@ -311,8 +311,8 @@ const QuantumBoundStatesFluent = {
     controlPanel: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_controlPanel_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.controlPanel.accessibleHeadingStringProperty' ) )
     },
-    waveFunctionComponents: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionComponents_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionComponents.accessibleHeadingStringProperty' ) )
+    waveFunctionParts: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionParts_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionParts.accessibleHeadingStringProperty' ) )
     },
     timeControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.accessibleHeadingStringProperty' ) )

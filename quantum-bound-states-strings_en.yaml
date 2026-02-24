@@ -118,8 +118,8 @@ a11y:
   controlPanel:
     accessibleHeading: Control Panel
 
-  waveFunctionComponents:
-    accessibleHeading: Wave Function Components
+  waveFunctionParts:
+    accessibleHeading: Wave Function Parts
 
   timeControls:
     accessibleHeading: Time Controls

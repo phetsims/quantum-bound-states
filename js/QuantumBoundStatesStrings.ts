@@ -114,7 +114,7 @@ type StringsType = {
     'controlPanel': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
-    'waveFunctionComponents': {
+    'waveFunctionParts': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
     'timeControls': {

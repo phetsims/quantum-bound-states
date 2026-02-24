@@ -227,9 +227,9 @@
         "value": "Control Panel"
       }
     },
-    "waveFunctionComponents": {
+    "waveFunctionParts": {
       "accessibleHeading": {
-        "value": "Wave Function Components"
+        "value": "Wave Function Parts"
       }
     },
     "timeControls": {
