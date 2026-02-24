@@ -14,7 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
 import LegendPanel from '../../common/view/LegendPanel.js';
-import MagnifierToolNode from '../../common/view/MagnifierToolNode.js';
+import MagnifierNode from '../../common/view/MagnifierNode.js';
 import PotentialTypeComboBox from '../../common/view/PotentialTypeComboBox.js';
 import { ProbabilityDensityGraphNode } from '../../common/view/ProbabilityDensityGraphNode.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
@@ -95,14 +95,14 @@ export default class OneWellScreenView extends ScreenView {
       timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     } );
 
-    const magnifierToolNode = new MagnifierToolNode( model.magnifierTool, tandem.createTandem( 'magnifierToolNode' ) );
+    const magnifierNode = new MagnifierNode( model.magnifierTool, tandem.createTandem( 'magnifierNode' ) );
 
-    // Wrap magnifierToolNode in a Node so that the probe drags in the same coordinate frame as the graphs.
-    const magnifierToolWrapper = new Node( {
-      children: [ magnifierToolNode ]
+    // Wrap magnifierNode in a Node so that the probe drags in the same coordinate frame as the graphs.
+    const magnifierWrapper = new Node( {
+      children: [ magnifierNode ]
     } );
-    magnifierToolWrapper.right = energyGraphNode.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
-    magnifierToolWrapper.y = energyGraphNode.y + 5;
+    magnifierWrapper.right = energyGraphNode.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
+    magnifierWrapper.y = energyGraphNode.y + 5;
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyGraphNode.chartTransform, {
       lineTop: energyGraphNode.y,
@@ -127,7 +127,7 @@ export default class OneWellScreenView extends ScreenView {
         waveFunctionGraphNode,
         controlPanel,
         toolsPanel,
-        magnifierToolWrapper,
+        magnifierWrapper,
         referenceLineWrapper,
         timePanel,
         resetAllButton,
@@ -143,7 +143,7 @@ export default class OneWellScreenView extends ScreenView {
       probabilityDensityGraphNode,
       waveFunctionGraphNode,
       controlPanel,
-      magnifierToolNode,
+      magnifierNode,
       referenceLineNode
     ];
 

@@ -2,7 +2,7 @@
 
 //TODO Base this on DetectorNode in beers-law-lab.
 /**
- * MagnifierToolNode is the view of the magnifier tool.
+ * MagnifierNode is the view of the magnifier.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -32,7 +32,7 @@ const CORNER_RADIUS = 8;
 const X_MARGIN = 5;
 const Y_MARGIN = 5;
 
-export default class MagnifierToolNode extends Node {
+export default class MagnifierNode extends Node {
 
   public constructor( magnifierTool: MagnifierTool, tandem: Tandem ) {
 
@@ -153,4 +153,4 @@ class MagnifierToolWireNode extends Path {
   }
 }
 
-quantumBoundStates.register( 'MagnifierToolNode', MagnifierToolNode );
+quantumBoundStates.register( 'MagnifierNode', MagnifierNode );
