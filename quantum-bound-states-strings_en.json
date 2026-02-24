@@ -495,22 +495,22 @@
         "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOff"
       }
     },
-    "magnifierTool": {
+    "magnifier": {
       "accessibleHeading": {
-        "value": "Magnifier Tool"
+        "value": "Magnifier"
       },
       "accessibleParagraph": {
-        "value": "TODO.magnifierTool.accessibleParagraph"
+        "value": "TODO.magnifier.accessibleParagraph"
       },
       "probe": {
         "accessibleName": {
           "value": "Magnifier Tool Probe"
         },
         "accessibleHelpText": {
-          "value": "TODO.magnifierTool.probe.accessibleHelpText"
+          "value": "TODO.magnifier.probe.accessibleHelpText"
         },
         "accessibleObjectResponse": {
-          "value": "TODO.magnifierTool.probe.accessibleObjectResponse"
+          "value": "TODO.magnifier.probe.accessibleObjectResponse"
         }
       }
     },

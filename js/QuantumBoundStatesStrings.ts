@@ -242,7 +242,7 @@ type StringsType = {
       'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
       'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
     };
-    'magnifierTool': {
+    'magnifier': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleParagraphStringProperty': LocalizedStringProperty;
       'probe': {

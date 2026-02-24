@@ -53,7 +53,7 @@ export default class OneWellScreenView extends ScreenView {
       tandem: tandem.createTandem( 'waveFunctionGraphNode' )
     } );
 
-    const toolsPanel = new ToolsPanel( model.magnifierTool.visibleProperty,
+    const toolsPanel = new ToolsPanel( model.magnifier.visibleProperty,
       model.referenceLine.visibleProperty, tandem.createTandem( 'toolsPanel' ) );
 
     const controlPanel = new OneWellControlPanel( model, tandem.createTandem( 'controlPanel' ) );
@@ -95,7 +95,7 @@ export default class OneWellScreenView extends ScreenView {
       timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     } );
 
-    const magnifierNode = new MagnifierNode( model.magnifierTool, tandem.createTandem( 'magnifierNode' ) );
+    const magnifierNode = new MagnifierNode( model.magnifier, tandem.createTandem( 'magnifierNode' ) );
 
     // Wrap magnifierNode in a Node so that the probe drags in the same coordinate frame as the graphs.
     const magnifierWrapper = new Node( {

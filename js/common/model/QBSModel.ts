@@ -25,7 +25,7 @@ import QBSConstants from '../QBSConstants.js';
 import { electronMassesUnit } from './electronMassesUnit.js';
 import EnergyGraph from './EnergyGraph.js';
 import { GraphType } from './GraphType.js';
-import MagnifierTool from './MagnifierTool.js';
+import Magnifier from './Magnifier.js';
 import Potential from './potentials/Potential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import ReferenceLine from './ReferenceLine.js';
@@ -59,7 +59,7 @@ export default class QBSModel implements TModel {
   public readonly waveFunctionGraph: WaveFunctionGraph;
   public readonly graphTypeProperty: Property<GraphType>; //TODO Property<QBSGraph>
 
-  public readonly magnifierTool: MagnifierTool;
+  public readonly magnifier: Magnifier;
   public readonly referenceLine: ReferenceLine;
 
   public readonly valueLabelsVisibleProperty: Property<boolean>;
@@ -128,7 +128,7 @@ export default class QBSModel implements TModel {
       phetioReadOnly: true
     } );
 
-    this.magnifierTool = new MagnifierTool( options.tandem.createTandem( 'magnifierTool' ) );
+    this.magnifier = new Magnifier( options.tandem.createTandem( 'magnifier' ) );
 
     this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
 
@@ -178,7 +178,7 @@ export default class QBSModel implements TModel {
     this.waveFunctionGraph.reset();
     this.graphTypeProperty.reset();
 
-    this.magnifierTool.reset();
+    this.magnifier.reset();
     this.referenceLine.reset();
 
     this.valueLabelsVisibleProperty.reset();

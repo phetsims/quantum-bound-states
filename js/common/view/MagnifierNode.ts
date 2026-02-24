@@ -24,7 +24,7 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import MagnifierTool from '../model/MagnifierTool.js';
+import Magnifier from '../model/Magnifier.js';
 import QBSColors from '../QBSColors.js';
 
 const BODY_SIZE = new Dimension2( 175, 75 );
@@ -34,19 +34,19 @@ const Y_MARGIN = 5;
 
 export default class MagnifierNode extends Node {
 
-  public constructor( magnifierTool: MagnifierTool, tandem: Tandem ) {
+  public constructor( magnifierTool: Magnifier, tandem: Tandem ) {
 
-    const bodyNode = new MagnifierToolBodyNode();
+    const bodyNode = new MagnifierBodyNode();
 
-    const probeNode = new MagnifierToolProbeNode( tandem.createTandem( 'probeNode' ) );
+    const probeNode = new MagnifierProbeNode( tandem.createTandem( 'probeNode' ) );
 
-    const wireNode = new MagnifierToolWireNode( bodyNode, probeNode );
+    const wireNode = new MagnifierWireNode( bodyNode, probeNode );
 
     super( {
       children: [ wireNode, bodyNode, probeNode ],
       visibleProperty: magnifierTool.visibleProperty,
-      accessibleHeading: QuantumBoundStatesFluent.a11y.magnifierTool.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.magnifierTool.accessibleParagraphStringProperty,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.magnifier.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.magnifier.accessibleParagraphStringProperty,
       tandem: tandem
     } );
 
@@ -57,22 +57,22 @@ export default class MagnifierNode extends Node {
 }
 
 /**
- * MagnifierToolBodyNode is the body of the magnifier, where the magnified energy levels are displayed.
+ * MagnifierBodyNode is the body of the magnifier, where the magnified energy levels are displayed.
  */
-class MagnifierToolBodyNode extends Node {
+class MagnifierBodyNode extends Node {
 
   public constructor() {
 
     const shadedRectangle = new ShadedRectangle( new Bounds2( 0, 0, BODY_SIZE.width, BODY_SIZE.height ), {
-      baseColor: QBSColors.magnifierToolBodyColorProperty,
+      baseColor: QBSColors.magnifierBodyColorProperty,
       lightOffset: 0.95,
       cornerRadius: CORNER_RADIUS
     } );
 
     //TODO This should be a bamboo chart.
     const displayNode = new Rectangle( 0, 0, BODY_SIZE.width - 2 * X_MARGIN, BODY_SIZE.height - 2 * Y_MARGIN, {
-      fill: QBSColors.magnifierToolDisplayFillProperty,
-      stroke: QBSColors.magnifierToolDisplayStrokeProperty,
+      fill: QBSColors.magnifierDisplayFillProperty,
+      stroke: QBSColors.magnifierDisplayStrokeProperty,
       cornerRadius: CORNER_RADIUS / 2, //TODO Why is divided by 2 needed to match ShadedRectangle?
       center: shadedRectangle.center
     } );
@@ -84,9 +84,9 @@ class MagnifierToolBodyNode extends Node {
 }
 
 /**
- * MagnifierToolProbeNode is the movable probe, for selecting which part of the Energy graph is displayed.
+ * MagnifierProbeNode is the movable probe, for selecting which part of the Energy graph is displayed.
  */
-class MagnifierToolProbeNode extends InteractiveHighlighting( ProbeNode ) {
+class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
   public constructor( tandem: Tandem ) {
 
@@ -98,14 +98,14 @@ class MagnifierToolProbeNode extends InteractiveHighlighting( ProbeNode ) {
       handleHeight: 20,
       handleCornerRadius: 8,
       lightAngle: 1.25 * Math.PI,
-      color: QBSColors.magnifierToolProbeColorProperty,
+      color: QBSColors.magnifierProbeColorProperty,
       sensorTypeFunction: ProbeNode.crosshairs( {
-        stroke: QBSColors.magnifierToolCrosshairsStrokeProperty,
+        stroke: QBSColors.magnifierCrosshairsStrokeProperty,
         lineWidth: 2,
         intersectionRadius: 4
       } ),
-      accessibleName: QuantumBoundStatesFluent.a11y.magnifierTool.probe.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifierTool.probe.accessibleHelpTextStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.magnifier.probe.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifier.probe.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioInputEnabledPropertyInstrumented: true,
       phetioVisiblePropertyInstrumented: false
@@ -116,9 +116,9 @@ class MagnifierToolProbeNode extends InteractiveHighlighting( ProbeNode ) {
 }
 
 /**
- * MagnifierToolWireNode is the wire that connects the body and probe.
+ * MagnifierWireNode is the wire that connects the body and probe.
  */
-class MagnifierToolWireNode extends Path {
+class MagnifierWireNode extends Path {
 
   public constructor( bodyNode: Node, probeNode: Node ) {
 
@@ -144,7 +144,7 @@ class MagnifierToolWireNode extends Path {
     super( shapeProperty, {
 
       // PathOptions
-      stroke: QBSColors.magnifierToolWireStrokeProperty,
+      stroke: QBSColors.magnifierWireStrokeProperty,
       lineWidth: 3,
       lineCap: 'square',
       lineJoin: 'round',

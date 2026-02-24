@@ -133,30 +133,30 @@ export default class QBSColors {
     default: PhetColorScheme.BUTTON_YELLOW
   } );
 
-  public static readonly magnifierToolBodyColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolBodyColor', {
+  public static readonly magnifierBodyColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierBodyColor', {
     default: Color.grayColor( 200 )
   } );
 
-  public static readonly magnifierToolDisplayFillProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolDisplayFill', {
+  public static readonly magnifierDisplayFillProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierDisplayFill', {
     default: 'white',
     projector: 'black'
   } );
 
-  public static readonly magnifierToolDisplayStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolDisplayStroke', {
+  public static readonly magnifierDisplayStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierDisplayStroke', {
     default: 'black'
   } );
 
-  public static readonly magnifierToolProbeColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolProbeColor', {
+  public static readonly magnifierProbeColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierProbeColor', {
     default: Color.grayColor( 150 ),
     projector: Color.grayColor( 200 )
   } );
 
-  public static readonly magnifierToolCrosshairsStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolCrosshairsStroke', {
+  public static readonly magnifierCrosshairsStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierCrosshairsStroke', {
     default: 'black',
     projector: 'white'
   } );
 
-  public static readonly magnifierToolWireStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierToolWireStroke', {
+  public static readonly magnifierWireStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierWireStroke', {
     default: Color.grayColor( 128 )
   } );
 }

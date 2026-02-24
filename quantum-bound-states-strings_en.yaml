@@ -283,13 +283,13 @@ a11y:
   # Tools
   #=======================================================================================================
 
-  magnifierTool:
-    accessibleHeading:   Magnifier Tool
-    accessibleParagraph: TODO.magnifierTool.accessibleParagraph
+  magnifier:
+    accessibleHeading:   Magnifier
+    accessibleParagraph: TODO.magnifier.accessibleParagraph
     probe:
       accessibleName:           Magnifier Tool Probe
-      accessibleHelpText:       TODO.magnifierTool.probe.accessibleHelpText
-      accessibleObjectResponse: TODO.magnifierTool.probe.accessibleObjectResponse
+      accessibleHelpText:       TODO.magnifier.probe.accessibleHelpText
+      accessibleObjectResponse: TODO.magnifier.probe.accessibleObjectResponse
 
   referenceLine:
     accessibleName:           Reference Line
