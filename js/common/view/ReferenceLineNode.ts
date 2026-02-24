@@ -115,8 +115,9 @@ class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode 
         useParentOffset: true
       },
       keyboardDragListenerOptions: {
-        dragSpeed: 300, // in view coordinates per second
-        shiftDragSpeed: 75
+        dragDelta: chartTransform.modelToViewDeltaX( 0.1 ),
+        shiftDragDelta: chartTransform.modelToViewDeltaX( 0.01 ),
+        moveOnHoldInterval: 50
       },
 
       drag: ( event, listener ) => {
