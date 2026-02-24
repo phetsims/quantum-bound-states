@@ -304,8 +304,8 @@ a11y:
   #=======================================================================================================
 
   potentialTypeComboBox:
-    accessibleName:     Potential Type
-    accessibleHelpText: Choose a potential shape for the energy graph.
+    accessibleName:            Potential Type
+    accessibleHelpText:        Choose a potential shape for the energy graph.
     accessibleContextResponse: potential set to {$potentialType}
 
   #=======================================================================================================
