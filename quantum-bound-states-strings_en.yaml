@@ -36,7 +36,7 @@ realPart:                              Real Part
 imaginaryPart:                         Imaginary Part
 magnitude:                             Magnitude
 phase:                                 Phase
-magnifierTool:                         Magnifier Tool
+magnifier:                             Magnifier
 referenceLine:                         Reference Line
 
 # Sliders
@@ -156,10 +156,10 @@ a11y:
     accessibleContextResponseChecked:   Phase shown.
     accessibleContextResponseUnchecked: Phase hidden.
 
-  magnifierToolCheckbox:
-    accessibleHelpText:                 TODO.magnifierToolCheckbox.accessibleHelpText
-    accessibleContextResponseChecked:   Magnifier Tool shown.
-    accessibleContextResponseUnchecked: Magnifier Tool hidden.
+  magnifierCheckbox:
+    accessibleHelpText:                 Show or hide the magnifier.
+    accessibleContextResponseChecked:   Magnifier shown.
+    accessibleContextResponseUnchecked: Magnifier hidden.
 
   referenceLineCheckbox:
     accessibleHelpText:                 TODO.referenceLineCheckbox.accessibleHelpText

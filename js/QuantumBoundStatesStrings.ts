@@ -42,7 +42,7 @@ type StringsType = {
   'imaginaryPartStringProperty': LocalizedStringProperty;
   'magnitudeStringProperty': LocalizedStringProperty;
   'phaseStringProperty': LocalizedStringProperty;
-  'magnifierToolStringProperty': LocalizedStringProperty;
+  'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
   'normalStringProperty': LocalizedStringProperty;
@@ -148,7 +148,7 @@ type StringsType = {
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     };
-    'magnifierToolCheckbox': {
+    'magnifierCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;

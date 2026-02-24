@@ -51,7 +51,7 @@ addToMapIfDefined( 'realPart', 'realPartStringProperty' );
 addToMapIfDefined( 'imaginaryPart', 'imaginaryPartStringProperty' );
 addToMapIfDefined( 'magnitude', 'magnitudeStringProperty' );
 addToMapIfDefined( 'phase', 'phaseStringProperty' );
-addToMapIfDefined( 'magnifierTool', 'magnifierToolStringProperty' );
+addToMapIfDefined( 'magnifier', 'magnifierStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
 addToMapIfDefined( 'normal', 'normalStringProperty' );
@@ -106,9 +106,9 @@ addToMapIfDefined( 'a11y_magnitudeCheckbox_accessibleContextResponseUnchecked', 
 addToMapIfDefined( 'a11y_phaseCheckbox_accessibleHelpText', 'a11y.phaseCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_phaseCheckbox_accessibleContextResponseChecked', 'a11y.phaseCheckbox.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_phaseCheckbox_accessibleContextResponseUnchecked', 'a11y.phaseCheckbox.accessibleContextResponseUncheckedStringProperty' );
-addToMapIfDefined( 'a11y_magnifierToolCheckbox_accessibleHelpText', 'a11y.magnifierToolCheckbox.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_magnifierToolCheckbox_accessibleContextResponseChecked', 'a11y.magnifierToolCheckbox.accessibleContextResponseCheckedStringProperty' );
-addToMapIfDefined( 'a11y_magnifierToolCheckbox_accessibleContextResponseUnchecked', 'a11y.magnifierToolCheckbox.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_magnifierCheckbox_accessibleHelpText', 'a11y.magnifierCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_magnifierCheckbox_accessibleContextResponseChecked', 'a11y.magnifierCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_magnifierCheckbox_accessibleContextResponseUnchecked', 'a11y.magnifierCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleHelpText', 'a11y.referenceLineCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseChecked', 'a11y.referenceLineCheckbox.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseUnchecked', 'a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty' );
@@ -224,22 +224,19 @@ const QuantumBoundStatesFluent = {
   imaginaryPartStringProperty: _.get( QuantumBoundStatesStrings, 'imaginaryPartStringProperty' ),
   magnitudeStringProperty: _.get( QuantumBoundStatesStrings, 'magnitudeStringProperty' ),
   phaseStringProperty: _.get( QuantumBoundStatesStrings, 'phaseStringProperty' ),
-  _comment_4: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifierTool"} ),
-  _comment_5: new FluentComment( {"comment":"Tools","associatedKey":"magnifierTool"} ),
-  _comment_6: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifierTool"} ),
-  magnifierToolStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierToolStringProperty' ),
+  magnifierStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierStringProperty' ),
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
-  _comment_7: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
+  _comment_4: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
   normalStringProperty: _.get( QuantumBoundStatesStrings, 'normalStringProperty' ),
   fastStringProperty: _.get( QuantumBoundStatesStrings, 'fastStringProperty' ),
-  _comment_8: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
+  _comment_5: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
   energyLevelStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelStringProperty' ),
   energyLevelPatternStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelPatternStringProperty' ),
-  _comment_9: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-  _comment_10: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
-  _comment_11: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-  _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+  _comment_6: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+  _comment_7: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+  _comment_8: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+  _comment_9: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
   units: {
     electronMasses: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMasses.symbolStringProperty' ),
@@ -254,7 +251,7 @@ const QuantumBoundStatesFluent = {
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolPatternStringProperty' )
     }
   },
-  _comment_13: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
+  _comment_10: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
   potentialWells: {
     finiteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.finiteSquareStringProperty' ),
     infiniteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteSquareStringProperty' ),
@@ -264,7 +261,7 @@ const QuantumBoundStatesFluent = {
     coulombStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.coulombStringProperty' ),
     infiniteStepStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteStepStringProperty' )
   },
-  _comment_14: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  _comment_11: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
     _comment_1: new FluentComment( {"comment":"Screens (screen summaries, screen buttons)","associatedKey":"screens"} ),
@@ -350,10 +347,10 @@ const QuantumBoundStatesFluent = {
       accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_phaseCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.phaseCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
       accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_phaseCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.phaseCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     },
-    magnifierToolCheckbox: {
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierToolCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnifierToolCheckbox.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierToolCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.magnifierToolCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
-      accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierToolCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.magnifierToolCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
+    magnifierCheckbox: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnifierCheckbox.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.magnifierCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+      accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifierCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.magnifierCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     },
     referenceLineCheckbox: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleHelpTextStringProperty' ) ),

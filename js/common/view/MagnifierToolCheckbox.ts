@@ -19,7 +19,7 @@ export default class MagnifierToolCheckbox extends Checkbox {
 
   public constructor( magnifierToolVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
-    const text = new RichText( QuantumBoundStatesFluent.magnifierToolStringProperty, {
+    const text = new RichText( QuantumBoundStatesFluent.magnifierStringProperty, {
       font: QBSConstants.CONTROL_FONT,
       maxWidth: 150,
       tandem: tandem.createTandem( 'text' )
@@ -28,9 +28,9 @@ export default class MagnifierToolCheckbox extends Checkbox {
     super( magnifierToolVisibleProperty, text, combineOptions<CheckboxOptions>(
       {}, QBSConstants.CHECKBOX_OPTIONS, {
         isDisposable: false,
-        accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifierToolCheckbox.accessibleHelpTextStringProperty,
-        accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.magnifierToolCheckbox.accessibleContextResponseCheckedStringProperty,
-        accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.magnifierToolCheckbox.accessibleContextResponseUncheckedStringProperty,
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleContextResponseUncheckedStringProperty,
         phetioDisplayOnlyPropertyInstrumented: true,
         tandem: tandem
       } ) );

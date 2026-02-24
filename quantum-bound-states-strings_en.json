@@ -73,8 +73,8 @@
   "phase": {
     "value": "Phase"
   },
-  "magnifierTool": {
-    "value": "Magnifier Tool"
+  "magnifier": {
+    "value": "Magnifier"
   },
   "referenceLine": {
     "value": "Reference Line"
@@ -297,15 +297,15 @@
         "value": "Phase hidden."
       }
     },
-    "magnifierToolCheckbox": {
+    "magnifierCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO.magnifierToolCheckbox.accessibleHelpText"
+        "value": "Show or hide the magnifier."
       },
       "accessibleContextResponseChecked": {
-        "value": "Magnifier Tool shown."
+        "value": "Magnifier shown."
       },
       "accessibleContextResponseUnchecked": {
-        "value": "Magnifier Tool hidden."
+        "value": "Magnifier hidden."
       }
     },
     "referenceLineCheckbox": {
