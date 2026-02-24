@@ -533,9 +533,12 @@
         }
       }
     },
-    "potentialComboBox": {
+    "potentialTypeComboBox": {
       "accessibleName": {
-        "value": "Potential"
+        "value": "Potential Type"
+      },
+      "accessibleHelpText": {
+        "value": "Choose a potential shape for the energy graph."
       }
     },
     "units": {

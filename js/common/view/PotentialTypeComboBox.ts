@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialComboBox is the combo box for selecting a potential.
+ * PotentialTypeComboBox is the combo box for selecting a potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +17,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Potential from '../model/potentials/Potential.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class PotentialComboBox extends ComboBox<Potential> {
+export default class PotentialTypeComboBox extends ComboBox<Potential> {
 
   public constructor( potentialProperty: Property<Potential>, listboxParent: Node, tandem: Tandem ) {
 
@@ -40,10 +40,11 @@ export default class PotentialComboBox extends ComboBox<Potential> {
     super( potentialProperty, items, listboxParent, {
       xMargin: 10,
       yMargin: 6,
-      accessibleName: QuantumBoundStatesFluent.a11y.potentialComboBox.accessibleNameStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.potentialTypeComboBox.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.potentialTypeComboBox.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
   }
 }
 
-quantumBoundStates.register( 'PotentialComboBox', PotentialComboBox );
+quantumBoundStates.register( 'PotentialTypeComboBox', PotentialTypeComboBox );

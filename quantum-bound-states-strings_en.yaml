@@ -303,8 +303,9 @@ a11y:
   # Potentials
   #=======================================================================================================
 
-  potentialComboBox:
-    accessibleName: Potential
+  potentialTypeComboBox:
+    accessibleName:     Potential Type
+    accessibleHelpText: Choose a potential shape for the energy graph.
 
   #=======================================================================================================
   # Units

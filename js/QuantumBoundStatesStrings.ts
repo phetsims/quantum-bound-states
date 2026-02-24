@@ -260,8 +260,9 @@ type StringsType = {
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
       }
     };
-    'potentialComboBox': {
+    'potentialTypeComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'units': {
       'electronMasses': {
