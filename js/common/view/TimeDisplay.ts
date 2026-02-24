@@ -15,6 +15,7 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import { femtosecondsUnit } from '../model/femtosecondsUnit.js';
+import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import TimeToggleButton from './TimeToggleButton.js';
 
@@ -33,6 +34,8 @@ export default class TimeDisplay extends HBox {
         // Hide the value by making it transparent.
         fill: new DerivedProperty( [ timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
       },
+      backgroundFill: new DerivedProperty( [ timeVisibleProperty ],
+          timeVisible => timeVisible ? QBSColors.timeDisplayEnabledProperty.value : QBSColors.timeDisplayDisabledProperty.value ),
       numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString( value, {
         decimalPlaces: QBSConstants.TIME_DECIMAL_PLACES,
         showTrailingZeros: true

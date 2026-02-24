@@ -159,6 +159,14 @@ export default class QBSColors {
   public static readonly magnifierWireStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierWireStroke', {
     default: Color.grayColor( 128 )
   } );
+
+  public static readonly timeDisplayEnabledProperty = new ProfileColorProperty( quantumBoundStates, 'timeDisplayEnabled', {
+    default: 'white'
+  } );
+
+  public static readonly timeDisplayDisabledProperty = new ProfileColorProperty( quantumBoundStates, 'timeDisplayDisabled', {
+    default: Color.grayColor( 240 )
+  } );
 }
 
 quantumBoundStates.register( 'QBSColors', QBSColors );
