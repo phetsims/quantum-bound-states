@@ -163,11 +163,9 @@ addToMapIfDefined( 'a11y_magnifierTool_accessibleParagraph', 'a11y.magnifierTool
 addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleName', 'a11y.magnifierTool.probe.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleHelpText', 'a11y.magnifierTool.probe.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_magnifierTool_probe_accessibleObjectResponse', 'a11y.magnifierTool.probe.accessibleObjectResponseStringProperty' );
-addToMapIfDefined( 'a11y_referenceLine_accessibleHeading', 'a11y.referenceLine.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_referenceLine_accessibleParagraph', 'a11y.referenceLine.accessibleParagraphStringProperty' );
-addToMapIfDefined( 'a11y_referenceLine_handle_accessibleName', 'a11y.referenceLine.handle.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_referenceLine_handle_accessibleHelpText', 'a11y.referenceLine.handle.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_referenceLine_handle_accessibleObjectResponse', 'a11y.referenceLine.handle.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleName', 'a11y.referenceLine.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleHelpText', 'a11y.referenceLine.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse', 'a11y.referenceLine.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_potentialTypeComboBox_accessibleName', 'a11y.potentialTypeComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_potentialTypeComboBox_accessibleHelpText', 'a11y.potentialTypeComboBox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_potentialTypeComboBox_accessibleContextResponse', 'a11y.potentialTypeComboBox.accessibleContextResponseStringProperty' );
@@ -476,13 +474,9 @@ const QuantumBoundStatesFluent = {
       }
     },
     referenceLine: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleHeadingStringProperty' ) ),
-      accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleParagraphStringProperty' ) ),
-      handle: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_handle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.handle.accessibleNameStringProperty' ) ),
-        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_handle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.handle.accessibleHelpTextStringProperty' ) ),
-        accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_handle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.handle.accessibleObjectResponseStringProperty' ) )
-      }
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleHelpTextStringProperty' ) ),
+      accessibleObjectResponse: new FluentPattern<{ x: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponseStringProperty' ), [{"name":"x"}] )
     },
     _comment_34: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"potentialTypeComboBox"} ),
     _comment_35: new FluentComment( {"comment":"Potentials","associatedKey":"potentialTypeComboBox"} ),

@@ -72,6 +72,7 @@ export default class QBSConstants {
   // Decimal places
   public static readonly ELECTRON_MASS_DECIMAL_PLACES = 2;
   public static readonly TIME_DECIMAL_PLACES = 1;
+  public static readonly X_DECIMALS = 2;
 
   //TODO From MV's FundamentalConstants.ts. Is a small value like this a problem?
   public static readonly ELECTRON_MASS = 9.1093837015e-31; // kg

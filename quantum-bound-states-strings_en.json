@@ -515,22 +515,14 @@
       }
     },
     "referenceLine": {
-      "accessibleHeading": {
+      "accessibleName": {
         "value": "Reference Line"
       },
-      "accessibleParagraph": {
-        "value": "TODO.referenceLine.accessibleParagraph"
+      "accessibleHelpText": {
+        "value": "Move across graphs to set a reference position."
       },
-      "handle": {
-        "accessibleName": {
-          "value": "Reference Line Handle"
-        },
-        "accessibleHelpText": {
-          "value": "TODO.referenceLineHandle.accessibleHelpText"
-        },
-        "accessibleObjectResponse": {
-          "value": "TODO.referenceLineHandle.accessibleObjectResponse"
-        }
+      "accessibleObjectResponse": {
+        "value": "reference position at {$x} nanometers"
       }
     },
     "potentialTypeComboBox": {

@@ -292,12 +292,9 @@ a11y:
       accessibleObjectResponse: TODO.magnifierTool.probe.accessibleObjectResponse
 
   referenceLine:
-    accessibleHeading:   Reference Line
-    accessibleParagraph: TODO.referenceLine.accessibleParagraph
-    handle:
-      accessibleName:           Reference Line Handle
-      accessibleHelpText:       TODO.referenceLineHandle.accessibleHelpText
-      accessibleObjectResponse: TODO.referenceLineHandle.accessibleObjectResponse
+    accessibleName:           Reference Line
+    accessibleHelpText:       Move across graphs to set a reference position.
+    accessibleObjectResponse: reference position at {$x} nanometers
 
   #=======================================================================================================
   # Potentials

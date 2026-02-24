@@ -252,13 +252,9 @@ type StringsType = {
       }
     };
     'referenceLine': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
-      'handle': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-        'accessibleHelpTextStringProperty': LocalizedStringProperty;
-        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
-      }
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'potentialTypeComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;

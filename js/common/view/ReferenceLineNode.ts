@@ -10,6 +10,7 @@
 import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -59,8 +60,8 @@ export default class ReferenceLineNode extends Node {
       isDisposable: false,
       children: [ verticalLine, handleNode ],
       visibleProperty: referenceLine.visibleProperty,
-      accessibleHeading: QuantumBoundStatesFluent.a11y.referenceLine.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.referenceLine.accessibleParagraphStringProperty
+      accessibleHeading: QuantumBoundStatesFluent.a11y.referenceLine.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.referenceLine.accessibleHelpTextStringProperty
     }, providedOptions );
 
     super( options );
@@ -76,18 +77,20 @@ export default class ReferenceLineNode extends Node {
  */
 class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode ) {
 
+  private readonly referenceLine: ReferenceLine;
+
   public constructor( referenceLine: ReferenceLine, chartTransform: ChartTransform, tandem: Tandem ) {
 
     const options = combineOptions<ShadedSphereNodeOptions>( {
       isDisposable: false,
       cursor: 'ew-resize',
       mainColor: QBSColors.referenceLineHandleColorProperty,
-      accessibleName: QuantumBoundStatesFluent.a11y.referenceLine.handle.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.referenceLine.handle.accessibleHelpTextStringProperty,
       tandem: tandem
     }, AccessibleDraggableOptions );
 
     super( QBSConstants.HANDLE_DIAMETER, options );
+
+    this.referenceLine = referenceLine;
 
     // Synthesize a ModelViewTransform2 from the ChartTransform.
     const transform = ModelViewTransform2.createOffsetXYScaleMapping(
@@ -138,7 +141,10 @@ class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode 
    * Accessible response when the handle is moved or gets focus.
    */
   public doAccessibleObjectResponse(): void {
-    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.referenceLine.handle.accessibleObjectResponseStringProperty );
+    const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
+      x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMALS )
+    } );
+    this.addAccessibleObjectResponse( response );
   }
 }
 
