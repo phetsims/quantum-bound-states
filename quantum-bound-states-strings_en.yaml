@@ -242,7 +242,7 @@ a11y:
   #=======================================================================================================
 
   massControl:
-    accessibleHelpText: TODO.massControl.accessibleHelpText
+    accessibleHelpText: Adjust the relative mass of the system.
 
   #=======================================================================================================
   # Spinners
@@ -312,7 +312,7 @@ a11y:
 
   units:
     electronMasses:
-      pattern: '{$value} electron masses'
+      pattern: '{$value} times electron mass'
     electronVolts:
       pattern: '{$value} eV'
     femtoseconds:

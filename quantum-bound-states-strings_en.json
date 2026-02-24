@@ -427,7 +427,7 @@
     },
     "massControl": {
       "accessibleHelpText": {
-        "value": "TODO.massControl.accessibleHelpText"
+        "value": "Adjust the relative mass of the system."
       }
     },
     "energyLevelSpinner": {
@@ -541,7 +541,7 @@
     "units": {
       "electronMasses": {
         "pattern": {
-          "value": "{$value} electron masses"
+          "value": "{$value} times electron mass"
         }
       },
       "electronVolts": {
