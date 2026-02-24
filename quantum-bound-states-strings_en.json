@@ -310,7 +310,7 @@
     },
     "referenceLineCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO.referenceLineCheckbox.accessibleHelpText"
+        "value": "Show or hide the vertical position Reference Line across the energy and display graphs."
       },
       "accessibleContextResponseChecked": {
         "value": "Reference Line shown."

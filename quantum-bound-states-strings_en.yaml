@@ -162,7 +162,7 @@ a11y:
     accessibleContextResponseUnchecked: Magnifier hidden.
 
   referenceLineCheckbox:
-    accessibleHelpText:                 TODO.referenceLineCheckbox.accessibleHelpText
+    accessibleHelpText:                 Show or hide the vertical position Reference Line across the energy and display graphs.
     accessibleContextResponseChecked:   Reference Line shown.
     accessibleContextResponseUnchecked: Reference Line hidden.
 
