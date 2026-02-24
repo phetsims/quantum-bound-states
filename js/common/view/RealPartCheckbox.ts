@@ -11,9 +11,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
-import WaveFunctionComponentCheckbox from './WaveFunctionComponentCheckbox.js';
+import WaveFunctionPartsCheckbox from './WaveFunctionPartsCheckbox.js';
 
-export default class RealPartCheckbox extends WaveFunctionComponentCheckbox {
+export default class RealPartCheckbox extends WaveFunctionPartsCheckbox {
 
   public constructor( realPartVisibleProperty: Property<boolean>, tandem: Tandem ) {
     super( realPartVisibleProperty, {

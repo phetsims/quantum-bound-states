@@ -23,7 +23,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSConstants from '../QBSConstants.js';
-import WaveFunctionComponentCheckbox, { WaveFunctionComponentCheckboxOptions } from './WaveFunctionComponentCheckbox.js';
+import WaveFunctionPartsCheckbox, { WaveFunctionComponentCheckboxOptions } from './WaveFunctionPartsCheckbox.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -31,7 +31,7 @@ type PhaseCheckboxOptions = SelfOptions &
   PickOptional<WaveFunctionComponentCheckboxOptions, 'layoutOptions' | 'visibleProperty' | 'enabledProperty'> &
   PickRequired<WaveFunctionComponentCheckboxOptions, 'tandem'>;
 
-export default class PhaseCheckbox extends WaveFunctionComponentCheckbox {
+export default class PhaseCheckbox extends WaveFunctionPartsCheckbox {
 
   public constructor( phaseVisibleProperty: Property<boolean>, providedOptions: PhaseCheckboxOptions ) {
 
