@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MagnifierToolCheckbox is the checkbox for making the Magnifier Tool visible.
+ * MagnifierCheckbox is the checkbox for making the Magnifier Tool visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,7 +15,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class MagnifierToolCheckbox extends Checkbox {
+export default class MagnifierCheckbox extends Checkbox {
 
   public constructor( magnifierToolVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
@@ -37,4 +37,4 @@ export default class MagnifierToolCheckbox extends Checkbox {
   }
 }
 
-quantumBoundStates.register( 'MagnifierToolCheckbox', MagnifierToolCheckbox );
+quantumBoundStates.register( 'MagnifierCheckbox', MagnifierCheckbox );

@@ -15,7 +15,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import MagnifierToolCheckbox from './MagnifierToolCheckbox.js';
+import MagnifierCheckbox from './MagnifierCheckbox.js';
 import ReferenceLineCheckbox from './ReferenceLineCheckbox.js';
 
 export default class ToolsPanel extends Panel {
@@ -33,12 +33,12 @@ export default class ToolsPanel extends Panel {
       phetioVisiblePropertyInstrumented: true
     } );
 
-    const magnifierToolCheckbox = new MagnifierToolCheckbox( referenceLineVisibleProperty, tandem.createTandem( 'magnifierToolCheckbox' ) );
+    const magnifierCheckbox = new MagnifierCheckbox( referenceLineVisibleProperty, tandem.createTandem( 'magnifierCheckbox' ) );
 
     const referenceLineCheckbox = new ReferenceLineCheckbox( magnifierToolVisibleProperty, tandem.createTandem( 'referenceLineCheckbox' ) );
 
     const content = new VBox( {
-      children: [ magnifierToolCheckbox, referenceLineCheckbox ],
+      children: [ magnifierCheckbox, referenceLineCheckbox ],
       spacing: 6,
       align: 'left'
     } );
