@@ -45,6 +45,7 @@ export default class QBSModel implements TModel {
 
   public readonly time: Time;
 
+  //TODO Core description refers to this as "potential type".
   public readonly potentialProperty: Property<Potential>;
 
   public readonly energyLevelRangeProperty: Property<Range>;
