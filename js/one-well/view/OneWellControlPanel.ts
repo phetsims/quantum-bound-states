@@ -19,7 +19,7 @@ import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import GraphTypeRadioButtonGroup from '../../common/view/GraphTypeRadioButtonGroup.js';
 import MassControl from '../../common/view/MassControl.js';
 import ValueLabelsCheckbox from '../../common/view/ValueLabelsCheckbox.js';
-import WaveFunctionComponentsCheckboxGroup from '../../common/view/WaveFunctionComponentsCheckboxGroup.js';
+import WaveFunctionPartsCheckboxGroup from '../../common/view/WaveFunctionPartsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import OneWellModel from '../model/OneWellModel.js';
@@ -54,7 +54,7 @@ export default class OneWellControlPanel extends Panel {
 
     const graphTypeRadioButtonGroup = new GraphTypeRadioButtonGroup( model.graphTypeProperty, tandem.createTandem( 'graphTypeRadioButtonGroup' ) );
 
-    const checkboxGroup = new WaveFunctionComponentsCheckboxGroup(
+    const waveFunctionPartsCheckboxGroup = new WaveFunctionPartsCheckboxGroup(
       model.realPartVisibleProperty,
       model.imaginaryPartVisibleProperty,
       model.magnitudeVisibleProperty,
@@ -64,7 +64,7 @@ export default class OneWellControlPanel extends Panel {
           leftMargin: 25 // indent below graphTypeRadioButtonGroup
         },
         enabledProperty: new DerivedProperty( [ model.graphTypeProperty ], graphType => graphType === 'waveFunction' ),
-        tandem: tandem.createTandem( 'checkboxGroup' )
+        tandem: tandem.createTandem( 'waveFunctionPartsCheckboxGroup' )
       } );
 
     const content = new VBox( {
@@ -83,7 +83,7 @@ export default class OneWellControlPanel extends Panel {
         } ),
         displayText,
         graphTypeRadioButtonGroup,
-        checkboxGroup
+        waveFunctionPartsCheckboxGroup
       ]
     } );
 

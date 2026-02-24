@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionComponentsCheckboxGroup is a group of checkboxes for controlling the visibility of various
+ * WaveFunctionPartsCheckboxGroup is a group of checkboxes for controlling the visibility of various
  * components of the wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -26,7 +26,7 @@ type WaveFunctionComponentsCheckboxGroupOptions = SelfOptions &
   PickOptional<VBoxOptions, 'layoutOptions' | 'enabledProperty'> &
   PickRequired<VBoxOptions, 'tandem'>;
 
-export default class WaveFunctionComponentsCheckboxGroup extends VBox {
+export default class WaveFunctionPartsCheckboxGroup extends VBox {
 
   public constructor( realPartVisibleProperty: Property<boolean>,
                       imaginaryPartVisibleProperty: Property<boolean>,
@@ -74,4 +74,4 @@ export default class WaveFunctionComponentsCheckboxGroup extends VBox {
   }
 }
 
-quantumBoundStates.register( 'WaveFunctionComponentsCheckboxGroup', WaveFunctionComponentsCheckboxGroup );
+quantumBoundStates.register( 'WaveFunctionPartsCheckboxGroup', WaveFunctionPartsCheckboxGroup );
