@@ -132,9 +132,9 @@ a11y:
   #=======================================================================================================
 
   valueLabelsCheckbox:
-    accessibleHelpText:                 TODO.valueLabelsCheckbox.accessibleHelpText
-    accessibleContextResponseChecked:   Value labels shown.
-    accessibleContextResponseUnchecked: Value labels hidden.
+    accessibleHelpText:                 Keep value labels visible for handles and sliders.
+    accessibleContextResponseChecked:   Value labels stay visible.
+    accessibleContextResponseUnchecked: Value labels shown on focus.
 
   realPartCheckbox:
     accessibleHelpText:                 Show or hide the real part of the wave function.

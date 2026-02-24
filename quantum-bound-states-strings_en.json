@@ -244,13 +244,13 @@
     },
     "valueLabelsCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO.valueLabelsCheckbox.accessibleHelpText"
+        "value": "Keep value labels visible for handles and sliders."
       },
       "accessibleContextResponseChecked": {
-        "value": "Value labels shown."
+        "value": "Value labels stay visible."
       },
       "accessibleContextResponseUnchecked": {
-        "value": "Value labels hidden."
+        "value": "Value labels shown on focus."
       }
     },
     "realPartCheckbox": {
