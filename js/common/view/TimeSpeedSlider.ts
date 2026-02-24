@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * TimeSpeedSlider changes the scaling of time, making the sim run faster or slower.
+ * TimeSpeedSlider changes the speed of the sim, making the sim run faster or slower.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

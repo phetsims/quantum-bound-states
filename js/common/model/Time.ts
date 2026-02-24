@@ -28,6 +28,9 @@ export default class Time {
   // Values > 1 make the sim run faster, values < 1 make it run slower.
   public readonly timeScaleProperty: NumberProperty;
 
+  // Whether time is visible.
+  public readonly timeVisibleProperty: Property<boolean>;
+
   // Conversion of real time (seconds) to simulation time (femtoseconds).
   public static readonly FEMTOSECONDS_PER_SECOND = 1;
 
@@ -62,12 +65,17 @@ export default class Time {
       phetioFeatured: true,
       phetioDocumentation: 'The factor by which time is sped up (> 1) or slowed down (< 1).'
     } );
+
+    this.timeVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'timeVisibleProperty' )
+    } );
   }
 
   public reset(): void {
     this._currentTimeProperty.reset();
     this.isPlayingProperty.reset();
     this.timeScaleProperty.reset();
+    this.timeVisibleProperty.reset();
   }
 
   /**
