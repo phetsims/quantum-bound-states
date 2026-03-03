@@ -164,11 +164,11 @@ type StringsType = {
     'waveFunctionDialog': {
       'accessibleNameStringProperty': LocalizedStringProperty;
     };
+    'energyDiagram': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
     'graphs': {
-      'energyGraph': {
-        'accessibleHeadingStringProperty': LocalizedStringProperty;
-        'accessibleParagraphStringProperty': LocalizedStringProperty;
-      };
       'averageProbabilityDensityGraph': {
         'accessibleHeadingStringProperty': LocalizedStringProperty;
         'accessibleParagraphStringProperty': LocalizedStringProperty;

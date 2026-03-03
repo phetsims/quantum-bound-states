@@ -23,7 +23,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSConstants from '../QBSConstants.js';
 import { electronMassesUnit } from './electronMassesUnit.js';
-import EnergyGraph from './EnergyGraph.js';
+import EnergyDiagram from './EnergyDiagram.js';
 import { GraphType } from './GraphType.js';
 import Magnifier from './Magnifier.js';
 import Potential from './potentials/Potential.js';
@@ -54,7 +54,7 @@ export default class QBSModel implements TModel {
   public readonly electronMassesProperty: NumberProperty;
   public readonly massProperty: TReadOnlyProperty<number>;
 
-  public readonly energyGraph: EnergyGraph;
+  public readonly energyDiagram: EnergyDiagram;
   public readonly probabilityDensityGraph: ProbabilityDensityGraph;
   public readonly waveFunctionGraph: WaveFunctionGraph;
   public readonly graphTypeProperty: Property<GraphType>; //TODO Property<QBSGraph>
@@ -99,7 +99,7 @@ export default class QBSModel implements TModel {
         phetioValueType: NumberIO
       } );
 
-    this.energyGraph = new EnergyGraph( options.tandem.createTandem( 'energyGraph' ) );
+    this.energyDiagram = new EnergyDiagram( options.tandem.createTandem( 'energyDiagram' ) );
 
     this.probabilityDensityGraph = new ProbabilityDensityGraph( options.tandem.createTandem( 'probabilityDensityGraph' ) );
 
@@ -173,7 +173,7 @@ export default class QBSModel implements TModel {
     this.energyLevelProperty.reset();
     this.electronMassesProperty.reset();
 
-    this.energyGraph.reset();
+    this.energyDiagram.reset();
     this.probabilityDensityGraph.reset();
     this.waveFunctionGraph.reset();
     this.graphTypeProperty.reset();

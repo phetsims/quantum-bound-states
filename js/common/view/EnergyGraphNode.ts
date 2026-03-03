@@ -25,8 +25,8 @@ export default class EnergyGraphNode extends QBSGraphNode {
       hasXTicks: false,
       xTickSpacing: QBSConstants.ALL_GRAPHS_X_TICK_SPACING,
       yTickSpacing: 5,
-      accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.energyGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.energyGraph.accessibleParagraphStringProperty,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleParagraphStringProperty,
       tandem: tandem
     };
 

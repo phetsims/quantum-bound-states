@@ -114,8 +114,8 @@ addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseChecked'
 addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseUnchecked', 'a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_probabilityDensityFunctionDialog_accessibleName', 'a11y.probabilityDensityFunctionDialog.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionDialog_accessibleName', 'a11y.waveFunctionDialog.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_graphs_energyGraph_accessibleHeading', 'a11y.graphs.energyGraph.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_graphs_energyGraph_accessibleParagraph', 'a11y.graphs.energyGraph.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleParagraph', 'a11y.energyDiagram.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityGraph_accessibleHeading', 'a11y.graphs.averageProbabilityDensityGraph.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityGraph_accessibleParagraph', 'a11y.graphs.averageProbabilityDensityGraph.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_graphs_probabilityDensityGraph_accessibleHeading', 'a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty' );
@@ -367,14 +367,14 @@ const QuantumBoundStatesFluent = {
     waveFunctionDialog: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDialog_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDialog.accessibleNameStringProperty' ) )
     },
-    _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphs"} ),
-    _comment_13: new FluentComment( {"comment":"Graphs","associatedKey":"graphs"} ),
-    _comment_14: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphs"} ),
+    _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
+    _comment_13: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),
+    _comment_14: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
+    energyDiagram: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleHeadingStringProperty' ) ),
+      accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleParagraphStringProperty' ) )
+    },
     graphs: {
-      energyGraph: {
-        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_energyGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.graphs.energyGraph.accessibleHeadingStringProperty' ) ),
-        accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_energyGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.graphs.energyGraph.accessibleParagraphStringProperty' ) )
-      },
       averageProbabilityDensityGraph: {
         accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_averageProbabilityDensityGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.graphs.averageProbabilityDensityGraph.accessibleHeadingStringProperty' ) ),
         accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_averageProbabilityDensityGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.graphs.averageProbabilityDensityGraph.accessibleParagraphStringProperty' ) )

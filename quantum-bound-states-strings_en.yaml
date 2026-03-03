@@ -180,11 +180,11 @@ a11y:
   # Graphs
   #=======================================================================================================
 
-  graphs:
+  energyDiagram:
+    accessibleHeading:   Energy Diagram
+    accessibleParagraph: TODO.energyDiagram.accessibleParagraph
 
-    energyGraph:
-      accessibleHeading:   Energy Graph
-      accessibleParagraph: TODO.energyGraph.accessibleParagraph
+  graphs:
 
     averageProbabilityDensityGraph:
       accessibleHeading:   Average Probability Density Graph

@@ -329,15 +329,15 @@
         "value": "Wave Function Dialog"
       }
     },
-    "graphs": {
-      "energyGraph": {
-        "accessibleHeading": {
-          "value": "Energy Graph"
-        },
-        "accessibleParagraph": {
-          "value": "TODO.energyGraph.accessibleParagraph"
-        }
+    "energyDiagram": {
+      "accessibleHeading": {
+        "value": "Energy Diagram"
       },
+      "accessibleParagraph": {
+        "value": "TODO.energyDiagram.accessibleParagraph"
+      }
+    },
+    "graphs": {
       "averageProbabilityDensityGraph": {
         "accessibleHeading": {
           "value": "Average Probability Density Graph"
