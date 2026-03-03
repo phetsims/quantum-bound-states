@@ -27,7 +27,7 @@ import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
 const X_AXIS_LABEL_OFFSET = 20;
-const Y_AXIS_LABEL_OFFSET = -32;
+const Y_AXIS_LABEL_OFFSET = QBSConstants.Y_AXIS_LABEL_OFFSET;
 
 type SelfOptions = {
 

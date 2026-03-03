@@ -60,14 +60,21 @@ export default class QBSConstants {
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 700;
   public static readonly ALL_GRAPHS_X_RANGE = new Range( -3.5, 3.5 );
   public static readonly ALL_GRAPHS_X_TICK_SPACING = 1;
-  public static readonly ENERGY_GRAPH_VIEW_HEIGHT = 265;
-  public static readonly ENERGY_GRAPH_Y_RANGE = new Range( -5.5, 15.5 );
   public static readonly PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = 175;
   public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1.05 );
   public static readonly WAVE_FUNCTION_GRAPH_VIEW_HEIGHT = QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT;
   public static readonly WAVE_FUNCTION_GRAPH_Y_RANGE = new Range( -1.55, 1.55 );
   public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT;
   public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE = QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE;
+  public static readonly Y_AXIS_LABEL_OFFSET = -32;
+
+  // Energy Diagram
+  public static readonly ENERGY_DIAGRAM_VIEW_WIDTH = QBSConstants.ALL_GRAPHS_VIEW_WIDTH;
+  public static readonly ENERGY_DIAGRAM_VIEW_HEIGHT = 265;
+  public static readonly ENERGY_DIAGRAM_X_RANGE = QBSConstants.ALL_GRAPHS_X_RANGE;
+  public static readonly ENERGY_DIAGRAM_Y_RANGE = new Range( -5.5, 15.5 );
+  public static readonly ENERGY_DIAGRAM_X_TICK_SPACING = QBSConstants.ALL_GRAPHS_X_TICK_SPACING;
+  public static readonly ENERGY_DIAGRAM_Y_TICK_SPACING = 5;
 
   // Decimal places
   public static readonly ELECTRON_MASS_DECIMAL_PLACES = 2;
