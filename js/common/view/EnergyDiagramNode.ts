@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * EnergyGraphNode is the view for the 'Energy' graph.
+ * EnergyDiagramNode is the view for the 'Energy' diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,7 +12,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
 
-export default class EnergyGraphNode extends QBSGraphNode {
+export default class EnergyDiagramNode extends QBSGraphNode {
 
   public constructor( tandem: Tandem ) {
 
@@ -34,4 +34,4 @@ export default class EnergyGraphNode extends QBSGraphNode {
   }
 }
 
-quantumBoundStates.register( 'EnergyGraphNode', EnergyGraphNode );
+quantumBoundStates.register( 'EnergyDiagramNode', EnergyDiagramNode );

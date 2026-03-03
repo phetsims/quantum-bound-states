@@ -12,7 +12,7 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import EnergyGraphNode from '../../common/view/EnergyGraphNode.js';
+import EnergyDiagramNode from '../../common/view/EnergyDiagramNode.js';
 import LegendPanel from '../../common/view/LegendPanel.js';
 import MagnifierNode from '../../common/view/MagnifierNode.js';
 import PotentialTypeComboBox from '../../common/view/PotentialTypeComboBox.js';
@@ -41,7 +41,7 @@ export default class OneWellScreenView extends ScreenView {
 
     const legendPanel = new LegendPanel( tandem.createTandem( 'legendPanel' ) );
 
-    const energyGraphNode = new EnergyGraphNode( tandem.createTandem( 'energyGraphNode' ) );
+    const energyDiagramNode = new EnergyDiagramNode( tandem.createTandem( 'energyDiagramNode' ) );
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model, {
       visibleProperty: new DerivedProperty( [ model.graphTypeProperty ], graphType => graphType === 'probabilityDensity' ),
@@ -69,12 +69,12 @@ export default class OneWellScreenView extends ScreenView {
     } );
 
     // Static Layout
-    energyGraphNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
-    energyGraphNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + potentialTypeComboBox.height + 3;
-    probabilityDensityGraphNode.left = energyGraphNode.left;
-    probabilityDensityGraphNode.top = energyGraphNode.bottom + 5;
+    energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
+    energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + potentialTypeComboBox.height + 3;
+    probabilityDensityGraphNode.left = energyDiagramNode.left;
+    probabilityDensityGraphNode.top = energyDiagramNode.bottom + 5;
     waveFunctionGraphNode.translation = probabilityDensityGraphNode.translation;
-    controlPanel.left = energyGraphNode.right + 10;
+    controlPanel.left = energyDiagramNode.right + 10;
     controlPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
     toolsPanel.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
@@ -83,15 +83,15 @@ export default class OneWellScreenView extends ScreenView {
 
     // Dynamic Layout
     potentialTypeComboBox.boundsProperty.link( () => {
-      potentialTypeComboBox.left = energyGraphNode.x;
-      potentialTypeComboBox.bottom = energyGraphNode.top - 3;
+      potentialTypeComboBox.left = energyDiagramNode.x;
+      potentialTypeComboBox.bottom = energyDiagramNode.top - 3;
     } );
     legendPanel.boundsProperty.link( () => {
-      legendPanel.right = energyGraphNode.right;
-      legendPanel.bottom = energyGraphNode.top - 3;
+      legendPanel.right = energyDiagramNode.right;
+      legendPanel.bottom = energyDiagramNode.top - 3;
     } );
     timePanel.boundsProperty.link( () => {
-      timePanel.right = energyGraphNode.right;
+      timePanel.right = energyDiagramNode.right;
       timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     } );
 
@@ -101,11 +101,11 @@ export default class OneWellScreenView extends ScreenView {
     const magnifierWrapper = new Node( {
       children: [ magnifierNode ]
     } );
-    magnifierWrapper.right = energyGraphNode.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
-    magnifierWrapper.y = energyGraphNode.y + 5;
+    magnifierWrapper.right = energyDiagramNode.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
+    magnifierWrapper.y = energyDiagramNode.y + 5;
 
-    const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyGraphNode.chartTransform, {
-      lineTop: energyGraphNode.y,
+    const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyDiagramNode.chartTransform, {
+      lineTop: energyDiagramNode.y,
       lineBottom: probabilityDensityGraphNode.bottom - QBSConstants.HANDLE_DIAMETER / 2,
       tandem: tandem.createTandem( 'referenceLineNode' )
     } );
@@ -113,7 +113,7 @@ export default class OneWellScreenView extends ScreenView {
     // Wrap referenceLineNode in a Node so that it drags in the same coordinate frame as the graphs.
     const referenceLineWrapper = new Node( {
       children: [ referenceLineNode ],
-      x: energyGraphNode.x,
+      x: energyDiagramNode.x,
       y: 0
     } );
 
@@ -122,7 +122,7 @@ export default class OneWellScreenView extends ScreenView {
       children: [
         potentialTypeComboBox,
         legendPanel,
-        energyGraphNode,
+        energyDiagramNode,
         probabilityDensityGraphNode,
         waveFunctionGraphNode,
         controlPanel,
@@ -139,7 +139,7 @@ export default class OneWellScreenView extends ScreenView {
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
       potentialTypeComboBox,
-      energyGraphNode,
+      energyDiagramNode,
       probabilityDensityGraphNode,
       waveFunctionGraphNode,
       controlPanel,
