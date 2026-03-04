@@ -26,7 +26,7 @@ export default class QuantumStateGraphControls extends VBox {
                       waveFunctionGraph: WaveFunctionGraph,
                       tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.displayStringProperty, {
+    const titleText = new Text( QuantumBoundStatesFluent.quantumStateGraphStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
       tandem: tandem.createTandem( 'titleText' ),

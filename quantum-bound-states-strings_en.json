@@ -43,11 +43,11 @@
   "waveFunction": {
     "value": "Wave Function"
   },
-  "display": {
-    "value": "Display"
+  "quantumStateGraph": {
+    "value": "Quantum State Graph"
   },
-  "properties": {
-    "value": "Properties"
+  "energyDiagram": {
+    "value": "Energy Diagram"
   },
   "probabilityDensityFunction": {
     "value": "Probability Density Function"

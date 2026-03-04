@@ -25,7 +25,7 @@ export class OneWellEnergyDiagramControls extends VBox {
                       valueLabelsVisibleProperty: Property<boolean>,
                       tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.propertiesStringProperty, {
+    const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
       tandem: tandem.createTandem( 'titleText' ),

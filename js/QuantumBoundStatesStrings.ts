@@ -32,8 +32,8 @@ type StringsType = {
   'averageProbabilityDensityOfBandStringProperty': LocalizedStringProperty;
   'probabilityDensityStringProperty': LocalizedStringProperty;
   'waveFunctionStringProperty': LocalizedStringProperty;
-  'displayStringProperty': LocalizedStringProperty;
-  'propertiesStringProperty': LocalizedStringProperty;
+  'quantumStateGraphStringProperty': LocalizedStringProperty;
+  'energyDiagramStringProperty': LocalizedStringProperty;
   'probabilityDensityFunctionStringProperty': LocalizedStringProperty;
   'probabilityDensityFunctionButtonLabelStringProperty': LocalizedStringProperty;
   'waveFunctionButtonLabelStringProperty': LocalizedStringProperty;

@@ -22,8 +22,8 @@ energy_eV:                             Energy (eV)
 averageProbabilityDensityOfBand:       Average Probability<br>Density of Band
 probabilityDensity:                    Probability Density
 waveFunction:                          Wave Function
-display:                               Display
-properties:                            Properties
+quantumStateGraph: Quantum State Graph
+energyDiagram:     Energy Diagram
 probabilityDensityFunction:            Probability Density Function
 
 # Buttons
@@ -41,7 +41,7 @@ referenceLine:                         Reference Line
 
 # Sliders
 mass:                                  Mass
-slow: slow
+slow:              slow
 fast:                                  fast
 
 # Spinners
