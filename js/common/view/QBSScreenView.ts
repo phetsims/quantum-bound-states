@@ -18,6 +18,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyDiagramNode from '../../common/view/EnergyDiagramNode.js';
 import LegendPanel from '../../common/view/LegendPanel.js';
@@ -55,31 +56,7 @@ export default class QBSScreenView extends ScreenView {
 
     const energyDiagramNode = new EnergyDiagramNode( options.tandem.createTandem( 'energyDiagramNode' ) );
 
-    const graphNodes: QuantumStateGraphNode[] = [];
-
-    if ( model.averageProbabilityDensityOfBandGraph ) {
-      const averageProbabilityDensityOfBandGraphNode = new AverageProbabilityDensityOfBandGraphNode( model, {
-        visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.averageProbabilityDensityOfBandGraph ),
-        tandem: options.tandem.createTandem( 'averageProbabilityDensityOfBandGraphNode' )
-      } );
-      graphNodes.push( averageProbabilityDensityOfBandGraphNode );
-    }
-
-    if ( model.probabilityDensityGraph ) {
-      const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model, {
-        visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.probabilityDensityGraph ),
-        tandem: options.tandem.createTandem( 'probabilityDensityGraphNode' )
-      } );
-      graphNodes.push( probabilityDensityGraphNode );
-    }
-
-    if ( model.waveFunctionGraph ) {
-      const waveFunctionGraphNode = new WaveFunctionGraphNode( model, {
-        visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.waveFunctionGraph ),
-        tandem: options.tandem.createTandem( 'waveFunctionGraphNode' )
-      } );
-      graphNodes.push( waveFunctionGraphNode );
-    }
+    const graphNodes = createGraphNodes( model, options.tandem.createTandem( 'graphNodes' ) );
 
     const toolsPanel = new ToolsPanel( model.magnifier.visibleProperty,
       model.referenceLine.visibleProperty, options.tandem.createTandem( 'toolsPanel' ) );
@@ -208,6 +185,40 @@ export default class QBSScreenView extends ScreenView {
   public override step( dt: number ): void {
     //TODO
   }
+}
+
+/**
+ * Creates a set of graph nodes for the specified model.
+ */
+function createGraphNodes( model: QBSModel, parentTandem: Tandem ): QuantumStateGraphNode[] {
+
+  const graphNodes: QuantumStateGraphNode[] = [];
+
+  if ( model.averageProbabilityDensityOfBandGraph ) {
+    const averageProbabilityDensityOfBandGraphNode = new AverageProbabilityDensityOfBandGraphNode( model, {
+      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.averageProbabilityDensityOfBandGraph ),
+      tandem: parentTandem.createTandem( 'averageProbabilityDensityOfBandGraphNode' )
+    } );
+    graphNodes.push( averageProbabilityDensityOfBandGraphNode );
+  }
+
+  if ( model.probabilityDensityGraph ) {
+    const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model, {
+      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.probabilityDensityGraph ),
+      tandem: parentTandem.createTandem( 'probabilityDensityGraphNode' )
+    } );
+    graphNodes.push( probabilityDensityGraphNode );
+  }
+
+  if ( model.waveFunctionGraph ) {
+    const waveFunctionGraphNode = new WaveFunctionGraphNode( model, {
+      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.waveFunctionGraph ),
+      tandem: parentTandem.createTandem( 'waveFunctionGraphNode' )
+    } );
+    graphNodes.push( waveFunctionGraphNode );
+  }
+
+  return graphNodes;
 }
 
 quantumBoundStates.register( 'QBSScreenView', QBSScreenView );
