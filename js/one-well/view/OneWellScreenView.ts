@@ -77,7 +77,7 @@ export default class OneWellScreenView extends ScreenView {
     // Layout is relative to the Energy diagram and the bounds of its chartRectangle in the ScreenView coordinate frame.
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
     energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + potentialTypeComboBox.height + 3;
-    const energyDiagramChartRectangleBounds = this.globalToLocalBounds( energyDiagramNode.chartRectangle.localToGlobalBounds( energyDiagramNode.chartRectangle.bounds ) );
+    const energyDiagramChartRectangleBounds = this.globalToLocalBounds( energyDiagramNode.chartRectangle.localToGlobalBounds( energyDiagramNode.chartRectangle.localBounds ) );
 
     // Static layout
     probabilityDensityGraphNode.x = energyDiagramChartRectangleBounds.left;
