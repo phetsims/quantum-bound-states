@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Magnifier is the model for the magnifier tool.
+ * Magnifier is the model for the magnifier.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class Magnifier extends PhetioObject {
 
-  // Whether the magnifier tool is visible.
+  // Whether the magnifier is visible.
   public readonly visibleProperty: Property<boolean>;
   
   // Position of the probe, in model coordinates.

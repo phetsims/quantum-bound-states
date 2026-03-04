@@ -34,7 +34,7 @@ const Y_MARGIN = 5;
 
 export default class MagnifierNode extends Node {
 
-  public constructor( magnifierTool: Magnifier, tandem: Tandem ) {
+  public constructor( magnifier: Magnifier, tandem: Tandem ) {
 
     const bodyNode = new MagnifierBodyNode();
 
@@ -44,7 +44,7 @@ export default class MagnifierNode extends Node {
 
     super( {
       children: [ wireNode, bodyNode, probeNode ],
-      visibleProperty: magnifierTool.visibleProperty,
+      visibleProperty: magnifier.visibleProperty,
       accessibleHeading: QuantumBoundStatesFluent.a11y.magnifier.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.magnifier.accessibleParagraphStringProperty,
       tandem: tandem

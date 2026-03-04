@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MagnifierCheckbox is the checkbox for making the Magnifier Tool visible.
+ * MagnifierCheckbox is the checkbox for making the Magnifier visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +17,7 @@ import QBSConstants from '../QBSConstants.js';
 
 export default class MagnifierCheckbox extends Checkbox {
 
-  public constructor( magnifierToolVisibleProperty: Property<boolean>, tandem: Tandem ) {
+  public constructor( magnifierVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
     const text = new RichText( QuantumBoundStatesFluent.magnifierStringProperty, {
       font: QBSConstants.CONTROL_FONT,
@@ -25,7 +25,7 @@ export default class MagnifierCheckbox extends Checkbox {
       tandem: tandem.createTandem( 'text' )
     } );
 
-    super( magnifierToolVisibleProperty, text, combineOptions<CheckboxOptions>(
+    super( magnifierVisibleProperty, text, combineOptions<CheckboxOptions>(
       {}, QBSConstants.CHECKBOX_OPTIONS, {
         isDisposable: false,
         accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleHelpTextStringProperty,
