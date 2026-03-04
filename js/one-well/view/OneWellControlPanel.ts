@@ -43,7 +43,7 @@ export default class OneWellControlPanel extends Panel {
 
     const massControl = new MassControl( model.electronMassesProperty, tandem.createTandem( 'massControl' ) );
 
-    const valueLabelsCheckbox = new ValueLabelsCheckbox( model.valueLabelsVisibleProperty,
+    const valueLabelsCheckbox = new ValueLabelsCheckbox( model.energyDiagram.valueLabelsVisibleProperty,
       tandem.createTandem( 'valueLabelsCheckbox' ) );
 
     const displayText = new Text( QuantumBoundStatesFluent.displayStringProperty, {

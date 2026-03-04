@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -60,8 +59,6 @@ export default class QBSModel implements TModel {
 
   public readonly magnifier: Magnifier;
   public readonly referenceLine: ReferenceLine;
-
-  public readonly valueLabelsVisibleProperty: Property<boolean>;
 
   protected constructor( providedOptions: QBSModelOptions ) {
 
@@ -130,11 +127,6 @@ export default class QBSModel implements TModel {
     this.magnifier = new Magnifier( options.tandem.createTandem( 'magnifier' ) );
 
     this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
-
-    this.valueLabelsVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'valueLabelsVisibleProperty' ),
-      phetioFeatured: true
-    } );
   }
 
   /**
@@ -152,7 +144,6 @@ export default class QBSModel implements TModel {
     this.selectedGraphProperty.reset();
     this.magnifier.reset();
     this.referenceLine.reset();
-    this.valueLabelsVisibleProperty.reset();
   }
 
   /**

@@ -7,17 +7,26 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class EnergyDiagram {
 
+  // Visibility of values on drag handles and energy lines.
+  public readonly valueLabelsVisibleProperty: Property<boolean>;
+
   public constructor( tandem: Tandem ) {
-    //TODO
+
+    this.valueLabelsVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'valueLabelsVisibleProperty' ),
+      phetioFeatured: true
+    } );
   }
 
   public reset(): void {
-    //TODO
+    this.valueLabelsVisibleProperty.reset();
   }
 }
 
