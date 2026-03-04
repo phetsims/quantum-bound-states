@@ -52,7 +52,8 @@ export default class OneWellControlPanel extends Panel {
       maxWidth: 200
     } );
 
-    const graphTypeRadioButtonGroup = new GraphTypeRadioButtonGroup( model.graphTypeProperty, tandem.createTandem( 'graphTypeRadioButtonGroup' ) );
+    const graphTypeRadioButtonGroup = new GraphTypeRadioButtonGroup( model.quantumStateRepresentationProperty,
+      tandem.createTandem( 'graphTypeRadioButtonGroup' ) );
 
     const waveFunctionPartsCheckboxGroup = new WaveFunctionPartsCheckboxGroup(
       model.realPartVisibleProperty,
@@ -63,7 +64,8 @@ export default class OneWellControlPanel extends Panel {
         layoutOptions: {
           leftMargin: 25 // indent below graphTypeRadioButtonGroup
         },
-        enabledProperty: new DerivedProperty( [ model.graphTypeProperty ], graphType => graphType === 'waveFunction' ),
+        enabledProperty: new DerivedProperty( [ model.quantumStateRepresentationProperty ],
+          quantumStateRepresentation => quantumStateRepresentation === 'waveFunction' ),
         tandem: tandem.createTandem( 'waveFunctionPartsCheckboxGroup' )
       } );
 

@@ -13,18 +13,18 @@ import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import { GraphType } from '../model/GraphType.js';
+import { QuantumStateRepresentation } from '../model/QuantumStateRepresentation.js';
 import QBSConstants from '../QBSConstants.js';
 
 const TEXT_MAX_WIDTH = 165;
 
-export default class GraphTypeRadioButtonGroup extends AquaRadioButtonGroup<GraphType> {
+export default class GraphTypeRadioButtonGroup extends AquaRadioButtonGroup<QuantumStateRepresentation> {
 
-  public constructor( graphTypeProperty: StringUnionProperty<GraphType>, tandem: Tandem ) {
+  public constructor( quantumStateRepresentationProperty: StringUnionProperty<QuantumStateRepresentation>, tandem: Tandem ) {
 
-    const validValues = graphTypeProperty.validValues;
+    const validValues = quantumStateRepresentationProperty.validValues;
 
-    const items: AquaRadioButtonGroupItem<GraphType>[] = [];
+    const items: AquaRadioButtonGroupItem<QuantumStateRepresentation>[] = [];
 
     // Average Probability Density of Band
     if ( validValues?.includes( 'averageProbabilityDensityOfBand' ) ) {
@@ -62,7 +62,7 @@ export default class GraphTypeRadioButtonGroup extends AquaRadioButtonGroup<Grap
       } );
     }
 
-    super( graphTypeProperty, items, {
+    super( quantumStateRepresentationProperty, items, {
       spacing: 10,
       accessibleName: QuantumBoundStatesFluent.a11y.graphTypeRadioButtonGroup.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.graphTypeRadioButtonGroup.accessibleHelpTextStringProperty,

@@ -21,8 +21,8 @@ export default class TwoWellsModel extends QBSModel {
     super( {
       potential: finiteSquarePotential,
       potentials: [ finiteSquarePotential ],
-      graphType: 'probabilityDensity',
-      graphTypes: [ 'probabilityDensity', 'waveFunction' ],
+      quantumStateRepresentation: 'probabilityDensity',
+      quantumStateRepresentations: [ 'probabilityDensity', 'waveFunction' ],
       tandem: tandem
     } );
   }

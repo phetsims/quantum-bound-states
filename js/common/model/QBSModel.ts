@@ -24,10 +24,10 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSConstants from '../QBSConstants.js';
 import { electronMassesUnit } from './electronMassesUnit.js';
 import EnergyDiagram from './EnergyDiagram.js';
-import { GraphType } from './GraphType.js';
 import Magnifier from './Magnifier.js';
 import Potential from './potentials/Potential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
+import { QuantumStateRepresentation } from './QuantumStateRepresentation.js';
 import ReferenceLine from './ReferenceLine.js';
 import Time from './Time.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
@@ -35,8 +35,8 @@ import WaveFunctionGraph from './WaveFunctionGraph.js';
 type SelfOptions = {
   potential: Potential;
   potentials: Potential[];
-  graphType: GraphType;
-  graphTypes: GraphType[];
+  quantumStateRepresentation: QuantumStateRepresentation;
+  quantumStateRepresentations: QuantumStateRepresentation[];
 };
 
 export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -57,7 +57,7 @@ export default class QBSModel implements TModel {
   public readonly energyDiagram: EnergyDiagram;
   public readonly probabilityDensityGraph: ProbabilityDensityGraph;
   public readonly waveFunctionGraph: WaveFunctionGraph;
-  public readonly graphTypeProperty: Property<GraphType>; //TODO Property<QBSGraph>
+  public readonly quantumStateRepresentationProperty: Property<QuantumStateRepresentation>; //TODO Property<QuantumStateGraphNode>
 
   public readonly magnifier: Magnifier;
   public readonly referenceLine: ReferenceLine;
@@ -105,9 +105,9 @@ export default class QBSModel implements TModel {
 
     this.waveFunctionGraph = new WaveFunctionGraph( options.tandem.createTandem( 'waveFunctionGraph' ) );
 
-    this.graphTypeProperty = new StringUnionProperty( options.graphType, {
-      validValues: options.graphTypes,
-      tandem: options.tandem.createTandem( 'graphTypeProperty' ),
+    this.quantumStateRepresentationProperty = new StringUnionProperty( options.quantumStateRepresentation, {
+      validValues: options.quantumStateRepresentations,
+      tandem: options.tandem.createTandem( 'quantumStateRepresentationProperty' ),
       phetioFeatured: true
     } );
 
@@ -176,7 +176,7 @@ export default class QBSModel implements TModel {
     this.energyDiagram.reset();
     this.probabilityDensityGraph.reset();
     this.waveFunctionGraph.reset();
-    this.graphTypeProperty.reset();
+    this.quantumStateRepresentationProperty.reset();
 
     this.magnifier.reset();
     this.referenceLine.reset();

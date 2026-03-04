@@ -35,8 +35,8 @@ export default class OneWellModel extends QBSModel {
     super( {
       potential: potentials[ 0 ],
       potentials: potentials,
-      graphType: 'probabilityDensity',
-      graphTypes: [ 'probabilityDensity', 'waveFunction' ],
+      quantumStateRepresentation: 'probabilityDensity',
+      quantumStateRepresentations: [ 'probabilityDensity', 'waveFunction' ],
       tandem: tandem
     } );
   }
