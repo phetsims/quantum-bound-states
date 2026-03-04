@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * QBSGraph is the base class for graph models in this simulation.
+ * QuantumStateGraph is the base class for graphs that provide a representation of the quantum state.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,7 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
-export default class QBSGraph {
+export default class QuantumStateGraph {
 
   // Whether curves are visible on the graph.
   public readonly curvesVisibleProperty: Property<boolean>;
@@ -29,4 +29,4 @@ export default class QBSGraph {
   }
 }
 
-quantumBoundStates.register( 'QBSGraph', QBSGraph );
+quantumBoundStates.register( 'QuantumStateGraph', QuantumStateGraph );

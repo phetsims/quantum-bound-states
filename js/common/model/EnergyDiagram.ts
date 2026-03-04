@@ -9,12 +9,15 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
-import QBSGraph from './QBSGraph.js';
 
-export default class EnergyDiagram extends QBSGraph {
+export default class EnergyDiagram {
 
   public constructor( tandem: Tandem ) {
-    super( tandem );
+    //TODO
+  }
+
+  public reset(): void {
+    //TODO
   }
 }
 

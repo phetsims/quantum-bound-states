@@ -8,9 +8,9 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
-import QBSGraph from './QBSGraph.js';
+import QuantumStateGraph from './QuantumStateGraph.js';
 
-export default class AverageProbabilityDensityOfBandGraph extends QBSGraph {
+export default class AverageProbabilityDensityOfBandGraph extends QuantumStateGraph {
 
   public constructor( tandem: Tandem ) {
     super( tandem );
