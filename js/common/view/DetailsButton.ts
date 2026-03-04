@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * FunctionDetailsButton the buttons used to open dialogs that show expanded versions of functions.
+ * DetailsButton is the button used to open a dialog that shows the expanded versions of a function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,21 +19,21 @@ type SelfOptions = {
   labelStringProperty: TReadOnlyProperty<string>;
 };
 
-export type FunctionDetailsButtonOptions = SelfOptions &
+export type DetailsButtonOptions = SelfOptions &
   PickRequired<RectangularPushButtonOptions, 'listener' | 'tandem' | 'accessibleName' | 'accessibleHelpText' | 'accessibleContextResponse'>;
 
-export default class FunctionDetailsButton extends RectangularPushButton {
+export default class DetailsButton extends RectangularPushButton {
 
   // For making all instances of this type of button have the same size.
   private static readonly alignGroup = new AlignGroup();
 
-  public constructor( providedOptions: FunctionDetailsButtonOptions ) {
+  public constructor( providedOptions: DetailsButtonOptions ) {
 
-    const labelNode = FunctionDetailsButton.alignGroup.createBox( new RichText( providedOptions.labelStringProperty, {
+    const labelNode = DetailsButton.alignGroup.createBox( new RichText( providedOptions.labelStringProperty, {
       font: QBSConstants.CONTROL_FONT
     } ) );
 
-    const options = optionize<FunctionDetailsButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
+    const options = optionize<DetailsButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
 
       // RectangularPushButtonOptions
       isDisposable: false,
@@ -44,4 +44,4 @@ export default class FunctionDetailsButton extends RectangularPushButton {
   }
 }
 
-quantumBoundStates.register( 'FunctionDetailsButton', FunctionDetailsButton );
+quantumBoundStates.register( 'DetailsButton', DetailsButton );

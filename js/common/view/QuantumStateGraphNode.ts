@@ -30,7 +30,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import { CurvesVisibleToggleButton, CurvesVisibleToggleButtonOptions } from './CurvesVisibleToggleButton.js';
-import FunctionDetailsButton, { FunctionDetailsButtonOptions } from './FunctionDetailsButton.js';
+import DetailsButton, { DetailsButtonOptions } from './DetailsButton.js';
 
 const BUTTON_X_MARGIN = 8;
 const BUTTON_Y_MARGIN = 8;
@@ -53,7 +53,7 @@ type SelfOptions = {
   curvesVisibleToggleButtonOptions: StrictOmit<CurvesVisibleToggleButtonOptions, 'tandem'>;
 
   // Propagated to detailsButton
-  detailsButtonOptions: StrictOmit<FunctionDetailsButtonOptions, 'tandem'>;
+  detailsButtonOptions: StrictOmit<DetailsButtonOptions, 'tandem'>;
 };
 
 export type QBSGraphNodeOptions = SelfOptions &
@@ -175,7 +175,7 @@ export default class QuantumStateGraphNode extends Node {
     curvesVisibleToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
     // Button to open a dialog that the expanded equation for the function displayed by the graph.
-    const detailsButton = new FunctionDetailsButton( combineOptions<FunctionDetailsButtonOptions>( {
+    const detailsButton = new DetailsButton( combineOptions<DetailsButtonOptions>( {
       tandem: options.tandem.createTandem( 'detailsButton' )
     }, options.detailsButtonOptions ) );
     this.addChild( detailsButton );
