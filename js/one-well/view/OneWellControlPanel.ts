@@ -69,9 +69,6 @@ export default class OneWellControlPanel extends Panel {
         propertiesText,
         energyLevelControl,
         massControl,
-        new HSeparator( {
-          stroke: QBSColors.separatorStrokeProperty
-        } ),
         valueLabelsCheckbox,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
