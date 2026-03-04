@@ -6,14 +6,51 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 
 export default class WaveFunctionGraph extends QuantumStateGraph {
 
+  // Visibility of the wave function components
+  public readonly realPartVisibleProperty: Property<boolean>;
+  public readonly imaginaryPartVisibleProperty: Property<boolean>;
+  public readonly magnitudeVisibleProperty: Property<boolean>;
+  public readonly phaseVisibleProperty: Property<boolean>;
+
   public constructor( tandem: Tandem ) {
+
     super( tandem );
+
+    this.realPartVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'realPartVisibleProperty' ),
+      phetioFeatured: true
+    } );
+
+    this.imaginaryPartVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'imaginaryPartVisibleProperty' ),
+      phetioFeatured: true
+    } );
+
+    this.magnitudeVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'magnitudeVisibleProperty' ),
+      phetioFeatured: true
+    } );
+
+    this.phaseVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'phaseVisibleProperty' ),
+      phetioFeatured: true
+    } );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.realPartVisibleProperty.reset();
+    this.imaginaryPartVisibleProperty.reset();
+    this.magnitudeVisibleProperty.reset();
+    this.phaseVisibleProperty.reset();
   }
 }
 

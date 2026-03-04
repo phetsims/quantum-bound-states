@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -15,6 +14,7 @@ import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
+import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import ImaginaryPartCheckbox from './ImaginaryPartCheckbox.js';
 import MagnitudeCheckbox from './MagnitudeCheckbox.js';
 import PhaseCheckbox from './PhaseCheckbox.js';
@@ -28,10 +28,7 @@ type WaveFunctionComponentsCheckboxGroupOptions = SelfOptions &
 
 export default class WaveFunctionPartsCheckboxGroup extends VBox {
 
-  public constructor( realPartVisibleProperty: Property<boolean>,
-                      imaginaryPartVisibleProperty: Property<boolean>,
-                      magnitudeVisibleProperty: Property<boolean>,
-                      phaseVisibleProperty: Property<boolean>,
+  public constructor( waveFunctionGraph: WaveFunctionGraph,
                       providedOptions: WaveFunctionComponentsCheckboxGroupOptions ) {
 
     const options = optionize<WaveFunctionComponentsCheckboxGroupOptions, SelfOptions, VBoxOptions>()( {
@@ -45,21 +42,21 @@ export default class WaveFunctionPartsCheckboxGroup extends VBox {
     }, providedOptions );
 
     // Real Part
-    const realPartCheckbox = new RealPartCheckbox( realPartVisibleProperty, options.tandem.createTandem( 'realPartCheckbox' ) );
+    const realPartCheckbox = new RealPartCheckbox( waveFunctionGraph.realPartVisibleProperty, options.tandem.createTandem( 'realPartCheckbox' ) );
 
     // Imaginary Part
-    const imaginaryPartCheckbox = new ImaginaryPartCheckbox( imaginaryPartVisibleProperty, options.tandem.createTandem( 'imaginaryPartCheckbox' ) );
+    const imaginaryPartCheckbox = new ImaginaryPartCheckbox( waveFunctionGraph.imaginaryPartVisibleProperty, options.tandem.createTandem( 'imaginaryPartCheckbox' ) );
 
     // Magnitude
-    const magnitudeCheckbox = new MagnitudeCheckbox( magnitudeVisibleProperty, options.tandem.createTandem( 'magnitudeCheckbox' ) );
+    const magnitudeCheckbox = new MagnitudeCheckbox( waveFunctionGraph.magnitudeVisibleProperty, options.tandem.createTandem( 'magnitudeCheckbox' ) );
 
     // Phase
-    const phaseCheckbox = new PhaseCheckbox( phaseVisibleProperty, {
+    const phaseCheckbox = new PhaseCheckbox( waveFunctionGraph.phaseVisibleProperty, {
       layoutOptions: {
         leftMargin: 25 // indent below magnitudeCheckbox
       },
       visibleProperty: QBSPreferences.phaseCheckboxVisibleProperty,
-      enabledProperty: magnitudeVisibleProperty,
+      enabledProperty: waveFunctionGraph.magnitudeVisibleProperty,
       tandem: options.tandem.createTandem( 'phaseCheckbox' )
     } );
 

@@ -62,10 +62,6 @@ export default class QBSModel implements TModel {
   public readonly referenceLine: ReferenceLine;
 
   public readonly valueLabelsVisibleProperty: Property<boolean>;
-  public readonly realPartVisibleProperty: Property<boolean>;
-  public readonly imaginaryPartVisibleProperty: Property<boolean>;
-  public readonly magnitudeVisibleProperty: Property<boolean>;
-  public readonly phaseVisibleProperty: Property<boolean>;
 
   protected constructor( providedOptions: QBSModelOptions ) {
 
@@ -135,30 +131,8 @@ export default class QBSModel implements TModel {
 
     this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
 
-    //TODO group *VisibleProperty under a parent tandem? Or move some under model.waveFunction?
-
     this.valueLabelsVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'valueLabelsVisibleProperty' ),
-      phetioFeatured: true
-    } );
-
-    this.realPartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'realPartVisibleProperty' ),
-      phetioFeatured: true
-    } );
-
-    this.imaginaryPartVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'imaginaryPartVisibleProperty' ),
-      phetioFeatured: true
-    } );
-
-    this.magnitudeVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'magnitudeVisibleProperty' ),
-      phetioFeatured: true
-    } );
-
-    this.phaseVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'phaseVisibleProperty' ),
       phetioFeatured: true
     } );
   }
@@ -167,27 +141,18 @@ export default class QBSModel implements TModel {
    * Resets the model.
    */
   public reset(): void {
-
     this.time.reset();
-
     this.potentialProperty.reset();
-
     this.energyLevelProperty.reset();
     this.electronMassesProperty.reset();
-
     this.energyDiagram.reset();
+    this.averageProbabilityDensityOfBandGraph && this.averageProbabilityDensityOfBandGraph.reset();
     this.probabilityDensityGraph.reset();
     this.waveFunctionGraph.reset();
     this.selectedGraphProperty.reset();
-
     this.magnifier.reset();
     this.referenceLine.reset();
-
     this.valueLabelsVisibleProperty.reset();
-    this.realPartVisibleProperty.reset();
-    this.imaginaryPartVisibleProperty.reset();
-    this.magnitudeVisibleProperty.reset();
-    this.phaseVisibleProperty.reset();
   }
 
   /**

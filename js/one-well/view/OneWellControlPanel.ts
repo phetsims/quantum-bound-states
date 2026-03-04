@@ -54,18 +54,13 @@ export default class OneWellControlPanel extends Panel {
     const selectedGraphRadioButtonGroup = new QuantumStateRepresentationRadioButtonGroup( model.selectedGraphProperty,
       tandem.createTandem( 'selectedGraphRadioButtonGroup' ) );
 
-    const waveFunctionPartsCheckboxGroup = new WaveFunctionPartsCheckboxGroup(
-      model.realPartVisibleProperty,
-      model.imaginaryPartVisibleProperty,
-      model.magnitudeVisibleProperty,
-      model.phaseVisibleProperty,
-      {
-        layoutOptions: {
-          leftMargin: 25 // indent below graphTypeRadioButtonGroup
-        },
-        enabledProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.waveFunctionGraph ),
-        tandem: tandem.createTandem( 'waveFunctionPartsCheckboxGroup' )
-      } );
+    const waveFunctionPartsCheckboxGroup = new WaveFunctionPartsCheckboxGroup( model.waveFunctionGraph, {
+      layoutOptions: {
+        leftMargin: 25 // indent below graphTypeRadioButtonGroup
+      },
+      enabledProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.waveFunctionGraph ),
+      tandem: tandem.createTandem( 'waveFunctionPartsCheckboxGroup' )
+    } );
 
     const content = new VBox( {
       align: 'left',
