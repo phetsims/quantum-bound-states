@@ -1,7 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * QuantumStateGraphControlPanel contains controls related to the Quantum State graph - the graph shown below the Energy diagram.
+ * QuantumStateGraphControlPanel contains controls related what is shown in the Quantum State graph - the graph below
+ * the Energy diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

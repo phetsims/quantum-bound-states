@@ -24,7 +24,7 @@ import ToolsPanel from '../../common/view/ToolsPanel.js';
 import WaveFunctionGraphNode from '../../common/view/WaveFunctionGraphNode.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
-import { OneWellEnergyDiagramControls } from './OneWellEnergyDiagramControls.js';
+import { OneWellEnergyDiagramControlPanel } from './OneWellEnergyDiagramControlPanel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
 
 export default class OneWellScreenView extends ScreenView {
@@ -57,7 +57,7 @@ export default class OneWellScreenView extends ScreenView {
     const toolsPanel = new ToolsPanel( model.magnifier.visibleProperty,
       model.referenceLine.visibleProperty, tandem.createTandem( 'toolsPanel' ) );
 
-    const energyDiagramControlPanel = new OneWellEnergyDiagramControls( model.energyLevelProperty, model.electronMassesProperty,
+    const energyDiagramControlPanel = new OneWellEnergyDiagramControlPanel( model.energyLevelProperty, model.electronMassesProperty,
       model.energyDiagram.valueLabelsVisibleProperty, tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.selectedGraphProperty,

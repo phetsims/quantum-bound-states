@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * OneWellEnergyDiagramControls is a subpanel that contains controls related to what is shown in the Energy diagram.
+ * OneWellEnergyDiagramControlPanel contains controls related to what is shown in the Energy diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,7 +20,7 @@ import ValueLabelsCheckbox from '../../common/view/ValueLabelsCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
-export class OneWellEnergyDiagramControls extends Panel {
+export class OneWellEnergyDiagramControlPanel extends Panel {
 
   public constructor( energyLevelProperty: NumberProperty,
                       electronMassesProperty: NumberProperty,
@@ -63,4 +63,4 @@ export class OneWellEnergyDiagramControls extends Panel {
   }
 }
 
-quantumBoundStates.register( 'OneWellEnergyDiagramControls', OneWellEnergyDiagramControls );
+quantumBoundStates.register( 'OneWellEnergyDiagramControlPanel', OneWellEnergyDiagramControlPanel );
