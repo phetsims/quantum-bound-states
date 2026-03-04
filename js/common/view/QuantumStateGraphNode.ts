@@ -54,10 +54,6 @@ export default class QuantumStateGraphNode extends Node {
   // Outer rectangle of the chart
   protected readonly chartRectangle: ChartRectangle;
 
-  // Grid lines
-  private readonly verticalGridLines: GridLineSet;
-  private readonly horizontalGridLines: GridLineSet;
-
   protected constructor( providedOptions: QBSGraphNodeOptions ) {
 
     const options = optionize<QBSGraphNodeOptions, SelfOptions, NodeOptions>()( {
@@ -81,6 +77,14 @@ export default class QuantumStateGraphNode extends Node {
       pickable: false // optimization
     } );
 
+    const xAxisLabelNode = new RichText( QuantumBoundStatesFluent.position_nmStringProperty, {
+      font: QBSConstants.AXIS_LABEL_FONT,
+      maxWidth: 0.5 * this.chartRectangle.width
+    } );
+    xAxisLabelNode.boundsProperty.link( () => {
+      xAxisLabelNode.centerTop = this.chartRectangle.centerBottom.addXY( 0, 20 );
+    } );
+
     const xTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.HORIZONTAL, QBSConstants.ALL_GRAPHS_X_TICK_SPACING, {
       edge: 'min'
     } );
@@ -92,7 +96,15 @@ export default class QuantumStateGraphNode extends Node {
       } )
     } );
 
-    // y-axis ticks
+    const yAxisLabelNode = new RichText( options.yAxisLabelStringProperty, {
+      font: QBSConstants.AXIS_LABEL_FONT,
+      rotation: -Math.PI / 2,
+      maxWidth: 0.85 * this.chartRectangle.height
+    } );
+    yAxisLabelNode.boundsProperty.link( () => {
+      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_OFFSET, 0 );
+    } );
+
     const yTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
       edge: 'min'
     } );
@@ -104,32 +116,13 @@ export default class QuantumStateGraphNode extends Node {
       } )
     } );
 
-    // x-axis label
-    const xAxisLabelNode = new RichText( QuantumBoundStatesFluent.position_nmStringProperty, {
-      font: QBSConstants.AXIS_LABEL_FONT,
-      maxWidth: 0.5 * this.chartRectangle.width
-    } );
-    xAxisLabelNode.boundsProperty.link( () => {
-      xAxisLabelNode.centerTop = this.chartRectangle.centerBottom.addXY( 0, 20 );
-    } );
-
-    // y-axis label
-    const yAxisLabelNode = new RichText( options.yAxisLabelStringProperty, {
-      font: QBSConstants.AXIS_LABEL_FONT,
-      rotation: -Math.PI / 2,
-      maxWidth: 0.85 * this.chartRectangle.height
-    } );
-    yAxisLabelNode.boundsProperty.link( () => {
-      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_OFFSET, 0 );
-    } );
-
-    this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
+    const horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
       lineWidth: 1,
       lineDash: [ 4, 4 ],
       stroke: QBSColors.gridLinesStrokeProperty
     } );
 
-    this.verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL, QBSConstants.ALL_GRAPHS_X_TICK_SPACING, {
+    const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL, QBSConstants.ALL_GRAPHS_X_TICK_SPACING, {
       lineWidth: 1,
       lineDash: [ 4, 4 ],
       stroke: QBSColors.gridLinesStrokeProperty
@@ -145,15 +138,15 @@ export default class QuantumStateGraphNode extends Node {
     const pickableFalseNode = new Node( {
       pickable: false, // optimization
       children: [
+        xAxisLabelNode,
         xTickMarkSet,
         xTickLabelSet,
-        xAxisLabelNode,
+        yAxisLabelNode,
         yTickMarkSet,
         yTickLabelSet,
-        yAxisLabelNode,
         this.chartRectangle,
-        this.horizontalGridLines,
-        this.verticalGridLines,
+        horizontalGridLines,
+        verticalGridLines,
         xAxis
       ]
     } );
