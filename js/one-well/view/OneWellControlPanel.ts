@@ -16,8 +16,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
-import GraphTypeRadioButtonGroup from '../../common/view/GraphTypeRadioButtonGroup.js';
 import MassControl from '../../common/view/MassControl.js';
+import QuantumStateRepresentationRadioButtonGroup from '../../common/view/QuantumStateRepresentationRadioButtonGroup.js';
 import ValueLabelsCheckbox from '../../common/view/ValueLabelsCheckbox.js';
 import WaveFunctionPartsCheckboxGroup from '../../common/view/WaveFunctionPartsCheckboxGroup.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -52,8 +52,8 @@ export default class OneWellControlPanel extends Panel {
       maxWidth: 200
     } );
 
-    const graphTypeRadioButtonGroup = new GraphTypeRadioButtonGroup( model.quantumStateRepresentationProperty,
-      tandem.createTandem( 'graphTypeRadioButtonGroup' ) );
+    const quantumStateRepresentationRadioButtonGroup = new QuantumStateRepresentationRadioButtonGroup( model.quantumStateRepresentationProperty,
+      tandem.createTandem( 'quantumStateRepresentationRadioButtonGroup' ) );
 
     const waveFunctionPartsCheckboxGroup = new WaveFunctionPartsCheckboxGroup(
       model.realPartVisibleProperty,
@@ -84,7 +84,7 @@ export default class OneWellControlPanel extends Panel {
           stroke: QBSColors.separatorStrokeProperty
         } ),
         displayText,
-        graphTypeRadioButtonGroup,
+        quantumStateRepresentationRadioButtonGroup,
         waveFunctionPartsCheckboxGroup
       ]
     } );
