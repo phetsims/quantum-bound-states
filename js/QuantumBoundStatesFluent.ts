@@ -54,7 +54,7 @@ addToMapIfDefined( 'phase', 'phaseStringProperty' );
 addToMapIfDefined( 'magnifier', 'magnifierStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
-addToMapIfDefined( 'normal', 'normalStringProperty' );
+addToMapIfDefined( 'slow', 'slowStringProperty' );
 addToMapIfDefined( 'fast', 'fastStringProperty' );
 addToMapIfDefined( 'energyLevel', 'energyLevelStringProperty' );
 addToMapIfDefined( 'units_electronMasses_symbol', 'units.electronMasses.symbolStringProperty' );
@@ -229,7 +229,7 @@ const QuantumBoundStatesFluent = {
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
   _comment_7: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
-  normalStringProperty: _.get( QuantumBoundStatesStrings, 'normalStringProperty' ),
+  slowStringProperty: _.get( QuantumBoundStatesStrings, 'slowStringProperty' ),
   fastStringProperty: _.get( QuantumBoundStatesStrings, 'fastStringProperty' ),
   _comment_8: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
   energyLevelStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelStringProperty' ),

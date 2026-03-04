@@ -41,7 +41,7 @@ referenceLine:                         Reference Line
 
 # Sliders
 mass:                                  Mass
-normal:                                normal
+slow: slow
 fast:                                  fast
 
 # Spinners

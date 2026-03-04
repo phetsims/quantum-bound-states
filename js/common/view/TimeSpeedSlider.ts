@@ -44,7 +44,7 @@ export default class TimeSpeedSlider extends HSlider {
     // Add tick marks at each valid value, with the min and max ticks labeled.
     validValues.forEach( ( value, index ) => {
       if ( index === 0 ) {
-        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.normalStringProperty, tickTextOptions ) );
+        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.slowStringProperty, tickTextOptions ) );
       }
       else if ( index === validValues.length - 1 ) {
         this.addMajorTick( value, new Text( QuantumBoundStatesFluent.fastStringProperty, tickTextOptions ) );

@@ -45,7 +45,7 @@ type StringsType = {
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
-  'normalStringProperty': LocalizedStringProperty;
+  'slowStringProperty': LocalizedStringProperty;
   'fastStringProperty': LocalizedStringProperty;
   'energyLevelStringProperty': LocalizedStringProperty;
   'energyLevelPatternStringProperty': LocalizedStringProperty;

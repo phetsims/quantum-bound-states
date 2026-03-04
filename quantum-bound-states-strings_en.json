@@ -82,8 +82,8 @@
   "mass": {
     "value": "Mass"
   },
-  "normal": {
-    "value": "normal"
+  "slow": {
+    "value": "slow"
   },
   "fast": {
     "value": "fast"
