@@ -24,7 +24,7 @@ type SelfOptions = EmptySelfOptions;
 
 type ProbabilityDensityGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptions, 'tandem' | 'visibleProperty'>;
 
-export class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
+export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
   public constructor( model: QBSModel, providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
