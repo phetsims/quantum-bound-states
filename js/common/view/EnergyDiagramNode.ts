@@ -13,6 +13,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
@@ -30,8 +31,8 @@ export default class EnergyDiagramNode extends Node {
   // bamboo model-view transform
   public readonly chartTransform: ChartTransform;
 
-  // Outer rectangle of the chart, public for layout.
-  public readonly chartRectangle: Node;
+  // Outer rectangle of the chart
+  private readonly chartRectangle: Node;
 
   // y-axis decorations that are mutable
   private readonly yTickMarkSet: TickMarkSet;
@@ -123,6 +124,13 @@ export default class EnergyDiagramNode extends Node {
     this.yTickMarkSet.setSpacing( spacing );
     this.yTickLabelSet.setSpacing( spacing );
     this.horizontalGridLines.setSpacing( spacing );
+  }
+
+  /**
+   * Gets the bounds of the chart rectangle in global coordinates.
+   */
+  public getChartRectangleGlobalBounds(): Bounds2 {
+    return this.chartRectangle.localToGlobalBounds( this.chartRectangle.localBounds );
   }
 }
 

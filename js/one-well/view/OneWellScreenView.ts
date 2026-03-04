@@ -74,14 +74,14 @@ export default class OneWellScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Layout is relative to the Energy diagram and the bounds of its chartRectangle in the ScreenView coordinate frame.
+    // Layout is relative to the Energy diagram and the graph below it.
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
     energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + potentialTypeComboBox.height + 3;
-    const energyDiagramChartRectangleBounds = this.globalToLocalBounds( energyDiagramNode.chartRectangle.localToGlobalBounds( energyDiagramNode.chartRectangle.localBounds ) );
-
-    // Static layout
+    const energyDiagramChartRectangleBounds = this.globalToLocalBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
     probabilityDensityGraphNode.x = energyDiagramChartRectangleBounds.left;
     probabilityDensityGraphNode.y = energyDiagramChartRectangleBounds.bottom + 5;
+
+    // Static layout
     waveFunctionGraphNode.translation = probabilityDensityGraphNode.translation;
     controlPanel.left = energyDiagramChartRectangleBounds.right + 10;
     controlPanel.top = energyDiagramChartRectangleBounds.top;

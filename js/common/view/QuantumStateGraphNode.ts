@@ -13,6 +13,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -49,10 +50,10 @@ export type QBSGraphNodeOptions = SelfOptions &
 export default class QuantumStateGraphNode extends Node {
 
   // bamboo model-view transform
-  public readonly chartTransform: ChartTransform;
+  private readonly chartTransform: ChartTransform;
 
-  // Outer rectangle of the chart, public for layout.
-  public readonly chartRectangle: Node;
+  // Outer rectangle of the chart, for layout in subclasses.
+  protected readonly chartRectangle: Node;
 
   protected constructor( providedOptions: QBSGraphNodeOptions ) {
 
@@ -152,6 +153,13 @@ export default class QuantumStateGraphNode extends Node {
     } );
 
     this.children = [ pickableFalseNode ];
+  }
+
+  /**
+   * Gets the bounds of the chart rectangle in global coordinates.
+   */
+  public getChartRectangleGlobalBounds(): Bounds2 {
+    return this.chartRectangle.localToGlobalBounds( this.chartRectangle.localBounds );
   }
 }
 
