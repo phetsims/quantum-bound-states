@@ -39,22 +39,22 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     super( options );
 
-    const waveFunctionToggleButton = new WaveFunctionToggleButton( model.waveFunctionGraph.curvesVisibleProperty,
+    const curvesVisibleToggleButton = new WaveFunctionToggleButton( model.waveFunctionGraph.curvesVisibleProperty,
       options.tandem.createTandem( 'eyeToggleButton' ) );
-    this.addChild( waveFunctionToggleButton );
-    waveFunctionToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
-    waveFunctionToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
+    this.addChild( curvesVisibleToggleButton );
+    curvesVisibleToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
+    curvesVisibleToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
-    const waveFunctionDetailsButton = new WaveFunctionDetailsButton( {
+    const detailsButton = new WaveFunctionDetailsButton( {
       listener: () => new WaveFunctionDetailsDialog( model.potentialProperty.value ).show(),
-      tandem: options.tandem.createTandem( 'waveFunctionDetailsButton' )
+      tandem: options.tandem.createTandem( 'detailsButton' )
     } );
-    this.addChild( waveFunctionDetailsButton );
+    this.addChild( detailsButton );
 
     // Dynamically position the button in the top-right corner of the chart rectangle.
-    waveFunctionDetailsButton.boundsProperty.link( () => {
-      waveFunctionDetailsButton.top = this.chartRectangle.y + 8;
-      waveFunctionDetailsButton.right = this.chartRectangle.right - 8;
+    detailsButton.boundsProperty.link( () => {
+      detailsButton.top = this.chartRectangle.y + 8;
+      detailsButton.right = this.chartRectangle.right - 8;
     } );
   }
 }

@@ -31,7 +31,7 @@ export default class ProbabilityDensityDetailsDialog extends Dialog {
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
       title: titleNode,
-      accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionDialog.accessibleNameStringProperty
+      accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsDialog.accessibleNameStringProperty
     } );
 
     super( content, options );

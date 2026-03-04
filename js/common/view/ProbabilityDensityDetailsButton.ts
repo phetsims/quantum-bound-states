@@ -22,10 +22,10 @@ export class ProbabilityDensityDetailsButton extends FunctionDetailsButton {
   public constructor( providedOptions: ProbabilityDensityEquationButtonOptions ) {
 
     const options = optionize<ProbabilityDensityEquationButtonOptions, SelfOptions, QBSFunctionButtonOptions>()( {
-      labelStringProperty: QuantumBoundStatesFluent.probabilityDensityFunctionButtonLabelStringProperty,
-      accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionButton.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionButton.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.probabilityDensityFunctionButton.accessibleContextResponseStringProperty
+      labelStringProperty: QuantumBoundStatesFluent.probabilityDensityDetailsButtonLabelStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleContextResponseStringProperty
     }, providedOptions );
 
     super( options );

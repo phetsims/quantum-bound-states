@@ -52,10 +52,13 @@
   "probabilityDensityFunction": {
     "value": "Probability Density Function"
   },
-  "probabilityDensityFunctionButtonLabel": {
+  "averageProbabilityDensityOfBandDetailsButtonLabel": {
     "value": "|Ψ(x,t)|<sup>2</sup> = ..."
   },
-  "waveFunctionButtonLabel": {
+  "probabilityDensityDetailsButtonLabel": {
+    "value": "|Ψ(x,t)|<sup>2</sup> = ..."
+  },
+  "waveFunctionDetailsButtonLabel": {
     "value": "Ψ(x,t) = ..."
   },
   "values": {
@@ -324,12 +327,17 @@
         "value": "Reference Line hidden."
       }
     },
-    "probabilityDensityFunctionDialog": {
+    "averageProbabilityDensityOfBandDetailsDialog": {
+      "accessibleName": {
+        "value": "Average Probability Density of Band Dialog"
+      }
+    },
+    "probabilityDensityDetailsDialog": {
       "accessibleName": {
         "value": "Probability Density Function Dialog"
       }
     },
-    "waveFunctionDialog": {
+    "waveFunctionDetailsDialog": {
       "accessibleName": {
         "value": "Wave Function Dialog"
       }
@@ -400,26 +408,37 @@
         "value": "TODO.stepForwardButton.accessibleContextResponse"
       }
     },
-    "probabilityDensityFunctionButton": {
+    "averageProbabilityDensityOfBandDetailsButton": {
       "accessibleName": {
-        "value": "TODO.probabilityDensityFunctionButton.accessibleName"
+        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO.probabilityDensityFunctionButton.accessibleHelpText"
+        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "TODO.probabilityDensityFunctionButton.accessibleContextResponse"
+        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleContextResponse"
       }
     },
-    "waveFunctionButton": {
+    "probabilityDensityDetailsButton": {
       "accessibleName": {
-        "value": "TODO.waveFunctionButton.accessibleName"
+        "value": "TODO.probabilityDensityDetailsButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO.waveFunctionButton.accessibleHelpText"
+        "value": "TODO.probabilityDensityDetailsButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "TODO.waveFunctionButton.accessibleContextResponse"
+        "value": "TODO.probabilityDensityDetailsButton.accessibleContextResponse"
+      }
+    },
+    "waveFunctionDetailsButton": {
+      "accessibleName": {
+        "value": "TODO.waveFunctionDetailsButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.waveFunctionDetailsButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.waveFunctionDetailsButton.accessibleContextResponse"
       }
     },
     "graphTypeRadioButtonGroup": {
@@ -458,6 +477,26 @@
       },
       "accessibleContextResponseOff": {
         "value": "Time display hidden."
+      }
+    },
+    "averageProbabilityDensityOfBandToggleButton": {
+      "accessibleNameOn": {
+        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleNameOn"
+      },
+      "accessibleNameOff": {
+        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleNameOff"
+      },
+      "accessibleHelpTextOn": {
+        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOn"
+      },
+      "accessibleHelpTextOff": {
+        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOff"
+      },
+      "accessibleContextResponseOn": {
+        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOn"
+      },
+      "accessibleContextResponseOff": {
+        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOff"
       }
     },
     "probabilityDensityToggleButton": {

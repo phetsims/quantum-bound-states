@@ -1,13 +1,13 @@
 # Strings for PhET's Quantum Bound States simulation
 
 # Simulation Title
-quantum-bound-states.title:            Quantum Bound States
+quantum-bound-states.title:                        Quantum Bound States
 
 # Screen Names
-screen.oneWell:                        One Well
-screen.superposition:                  Superposition
-screen.twoWells:                       Two Wells
-screen.manyWells:                      Many Wells
+screen.oneWell:                                    One Well
+screen.superposition:                              Superposition
+screen.twoWells:                                   Two Wells
+screen.manyWells:                                  Many Wells
 
 # Preferences
 phaseFeatureControl:
@@ -15,38 +15,39 @@ phaseFeatureControl:
   description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
 
 # Titles
-potentialEnergy:                       Potential Energy
-totalEnergy:                           Total Energy
-position_nm:                           Position (nm)
-energy_eV:                             Energy (eV)
-averageProbabilityDensityOfBand:       Average Probability<br>Density of Band
-probabilityDensity:                    Probability Density
-waveFunction:                          Wave Function
-quantumStateGraph:                     Quantum State Graph
-energyDiagram:                         Energy Diagram
-probabilityDensityFunction:            Probability Density Function
+potentialEnergy:                                   Potential Energy
+totalEnergy:                                       Total Energy
+position_nm:                                       Position (nm)
+energy_eV:                                         Energy (eV)
+averageProbabilityDensityOfBand:                   Average Probability<br>Density of Band
+probabilityDensity:                                Probability Density
+waveFunction:                                      Wave Function
+quantumStateGraph:                                 Quantum State Graph
+energyDiagram:                                     Energy Diagram
+probabilityDensityFunction:                        Probability Density Function
 
 # Buttons
-probabilityDensityFunctionButtonLabel: '|Ψ(x,t)|<sup>2</sup> = ...'
-waveFunctionButtonLabel:               'Ψ(x,t) = ...'
+averageProbabilityDensityOfBandDetailsButtonLabel: '|Ψ(x,t)|<sup>2</sup> = ...'
+probabilityDensityDetailsButtonLabel:              '|Ψ(x,t)|<sup>2</sup> = ...'
+waveFunctionDetailsButtonLabel:                    'Ψ(x,t) = ...'
 
 # Checkboxes
-values:                                Values
-realPart:                              Real Part
-imaginaryPart:                         Imaginary Part
-magnitude:                             Magnitude
-phase:                                 Phase
-magnifier:                             Magnifier
-referenceLine:                         Reference Line
+values:                                            Values
+realPart:                                          Real Part
+imaginaryPart:                                     Imaginary Part
+magnitude:                                         Magnitude
+phase:                                             Phase
+magnifier:                                         Magnifier
+referenceLine:                                     Reference Line
 
 # Sliders
-mass:                                  Mass
-slow:                                  slow
-fast:                                  fast
+mass:                                              Mass
+slow:                                              slow
+fast:                                              fast
 
 # Spinners
-energyLevel:                           Energy Level
-energyLevelPattern:                    E<sub>{{index}}</sub>
+energyLevel:                                       Energy Level
+energyLevelPattern:                                E<sub>{{index}}</sub>
 
 # Units
 units:
@@ -173,10 +174,13 @@ a11y:
   # Dialogs
   #=======================================================================================================
 
-  probabilityDensityFunctionDialog:
+  averageProbabilityDensityOfBandDetailsDialog:
+    accessibleName: Average Probability Density of Band Dialog
+
+  probabilityDensityDetailsDialog:
     accessibleName: Probability Density Function Dialog
 
-  waveFunctionDialog:
+  waveFunctionDetailsDialog:
     accessibleName: Wave Function Dialog
 
   #=======================================================================================================
@@ -221,15 +225,20 @@ a11y:
     accessibleHelpText:        TODO.stepForwardButton.accessibleHelpText
     accessibleContextResponse: TODO.stepForwardButton.accessibleContextResponse
 
-  probabilityDensityFunctionButton:
-    accessibleName:            TODO.probabilityDensityFunctionButton.accessibleName
-    accessibleHelpText:        TODO.probabilityDensityFunctionButton.accessibleHelpText
-    accessibleContextResponse: TODO.probabilityDensityFunctionButton.accessibleContextResponse
+  averageProbabilityDensityOfBandDetailsButton:
+    accessibleName:            TODO.averageProbabilityDensityOfBandDetailsButton.accessibleName
+    accessibleHelpText:        TODO.averageProbabilityDensityOfBandDetailsButton.accessibleHelpText
+    accessibleContextResponse: TODO.averageProbabilityDensityOfBandDetailsButton.accessibleContextResponse
 
-  waveFunctionButton:
-    accessibleName:            TODO.waveFunctionButton.accessibleName
-    accessibleHelpText:        TODO.waveFunctionButton.accessibleHelpText
-    accessibleContextResponse: TODO.waveFunctionButton.accessibleContextResponse
+  probabilityDensityDetailsButton:
+    accessibleName:            TODO.probabilityDensityDetailsButton.accessibleName
+    accessibleHelpText:        TODO.probabilityDensityDetailsButton.accessibleHelpText
+    accessibleContextResponse: TODO.probabilityDensityDetailsButton.accessibleContextResponse
+
+  waveFunctionDetailsButton:
+    accessibleName:            TODO.waveFunctionDetailsButton.accessibleName
+    accessibleHelpText:        TODO.waveFunctionDetailsButton.accessibleHelpText
+    accessibleContextResponse: TODO.waveFunctionDetailsButton.accessibleContextResponse
 
   #=======================================================================================================
   # Radio Buttons
@@ -265,6 +274,14 @@ a11y:
     accessibleHelpText:           TODO.timeDisplayToggleButton.accessibleHelpText
     accessibleContextResponseOn:  Time display shown.
     accessibleContextResponseOff: Time display hidden.
+
+  averageProbabilityDensityOfBandToggleButton:
+    accessibleNameOn:             TODO.averageProbabilityDensityOfBandToggleButton.accessibleNameOn
+    accessibleNameOff:            TODO.averageProbabilityDensityOfBandToggleButton.accessibleNameOff
+    accessibleHelpTextOn:         TODO.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOn
+    accessibleHelpTextOff:        TODO.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOff
+    accessibleContextResponseOn:  TODO.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOn
+    accessibleContextResponseOff: TODO.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOff
 
   probabilityDensityToggleButton:
     accessibleNameOn:             TODO.probabilityDensityToggleButton.accessibleNameOn

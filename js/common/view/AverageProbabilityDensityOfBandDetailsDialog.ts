@@ -1,7 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionDetailsDialog is a dialog that displays the expanded wave function.
+ * AverageProbabilityDensityOfBandDetailsDialog is a dialog that displays the expanded 'Average Probability Density
+ * of Band' equation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,26 +17,26 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Potential from '../model/potentials/Potential.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class WaveFunctionDetailsDialog extends Dialog {
+export default class AverageProbabilityDensityOfBandDetailsDialog extends Dialog {
 
   public constructor( potential: Potential ) {
 
-    const titleNode = new Text( QuantumBoundStatesFluent.waveFunctionStringProperty, {
+    const titleNode = new Text( QuantumBoundStatesFluent.probabilityDensityFunctionStringProperty, {
       font: QBSConstants.TITLE_FONT
     } );
 
-    const contentStringProperty = new StringProperty( 'Ψ(x,t) = TODO.expandedFunction' ); //TODO
+    const contentStringProperty = new StringProperty( '|Ψ(x,t)|<sup>2</sup> = TODO.expandedFunction' ); //TODO
     const content = new RichText( contentStringProperty, {
       font: QBSConstants.CONTROL_FONT
     } );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
       title: titleNode,
-      accessibleName: QuantumBoundStatesFluent.a11y.waveFunctionDetailsDialog.accessibleNameStringProperty
+      accessibleName: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandDetailsDialog.accessibleNameStringProperty
     } );
 
     super( content, options );
   }
 }
 
-quantumBoundStates.register( 'WaveFunctionDetailsDialog', WaveFunctionDetailsDialog );
+quantumBoundStates.register( 'AverageProbabilityDensityOfBandDetailsDialog', AverageProbabilityDensityOfBandDetailsDialog );

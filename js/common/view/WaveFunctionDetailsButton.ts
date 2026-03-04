@@ -22,10 +22,10 @@ export default class WaveFunctionDetailsButton extends FunctionDetailsButton {
   public constructor( providedOptions: WaveFunctionButtonButtonOptions ) {
 
     const options = optionize<WaveFunctionButtonButtonOptions, SelfOptions, QBSFunctionButtonOptions>()( {
-      labelStringProperty: QuantumBoundStatesFluent.waveFunctionButtonLabelStringProperty,
-      accessibleName: QuantumBoundStatesFluent.a11y.waveFunctionButton.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.waveFunctionButton.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.waveFunctionButton.accessibleContextResponseStringProperty
+      labelStringProperty: QuantumBoundStatesFluent.waveFunctionDetailsButtonLabelStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleContextResponseStringProperty
     }, providedOptions );
 
     super( options );
