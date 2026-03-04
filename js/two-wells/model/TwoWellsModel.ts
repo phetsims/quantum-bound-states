@@ -7,6 +7,7 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -16,11 +17,14 @@ export default class TwoWellsModel extends QBSModel {
   public constructor( tandem: Tandem ) {
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
-    const finiteSquarePotential = new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) );
+    const potentials = [
+      new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) ),
+      new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) )
+    ];
 
     super( {
-      potential: finiteSquarePotential,
-      potentials: [ finiteSquarePotential ],
+      potential: potentials[ 0 ],
+      potentials: potentials,
       tandem: tandem
     } );
   }

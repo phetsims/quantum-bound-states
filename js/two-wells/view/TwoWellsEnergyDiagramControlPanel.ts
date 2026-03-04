@@ -1,8 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * OneWellEnergyDiagramControlPanel contains controls related to what is shown in the Energy diagram for
- * the 'One Well' screen.
+ * TwoWellsEnergyDiagramControlPanel contains controls related to what is shown in the Energy diagram
+ * for the 'Two Wells' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,15 +16,13 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
-import MassControl from '../../common/view/MassControl.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
-export class OneWellEnergyDiagramControlPanel extends Panel {
+export class TwoWellsEnergyDiagramControlPanel extends Panel {
 
   public constructor( energyLevelProperty: NumberProperty,
-                      electronMassesProperty: NumberProperty,
                       valueLabelsVisibleProperty: Property<boolean>,
                       tandem: Tandem ) {
 
@@ -38,8 +36,6 @@ export class OneWellEnergyDiagramControlPanel extends Panel {
 
     const energyLevelControl = new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) );
 
-    const massControl = new MassControl( electronMassesProperty, tandem.createTandem( 'massControl' ) );
-
     const valuesCheckbox = new ValuesCheckbox( valueLabelsVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) );
 
     const content = new VBox( {
@@ -48,7 +44,6 @@ export class OneWellEnergyDiagramControlPanel extends Panel {
       children: [
         titleText,
         energyLevelControl,
-        massControl,
         valuesCheckbox
       ]
     } );
@@ -63,4 +58,4 @@ export class OneWellEnergyDiagramControlPanel extends Panel {
   }
 }
 
-quantumBoundStates.register( 'OneWellEnergyDiagramControlPanel', OneWellEnergyDiagramControlPanel );
+quantumBoundStates.register( 'TwoWellsEnergyDiagramControlPanel', TwoWellsEnergyDiagramControlPanel );
