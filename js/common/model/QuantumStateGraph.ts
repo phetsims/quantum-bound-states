@@ -6,8 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -15,9 +13,6 @@ import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/Refer
 import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class QuantumStateGraph extends PhetioObject {
-
-  // Whether curves are visible on the graph.
-  public readonly curvesVisibleProperty: Property<boolean>;
 
   protected constructor( tandem: Tandem ) {
 
@@ -27,15 +22,10 @@ export default class QuantumStateGraph extends PhetioObject {
       phetioState: false,
       phetioType: QuantumStateGraph.QuantumStateGraphIO
     } );
-
-    this.curvesVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'curvesVisibleProperty' ),
-      phetioFeatured: true
-    } );
   }
 
   public reset(): void {
-    this.curvesVisibleProperty.reset();
+    //TODO
   }
 
   /**

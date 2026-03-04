@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -59,6 +60,9 @@ export default class QBSModel implements TModel {
 
   public readonly magnifier: Magnifier;
   public readonly referenceLine: ReferenceLine;
+
+  // Whether curves are visible on the Quantum State graphs. Applies to all graphs.
+  public readonly curvesVisibleProperty: Property<boolean>;
 
   protected constructor( providedOptions: QBSModelOptions ) {
 
@@ -127,6 +131,11 @@ export default class QBSModel implements TModel {
     this.magnifier = new Magnifier( options.tandem.createTandem( 'magnifier' ) );
 
     this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
+
+    this.curvesVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'curvesVisibleProperty' ),
+      phetioFeatured: true
+    } );
   }
 
   /**
@@ -144,6 +153,7 @@ export default class QBSModel implements TModel {
     this.selectedGraphProperty.reset();
     this.magnifier.reset();
     this.referenceLine.reset();
+    this.curvesVisibleProperty.reset();
   }
 
   /**

@@ -42,7 +42,7 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
         accessibleNameOn: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOnStringProperty,
         accessibleNameOff: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOffStringProperty,
         accessibleHelpText: new DerivedProperty( [
-          model.averageProbabilityDensityOfBandGraph.curvesVisibleProperty,
+          model.curvesVisibleProperty,
           QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOnStringProperty,
           QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOffStringProperty
         ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
@@ -51,7 +51,7 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
       }
     }, providedOptions );
 
-    super( model.averageProbabilityDensityOfBandGraph.curvesVisibleProperty, options );
+    super( model.curvesVisibleProperty, options );
 
     const detailsButton = new AverageProbabilityDensityOfBandDetailsButton( {
       listener: () => new ProbabilityDensityDetailsDialog( model.potentialProperty.value ).show(),

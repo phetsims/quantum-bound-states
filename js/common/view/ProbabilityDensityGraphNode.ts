@@ -39,7 +39,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
         accessibleNameOn: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleNameOnStringProperty,
         accessibleNameOff: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleNameOffStringProperty,
         accessibleHelpText: new DerivedProperty( [
-          model.probabilityDensityGraph.curvesVisibleProperty,
+          model.curvesVisibleProperty,
           QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleHelpTextOnStringProperty,
           QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleHelpTextOffStringProperty
         ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
@@ -48,7 +48,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       }
     }, providedOptions );
 
-    super( model.probabilityDensityGraph.curvesVisibleProperty, options );
+    super( model.curvesVisibleProperty, options );
 
     const detailsButton = new ProbabilityDensityDetailsButton( {
       listener: () => new ProbabilityDensityDetailsDialog( model.potentialProperty.value ).show(),

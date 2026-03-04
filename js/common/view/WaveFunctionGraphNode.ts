@@ -36,7 +36,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
         accessibleNameOn: QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleNameOnStringProperty,
         accessibleNameOff: QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleNameOffStringProperty,
         accessibleHelpText: new DerivedProperty( [
-          model.waveFunctionGraph.curvesVisibleProperty,
+          model.curvesVisibleProperty,
           QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleHelpTextOnStringProperty,
           QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleHelpTextOffStringProperty
         ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
@@ -45,7 +45,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       }
     }, providedOptions );
 
-    super( model.waveFunctionGraph.curvesVisibleProperty, options );
+    super( model.curvesVisibleProperty, options );
 
     const detailsButton = new WaveFunctionDetailsButton( {
       listener: () => new WaveFunctionDetailsDialog( model.potentialProperty.value ).show(),
