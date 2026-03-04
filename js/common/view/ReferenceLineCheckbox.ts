@@ -38,15 +38,15 @@ export default class ReferenceLineCheckbox extends Checkbox {
       spacing: 8
     } );
 
-    super( referenceLineVisibleProperty, box, combineOptions<CheckboxOptions>(
-      {}, QBSConstants.CHECKBOX_OPTIONS, {
-        isDisposable: false,
-        accessibleHelpText: QuantumBoundStatesFluent.a11y.referenceLineCheckbox.accessibleHelpTextStringProperty,
-        accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.referenceLineCheckbox.accessibleContextResponseCheckedStringProperty,
-        accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty,
-        phetioDisplayOnlyPropertyInstrumented: true,
-        tandem: tandem
-      } ) );
+    const options = combineOptions<CheckboxOptions>( {}, QBSConstants.CHECKBOX_OPTIONS, {
+      isDisposable: false,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.referenceLineCheckbox.accessibleHelpTextStringProperty,
+      accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.referenceLineCheckbox.accessibleContextResponseCheckedStringProperty,
+      accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty,
+      tandem: tandem
+    } );
+
+    super( referenceLineVisibleProperty, box, options );
   }
 }
 

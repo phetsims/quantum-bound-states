@@ -25,15 +25,15 @@ export default class MagnifierCheckbox extends Checkbox {
       tandem: tandem.createTandem( 'text' )
     } );
 
-    super( magnifierVisibleProperty, text, combineOptions<CheckboxOptions>(
-      {}, QBSConstants.CHECKBOX_OPTIONS, {
-        isDisposable: false,
-        accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleHelpTextStringProperty,
-        accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleContextResponseCheckedStringProperty,
-        accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleContextResponseUncheckedStringProperty,
-        phetioDisplayOnlyPropertyInstrumented: true,
-        tandem: tandem
-      } ) );
+    const options = combineOptions<CheckboxOptions>( {}, QBSConstants.CHECKBOX_OPTIONS, {
+      isDisposable: false,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleHelpTextStringProperty,
+      accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleContextResponseCheckedStringProperty,
+      accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.magnifierCheckbox.accessibleContextResponseUncheckedStringProperty,
+      tandem: tandem
+    } );
+
+    super( magnifierVisibleProperty, text, options );
   }
 }
 
