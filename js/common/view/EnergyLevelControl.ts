@@ -7,6 +7,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
@@ -20,16 +21,15 @@ import QBSConstants from '../QBSConstants.js';
 
 export default class EnergyLevelControl extends HBox {
 
-  public constructor( energyLevelProperty: NumberProperty,
-                      rangeProperty: TReadOnlyProperty<Range>,
-                      tandem: Tandem ) {
+  public constructor( energyLevelProperty: NumberProperty, tandem: Tandem ) {
 
     const energyLevelText = new Text( QuantumBoundStatesFluent.energyLevelStringProperty, {
       font: QBSConstants.CONTROL_FONT,
       maxWidth: 100
     } );
 
-    const energyLevelSpinner = new EnergyLevelSpinner( energyLevelProperty, rangeProperty, tandem.createTandem( 'energyLevelSpinner' ) );
+    const energyLevelSpinner = new EnergyLevelSpinner( energyLevelProperty, energyLevelProperty.rangeProperty,
+      tandem.createTandem( 'energyLevelSpinner' ) );
 
     super( {
       isDisposable: false,
@@ -42,7 +42,7 @@ export default class EnergyLevelControl extends HBox {
 
 class EnergyLevelSpinner extends NumberSpinner {
 
-  public constructor( energyLevelProperty: NumberProperty,
+  public constructor( energyLevelProperty: Property<number>,
                       rangeProperty: TReadOnlyProperty<Range>,
                       tandem: Tandem ) {
 

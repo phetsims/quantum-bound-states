@@ -47,7 +47,6 @@ export default class QBSModel implements TModel {
   //TODO Core description refers to this as "potential type".
   public readonly potentialProperty: Property<Potential>;
 
-  public readonly energyLevelRangeProperty: Property<Range>;
   public readonly energyLevelProperty: NumberProperty;
 
   public readonly electronMassesProperty: NumberProperty;
@@ -124,18 +123,9 @@ export default class QBSModel implements TModel {
       phetioFeatured: true
     } );
 
-    //TODO energyLevelRangeProperty is dynamic, so the initial value must be computed.
-    this.energyLevelRangeProperty = new Property( new Range( 1, 25 ), {
-      tandem: options.tandem.createTandem( 'energyLevelRangeProperty' ),
-      phetioValueType: Range.RangeIO,
-      phetioFeatured: true,
-      phetioReadOnly: true
-    } );
-
     this.energyLevelProperty = new NumberProperty( 1, {
       numberType: 'Integer',
-      //TODO Range varies depending on the selected potential and how it is configured.
-      range: this.energyLevelRangeProperty,
+      range: new Range( 1, 25 ), //TODO initial value must be computed, value is dynamic depending on selected potential
       tandem: options.tandem.createTandem( 'energyLevelProperty' ),
       phetioFeatured: true,
       phetioReadOnly: true
@@ -182,7 +172,6 @@ export default class QBSModel implements TModel {
 
     this.potentialProperty.reset();
 
-    this.energyLevelRangeProperty.reset();
     this.energyLevelProperty.reset();
     this.electronMassesProperty.reset();
 

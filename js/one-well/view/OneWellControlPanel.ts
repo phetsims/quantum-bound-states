@@ -39,8 +39,7 @@ export default class OneWellControlPanel extends Panel {
       maxWidth: 200
     } );
 
-    const energyLevelControl = new EnergyLevelControl( model.energyLevelProperty, model.energyLevelRangeProperty,
-      tandem.createTandem( 'energyLevelControl' ) );
+    const energyLevelControl = new EnergyLevelControl( model.energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) );
 
     const massControl = new MassControl( model.electronMassesProperty, tandem.createTandem( 'massControl' ) );
 
