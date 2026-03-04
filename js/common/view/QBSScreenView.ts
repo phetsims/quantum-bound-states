@@ -30,6 +30,7 @@ import ToolsPanel from '../../common/view/ToolsPanel.js';
 import WaveFunctionGraphNode from '../../common/view/WaveFunctionGraphNode.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSModel from '../model/QBSModel.js';
+import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 
@@ -57,7 +58,11 @@ export default class QBSScreenView extends ScreenView {
     const graphNodes: QuantumStateGraphNode[] = [];
 
     if ( model.averageProbabilityDensityOfBandGraph ) {
-      //TODO
+      const averageProbabilityDensityOfBandGraphNode = new AverageProbabilityDensityOfBandGraphNode( model, {
+        visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.averageProbabilityDensityOfBandGraph ),
+        tandem: options.tandem.createTandem( 'averageProbabilityDensityOfBandGraphNode' )
+      } );
+      graphNodes.push( averageProbabilityDensityOfBandGraphNode );
     }
 
     if ( model.probabilityDensityGraph ) {
