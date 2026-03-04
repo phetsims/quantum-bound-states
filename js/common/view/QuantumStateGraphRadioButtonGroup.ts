@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * QuantumStateRepresentationRadioButtonGroup is the radio button group for selecting which type of graph to display at
+ * QuantumStateGraphRadioButtonGroup is the radio button group for selecting which type of graph to display at
  * the bottom of the screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -21,7 +21,7 @@ import QBSConstants from '../QBSConstants.js';
 
 const TEXT_MAX_WIDTH = 165;
 
-export default class QuantumStateRepresentationRadioButtonGroup extends AquaRadioButtonGroup<QuantumStateGraph> {
+export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGroup<QuantumStateGraph> {
 
   public constructor( selectedGraphProperty: Property<QuantumStateGraph>, tandem: Tandem ) {
 
@@ -77,4 +77,4 @@ export default class QuantumStateRepresentationRadioButtonGroup extends AquaRadi
   }
 }
 
-quantumBoundStates.register( 'QuantumStateRepresentationRadioButtonGroup', QuantumStateRepresentationRadioButtonGroup );
+quantumBoundStates.register( 'QuantumStateGraphRadioButtonGroup', QuantumStateGraphRadioButtonGroup );
