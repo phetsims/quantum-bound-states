@@ -21,14 +21,14 @@ import QBSConstants from '../QBSConstants.js';
 
 export default class MassControl extends NumberControl {
 
-  public constructor( massProperty: NumberProperty, tandem: Tandem ) {
+  public constructor( electronMassesProperty: NumberProperty, tandem: Tandem ) {
 
     const titleText = new Text( QuantumBoundStatesFluent.massStringProperty, {
       font: QBSConstants.CONTROL_FONT,
       maxWidth: 100
     } );
 
-    super( titleText, massProperty, massProperty.range, {
+    super( titleText, electronMassesProperty, electronMassesProperty.range, {
       isDisposable: false,
       delta: 0.01,
       layoutFunction: NumberControl.createLayoutFunction1( {
@@ -49,7 +49,7 @@ export default class MassControl extends NumberControl {
       sliderOptions: {
         trackSize: new Dimension2( 135, 3 ),
         thumbSize: new Dimension2( 15, 25 ),
-        majorTicks: createMajorTicks( massProperty.range ),
+        majorTicks: createMajorTicks( electronMassesProperty.range ),
         majorTickLength: 16,
         keyboardStep: 0.1,
         shiftKeyboardStep: 0.01,

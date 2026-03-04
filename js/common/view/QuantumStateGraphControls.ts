@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * QuantumStateGraphControls is a subpanel that contains controls related to the quantum state graph - the graph
+ * QuantumStateGraphControls is a subpanel that contains controls related to the Quantum State graph - the graph
  * shown below the Energy diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -46,9 +46,13 @@ export default class QuantumStateGraphControls extends VBox {
     } );
 
     super( {
-      children: [ titleText, quantumStateGraphRadioButtonGroup, waveFunctionPartsCheckboxGroup ],
       align: 'left',
-      spacing: 10
+      spacing: 10,
+      children: [
+        titleText,
+        quantumStateGraphRadioButtonGroup,
+        waveFunctionPartsCheckboxGroup
+      ]
     } );
   }
 }
