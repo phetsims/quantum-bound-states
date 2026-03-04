@@ -11,13 +11,13 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import QBSFunctionButton, { QBSFunctionButtonOptions } from './QBSFunctionButton.js';
+import FunctionDetailsButton, { QBSFunctionButtonOptions } from './FunctionDetailsButton.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type WaveFunctionButtonButtonOptions = SelfOptions & PickRequired<QBSFunctionButtonOptions, 'listener' | 'tandem'>;
 
-export default class WaveFunctionDetailsButton extends QBSFunctionButton {
+export default class WaveFunctionDetailsButton extends FunctionDetailsButton {
 
   public constructor( providedOptions: WaveFunctionButtonButtonOptions ) {
 

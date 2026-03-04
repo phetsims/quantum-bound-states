@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * QBSFunctionButton is the base class for buttons used to open dialogs that show expanded versions of functions.
+ * FunctionDetailsButton is the base class for buttons used to open dialogs that show expanded versions of functions.
  * This class exists solely to make all such buttons have the same size.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -23,14 +23,14 @@ type SelfOptions = {
 export type QBSFunctionButtonOptions = SelfOptions &
   PickRequired<RectangularPushButtonOptions, 'listener' | 'tandem' | 'accessibleName' | 'accessibleHelpText' | 'accessibleContextResponse'>;
 
-export default class QBSFunctionButton extends RectangularPushButton {
+export default class FunctionDetailsButton extends RectangularPushButton {
 
   // For making all instances of this type of button have the same size.
   private static readonly alignGroup = new AlignGroup();
 
   protected constructor( providedOptions: QBSFunctionButtonOptions ) {
 
-    const labelNode = QBSFunctionButton.alignGroup.createBox( new RichText( providedOptions.labelStringProperty, {
+    const labelNode = FunctionDetailsButton.alignGroup.createBox( new RichText( providedOptions.labelStringProperty, {
       font: QBSConstants.CONTROL_FONT
     } ) );
 
@@ -45,4 +45,4 @@ export default class QBSFunctionButton extends RectangularPushButton {
   }
 }
 
-quantumBoundStates.register( 'QBSFunctionButton', QBSFunctionButton );
+quantumBoundStates.register( 'FunctionDetailsButton', FunctionDetailsButton );
