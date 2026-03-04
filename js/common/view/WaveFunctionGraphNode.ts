@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -15,10 +16,6 @@ import QBSConstants from '../QBSConstants.js';
 import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
 import WaveFunctionDetailsButton from './WaveFunctionDetailsButton.js';
 import WaveFunctionDetailsDialog from './WaveFunctionDetailsDialog.js';
-import { WaveFunctionToggleButton } from './WaveFunctionToggleButton.js';
-
-const BUTTON_X_MARGIN = 8;
-const BUTTON_Y_MARGIN = 8;
 
 type SelfOptions = EmptySelfOptions;
 
@@ -34,16 +31,21 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty,
+      curvesVisibleToggleButtonOptions: {
+        accessibleNameOn: QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleNameOnStringProperty,
+        accessibleNameOff: QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleNameOffStringProperty,
+        accessibleHelpText: new DerivedProperty( [
+          model.waveFunctionGraph.curvesVisibleProperty,
+          QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleHelpTextOnStringProperty,
+          QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleHelpTextOffStringProperty
+        ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
+        accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleContextResponseOnStringProperty,
+        accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.waveFunctionToggleButton.accessibleContextResponseOffStringProperty
+      }
     }, providedOptions );
 
-    super( options );
-
-    const curvesVisibleToggleButton = new WaveFunctionToggleButton( model.waveFunctionGraph.curvesVisibleProperty,
-      options.tandem.createTandem( 'eyeToggleButton' ) );
-    this.addChild( curvesVisibleToggleButton );
-    curvesVisibleToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
-    curvesVisibleToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
+    super( model.waveFunctionGraph.curvesVisibleProperty, options );
 
     const detailsButton = new WaveFunctionDetailsButton( {
       listener: () => new WaveFunctionDetailsDialog( model.potentialProperty.value ).show(),

@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
@@ -16,10 +17,11 @@ import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -27,6 +29,10 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import { CurvesVisibleToggleButton, CurvesVisibleToggleButtonOptions } from './CurvesVisibleToggleButton.js';
+
+const BUTTON_X_MARGIN = 8;
+const BUTTON_Y_MARGIN = 8;
 
 type SelfOptions = {
 
@@ -41,6 +47,8 @@ type SelfOptions = {
 
   // Number of decimal places in y-axis tick labels.
   yTickLabelDecimals: number;
+
+  curvesVisibleToggleButtonOptions: StrictOmit<CurvesVisibleToggleButtonOptions, 'tandem'>;
 };
 
 export type QBSGraphNodeOptions = SelfOptions &
@@ -55,7 +63,7 @@ export default class QuantumStateGraphNode extends Node {
   // Outer rectangle of the chart, for layout in subclasses.
   protected readonly chartRectangle: Node;
 
-  protected constructor( providedOptions: QBSGraphNodeOptions ) {
+  protected constructor( curvesVisibleProperty: Property<boolean>, providedOptions: QBSGraphNodeOptions ) {
 
     const options = optionize<QBSGraphNodeOptions, SelfOptions, NodeOptions>()( {
 
@@ -152,7 +160,16 @@ export default class QuantumStateGraphNode extends Node {
       ]
     } );
 
-    this.children = [ pickableFalseNode ];
+    // Toggle button for showing/hiding the curves displayed by this graph.
+    const curvesVisibleToggleButton = new CurvesVisibleToggleButton( curvesVisibleProperty,
+      combineOptions<CurvesVisibleToggleButtonOptions>( {
+        tandem: options.tandem.createTandem( 'curvesVisibleToggleButton' )
+      }, options.curvesVisibleToggleButtonOptions ) );
+    this.addChild( curvesVisibleToggleButton );
+    curvesVisibleToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
+    curvesVisibleToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
+
+    this.children = [ pickableFalseNode, curvesVisibleToggleButton ];
   }
 
   /**

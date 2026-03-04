@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -14,7 +15,6 @@ import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
 import { ProbabilityDensityDetailsButton } from './ProbabilityDensityDetailsButton.js';
 import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
-import { ProbabilityDensityToggleButton } from './ProbabilityDensityToggleButton.js';
 import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
 
 const BUTTON_X_MARGIN = 8;
@@ -34,16 +34,21 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty,
+      curvesVisibleToggleButtonOptions: {
+        accessibleNameOn: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleNameOnStringProperty,
+        accessibleNameOff: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleNameOffStringProperty,
+        accessibleHelpText: new DerivedProperty( [
+          model.probabilityDensityGraph.curvesVisibleProperty,
+          QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleHelpTextOnStringProperty,
+          QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleHelpTextOffStringProperty
+        ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
+        accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleContextResponseOnStringProperty,
+        accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.probabilityDensityToggleButton.accessibleContextResponseOffStringProperty
+      }
     }, providedOptions );
 
-    super( options );
-
-    const curvesVisibleToggleButton = new ProbabilityDensityToggleButton( model.probabilityDensityGraph.curvesVisibleProperty,
-      options.tandem.createTandem( 'curvesVisibleToggleButton' ) );
-    this.addChild( curvesVisibleToggleButton );
-    curvesVisibleToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
-    curvesVisibleToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
+    super( model.probabilityDensityGraph.curvesVisibleProperty, options );
 
     const detailsButton = new ProbabilityDensityDetailsButton( {
       listener: () => new ProbabilityDensityDetailsDialog( model.potentialProperty.value ).show(),

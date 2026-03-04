@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -15,7 +16,6 @@ import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
 import { AverageProbabilityDensityOfBandDetailsButton } from './AverageProbabilityDensityOfBandDetailsButton.js';
 import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
-import { ProbabilityDensityToggleButton } from './ProbabilityDensityToggleButton.js';
 import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
 
 const BUTTON_X_MARGIN = 8;
@@ -29,23 +29,29 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
 
   public constructor( model: QBSModel, providedOptions: AbsoluteProbabilityDensityOfBandGraphNodeOptions ) {
 
+    affirm( model.averageProbabilityDensityOfBandGraph, 'averageProbabilityDensityOfBandGraph is required' );
+
     const options = optionize<AbsoluteProbabilityDensityOfBandGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
       yAxisLabelStringProperty: QuantumBoundStatesFluent.probabilityDensityStringProperty, // Yes, this is correct.
       yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityGraph.accessibleParagraphStringProperty
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityGraph.accessibleParagraphStringProperty,
+      curvesVisibleToggleButtonOptions: {
+        accessibleNameOn: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOnStringProperty,
+        accessibleNameOff: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOffStringProperty,
+        accessibleHelpText: new DerivedProperty( [
+          model.averageProbabilityDensityOfBandGraph.curvesVisibleProperty,
+          QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOnStringProperty,
+          QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOffStringProperty
+        ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
+        accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOnStringProperty,
+        accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOffStringProperty
+      }
     }, providedOptions );
 
-    super( options );
-
-    affirm( model.averageProbabilityDensityOfBandGraph, 'averageProbabilityDensityOfBandGraph is required' );
-    const curvesVisibleToggleButton = new ProbabilityDensityToggleButton( model.averageProbabilityDensityOfBandGraph.curvesVisibleProperty,
-      options.tandem.createTandem( 'curvesVisibleToggleButton' ) );
-    this.addChild( curvesVisibleToggleButton );
-    curvesVisibleToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
-    curvesVisibleToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
+    super( model.averageProbabilityDensityOfBandGraph.curvesVisibleProperty, options );
 
     const detailsButton = new AverageProbabilityDensityOfBandDetailsButton( {
       listener: () => new ProbabilityDensityDetailsDialog( model.potentialProperty.value ).show(),
