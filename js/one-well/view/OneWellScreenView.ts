@@ -75,7 +75,7 @@ export default class OneWellScreenView extends ScreenView {
     probabilityDensityGraphNode.top = energyDiagramNode.bottom + 5;
     waveFunctionGraphNode.translation = probabilityDensityGraphNode.translation;
     controlPanel.left = energyDiagramNode.right + 10;
-    controlPanel.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    controlPanel.top = energyDiagramNode.top;
     toolsPanel.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
