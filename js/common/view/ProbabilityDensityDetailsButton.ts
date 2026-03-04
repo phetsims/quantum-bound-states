@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ProbabilityDensityFunctionButton is the push button that appears in the top-right corner of the 'Probability Density' graph.
+ * ProbabilityDensityDetailsButton is the push button that appears in the top-right corner of the 'Probability Density' graph.
  * Pushing this button opens a dialog that displays the equation for the probability density.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,7 +17,7 @@ type SelfOptions = EmptySelfOptions;
 
 type ProbabilityDensityEquationButtonOptions = SelfOptions & PickRequired<QBSFunctionButtonOptions, 'listener' | 'tandem'>;
 
-export class ProbabilityDensityFunctionButton extends QBSFunctionButton {
+export class ProbabilityDensityDetailsButton extends QBSFunctionButton {
 
   public constructor( providedOptions: ProbabilityDensityEquationButtonOptions ) {
 
@@ -32,4 +32,4 @@ export class ProbabilityDensityFunctionButton extends QBSFunctionButton {
   }
 }
 
-quantumBoundStates.register( 'ProbabilityDensityFunctionButton', ProbabilityDensityFunctionButton );
+quantumBoundStates.register( 'ProbabilityDensityDetailsButton', ProbabilityDensityDetailsButton );

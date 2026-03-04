@@ -12,8 +12,8 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
-import { ProbabilityDensityFunctionButton } from './ProbabilityDensityFunctionButton.js';
-import ProbabilityDensityFunctionDialog from './ProbabilityDensityFunctionDialog.js';
+import { ProbabilityDensityDetailsButton } from './ProbabilityDensityDetailsButton.js';
+import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
 import { ProbabilityDensityToggleButton } from './ProbabilityDensityToggleButton.js';
 import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
 
@@ -45,16 +45,16 @@ export class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
     probabilityDensityToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
     probabilityDensityToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
-    const probabilityDensityFunctionButton = new ProbabilityDensityFunctionButton( {
-      listener: () => new ProbabilityDensityFunctionDialog( model.potentialProperty.value ).show(),
-      tandem: options.tandem.createTandem( 'probabilityDensityFunctionButton' )
+    const probabilityDensityDetailsButton = new ProbabilityDensityDetailsButton( {
+      listener: () => new ProbabilityDensityDetailsDialog( model.potentialProperty.value ).show(),
+      tandem: options.tandem.createTandem( 'probabilityDensityDetailsButton' )
     } );
-    this.addChild( probabilityDensityFunctionButton );
+    this.addChild( probabilityDensityDetailsButton );
 
     // Dynamically position the button in the top-right corner of the chart rectangle.
-    probabilityDensityFunctionButton.boundsProperty.link( () => {
-      probabilityDensityFunctionButton.right = this.chartRectangle.right - BUTTON_X_MARGIN;
-      probabilityDensityFunctionButton.top = this.chartRectangle.y + BUTTON_Y_MARGIN;
+    probabilityDensityDetailsButton.boundsProperty.link( () => {
+      probabilityDensityDetailsButton.right = this.chartRectangle.right - BUTTON_X_MARGIN;
+      probabilityDensityDetailsButton.top = this.chartRectangle.y + BUTTON_Y_MARGIN;
     } );
   }
 }

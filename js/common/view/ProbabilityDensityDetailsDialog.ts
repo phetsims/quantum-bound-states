@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ProbabilityDensityFunctionDialog is a dialog that displays the expanded probability density equation.
+ * ProbabilityDensityDetailsDialog is a dialog that displays the expanded probability density equation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Potential from '../model/potentials/Potential.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class ProbabilityDensityFunctionDialog extends Dialog {
+export default class ProbabilityDensityDetailsDialog extends Dialog {
 
   public constructor( potential: Potential ) {
 
@@ -38,4 +38,4 @@ export default class ProbabilityDensityFunctionDialog extends Dialog {
   }
 }
 
-quantumBoundStates.register( 'ProbabilityDensityFunctionDialog', ProbabilityDensityFunctionDialog );
+quantumBoundStates.register( 'ProbabilityDensityDetailsDialog', ProbabilityDensityDetailsDialog );
