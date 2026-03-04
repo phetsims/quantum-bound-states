@@ -100,11 +100,11 @@ export default class QBSColors {
   } );
 
   public static readonly realPartStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'realPartStroke', {
-    default: 'rgb( 31, 69, 240 )'
+    default: 'rgb( 10, 70, 250 )'
   } );
 
   public static readonly imaginaryPartStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'imaginaryPartStroke', {
-    default: 'rgb( 211, 127, 51 )'
+    default: 'rgb( 225, 122, 20 )'
   } );
 
   public static readonly magnitudeStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnitudeStroke', {
