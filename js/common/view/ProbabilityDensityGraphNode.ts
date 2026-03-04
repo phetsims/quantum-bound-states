@@ -48,7 +48,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       },
 
       // Options for the button that opens a dialog that shows the expanded equation.
-      functionDetailsButtonOptions: {
+      detailsButtonOptions: {
         listener: () => new ProbabilityDensityDetailsDialog( model.potentialProperty.value ).show(),
         labelStringProperty: QuantumBoundStatesFluent.probabilityDensityDetailsButtonLabelStringProperty,
         accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleNameStringProperty,

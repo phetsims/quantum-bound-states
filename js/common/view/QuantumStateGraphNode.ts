@@ -49,11 +49,11 @@ type SelfOptions = {
   // Number of decimal places in y-axis tick labels.
   yTickLabelDecimals: number;
 
-  // Propagated to CurvesVisibleToggleButton
+  // Propagated to curvesVisibleToggleButton
   curvesVisibleToggleButtonOptions: StrictOmit<CurvesVisibleToggleButtonOptions, 'tandem'>;
 
-  // Propagated to FunctionDetailsButton
-  functionDetailsButtonOptions: StrictOmit<FunctionDetailsButtonOptions, 'tandem'>;
+  // Propagated to detailsButton
+  detailsButtonOptions: StrictOmit<FunctionDetailsButtonOptions, 'tandem'>;
 };
 
 export type QBSGraphNodeOptions = SelfOptions &
@@ -177,7 +177,7 @@ export default class QuantumStateGraphNode extends Node {
     // Button to open a dialog that the expanded equation for the function displayed by the graph.
     const detailsButton = new FunctionDetailsButton( combineOptions<FunctionDetailsButtonOptions>( {
       tandem: options.tandem.createTandem( 'detailsButton' )
-    }, options.functionDetailsButtonOptions ) );
+    }, options.detailsButtonOptions ) );
     this.addChild( detailsButton );
 
     // Dynamically position the button in the top-right corner of the chart rectangle.

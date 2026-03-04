@@ -51,7 +51,7 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
       },
 
       // Options for the button that opens a dialog that shows the expanded equation.
-      functionDetailsButtonOptions: {
+      detailsButtonOptions: {
         listener: () => new AverageProbabilityDensityOfBandDetailsDialog( model.potentialProperty.value ).show(),
         labelStringProperty: QuantumBoundStatesFluent.averageProbabilityDensityOfBandDetailsButtonLabelStringProperty,
         accessibleName: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandDetailsButton.accessibleNameStringProperty,

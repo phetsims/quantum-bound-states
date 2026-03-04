@@ -48,7 +48,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       },
 
       // Options for the button that opens a dialog that shows the expanded equation.
-      functionDetailsButtonOptions: {
+      detailsButtonOptions: {
         listener: () => new WaveFunctionDetailsDialog( model.potentialProperty.value ).show(),
         labelStringProperty: QuantumBoundStatesFluent.waveFunctionDetailsButtonLabelStringProperty,
         accessibleName: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleNameStringProperty,
