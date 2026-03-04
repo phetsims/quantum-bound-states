@@ -25,7 +25,7 @@ export class OneWellEnergyDiagramControlPanel extends Panel {
 
   public constructor( energyLevelProperty: NumberProperty,
                       electronMassesProperty: NumberProperty,
-                      valueLabelsVisibleProperty: Property<boolean>,
+                      valuesVisibleProperty: Property<boolean>,
                       tandem: Tandem ) {
 
     const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
@@ -40,7 +40,7 @@ export class OneWellEnergyDiagramControlPanel extends Panel {
 
     const massControl = new MassControl( electronMassesProperty, tandem.createTandem( 'massControl' ) );
 
-    const valuesCheckbox = new ValuesCheckbox( valueLabelsVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) );
+    const valuesCheckbox = new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) );
 
     const content = new VBox( {
       align: 'left',

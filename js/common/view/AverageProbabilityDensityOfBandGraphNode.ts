@@ -30,7 +30,7 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
   public constructor( model: QBSModel, providedOptions: AbsoluteProbabilityDensityOfBandGraphNodeOptions ) {
 
     const options = optionize<AbsoluteProbabilityDensityOfBandGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
-      yAxisLabelStringProperty: QuantumBoundStatesFluent.averageProbabilityDensityOfBandStringProperty,
+      yAxisLabelStringProperty: QuantumBoundStatesFluent.probabilityDensityStringProperty, // Yes, this is correct.
       yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,

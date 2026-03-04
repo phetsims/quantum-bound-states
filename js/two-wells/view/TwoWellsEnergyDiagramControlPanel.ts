@@ -23,7 +23,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 export class TwoWellsEnergyDiagramControlPanel extends Panel {
 
   public constructor( energyLevelProperty: NumberProperty,
-                      valueLabelsVisibleProperty: Property<boolean>,
+                      valuesVisibleProperty: Property<boolean>,
                       tandem: Tandem ) {
 
     const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
@@ -36,7 +36,7 @@ export class TwoWellsEnergyDiagramControlPanel extends Panel {
 
     const energyLevelControl = new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) );
 
-    const valuesCheckbox = new ValuesCheckbox( valueLabelsVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) );
+    const valuesCheckbox = new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) );
 
     const content = new VBox( {
       align: 'left',
