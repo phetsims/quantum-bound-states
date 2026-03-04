@@ -15,18 +15,18 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 export default class EnergyDiagram {
 
   // Visibility of values on drag handles and energy lines.
-  public readonly valueLabelsVisibleProperty: Property<boolean>;
+  public readonly valuesVisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
 
-    this.valueLabelsVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'valueLabelsVisibleProperty' ),
+    this.valuesVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'valuesVisibleProperty' ),
       phetioFeatured: true
     } );
   }
 
   public reset(): void {
-    this.valueLabelsVisibleProperty.reset();
+    this.valuesVisibleProperty.reset();
   }
 }
 

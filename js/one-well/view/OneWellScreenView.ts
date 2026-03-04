@@ -58,7 +58,7 @@ export default class OneWellScreenView extends ScreenView {
       model.referenceLine.visibleProperty, tandem.createTandem( 'toolsPanel' ) );
 
     const energyDiagramControlPanel = new OneWellEnergyDiagramControlPanel( model.energyLevelProperty, model.electronMassesProperty,
-      model.energyDiagram.valueLabelsVisibleProperty, tandem.createTandem( 'energyDiagramControlPanel' ) );
+      model.energyDiagram.valuesVisibleProperty, tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.selectedGraphProperty,
       model.waveFunctionGraph, tandem.createTandem( 'quantumStateGraphControlPanel' ) );

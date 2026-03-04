@@ -22,8 +22,8 @@ energy_eV:                             Energy (eV)
 averageProbabilityDensityOfBand:       Average Probability<br>Density of Band
 probabilityDensity:                    Probability Density
 waveFunction:                          Wave Function
-quantumStateGraph: Quantum State Graph
-energyDiagram:     Energy Diagram
+quantumStateGraph:                     Quantum State Graph
+energyDiagram:                         Energy Diagram
 probabilityDensityFunction:            Probability Density Function
 
 # Buttons
@@ -31,7 +31,7 @@ probabilityDensityFunctionButtonLabel: '|Ψ(x,t)|<sup>2</sup> = ...'
 waveFunctionButtonLabel:               'Ψ(x,t) = ...'
 
 # Checkboxes
-valueLabels:                           Value Labels
+values:                                Values
 realPart:                              Real Part
 imaginaryPart:                         Imaginary Part
 magnitude:                             Magnitude
@@ -41,7 +41,7 @@ referenceLine:                         Reference Line
 
 # Sliders
 mass:                                  Mass
-slow:              slow
+slow:                                  slow
 fast:                                  fast
 
 # Spinners
@@ -134,10 +134,10 @@ a11y:
   # Checkboxes
   #=======================================================================================================
 
-  valueLabelsCheckbox:
-    accessibleHelpText:                 Keep value labels visible for handles and sliders.
-    accessibleContextResponseChecked:   Value labels stay visible.
-    accessibleContextResponseUnchecked: Value labels shown on focus.
+  valuesCheckbox:
+    accessibleHelpText:                 Keep values visible for handles and sliders.
+    accessibleContextResponseChecked:   Values stay visible.
+    accessibleContextResponseUnchecked: Values shown on focus.
 
   realPartCheckbox:
     accessibleHelpText:                 Show or hide the real part of the wave function.

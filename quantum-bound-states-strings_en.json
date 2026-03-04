@@ -58,8 +58,8 @@
   "waveFunctionButtonLabel": {
     "value": "Ψ(x,t) = ..."
   },
-  "valueLabels": {
-    "value": "Value Labels"
+  "values": {
+    "value": "Values"
   },
   "realPart": {
     "value": "Real Part"
@@ -247,15 +247,15 @@
         "value": "Tool Controls"
       }
     },
-    "valueLabelsCheckbox": {
+    "valuesCheckbox": {
       "accessibleHelpText": {
-        "value": "Keep value labels visible for handles and sliders."
+        "value": "Keep values visible for handles and sliders."
       },
       "accessibleContextResponseChecked": {
-        "value": "Value labels stay visible."
+        "value": "Values stay visible."
       },
       "accessibleContextResponseUnchecked": {
-        "value": "Value labels shown on focus."
+        "value": "Values shown on focus."
       }
     },
     "realPartCheckbox": {

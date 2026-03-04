@@ -37,7 +37,7 @@ type StringsType = {
   'probabilityDensityFunctionStringProperty': LocalizedStringProperty;
   'probabilityDensityFunctionButtonLabelStringProperty': LocalizedStringProperty;
   'waveFunctionButtonLabelStringProperty': LocalizedStringProperty;
-  'valueLabelsStringProperty': LocalizedStringProperty;
+  'valuesStringProperty': LocalizedStringProperty;
   'realPartStringProperty': LocalizedStringProperty;
   'imaginaryPartStringProperty': LocalizedStringProperty;
   'magnitudeStringProperty': LocalizedStringProperty;
@@ -126,7 +126,7 @@ type StringsType = {
     'toolControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
-    'valueLabelsCheckbox': {
+    'valuesCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
