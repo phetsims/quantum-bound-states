@@ -27,9 +27,6 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
-const X_AXIS_LABEL_OFFSET = 20;
-const Y_AXIS_LABEL_OFFSET = QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_OFFSET;
-
 type SelfOptions = {
 
   // y-axis range
@@ -113,7 +110,7 @@ export default class QuantumStateGraphNode extends Node {
       maxWidth: 0.5 * this.chartRectangle.width
     } );
     xAxisLabelNode.boundsProperty.link( () => {
-      xAxisLabelNode.centerTop = this.chartRectangle.centerBottom.addXY( 0, X_AXIS_LABEL_OFFSET );
+      xAxisLabelNode.centerTop = this.chartRectangle.centerBottom.addXY( 0, 20 );
     } );
 
     // y-axis label
@@ -123,7 +120,7 @@ export default class QuantumStateGraphNode extends Node {
       maxWidth: 0.85 * this.chartRectangle.height
     } );
     yAxisLabelNode.boundsProperty.link( () => {
-      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( Y_AXIS_LABEL_OFFSET, 0 );
+      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_OFFSET, 0 );
     } );
 
     this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
