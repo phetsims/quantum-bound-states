@@ -13,8 +13,8 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
 import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
-import WaveFunctionButton from './WaveFunctionButton.js';
-import WaveFunctionDialog from './WaveFunctionDialog.js';
+import WaveFunctionDetailsButton from './WaveFunctionDetailsButton.js';
+import WaveFunctionDetailsDialog from './WaveFunctionDetailsDialog.js';
 import { WaveFunctionToggleButton } from './WaveFunctionToggleButton.js';
 
 const BUTTON_X_MARGIN = 8;
@@ -45,16 +45,16 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     waveFunctionToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
     waveFunctionToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
-    const waveFunctionButton = new WaveFunctionButton( {
-      listener: () => new WaveFunctionDialog( model.potentialProperty.value ).show(),
-      tandem: options.tandem.createTandem( 'waveFunctionButton' )
+    const waveFunctionDetailsButton = new WaveFunctionDetailsButton( {
+      listener: () => new WaveFunctionDetailsDialog( model.potentialProperty.value ).show(),
+      tandem: options.tandem.createTandem( 'waveFunctionDetailsButton' )
     } );
-    this.addChild( waveFunctionButton );
+    this.addChild( waveFunctionDetailsButton );
 
     // Dynamically position the button in the top-right corner of the chart rectangle.
-    waveFunctionButton.boundsProperty.link( () => {
-      waveFunctionButton.top = this.chartRectangle.y + 8;
-      waveFunctionButton.right = this.chartRectangle.right - 8;
+    waveFunctionDetailsButton.boundsProperty.link( () => {
+      waveFunctionDetailsButton.top = this.chartRectangle.y + 8;
+      waveFunctionDetailsButton.right = this.chartRectangle.right - 8;
     } );
   }
 }

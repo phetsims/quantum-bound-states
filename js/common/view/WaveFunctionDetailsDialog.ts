@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionDialog is a dialog that displays the expanded wave function.
+ * WaveFunctionDetailsDialog is a dialog that displays the expanded wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Potential from '../model/potentials/Potential.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class WaveFunctionDialog extends Dialog {
+export default class WaveFunctionDetailsDialog extends Dialog {
 
   public constructor( potential: Potential ) {
 
@@ -38,4 +38,4 @@ export default class WaveFunctionDialog extends Dialog {
   }
 }
 
-quantumBoundStates.register( 'WaveFunctionDialog', WaveFunctionDialog );
+quantumBoundStates.register( 'WaveFunctionDetailsDialog', WaveFunctionDetailsDialog );

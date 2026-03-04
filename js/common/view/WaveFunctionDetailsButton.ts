@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionButton is the push button that appears in the top-right corner of the 'Wave Function' graph.
+ * WaveFunctionDetailsButton is the push button that appears in the top-right corner of the 'Wave Function' graph.
  * Pushing this button opens a dialog that displays the equation for the wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,7 +17,7 @@ type SelfOptions = EmptySelfOptions;
 
 type WaveFunctionButtonButtonOptions = SelfOptions & PickRequired<QBSFunctionButtonOptions, 'listener' | 'tandem'>;
 
-export default class WaveFunctionButton extends QBSFunctionButton {
+export default class WaveFunctionDetailsButton extends QBSFunctionButton {
 
   public constructor( providedOptions: WaveFunctionButtonButtonOptions ) {
 
@@ -32,4 +32,4 @@ export default class WaveFunctionButton extends QBSFunctionButton {
   }
 }
 
-quantumBoundStates.register( 'WaveFunctionButton', WaveFunctionButton );
+quantumBoundStates.register( 'WaveFunctionDetailsButton', WaveFunctionDetailsButton );
