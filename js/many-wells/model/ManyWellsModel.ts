@@ -21,8 +21,7 @@ export default class ManyWellsModel extends QBSModel {
     super( {
       potential: finiteSquarePotential,
       potentials: [ finiteSquarePotential ],
-      quantumStateRepresentation: 'averageProbabilityDensityOfBand',
-      quantumStateRepresentations: [ 'averageProbabilityDensityOfBand', 'probabilityDensity', 'waveFunction' ],
+      hasAverageProbabilityDensityOfBandGraph: true,
       tandem: tandem
     } );
   }

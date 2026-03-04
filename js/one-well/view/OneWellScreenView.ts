@@ -44,14 +44,12 @@ export default class OneWellScreenView extends ScreenView {
     const energyDiagramNode = new EnergyDiagramNode( tandem.createTandem( 'energyDiagramNode' ) );
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model, {
-      visibleProperty: new DerivedProperty( [ model.quantumStateRepresentationProperty ],
-        quantumStateRepresentation => quantumStateRepresentation === 'probabilityDensity' ),
+      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.probabilityDensityGraph ),
       tandem: tandem.createTandem( 'probabilityDensityGraphNode' )
     } );
 
     const waveFunctionGraphNode = new WaveFunctionGraphNode( model, {
-      visibleProperty: new DerivedProperty( [ model.quantumStateRepresentationProperty ],
-        quantumStateRepresentation => quantumStateRepresentation === 'waveFunction' ),
+      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.waveFunctionGraph ),
       tandem: tandem.createTandem( 'waveFunctionGraphNode' )
     } );
 

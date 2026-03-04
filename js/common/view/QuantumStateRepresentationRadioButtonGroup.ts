@@ -7,29 +7,33 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import { QuantumStateRepresentation } from '../model/QuantumStateRepresentation.js';
+import AverageProbabilityDensityOfBandGraph from '../model/AverageProbabilityDensityOfBandGraph.js';
+import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
+import QuantumStateGraph from '../model/QuantumStateGraph.js';
+import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import QBSConstants from '../QBSConstants.js';
 
 const TEXT_MAX_WIDTH = 165;
 
-export default class QuantumStateRepresentationRadioButtonGroup extends AquaRadioButtonGroup<QuantumStateRepresentation> {
+export default class QuantumStateRepresentationRadioButtonGroup extends AquaRadioButtonGroup<QuantumStateGraph> {
 
-  public constructor( quantumStateRepresentationProperty: StringUnionProperty<QuantumStateRepresentation>, tandem: Tandem ) {
+  public constructor( selectedGraphProperty: Property<QuantumStateGraph>, tandem: Tandem ) {
 
-    const validValues = quantumStateRepresentationProperty.validValues;
+    const validValues = selectedGraphProperty.validValues;
 
-    const items: AquaRadioButtonGroupItem<QuantumStateRepresentation>[] = [];
+    const items: AquaRadioButtonGroupItem<QuantumStateGraph>[] = [];
 
     // Average Probability Density of Band
-    if ( validValues?.includes( 'averageProbabilityDensityOfBand' ) ) {
+    const averageProbabilityDensityOfBandGraph = _.find( validValues, value => value instanceof AverageProbabilityDensityOfBandGraph );
+    if ( averageProbabilityDensityOfBandGraph ) {
       items.push( {
-        value: 'averageProbabilityDensityOfBand',
+        value: averageProbabilityDensityOfBandGraph,
         createNode: tandem => new RichText( QuantumBoundStatesFluent.averageProbabilityDensityOfBandStringProperty, {
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
@@ -39,9 +43,10 @@ export default class QuantumStateRepresentationRadioButtonGroup extends AquaRadi
     }
 
     // Probability Density
-    if ( validValues?.includes( 'probabilityDensity' ) ) {
+    const probabilityDensityGraph = _.find( validValues, value => value instanceof ProbabilityDensityGraph );
+    if ( probabilityDensityGraph ) {
       items.push( {
-        value: 'probabilityDensity',
+        value: probabilityDensityGraph,
         createNode: tandem => new RichText( QuantumBoundStatesFluent.probabilityDensityStringProperty, {
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
@@ -51,9 +56,10 @@ export default class QuantumStateRepresentationRadioButtonGroup extends AquaRadi
     }
 
     // Wave Function
-    if ( validValues?.includes( 'waveFunction' ) ) {
+    const waveFunctionGraph = _.find( validValues, value => value instanceof WaveFunctionGraph );
+    if ( waveFunctionGraph ) {
       items.push( {
-        value: 'waveFunction',
+        value: waveFunctionGraph,
         createNode: tandem => new RichText( QuantumBoundStatesFluent.waveFunctionStringProperty, {
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
@@ -62,7 +68,7 @@ export default class QuantumStateRepresentationRadioButtonGroup extends AquaRadi
       } );
     }
 
-    super( quantumStateRepresentationProperty, items, {
+    super( selectedGraphProperty, items, {
       spacing: 10,
       accessibleName: QuantumBoundStatesFluent.a11y.graphTypeRadioButtonGroup.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.graphTypeRadioButtonGroup.accessibleHelpTextStringProperty,

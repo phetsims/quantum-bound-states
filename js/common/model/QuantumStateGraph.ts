@@ -8,15 +8,25 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
-export default class QuantumStateGraph {
+export default class QuantumStateGraph extends PhetioObject {
 
   // Whether curves are visible on the graph.
   public readonly curvesVisibleProperty: Property<boolean>;
 
   protected constructor( tandem: Tandem ) {
+
+    super( {
+      isDisposable: false,
+      tandem: tandem,
+      phetioState: false,
+      phetioType: QuantumStateGraph.QuantumStateGraphIO
+    } );
 
     this.curvesVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'curvesVisibleProperty' ),
@@ -27,6 +37,16 @@ export default class QuantumStateGraph {
   public reset(): void {
     this.curvesVisibleProperty.reset();
   }
+
+  /**
+   * QuantumStateGraphIO handles PhET-iO serialization of QuantumStateGraph instances. Since all QuantumStateGraph
+   * instances are static instances, it implements 'Reference type serialization', as described in the Serialization
+   * section of https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
+   */
+  public static readonly QuantumStateGraphIO = new IOType<QuantumStateGraph, ReferenceIOState>( 'QuantumStateGraphIO', {
+    valueType: QuantumStateGraph,
+    supertype: ReferenceIO( IOType.ObjectIO )
+  } );
 }
 
 quantumBoundStates.register( 'QuantumStateGraph', QuantumStateGraph );

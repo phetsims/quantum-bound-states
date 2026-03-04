@@ -52,8 +52,8 @@ export default class OneWellControlPanel extends Panel {
       maxWidth: 200
     } );
 
-    const quantumStateRepresentationRadioButtonGroup = new QuantumStateRepresentationRadioButtonGroup( model.quantumStateRepresentationProperty,
-      tandem.createTandem( 'quantumStateRepresentationRadioButtonGroup' ) );
+    const selectedGraphRadioButtonGroup = new QuantumStateRepresentationRadioButtonGroup( model.selectedGraphProperty,
+      tandem.createTandem( 'selectedGraphRadioButtonGroup' ) );
 
     const waveFunctionPartsCheckboxGroup = new WaveFunctionPartsCheckboxGroup(
       model.realPartVisibleProperty,
@@ -64,8 +64,7 @@ export default class OneWellControlPanel extends Panel {
         layoutOptions: {
           leftMargin: 25 // indent below graphTypeRadioButtonGroup
         },
-        enabledProperty: new DerivedProperty( [ model.quantumStateRepresentationProperty ],
-          quantumStateRepresentation => quantumStateRepresentation === 'waveFunction' ),
+        enabledProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.waveFunctionGraph ),
         tandem: tandem.createTandem( 'waveFunctionPartsCheckboxGroup' )
       } );
 
@@ -84,7 +83,7 @@ export default class OneWellControlPanel extends Panel {
           stroke: QBSColors.separatorStrokeProperty
         } ),
         displayText,
-        quantumStateRepresentationRadioButtonGroup,
+        selectedGraphRadioButtonGroup,
         waveFunctionPartsCheckboxGroup
       ]
     } );
