@@ -52,7 +52,7 @@ export default class QuantumStateGraphNode extends Node {
   public readonly chartTransform: ChartTransform;
 
   // Outer rectangle of the chart
-  protected readonly chartRectangle: ChartRectangle;
+  public readonly chartRectangle: ChartRectangle;
 
   protected constructor( providedOptions: QBSGraphNodeOptions ) {
 

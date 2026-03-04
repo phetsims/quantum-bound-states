@@ -31,7 +31,7 @@ export default class EnergyDiagramNode extends Node {
   public readonly chartTransform: ChartTransform;
 
   // Outer rectangle of the chart
-  private readonly chartRectangle: ChartRectangle;
+  public readonly chartRectangle: ChartRectangle;
 
   // y-axis decorations that are mutable
   private readonly yTickMarkSet: TickMarkSet;

@@ -60,6 +60,12 @@ export default class OneWellScreenView extends ScreenView {
 
     const timePanel = new TimePanel( model.time, tandem.createTandem( 'timePanel' ) );
 
+    // Wrap magnifierNode in a Node so that the probe drags in the same coordinate frame as the graphs.
+    const magnifierNode = new MagnifierNode( model.magnifier, tandem.createTandem( 'magnifierNode' ) );
+    const magnifierWrapper = new Node( {
+      children: [ magnifierNode ]
+    } );
+
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
@@ -68,44 +74,40 @@ export default class OneWellScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Static Layout
+    // Layout is relative to the Energy diagram and the bounds of its chartRectangle in the ScreenView coordinate frame.
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
     energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + potentialTypeComboBox.height + 3;
-    probabilityDensityGraphNode.left = energyDiagramNode.left;
-    probabilityDensityGraphNode.top = energyDiagramNode.bottom + 5;
+    const energyDiagramChartRectangleBounds = this.globalToLocalBounds( energyDiagramNode.chartRectangle.localToGlobalBounds( energyDiagramNode.chartRectangle.bounds ) );
+
+    // Static layout
+    probabilityDensityGraphNode.x = energyDiagramChartRectangleBounds.left;
+    probabilityDensityGraphNode.y = energyDiagramChartRectangleBounds.bottom + 5;
     waveFunctionGraphNode.translation = probabilityDensityGraphNode.translation;
-    controlPanel.left = energyDiagramNode.right + 10;
-    controlPanel.top = energyDiagramNode.top;
+    controlPanel.left = energyDiagramChartRectangleBounds.right + 10;
+    controlPanel.top = energyDiagramChartRectangleBounds.top;
     toolsPanel.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    magnifierWrapper.right = energyDiagramChartRectangleBounds.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
+    magnifierWrapper.y = energyDiagramChartRectangleBounds.y + 5;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Dynamic Layout
     potentialTypeComboBox.boundsProperty.link( () => {
-      potentialTypeComboBox.left = energyDiagramNode.x;
-      potentialTypeComboBox.bottom = energyDiagramNode.top - 3;
+      potentialTypeComboBox.left = energyDiagramChartRectangleBounds.left;
+      potentialTypeComboBox.bottom = energyDiagramChartRectangleBounds.top - 3;
     } );
     legendPanel.boundsProperty.link( () => {
-      legendPanel.right = energyDiagramNode.right;
-      legendPanel.bottom = energyDiagramNode.top - 3;
+      legendPanel.right = energyDiagramChartRectangleBounds.right;
+      legendPanel.bottom = energyDiagramChartRectangleBounds.top - 3;
     } );
     timePanel.boundsProperty.link( () => {
-      timePanel.right = energyDiagramNode.right;
+      timePanel.right = energyDiagramChartRectangleBounds.right;
       timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     } );
 
-    const magnifierNode = new MagnifierNode( model.magnifier, tandem.createTandem( 'magnifierNode' ) );
-
-    // Wrap magnifierNode in a Node so that the probe drags in the same coordinate frame as the graphs.
-    const magnifierWrapper = new Node( {
-      children: [ magnifierNode ]
-    } );
-    magnifierWrapper.right = energyDiagramNode.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
-    magnifierWrapper.y = energyDiagramNode.y + 5;
-
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyDiagramNode.chartTransform, {
-      lineTop: energyDiagramNode.y,
+      lineTop: energyDiagramChartRectangleBounds.y,
       lineBottom: probabilityDensityGraphNode.bottom - QBSConstants.HANDLE_DIAMETER / 2,
       tandem: tandem.createTandem( 'referenceLineNode' )
     } );
@@ -113,7 +115,7 @@ export default class OneWellScreenView extends ScreenView {
     // Wrap referenceLineNode in a Node so that it drags in the same coordinate frame as the graphs.
     const referenceLineWrapper = new Node( {
       children: [ referenceLineNode ],
-      x: energyDiagramNode.x,
+      x: energyDiagramChartRectangleBounds.x,
       y: 0
     } );
 
