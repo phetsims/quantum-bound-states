@@ -16,7 +16,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import MassControl from '../../common/view/MassControl.js';
-import ValueLabelsCheckbox from '../../common/view/ValueLabelsCheckbox.js';
+import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
@@ -39,7 +39,7 @@ export class OneWellEnergyDiagramControlPanel extends Panel {
 
     const massControl = new MassControl( electronMassesProperty, tandem.createTandem( 'massControl' ) );
 
-    const valueLabelsCheckbox = new ValueLabelsCheckbox( valueLabelsVisibleProperty,
+    const valueLabelsCheckbox = new ValuesCheckbox( valueLabelsVisibleProperty,
       tandem.createTandem( 'valueLabelsCheckbox' ) );
 
     const content = new VBox( {

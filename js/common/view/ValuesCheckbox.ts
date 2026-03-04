@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ValueLabelsCheckbox is the checkbox used to show/hide value labels on drag handles.
+ * ValuesCheckbox is the checkbox used to show/hide values on drag handles and energy lines.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,7 +15,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class ValueLabelsCheckbox extends Checkbox {
+export default class ValuesCheckbox extends Checkbox {
 
   public constructor( valuesVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
@@ -35,4 +35,4 @@ export default class ValueLabelsCheckbox extends Checkbox {
   }
 }
 
-quantumBoundStates.register( 'ValueLabelsCheckbox', ValueLabelsCheckbox );
+quantumBoundStates.register( 'ValuesCheckbox', ValuesCheckbox );
