@@ -150,6 +150,7 @@ export default class QuantumStateGraphNode extends Node {
       children: [
         xTickMarkSet,
         xTickLabelSet,
+        xAxisLabelNode,
         yTickMarkSet,
         yTickLabelSet,
         yAxisLabelNode,
