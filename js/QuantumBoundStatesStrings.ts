@@ -111,7 +111,10 @@ type StringsType = {
         }
       }
     };
-    'controlPanel': {
+    'energyDiagramControls': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+    };
+    'quantumStateGraphControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
     'waveFunctionParts': {

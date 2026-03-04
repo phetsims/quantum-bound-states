@@ -1,16 +1,17 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * QuantumStateGraphControls is a subpanel that contains controls related to the Quantum State graph - the graph
- * shown below the Energy diagram.
+ * QuantumStateGraphControlPanel contains controls related to the Quantum State graph - the graph shown below the Energy diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -20,7 +21,7 @@ import QBSConstants from '../QBSConstants.js';
 import QuantumStateGraphRadioButtonGroup from './QuantumStateGraphRadioButtonGroup.js';
 import WaveFunctionPartsCheckboxGroup from './WaveFunctionPartsCheckboxGroup.js';
 
-export default class QuantumStateGraphControls extends VBox {
+export default class QuantumStateGraphControlPanel extends Panel {
 
   public constructor( selectedGraphProperty: Property<QuantumStateGraph>,
                       waveFunctionGraph: WaveFunctionGraph,
@@ -45,7 +46,7 @@ export default class QuantumStateGraphControls extends VBox {
       tandem: tandem.createTandem( 'waveFunctionPartsCheckboxGroup' )
     } );
 
-    super( {
+    const content = new VBox( {
       align: 'left',
       spacing: 10,
       children: [
@@ -54,7 +55,15 @@ export default class QuantumStateGraphControls extends VBox {
         waveFunctionPartsCheckboxGroup
       ]
     } );
+
+    const options = combineOptions<PanelOptions>( {
+      isDisposable: false,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.quantumStateGraphControls.accessibleHeadingStringProperty,
+      tandem: tandem
+    }, QBSConstants.PANEL_OPTIONS );
+
+    super( content, options );
   }
 }
 
-quantumBoundStates.register( 'QuantumStateGraphControls', QuantumStateGraphControls );
+quantumBoundStates.register( 'QuantumStateGraphControlPanel', QuantumStateGraphControlPanel );

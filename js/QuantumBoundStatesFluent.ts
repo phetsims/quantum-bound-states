@@ -87,7 +87,8 @@ addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_playArea', 'a
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_controlArea', 'a11y.screens.superpositionScreen.screenSummary.controlAreaStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_currentDetails', 'a11y.screens.superpositionScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_interactionHint', 'a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty' );
-addToMapIfDefined( 'a11y_controlPanel_accessibleHeading', 'a11y.controlPanel.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagramControls_accessibleHeading', 'a11y.energyDiagramControls.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_quantumStateGraphControls_accessibleHeading', 'a11y.quantumStateGraphControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionParts_accessibleHeading', 'a11y.waveFunctionParts.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeControls_accessibleHeading', 'a11y.timeControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_toolControls_accessibleHeading', 'a11y.toolControls.accessibleHeadingStringProperty' );
@@ -308,11 +309,14 @@ const QuantumBoundStatesFluent = {
         }
       }
     },
-    _comment_3: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"controlPanel"} ),
-    _comment_4: new FluentComment( {"comment":"Headings","associatedKey":"controlPanel"} ),
-    _comment_5: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"controlPanel"} ),
-    controlPanel: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_controlPanel_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.controlPanel.accessibleHeadingStringProperty' ) )
+    _comment_3: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagramControls"} ),
+    _comment_4: new FluentComment( {"comment":"Headings","associatedKey":"energyDiagramControls"} ),
+    _comment_5: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagramControls"} ),
+    energyDiagramControls: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagramControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagramControls.accessibleHeadingStringProperty' ) )
+    },
+    quantumStateGraphControls: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_quantumStateGraphControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.quantumStateGraphControls.accessibleHeadingStringProperty' ) )
     },
     waveFunctionParts: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionParts_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionParts.accessibleHeadingStringProperty' ) )

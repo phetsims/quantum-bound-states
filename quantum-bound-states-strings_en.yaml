@@ -115,8 +115,11 @@ a11y:
   # Headings
   #=======================================================================================================
 
-  controlPanel:
-    accessibleHeading: Control Panel
+  energyDiagramControls:
+    accessibleHeading: Energy Diagram Controls
+
+  quantumStateGraphControls:
+    accessibleHeading: Quantum State Graph Controls
 
   waveFunctionParts:
     accessibleHeading: Wave Function Parts

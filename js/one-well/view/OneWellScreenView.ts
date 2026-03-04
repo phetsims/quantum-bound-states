@@ -17,13 +17,14 @@ import LegendPanel from '../../common/view/LegendPanel.js';
 import MagnifierNode from '../../common/view/MagnifierNode.js';
 import PotentialTypeComboBox from '../../common/view/PotentialTypeComboBox.js';
 import { ProbabilityDensityGraphNode } from '../../common/view/ProbabilityDensityGraphNode.js';
+import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import TimePanel from '../../common/view/TimePanel.js';
 import ToolsPanel from '../../common/view/ToolsPanel.js';
 import WaveFunctionGraphNode from '../../common/view/WaveFunctionGraphNode.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import OneWellModel from '../model/OneWellModel.js';
-import OneWellControlPanel from './OneWellControlPanel.js';
+import { OneWellEnergyDiagramControls } from './OneWellEnergyDiagramControls.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
 
 export default class OneWellScreenView extends ScreenView {
@@ -56,7 +57,11 @@ export default class OneWellScreenView extends ScreenView {
     const toolsPanel = new ToolsPanel( model.magnifier.visibleProperty,
       model.referenceLine.visibleProperty, tandem.createTandem( 'toolsPanel' ) );
 
-    const controlPanel = new OneWellControlPanel( model, tandem.createTandem( 'controlPanel' ) );
+    const energyDiagramControlPanel = new OneWellEnergyDiagramControls( model.energyLevelProperty, model.electronMassesProperty,
+      model.energyDiagram.valueLabelsVisibleProperty, tandem.createTandem( 'energyDiagramControlPanel' ) );
+
+    const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.selectedGraphProperty,
+      model.waveFunctionGraph, tandem.createTandem( 'quantumStateGraphControlPanel' ) );
 
     const timePanel = new TimePanel( model.time, tandem.createTandem( 'timePanel' ) );
 
@@ -80,11 +85,14 @@ export default class OneWellScreenView extends ScreenView {
     const energyDiagramChartRectangleBounds = this.globalToLocalBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
     probabilityDensityGraphNode.x = energyDiagramChartRectangleBounds.left;
     probabilityDensityGraphNode.y = energyDiagramChartRectangleBounds.bottom + 5;
+    const probabilityDensityChartRectangleBounds = this.globalToLocalBounds( probabilityDensityGraphNode.getChartRectangleGlobalBounds() );
 
     // Static layout
     waveFunctionGraphNode.translation = probabilityDensityGraphNode.translation;
-    controlPanel.left = energyDiagramChartRectangleBounds.right + 10;
-    controlPanel.top = energyDiagramChartRectangleBounds.top;
+    energyDiagramControlPanel.left = energyDiagramChartRectangleBounds.right + 10;
+    energyDiagramControlPanel.top = energyDiagramChartRectangleBounds.top;
+    quantumStateGraphControlPanel.left = energyDiagramChartRectangleBounds.right + 10;
+    quantumStateGraphControlPanel.top = probabilityDensityChartRectangleBounds.top;
     toolsPanel.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     magnifierWrapper.right = energyDiagramChartRectangleBounds.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
@@ -127,7 +135,8 @@ export default class OneWellScreenView extends ScreenView {
         energyDiagramNode,
         probabilityDensityGraphNode,
         waveFunctionGraphNode,
-        controlPanel,
+        energyDiagramControlPanel,
+        quantumStateGraphControlPanel,
         toolsPanel,
         magnifierWrapper,
         referenceLineWrapper,
@@ -144,7 +153,8 @@ export default class OneWellScreenView extends ScreenView {
       energyDiagramNode,
       probabilityDensityGraphNode,
       waveFunctionGraphNode,
-      controlPanel,
+      energyDiagramControlPanel,
+      quantumStateGraphControlPanel,
       magnifierNode,
       referenceLineNode
     ];

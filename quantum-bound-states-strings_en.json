@@ -222,9 +222,14 @@
         }
       }
     },
-    "controlPanel": {
+    "energyDiagramControls": {
       "accessibleHeading": {
-        "value": "Control Panel"
+        "value": "Energy Diagram Controls"
+      }
+    },
+    "quantumStateGraphControls": {
+      "accessibleHeading": {
+        "value": "Quantum State Graph Controls"
       }
     },
     "waveFunctionParts": {
