@@ -12,6 +12,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -107,6 +108,8 @@ export default class QBSScreenView extends ScreenView {
       graphNode.x = energyDiagramChartRectangleBounds.left;
       graphNode.y = energyDiagramChartRectangleBounds.bottom + 5;
     } );
+
+    affirm( graphNodes.length > 0, 'At least one Quantum State graph is required.' );
     const graphChartRectangleBounds = this.globalToLocalBounds( graphNodes[ 0 ].getChartRectangleGlobalBounds() );
 
     // Static layout
