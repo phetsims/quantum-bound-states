@@ -76,7 +76,7 @@ export default class EnergyDiagramNode extends Node {
       maxWidth: 0.85 * this.chartRectangle.height
     } );
     yAxisLabelNode.boundsProperty.link( () => {
-      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.Y_AXIS_LABEL_OFFSET, 0 );
+      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ENERGY_DIAGRAM_Y_AXIS_LABEL_OFFSET, 0 );
     } );
 
     this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, QBSConstants.ENERGY_DIAGRAM_Y_TICK_SPACING, {

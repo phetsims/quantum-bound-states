@@ -12,7 +12,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
-import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
+import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
 import WaveFunctionButton from './WaveFunctionButton.js';
 import WaveFunctionDialog from './WaveFunctionDialog.js';
 import { WaveFunctionToggleButton } from './WaveFunctionToggleButton.js';
@@ -24,21 +24,15 @@ type SelfOptions = EmptySelfOptions;
 
 type WaveFunctionGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptions, 'tandem' | 'visibleProperty'>;
 
-export default class WaveFunctionGraphNode extends QBSGraphNode {
+export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
   public constructor( model: QBSModel, providedOptions: WaveFunctionGraphNodeOptions ) {
 
     const options = optionize<WaveFunctionGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
-      xAxisLabelStringProperty: QuantumBoundStatesFluent.position_nmStringProperty,
       yAxisLabelStringProperty: QuantumBoundStatesFluent.waveFunctionStringProperty,
-      viewWidth: QBSConstants.ALL_GRAPHS_VIEW_WIDTH,
-      viewHeight: QBSConstants.WAVE_FUNCTION_GRAPH_VIEW_HEIGHT,
-      xRange: QBSConstants.ALL_GRAPHS_X_RANGE,
       yRange: QBSConstants.WAVE_FUNCTION_GRAPH_Y_RANGE,
-      xTickSpacing: QBSConstants.ALL_GRAPHS_X_TICK_SPACING,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
-      hasYTickLabels: true, //TODO Should be false.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty
     }, providedOptions );

@@ -56,17 +56,15 @@ export default class QBSConstants {
   public static readonly TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
   public static readonly TIME_FONT = new PhetFont( 16 );
 
-  // Graphs
+  // Quantum State Graphs
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 700;
+  public static readonly ALL_GRAPHS_VIEW_HEIGHT = 175;
   public static readonly ALL_GRAPHS_X_RANGE = new Range( -3.5, 3.5 );
   public static readonly ALL_GRAPHS_X_TICK_SPACING = 1;
-  public static readonly PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = 175;
-  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1.05 );
-  public static readonly WAVE_FUNCTION_GRAPH_VIEW_HEIGHT = QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT;
-  public static readonly WAVE_FUNCTION_GRAPH_Y_RANGE = new Range( -1.55, 1.55 );
-  public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT = QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT;
-  public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE = QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE;
-  public static readonly Y_AXIS_LABEL_OFFSET = -32;
+  public static readonly ALL_GRAPHS_Y_AXIS_LABEL_OFFSET = -32;
+  public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1.05 );
+  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = QBSConstants.AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE;
+  public static readonly WAVE_FUNCTION_GRAPH_Y_RANGE = new Range( -1.05, 1.05 );
 
   // Energy Diagram
   public static readonly ENERGY_DIAGRAM_VIEW_WIDTH = QBSConstants.ALL_GRAPHS_VIEW_WIDTH;
@@ -75,6 +73,7 @@ export default class QBSConstants {
   public static readonly ENERGY_DIAGRAM_Y_RANGE = new Range( -5.5, 15.5 );
   public static readonly ENERGY_DIAGRAM_X_TICK_SPACING = QBSConstants.ALL_GRAPHS_X_TICK_SPACING;
   public static readonly ENERGY_DIAGRAM_Y_TICK_SPACING = 5;
+  public static readonly ENERGY_DIAGRAM_Y_AXIS_LABEL_OFFSET = QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_OFFSET;
 
   // Decimal places
   public static readonly ELECTRON_MASS_DECIMAL_PLACES = 2;

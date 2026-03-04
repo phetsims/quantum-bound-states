@@ -15,7 +15,7 @@ import QBSConstants from '../QBSConstants.js';
 import { ProbabilityDensityFunctionButton } from './ProbabilityDensityFunctionButton.js';
 import ProbabilityDensityFunctionDialog from './ProbabilityDensityFunctionDialog.js';
 import { ProbabilityDensityToggleButton } from './ProbabilityDensityToggleButton.js';
-import QBSGraphNode, { QBSGraphNodeOptions } from './QBSGraphNode.js';
+import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
 
 const BUTTON_X_MARGIN = 8;
 const BUTTON_Y_MARGIN = 8;
@@ -24,21 +24,15 @@ type SelfOptions = EmptySelfOptions;
 
 type ProbabilityDensityGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptions, 'tandem' | 'visibleProperty'>;
 
-export class ProbabilityDensityGraphNode extends QBSGraphNode {
+export class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
   public constructor( model: QBSModel, providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
     const options = optionize<ProbabilityDensityGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
-      xAxisLabelStringProperty: QuantumBoundStatesFluent.position_nmStringProperty,
       yAxisLabelStringProperty: QuantumBoundStatesFluent.probabilityDensityStringProperty,
-      viewWidth: QBSConstants.ALL_GRAPHS_VIEW_WIDTH,
-      viewHeight: QBSConstants.PROBABILITY_DENSITY_GRAPH_VIEW_HEIGHT,
-      xRange: QBSConstants.ALL_GRAPHS_X_RANGE,
       yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
-      xTickSpacing: QBSConstants.ALL_GRAPHS_X_TICK_SPACING,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
-      hasYTickLabels: true, //TODO Should be false.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty
     }, providedOptions );
