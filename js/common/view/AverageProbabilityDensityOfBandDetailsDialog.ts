@@ -10,7 +10,6 @@
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -21,7 +20,7 @@ export default class AverageProbabilityDensityOfBandDetailsDialog extends Dialog
 
   public constructor( potential: Potential ) {
 
-    const titleNode = new Text( QuantumBoundStatesFluent.probabilityDensityFunctionStringProperty, {
+    const titleNode = new RichText( QuantumBoundStatesFluent.averageProbabilityDensityOfBandDialogTitleStringProperty, {
       font: QBSConstants.TITLE_FONT
     } );
 

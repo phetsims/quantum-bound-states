@@ -20,7 +20,7 @@ export default class ProbabilityDensityDetailsDialog extends Dialog {
 
   public constructor( potential: Potential ) {
 
-    const titleNode = new Text( QuantumBoundStatesFluent.probabilityDensityFunctionStringProperty, {
+    const titleNode = new Text( QuantumBoundStatesFluent.probabilityDensityDialogTitleStringProperty, {
       font: QBSConstants.TITLE_FONT
     } );
 

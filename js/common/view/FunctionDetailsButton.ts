@@ -1,8 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * FunctionDetailsButton is the base class for buttons used to open dialogs that show expanded versions of functions.
- * This class exists solely to make all such buttons have the same size.
+ * FunctionDetailsButton the buttons used to open dialogs that show expanded versions of functions.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,7 +19,7 @@ type SelfOptions = {
   labelStringProperty: TReadOnlyProperty<string>;
 };
 
-export type QBSFunctionButtonOptions = SelfOptions &
+export type FunctionDetailsButtonOptions = SelfOptions &
   PickRequired<RectangularPushButtonOptions, 'listener' | 'tandem' | 'accessibleName' | 'accessibleHelpText' | 'accessibleContextResponse'>;
 
 export default class FunctionDetailsButton extends RectangularPushButton {
@@ -28,13 +27,13 @@ export default class FunctionDetailsButton extends RectangularPushButton {
   // For making all instances of this type of button have the same size.
   private static readonly alignGroup = new AlignGroup();
 
-  protected constructor( providedOptions: QBSFunctionButtonOptions ) {
+  public constructor( providedOptions: FunctionDetailsButtonOptions ) {
 
     const labelNode = FunctionDetailsButton.alignGroup.createBox( new RichText( providedOptions.labelStringProperty, {
       font: QBSConstants.CONTROL_FONT
     } ) );
 
-    const options = optionize<QBSFunctionButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
+    const options = optionize<FunctionDetailsButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
 
       // RectangularPushButtonOptions
       isDisposable: false,

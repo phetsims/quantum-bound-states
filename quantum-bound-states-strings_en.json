@@ -82,6 +82,15 @@
   "referenceLine": {
     "value": "Reference Line"
   },
+  "averageProbabilityDensityOfBandDialogTitle": {
+    "value": "Average Probability Density of Band"
+  },
+  "probabilityDensityDialogTitle": {
+    "value": "Probability Density"
+  },
+  "waveFunctionDialogTitle": {
+    "value": "Wave Function"
+  },
   "mass": {
     "value": "Mass"
   },
@@ -351,12 +360,12 @@
       }
     },
     "graphs": {
-      "averageProbabilityDensityGraph": {
+      "averageProbabilityDensityOfBandGraph": {
         "accessibleHeading": {
-          "value": "Average Probability Density Graph"
+          "value": "Average Probability Density of Band Graph"
         },
         "accessibleParagraph": {
-          "value": "TODO.averageProbabilityDensityGraph.accessibleParagraph"
+          "value": "TODO.averageProbabilityDensityOfBandGraph.accessibleParagraph"
         }
       },
       "probabilityDensityGraph": {

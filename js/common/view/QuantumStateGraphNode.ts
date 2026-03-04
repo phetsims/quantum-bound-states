@@ -30,6 +30,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import { CurvesVisibleToggleButton, CurvesVisibleToggleButtonOptions } from './CurvesVisibleToggleButton.js';
+import FunctionDetailsButton, { FunctionDetailsButtonOptions } from './FunctionDetailsButton.js';
 
 const BUTTON_X_MARGIN = 8;
 const BUTTON_Y_MARGIN = 8;
@@ -48,7 +49,11 @@ type SelfOptions = {
   // Number of decimal places in y-axis tick labels.
   yTickLabelDecimals: number;
 
+  // Propagated to CurvesVisibleToggleButton
   curvesVisibleToggleButtonOptions: StrictOmit<CurvesVisibleToggleButtonOptions, 'tandem'>;
+
+  // Propagated to FunctionDetailsButton
+  functionDetailsButtonOptions: StrictOmit<FunctionDetailsButtonOptions, 'tandem'>;
 };
 
 export type QBSGraphNodeOptions = SelfOptions &
@@ -169,7 +174,19 @@ export default class QuantumStateGraphNode extends Node {
     curvesVisibleToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
     curvesVisibleToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
-    this.children = [ pickableFalseNode, curvesVisibleToggleButton ];
+    // Button to open a dialog that the expanded equation for the function displayed by the graph.
+    const detailsButton = new FunctionDetailsButton( combineOptions<FunctionDetailsButtonOptions>( {
+      tandem: options.tandem.createTandem( 'detailsButton' )
+    }, options.functionDetailsButtonOptions ) );
+    this.addChild( detailsButton );
+
+    // Dynamically position the button in the top-right corner of the chart rectangle.
+    detailsButton.boundsProperty.link( () => {
+      detailsButton.right = this.chartRectangle.right - BUTTON_X_MARGIN;
+      detailsButton.top = this.chartRectangle.y + BUTTON_Y_MARGIN;
+    } );
+
+    this.children = [ pickableFalseNode, curvesVisibleToggleButton, detailsButton ];
   }
 
   /**

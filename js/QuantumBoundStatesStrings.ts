@@ -45,6 +45,9 @@ type StringsType = {
   'phaseStringProperty': LocalizedStringProperty;
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
+  'averageProbabilityDensityOfBandDialogTitleStringProperty': LocalizedStringProperty;
+  'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
+  'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
   'slowStringProperty': LocalizedStringProperty;
   'fastStringProperty': LocalizedStringProperty;
@@ -176,7 +179,7 @@ type StringsType = {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
     'graphs': {
-      'averageProbabilityDensityGraph': {
+      'averageProbabilityDensityOfBandGraph': {
         'accessibleHeadingStringProperty': LocalizedStringProperty;
         'accessibleParagraphStringProperty': LocalizedStringProperty;
       };

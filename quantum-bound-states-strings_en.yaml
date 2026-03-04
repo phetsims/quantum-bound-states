@@ -40,6 +40,11 @@ phase:                                             Phase
 magnifier:                                         Magnifier
 referenceLine:                                     Reference Line
 
+# Dialogs
+averageProbabilityDensityOfBandDialogTitle:        Average Probability Density of Band
+probabilityDensityDialogTitle:                     Probability Density
+waveFunctionDialogTitle:                           Wave Function
+
 # Sliders
 mass:                                              Mass
 slow:                                              slow
@@ -193,9 +198,9 @@ a11y:
 
   graphs:
 
-    averageProbabilityDensityGraph:
-      accessibleHeading:   Average Probability Density Graph
-      accessibleParagraph: TODO.averageProbabilityDensityGraph.accessibleParagraph
+    averageProbabilityDensityOfBandGraph:
+      accessibleHeading:   Average Probability Density of Band Graph
+      accessibleParagraph: TODO.averageProbabilityDensityOfBandGraph.accessibleParagraph
 
     probabilityDensityGraph:
       accessibleHeading:   Probability Density Graph

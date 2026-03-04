@@ -54,6 +54,9 @@ addToMapIfDefined( 'magnitude', 'magnitudeStringProperty' );
 addToMapIfDefined( 'phase', 'phaseStringProperty' );
 addToMapIfDefined( 'magnifier', 'magnifierStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
+addToMapIfDefined( 'averageProbabilityDensityOfBandDialogTitle', 'averageProbabilityDensityOfBandDialogTitleStringProperty' );
+addToMapIfDefined( 'probabilityDensityDialogTitle', 'probabilityDensityDialogTitleStringProperty' );
+addToMapIfDefined( 'waveFunctionDialogTitle', 'waveFunctionDialogTitleStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
 addToMapIfDefined( 'slow', 'slowStringProperty' );
 addToMapIfDefined( 'fast', 'fastStringProperty' );
@@ -119,8 +122,8 @@ addToMapIfDefined( 'a11y_probabilityDensityDetailsDialog_accessibleName', 'a11y.
 addToMapIfDefined( 'a11y_waveFunctionDetailsDialog_accessibleName', 'a11y.waveFunctionDetailsDialog.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleParagraph', 'a11y.energyDiagram.accessibleParagraphStringProperty' );
-addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityGraph_accessibleHeading', 'a11y.graphs.averageProbabilityDensityGraph.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityGraph_accessibleParagraph', 'a11y.graphs.averageProbabilityDensityGraph.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleHeading', 'a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleParagraph', 'a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_graphs_probabilityDensityGraph_accessibleHeading', 'a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_graphs_probabilityDensityGraph_accessibleParagraph', 'a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_graphs_waveFunctionGraph_accessibleHeading', 'a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty' );
@@ -243,17 +246,21 @@ const QuantumBoundStatesFluent = {
   _comment_9: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
   magnifierStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierStringProperty' ),
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
-  _comment_10: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
+  _comment_10: new FluentComment( {"comment":"Dialogs","associatedKey":"averageProbabilityDensityOfBandDialogTitle"} ),
+  averageProbabilityDensityOfBandDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'averageProbabilityDensityOfBandDialogTitleStringProperty' ),
+  probabilityDensityDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityDialogTitleStringProperty' ),
+  waveFunctionDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionDialogTitleStringProperty' ),
+  _comment_11: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
   slowStringProperty: _.get( QuantumBoundStatesStrings, 'slowStringProperty' ),
   fastStringProperty: _.get( QuantumBoundStatesStrings, 'fastStringProperty' ),
-  _comment_11: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
+  _comment_12: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
   energyLevelStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelStringProperty' ),
   energyLevelPatternStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelPatternStringProperty' ),
-  _comment_12: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-  _comment_13: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
-  _comment_14: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-  _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+  _comment_13: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+  _comment_14: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+  _comment_15: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+  _comment_16: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
   units: {
     electronMasses: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMasses.symbolStringProperty' ),
@@ -268,7 +275,7 @@ const QuantumBoundStatesFluent = {
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolPatternStringProperty' )
     }
   },
-  _comment_16: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
+  _comment_17: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
   potentialWells: {
     finiteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.finiteSquareStringProperty' ),
     infiniteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteSquareStringProperty' ),
@@ -278,7 +285,7 @@ const QuantumBoundStatesFluent = {
     coulombStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.coulombStringProperty' ),
     infiniteStepStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteStepStringProperty' )
   },
-  _comment_17: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  _comment_18: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
     _comment_1: new FluentComment( {"comment":"Screens (screen summaries, screen buttons)","associatedKey":"screens"} ),
@@ -397,9 +404,9 @@ const QuantumBoundStatesFluent = {
       accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleParagraphStringProperty' ) )
     },
     graphs: {
-      averageProbabilityDensityGraph: {
-        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_averageProbabilityDensityGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.graphs.averageProbabilityDensityGraph.accessibleHeadingStringProperty' ) ),
-        accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_averageProbabilityDensityGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.graphs.averageProbabilityDensityGraph.accessibleParagraphStringProperty' ) )
+      averageProbabilityDensityOfBandGraph: {
+        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty' ) ),
+        accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleParagraphStringProperty' ) )
       },
       probabilityDensityGraph: {
         accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_probabilityDensityGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty' ) ),

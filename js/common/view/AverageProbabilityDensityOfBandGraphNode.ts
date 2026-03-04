@@ -14,12 +14,8 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
-import { AverageProbabilityDensityOfBandDetailsButton } from './AverageProbabilityDensityOfBandDetailsButton.js';
-import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
+import AverageProbabilityDensityOfBandDetailsDialog from './AverageProbabilityDensityOfBandDetailsDialog.js';
 import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
-
-const BUTTON_X_MARGIN = 8;
-const BUTTON_Y_MARGIN = 8;
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,8 +32,12 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
       yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
-      accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityGraph.accessibleParagraphStringProperty,
+
+      // Core-description options for this graph.
+      accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleParagraphStringProperty,
+
+      // Options for the toggle button that shows/hides curves.
       curvesVisibleToggleButtonOptions: {
         accessibleNameOn: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOnStringProperty,
         accessibleNameOff: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOffStringProperty,
@@ -48,22 +48,19 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
         ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
         accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOnStringProperty,
         accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOffStringProperty
+      },
+
+      // Options for the button that opens a dialog that shows the expanded equation.
+      functionDetailsButtonOptions: {
+        listener: () => new AverageProbabilityDensityOfBandDetailsDialog( model.potentialProperty.value ).show(),
+        labelStringProperty: QuantumBoundStatesFluent.averageProbabilityDensityOfBandDetailsButtonLabelStringProperty,
+        accessibleName: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandDetailsButton.accessibleNameStringProperty,
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandDetailsButton.accessibleHelpTextStringProperty,
+        accessibleContextResponse: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandDetailsButton.accessibleContextResponseStringProperty
       }
     }, providedOptions );
 
     super( model.curvesVisibleProperty, options );
-
-    const detailsButton = new AverageProbabilityDensityOfBandDetailsButton( {
-      listener: () => new ProbabilityDensityDetailsDialog( model.potentialProperty.value ).show(),
-      tandem: options.tandem.createTandem( 'detailsButton' )
-    } );
-    this.addChild( detailsButton );
-
-    // Dynamically position the button in the top-right corner of the chart rectangle.
-    detailsButton.boundsProperty.link( () => {
-      detailsButton.right = this.chartRectangle.right - BUTTON_X_MARGIN;
-      detailsButton.top = this.chartRectangle.y + BUTTON_Y_MARGIN;
-    } );
   }
 }
 
