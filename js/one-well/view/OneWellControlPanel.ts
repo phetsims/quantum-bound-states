@@ -46,9 +46,12 @@ export default class OneWellControlPanel extends Panel {
     const valueLabelsCheckbox = new ValueLabelsCheckbox( model.energyDiagram.valueLabelsVisibleProperty,
       tandem.createTandem( 'valueLabelsCheckbox' ) );
 
-    const displayText = new Text( QuantumBoundStatesFluent.displayStringProperty, {
+    const titleText = new Text( QuantumBoundStatesFluent.displayStringProperty, {
       font: QBSConstants.TITLE_FONT,
-      maxWidth: 200
+      maxWidth: 200,
+      tandem: tandem.createTandem( 'titleText' ),
+      phetioVisiblePropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
     } );
 
     const quantumStateGraphRadioButtonGroup = new QuantumStateGraphRadioButtonGroup( model.selectedGraphProperty,
@@ -73,7 +76,7 @@ export default class OneWellControlPanel extends Panel {
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
-        displayText,
+        titleText,
         quantumStateGraphRadioButtonGroup,
         waveFunctionPartsCheckboxGroup
       ]
