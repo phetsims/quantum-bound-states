@@ -27,6 +27,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ReferenceLine from '../model/ReferenceLine.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import { ReferenceLineKeyboardListener } from './ReferenceLineKeyboardListener.js';
 
 type SelfOptions = {
 
@@ -38,6 +39,8 @@ type SelfOptions = {
 type ReferenceLineNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class ReferenceLineNode extends Node {
+
+  private readonly referenceLine: ReferenceLine;
 
   public constructor( referenceLine: ReferenceLine,
                       chartTransform: ChartTransform,
@@ -66,6 +69,8 @@ export default class ReferenceLineNode extends Node {
 
     super( options );
 
+    this.referenceLine = referenceLine;
+
     referenceLine.xProperty.link( x => {
       verticalLine.x = chartTransform.modelToViewX( x );
     } );
@@ -75,7 +80,7 @@ export default class ReferenceLineNode extends Node {
 /**
  * ReferenceLineHandleNode is the interactive part of the reference line. It can be dragged horizontally.
  */
-class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode ) {
+export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode ) {
 
   private readonly referenceLine: ReferenceLine;
 
@@ -129,6 +134,9 @@ class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode 
       tandem: tandem
     } ) );
 
+    this.addInputListener( new ReferenceLineKeyboardListener( this, referenceLine.xProperty,
+      positionProperty, tandem.createTandem( 'keyboardListener' ) ) );
+
     referenceLine.xProperty.link( x => {
       this.x = chartTransform.modelToViewX( x );
     } );
@@ -145,7 +153,9 @@ class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode 
     const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
       x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMALS )
     } );
-    this.addAccessibleObjectResponse( response );
+    this.addAccessibleObjectResponse( response, {
+      interruptible: true
+    } );
   }
 }
 

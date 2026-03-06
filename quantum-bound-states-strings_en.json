@@ -155,6 +155,16 @@
       "value": "Infinite Step"
     }
   },
+  "keyboardHelp": {
+    "referenceLine": {
+      "heading": {
+        "value": "Reference Line"
+      },
+      "checkValues": {
+        "value": "Check values"
+      }
+    }
+  },
   "a11y": {
     "screens": {
       "oneWellScreen": {

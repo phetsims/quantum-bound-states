@@ -76,6 +76,12 @@ potentialWells:
   coulomb:              Coulomb
   infiniteStep:         Infinite Step
 
+# Keyboaard Help
+keyboardHelp:
+  referenceLine:
+    heading:     Reference Line
+    checkValues: Check values
+
 # Strings that are specific to accessibility
 a11y:
 

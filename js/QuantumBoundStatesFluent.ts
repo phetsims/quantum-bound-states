@@ -71,6 +71,8 @@ addToMapIfDefined( 'potentialWells_harmonicOscillator', 'potentialWells.harmonic
 addToMapIfDefined( 'potentialWells_anharmonicOscillator', 'potentialWells.anharmonicOscillatorStringProperty' );
 addToMapIfDefined( 'potentialWells_coulomb', 'potentialWells.coulombStringProperty' );
 addToMapIfDefined( 'potentialWells_infiniteStep', 'potentialWells.infiniteStepStringProperty' );
+addToMapIfDefined( 'keyboardHelp_referenceLine_heading', 'keyboardHelp.referenceLine.headingStringProperty' );
+addToMapIfDefined( 'keyboardHelp_referenceLine_checkValues', 'keyboardHelp.referenceLine.checkValuesStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenButtonsHelpText', 'a11y.screens.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_playArea', 'a11y.screens.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_controlArea', 'a11y.screens.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -285,7 +287,14 @@ const QuantumBoundStatesFluent = {
     coulombStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.coulombStringProperty' ),
     infiniteStepStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteStepStringProperty' )
   },
-  _comment_18: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  _comment_18: new FluentComment( {"comment":"Keyboaard Help","associatedKey":"keyboardHelp"} ),
+  keyboardHelp: {
+    referenceLine: {
+      headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.headingStringProperty' ),
+      checkValuesStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.checkValuesStringProperty' )
+    }
+  },
+  _comment_19: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
     _comment_1: new FluentComment( {"comment":"Screens (screen summaries, screen buttons)","associatedKey":"screens"} ),

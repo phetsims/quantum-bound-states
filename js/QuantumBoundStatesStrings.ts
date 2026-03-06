@@ -76,6 +76,12 @@ type StringsType = {
     'coulombStringProperty': LocalizedStringProperty;
     'infiniteStepStringProperty': LocalizedStringProperty;
   };
+  'keyboardHelp': {
+    'referenceLine': {
+      'headingStringProperty': LocalizedStringProperty;
+      'checkValuesStringProperty': LocalizedStringProperty;
+    }
+  };
   'a11y': {
     'screens': {
       'oneWellScreen': {
