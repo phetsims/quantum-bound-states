@@ -25,12 +25,6 @@ export default class NumberOfWellsControl extends NumberControl {
     const options = combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
       isDisposable: false,
       delta: 1,
-      numberDisplayOptions: {
-        textOptions: {
-          maxWidth: 50
-        },
-        minBackgroundWidth: 30
-      },
       sliderOptions: {
         majorTicks: createMajorTicks( numberOfWellsProperty.range ),
         createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {

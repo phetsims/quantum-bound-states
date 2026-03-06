@@ -31,10 +31,12 @@ export default class ElectricFieldControl extends NumberControl {
           decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
           showTrailingZeros: true
         } ),
+
+        // Increase the size of the display to accommodate localized units.
         textOptions: {
-          maxWidth: 50
+          maxWidth: 70
         },
-        minBackgroundWidth: 55
+        minBackgroundWidth: 85
       },
       sliderOptions: {
         majorTicks: createMajorTicks( electricFieldProperty.range ),

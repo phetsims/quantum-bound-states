@@ -31,10 +31,15 @@ export default class MassControl extends NumberControl {
           decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
           showTrailingZeros: true
         } ),
+
+        // To accommodate subscript in the units.
+        useRichText: true,
+
+        // Increase the size of the display to accommodate localized units.
         textOptions: {
-          maxWidth: 50
+          maxWidth: 70
         },
-        minBackgroundWidth: 50
+        minBackgroundWidth: 85
       },
       sliderOptions: {
         majorTicks: createMajorTicks( electronMassesProperty.range ),

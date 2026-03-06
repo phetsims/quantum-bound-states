@@ -56,7 +56,7 @@ export default class QBSConstants {
   public static readonly LEGEND_FONT = new PhetFont( 14 ); // for text in the legend
   public static readonly AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } ); // for axis labels on graphs
   public static readonly TICK_LABEL_FONT = new PhetFont( 12 ); // for tick labels on graphs
-  public static readonly CONTROL_FONT = new PhetFont( 12 ); // for text on checkboxes, radio buttons, push buttons, etc.
+  public static readonly CONTROL_FONT = new PhetFont( 14 ); // for text on checkboxes, radio buttons, push buttons, etc.
   public static readonly TITLE_FONT = new PhetFont( { size: 14, weight: 'bold' } );
   public static readonly TIME_FONT = new PhetFont( 16 );
 
@@ -111,17 +111,11 @@ export default class QBSConstants {
       align: 'left',
       arrowButtonsXSpacing: 5
     } ),
-    numberDisplayOptions: {
-      useRichText: true,
-      textOptions: {
-        maxWidth: 50
-      },
-      minBackgroundWidth: 55
-    },
     sliderOptions: {
       trackSize: new Dimension2( 135, 3 ),
       thumbSize: new Dimension2( 15, 25 ),
       majorTickLength: 13,
+      tickLabelSpacing: 4,
       keyboardStep: 0.1,
       shiftKeyboardStep: 0.01,
       pageKeyboardStep: 0.2
