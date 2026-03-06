@@ -43,9 +43,9 @@ export default class MassControl extends NumberControl {
 
         // Increase the size of the display to accommodate localized units.
         textOptions: {
-          maxWidth: 70
+          maxWidth: 50
         },
-        minBackgroundWidth: 85
+        minBackgroundWidth: 65
       },
       sliderOptions: {
         majorTicks: createMajorTicks( electronMassesProperty.range ),
