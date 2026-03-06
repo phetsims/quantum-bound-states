@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ReferenceLineKeyboardListener is the KeyboardListener for scrubbers (Reference Line, Tangent, Area Under Curve).
+ * ReferenceLineKeyboardListener is the KeyboardListener the Reference Line.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

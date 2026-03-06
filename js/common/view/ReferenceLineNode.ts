@@ -9,15 +9,12 @@
 
 import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
-import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
@@ -27,6 +24,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ReferenceLine from '../model/ReferenceLine.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import ReferenceLineDragListener from './ReferenceLineDragListener.js';
 import { ReferenceLineKeyboardListener } from './ReferenceLineKeyboardListener.js';
 
 type SelfOptions = {
@@ -93,43 +91,14 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
 
     this.referenceLine = referenceLine;
 
-    // Synthesize a ModelViewTransform2 from the ChartTransform.
-    const transform = ModelViewTransform2.createOffsetXYScaleMapping(
-      new Vector2( 0, chartTransform.viewHeight / 2 ), // offset of the origin in view coordinates
-      chartTransform.viewWidth / chartTransform.modelXRange.getLength(), // xScale, model to view
-      -( chartTransform.viewHeight / chartTransform.modelYRange.getLength() ) // yScale, model to view
-    );
-
     // Initial position in model coordinates. y-value can be anything because movement is constrained to horizontal.
     const positionProperty = new Property( new Vector2( referenceLine.xProperty.value, 0 ) );
 
-    // Drag bounds in model coordinates. y values can be anything because movement is constrained to horizontal.
-    const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, 0, chartTransform.modelXRange.max, 0 ) );
+    // Drag listeners for all forms of input.
+    this.addInputListener( new ReferenceLineDragListener( this, referenceLine.xProperty,
+      positionProperty, chartTransform, tandem ) );
 
-    // As the handle is dragged, change xProperty.
-    this.addInputListener( new SoundRichDragListener( {
-      transform: transform,
-      positionProperty: positionProperty,
-      dragBoundsProperty: dragBoundsProperty,
-
-      dragListenerOptions: {
-        useParentOffset: true
-      },
-      keyboardDragListenerOptions: {
-        dragDelta: chartTransform.modelToViewDeltaX( 0.1 ),
-        shiftDragDelta: chartTransform.modelToViewDeltaX( 0.01 ),
-        moveOnHoldInterval: 50
-      },
-
-      drag: ( event, listener ) => {
-        referenceLine.xProperty.value = positionProperty.value.x;
-      },
-
-      end: () => this.doAccessibleObjectResponse(),
-
-      tandem: tandem
-    } ) );
-
+    // Keyboard listener for shortcuts.
     this.addInputListener( new ReferenceLineKeyboardListener( this, referenceLine.xProperty,
       positionProperty, tandem.createTandem( 'keyboardListener' ) ) );
 
