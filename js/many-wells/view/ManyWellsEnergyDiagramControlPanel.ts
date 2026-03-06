@@ -10,12 +10,12 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ElectricFieldControl from '../../common/view/ElectricFieldControl.js';
 import { EnergyDiagramControlPanel } from '../../common/view/EnergyDiagramControlPanel.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
-import NumberOfWellsControl from '../../common/view/NumberOfWellsControl.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import ElectricFieldControl from './ElectricFieldControl.js';
+import NumberOfWellsControl from './NumberOfWellsControl.js';
 
 export class ManyWellsEnergyDiagramControlPanel extends EnergyDiagramControlPanel {
 

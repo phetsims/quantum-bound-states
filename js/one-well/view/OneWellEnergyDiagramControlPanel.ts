@@ -12,9 +12,9 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { EnergyDiagramControlPanel } from '../../common/view/EnergyDiagramControlPanel.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
-import MassControl from '../../common/view/MassControl.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import MassControl from './MassControl.js';
 
 export class OneWellEnergyDiagramControlPanel extends EnergyDiagramControlPanel {
 

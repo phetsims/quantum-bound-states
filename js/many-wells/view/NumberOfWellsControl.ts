@@ -12,10 +12,10 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { electronMassesUnit } from '../../common/model/electronMassesUnit.js';
+import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import { electronMassesUnit } from '../model/electronMassesUnit.js';
-import QBSConstants from '../QBSConstants.js';
 
 // These values are all related. Designers tend to request specific values and frequent changes.
 // So use constant values rather than attempting to compute these.
