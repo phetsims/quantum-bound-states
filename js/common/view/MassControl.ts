@@ -30,7 +30,7 @@ export default class MassControl extends NumberControl {
 
     super( titleText, electronMassesProperty, electronMassesProperty.range, {
       isDisposable: false,
-      delta: 0.01,
+      delta: Math.pow( 10, -QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ),
       layoutFunction: NumberControl.createLayoutFunction1( {
         align: 'left',
         arrowButtonsXSpacing: 5
@@ -47,10 +47,10 @@ export default class MassControl extends NumberControl {
         minBackgroundWidth: 50
       },
       sliderOptions: {
-        trackSize: new Dimension2( 135, 3 ),
+        trackSize: new Dimension2( 130, 3 ),
         thumbSize: new Dimension2( 15, 25 ),
         majorTicks: createMajorTicks( electronMassesProperty.range ),
-        majorTickLength: 16,
+        majorTickLength: 13,
         keyboardStep: 0.1,
         shiftKeyboardStep: 0.01,
         pageKeyboardStep: 0.2,
@@ -66,7 +66,7 @@ export default class MassControl extends NumberControl {
 }
 
 /**
- * Creates slider tick marks at the extremes of the range.
+ * Creates major tick marks for the slider.
  */
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 

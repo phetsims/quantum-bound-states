@@ -50,6 +50,7 @@ type StringsType = {
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
   'numberOfWellsStringProperty': LocalizedStringProperty;
+  'electricFieldStringProperty': LocalizedStringProperty;
   'slowStringProperty': LocalizedStringProperty;
   'fastStringProperty': LocalizedStringProperty;
   'energyLevelStringProperty': LocalizedStringProperty;
@@ -242,6 +243,9 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'numberOfWellsControl': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'electricFieldControl': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'energyLevelSpinner': {

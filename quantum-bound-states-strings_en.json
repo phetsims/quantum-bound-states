@@ -97,6 +97,9 @@
   "numberOfWells": {
     "value": "Number of Wells"
   },
+  "electricField": {
+    "value": "Electric Field"
+  },
   "slow": {
     "value": "slow"
   },
@@ -487,6 +490,11 @@
     "numberOfWellsControl": {
       "accessibleHelpText": {
         "value": "TODO.numberOfWellsControl.accessibleHelpText"
+      }
+    },
+    "electricFieldControl": {
+      "accessibleHelpText": {
+        "value": "TODO.electricFieldControl.accessibleHelpText"
       }
     },
     "energyLevelSpinner": {

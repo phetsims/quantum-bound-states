@@ -48,6 +48,7 @@ waveFunctionDialogTitle:                           Wave Function
 # Sliders
 mass:                                              Mass
 numberOfWells:                                     Number of Wells
+electricField:                                     Electric Field
 slow:                                              slow
 fast:                                              fast
 
@@ -273,6 +274,9 @@ a11y:
 
   numberOfWellsControl:
     accessibleHelpText: TODO.numberOfWellsControl.accessibleHelpText
+
+  electricFieldControl:
+    accessibleHelpText: TODO.electricFieldControl.accessibleHelpText
 
   #=======================================================================================================
   # Spinners
