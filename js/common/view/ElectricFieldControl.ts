@@ -48,6 +48,7 @@ export default class ElectricFieldControl extends NumberControl {
       },
       sliderOptions: {
         majorTicks: createMajorTicks( electricFieldProperty.range ),
+        minorTickSpacing: 0.5,
         createAriaValueText: value => voltsPerNanometer.getAccessibleString( value, {
           decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
           showTrailingZeros: false
@@ -74,7 +75,7 @@ export default class ElectricFieldControl extends NumberControl {
  */
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
-  const TICK_SPACING = 0.5;
+  const TICK_SPACING = 1;
 
   const majorTicks: NumberControlMajorTick[] = [];
   let value = range.min;
