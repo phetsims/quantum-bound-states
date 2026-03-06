@@ -49,6 +49,7 @@ export default class MassControl extends NumberControl {
       },
       sliderOptions: {
         majorTicks: createMajorTicks( electronMassesProperty.range ),
+        minorTickSpacing: 0.1,
         createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {
           decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
           showTrailingZeros: false
