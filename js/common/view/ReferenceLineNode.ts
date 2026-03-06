@@ -40,8 +40,6 @@ type ReferenceLineNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'
 
 export default class ReferenceLineNode extends Node {
 
-  private readonly referenceLine: ReferenceLine;
-
   public constructor( referenceLine: ReferenceLine,
                       chartTransform: ChartTransform,
                       providedOptions: ReferenceLineNodeOptions ) {
@@ -68,8 +66,6 @@ export default class ReferenceLineNode extends Node {
     }, providedOptions );
 
     super( options );
-
-    this.referenceLine = referenceLine;
 
     referenceLine.xProperty.link( x => {
       verticalLine.x = chartTransform.modelToViewX( x );
