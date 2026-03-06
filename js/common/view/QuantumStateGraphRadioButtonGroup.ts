@@ -8,6 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -67,6 +68,8 @@ export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGr
         tandemName: 'wavefunctionRadioButton'
       } );
     }
+
+    affirm( items.length > 1, 'At least 2 radio buttons are required.' );
 
     super( selectedGraphProperty, items, {
       spacing: 10,
