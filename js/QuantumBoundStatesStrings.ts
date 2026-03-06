@@ -283,6 +283,12 @@ type StringsType = {
       'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
       'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
     };
+    'presetCustomSwitch': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'valueAAccessibleNameStringProperty': LocalizedStringProperty;
+      'valueBAccessibleNameStringProperty': LocalizedStringProperty;
+    };
     'magnifier': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleParagraphStringProperty': LocalizedStringProperty;

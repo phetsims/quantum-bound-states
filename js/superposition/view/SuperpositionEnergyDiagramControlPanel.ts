@@ -12,16 +12,21 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { EnergyDiagramControlPanel } from '../../common/view/EnergyDiagramControlPanel.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
+import PresetCustomSwitch from './PresetCustomSwitch.js';
 
 export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControlPanel {
 
-  public constructor( valuesVisibleProperty: Property<boolean>,
-                      tandem: Tandem ) {
+  public constructor(
+    superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>,
+    valuesVisibleProperty: Property<boolean>,
+    tandem: Tandem ) {
 
     const controls = [
+      new PresetCustomSwitch( superpositionConfigurationTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
+      //TODO superpositionPresetsComboBox + eyeToggleButton
+      //TODO superpositionCustomComboBox + editButton
       new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
-      //TODO presetCustomSwitch
-      //TODO superpositionComboBox + eyeToggleButton
     ];
 
     super( controls, tandem );

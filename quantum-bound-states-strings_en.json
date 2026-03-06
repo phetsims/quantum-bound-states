@@ -582,6 +582,20 @@
         "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOff"
       }
     },
+    "presetCustomSwitch": {
+      "accessibleName": {
+        "value": "TODO:presetCustomSwitch.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.presetCustomSwitch.accessibleHelpText"
+      },
+      "valueAAccessibleName": {
+        "value": "TODO.presetCustomSwitch.valueAAccessibleName"
+      },
+      "valueBAccessibleName": {
+        "value": "TODO.presetCustomSwitch.valueBAccessibleName"
+      }
+    },
     "magnifier": {
       "accessibleHeading": {
         "value": "Magnifier"

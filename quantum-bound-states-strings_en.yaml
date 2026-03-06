@@ -287,7 +287,7 @@ a11y:
     accessibleHelpText: TODO.energyLevelSpinner.accessibleHelpText
 
   #=======================================================================================================
-  # Toggle Buttons
+  # Toggle Buttons and Switches
   #=======================================================================================================
 
   timeDisplayToggleButton:
@@ -320,6 +320,11 @@ a11y:
     accessibleHelpTextOff:        TODO.waveFunctionToggleButton.accessibleHelpTextOff
     accessibleContextResponseOn:  TODO.waveFunctionToggleButton.accessibleContextResponseOn
     accessibleContextResponseOff: TODO.waveFunctionToggleButton.accessibleContextResponseOff
+
+  presetCustomSwitch:
+    accessibleHelpText:   TODO.presetCustomSwitch.accessibleHelpText
+    valueAAccessibleName: TODO.presetCustomSwitch.valueAAccessibleName
+    valueBAccessibleName: TODO.presetCustomSwitch.valueBAccessibleName
 
   #=======================================================================================================
   # Tools

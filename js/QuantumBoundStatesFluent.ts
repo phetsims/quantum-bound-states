@@ -180,6 +180,10 @@ addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleHelpTextOn', 'a11y.w
 addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleHelpTextOff', 'a11y.waveFunctionToggleButton.accessibleHelpTextOffStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleContextResponseOn', 'a11y.waveFunctionToggleButton.accessibleContextResponseOnStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleContextResponseOff', 'a11y.waveFunctionToggleButton.accessibleContextResponseOffStringProperty' );
+addToMapIfDefined( 'a11y_presetCustomSwitch_accessibleName', 'a11y.presetCustomSwitch.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_presetCustomSwitch_accessibleHelpText', 'a11y.presetCustomSwitch.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_presetCustomSwitch_valueAAccessibleName', 'a11y.presetCustomSwitch.valueAAccessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_presetCustomSwitch_valueBAccessibleName', 'a11y.presetCustomSwitch.valueBAccessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_magnifier_accessibleHeading', 'a11y.magnifier.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_magnifier_accessibleParagraph', 'a11y.magnifier.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_magnifier_probe_accessibleName', 'a11y.magnifier.probe.accessibleNameStringProperty' );
@@ -500,7 +504,7 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' ) )
     },
     _comment_28: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeDisplayToggleButton"} ),
-    _comment_29: new FluentComment( {"comment":"Toggle Buttons","associatedKey":"timeDisplayToggleButton"} ),
+    _comment_29: new FluentComment( {"comment":"Toggle Buttons and Switches","associatedKey":"timeDisplayToggleButton"} ),
     _comment_30: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeDisplayToggleButton"} ),
     timeDisplayToggleButton: {
       accessibleNameOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleNameOn', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleNameOnStringProperty' ) ),
@@ -532,6 +536,12 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleHelpTextOff', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleHelpTextOffStringProperty' ) ),
       accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleContextResponseOnStringProperty' ) ),
       accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleContextResponseOffStringProperty' ) )
+    },
+    presetCustomSwitch: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetCustomSwitch_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.presetCustomSwitch.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetCustomSwitch_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.presetCustomSwitch.accessibleHelpTextStringProperty' ) ),
+      valueAAccessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetCustomSwitch_valueAAccessibleName', _.get( QuantumBoundStatesStrings, 'a11y.presetCustomSwitch.valueAAccessibleNameStringProperty' ) ),
+      valueBAccessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetCustomSwitch_valueBAccessibleName', _.get( QuantumBoundStatesStrings, 'a11y.presetCustomSwitch.valueBAccessibleNameStringProperty' ) )
     },
     _comment_31: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
     _comment_32: new FluentComment( {"comment":"Tools","associatedKey":"magnifier"} ),
