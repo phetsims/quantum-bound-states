@@ -33,7 +33,7 @@ export default class ReferenceLineCheckbox extends Checkbox {
 
     const icon = createIcon();
 
-    const box = new HBox( {
+    const content = new HBox( {
       children: [ text, icon ],
       spacing: 8
     } );
@@ -46,7 +46,7 @@ export default class ReferenceLineCheckbox extends Checkbox {
       tandem: tandem
     } );
 
-    super( referenceLineVisibleProperty, box, options );
+    super( referenceLineVisibleProperty, content, options );
   }
 }
 

@@ -26,6 +26,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Magnifier from '../model/Magnifier.js';
 import QBSColors from '../QBSColors.js';
+import QBSConstants from '../QBSConstants.js';
 
 const BODY_SIZE = new Dimension2( 175, 75 );
 const CORNER_RADIUS = 8;
@@ -90,20 +91,8 @@ class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
   public constructor( tandem: Tandem ) {
 
-    const options = combineOptions<ProbeNodeOptions>( {
+    const options = combineOptions<ProbeNodeOptions>( {}, QBSConstants.PROBE_NODE_OPTIONS, {
       cursor: 'pointer',
-      radius: 18,
-      innerRadius: 14,
-      handleWidth: 20,
-      handleHeight: 20,
-      handleCornerRadius: 8,
-      lightAngle: 1.25 * Math.PI,
-      color: QBSColors.magnifierProbeColorProperty,
-      sensorTypeFunction: ProbeNode.crosshairs( {
-        stroke: QBSColors.magnifierCrosshairsStrokeProperty,
-        lineWidth: 2,
-        intersectionRadius: 4
-      } ),
       accessibleName: QuantumBoundStatesFluent.a11y.magnifier.probe.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifier.probe.accessibleHelpTextStringProperty,
       tandem: tandem,

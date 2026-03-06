@@ -9,6 +9,7 @@
 import Range from '../../../dot/js/Range.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
+import ProbeNode, { ProbeNodeOptions } from '../../../scenery-phet/js/ProbeNode.js';
 import Text from '../../../scenery/js/nodes/Text.js';
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import { DialogOptions } from '../../../sun/js/Dialog.js';
@@ -106,6 +107,21 @@ export default class QBSConstants {
     visiblePropertyOptions: {
       phetioFeatured: true
     }
+  };
+
+  public static readonly PROBE_NODE_OPTIONS: ProbeNodeOptions = {
+    radius: 18,
+    innerRadius: 14,
+    handleWidth: 20,
+    handleHeight: 20,
+    handleCornerRadius: 8,
+    lightAngle: 1.25 * Math.PI,
+    color: QBSColors.magnifierProbeColorProperty,
+    sensorTypeFunction: ProbeNode.crosshairs( {
+      stroke: QBSColors.magnifierCrosshairsStrokeProperty,
+      lineWidth: 2,
+      intersectionRadius: 4
+    } )
   };
 }
 
