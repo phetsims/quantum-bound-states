@@ -6,9 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
 import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
+import NumberControl, { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import ProbeNode, { ProbeNodeOptions } from '../../../scenery-phet/js/ProbeNode.js';
 import Text from '../../../scenery/js/nodes/Text.js';
@@ -102,6 +104,28 @@ export default class QBSConstants {
 
   public static readonly DIALOG_OPTIONS: DialogOptions = {
     tandem: Tandem.OPT_OUT // Not instrumenting dialogs was a design decision.
+  };
+
+  public static readonly NUMBER_CONTROL_OPTIONS: NumberControlOptions = {
+    layoutFunction: NumberControl.createLayoutFunction1( {
+      align: 'left',
+      arrowButtonsXSpacing: 5
+    } ),
+    numberDisplayOptions: {
+      useRichText: true,
+      textOptions: {
+        maxWidth: 50
+      },
+      minBackgroundWidth: 55
+    },
+    sliderOptions: {
+      trackSize: new Dimension2( 135, 3 ),
+      thumbSize: new Dimension2( 15, 25 ),
+      majorTickLength: 13,
+      keyboardStep: 0.1,
+      shiftKeyboardStep: 0.01,
+      pageKeyboardStep: 0.2
+    }
   };
 
   public static readonly PANEL_OPTIONS: PanelOptions = {

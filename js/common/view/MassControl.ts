@@ -7,9 +7,9 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import NumberControl, { NumberControlMajorTick } from '../../../../scenery-phet/js/NumberControl.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -23,45 +23,39 @@ export default class MassControl extends NumberControl {
 
   public constructor( electronMassesProperty: NumberProperty, tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.massStringProperty, {
-      font: QBSConstants.CONTROL_FONT,
-      maxWidth: 100
-    } );
-
-    super( titleText, electronMassesProperty, electronMassesProperty.range, {
+    const options = combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
       isDisposable: false,
-      delta: Math.pow( 10, -QBSConstants.ELECTRON_MASS_DECIMAL_PLACES ),
-      layoutFunction: NumberControl.createLayoutFunction1( {
-        align: 'left',
-        arrowButtonsXSpacing: 5
-      } ),
+      delta: 0.01,
       numberDisplayOptions: {
         numberFormatter: value => electronMassesUnit.getVisualSymbolPatternString( value, {
           decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
           showTrailingZeros: true
         } ),
-        useRichText: true,
         textOptions: {
           maxWidth: 50
         },
         minBackgroundWidth: 50
       },
       sliderOptions: {
-        trackSize: new Dimension2( 130, 3 ),
-        thumbSize: new Dimension2( 15, 25 ),
         majorTicks: createMajorTicks( electronMassesProperty.range ),
-        majorTickLength: 13,
-        keyboardStep: 0.1,
-        shiftKeyboardStep: 0.01,
-        pageKeyboardStep: 0.2,
         createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {
           decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
           showTrailingZeros: false
-        } )
+        } ),
+        keyboardStep: 0.1,
+        shiftKeyboardStep: 0.01,
+        pageKeyboardStep: 0.1
       },
       accessibleHelpText: QuantumBoundStatesFluent.a11y.massControl.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
+
+    const titleText = new Text( QuantumBoundStatesFluent.massStringProperty, {
+      font: QBSConstants.CONTROL_FONT,
+      maxWidth: 100
+    } );
+
+    super( titleText, electronMassesProperty, electronMassesProperty.range, options );
   }
 }
 

@@ -7,10 +7,10 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
-import NumberControl, { NumberControlMajorTick } from '../../../../scenery-phet/js/NumberControl.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -23,45 +23,39 @@ export default class ElectricFieldControl extends NumberControl {
 
   public constructor( electricFieldProperty: NumberProperty, tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.electricFieldStringProperty, {
-      font: QBSConstants.CONTROL_FONT,
-      maxWidth: 100
-    } );
-
-    super( titleText, electricFieldProperty, electricFieldProperty.range, {
+    const options = combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
       isDisposable: false,
-      delta: Math.pow( 10, -QBSConstants.ELECTRIC_FIELD_DECIMALS ),
-      layoutFunction: NumberControl.createLayoutFunction1( {
-        align: 'left',
-        arrowButtonsXSpacing: 5
-      } ),
+      delta: 0.1,
       numberDisplayOptions: {
         numberFormatter: value => voltsPerNanometer.getVisualSymbolPatternString( value, {
           decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
           showTrailingZeros: true
         } ),
-        useRichText: true,
         textOptions: {
           maxWidth: 50
         },
         minBackgroundWidth: 55
       },
       sliderOptions: {
-        trackSize: new Dimension2( 135, 3 ),
-        thumbSize: new Dimension2( 15, 25 ),
         majorTicks: createMajorTicks( electricFieldProperty.range ),
-        majorTickLength: 13,
-        keyboardStep: 0.1,
-        shiftKeyboardStep: 0.01,
-        pageKeyboardStep: 0.2,
         createAriaValueText: value => voltsPerNanometer.getAccessibleString( value, {
           decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
           showTrailingZeros: false
-        } )
+        } ),
+        keyboardStep: 0.1,
+        shiftKeyboardStep: 0.1,
+        pageKeyboardStep: 0.5
       },
       accessibleHelpText: QuantumBoundStatesFluent.a11y.electricFieldControl.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
+
+    const titleText = new Text( QuantumBoundStatesFluent.electricFieldStringProperty, {
+      font: QBSConstants.CONTROL_FONT,
+      maxWidth: 100
+    } );
+
+    super( titleText, electricFieldProperty, electricFieldProperty.range, options );
   }
 }
 
