@@ -10,6 +10,7 @@ import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboar
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import ReferenceLineKeyboardHelpSection from './ReferenceLineKeyboardHelpSection.js';
 
 export default class QBSKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -17,7 +18,9 @@ export default class QBSKeyboardHelpContent extends TwoColumnKeyboardHelpContent
 
     // Sections in the left column.
     const leftSections: KeyboardHelpSection[] = [
-      //TODO
+
+      // Reference Line
+      new ReferenceLineKeyboardHelpSection()
     ];
 
     // Sections in the right column.
