@@ -275,6 +275,16 @@ a11y:
     accessibleHelpText:        TODO.waveFunctionDetailsButton.accessibleHelpText
     accessibleContextResponse: TODO.waveFunctionDetailsButton.accessibleContextResponse
 
+  superpositionEditButton:
+    accessibleName:            TODO.superpositionEditButton.accessibleName
+    accessibleHelpText:        TODO.superpositionEditButton.accessibleHelpText
+    accessibleContextResponse: TODO.superpositionEditButton.accessibleContextResponse
+
+  superpositionInfoButton:
+    accessibleName:            TODO.superpositionInfoButton.accessibleName
+    accessibleHelpText:        TODO.superpositionInfoButton.accessibleHelpText
+    accessibleContextResponse: TODO.superpositionInfoButton.accessibleContextResponse
+
   #=======================================================================================================
   # Radio Buttons
   #=======================================================================================================

@@ -167,6 +167,14 @@ export default class QBSColors {
   public static readonly magnifierWireStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierWireStroke', {
     default: Color.grayColor( 128 )
   } );
+
+  public static readonly superpositionEditButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionEditButtonColor', {
+    default: 'rgb( 179, 229, 247 )'
+  } );
+
+  public static readonly superpositionInfoButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionInfoButtonColor', {
+    default: 'rgb( 179, 229, 247 )'
+  } );
 }
 
 quantumBoundStates.register( 'QBSColors', QBSColors );

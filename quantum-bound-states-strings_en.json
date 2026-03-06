@@ -507,6 +507,28 @@
         "value": "TODO.waveFunctionDetailsButton.accessibleContextResponse"
       }
     },
+    "superpositionEditButton": {
+      "accessibleName": {
+        "value": "TODO.superpositionEditButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.superpositionEditButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.superpositionEditButton.accessibleContextResponse"
+      }
+    },
+    "superpositionInfoButton": {
+      "accessibleName": {
+        "value": "TODO.superpositionInfoButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.superpositionInfoButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.superpositionInfoButton.accessibleContextResponse"
+      }
+    },
     "graphTypeRadioButtonGroup": {
       "accessibleName": {
         "value": "Graph Type"

@@ -10,6 +10,8 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import AlignBox, { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -19,6 +21,8 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
 import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
+import SuperpositionEditButton from './SuperpositionEditButton.js';
+import SuperpositionInfoButton from './SuperpositionInfoButton.js';
 import SuperpositionPresetComboBox from './SuperpositionPresetComboBox.js';
 
 export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControlPanel {
@@ -30,25 +34,46 @@ export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControl
                       tandem: Tandem ) {
 
     const presetHBox = new HBox( {
+      spacing: 8,
       children: [
-        new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'presetCustomSwitch' ) )
-        //TODO eyeToggleButton
+        new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'superpositionPresetComboBox' ) ),
+        new SuperpositionInfoButton( {
+          listener: () => {
+            //TODO
+          },
+          tandem: tandem.createTandem( 'infoButton' )
+        } )
       ],
       visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'preset' )
     } );
 
     const customHBox = new HBox( {
+      spacing: 8,
       children: [
-        new SuperpositionCustomComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'presetCustomSwitch' ) )
-        //TODO editButton
+        new SuperpositionCustomComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'superpositionCustomComboBox' ) ),
+        new SuperpositionEditButton( {
+          listener: () => {
+            //TODO
+          },
+          tandem: tandem.createTandem( 'editButton' )
+        } )
       ],
       visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'custom' )
     } );
 
+    const alignBoxOptions: AlignBoxOptions = {
+      group: new AlignGroup(),
+      xAlign: 'left'
+    };
+
     const controls = [
       new PresetCustomSwitch( superpositionConfigurationTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
-      presetHBox,
-      customHBox,
+      new Node( {
+        children: [
+          new AlignBox( presetHBox, alignBoxOptions ),
+          new AlignBox( customHBox, alignBoxOptions )
+        ]
+      } ),
       new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
     ];
 

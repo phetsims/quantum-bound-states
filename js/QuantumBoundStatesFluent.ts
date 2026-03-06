@@ -159,6 +159,12 @@ addToMapIfDefined( 'a11y_probabilityDensityDetailsButton_accessibleContextRespon
 addToMapIfDefined( 'a11y_waveFunctionDetailsButton_accessibleName', 'a11y.waveFunctionDetailsButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionDetailsButton_accessibleHelpText', 'a11y.waveFunctionDetailsButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionDetailsButton_accessibleContextResponse', 'a11y.waveFunctionDetailsButton.accessibleContextResponseStringProperty' );
+addToMapIfDefined( 'a11y_superpositionEditButton_accessibleName', 'a11y.superpositionEditButton.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_superpositionEditButton_accessibleHelpText', 'a11y.superpositionEditButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_superpositionEditButton_accessibleContextResponse', 'a11y.superpositionEditButton.accessibleContextResponseStringProperty' );
+addToMapIfDefined( 'a11y_superpositionInfoButton_accessibleName', 'a11y.superpositionInfoButton.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_superpositionInfoButton_accessibleHelpText', 'a11y.superpositionInfoButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_superpositionInfoButton_accessibleContextResponse', 'a11y.superpositionInfoButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_graphTypeRadioButtonGroup_accessibleName', 'a11y.graphTypeRadioButtonGroup.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_graphTypeRadioButtonGroup_accessibleHelpText', 'a11y.graphTypeRadioButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_massControl_accessibleHelpText', 'a11y.massControl.accessibleHelpTextStringProperty' );
@@ -498,6 +504,16 @@ const QuantumBoundStatesFluent = {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsButton.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsButton.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsButton.accessibleContextResponseStringProperty' ) )
+    },
+    superpositionEditButton: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionEditButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionEditButton.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionEditButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionEditButton.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionEditButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionEditButton.accessibleContextResponseStringProperty' ) )
+    },
+    superpositionInfoButton: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionInfoButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionInfoButton.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionInfoButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionInfoButton.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionInfoButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionInfoButton.accessibleContextResponseStringProperty' ) )
     },
     _comment_21: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
     _comment_22: new FluentComment( {"comment":"Radio Buttons","associatedKey":"graphTypeRadioButtonGroup"} ),
