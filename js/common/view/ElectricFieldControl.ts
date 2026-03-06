@@ -11,7 +11,6 @@ import Range from '../../../../dot/js/Range.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -19,13 +18,20 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { voltsPerNanometer } from '../model/voltsPerNanometer.js';
 import QBSConstants from '../QBSConstants.js';
 
+// These values are all related. Designers tend to request specific values and frequent changes.
+// So use constant values rather than attempting to compute these.
+const DELTA = 0.1;
+const KEYBOARD_STEP = 0.1;
+const SHIFT_KEYBOARD_STEP = 0.1;
+const PAGE_KEYBOARD_STEP = 0.5;
+
 export default class ElectricFieldControl extends NumberControl {
 
   public constructor( electricFieldProperty: NumberProperty, tandem: Tandem ) {
 
     const options = combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
       isDisposable: false,
-      delta: 0.1,
+      delta: DELTA,
       numberDisplayOptions: {
         numberFormatter: value => voltsPerNanometer.getVisualSymbolPatternString( value, {
           decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
@@ -44,9 +50,9 @@ export default class ElectricFieldControl extends NumberControl {
           decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
           showTrailingZeros: false
         } ),
-        keyboardStep: 0.1,
-        shiftKeyboardStep: 0.1,
-        pageKeyboardStep: 0.5
+        keyboardStep: KEYBOARD_STEP,
+        shiftKeyboardStep: SHIFT_KEYBOARD_STEP,
+        pageKeyboardStep: PAGE_KEYBOARD_STEP
       },
       accessibleHelpText: QuantumBoundStatesFluent.a11y.electricFieldControl.accessibleHelpTextStringProperty,
       tandem: tandem
@@ -62,23 +68,18 @@ export default class ElectricFieldControl extends NumberControl {
 }
 
 /**
- * Creates major tick marks for the slider.
+ * Creates major tick marks at specific intervals.
  */
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
   const TICK_SPACING = 0.5;
-
-  const tickTextOptions = {
-    font: new PhetFont( 10 ),
-    maxWidth: 50
-  };
 
   const majorTicks: NumberControlMajorTick[] = [];
   let value = range.min;
   while ( value <= range.max ) {
     majorTicks.push( {
       value: toFixedNumber( value, QBSConstants.ELECTRIC_FIELD_DECIMALS ),
-      label: new Text( value, tickTextOptions )
+      label: new Text( value, QBSConstants.TICK_TEXT_OPTIONS )
     } );
     value += TICK_SPACING;
   }

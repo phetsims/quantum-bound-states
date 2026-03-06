@@ -10,7 +10,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -19,13 +18,20 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { electronMassesUnit } from '../model/electronMassesUnit.js';
 import QBSConstants from '../QBSConstants.js';
 
+// These values are all related. Designers tend to request specific values and frequent changes.
+// So use constant values rather than attempting to compute these.
+const DELTA = 0.01;
+const KEYBOARD_STEP = 0.1;
+const SHIFT_KEYBOARD_STEP = 0.01;
+const PAGE_KEYBOARD_STEP = 0.1;
+
 export default class MassControl extends NumberControl {
 
   public constructor( electronMassesProperty: NumberProperty, tandem: Tandem ) {
 
     const options = combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
       isDisposable: false,
-      delta: 0.01,
+      delta: DELTA,
       numberDisplayOptions: {
         numberFormatter: value => electronMassesUnit.getVisualSymbolPatternString( value, {
           decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
@@ -47,9 +53,9 @@ export default class MassControl extends NumberControl {
           decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
           showTrailingZeros: false
         } ),
-        keyboardStep: 0.1,
-        shiftKeyboardStep: 0.01,
-        pageKeyboardStep: 0.1
+        keyboardStep: KEYBOARD_STEP,
+        shiftKeyboardStep: SHIFT_KEYBOARD_STEP,
+        pageKeyboardStep: PAGE_KEYBOARD_STEP
       },
       accessibleHelpText: QuantumBoundStatesFluent.a11y.massControl.accessibleHelpTextStringProperty,
       tandem: tandem
@@ -65,7 +71,7 @@ export default class MassControl extends NumberControl {
 }
 
 /**
- * Creates major tick marks for the slider.
+ * Creates major tick marks at min and max.
  */
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
@@ -79,19 +85,14 @@ function createMajorTicks( range: Range ): NumberControlMajorTick[] {
     showTrailingZeros: false
   } );
 
-  const tickTextOptions = {
-    font: new PhetFont( 10 ),
-    maxWidth: 50
-  };
-
   return [
     {
       value: range.min,
-      label: new RichText( minStringProperty, tickTextOptions )
+      label: new RichText( minStringProperty, QBSConstants.TICK_TEXT_OPTIONS )
     },
     {
       value: range.max,
-      label: new RichText( maxStringProperty, tickTextOptions )
+      label: new RichText( maxStringProperty, QBSConstants.TICK_TEXT_OPTIONS )
     }
   ];
 }

@@ -10,7 +10,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -18,22 +17,30 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { electronMassesUnit } from '../model/electronMassesUnit.js';
 import QBSConstants from '../QBSConstants.js';
 
+// These values are all related. Designers tend to request specific values and frequent changes.
+// So use constant values rather than attempting to compute these.
+const DELTA = 1;
+const KEYBOARD_STEP = 1;
+const SHIFT_KEYBOARD_STEP = 1;
+const PAGE_KEYBOARD_STEP = 1;
+
 export default class NumberOfWellsControl extends NumberControl {
 
   public constructor( numberOfWellsProperty: NumberProperty, tandem: Tandem ) {
 
     const options = combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
       isDisposable: false,
-      delta: 1,
+      delta: DELTA,
       sliderOptions: {
         majorTicks: createMajorTicks( numberOfWellsProperty.range ),
+        minorTickSpacing: 1,
         createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {
           decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
           showTrailingZeros: false
         } ),
-        keyboardStep: 1,
-        shiftKeyboardStep: 1,
-        pageKeyboardStep: 1
+        keyboardStep: KEYBOARD_STEP,
+        shiftKeyboardStep: SHIFT_KEYBOARD_STEP,
+        pageKeyboardStep: PAGE_KEYBOARD_STEP
       },
       accessibleHelpText: QuantumBoundStatesFluent.a11y.numberOfWellsControl.accessibleHelpTextStringProperty,
       tandem: tandem
@@ -49,28 +56,18 @@ export default class NumberOfWellsControl extends NumberControl {
 }
 
 /**
- * Creates major tick marks for the slider.
+ * Creates a major tick at min/max and specific intervals.
  */
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
-  const TICK_SPACING = 5;
-
-  const tickTextOptions = {
-    font: new PhetFont( 10 ),
-    maxWidth: 50
-  };
+  const TICK_INTERVAL = 5;
 
   const majorTicks: NumberControlMajorTick[] = [];
   for ( let i = range.min; i <= range.max; i++ ) {
-    if ( i === range.min || i === range.max || i % TICK_SPACING === 0 ) {
+    if ( i === range.min || i === range.max || i % TICK_INTERVAL === 0 ) {
       majorTicks.push( {
         value: i,
-        label: new Text( i, tickTextOptions )
-      } );
-    }
-    else {
-      majorTicks.push( {
-        value: i
+        label: new Text( i, QBSConstants.TICK_TEXT_OPTIONS )
       } );
     }
   }

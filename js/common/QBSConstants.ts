@@ -13,7 +13,7 @@ import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import NumberControl, { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import ProbeNode, { ProbeNodeOptions } from '../../../scenery-phet/js/ProbeNode.js';
-import Text from '../../../scenery/js/nodes/Text.js';
+import Text, { TextOptions } from '../../../scenery/js/nodes/Text.js';
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import { DialogOptions } from '../../../sun/js/Dialog.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
@@ -146,6 +146,11 @@ export default class QBSConstants {
       lineWidth: 2,
       intersectionRadius: 4
     } )
+  };
+
+  public static readonly TICK_TEXT_OPTIONS: TextOptions = {
+    font: new PhetFont( 10 ),
+    maxWidth: 50
   };
 }
 
