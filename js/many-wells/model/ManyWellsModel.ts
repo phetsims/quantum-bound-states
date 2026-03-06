@@ -17,6 +17,8 @@ export default class ManyWellsModel extends QBSModel {
 
   public readonly numberOfWellsProperty: NumberProperty;
 
+  public readonly electricFieldProperty: NumberProperty;
+
   public constructor( tandem: Tandem ) {
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
@@ -34,7 +36,26 @@ export default class ManyWellsModel extends QBSModel {
       range: QBSConstants.NUMBER_OF_WELLS_RANGE,
       tandem: tandem.createTandem( 'numberOfWellsProperty' )
     } );
-    //TODO this.numberOfWellsProperty.link to update potentials
+
+    this.numberOfWellsProperty.link( numberOfWells => {
+      //TODO update potentials
+    } );
+
+    this.electricFieldProperty = new NumberProperty( QBSConstants.ELECTRIC_FIELD_RANGE.defaultValue, {
+      numberType: 'FloatingPoint',
+      range: QBSConstants.ELECTRIC_FIELD_RANGE,
+      tandem: tandem.createTandem( 'electricFieldProperty' )
+    } );
+
+    this.electricFieldProperty.link( electricField => {
+      //TODO update potentials
+    } );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.numberOfWellsProperty.reset();
+    this.electricFieldProperty.reset();
   }
 }
 
