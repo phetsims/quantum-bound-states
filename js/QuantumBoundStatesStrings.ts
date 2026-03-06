@@ -66,6 +66,10 @@ type StringsType = {
     'femtoSeconds': {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
+    };
+    'voltsPerNanometer': {
+      'symbolStringProperty': LocalizedStringProperty;
+      'symbolPatternStringProperty': LocalizedStringProperty;
     }
   };
   'potentialWells': {
@@ -296,13 +300,16 @@ type StringsType = {
     };
     'units': {
       'electronMasses': {
-        'patternStringProperty': LocalizedStringProperty;
+        'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'electronVolts': {
-        'patternStringProperty': LocalizedStringProperty;
+        'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'femtoseconds': {
-        'patternStringProperty': LocalizedStringProperty;
+        'accessiblePatternStringProperty': LocalizedStringProperty;
+      };
+      'voltsPerNanometer': {
+        'accessiblePatternStringProperty': LocalizedStringProperty;
       }
     }
   }

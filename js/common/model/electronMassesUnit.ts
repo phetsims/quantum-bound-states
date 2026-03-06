@@ -15,7 +15,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 export const electronMassesUnit = new PhetUnit<ReadOnlyProperty<string>>( 'm<sub>e</sub>', {
   visualSymbolStringProperty: QuantumBoundStatesFluent.units.electronMasses.symbolStringProperty,
   visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.electronMasses.symbolPatternStringProperty,
-  accessiblePattern: QuantumBoundStatesFluent.a11y.units.electronMasses.pattern
+  accessiblePattern: QuantumBoundStatesFluent.a11y.units.electronMasses.accessiblePattern
 } );
 
 quantumBoundStates.register( 'electronMassesUnit', electronMassesUnit );

@@ -66,6 +66,9 @@ units:
   femtoSeconds:
     symbol:        fs
     symbolPattern: '{{value}} fs'
+  voltsPerNanometer:
+    symbol:        V/nm
+    symbolPattern: '{{value}} V/nm'
 
 # Potential Wells
 potentialWells:
@@ -346,8 +349,10 @@ a11y:
 
   units:
     electronMasses:
-      pattern: '{$value} times electron mass'
+      accessiblePattern: '{$value} times electron mass'
     electronVolts:
-      pattern: '{$value} eV'
+      accessiblePattern: '{$value} electron volts'
     femtoseconds:
-      pattern: '{$value} fs'
+      accessiblePattern: '{$value} femtoseconds'
+    voltsPerNanometer:
+      accessiblePattern: '{$value} volts per nanometer'

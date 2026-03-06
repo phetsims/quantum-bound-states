@@ -15,7 +15,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 export const femtosecondsUnit = new PhetUnit<ReadOnlyProperty<string>>( 'fs', {
   visualSymbolStringProperty: QuantumBoundStatesFluent.units.femtoSeconds.symbolStringProperty,
   visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.femtoSeconds.symbolPatternStringProperty,
-  accessiblePattern: QuantumBoundStatesFluent.a11y.units.femtoseconds.pattern
+  accessiblePattern: QuantumBoundStatesFluent.a11y.units.femtoseconds.accessiblePattern
 } );
 
 quantumBoundStates.register( 'femtosecondsUnit', femtosecondsUnit );

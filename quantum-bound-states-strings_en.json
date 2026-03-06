@@ -133,6 +133,14 @@
       "symbolPattern": {
         "value": "{{value}} fs"
       }
+    },
+    "voltsPerNanometer": {
+      "symbol": {
+        "value": "V/nm"
+      },
+      "symbolPattern": {
+        "value": "{{value}} V/nm"
+      }
     }
   },
   "potentialWells": {
@@ -609,18 +617,23 @@
     },
     "units": {
       "electronMasses": {
-        "pattern": {
+        "accessiblePattern": {
           "value": "{$value} times electron mass"
         }
       },
       "electronVolts": {
-        "pattern": {
-          "value": "{$value} eV"
+        "accessiblePattern": {
+          "value": "{$value} electron volts"
         }
       },
       "femtoseconds": {
-        "pattern": {
-          "value": "{$value} fs"
+        "accessiblePattern": {
+          "value": "{$value} femtoseconds"
+        }
+      },
+      "voltsPerNanometer": {
+        "accessiblePattern": {
+          "value": "{$value} volts per nanometer"
         }
       }
     }

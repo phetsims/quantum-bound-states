@@ -65,6 +65,7 @@ addToMapIfDefined( 'energyLevel', 'energyLevelStringProperty' );
 addToMapIfDefined( 'units_electronMasses_symbol', 'units.electronMasses.symbolStringProperty' );
 addToMapIfDefined( 'units_electronVolts_symbol', 'units.electronVolts.symbolStringProperty' );
 addToMapIfDefined( 'units_femtoSeconds_symbol', 'units.femtoSeconds.symbolStringProperty' );
+addToMapIfDefined( 'units_voltsPerNanometer_symbol', 'units.voltsPerNanometer.symbolStringProperty' );
 addToMapIfDefined( 'potentialWells_finiteSquare', 'potentialWells.finiteSquareStringProperty' );
 addToMapIfDefined( 'potentialWells_infiniteSquare', 'potentialWells.infiniteSquareStringProperty' );
 addToMapIfDefined( 'potentialWells_asymmetricTriangle', 'potentialWells.asymmetricTriangleStringProperty' );
@@ -188,9 +189,10 @@ addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse', 'a11y.referenc
 addToMapIfDefined( 'a11y_potentialTypeComboBox_accessibleName', 'a11y.potentialTypeComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_potentialTypeComboBox_accessibleHelpText', 'a11y.potentialTypeComboBox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_potentialTypeComboBox_accessibleContextResponse', 'a11y.potentialTypeComboBox.accessibleContextResponseStringProperty' );
-addToMapIfDefined( 'a11y_units_electronMasses_pattern', 'a11y.units.electronMasses.patternStringProperty' );
-addToMapIfDefined( 'a11y_units_electronVolts_pattern', 'a11y.units.electronVolts.patternStringProperty' );
-addToMapIfDefined( 'a11y_units_femtoseconds_pattern', 'a11y.units.femtoseconds.patternStringProperty' );
+addToMapIfDefined( 'a11y_units_electronMasses_accessiblePattern', 'a11y.units.electronMasses.accessiblePatternStringProperty' );
+addToMapIfDefined( 'a11y_units_electronVolts_accessiblePattern', 'a11y.units.electronVolts.accessiblePatternStringProperty' );
+addToMapIfDefined( 'a11y_units_femtoseconds_accessiblePattern', 'a11y.units.femtoseconds.accessiblePatternStringProperty' );
+addToMapIfDefined( 'a11y_units_voltsPerNanometer_accessiblePattern', 'a11y.units.voltsPerNanometer.accessiblePatternStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -278,6 +280,10 @@ const QuantumBoundStatesFluent = {
     femtoSeconds: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolStringProperty' ),
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolPatternStringProperty' )
+    },
+    voltsPerNanometer: {
+      symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.voltsPerNanometer.symbolStringProperty' ),
+      symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.voltsPerNanometer.symbolPatternStringProperty' )
     }
   },
   _comment_17: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
@@ -552,13 +558,16 @@ const QuantumBoundStatesFluent = {
     _comment_40: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
     units: {
       electronMasses: {
-        pattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronMasses_pattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronMasses.patternStringProperty' ), [{"name":"value"}] )
+        accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronMasses_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronMasses.accessiblePatternStringProperty' ), [{"name":"value"}] )
       },
       electronVolts: {
-        pattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronVolts_pattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronVolts.patternStringProperty' ), [{"name":"value"}] )
+        accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronVolts_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronVolts.accessiblePatternStringProperty' ), [{"name":"value"}] )
       },
       femtoseconds: {
-        pattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_femtoseconds_pattern', _.get( QuantumBoundStatesStrings, 'a11y.units.femtoseconds.patternStringProperty' ), [{"name":"value"}] )
+        accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_femtoseconds_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.femtoseconds.accessiblePatternStringProperty' ), [{"name":"value"}] )
+      },
+      voltsPerNanometer: {
+        accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_voltsPerNanometer_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.voltsPerNanometer.accessiblePatternStringProperty' ), [{"name":"value"}] )
       }
     }
   }

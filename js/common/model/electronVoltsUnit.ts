@@ -15,7 +15,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 export const electronVoltsUnit = new PhetUnit<ReadOnlyProperty<string>>( 'eV', {
   visualSymbolStringProperty: QuantumBoundStatesFluent.units.electronVolts.symbolStringProperty,
   visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.electronVolts.symbolPatternStringProperty,
-  accessiblePattern: QuantumBoundStatesFluent.a11y.units.electronVolts.pattern
+  accessiblePattern: QuantumBoundStatesFluent.a11y.units.electronVolts.accessiblePattern
 } );
 
 quantumBoundStates.register( 'electronVoltsUnit', electronVoltsUnit );
