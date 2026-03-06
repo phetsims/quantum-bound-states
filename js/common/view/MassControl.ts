@@ -33,12 +33,14 @@ export default class MassControl extends NumberControl {
       isDisposable: false,
       delta: DELTA,
       numberDisplayOptions: {
+
+        // Add units to the displayed value.
         numberFormatter: value => electronMassesUnit.getVisualSymbolPatternString( value, {
           decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
           showTrailingZeros: true
         } ),
 
-        // To accommodate subscript in the units.
+        // To accommodate subscript markup in the units.
         useRichText: true,
 
         // Increase the size of the display to accommodate localized units.

@@ -33,6 +33,8 @@ export default class ElectricFieldControl extends NumberControl {
       isDisposable: false,
       delta: DELTA,
       numberDisplayOptions: {
+
+        // Add units to the displayed value.
         numberFormatter: value => voltsPerNanometer.getVisualSymbolPatternString( value, {
           decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
           showTrailingZeros: true
