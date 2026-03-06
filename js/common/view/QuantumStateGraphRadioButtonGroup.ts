@@ -26,12 +26,12 @@ export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGr
 
   public constructor( selectedGraphProperty: Property<QuantumStateGraph>, tandem: Tandem ) {
 
-    const validValues = selectedGraphProperty.validValues;
+    const graphs = selectedGraphProperty.validValues;
 
     const items: AquaRadioButtonGroupItem<QuantumStateGraph>[] = [];
 
     // Average Probability Density of Band
-    const averageProbabilityDensityOfBandGraph = _.find( validValues, value => value instanceof AverageProbabilityDensityOfBandGraph );
+    const averageProbabilityDensityOfBandGraph = _.find( graphs, graph => graph instanceof AverageProbabilityDensityOfBandGraph );
     if ( averageProbabilityDensityOfBandGraph ) {
       items.push( {
         value: averageProbabilityDensityOfBandGraph,
@@ -44,7 +44,7 @@ export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGr
     }
 
     // Probability Density
-    const probabilityDensityGraph = _.find( validValues, value => value instanceof ProbabilityDensityGraph );
+    const probabilityDensityGraph = _.find( graphs, graph => graph instanceof ProbabilityDensityGraph );
     if ( probabilityDensityGraph ) {
       items.push( {
         value: probabilityDensityGraph,
@@ -57,7 +57,7 @@ export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGr
     }
 
     // Wave Function
-    const waveFunctionGraph = _.find( validValues, value => value instanceof WaveFunctionGraph );
+    const waveFunctionGraph = _.find( graphs, graph => graph instanceof WaveFunctionGraph );
     if ( waveFunctionGraph ) {
       items.push( {
         value: waveFunctionGraph,
