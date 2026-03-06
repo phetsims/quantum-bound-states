@@ -65,6 +65,7 @@ export default class ReferenceLineNode extends Node {
 
     super( options );
 
+    //TODO Fix transforms so that this can be this.x = chartTransform.moveToViewX( x )
     referenceLine.xProperty.link( x => {
       verticalLine.x = chartTransform.modelToViewX( x );
     } );
@@ -102,6 +103,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     this.addInputListener( new ReferenceLineKeyboardListener( this, referenceLine.xProperty,
       positionProperty, tandem.createTandem( 'keyboardListener' ) ) );
 
+    //TODO Fix transforms so that this is unnecessary and the entire ReferenceLineNode moves as one.
     referenceLine.xProperty.link( x => {
       this.x = chartTransform.modelToViewX( x );
     } );
