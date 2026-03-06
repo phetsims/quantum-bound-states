@@ -7,28 +7,28 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
 import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
-import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
-
-type SelfOptions = EmptySelfOptions;
-
-type ProbabilityDensityGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptions, 'tandem' | 'visibleProperty'>;
+import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 
 export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
-  public constructor( model: QBSModel, providedOptions: ProbabilityDensityGraphNodeOptions ) {
+  public constructor( model: QBSModel, tandem: Tandem ) {
 
-    const options = optionize<ProbabilityDensityGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
+    const options: QuantumStateGraphNodeOptions = {
+
+      // Options related to the y-axis.
       yAxisLabelStringProperty: QuantumBoundStatesFluent.probabilityDensityStringProperty,
       yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
+
+      // Visible when this graph is selected.
+      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.probabilityDensityGraph ),
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty,
@@ -54,8 +54,9 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
         accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleNameStringProperty,
         accessibleHelpText: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleHelpTextStringProperty,
         accessibleContextResponse: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleContextResponseStringProperty
-      }
-    }, providedOptions );
+      },
+      tandem: tandem
+    };
 
     super( model.curvesVisibleProperty, options );
   }

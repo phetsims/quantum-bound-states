@@ -7,28 +7,28 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
-import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
+import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 import WaveFunctionDetailsDialog from './WaveFunctionDetailsDialog.js';
-
-type SelfOptions = EmptySelfOptions;
-
-type WaveFunctionGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptions, 'tandem' | 'visibleProperty'>;
 
 export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
-  public constructor( model: QBSModel, providedOptions: WaveFunctionGraphNodeOptions ) {
+  public constructor( model: QBSModel, tandem: Tandem ) {
 
-    const options = optionize<WaveFunctionGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
+    const options: QuantumStateGraphNodeOptions = {
+
+      // Options related to the y-axis.
       yAxisLabelStringProperty: QuantumBoundStatesFluent.waveFunctionStringProperty,
       yRange: QBSConstants.WAVE_FUNCTION_GRAPH_Y_RANGE,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
+
+      // Visible when this graph is selected.
+      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.waveFunctionGraph ),
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty,
@@ -54,8 +54,9 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
         accessibleName: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleNameStringProperty,
         accessibleHelpText: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleHelpTextStringProperty,
         accessibleContextResponse: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleContextResponseStringProperty
-      }
-    }, providedOptions );
+      },
+      tandem: tandem
+    };
 
     super( model.curvesVisibleProperty, options );
   }

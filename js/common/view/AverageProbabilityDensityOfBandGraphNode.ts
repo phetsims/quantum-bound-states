@@ -8,30 +8,30 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
 import AverageProbabilityDensityOfBandDetailsDialog from './AverageProbabilityDensityOfBandDetailsDialog.js';
-import QuantumStateGraphNode, { QBSGraphNodeOptions } from './QuantumStateGraphNode.js';
-
-type SelfOptions = EmptySelfOptions;
-
-type AbsoluteProbabilityDensityOfBandGraphNodeOptions = SelfOptions & PickRequired<QBSGraphNodeOptions, 'tandem' | 'visibleProperty'>;
+import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 
 export default class AverageProbabilityDensityOfBandGraphNode extends QuantumStateGraphNode {
 
-  public constructor( model: QBSModel, providedOptions: AbsoluteProbabilityDensityOfBandGraphNodeOptions ) {
+  public constructor( model: QBSModel, tandem: Tandem ) {
 
     affirm( model.averageProbabilityDensityOfBandGraph, 'averageProbabilityDensityOfBandGraph is required' );
 
-    const options = optionize<AbsoluteProbabilityDensityOfBandGraphNodeOptions, SelfOptions, QBSGraphNodeOptions>()( {
+    const options: QuantumStateGraphNodeOptions = {
+
+      // Options related to the y-axis.
       yAxisLabelStringProperty: QuantumBoundStatesFluent.probabilityDensityStringProperty, // Yes, this is correct.
       yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
+
+      // Visible when this graph is selected.
+      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.averageProbabilityDensityOfBandGraph ),
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty,
@@ -57,8 +57,9 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
         accessibleName: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandDetailsButton.accessibleNameStringProperty,
         accessibleHelpText: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandDetailsButton.accessibleHelpTextStringProperty,
         accessibleContextResponse: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandDetailsButton.accessibleContextResponseStringProperty
-      }
-    }, providedOptions );
+      },
+      tandem: tandem
+    };
 
     super( model.curvesVisibleProperty, options );
   }

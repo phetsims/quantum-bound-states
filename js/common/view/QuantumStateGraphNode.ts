@@ -56,7 +56,7 @@ type SelfOptions = {
   detailsButtonOptions: StrictOmit<DetailsButtonOptions, 'tandem'>;
 };
 
-export type QBSGraphNodeOptions = SelfOptions &
+export type QuantumStateGraphNodeOptions = SelfOptions &
   PickOptional<NodeOptions, 'visibleProperty'> &
   PickRequired<NodeOptions, 'tandem' | 'accessibleHeading' | 'accessibleParagraph'>;
 
@@ -68,9 +68,9 @@ export default class QuantumStateGraphNode extends Node {
   // Outer rectangle of the chart, for layout in subclasses.
   protected readonly chartRectangle: Node;
 
-  protected constructor( curvesVisibleProperty: Property<boolean>, providedOptions: QBSGraphNodeOptions ) {
+  protected constructor( curvesVisibleProperty: Property<boolean>, providedOptions: QuantumStateGraphNodeOptions ) {
 
-    const options = optionize<QBSGraphNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<QuantumStateGraphNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       isDisposable: false

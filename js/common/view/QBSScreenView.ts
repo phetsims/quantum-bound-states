@@ -10,7 +10,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -188,33 +187,25 @@ export default class QBSScreenView extends ScreenView {
 }
 
 /**
- * Creates a set of graph nodes for the specified model.
+ * Creates a set of graph Nodes for the specified model. Order is not important because only one graph Node is visible at a time.
  */
 function createGraphNodes( model: QBSModel, parentTandem: Tandem ): QuantumStateGraphNode[] {
 
   const graphNodes: QuantumStateGraphNode[] = [];
 
   if ( model.averageProbabilityDensityOfBandGraph ) {
-    const averageProbabilityDensityOfBandGraphNode = new AverageProbabilityDensityOfBandGraphNode( model, {
-      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.averageProbabilityDensityOfBandGraph ),
-      tandem: parentTandem.createTandem( 'averageProbabilityDensityOfBandGraphNode' )
-    } );
+    const averageProbabilityDensityOfBandGraphNode = new AverageProbabilityDensityOfBandGraphNode( model,
+      parentTandem.createTandem( 'averageProbabilityDensityOfBandGraphNode' ) );
     graphNodes.push( averageProbabilityDensityOfBandGraphNode );
   }
 
   if ( model.probabilityDensityGraph ) {
-    const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model, {
-      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.probabilityDensityGraph ),
-      tandem: parentTandem.createTandem( 'probabilityDensityGraphNode' )
-    } );
+    const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model, parentTandem.createTandem( 'probabilityDensityGraphNode' ) );
     graphNodes.push( probabilityDensityGraphNode );
   }
 
   if ( model.waveFunctionGraph ) {
-    const waveFunctionGraphNode = new WaveFunctionGraphNode( model, {
-      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.waveFunctionGraph ),
-      tandem: parentTandem.createTandem( 'waveFunctionGraphNode' )
-    } );
+    const waveFunctionGraphNode = new WaveFunctionGraphNode( model, parentTandem.createTandem( 'waveFunctionGraphNode' ) );
     graphNodes.push( waveFunctionGraphNode );
   }
 
