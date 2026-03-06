@@ -49,6 +49,7 @@ type StringsType = {
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
+  'numberOfWellsStringProperty': LocalizedStringProperty;
   'slowStringProperty': LocalizedStringProperty;
   'fastStringProperty': LocalizedStringProperty;
   'energyLevelStringProperty': LocalizedStringProperty;
@@ -234,6 +235,9 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'massControl': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'numberOfWellsControl': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'energyLevelSpinner': {

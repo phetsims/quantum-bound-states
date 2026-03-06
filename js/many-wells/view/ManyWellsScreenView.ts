@@ -17,8 +17,11 @@ export default class ManyWellsScreenView extends QBSScreenView {
 
   public constructor( model: ManyWellsModel, tandem: Tandem ) {
 
-    const energyDiagramControlPanel = new ManyWellsEnergyDiagramControlPanel( model.energyLevelProperty,
-      model.energyDiagram.valuesVisibleProperty, tandem.createTandem( 'energyDiagramControlPanel' ) );
+    const energyDiagramControlPanel = new ManyWellsEnergyDiagramControlPanel(
+      model.energyLevelProperty,
+      model.numberOfWellsProperty,
+      model.energyDiagram.valuesVisibleProperty,
+      tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, energyDiagramControlPanel, {
       screenSummaryContent: new ManyWellsScreenSummaryContent(),

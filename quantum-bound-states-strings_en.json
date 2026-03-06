@@ -94,6 +94,9 @@
   "mass": {
     "value": "Mass"
   },
+  "numberOfWells": {
+    "value": "Number of Wells"
+  },
   "slow": {
     "value": "slow"
   },
@@ -471,6 +474,11 @@
     "massControl": {
       "accessibleHelpText": {
         "value": "Adjust the relative mass of the system."
+      }
+    },
+    "numberOfWellsControl": {
+      "accessibleHelpText": {
+        "value": "TODO.numberOfWellsControl.accessibleHelpText"
       }
     },
     "energyLevelSpinner": {

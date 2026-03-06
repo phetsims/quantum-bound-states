@@ -47,6 +47,7 @@ waveFunctionDialogTitle:                           Wave Function
 
 # Sliders
 mass:                                              Mass
+numberOfWells:                                     Number of Wells
 slow:                                              slow
 fast:                                              fast
 
@@ -266,6 +267,9 @@ a11y:
 
   massControl:
     accessibleHelpText: Adjust the relative mass of the system.
+
+  numberOfWellsControl:
+    accessibleHelpText: TODO.numberOfWellsControl.accessibleHelpText
 
   #=======================================================================================================
   # Spinners

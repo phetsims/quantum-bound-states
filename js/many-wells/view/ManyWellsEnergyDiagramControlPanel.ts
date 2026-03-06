@@ -12,20 +12,22 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { EnergyDiagramControlPanel } from '../../common/view/EnergyDiagramControlPanel.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
+import NumberOfWellsControl from '../../common/view/NumberOfWellsControl.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
 export class ManyWellsEnergyDiagramControlPanel extends EnergyDiagramControlPanel {
 
   public constructor( energyLevelProperty: NumberProperty,
+                      numberOfWellsProperty: NumberProperty,
                       valuesVisibleProperty: Property<boolean>,
                       tandem: Tandem ) {
 
     const controls = [
       new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) ),
-      new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
-      //TODO numberOfWellsNumberControl
+      new NumberOfWellsControl( numberOfWellsProperty, tandem.createTandem( 'numberOfWellsControl' ) ),
       //TODO electricFieldNumberControl
+      new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
     ];
 
     super( controls, tandem );

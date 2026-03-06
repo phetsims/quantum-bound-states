@@ -58,6 +58,7 @@ addToMapIfDefined( 'averageProbabilityDensityOfBandDialogTitle', 'averageProbabi
 addToMapIfDefined( 'probabilityDensityDialogTitle', 'probabilityDensityDialogTitleStringProperty' );
 addToMapIfDefined( 'waveFunctionDialogTitle', 'waveFunctionDialogTitleStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
+addToMapIfDefined( 'numberOfWells', 'numberOfWellsStringProperty' );
 addToMapIfDefined( 'slow', 'slowStringProperty' );
 addToMapIfDefined( 'fast', 'fastStringProperty' );
 addToMapIfDefined( 'energyLevel', 'energyLevelStringProperty' );
@@ -150,6 +151,7 @@ addToMapIfDefined( 'a11y_waveFunctionDetailsButton_accessibleContextResponse', '
 addToMapIfDefined( 'a11y_graphTypeRadioButtonGroup_accessibleName', 'a11y.graphTypeRadioButtonGroup.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_graphTypeRadioButtonGroup_accessibleHelpText', 'a11y.graphTypeRadioButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_massControl_accessibleHelpText', 'a11y.massControl.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_numberOfWellsControl_accessibleHelpText', 'a11y.numberOfWellsControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_energyLevelSpinner_accessibleName', 'a11y.energyLevelSpinner.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_energyLevelSpinner_accessibleHelpText', 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleNameOn', 'a11y.timeDisplayToggleButton.accessibleNameOnStringProperty' );
@@ -254,6 +256,7 @@ const QuantumBoundStatesFluent = {
   waveFunctionDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionDialogTitleStringProperty' ),
   _comment_11: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
+  numberOfWellsStringProperty: _.get( QuantumBoundStatesStrings, 'numberOfWellsStringProperty' ),
   slowStringProperty: _.get( QuantumBoundStatesStrings, 'slowStringProperty' ),
   fastStringProperty: _.get( QuantumBoundStatesStrings, 'fastStringProperty' ),
   _comment_12: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
@@ -473,6 +476,9 @@ const QuantumBoundStatesFluent = {
     _comment_24: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
     massControl: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_massControl_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.massControl.accessibleHelpTextStringProperty' ) )
+    },
+    numberOfWellsControl: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_numberOfWellsControl_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.numberOfWellsControl.accessibleHelpTextStringProperty' ) )
     },
     _comment_25: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyLevelSpinner"} ),
     _comment_26: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevelSpinner"} ),

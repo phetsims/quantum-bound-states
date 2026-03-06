@@ -7,6 +7,7 @@
  */
 
 import Range from '../../../dot/js/Range.js';
+import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import ProbeNode, { ProbeNodeOptions } from '../../../scenery-phet/js/ProbeNode.js';
@@ -80,6 +81,9 @@ export default class QBSConstants {
   public static readonly ELECTRON_MASS_DECIMAL_PLACES = 2;
   public static readonly TIME_DECIMAL_PLACES = 1;
   public static readonly X_DECIMALS = 2;
+
+  // Value ranges
+  public static readonly NUMBER_OF_WELLS_RANGE = new RangeWithValue( 1, 10, 5 );
 
   //TODO From MV's FundamentalConstants.ts. Is a small value like this a problem?
   public static readonly ELECTRON_MASS = 9.1093837015e-31; // kg

@@ -6,12 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
+import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class ManyWellsModel extends QBSModel {
+
+  public readonly numberOfWellsProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
 
@@ -24,6 +28,13 @@ export default class ManyWellsModel extends QBSModel {
       hasAverageProbabilityDensityOfBandGraph: true,
       tandem: tandem
     } );
+
+    this.numberOfWellsProperty = new NumberProperty( QBSConstants.NUMBER_OF_WELLS_RANGE.defaultValue, {
+      numberType: 'Integer',
+      range: QBSConstants.NUMBER_OF_WELLS_RANGE,
+      tandem: tandem.createTandem( 'numberOfWellsProperty' )
+    } );
+    //TODO this.numberOfWellsProperty.link to update potentials
   }
 }
 
