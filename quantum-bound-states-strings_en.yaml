@@ -187,6 +187,25 @@ a11y:
     accessibleContextResponseUnchecked: Reference Line hidden.
 
   #=======================================================================================================
+  # ComboBoxes
+  #=======================================================================================================
+
+  potentialTypeComboBox:
+    accessibleName:            Potential Type
+    accessibleHelpText:        Choose a potential shape for the energy graph.
+    accessibleContextResponse: potential set to {$potentialType}
+
+  superpositionPresetComboBox:
+    accessibleName:            TODO.superpositionPresetComboBox.accessibleName
+    accessibleHelpText:        TODO.superpositionPresetComboBox.accessibleHelpText
+    accessibleContextResponse: TODO.superpositionPresetComboBox.accessibleContextResponse
+
+  superpositionCustomComboBox:
+    accessibleName:            TODO.superpositionCustomComboBox.accessibleName
+    accessibleHelpText:        TODO.superpositionCustomComboBox.accessibleHelpText
+    accessibleContextResponse: TODO.superpositionCustomComboBox.accessibleContextResponse
+
+  #=======================================================================================================
   # Dialogs
   #=======================================================================================================
 
@@ -342,15 +361,6 @@ a11y:
     accessibleName:           Reference Line
     accessibleHelpText:       Move across graphs to set a reference position.
     accessibleObjectResponse: reference position at {$x} nanometers
-
-  #=======================================================================================================
-  # Potentials
-  #=======================================================================================================
-
-  potentialTypeComboBox:
-    accessibleName:            Potential Type
-    accessibleHelpText:        Choose a potential shape for the energy graph.
-    accessibleContextResponse: potential set to {$potentialType}
 
   #=======================================================================================================
   # Units

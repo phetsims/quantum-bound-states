@@ -6,8 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
@@ -17,6 +19,8 @@ import { SuperpositionConfigurationType, SuperpositionConfigurationTypeValues } 
 export default class SuperpositionModel extends QBSModel {
 
   public readonly superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>;
+  public readonly superpositionPresetProperty: NumberProperty;
+  public readonly superpositionCustomProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
 
@@ -33,11 +37,27 @@ export default class SuperpositionModel extends QBSModel {
       validValues: SuperpositionConfigurationTypeValues,
       tandem: tandem.createTandem( 'superpositionConfigurationTypeProperty' )
     } );
+
+    //TODO Using a number is temporary. This needs to be a richer type.
+    this.superpositionPresetProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
+      range: new Range( 1, 5 ),
+      tandem: tandem.createTandem( 'superpositionPresetProperty' )
+    } );
+
+    //TODO Using a number is temporary. This needs to be a richer type.
+    this.superpositionCustomProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
+      range: new Range( 1, 5 ),
+      tandem: tandem.createTandem( 'superpositionCustomProperty' )
+    } );
   }
 
   public override reset(): void {
     super.reset();
     this.superpositionConfigurationTypeProperty.reset();
+    this.superpositionPresetProperty.reset();
+    this.superpositionCustomProperty.reset();
   }
 }
 

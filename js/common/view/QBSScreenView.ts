@@ -12,8 +12,9 @@
 
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -34,7 +35,9 @@ import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensit
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  listboxParent?: Node;
+};
 
 export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
 
@@ -42,11 +45,11 @@ export default class QBSScreenView extends ScreenView {
 
   public constructor( model: QBSModel, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {
 
-    const options = providedOptions;
+    const options = optionize<QBSScreenViewOptions, StrictOmit<SelfOptions, 'listboxParent'>, ScreenViewOptions>()( {}, providedOptions );
 
     super( options );
 
-    const listboxParent = new Node();
+    const listboxParent = options.listboxParent || new Node();
 
     const potentialTypeComboBox = new PotentialTypeComboBox( model.potentialProperty, listboxParent,
       options.tandem.createTandem( 'potentialTypeComboBox' ) );

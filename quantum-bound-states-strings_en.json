@@ -360,6 +360,39 @@
         "value": "Reference Line hidden."
       }
     },
+    "potentialTypeComboBox": {
+      "accessibleName": {
+        "value": "Potential Type"
+      },
+      "accessibleHelpText": {
+        "value": "Choose a potential shape for the energy graph."
+      },
+      "accessibleContextResponse": {
+        "value": "potential set to {$potentialType}"
+      }
+    },
+    "superpositionPresetComboBox": {
+      "accessibleName": {
+        "value": "TODO.superpositionPresetComboBox.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.superpositionPresetComboBox.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.superpositionPresetComboBox.accessibleContextResponse"
+      }
+    },
+    "superpositionCustomComboBox": {
+      "accessibleName": {
+        "value": "TODO.superpositionCustomComboBox.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.superpositionCustomComboBox.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.superpositionCustomComboBox.accessibleContextResponse"
+      }
+    },
     "averageProbabilityDensityOfBandDetailsDialog": {
       "accessibleName": {
         "value": "Average Probability Density of Band Dialog"
@@ -583,9 +616,6 @@
       }
     },
     "presetCustomSwitch": {
-      "accessibleName": {
-        "value": "TODO:presetCustomSwitch.accessibleName"
-      },
       "accessibleHelpText": {
         "value": "TODO.presetCustomSwitch.accessibleHelpText"
       },
@@ -624,17 +654,6 @@
       },
       "accessibleObjectResponse": {
         "value": "reference position at {$x} nanometers"
-      }
-    },
-    "potentialTypeComboBox": {
-      "accessibleName": {
-        "value": "Potential Type"
-      },
-      "accessibleHelpText": {
-        "value": "Choose a potential shape for the energy graph."
-      },
-      "accessibleContextResponse": {
-        "value": "potential set to {$potentialType}"
       }
     },
     "units": {

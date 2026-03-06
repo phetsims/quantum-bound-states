@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -17,13 +18,18 @@ export default class SuperpositionScreenView extends QBSScreenView {
 
   public constructor( model: SuperpositionModel, tandem: Tandem ) {
 
+    const listboxParent = new Node();
+
     const energyDiagramControlPanel = new SuperpositionEnergyDiagramControlPanel(
+      listboxParent,
       model.superpositionConfigurationTypeProperty,
+      model.superpositionPresetProperty,
       model.energyDiagram.valuesVisibleProperty,
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, energyDiagramControlPanel, {
       screenSummaryContent: new SuperpositionScreenSummaryContent(),
+      listboxParent: listboxParent,
       tandem: tandem
     } );
   }

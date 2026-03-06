@@ -177,6 +177,21 @@ type StringsType = {
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     };
+    'potentialTypeComboBox': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
+    'superpositionPresetComboBox': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
+    'superpositionCustomComboBox': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
     'averageProbabilityDensityOfBandDetailsDialog': {
       'accessibleNameStringProperty': LocalizedStringProperty;
     };
@@ -284,7 +299,6 @@ type StringsType = {
       'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
     };
     'presetCustomSwitch': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'valueAAccessibleNameStringProperty': LocalizedStringProperty;
       'valueBAccessibleNameStringProperty': LocalizedStringProperty;
@@ -302,11 +316,6 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
-    };
-    'potentialTypeComboBox': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'units': {
       'electronMasses': {
