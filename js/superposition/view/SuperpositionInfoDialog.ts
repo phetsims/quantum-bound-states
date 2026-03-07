@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionDetailsDialog is a dialog that displays the expanded wave function.
+ * SuperpositionInfoDialog is the dialog for viewing a superposition configuration
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,15 +10,15 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
+import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import QBSConstants from '../QBSConstants.js';
 
-export default class WaveFunctionDetailsDialog extends Dialog {
+export default class SuperpositionInfoDialog extends Dialog {
 
   public constructor() {
 
-    const titleNode = new Text( QuantumBoundStatesFluent.waveFunctionDialogTitleStringProperty, {
+    const titleNode = new Text( QuantumBoundStatesFluent.superpositionDetailsDialogTitleStringProperty, {
       font: QBSConstants.TITLE_FONT
     } );
 
@@ -29,11 +29,11 @@ export default class WaveFunctionDetailsDialog extends Dialog {
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
       title: titleNode,
-      accessibleName: QuantumBoundStatesFluent.a11y.waveFunctionDetailsDialog.accessibleNameStringProperty
+      accessibleName: QuantumBoundStatesFluent.a11y.superpositionDetailsDialog.accessibleNameStringProperty
     } );
 
     super( content, options );
   }
 }
 
-quantumBoundStates.register( 'WaveFunctionDetailsDialog', WaveFunctionDetailsDialog );
+quantumBoundStates.register( 'SuperpositionInfoDialog', SuperpositionInfoDialog );

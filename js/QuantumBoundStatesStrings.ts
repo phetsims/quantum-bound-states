@@ -48,6 +48,8 @@ type StringsType = {
   'averageProbabilityDensityOfBandDialogTitleStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
+  'superpositionDetailsDialogTitleStringProperty': LocalizedStringProperty;
+  'superpositionCustomizationDialogTitleStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
   'numberOfWellsStringProperty': LocalizedStringProperty;
   'electricFieldStringProperty': LocalizedStringProperty;
@@ -199,6 +201,12 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
     };
     'waveFunctionDetailsDialog': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+    };
+    'superpositionDetailsDialog': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+    };
+    'superpositionCustomizationDialog': {
       'accessibleNameStringProperty': LocalizedStringProperty;
     };
     'energyDiagram': {

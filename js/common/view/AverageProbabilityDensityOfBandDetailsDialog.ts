@@ -7,25 +7,23 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import Potential from '../model/potentials/Potential.js';
 import QBSConstants from '../QBSConstants.js';
 
 export default class AverageProbabilityDensityOfBandDetailsDialog extends Dialog {
 
-  public constructor( potential: Potential ) {
+  public constructor() {
 
     const titleNode = new RichText( QuantumBoundStatesFluent.averageProbabilityDensityOfBandDialogTitleStringProperty, {
       font: QBSConstants.TITLE_FONT
     } );
 
-    const contentStringProperty = new StringProperty( '|Ψ(x,t)|<sup>2</sup> = TODO.expandedFunction' ); //TODO
-    const content = new RichText( contentStringProperty, {
+    //TODO
+    const content = new RichText( 'Under Construction', {
       font: QBSConstants.CONTROL_FONT
     } );
 

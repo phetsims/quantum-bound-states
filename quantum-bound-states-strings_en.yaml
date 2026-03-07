@@ -44,6 +44,8 @@ referenceLine:                                     Reference Line
 averageProbabilityDensityOfBandDialogTitle:        Average Probability Density of Band
 probabilityDensityDialogTitle:                     Probability Density
 waveFunctionDialogTitle:                           Wave Function
+superpositionDetailsDialogTitle:                   Superposition Details
+superpositionCustomizationDialogTitle:             Superposition Customization
 
 # Sliders
 mass:                                              Mass
@@ -217,6 +219,12 @@ a11y:
 
   waveFunctionDetailsDialog:
     accessibleName: Wave Function Dialog
+
+  superpositionDetailsDialog:
+    accessibleName: Superposition Details Dialog
+
+  superpositionCustomizationDialog:
+    accessibleName: Superposition Customization Dialog
 
   #=======================================================================================================
   # Graphs

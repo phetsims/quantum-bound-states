@@ -91,6 +91,12 @@
   "waveFunctionDialogTitle": {
     "value": "Wave Function"
   },
+  "superpositionDetailsDialogTitle": {
+    "value": "Superposition Details"
+  },
+  "superpositionCustomizationDialogTitle": {
+    "value": "Superposition Customization"
+  },
   "mass": {
     "value": "Mass"
   },
@@ -406,6 +412,16 @@
     "waveFunctionDetailsDialog": {
       "accessibleName": {
         "value": "Wave Function Dialog"
+      }
+    },
+    "superpositionDetailsDialog": {
+      "accessibleName": {
+        "value": "Superposition Details Dialog"
+      }
+    },
+    "superpositionCustomizationDialog": {
+      "accessibleName": {
+        "value": "Superposition Customization Dialog"
       }
     },
     "energyDiagram": {

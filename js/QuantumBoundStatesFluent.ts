@@ -57,6 +57,8 @@ addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'averageProbabilityDensityOfBandDialogTitle', 'averageProbabilityDensityOfBandDialogTitleStringProperty' );
 addToMapIfDefined( 'probabilityDensityDialogTitle', 'probabilityDensityDialogTitleStringProperty' );
 addToMapIfDefined( 'waveFunctionDialogTitle', 'waveFunctionDialogTitleStringProperty' );
+addToMapIfDefined( 'superpositionDetailsDialogTitle', 'superpositionDetailsDialogTitleStringProperty' );
+addToMapIfDefined( 'superpositionCustomizationDialogTitle', 'superpositionCustomizationDialogTitleStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
 addToMapIfDefined( 'numberOfWells', 'numberOfWellsStringProperty' );
 addToMapIfDefined( 'electricField', 'electricFieldStringProperty' );
@@ -134,6 +136,8 @@ addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleContextResponse',
 addToMapIfDefined( 'a11y_averageProbabilityDensityOfBandDetailsDialog_accessibleName', 'a11y.averageProbabilityDensityOfBandDetailsDialog.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_probabilityDensityDetailsDialog_accessibleName', 'a11y.probabilityDensityDetailsDialog.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionDetailsDialog_accessibleName', 'a11y.waveFunctionDetailsDialog.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_superpositionDetailsDialog_accessibleName', 'a11y.superpositionDetailsDialog.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_superpositionCustomizationDialog_accessibleName', 'a11y.superpositionCustomizationDialog.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleParagraph', 'a11y.energyDiagram.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleHeading', 'a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty' );
@@ -273,6 +277,8 @@ const QuantumBoundStatesFluent = {
   averageProbabilityDensityOfBandDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'averageProbabilityDensityOfBandDialogTitleStringProperty' ),
   probabilityDensityDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityDialogTitleStringProperty' ),
   waveFunctionDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionDialogTitleStringProperty' ),
+  superpositionDetailsDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionDetailsDialogTitleStringProperty' ),
+  superpositionCustomizationDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionCustomizationDialogTitleStringProperty' ),
   _comment_11: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
   numberOfWellsStringProperty: _.get( QuantumBoundStatesStrings, 'numberOfWellsStringProperty' ),
@@ -449,6 +455,12 @@ const QuantumBoundStatesFluent = {
     },
     waveFunctionDetailsDialog: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsDialog_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsDialog.accessibleNameStringProperty' ) )
+    },
+    superpositionDetailsDialog: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsDialog_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsDialog.accessibleNameStringProperty' ) )
+    },
+    superpositionCustomizationDialog: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomizationDialog_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomizationDialog.accessibleNameStringProperty' ) )
     },
     _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
     _comment_16: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),

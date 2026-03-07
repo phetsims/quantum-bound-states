@@ -21,8 +21,10 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
 import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
+import SuperpositionCustomizationDialog from './SuperpositionCustomizationDialog.js';
 import SuperpositionEditButton from './SuperpositionEditButton.js';
 import SuperpositionInfoButton from './SuperpositionInfoButton.js';
+import SuperpositionInfoDialog from './SuperpositionInfoDialog.js';
 import SuperpositionPresetComboBox from './SuperpositionPresetComboBox.js';
 
 export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControlPanel {
@@ -38,9 +40,7 @@ export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControl
       children: [
         new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'superpositionPresetComboBox' ) ),
         new SuperpositionInfoButton( {
-          listener: () => {
-            //TODO
-          },
+          listener: () => new SuperpositionInfoDialog().show(),
           tandem: tandem.createTandem( 'infoButton' )
         } )
       ],
@@ -52,9 +52,7 @@ export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControl
       children: [
         new SuperpositionCustomComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'superpositionCustomComboBox' ) ),
         new SuperpositionEditButton( {
-          listener: () => {
-            //TODO
-          },
+          listener: () => new SuperpositionCustomizationDialog().show(),
           tandem: tandem.createTandem( 'editButton' )
         } )
       ],
