@@ -106,6 +106,7 @@ addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_controlArea',
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_currentDetails', 'a11y.screens.superpositionScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_interactionHint', 'a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagramControls_accessibleHeading', 'a11y.energyDiagramControls.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_superpositionControls_accessibleHeading', 'a11y.superpositionControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphControls_accessibleHeading', 'a11y.quantumStateGraphControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionParts_accessibleHeading', 'a11y.waveFunctionParts.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeControls_accessibleHeading', 'a11y.timeControls.accessibleHeadingStringProperty' );
@@ -387,6 +388,9 @@ const QuantumBoundStatesFluent = {
     _comment_5: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagramControls"} ),
     energyDiagramControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagramControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagramControls.accessibleHeadingStringProperty' ) )
+    },
+    superpositionControls: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.superpositionControls.accessibleHeadingStringProperty' ) )
     },
     quantumStateGraphControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_quantumStateGraphControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.quantumStateGraphControls.accessibleHeadingStringProperty' ) )

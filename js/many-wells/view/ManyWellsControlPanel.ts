@@ -9,10 +9,12 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import { EnergyDiagramControlPanel } from '../../common/view/EnergyDiagramControlPanel.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -20,7 +22,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ElectricFieldControl from './ElectricFieldControl.js';
 import NumberOfWellsControl from './NumberOfWellsControl.js';
 
-export class ManyWellsControlPanel extends EnergyDiagramControlPanel {
+export class ManyWellsControlPanel extends Panel {
 
   public constructor( energyLevelProperty: NumberProperty,
                       numberOfWellsProperty: NumberProperty,
@@ -36,14 +38,25 @@ export class ManyWellsControlPanel extends EnergyDiagramControlPanel {
       visiblePropertyOptions: { phetioFeatured: true }
     } );
 
-    const controls = [
-      new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) ),
-      new NumberOfWellsControl( numberOfWellsProperty, tandem.createTandem( 'numberOfWellsControl' ) ),
-      new ElectricFieldControl( electricFieldProperty, tandem.createTandem( 'electricFieldControl' ) ),
-      new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
-    ];
+    const content = new VBox( {
+      align: 'left',
+      spacing: 10,
+      children: [
+        titleText,
+        new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) ),
+        new NumberOfWellsControl( numberOfWellsProperty, tandem.createTandem( 'numberOfWellsControl' ) ),
+        new ElectricFieldControl( electricFieldProperty, tandem.createTandem( 'electricFieldControl' ) ),
+        new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
+      ]
+    } );
 
-    super( titleText, controls, tandem );
+    const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
+      isDisposable: false,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagramControls.accessibleHeadingStringProperty,
+      tandem: tandem
+    } );
+
+    super( content, options );
   }
 }
 

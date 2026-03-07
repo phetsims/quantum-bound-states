@@ -4,7 +4,7 @@
  * QBSScreenView is the base class for all ScreenViews in this sim.
  *
  * All ScreenViews in this sim have the same UI components and layout, with two exceptions:
- * 1. The control panel associated with the Energy diagram is specific to each screen.
+ * 1. The control panel positioned to the right of the Energy diagram is specific to each screen.
  * 2. The set of available Quantum State graphs is specific to each screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
