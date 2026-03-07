@@ -222,25 +222,6 @@ a11y:
     accessibleContextResponse: TODO.superpositionCustomComboBox.accessibleContextResponse
 
   #=======================================================================================================
-  # Dialogs
-  #=======================================================================================================
-
-  averageProbabilityDensityOfBandDetailsDialog:
-    accessibleName: Average Probability Density of Band Dialog
-
-  probabilityDensityDetailsDialog:
-    accessibleName: Probability Density Function Dialog
-
-  waveFunctionDetailsDialog:
-    accessibleName: Wave Function Dialog
-
-  superpositionDetailsDialog:
-    accessibleName: Superposition Details Dialog
-
-  superpositionCustomizationDialog:
-    accessibleName: Superposition Customization Dialog
-
-  #=======================================================================================================
   # Graphs
   #=======================================================================================================
 

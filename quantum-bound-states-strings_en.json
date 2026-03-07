@@ -423,31 +423,6 @@
         "value": "TODO.superpositionCustomComboBox.accessibleContextResponse"
       }
     },
-    "averageProbabilityDensityOfBandDetailsDialog": {
-      "accessibleName": {
-        "value": "Average Probability Density of Band Dialog"
-      }
-    },
-    "probabilityDensityDetailsDialog": {
-      "accessibleName": {
-        "value": "Probability Density Function Dialog"
-      }
-    },
-    "waveFunctionDetailsDialog": {
-      "accessibleName": {
-        "value": "Wave Function Dialog"
-      }
-    },
-    "superpositionDetailsDialog": {
-      "accessibleName": {
-        "value": "Superposition Details Dialog"
-      }
-    },
-    "superpositionCustomizationDialog": {
-      "accessibleName": {
-        "value": "Superposition Customization Dialog"
-      }
-    },
     "energyDiagram": {
       "accessibleHeading": {
         "value": "Energy Diagram"

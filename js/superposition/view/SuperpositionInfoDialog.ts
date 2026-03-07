@@ -28,8 +28,7 @@ export default class SuperpositionInfoDialog extends Dialog {
     } );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
-      title: titleNode,
-      accessibleName: QuantumBoundStatesFluent.a11y.superpositionDetailsDialog.accessibleNameStringProperty
+      title: titleNode
     } );
 
     super( content, options );

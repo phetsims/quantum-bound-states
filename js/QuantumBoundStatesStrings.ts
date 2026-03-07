@@ -202,21 +202,6 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
-    'averageProbabilityDensityOfBandDetailsDialog': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-    };
-    'probabilityDensityDetailsDialog': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-    };
-    'waveFunctionDetailsDialog': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-    };
-    'superpositionDetailsDialog': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-    };
-    'superpositionCustomizationDialog': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-    };
     'energyDiagram': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleParagraphStringProperty': LocalizedStringProperty;

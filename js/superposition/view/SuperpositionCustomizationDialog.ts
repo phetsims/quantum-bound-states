@@ -28,8 +28,7 @@ export default class SuperpositionCustomizationDialog extends Dialog {
     } );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
-      title: titleNode,
-      accessibleName: QuantumBoundStatesFluent.a11y.waveFunctionDetailsDialog.accessibleNameStringProperty
+      title: titleNode
     } );
 
     super( content, options );

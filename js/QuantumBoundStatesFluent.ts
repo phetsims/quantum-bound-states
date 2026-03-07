@@ -141,11 +141,6 @@ addToMapIfDefined( 'a11y_superpositionPresetComboBox_accessibleContextResponse',
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleName', 'a11y.superpositionCustomComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleHelpText', 'a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleContextResponse', 'a11y.superpositionCustomComboBox.accessibleContextResponseStringProperty' );
-addToMapIfDefined( 'a11y_averageProbabilityDensityOfBandDetailsDialog_accessibleName', 'a11y.averageProbabilityDensityOfBandDetailsDialog.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_probabilityDensityDetailsDialog_accessibleName', 'a11y.probabilityDensityDetailsDialog.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionDetailsDialog_accessibleName', 'a11y.waveFunctionDetailsDialog.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_superpositionDetailsDialog_accessibleName', 'a11y.superpositionDetailsDialog.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_superpositionCustomizationDialog_accessibleName', 'a11y.superpositionCustomizationDialog.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleParagraph', 'a11y.energyDiagram.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleHeading', 'a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty' );
@@ -463,27 +458,9 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.accessibleContextResponseStringProperty' ) )
     },
-    _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"averageProbabilityDensityOfBandDetailsDialog"} ),
-    _comment_13: new FluentComment( {"comment":"Dialogs","associatedKey":"averageProbabilityDensityOfBandDetailsDialog"} ),
-    _comment_14: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"averageProbabilityDensityOfBandDetailsDialog"} ),
-    averageProbabilityDensityOfBandDetailsDialog: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_averageProbabilityDensityOfBandDetailsDialog_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.averageProbabilityDensityOfBandDetailsDialog.accessibleNameStringProperty' ) )
-    },
-    probabilityDensityDetailsDialog: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityDetailsDialog_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityDetailsDialog.accessibleNameStringProperty' ) )
-    },
-    waveFunctionDetailsDialog: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsDialog_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsDialog.accessibleNameStringProperty' ) )
-    },
-    superpositionDetailsDialog: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsDialog_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsDialog.accessibleNameStringProperty' ) )
-    },
-    superpositionCustomizationDialog: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomizationDialog_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomizationDialog.accessibleNameStringProperty' ) )
-    },
-    _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
-    _comment_16: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),
-    _comment_17: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
+    _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
+    _comment_13: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),
+    _comment_14: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
     energyDiagram: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleHeadingStringProperty' ) ),
       accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleParagraphStringProperty' ) )
@@ -502,9 +479,9 @@ const QuantumBoundStatesFluent = {
         accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_waveFunctionGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty' ) )
       }
     },
-    _comment_18: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeButtonGroup"} ),
-    _comment_19: new FluentComment( {"comment":"Push Buttons","associatedKey":"timeButtonGroup"} ),
-    _comment_20: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeButtonGroup"} ),
+    _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeButtonGroup"} ),
+    _comment_16: new FluentComment( {"comment":"Push Buttons","associatedKey":"timeButtonGroup"} ),
+    _comment_17: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeButtonGroup"} ),
     timeButtonGroup: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeButtonGroup_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeButtonGroup.accessibleHeadingStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeButtonGroup_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.timeButtonGroup.accessibleHelpTextStringProperty' ) )
@@ -546,17 +523,17 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionInfoButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionInfoButton.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionInfoButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionInfoButton.accessibleContextResponseStringProperty' ) )
     },
-    _comment_21: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
-    _comment_22: new FluentComment( {"comment":"Radio Buttons","associatedKey":"graphTypeRadioButtonGroup"} ),
-    _comment_23: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
-    _comment_24: new FluentComment( {"comment":"Radio buttons for selecting which graph to display at the bottom of the screen.","associatedKey":"graphTypeRadioButtonGroup"} ),
+    _comment_18: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
+    _comment_19: new FluentComment( {"comment":"Radio Buttons","associatedKey":"graphTypeRadioButtonGroup"} ),
+    _comment_20: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
+    _comment_21: new FluentComment( {"comment":"Radio buttons for selecting which graph to display at the bottom of the screen.","associatedKey":"graphTypeRadioButtonGroup"} ),
     graphTypeRadioButtonGroup: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphTypeRadioButtonGroup_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.graphTypeRadioButtonGroup.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphTypeRadioButtonGroup_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.graphTypeRadioButtonGroup.accessibleHelpTextStringProperty' ) )
     },
-    _comment_25: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
-    _comment_26: new FluentComment( {"comment":"Sliders","associatedKey":"massControl"} ),
-    _comment_27: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
+    _comment_22: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
+    _comment_23: new FluentComment( {"comment":"Sliders","associatedKey":"massControl"} ),
+    _comment_24: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
     massControl: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_massControl_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.massControl.accessibleHelpTextStringProperty' ) )
     },
@@ -566,16 +543,16 @@ const QuantumBoundStatesFluent = {
     electricFieldControl: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_electricFieldControl_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.electricFieldControl.accessibleHelpTextStringProperty' ) )
     },
-    _comment_28: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyLevelSpinner"} ),
-    _comment_29: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevelSpinner"} ),
-    _comment_30: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyLevelSpinner"} ),
+    _comment_25: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyLevelSpinner"} ),
+    _comment_26: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevelSpinner"} ),
+    _comment_27: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyLevelSpinner"} ),
     energyLevelSpinner: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' ) )
     },
-    _comment_31: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeDisplayToggleButton"} ),
-    _comment_32: new FluentComment( {"comment":"Toggle Buttons and Switches","associatedKey":"timeDisplayToggleButton"} ),
-    _comment_33: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeDisplayToggleButton"} ),
+    _comment_28: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeDisplayToggleButton"} ),
+    _comment_29: new FluentComment( {"comment":"Toggle Buttons and Switches","associatedKey":"timeDisplayToggleButton"} ),
+    _comment_30: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeDisplayToggleButton"} ),
     timeDisplayToggleButton: {
       accessibleNameOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleNameOn', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleNameOnStringProperty' ) ),
       accessibleNameOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleNameOff', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleNameOffStringProperty' ) ),
@@ -612,9 +589,9 @@ const QuantumBoundStatesFluent = {
       valueAAccessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetCustomSwitch_valueAAccessibleName', _.get( QuantumBoundStatesStrings, 'a11y.presetCustomSwitch.valueAAccessibleNameStringProperty' ) ),
       valueBAccessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetCustomSwitch_valueBAccessibleName', _.get( QuantumBoundStatesStrings, 'a11y.presetCustomSwitch.valueBAccessibleNameStringProperty' ) )
     },
-    _comment_34: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
-    _comment_35: new FluentComment( {"comment":"Tools","associatedKey":"magnifier"} ),
-    _comment_36: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
+    _comment_31: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
+    _comment_32: new FluentComment( {"comment":"Tools","associatedKey":"magnifier"} ),
+    _comment_33: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
     magnifier: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifier_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.magnifier.accessibleHeadingStringProperty' ) ),
       accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifier_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.magnifier.accessibleParagraphStringProperty' ) ),
@@ -629,10 +606,10 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleHelpTextStringProperty' ) ),
       accessibleObjectResponse: new FluentPattern<{ x: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponseStringProperty' ), [{"name":"x"}] )
     },
-    _comment_37: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-    _comment_38: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
-    _comment_39: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-    _comment_40: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+    _comment_34: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+    _comment_35: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+    _comment_36: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+    _comment_37: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
     units: {
       electronMasses: {
         accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronMasses_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronMasses.accessiblePatternStringProperty' ), [{"name":"value"}] )
