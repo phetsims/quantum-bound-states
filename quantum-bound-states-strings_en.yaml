@@ -40,6 +40,9 @@ phase:                                             Phase
 magnifier:                                         Magnifier
 referenceLine:                                     Reference Line
 
+# ComboBoxes
+superpositionLabel:                                Superposition
+
 # Dialogs
 averageProbabilityDensityOfBandDialogTitle:        Average Probability Density of Band
 probabilityDensityDialogTitle:                     Probability Density
@@ -83,7 +86,7 @@ potentialWells:
   coulomb:              Coulomb
   infiniteStep:         Infinite Step
 
-# Keyboaard Help
+# Keyboard Help
 keyboardHelp:
   referenceLine:
     heading:     Reference Line

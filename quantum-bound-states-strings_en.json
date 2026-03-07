@@ -82,6 +82,9 @@
   "referenceLine": {
     "value": "Reference Line"
   },
+  "superpositionLabel": {
+    "value": "Superposition"
+  },
   "averageProbabilityDensityOfBandDialogTitle": {
     "value": "Average Probability Density of Band"
   },

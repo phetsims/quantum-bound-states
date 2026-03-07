@@ -45,6 +45,7 @@ type StringsType = {
   'phaseStringProperty': LocalizedStringProperty;
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
+  'superpositionLabelStringProperty': LocalizedStringProperty;
   'averageProbabilityDensityOfBandDialogTitleStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;

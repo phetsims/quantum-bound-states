@@ -54,6 +54,7 @@ addToMapIfDefined( 'magnitude', 'magnitudeStringProperty' );
 addToMapIfDefined( 'phase', 'phaseStringProperty' );
 addToMapIfDefined( 'magnifier', 'magnifierStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
+addToMapIfDefined( 'superpositionLabel', 'superpositionLabelStringProperty' );
 addToMapIfDefined( 'averageProbabilityDensityOfBandDialogTitle', 'averageProbabilityDensityOfBandDialogTitleStringProperty' );
 addToMapIfDefined( 'probabilityDensityDialogTitle', 'probabilityDensityDialogTitleStringProperty' );
 addToMapIfDefined( 'waveFunctionDialogTitle', 'waveFunctionDialogTitleStringProperty' );
@@ -273,25 +274,27 @@ const QuantumBoundStatesFluent = {
   _comment_9: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
   magnifierStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierStringProperty' ),
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
-  _comment_10: new FluentComment( {"comment":"Dialogs","associatedKey":"averageProbabilityDensityOfBandDialogTitle"} ),
+  _comment_10: new FluentComment( {"comment":"ComboBoxes","associatedKey":"superpositionLabel"} ),
+  superpositionLabelStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionLabelStringProperty' ),
+  _comment_11: new FluentComment( {"comment":"Dialogs","associatedKey":"averageProbabilityDensityOfBandDialogTitle"} ),
   averageProbabilityDensityOfBandDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'averageProbabilityDensityOfBandDialogTitleStringProperty' ),
   probabilityDensityDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityDialogTitleStringProperty' ),
   waveFunctionDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionDialogTitleStringProperty' ),
   superpositionDetailsDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionDetailsDialogTitleStringProperty' ),
   superpositionCustomizationDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionCustomizationDialogTitleStringProperty' ),
-  _comment_11: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
+  _comment_12: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
   numberOfWellsStringProperty: _.get( QuantumBoundStatesStrings, 'numberOfWellsStringProperty' ),
   electricFieldStringProperty: _.get( QuantumBoundStatesStrings, 'electricFieldStringProperty' ),
   slowStringProperty: _.get( QuantumBoundStatesStrings, 'slowStringProperty' ),
   fastStringProperty: _.get( QuantumBoundStatesStrings, 'fastStringProperty' ),
-  _comment_12: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
+  _comment_13: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
   energyLevelStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelStringProperty' ),
   energyLevelPatternStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelPatternStringProperty' ),
-  _comment_13: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-  _comment_14: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
-  _comment_15: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
-  _comment_16: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+  _comment_14: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+  _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
+  _comment_16: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
+  _comment_17: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
   units: {
     electronMasses: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMasses.symbolStringProperty' ),
@@ -310,7 +313,7 @@ const QuantumBoundStatesFluent = {
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.voltsPerNanometer.symbolPatternStringProperty' )
     }
   },
-  _comment_17: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
+  _comment_18: new FluentComment( {"comment":"Potential Wells","associatedKey":"potentialWells"} ),
   potentialWells: {
     finiteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.finiteSquareStringProperty' ),
     infiniteSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteSquareStringProperty' ),
@@ -320,14 +323,14 @@ const QuantumBoundStatesFluent = {
     coulombStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.coulombStringProperty' ),
     infiniteStepStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteStepStringProperty' )
   },
-  _comment_18: new FluentComment( {"comment":"Keyboaard Help","associatedKey":"keyboardHelp"} ),
+  _comment_19: new FluentComment( {"comment":"Keyboard Help","associatedKey":"keyboardHelp"} ),
   keyboardHelp: {
     referenceLine: {
       headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.headingStringProperty' ),
       checkValuesStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.checkValuesStringProperty' )
     }
   },
-  _comment_19: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  _comment_20: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
     _comment_1: new FluentComment( {"comment":"Screens (screen summaries, screen buttons)","associatedKey":"screens"} ),

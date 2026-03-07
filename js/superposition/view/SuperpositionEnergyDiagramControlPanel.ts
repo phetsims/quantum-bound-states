@@ -13,11 +13,16 @@ import Property from '../../../../axon/js/Property.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import AlignBox, { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSColors from '../../common/QBSColors.js';
+import QBSConstants from '../../common/QBSConstants.js';
 import { EnergyDiagramControlPanel } from '../../common/view/EnergyDiagramControlPanel.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
 import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
@@ -65,12 +70,19 @@ export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControl
     };
 
     const controls = [
+      new Text( QuantumBoundStatesFluent.superpositionLabelStringProperty, {
+        font: QBSConstants.TITLE_FONT,
+        maxWidth: 200
+      } ),
       new PresetCustomSwitch( superpositionConfigurationTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
       new Node( {
         children: [
           new AlignBox( presetHBox, alignBoxOptions ),
           new AlignBox( customHBox, alignBoxOptions )
         ]
+      } ),
+      new HSeparator( {
+        stroke: QBSColors.separatorStrokeProperty
       } ),
       new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
     ];
