@@ -22,7 +22,7 @@ export default class SuperpositionDetailsDialog extends Dialog {
       font: QBSConstants.TITLE_FONT
     } );
 
-    //TODO
+    //TODO Create dialog content.
     const content = new RichText( 'Under Construction', {
       font: QBSConstants.CONTROL_FONT
     } );
