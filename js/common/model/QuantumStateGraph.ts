@@ -25,7 +25,7 @@ export default class QuantumStateGraph extends PhetioObject {
   }
 
   public reset(): void {
-    //TODO
+    //TODO Implement reset
   }
 
   /**

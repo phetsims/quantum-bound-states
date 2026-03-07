@@ -177,7 +177,7 @@ export default class QBSScreenView extends ScreenView {
    * Resets the view.
    */
   public reset(): void {
-    //TODO
+    //TODO Implement reset
   }
 
   /**
@@ -185,7 +185,8 @@ export default class QBSScreenView extends ScreenView {
    * @param dt - time step, in seconds
    */
   public override step( dt: number ): void {
-    //TODO
+    super.step( dt );
+    //TODO Implement step
   }
 }
 
