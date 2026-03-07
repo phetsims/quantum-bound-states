@@ -24,7 +24,6 @@ probabilityDensity:                                Probability Density
 waveFunction:                                      Wave Function
 quantumStateGraph:                                 Quantum State Graph
 energyDiagram:                                     Energy Diagram
-probabilityDensityFunction:                        Probability Density Function
 
 # Buttons
 averageProbabilityDensityOfBandDetailsButtonLabel: '|Ψ(x,t)|<sup>2</sup> = ...'

@@ -34,7 +34,6 @@ type StringsType = {
   'waveFunctionStringProperty': LocalizedStringProperty;
   'quantumStateGraphStringProperty': LocalizedStringProperty;
   'energyDiagramStringProperty': LocalizedStringProperty;
-  'probabilityDensityFunctionStringProperty': LocalizedStringProperty;
   'averageProbabilityDensityOfBandDetailsButtonLabelStringProperty': LocalizedStringProperty;
   'probabilityDensityDetailsButtonLabelStringProperty': LocalizedStringProperty;
   'waveFunctionDetailsButtonLabelStringProperty': LocalizedStringProperty;

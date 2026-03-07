@@ -49,9 +49,6 @@
   "energyDiagram": {
     "value": "Energy Diagram"
   },
-  "probabilityDensityFunction": {
-    "value": "Probability Density Function"
-  },
   "averageProbabilityDensityOfBandDetailsButtonLabel": {
     "value": "|Ψ(x,t)|<sup>2</sup> = ..."
   },

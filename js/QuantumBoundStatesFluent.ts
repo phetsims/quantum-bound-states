@@ -43,7 +43,6 @@ addToMapIfDefined( 'probabilityDensity', 'probabilityDensityStringProperty' );
 addToMapIfDefined( 'waveFunction', 'waveFunctionStringProperty' );
 addToMapIfDefined( 'quantumStateGraph', 'quantumStateGraphStringProperty' );
 addToMapIfDefined( 'energyDiagram', 'energyDiagramStringProperty' );
-addToMapIfDefined( 'probabilityDensityFunction', 'probabilityDensityFunctionStringProperty' );
 addToMapIfDefined( 'averageProbabilityDensityOfBandDetailsButtonLabel', 'averageProbabilityDensityOfBandDetailsButtonLabelStringProperty' );
 addToMapIfDefined( 'probabilityDensityDetailsButtonLabel', 'probabilityDensityDetailsButtonLabelStringProperty' );
 addToMapIfDefined( 'waveFunctionDetailsButtonLabel', 'waveFunctionDetailsButtonLabelStringProperty' );
@@ -260,7 +259,6 @@ const QuantumBoundStatesFluent = {
   _comment_3: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),
   _comment_4: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
   energyDiagramStringProperty: _.get( QuantumBoundStatesStrings, 'energyDiagramStringProperty' ),
-  probabilityDensityFunctionStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityFunctionStringProperty' ),
   _comment_5: new FluentComment( {"comment":"Buttons","associatedKey":"averageProbabilityDensityOfBandDetailsButtonLabel"} ),
   averageProbabilityDensityOfBandDetailsButtonLabelStringProperty: _.get( QuantumBoundStatesStrings, 'averageProbabilityDensityOfBandDetailsButtonLabelStringProperty' ),
   probabilityDensityDetailsButtonLabelStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityDetailsButtonLabelStringProperty' ),
