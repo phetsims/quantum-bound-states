@@ -21,7 +21,6 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSConstants from '../QBSConstants.js';
 import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
-import { electronMassesUnit } from './electronMassesUnit.js';
 import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
 import Potential from './potentials/Potential.js';
@@ -29,6 +28,7 @@ import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import Time from './Time.js';
+import { electronMassesUnit } from './units/electronMassesUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {

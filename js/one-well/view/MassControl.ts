@@ -13,7 +13,7 @@ import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { electronMassesUnit } from '../../common/model/electronMassesUnit.js';
+import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';

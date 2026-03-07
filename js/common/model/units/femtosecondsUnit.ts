@@ -7,10 +7,10 @@
  * @author @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
-import PhetUnit from '../../../../scenery-phet/js/PhetUnit.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
-import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
+import PhetUnit from '../../../../../scenery-phet/js/PhetUnit.js';
+import quantumBoundStates from '../../../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 
 export const femtosecondsUnit = new PhetUnit<ReadOnlyProperty<string>>( 'fs', {
   visualSymbolStringProperty: QuantumBoundStatesFluent.units.femtoSeconds.symbolStringProperty,

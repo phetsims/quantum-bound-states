@@ -13,7 +13,7 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { voltsPerNanometer } from '../../common/model/voltsPerNanometer.js';
+import { voltsPerNanometer } from '../../common/model/units/voltsPerNanometer.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';

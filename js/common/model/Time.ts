@@ -13,7 +13,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
-import { femtosecondsUnit } from './femtosecondsUnit.js';
+import { femtosecondsUnit } from './units/femtosecondsUnit.js';
 
 export default class Time {
 
