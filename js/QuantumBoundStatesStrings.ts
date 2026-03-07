@@ -86,6 +86,7 @@ type StringsType = {
     'coulombStringProperty': LocalizedStringProperty;
     'infiniteStepStringProperty': LocalizedStringProperty;
   };
+  'localizedParticleStringProperty': LocalizedStringProperty;
   'custom1StringProperty': LocalizedStringProperty;
   'custom2StringProperty': LocalizedStringProperty;
   'custom3StringProperty': LocalizedStringProperty;
@@ -280,6 +281,20 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
+    'superpositionPresets': {
+      'preset1': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      };
+      'preset2': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      };
+      'preset3': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      };
+      'preset4': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      }
+    };
     'timeDisplayToggleButton': {
       'accessibleNameOnStringProperty': LocalizedStringProperty;
       'accessibleNameOffStringProperty': LocalizedStringProperty;
@@ -313,8 +328,6 @@ type StringsType = {
     };
     'presetCustomSwitch': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'valueAAccessibleNameStringProperty': LocalizedStringProperty;
-      'valueBAccessibleNameStringProperty': LocalizedStringProperty;
     };
     'magnifier': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;

@@ -29,33 +29,33 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
     const items: ComboBoxItem<number>[] = [
       {
         value: index++,
-        accessibleName: 'c times psi 1 plus c times psi 2',
+        accessibleName: QuantumBoundStatesFluent.a11y.superpositionPresets.preset1.accessibleNameStringProperty,
         tandemName: `preset${index}Item`,
         createNode: () => new RichText( 'cΨ<sub>1</sub> + cΨ<sub>2</sub>', richTextOptions )
       },
       {
         value: index++,
-        accessibleName: 'c times psi 1 plus c times psi 3',
+        accessibleName: QuantumBoundStatesFluent.a11y.superpositionPresets.preset2.accessibleNameStringProperty,
         tandemName: `preset${index}Item`,
         createNode: () => new RichText( 'cΨ<sub>1</sub> + cΨ<sub>3</sub>', richTextOptions )
       },
       {
         value: index++,
-        accessibleName: 'c times psi 1 minus c times psi 2',
+        accessibleName: QuantumBoundStatesFluent.a11y.superpositionPresets.preset3.accessibleNameStringProperty,
         tandemName: `preset${index}Item`,
         createNode: () => new RichText( 'cΨ<sub>1</sub> - cΨ<sub>2</sub>', richTextOptions )
       },
       {
         value: index++,
-        accessibleName: 'c times psi 1 plus c times psi 2 plus c times psi 3',
+        accessibleName: QuantumBoundStatesFluent.a11y.superpositionPresets.preset4.accessibleNameStringProperty,
         tandemName: `preset${index}Item`,
         createNode: () => new RichText( 'cΨ<sub>1</sub> + cΨ<sub>2</sub> + cΨ<sub>3</sub>', richTextOptions )
       },
       {
         value: index++,
-        accessibleName: 'Localized Particle',
         tandemName: `preset${index}Item`,
-        createNode: () => new RichText( 'Localized Particle', richTextOptions )
+        // accessibleName is discoverable from text label.
+        createNode: () => new RichText( QuantumBoundStatesFluent.localizedParticleStringProperty, richTextOptions )
       }
     ];
 

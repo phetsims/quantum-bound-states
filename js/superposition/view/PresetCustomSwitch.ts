@@ -39,8 +39,6 @@ export default class PresetCustomSwitch extends ABSwitch<SuperpositionConfigurat
         phetioEnabledPropertyInstrumented: false
       },
       accessibleHelpText: QuantumBoundStatesFluent.a11y.presetCustomSwitch.accessibleHelpTextStringProperty,
-      valueAAccessibleName: QuantumBoundStatesFluent.a11y.presetCustomSwitch.valueAAccessibleNameStringProperty,
-      valueBAccessibleName: QuantumBoundStatesFluent.a11y.presetCustomSwitch.valueBAccessibleNameStringProperty,
       tandem: tandem
     };
 

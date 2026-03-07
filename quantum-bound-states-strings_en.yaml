@@ -89,6 +89,9 @@ potentialWells:
   coulomb:              Coulomb
   infiniteStep:         Infinite Step
 
+# Preset superposition states
+localizedParticle:                                 Localized Particle
+
 # Custom superposition states
 custom1:                                           Custom 1
 custom2:                                           Custom 2
@@ -281,14 +284,14 @@ a11y:
     accessibleContextResponse: TODO.waveFunctionDetailsButton.accessibleContextResponse
 
   superpositionCustomizeButton:
-    accessibleName:            TODO.superpositionEditButton.accessibleName
-    accessibleHelpText:        TODO.superpositionEditButton.accessibleHelpText
-    accessibleContextResponse: TODO.superpositionEditButton.accessibleContextResponse
+    accessibleName:            TODO.superpositionCustomizeButton.accessibleName
+    accessibleHelpText:        TODO.superpositionCustomizeButton.accessibleHelpText
+    accessibleContextResponse: TODO.superpositionCustomizeButton.accessibleContextResponse
 
   superpositionDetailsButton:
-    accessibleName:            TODO.superpositionInfoButton.accessibleName
-    accessibleHelpText:        TODO.superpositionInfoButton.accessibleHelpText
-    accessibleContextResponse: TODO.superpositionInfoButton.accessibleContextResponse
+    accessibleName:            TODO.superpositionDetailsButton.accessibleName
+    accessibleHelpText:        TODO.superpositionDetailsButton.accessibleHelpText
+    accessibleContextResponse: TODO.superpositionDetailsButton.accessibleContextResponse
 
   #=======================================================================================================
   # Radio Buttons
@@ -319,6 +322,20 @@ a11y:
   energyLevelSpinner:
     accessibleName:     Energy Level
     accessibleHelpText: TODO.energyLevelSpinner.accessibleHelpText
+
+  #=======================================================================================================
+  # Superposition States
+  #=======================================================================================================
+
+  superpositionPresets:
+    preset1:
+      accessibleName: 'c times psi sub 1 plus c times psi sub 2'
+    preset2:
+      accessibleName: 'c times psi sub 1 plus c times psi sub 3'
+    preset3:
+      accessibleName: 'c times psi sub 1 minus c times psi sub 2'
+    preset4:
+      accessibleName: 'c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3'
 
   #=======================================================================================================
   # Toggle Buttons and Switches
@@ -357,8 +374,6 @@ a11y:
 
   presetCustomSwitch:
     accessibleHelpText:   TODO.presetCustomSwitch.accessibleHelpText
-    valueAAccessibleName: TODO.presetCustomSwitch.valueAAccessibleName
-    valueBAccessibleName: TODO.presetCustomSwitch.valueBAccessibleName
 
   #=======================================================================================================
   # Tools

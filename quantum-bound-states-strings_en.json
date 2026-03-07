@@ -181,6 +181,9 @@
       "value": "Infinite Step"
     }
   },
+  "localizedParticle": {
+    "value": "Localized Particle"
+  },
   "custom1": {
     "value": "Custom 1"
   },
@@ -526,24 +529,24 @@
     },
     "superpositionCustomizeButton": {
       "accessibleName": {
-        "value": "TODO.superpositionEditButton.accessibleName"
+        "value": "TODO.superpositionCustomizeButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO.superpositionEditButton.accessibleHelpText"
+        "value": "TODO.superpositionCustomizeButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "TODO.superpositionEditButton.accessibleContextResponse"
+        "value": "TODO.superpositionCustomizeButton.accessibleContextResponse"
       }
     },
     "superpositionDetailsButton": {
       "accessibleName": {
-        "value": "TODO.superpositionInfoButton.accessibleName"
+        "value": "TODO.superpositionDetailsButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO.superpositionInfoButton.accessibleHelpText"
+        "value": "TODO.superpositionDetailsButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "TODO.superpositionInfoButton.accessibleContextResponse"
+        "value": "TODO.superpositionDetailsButton.accessibleContextResponse"
       }
     },
     "graphTypeRadioButtonGroup": {
@@ -575,6 +578,28 @@
       },
       "accessibleHelpText": {
         "value": "TODO.energyLevelSpinner.accessibleHelpText"
+      }
+    },
+    "superpositionPresets": {
+      "preset1": {
+        "accessibleName": {
+          "value": "c times psi sub 1 plus c times psi sub 2"
+        }
+      },
+      "preset2": {
+        "accessibleName": {
+          "value": "c times psi sub 1 plus c times psi sub 3"
+        }
+      },
+      "preset3": {
+        "accessibleName": {
+          "value": "c times psi sub 1 minus c times psi sub 2"
+        }
+      },
+      "preset4": {
+        "accessibleName": {
+          "value": "c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3"
+        }
       }
     },
     "timeDisplayToggleButton": {
@@ -657,12 +682,6 @@
     "presetCustomSwitch": {
       "accessibleHelpText": {
         "value": "TODO.presetCustomSwitch.accessibleHelpText"
-      },
-      "valueAAccessibleName": {
-        "value": "TODO.presetCustomSwitch.valueAAccessibleName"
-      },
-      "valueBAccessibleName": {
-        "value": "TODO.presetCustomSwitch.valueBAccessibleName"
       }
     },
     "magnifier": {
