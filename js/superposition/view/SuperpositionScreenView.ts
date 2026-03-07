@@ -11,7 +11,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import SuperpositionModel from '../model/SuperpositionModel.js';
-import { SuperpositionEnergyDiagramControlPanel } from './SuperpositionEnergyDiagramControlPanel.js';
+import { SuperpositionControlPanel } from './SuperpositionControlPanel.js';
 import SuperpositionScreenSummaryContent from './SuperpositionScreenSummaryContent.js';
 
 export default class SuperpositionScreenView extends QBSScreenView {
@@ -20,7 +20,7 @@ export default class SuperpositionScreenView extends QBSScreenView {
 
     const listboxParent = new Node();
 
-    const energyDiagramControlPanel = new SuperpositionEnergyDiagramControlPanel(
+    const energyDiagramControlPanel = new SuperpositionControlPanel(
       listboxParent,
       model.superpositionConfigurationTypeProperty,
       model.superpositionPresetProperty,

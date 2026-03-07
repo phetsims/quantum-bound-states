@@ -1,29 +1,40 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ManyWellsEnergyDiagramControlPanel contains controls related to what is shown in the Energy diagram
- * for the 'Many Wells' screen.
+ * ManyWellsControlPanel is the control panel that is specific to the 'Many Wells' screen,
+ * positioned to the right of the 'Energy' diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSConstants from '../../common/QBSConstants.js';
 import { EnergyDiagramControlPanel } from '../../common/view/EnergyDiagramControlPanel.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ElectricFieldControl from './ElectricFieldControl.js';
 import NumberOfWellsControl from './NumberOfWellsControl.js';
 
-export class ManyWellsEnergyDiagramControlPanel extends EnergyDiagramControlPanel {
+export class ManyWellsControlPanel extends EnergyDiagramControlPanel {
 
   public constructor( energyLevelProperty: NumberProperty,
                       numberOfWellsProperty: NumberProperty,
                       electricFieldProperty: NumberProperty,
                       valuesVisibleProperty: Property<boolean>,
                       tandem: Tandem ) {
+
+    const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
+      font: QBSConstants.TITLE_FONT,
+      maxWidth: 200,
+      tandem: tandem.createTandem( 'titleText' ),
+      phetioVisiblePropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
+    } );
 
     const controls = [
       new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) ),
@@ -32,8 +43,8 @@ export class ManyWellsEnergyDiagramControlPanel extends EnergyDiagramControlPane
       new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
     ];
 
-    super( controls, tandem );
+    super( titleText, controls, tandem );
   }
 }
 
-quantumBoundStates.register( 'ManyWellsEnergyDiagramControlPanel', ManyWellsEnergyDiagramControlPanel );
+quantumBoundStates.register( 'ManyWellsControlPanel', ManyWellsControlPanel );

@@ -1,8 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionEnergyDiagramControlPanel contains controls related to what is shown in the Energy diagram
- * for the 'Superposition' screen.
+ * SuperpositionControlPanel is the control panel that is specific to the 'Superposition' screen,
+ * positioned to the right of the 'Energy' diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -32,13 +32,20 @@ import SuperpositionDetailsButton from './SuperpositionDetailsButton.js';
 import SuperpositionDetailsDialog from './SuperpositionDetailsDialog.js';
 import SuperpositionPresetComboBox from './SuperpositionPresetComboBox.js';
 
-export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControlPanel {
+export class SuperpositionControlPanel extends EnergyDiagramControlPanel {
 
   public constructor( listboxParent: Node,
                       superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>,
                       superpositionPresetProperty: NumberProperty,
                       valuesVisibleProperty: Property<boolean>,
                       tandem: Tandem ) {
+
+    const titleText = new Text( QuantumBoundStatesFluent.superpositionLabelStringProperty, {
+      font: QBSConstants.TITLE_FONT,
+      maxWidth: 200,
+      phetioVisiblePropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
+    } );
 
     const presetHBox = new HBox( {
       spacing: 8,
@@ -70,10 +77,6 @@ export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControl
     };
 
     const controls = [
-      new Text( QuantumBoundStatesFluent.superpositionLabelStringProperty, {
-        font: QBSConstants.TITLE_FONT,
-        maxWidth: 200
-      } ),
       new PresetCustomSwitch( superpositionConfigurationTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
       new Node( {
         children: [
@@ -87,8 +90,8 @@ export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControl
       new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
     ];
 
-    super( controls, tandem );
+    super( titleText, controls, tandem );
   }
 }
 
-quantumBoundStates.register( 'SuperpositionEnergyDiagramControlPanel', SuperpositionEnergyDiagramControlPanel );
+quantumBoundStates.register( 'SuperpositionControlPanel', SuperpositionControlPanel );
