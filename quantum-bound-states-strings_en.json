@@ -519,7 +519,7 @@
         "value": "TODO.waveFunctionDetailsButton.accessibleContextResponse"
       }
     },
-    "superpositionEditButton": {
+    "superpositionCustomizeButton": {
       "accessibleName": {
         "value": "TODO.superpositionEditButton.accessibleName"
       },
@@ -530,7 +530,7 @@
         "value": "TODO.superpositionEditButton.accessibleContextResponse"
       }
     },
-    "superpositionInfoButton": {
+    "superpositionDetailsButton": {
       "accessibleName": {
         "value": "TODO.superpositionInfoButton.accessibleName"
       },

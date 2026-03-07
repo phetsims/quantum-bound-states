@@ -31,9 +31,9 @@ export default class SuperpositionCustomizationButton extends RectangularPushBut
         fill: 'black'
       } ),
       baseColor: QBSColors.superpositionEditButtonColorProperty,
-      accessibleName: QuantumBoundStatesFluent.a11y.superpositionEditButton.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.superpositionEditButton.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.superpositionEditButton.accessibleContextResponseStringProperty
+      accessibleName: QuantumBoundStatesFluent.a11y.superpositionCustomizeButton.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.superpositionCustomizeButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.superpositionCustomizeButton.accessibleContextResponseStringProperty
     }, providedOptions );
 
     super( options );

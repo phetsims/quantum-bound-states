@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Give this class a more descriptive name.
 /**
  * DetailsButton is the button used to open a dialog that shows the expanded versions of a function.
  *
