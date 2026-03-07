@@ -58,6 +58,8 @@ type StringsType = {
   'fastStringProperty': LocalizedStringProperty;
   'energyLevelStringProperty': LocalizedStringProperty;
   'energyLevelPatternStringProperty': LocalizedStringProperty;
+  'presetStringProperty': LocalizedStringProperty;
+  'customStringProperty': LocalizedStringProperty;
   'units': {
     'electronMasses': {
       'symbolStringProperty': LocalizedStringProperty;
@@ -85,6 +87,11 @@ type StringsType = {
     'coulombStringProperty': LocalizedStringProperty;
     'infiniteStepStringProperty': LocalizedStringProperty;
   };
+  'custom1StringProperty': LocalizedStringProperty;
+  'custom2StringProperty': LocalizedStringProperty;
+  'custom3StringProperty': LocalizedStringProperty;
+  'custom4StringProperty': LocalizedStringProperty;
+  'custom5StringProperty': LocalizedStringProperty;
   'keyboardHelp': {
     'referenceLine': {
       'headingStringProperty': LocalizedStringProperty;

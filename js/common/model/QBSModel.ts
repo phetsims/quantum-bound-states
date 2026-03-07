@@ -94,7 +94,8 @@ export default class QBSModel implements TModel {
       electronMasses => electronMasses * QBSConstants.ELECTRON_MASS, {
         units: kilogramsUnit,
         tandem: options.tandem.createTandem( 'massProperty' ),
-        phetioValueType: NumberIO
+        phetioValueType: NumberIO,
+        phetioFeatured: true
       } );
 
     this.energyDiagram = new EnergyDiagram( options.tandem.createTandem( 'energyDiagram' ) );

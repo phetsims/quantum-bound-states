@@ -61,6 +61,10 @@ fast:                                              fast
 energyLevel:                                       Energy Level
 energyLevelPattern:                                E<sub>{{index}}</sub>
 
+# Toggles and Switches
+preset:                                            Preset
+custom:                                            Custom
+
 # Units
 units:
   electronMasses:
@@ -85,6 +89,13 @@ potentialWells:
   anharmonicOscillator: Anharmonic Oscillator
   coulomb:              Coulomb
   infiniteStep:         Infinite Step
+
+# Custom superposition states
+custom1:                                           Custom 1
+custom2:                                           Custom 2
+custom3:                                           Custom 3
+custom4:                                           Custom 4
+custom5:                                           Custom 5
 
 # Keyboard Help
 keyboardHelp:

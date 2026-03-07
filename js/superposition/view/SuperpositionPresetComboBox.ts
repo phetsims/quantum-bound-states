@@ -21,7 +21,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
 
     const richTextOptions = {
       font: QBSConstants.CONTROL_FONT,
-      maxWidth: 250
+      maxWidth: 120
     };
 
     //TODO These items are temporary. Info needs to come from a richer data type and be localized.
@@ -29,25 +29,25 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
     const items: ComboBoxItem<number>[] = [
       {
         value: index++,
-        accessibleName: ' c psi 1 plus c psi 2',
+        accessibleName: 'c times psi 1 plus c times psi 2',
         tandemName: `preset${index}Item`,
         createNode: () => new RichText( 'cΨ<sub>1</sub> + cΨ<sub>2</sub>', richTextOptions )
       },
       {
         value: index++,
-        accessibleName: ' c psi 1 plus c psi 3',
+        accessibleName: 'c times psi 1 plus c times psi 3',
         tandemName: `preset${index}Item`,
         createNode: () => new RichText( 'cΨ<sub>1</sub> + cΨ<sub>3</sub>', richTextOptions )
       },
       {
         value: index++,
-        accessibleName: ' c psi 1 minus c psi 2',
+        accessibleName: 'c times psi 1 minus c times psi 2',
         tandemName: `preset${index}Item`,
         createNode: () => new RichText( 'cΨ<sub>1</sub> - cΨ<sub>2</sub>', richTextOptions )
       },
       {
         value: index++,
-        accessibleName: ' c psi 1 plus c psi 2 plus c psi 3',
+        accessibleName: 'c times psi 1 plus c times psi 2 plus c times psi 3',
         tandemName: `preset${index}Item`,
         createNode: () => new RichText( 'cΨ<sub>1</sub> + cΨ<sub>2</sub> + cΨ<sub>3</sub>', richTextOptions )
       },

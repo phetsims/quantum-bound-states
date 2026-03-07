@@ -19,23 +19,42 @@ export default class SuperpositionCustomComboBox extends ComboBox<number> {
 
   public constructor( superpositionCustomProperty: NumberProperty, listboxParent: Node, tandem: Tandem ) {
 
+    const range = superpositionCustomProperty.range;
+
     const richTextOptions = {
       font: QBSConstants.CONTROL_FONT,
-      maxWidth: 250
+      maxWidth: 120
     };
 
     //TODO These items are temporary. Info needs to come from a richer data type and be localized.
-    const range = superpositionCustomProperty.range;
     let index = range.min;
-    const items: ComboBoxItem<number>[] = [];
-    for ( let i = range.min; i <= range.max; i++ ) {
-      items.push( {
+    const items: ComboBoxItem<number>[] = [
+      {
         value: index++,
-        accessibleName: ' c psi 1 plus c psi 2',
-        tandemName: `preset${index}Item`,
-        createNode: () => new RichText( `Custom ${i}`, richTextOptions )
-      } );
-    }
+        tandemName: `custom${index}Item`,
+        createNode: () => new RichText( QuantumBoundStatesFluent.custom1StringProperty, richTextOptions )
+      },
+      {
+        value: index++,
+        tandemName: `custom${index}Item`,
+        createNode: () => new RichText( QuantumBoundStatesFluent.custom2StringProperty, richTextOptions )
+      },
+      {
+        value: index++,
+        tandemName: `custom${index}Item`,
+        createNode: () => new RichText( QuantumBoundStatesFluent.custom3StringProperty, richTextOptions )
+      },
+      {
+        value: index++,
+        tandemName: `custom${index}Item`,
+        createNode: () => new RichText( QuantumBoundStatesFluent.custom4StringProperty, richTextOptions )
+      },
+      {
+        value: index++,
+        tandemName: `custom${index}Item`,
+        createNode: () => new RichText( QuantumBoundStatesFluent.custom5StringProperty, richTextOptions )
+      }
+    ];
 
     super( superpositionCustomProperty, items, listboxParent, {
       xMargin: 10,

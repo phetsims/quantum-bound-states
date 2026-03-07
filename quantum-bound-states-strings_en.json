@@ -121,6 +121,12 @@
   "energyLevelPattern": {
     "value": "E<sub>{{index}}</sub>"
   },
+  "preset": {
+    "value": "Preset"
+  },
+  "custom": {
+    "value": "Custom"
+  },
   "units": {
     "electronMasses": {
       "symbol": {
@@ -177,6 +183,21 @@
     "infiniteStep": {
       "value": "Infinite Step"
     }
+  },
+  "custom1": {
+    "value": "Custom 1"
+  },
+  "custom2": {
+    "value": "Custom 2"
+  },
+  "custom3": {
+    "value": "Custom 3"
+  },
+  "custom4": {
+    "value": "Custom 4"
+  },
+  "custom5": {
+    "value": "Custom 5"
   },
   "keyboardHelp": {
     "referenceLine": {

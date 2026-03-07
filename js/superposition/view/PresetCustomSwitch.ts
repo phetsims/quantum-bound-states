@@ -20,8 +20,13 @@ export default class PresetCustomSwitch extends ABSwitch<SuperpositionConfigurat
 
   public constructor( superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>, tandem: Tandem ) {
 
+    const textOptions = {
+      font: QBSConstants.CONTROL_FONT,
+      maxWidth: 60
+    };
+
     // Size the switch to match the height of the font.
-    const switchHeight = new Text( 'X', { font: QBSConstants.CONTROL_FONT } ).height;
+    const switchHeight = new Text( 'X', { font: textOptions.font } ).height;
 
     const options: ABSwitchOptions = {
       isDisposable: false,
@@ -39,13 +44,8 @@ export default class PresetCustomSwitch extends ABSwitch<SuperpositionConfigurat
       tandem: tandem
     };
 
-    const textOptions = {
-      font: QBSConstants.CONTROL_FONT,
-      maxWidth: 100
-    };
-
-    const presetText = new Text( 'Preset', textOptions );
-    const customText = new Text( 'Custom', textOptions );
+    const presetText = new Text( QuantumBoundStatesFluent.presetStringProperty, textOptions );
+    const customText = new Text( QuantumBoundStatesFluent.customStringProperty, textOptions );
 
     super( superpositionConfigurationTypeProperty, 'preset', presetText, 'custom', customText, options );
   }

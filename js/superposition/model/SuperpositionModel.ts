@@ -35,21 +35,24 @@ export default class SuperpositionModel extends QBSModel {
 
     this.superpositionConfigurationTypeProperty = new StringUnionProperty( 'preset', {
       validValues: SuperpositionConfigurationTypeValues,
-      tandem: tandem.createTandem( 'superpositionConfigurationTypeProperty' )
+      tandem: tandem.createTandem( 'superpositionConfigurationTypeProperty' ),
+      phetioFeatured: true
     } );
 
     //TODO Using a number is temporary. This needs to be a richer type.
     this.superpositionPresetProperty = new NumberProperty( 1, {
       numberType: 'Integer',
       range: new Range( 1, 5 ),
-      tandem: tandem.createTandem( 'superpositionPresetProperty' )
+      tandem: tandem.createTandem( 'superpositionPresetProperty' ),
+      phetioFeatured: true
     } );
 
     //TODO Using a number is temporary. This needs to be a richer type.
     this.superpositionCustomProperty = new NumberProperty( 1, {
       numberType: 'Integer',
       range: new Range( 1, 5 ),
-      tandem: tandem.createTandem( 'superpositionCustomProperty' )
+      tandem: tandem.createTandem( 'superpositionCustomProperty' ),
+      phetioFeatured: true
     } );
   }
 
