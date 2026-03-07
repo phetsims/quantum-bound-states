@@ -1,8 +1,7 @@
 // Copyright 2025-2026, University of Colorado Boulder
 
 /**
- * QBSModel is the base class for the top-level model in this sim. It includes the model elements and functionality
- * that is common to all screens.
+ * QBSModel is the base class for the top-level model in this sim.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
