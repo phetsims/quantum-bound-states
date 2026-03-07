@@ -26,10 +26,10 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
 import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
+import SuperpositionCustomizationButton from './SuperpositionCustomizationButton.js';
 import SuperpositionCustomizationDialog from './SuperpositionCustomizationDialog.js';
-import SuperpositionEditButton from './SuperpositionEditButton.js';
-import SuperpositionInfoButton from './SuperpositionInfoButton.js';
-import SuperpositionInfoDialog from './SuperpositionInfoDialog.js';
+import SuperpositionDetailsButton from './SuperpositionDetailsButton.js';
+import SuperpositionDetailsDialog from './SuperpositionDetailsDialog.js';
 import SuperpositionPresetComboBox from './SuperpositionPresetComboBox.js';
 
 export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControlPanel {
@@ -44,9 +44,9 @@ export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControl
       spacing: 8,
       children: [
         new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'superpositionPresetComboBox' ) ),
-        new SuperpositionInfoButton( {
-          listener: () => new SuperpositionInfoDialog().show(),
-          tandem: tandem.createTandem( 'infoButton' )
+        new SuperpositionDetailsButton( {
+          listener: () => new SuperpositionDetailsDialog().show(),
+          tandem: tandem.createTandem( 'detailsButton' )
         } )
       ],
       visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'preset' )
@@ -56,9 +56,9 @@ export class SuperpositionEnergyDiagramControlPanel extends EnergyDiagramControl
       spacing: 8,
       children: [
         new SuperpositionCustomComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'superpositionCustomComboBox' ) ),
-        new SuperpositionEditButton( {
+        new SuperpositionCustomizationButton( {
           listener: () => new SuperpositionCustomizationDialog().show(),
-          tandem: tandem.createTandem( 'editButton' )
+          tandem: tandem.createTandem( 'customizationButton' )
         } )
       ],
       visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'custom' )

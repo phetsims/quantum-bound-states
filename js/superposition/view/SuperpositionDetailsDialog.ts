@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionInfoDialog is the dialog for viewing a superposition configuration
+ * SuperpositionDetailsDialog is the dialog for viewing a preset superposition configuration.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
-export default class SuperpositionInfoDialog extends Dialog {
+export default class SuperpositionDetailsDialog extends Dialog {
 
   public constructor() {
 
@@ -35,4 +35,4 @@ export default class SuperpositionInfoDialog extends Dialog {
   }
 }
 
-quantumBoundStates.register( 'SuperpositionInfoDialog', SuperpositionInfoDialog );
+quantumBoundStates.register( 'SuperpositionDetailsDialog', SuperpositionDetailsDialog );

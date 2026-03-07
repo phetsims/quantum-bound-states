@@ -1,7 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionInfoButton is the button that opens the dialog for viewing a preset superposition configuration.
+ * SuperpositionDetailsButton is the button that opens the 'Superposition Details' dialog for viewing a preset
+ * superposition configuration.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +18,7 @@ type SelfOptions = EmptySelfOptions;
 
 type SuperpositionInfoButtonOptions = SelfOptions & PickRequired<InfoButtonOptions, 'tandem' | 'listener'>;
 
-export default class SuperpositionInfoButton extends InfoButton {
+export default class SuperpositionDetailsButton extends InfoButton {
 
   public constructor( providedOptions: SuperpositionInfoButtonOptions ) {
 
@@ -35,4 +36,4 @@ export default class SuperpositionInfoButton extends InfoButton {
   }
 }
 
-quantumBoundStates.register( 'SuperpositionInfoButton', SuperpositionInfoButton );
+quantumBoundStates.register( 'SuperpositionDetailsButton', SuperpositionDetailsButton );

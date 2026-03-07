@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionEditButton is the button that opens the dialog for editing a custom superposition configuration.
+ * SuperpositionCustomizationButton is the button that opens the dialog for editing a custom superposition configuration.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +19,7 @@ type SelfOptions = EmptySelfOptions;
 
 type SuperpositionEditButtonOptions = SelfOptions & PickRequired<RectangularPushButtonOptions, 'tandem' | 'listener'>;
 
-export default class SuperpositionEditButton extends RectangularPushButton {
+export default class SuperpositionCustomizationButton extends RectangularPushButton {
 
   public constructor( providedOptions: SuperpositionEditButtonOptions ) {
 
@@ -40,4 +40,4 @@ export default class SuperpositionEditButton extends RectangularPushButton {
   }
 }
 
-quantumBoundStates.register( 'SuperpositionEditButton', SuperpositionEditButton );
+quantumBoundStates.register( 'SuperpositionCustomizationButton', SuperpositionCustomizationButton );
