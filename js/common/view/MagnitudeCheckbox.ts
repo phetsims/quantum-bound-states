@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MagnitudeCheckbox is the checkboxes used to show/hide the magnitude of the wave function.
+ * MagnitudeCheckbox is the checkbox used to show/hide the magnitude of the wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

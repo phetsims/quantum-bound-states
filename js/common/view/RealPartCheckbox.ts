@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * RealPartCheckbox is the checkboxes used to show/hide the real part of the wave function.
+ * RealPartCheckbox is the checkbox used to show/hide the real part of the wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

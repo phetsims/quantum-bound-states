@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ImaginaryPartCheckbox is the checkboxes used to show/hide the imaginary part of the wave function.
+ * ImaginaryPartCheckbox is the checkbox used to show/hide the imaginary part of the wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
