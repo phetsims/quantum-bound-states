@@ -17,9 +17,6 @@ import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 
-const PANEL_FILL = 'white';
-const PANEL_STROKE = 'rgb( 200, 200, 200 )';
-
 export default class QBSColors {
 
   private constructor() {
@@ -29,14 +26,6 @@ export default class QBSColors {
   // Background color for screens in this sim
   public static readonly screenBackgroundColorProperty = new ProfileColorProperty( quantumBoundStates, 'screenBackgroundColor', {
     default: 'rgb( 254, 250, 229 )'
-  } );
-
-  public static readonly legendFillProperty = new ProfileColorProperty( quantumBoundStates, 'legendFill', {
-    default: 'white'
-  } );
-
-  public static readonly legendStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'legendStroke', {
-    default: 'black'
   } );
 
   public static readonly potentialEnergyColorProperty = new ProfileColorProperty( quantumBoundStates, 'potentialEnergyColor', {
@@ -58,11 +47,19 @@ export default class QBSColors {
   } );
 
   public static readonly controlPanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'controlPanelFill', {
-    default: PANEL_FILL
+    default: 'white'
   } );
 
   public static readonly controlPanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'controlPanelStroke', {
-    default: PANEL_STROKE
+    default: 'rgb( 200, 200, 200 )'
+  } );
+
+  public static readonly legendFillProperty = new ProfileColorProperty( quantumBoundStates, 'legendFill', {
+    default: QBSColors.controlPanelFillProperty.colorProfileMap.default
+  } );
+
+  public static readonly legendStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'legendStroke', {
+    default: QBSColors.controlPanelStrokeProperty.colorProfileMap.default
   } );
 
   public static readonly timePanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'timePanelFill', {
@@ -70,7 +67,7 @@ export default class QBSColors {
   } );
 
   public static readonly timePanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'timePanelStroke', {
-    default: PANEL_STROKE
+    default: QBSColors.controlPanelStrokeProperty.colorProfileMap.default
   } );
 
   public static readonly toolsPanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'toolsPanelFill', {

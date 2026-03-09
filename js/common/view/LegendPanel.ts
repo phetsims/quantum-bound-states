@@ -23,14 +23,14 @@ export default class LegendPanel extends Panel {
 
   public constructor( tandem: Tandem ) {
 
-    const options = combineOptions<PanelOptions>( {
+    const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       cornerRadius: 3,
       xMargin: 10,
       yMargin: 5,
       fill: QBSColors.legendFillProperty,
       stroke: QBSColors.legendStrokeProperty,
       tandem: tandem
-    }, QBSConstants.PANEL_OPTIONS );
+    } );
 
     const content = new HBox( {
       spacing: 14,
