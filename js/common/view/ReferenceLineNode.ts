@@ -81,12 +81,12 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
 
   public constructor( referenceLine: ReferenceLine, chartTransform: ChartTransform, tandem: Tandem ) {
 
-    const options = combineOptions<ShadedSphereNodeOptions>( {
+    const options = combineOptions<ShadedSphereNodeOptions>( {}, AccessibleDraggableOptions, {
       isDisposable: false,
       cursor: 'ew-resize',
       mainColor: QBSColors.referenceLineHandleColorProperty,
       tandem: tandem
-    }, AccessibleDraggableOptions );
+    } );
 
     super( QBSConstants.HANDLE_DIAMETER, options );
 

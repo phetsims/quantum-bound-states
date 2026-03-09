@@ -57,11 +57,11 @@ export default class QuantumStateGraphControlPanel extends Panel {
       ]
     } );
 
-    const options = combineOptions<PanelOptions>( {
+    const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       isDisposable: false,
       accessibleHeading: QuantumBoundStatesFluent.a11y.quantumStateGraphControls.accessibleHeadingStringProperty,
       tandem: tandem
-    }, QBSConstants.PANEL_OPTIONS );
+    } );
 
     super( content, options );
   }

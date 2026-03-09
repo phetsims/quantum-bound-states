@@ -91,14 +91,14 @@ class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
   public constructor( tandem: Tandem ) {
 
-    const options = combineOptions<ProbeNodeOptions>( {}, QBSConstants.PROBE_NODE_OPTIONS, {
+    const options = combineOptions<ProbeNodeOptions>( {}, AccessibleDraggableOptions, QBSConstants.PROBE_NODE_OPTIONS, {
       cursor: 'pointer',
       accessibleName: QuantumBoundStatesFluent.a11y.magnifier.probe.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifier.probe.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioInputEnabledPropertyInstrumented: true,
       phetioVisiblePropertyInstrumented: false
-    }, AccessibleDraggableOptions );
+    } );
 
     super( options );
   }
