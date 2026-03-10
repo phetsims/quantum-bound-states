@@ -128,11 +128,11 @@ export default class QBSColors {
     default: Color.grayColor( 240 )
   } );
 
-  public static readonly curvesVisibleToggleButtonOnColorProperty = new ProfileColorProperty( quantumBoundStates, 'curvesVisibleToggleButtonOnColor', {
+  public static readonly curvesVisibleToggleButtonShownColorProperty = new ProfileColorProperty( quantumBoundStates, 'curvesVisibleToggleButtonShownColor', {
     default: 'rgb( 153, 206, 255 )'
   } );
 
-  public static readonly curvesVisibleToggleButtonOffColorProperty = new ProfileColorProperty( quantumBoundStates, 'curvesVisibleToggleButtonOffColor', {
+  public static readonly curvesVisibleToggleButtonHiddenColorProperty = new ProfileColorProperty( quantumBoundStates, 'curvesVisibleToggleButtonHiddenColor', {
     default: PhetColorScheme.BUTTON_YELLOW
   } );
 
