@@ -25,7 +25,9 @@ export default class SuperpositionDetailsButton extends InfoButton {
     const options = optionize<SuperpositionInfoButtonOptions, SelfOptions, InfoButtonOptions>()( {
 
       // InfoButtonOptions
-      scale: 0.5,
+      iconScale: 0.7,
+      xMargin: 5,
+      yMargin: 5,
       baseColor: QBSColors.superpositionDetailsButtonBaseColorProperty,
       iconFill: QBSColors.superpositionDetailsButtonIconColorProperty,
       accessibleName: QuantumBoundStatesFluent.a11y.superpositionDetailsButton.accessibleNameStringProperty,
