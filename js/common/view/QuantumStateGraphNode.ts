@@ -96,15 +96,17 @@ export default class QuantumStateGraphNode extends Node {
       maxWidth: 0.5 * this.chartRectangle.width
     } );
     xAxisLabelNode.boundsProperty.link( () => {
-      xAxisLabelNode.centerTop = this.chartRectangle.centerBottom.addXY( 0, 20 );
+      xAxisLabelNode.centerTop = this.chartRectangle.centerBottom.addXY( 0, 28 );
     } );
 
     const xTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.HORIZONTAL, QBSConstants.ALL_GRAPHS_X_TICK_SPACING, {
-      edge: 'min'
+      edge: 'min',
+      extent: 24
     } );
 
     const xTickLabelSet = new TickLabelSet( this.chartTransform, Orientation.HORIZONTAL, QBSConstants.ALL_GRAPHS_X_TICK_SPACING, {
       edge: 'min',
+      extent: 24,
       createLabel: ( value: number ) => new Text( toFixed( value, 0 ), {
         font: QBSConstants.TICK_LABEL_FONT
       } )
