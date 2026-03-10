@@ -124,7 +124,7 @@ export default class QBSScreenView extends ScreenView {
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyDiagramNode.chartTransform, {
       lineTop: energyDiagramChartRectangleBounds.y,
-      lineBottom: graphChartRectangleBounds.bottom + 35,
+      lineBottom: graphChartRectangleBounds.bottom,
       tandem: options.tandem.createTandem( 'referenceLineNode' )
     } );
 
