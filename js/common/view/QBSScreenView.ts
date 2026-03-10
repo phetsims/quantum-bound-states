@@ -156,11 +156,11 @@ export default class QBSScreenView extends ScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
+      energyDiagramControlPanel,
+      quantumStateGraphControlPanel,
       potentialTypeComboBox,
       energyDiagramNode,
       ...graphNodes,
-      energyDiagramControlPanel,
-      quantumStateGraphControlPanel,
       magnifierNode,
       referenceLineNode
     ];
