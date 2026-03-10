@@ -11,7 +11,11 @@ import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
+import DoubleSquarePotential from '../../common/model/potentials/DoubleSquarePotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
+import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicOscillatorPotential.js';
+import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import { SuperpositionConfigurationType, SuperpositionConfigurationTypeValues } from './SuperpositionConfigurationType.js';
@@ -25,11 +29,18 @@ export default class SuperpositionModel extends QBSModel {
   public constructor( tandem: Tandem ) {
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
-    const finiteSquarePotential = new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) );
+
+    const potentials = [
+      new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) ),
+      new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),
+      new HarmonicOscillatorPotential( potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
+      new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) ),
+      new DoubleSquarePotential( potentialsTandem.createTandem( 'doubleSquarePotential' ) )
+    ];
 
     super( {
-      potential: finiteSquarePotential,
-      potentials: [ finiteSquarePotential ],
+      potential: potentials[ 0 ],
+      potentials: potentials,
       tandem: tandem
     } );
 

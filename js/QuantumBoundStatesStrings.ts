@@ -80,6 +80,7 @@ type StringsType = {
   'potentialWells': {
     'finiteSquareStringProperty': LocalizedStringProperty;
     'infiniteSquareStringProperty': LocalizedStringProperty;
+    'doubleSquareStringProperty': LocalizedStringProperty;
     'asymmetricTriangleStringProperty': LocalizedStringProperty;
     'harmonicOscillatorStringProperty': LocalizedStringProperty;
     'anharmonicOscillatorStringProperty': LocalizedStringProperty;

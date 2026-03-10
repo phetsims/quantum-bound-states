@@ -83,6 +83,7 @@ units:
 potentialWells:
   finiteSquare:         Finite Square
   infiniteSquare:       Infinite Square
+  doubleSquare:         Double Square
   asymmetricTriangle:   Asymmetric Triangle
   harmonicOscillator:   Harmonic Oscillator
   anharmonicOscillator: Anharmonic Oscillator

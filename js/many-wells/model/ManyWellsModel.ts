@@ -8,6 +8,7 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import QBSConstants from '../../common/QBSConstants.js';
@@ -22,11 +23,15 @@ export default class ManyWellsModel extends QBSModel {
   public constructor( tandem: Tandem ) {
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
-    const finiteSquarePotential = new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) );
+
+    const potentials = [
+      new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) ),
+      new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) )
+    ];
 
     super( {
-      potential: finiteSquarePotential,
-      potentials: [ finiteSquarePotential ],
+      potential: potentials[ 0 ],
+      potentials: potentials,
       hasAverageProbabilityDensityOfBandGraph: true,
       tandem: tandem
     } );
