@@ -19,12 +19,14 @@ export default class TimeToggleButton extends EyeToggleButton {
   public constructor( timeVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
     super( timeVisibleProperty, {
-      scale: 0.5,
 
       // Change the base color to emphasize when time is hidden.
       baseColor: new DerivedProperty(
         [ timeVisibleProperty, QBSColors.timeToggleButtonShownColorProperty, QBSColors.timeToggleButtonHiddenColorProperty ],
         ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor ),
+      iconOptions: {
+        scale: 0.5
+      },
       touchAreaXDilation: 10,
       touchAreaYDilation: 10,
       accessibleNameOn: QuantumBoundStatesFluent.a11y.timeDisplayToggleButton.accessibleNameOnStringProperty,
