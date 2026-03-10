@@ -12,7 +12,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
-import AlignBox, { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -32,6 +31,9 @@ import SuperpositionDetailsButton from './SuperpositionDetailsButton.js';
 import SuperpositionDetailsDialog from './SuperpositionDetailsDialog.js';
 import SuperpositionPresetComboBox from './SuperpositionPresetComboBox.js';
 
+// Space between the combo box and the button.
+const BUTTON_SPACING = 8;
+
 export class SuperpositionControlPanel extends Panel {
 
   public constructor( listboxParent: Node,
@@ -46,34 +48,36 @@ export class SuperpositionControlPanel extends Panel {
       visiblePropertyOptions: { phetioFeatured: true }
     } );
 
+    // To make both push buttons have the same effective size.
+    const buttonAlignGroup = new AlignGroup();
+
+    const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent,
+      tandem.createTandem( 'superpositionPresetComboBox' ) );
+
+    const detailsButton = new SuperpositionDetailsButton( {
+      listener: () => new SuperpositionDetailsDialog().show(),
+      tandem: tandem.createTandem( 'detailsButton' )
+    } );
+
     const presetHBox = new HBox( {
-      spacing: 8,
-      children: [
-        new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'superpositionPresetComboBox' ) ),
-        new SuperpositionDetailsButton( {
-          listener: () => new SuperpositionDetailsDialog().show(),
-          tandem: tandem.createTandem( 'detailsButton' )
-        } )
-      ],
+      spacing: BUTTON_SPACING,
+      children: [ presetComboBox, buttonAlignGroup.createBox( detailsButton ) ],
       visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'preset' )
     } );
 
-    const customHBox = new HBox( {
-      spacing: 8,
-      children: [
-        new SuperpositionCustomComboBox( superpositionPresetProperty, listboxParent, tandem.createTandem( 'superpositionCustomComboBox' ) ),
-        new SuperpositionCustomizationButton( {
-          listener: () => new SuperpositionCustomizationDialog().show(),
-          tandem: tandem.createTandem( 'customizationButton' )
-        } )
-      ],
-      visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'custom' )
+    const customComboBox = new SuperpositionCustomComboBox( superpositionPresetProperty, listboxParent,
+      tandem.createTandem( 'customComboBox' ) );
+
+    const customizationButton = new SuperpositionCustomizationButton( {
+      listener: () => new SuperpositionCustomizationDialog().show(),
+      tandem: tandem.createTandem( 'customizationButton' )
     } );
 
-    const alignBoxOptions: AlignBoxOptions = {
-      group: new AlignGroup(),
-      xAlign: 'left'
-    };
+    const customHBox = new HBox( {
+      spacing: BUTTON_SPACING,
+      children: [ customComboBox, buttonAlignGroup.createBox( customizationButton ) ],
+      visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'custom' )
+    } );
 
     const content = new VBox( {
       align: 'left',
@@ -82,10 +86,7 @@ export class SuperpositionControlPanel extends Panel {
         titleText,
         new PresetCustomSwitch( superpositionConfigurationTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
         new Node( {
-          children: [
-            new AlignBox( presetHBox, alignBoxOptions ),
-            new AlignBox( customHBox, alignBoxOptions )
-          ]
+          children: [ presetHBox, customHBox ]
         } )
       ]
     } );
