@@ -31,6 +31,8 @@ export default class SuperpositionCustomizationButton extends RectangularPushBut
         fill: 'black'
       } ),
       baseColor: QBSColors.superpositionCustomizationButtonBaseColorProperty,
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 5,
       accessibleName: QuantumBoundStatesFluent.a11y.superpositionCustomizeButton.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.superpositionCustomizeButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.superpositionCustomizeButton.accessibleContextResponseStringProperty

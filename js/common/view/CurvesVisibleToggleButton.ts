@@ -27,7 +27,9 @@ export class CurvesVisibleToggleButton extends EyeToggleButton {
       scale: 0.5,
       baseColor: new DerivedProperty(
         [ curvesVisibleProperty, QBSColors.curvesVisibleToggleButtonOnColorProperty, QBSColors.curvesVisibleToggleButtonOffColorProperty ],
-        ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor )
+        ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor ),
+      touchAreaXDilation: 10,
+      touchAreaYDilation: 10
     }, providedOptions );
 
     super( curvesVisibleProperty, options );

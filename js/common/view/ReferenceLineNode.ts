@@ -111,6 +111,9 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     this.focusedProperty.lazyLink( focused => {
       focused && this.doAccessibleObjectResponse();
     } );
+
+    this.mouseArea = this.localBounds.dilatedXY( 3, 3 );
+    this.touchArea = this.localBounds.dilatedXY( 5, 5 );
   }
 
   /**

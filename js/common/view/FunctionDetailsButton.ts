@@ -39,7 +39,9 @@ export default class FunctionDetailsButton extends RectangularPushButton {
       // RectangularPushButtonOptions
       isDisposable: false,
       content: labelNode,
-      baseColor: QBSColors.functionDetailsButtonColorProperty
+      baseColor: QBSColors.functionDetailsButtonColorProperty,
+      touchAreaXDilation: 6,
+      touchAreaYDilation: 6
     }, providedOptions );
 
     super( options );
