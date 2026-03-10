@@ -16,6 +16,7 @@ import HSlider, { HSliderOptions } from '../../../../sun/js/HSlider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import QBSColors from '../QBSColors.js';
 
 export default class TimeSpeedSlider extends HSlider {
 
@@ -29,6 +30,8 @@ export default class TimeSpeedSlider extends HSlider {
     const options: HSliderOptions = {
       trackSize: new Dimension2( 75, 2 ),
       thumbSize: new Dimension2( 15, 25 ),
+      thumbFill: QBSColors.timeSpeedSliderThumbFillProperty,
+      thumbFillHighlighted: QBSColors.timeSpeedSliderThumbFillHighlightedProperty,
       majorTickLength: 15,
       constrainValue: value => findClosestValue( value, validValues ),
       tandem: tandem

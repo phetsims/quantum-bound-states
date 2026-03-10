@@ -140,12 +140,28 @@ export default class QBSColors {
     default: 'rgb( 153, 206, 255 )'
   } );
 
+  public static readonly timeSpeedSliderThumbFillProperty = new ProfileColorProperty( quantumBoundStates, 'timeSpeedSliderThumbFill', {
+    default: 'rgb( 50, 145, 184 )'
+  } );
+
+  public static readonly timeSpeedSliderThumbFillHighlightedProperty = new ProfileColorProperty( quantumBoundStates, 'timeSpeedSliderThumbFillHighlighted', {
+    default: 'rgb( 71, 207, 255 )'
+  } );
+
   public static readonly curvesVisibleToggleButtonShownColorProperty = new ProfileColorProperty( quantumBoundStates, 'curvesVisibleToggleButtonShownColor', {
     default: 'rgb( 153, 206, 255 )'
   } );
 
   public static readonly curvesVisibleToggleButtonHiddenColorProperty = new ProfileColorProperty( quantumBoundStates, 'curvesVisibleToggleButtonHiddenColor', {
     default: PhetColorScheme.BUTTON_YELLOW
+  } );
+
+  public static readonly massSliderThumbFillProperty = new ProfileColorProperty( quantumBoundStates, 'massSliderThumbFill', {
+    default: 'rgb( 50, 145, 184 )'
+  } );
+
+  public static readonly massSliderThumbFillHighlightedProperty = new ProfileColorProperty( quantumBoundStates, 'massSliderThumbFillHighlighted', {
+    default: 'rgb( 71, 207, 255 )'
   } );
 
   public static readonly magnifierBodyColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierBodyColor', {

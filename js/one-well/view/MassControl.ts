@@ -14,6 +14,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
+import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -52,6 +53,8 @@ export default class MassControl extends NumberControl {
       sliderOptions: {
         majorTicks: createMajorTicks( electronMassesProperty.range ),
         minorTickSpacing: 0.1,
+        thumbFill: QBSColors.massSliderThumbFillProperty,
+        thumbFillHighlighted: QBSColors.massSliderThumbFillHighlightedProperty,
         createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {
           decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
           showTrailingZeros: false
