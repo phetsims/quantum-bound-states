@@ -8,6 +8,8 @@
 
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -37,6 +39,12 @@ export default class ToolsPanel extends Panel {
       phetioVisiblePropertyInstrumented: true
     } );
 
+    // To make all checkboxes have the same effective size.
+    const alignGroup = new AlignGroup();
+    const alignBoxOptions: AlignBoxOptions = {
+      xAlign: 'left'
+    };
+
     const valuesCheckbox = new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) );
 
     const magnifierCheckbox = new MagnifierCheckbox( referenceLineVisibleProperty, tandem.createTandem( 'magnifierCheckbox' ) );
@@ -45,11 +53,11 @@ export default class ToolsPanel extends Panel {
 
     const content = new VBox( {
       children: [
-        valuesCheckbox,
-        magnifierCheckbox,
-        referenceLineCheckbox
+        alignGroup.createBox( valuesCheckbox, alignBoxOptions ),
+        alignGroup.createBox( magnifierCheckbox, alignBoxOptions ),
+        alignGroup.createBox( referenceLineCheckbox, alignBoxOptions )
       ],
-      spacing: 6,
+      spacing: 4,
       align: 'left'
     } );
 
