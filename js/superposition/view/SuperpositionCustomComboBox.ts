@@ -28,6 +28,8 @@ export default class SuperpositionCustomComboBox extends ComboBox<number> {
       maxWidth: 120
     };
 
+    // We sadly must resort to using an AlignGroup + AlignBox to make this combo box and SuperpositionPresetComboBox
+    // be the same size. ComboBox apparently does not support dynamic layout.
     const alignBoxOptions: AlignBoxOptions = {
       xAlign: 'left'
     };
