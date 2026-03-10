@@ -128,6 +128,18 @@ export default class QBSColors {
     default: Color.grayColor( 240 )
   } );
 
+  public static readonly restartButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'restartButtonColor', {
+    default: 'rgb( 153, 206, 255 )'
+  } );
+
+  public static readonly playPauseButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'playPauseButtonColor', {
+    default: 'rgb( 153, 206, 255 )'
+  } );
+
+  public static readonly stepForwardButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'stepForwardButtonColor', {
+    default: 'rgb( 153, 206, 255 )'
+  } );
+
   public static readonly curvesVisibleToggleButtonShownColorProperty = new ProfileColorProperty( quantumBoundStates, 'curvesVisibleToggleButtonShownColor', {
     default: 'rgb( 153, 206, 255 )'
   } );

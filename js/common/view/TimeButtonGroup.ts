@@ -17,6 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Time from '../model/Time.js';
+import QBSColors from '../QBSColors.js';
 
 const RESTART_BUTTON_RADIUS = 15;
 const STEP_FORWARD_BUTTON_RADIUS = RESTART_BUTTON_RADIUS;
@@ -30,6 +31,7 @@ export default class TimeButtonGroup extends HBox {
 
     const restartButton = new RestartButton( {
       listener: () => time.restart(),
+      baseColor: QBSColors.restartButtonColorProperty,
       radius: RESTART_BUTTON_RADIUS,
       touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.restartButton.accessibleHelpTextStringProperty,
@@ -38,6 +40,7 @@ export default class TimeButtonGroup extends HBox {
     } );
 
     const playPauseButton = new PlayPauseButton( time.isPlayingProperty, {
+      baseColor: QBSColors.playPauseButtonColorProperty,
       radius: PLAY_PAUSE_BUTTON_RADIUS,
       touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
       accessibleHelpText: new DerivedStringProperty( [
@@ -52,6 +55,7 @@ export default class TimeButtonGroup extends HBox {
 
     const stepForwardButton = new StepForwardButton( {
       listener: () => time.stepForward(),
+      baseColor: QBSColors.stepForwardButtonColorProperty,
       radius: STEP_FORWARD_BUTTON_RADIUS,
       touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
