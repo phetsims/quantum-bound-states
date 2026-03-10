@@ -7,6 +7,8 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
@@ -17,7 +19,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class SuperpositionCustomComboBox extends ComboBox<number> {
 
-  public constructor( superpositionCustomProperty: NumberProperty, listboxParent: Node, tandem: Tandem ) {
+  public constructor( superpositionCustomProperty: NumberProperty, listboxParent: Node, alignGroup: AlignGroup, tandem: Tandem ) {
 
     const range = superpositionCustomProperty.range;
 
@@ -26,33 +28,37 @@ export default class SuperpositionCustomComboBox extends ComboBox<number> {
       maxWidth: 120
     };
 
+    const alignBoxOptions: AlignBoxOptions = {
+      xAlign: 'left'
+    };
+
     //TODO These items are temporary. Info needs to come from a richer data type and be localized.
     let index = range.min;
     const items: ComboBoxItem<number>[] = [
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => new RichText( QuantumBoundStatesFluent.custom1StringProperty, richTextOptions )
+        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom1StringProperty, richTextOptions ), alignBoxOptions )
       },
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => new RichText( QuantumBoundStatesFluent.custom2StringProperty, richTextOptions )
+        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom2StringProperty, richTextOptions ), alignBoxOptions )
       },
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => new RichText( QuantumBoundStatesFluent.custom3StringProperty, richTextOptions )
+        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom3StringProperty, richTextOptions ), alignBoxOptions )
       },
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => new RichText( QuantumBoundStatesFluent.custom4StringProperty, richTextOptions )
+        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom4StringProperty, richTextOptions ), alignBoxOptions )
       },
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => new RichText( QuantumBoundStatesFluent.custom5StringProperty, richTextOptions )
+        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom5StringProperty, richTextOptions ), alignBoxOptions )
       }
     ];
 

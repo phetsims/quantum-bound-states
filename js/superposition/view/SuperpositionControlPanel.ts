@@ -12,7 +12,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
-import { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -55,17 +54,8 @@ export class SuperpositionControlPanel extends Panel {
     // To make both combo boxes have the same effective size.
     const comboBoxAlignGroup = new AlignGroup();
 
-    //TODO This is not working, ComboBox probably does not support stretching.
-    // To make both combo boxes have the same actual size.
-    const comboBoxAlignBoxOptions: AlignBoxOptions = {
-      xAlign: 'left',
-      layoutOptions: {
-        stretch: true
-      }
-    };
-
     const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent,
-      tandem.createTandem( 'superpositionPresetComboBox' ) );
+      comboBoxAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
 
     const detailsButton = new SuperpositionDetailsButton( {
       listener: () => new SuperpositionDetailsDialog().show(),
@@ -74,15 +64,12 @@ export class SuperpositionControlPanel extends Panel {
 
     const presetHBox = new HBox( {
       spacing: BUTTON_SPACING,
-      children: [
-        comboBoxAlignGroup.createBox( presetComboBox, comboBoxAlignBoxOptions ),
-        buttonAlignGroup.createBox( detailsButton )
-      ],
+      children: [ presetComboBox, buttonAlignGroup.createBox( detailsButton ) ],
       visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'preset' )
     } );
 
     const customComboBox = new SuperpositionCustomComboBox( superpositionPresetProperty, listboxParent,
-      tandem.createTandem( 'customComboBox' ) );
+      comboBoxAlignGroup, tandem.createTandem( 'customComboBox' ) );
 
     const customizationButton = new SuperpositionCustomizationButton( {
       listener: () => new SuperpositionCustomizationDialog().show(),
@@ -91,10 +78,7 @@ export class SuperpositionControlPanel extends Panel {
 
     const customHBox = new HBox( {
       spacing: BUTTON_SPACING,
-      children: [
-        comboBoxAlignGroup.createBox( customComboBox, comboBoxAlignBoxOptions ),
-        buttonAlignGroup.createBox( customizationButton )
-      ],
+      children: [ customComboBox, buttonAlignGroup.createBox( customizationButton ) ],
       visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'custom' )
     } );
 
