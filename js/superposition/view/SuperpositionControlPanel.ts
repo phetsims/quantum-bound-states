@@ -51,11 +51,12 @@ export class SuperpositionControlPanel extends Panel {
     // To make both push buttons have the same effective size.
     const buttonAlignGroup = new AlignGroup();
 
-    // To make both combo boxes have the same effective size.
-    const comboBoxAlignGroup = new AlignGroup();
+    // To make both combo boxes have the same actual size by making their items have the same effective size.
+    // This is a workaround for the lack of dynamic layout support in ComboBox.
+    const comboBoxItemAlignGroup = new AlignGroup();
 
     const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent,
-      comboBoxAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
+      comboBoxItemAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
 
     const detailsButton = new SuperpositionDetailsButton( {
       listener: () => new SuperpositionDetailsDialog().show(),
@@ -69,7 +70,7 @@ export class SuperpositionControlPanel extends Panel {
     } );
 
     const customComboBox = new SuperpositionCustomComboBox( superpositionPresetProperty, listboxParent,
-      comboBoxAlignGroup, tandem.createTandem( 'customComboBox' ) );
+      comboBoxItemAlignGroup, tandem.createTandem( 'customComboBox' ) );
 
     const customizationButton = new SuperpositionCustomizationButton( {
       listener: () => new SuperpositionCustomizationDialog().show(),

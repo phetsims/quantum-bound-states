@@ -19,7 +19,10 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class SuperpositionCustomComboBox extends ComboBox<number> {
 
-  public constructor( superpositionCustomProperty: NumberProperty, listboxParent: Node, alignGroup: AlignGroup, tandem: Tandem ) {
+  public constructor( superpositionCustomProperty: NumberProperty,
+                      listboxParent: Node,
+                      alignGroup: AlignGroup,
+                      tandem: Tandem ) {
 
     const range = superpositionCustomProperty.range;
 
