@@ -39,6 +39,9 @@ export default class SuperpositionCustomizationButton extends RectangularPushBut
     }, providedOptions );
 
     super( options );
+
+    // Tell assistive technology that this button will open a dialog.
+    this.setPDOMAttribute( 'aria-haspopup', true );
   }
 }
 

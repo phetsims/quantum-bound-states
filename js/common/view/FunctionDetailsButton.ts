@@ -45,6 +45,9 @@ export default class FunctionDetailsButton extends RectangularPushButton {
     }, providedOptions );
 
     super( options );
+
+    // Tell assistive technology that this button will open a dialog.
+    this.setPDOMAttribute( 'aria-haspopup', true );
   }
 }
 
