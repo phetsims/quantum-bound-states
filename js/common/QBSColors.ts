@@ -163,12 +163,16 @@ export default class QBSColors {
     default: Color.grayColor( 128 )
   } );
 
-  public static readonly superpositionEditButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionEditButtonColor', {
+  public static readonly superpositionCustomizationButtonBaseColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionCustomizationButtonBaseColor', {
     default: 'rgb( 179, 229, 247 )'
   } );
 
-  public static readonly superpositionInfoButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionInfoButtonColor', {
+  public static readonly superpositionDetailsButtonBaseColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionDetailsButtonBaseColor', {
     default: 'rgb( 179, 229, 247 )'
+  } );
+
+  public static readonly superpositionDetailsButtonIconColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionDetailsButtonIconColor', {
+    default: 'black'
   } );
 }
 

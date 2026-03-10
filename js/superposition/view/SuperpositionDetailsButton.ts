@@ -26,7 +26,8 @@ export default class SuperpositionDetailsButton extends InfoButton {
 
       // InfoButtonOptions
       scale: 0.5,
-      baseColor: QBSColors.superpositionInfoButtonColorProperty,
+      baseColor: QBSColors.superpositionDetailsButtonBaseColorProperty,
+      iconFill: QBSColors.superpositionDetailsButtonIconColorProperty,
       accessibleName: QuantumBoundStatesFluent.a11y.superpositionDetailsButton.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.superpositionDetailsButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.superpositionDetailsButton.accessibleContextResponseStringProperty
