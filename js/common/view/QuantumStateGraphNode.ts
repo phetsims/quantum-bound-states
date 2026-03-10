@@ -30,7 +30,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import { CurvesVisibleToggleButton, CurvesVisibleToggleButtonOptions } from './CurvesVisibleToggleButton.js';
-import DetailsButton, { DetailsButtonOptions } from './DetailsButton.js';
+import FunctionDetailsButton, { DetailsButtonOptions } from './FunctionDetailsButton.js';
 
 const BUTTON_X_MARGIN = 8;
 const BUTTON_Y_MARGIN = 8;
@@ -176,19 +176,19 @@ export default class QuantumStateGraphNode extends Node {
     curvesVisibleToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
     curvesVisibleToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
 
-    // Button to open a dialog that the expanded equation for the function displayed by the graph.
-    const detailsButton = new DetailsButton( combineOptions<DetailsButtonOptions>( {
-      tandem: options.tandem.createTandem( 'detailsButton' )
+    // Button to open a dialog that shows the expanded equation for the function displayed by the graph.
+    const functionDetailsButton = new FunctionDetailsButton( combineOptions<DetailsButtonOptions>( {
+      tandem: options.tandem.createTandem( 'functionDetailsButton' )
     }, options.detailsButtonOptions ) );
-    this.addChild( detailsButton );
+    this.addChild( functionDetailsButton );
 
     // Dynamically position the button in the top-right corner of the chart rectangle.
-    detailsButton.boundsProperty.link( () => {
-      detailsButton.right = this.chartRectangle.right - BUTTON_X_MARGIN;
-      detailsButton.top = this.chartRectangle.y + BUTTON_Y_MARGIN;
+    functionDetailsButton.boundsProperty.link( () => {
+      functionDetailsButton.right = this.chartRectangle.right - BUTTON_X_MARGIN;
+      functionDetailsButton.top = this.chartRectangle.y + BUTTON_Y_MARGIN;
     } );
 
-    this.children = [ pickableFalseNode, curvesVisibleToggleButton, detailsButton ];
+    this.children = [ pickableFalseNode, curvesVisibleToggleButton, functionDetailsButton ];
   }
 
   /**

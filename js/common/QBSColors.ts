@@ -129,7 +129,7 @@ export default class QBSColors {
   } );
 
   public static readonly curvesVisibleToggleButtonOnColorProperty = new ProfileColorProperty( quantumBoundStates, 'curvesVisibleToggleButtonOnColor', {
-    default: 'white'
+    default: 'rgb( 153, 206, 255 )'
   } );
 
   public static readonly curvesVisibleToggleButtonOffColorProperty = new ProfileColorProperty( quantumBoundStates, 'curvesVisibleToggleButtonOffColor', {
@@ -164,15 +164,19 @@ export default class QBSColors {
   } );
 
   public static readonly superpositionCustomizationButtonBaseColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionCustomizationButtonBaseColor', {
-    default: 'rgb( 179, 229, 247 )'
+    default: 'rgb( 153, 206, 255 )'
   } );
 
   public static readonly superpositionDetailsButtonBaseColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionDetailsButtonBaseColor', {
-    default: 'rgb( 179, 229, 247 )'
+    default: 'rgb( 153, 206, 255 )'
   } );
 
   public static readonly superpositionDetailsButtonIconColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionDetailsButtonIconColor', {
     default: 'black'
+  } );
+
+  public static readonly functionDetailsButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'functionDetailsButtonColor', {
+    default: 'rgb( 153, 206, 255 )'
   } );
 }
 

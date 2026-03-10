@@ -1,8 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Give this class a more descriptive name.
 /**
- * DetailsButton is the button used to open a dialog that shows the expanded versions of a function.
+ * FunctionDetailsButton is the button used to open a dialog that shows the expanded function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,6 +13,7 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import RectangularPushButton, { RectangularPushButtonOptions } from '../../../../sun/js/buttons/RectangularPushButton.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
 type SelfOptions = {
@@ -23,14 +23,14 @@ type SelfOptions = {
 export type DetailsButtonOptions = SelfOptions &
   PickRequired<RectangularPushButtonOptions, 'listener' | 'tandem' | 'accessibleName' | 'accessibleHelpText' | 'accessibleContextResponse'>;
 
-export default class DetailsButton extends RectangularPushButton {
+export default class FunctionDetailsButton extends RectangularPushButton {
 
   // For making all instances of this type of button have the same size.
   private static readonly alignGroup = new AlignGroup();
 
   public constructor( providedOptions: DetailsButtonOptions ) {
 
-    const labelNode = DetailsButton.alignGroup.createBox( new RichText( providedOptions.labelStringProperty, {
+    const labelNode = FunctionDetailsButton.alignGroup.createBox( new RichText( providedOptions.labelStringProperty, {
       font: QBSConstants.CONTROL_FONT
     } ) );
 
@@ -38,11 +38,12 @@ export default class DetailsButton extends RectangularPushButton {
 
       // RectangularPushButtonOptions
       isDisposable: false,
-      content: labelNode
+      content: labelNode,
+      baseColor: QBSColors.functionDetailsButtonColorProperty
     }, providedOptions );
 
     super( options );
   }
 }
 
-quantumBoundStates.register( 'DetailsButton', DetailsButton );
+quantumBoundStates.register( 'FunctionDetailsButton', FunctionDetailsButton );
