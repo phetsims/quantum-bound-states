@@ -26,7 +26,7 @@ export class CurvesVisibleToggleButton extends EyeToggleButton {
     const options = optionize<CurvesVisibleToggleButtonOptions, SelfOptions, EyeToggleButtonOptions>()( {
       scale: 0.5,
       baseColor: new DerivedProperty(
-        [ curvesVisibleProperty, QBSColors.graphShownProperty, QBSColors.graphHiddenColorProperty ],
+        [ curvesVisibleProperty, QBSColors.curvesVisibleToggleButtonOnColorProperty, QBSColors.curvesVisibleToggleButtonOffColorProperty ],
         ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor )
     }, providedOptions );
 
