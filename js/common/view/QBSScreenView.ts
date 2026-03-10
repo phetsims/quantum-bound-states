@@ -60,7 +60,7 @@ export default class QBSScreenView extends ScreenView {
 
     const graphNodes = createGraphNodes( model, options.tandem.createTandem( 'graphNodes' ) );
 
-    const toolsPanel = new ToolsPanel( model.magnifier.visibleProperty,
+    const toolsPanel = new ToolsPanel( model.energyDiagram.valuesVisibleProperty, model.magnifier.visibleProperty,
       model.referenceLine.visibleProperty, options.tandem.createTandem( 'toolsPanel' ) );
 
     const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.selectedGraphProperty,
@@ -101,7 +101,7 @@ export default class QBSScreenView extends ScreenView {
     energyDiagramControlPanel.top = energyDiagramChartRectangleBounds.top;
     quantumStateGraphControlPanel.left = energyDiagramChartRectangleBounds.right + 10;
     quantumStateGraphControlPanel.top = graphChartRectangleBounds.top;
-    toolsPanel.left = this.layoutBounds.left + ( 2 * QBSConstants.SCREEN_VIEW_X_MARGIN );
+    toolsPanel.left = graphChartRectangleBounds.left;
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     magnifierWrapper.right = energyDiagramChartRectangleBounds.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
     magnifierWrapper.y = energyDiagramChartRectangleBounds.y + 5;

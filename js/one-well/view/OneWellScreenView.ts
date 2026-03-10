@@ -18,7 +18,7 @@ export default class OneWellScreenView extends QBSScreenView {
   public constructor( model: OneWellModel, tandem: Tandem ) {
 
     const energyDiagramControlPanel = new OneWellControlPanel( model.energyLevelProperty, model.electronMassesProperty,
-      model.energyDiagram.valuesVisibleProperty, tandem.createTandem( 'energyDiagramControlPanel' ) );
+      tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, energyDiagramControlPanel, {
       screenSummaryContent: new OneWellScreenSummaryContent(),

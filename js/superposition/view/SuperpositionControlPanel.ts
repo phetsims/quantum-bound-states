@@ -14,15 +14,12 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import AlignBox, { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
@@ -39,7 +36,6 @@ export class SuperpositionControlPanel extends Panel {
   public constructor( listboxParent: Node,
                       superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>,
                       superpositionPresetProperty: NumberProperty,
-                      valuesVisibleProperty: Property<boolean>,
                       tandem: Tandem ) {
 
     const titleText = new Text( QuantumBoundStatesFluent.superpositionLabelStringProperty, {
@@ -89,11 +85,7 @@ export class SuperpositionControlPanel extends Panel {
             new AlignBox( presetHBox, alignBoxOptions ),
             new AlignBox( customHBox, alignBoxOptions )
           ]
-        } ),
-        new HSeparator( {
-          stroke: QBSColors.separatorStrokeProperty
-        } ),
-        new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) )
+        } )
       ]
     } );
 

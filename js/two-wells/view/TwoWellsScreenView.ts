@@ -18,7 +18,7 @@ export default class TwoWellsScreenView extends QBSScreenView {
   public constructor( model: TwoWellsModel, tandem: Tandem ) {
 
     const energyDiagramControlPanel = new TwoWellsControlPanel( model.energyLevelProperty,
-      model.energyDiagram.valuesVisibleProperty, tandem.createTandem( 'energyDiagramControlPanel' ) );
+      tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, energyDiagramControlPanel, {
       screenSummaryContent: new TwoWellsScreenSummaryContent(),

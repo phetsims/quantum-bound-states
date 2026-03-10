@@ -17,15 +17,19 @@ import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import MagnifierCheckbox from './MagnifierCheckbox.js';
 import ReferenceLineCheckbox from './ReferenceLineCheckbox.js';
+import ValuesCheckbox from './ValuesCheckbox.js';
 
 export default class ToolsPanel extends Panel {
 
-  public constructor( referenceLineVisibleProperty: Property<boolean>,
+  public constructor( valuesVisibleProperty: Property<boolean>,
+                      referenceLineVisibleProperty: Property<boolean>,
                       magnifierToolVisibleProperty: Property<boolean>,
                       tandem: Tandem ) {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       isDisposable: false,
+      xMargin: 0,
+      yMargin: 0,
       fill: QBSColors.toolsPanelFillProperty,
       stroke: QBSColors.toolsPanelStrokeProperty,
       accessibleHeading: QuantumBoundStatesFluent.a11y.toolControls.accessibleHeadingStringProperty,
@@ -33,12 +37,18 @@ export default class ToolsPanel extends Panel {
       phetioVisiblePropertyInstrumented: true
     } );
 
+    const valuesCheckbox = new ValuesCheckbox( valuesVisibleProperty, tandem.createTandem( 'valuesCheckbox' ) );
+
     const magnifierCheckbox = new MagnifierCheckbox( referenceLineVisibleProperty, tandem.createTandem( 'magnifierCheckbox' ) );
 
     const referenceLineCheckbox = new ReferenceLineCheckbox( magnifierToolVisibleProperty, tandem.createTandem( 'referenceLineCheckbox' ) );
 
     const content = new VBox( {
-      children: [ magnifierCheckbox, referenceLineCheckbox ],
+      children: [
+        valuesCheckbox,
+        magnifierCheckbox,
+        referenceLineCheckbox
+      ],
       spacing: 6,
       align: 'left'
     } );

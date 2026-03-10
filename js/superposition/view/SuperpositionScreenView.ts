@@ -24,7 +24,6 @@ export default class SuperpositionScreenView extends QBSScreenView {
       listboxParent,
       model.superpositionConfigurationTypeProperty,
       model.superpositionPresetProperty,
-      model.energyDiagram.valuesVisibleProperty,
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, energyDiagramControlPanel, {
