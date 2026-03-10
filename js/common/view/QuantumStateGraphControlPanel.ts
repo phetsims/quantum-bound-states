@@ -24,6 +24,8 @@ import WaveFunctionPartsCheckboxGroup from './WaveFunctionPartsCheckboxGroup.js'
 
 export default class QuantumStateGraphControlPanel extends Panel {
 
+  public static readonly FIXED_WIDTH = 235;
+
   public constructor( selectedGraphProperty: Property<QuantumStateGraph>,
                       waveFunctionGraph: WaveFunctionGraph,
                       tandem: Tandem ) {
@@ -59,6 +61,8 @@ export default class QuantumStateGraphControlPanel extends Panel {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       isDisposable: false,
+      minWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
+      maxWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
       accessibleHeading: QuantumBoundStatesFluent.a11y.quantumStateGraphControls.accessibleHeadingStringProperty,
       tandem: tandem
     } );

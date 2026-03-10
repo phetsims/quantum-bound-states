@@ -15,6 +15,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
+import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ElectricFieldControl from './ElectricFieldControl.js';
@@ -48,6 +49,8 @@ export class ManyWellsControlPanel extends Panel {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       isDisposable: false,
+      minWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
+      maxWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
       accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagramControls.accessibleHeadingStringProperty,
       tandem: tandem
     } );
