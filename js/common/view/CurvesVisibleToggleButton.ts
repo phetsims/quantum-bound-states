@@ -24,12 +24,14 @@ export class CurvesVisibleToggleButton extends EyeToggleButton {
   public constructor( curvesVisibleProperty: Property<boolean>, providedOptions: CurvesVisibleToggleButtonOptions ) {
 
     const options = optionize<CurvesVisibleToggleButtonOptions, SelfOptions, EyeToggleButtonOptions>()( {
-      scale: 0.5,
 
       // Change the base color to emphasize when curves are hidden.
       baseColor: new DerivedProperty(
         [ curvesVisibleProperty, QBSColors.curvesVisibleToggleButtonShownColorProperty, QBSColors.curvesVisibleToggleButtonHiddenColorProperty ],
         ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor ),
+      iconScale: 0.35,
+      xMargin: 6,
+      yMargin: 4,
       touchAreaXDilation: 10,
       touchAreaYDilation: 10
     }, providedOptions );

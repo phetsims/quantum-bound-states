@@ -25,6 +25,8 @@ export default class TimeToggleButton extends EyeToggleButton {
         [ timeVisibleProperty, QBSColors.timeToggleButtonShownColorProperty, QBSColors.timeToggleButtonHiddenColorProperty ],
         ( visible, shownColor, hiddenColor ) => visible ? shownColor : hiddenColor ),
       iconScale: 0.35,
+      xMargin: 6,
+      yMargin: 4,
       touchAreaXDilation: 10,
       touchAreaYDilation: 10,
       accessibleNameOn: QuantumBoundStatesFluent.a11y.timeDisplayToggleButton.accessibleNameOnStringProperty,

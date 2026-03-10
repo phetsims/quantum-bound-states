@@ -113,7 +113,7 @@ export default class QBSColors {
   } );
 
   public static readonly timeToggleButtonShownColorProperty = new ProfileColorProperty( quantumBoundStates, 'timeToggleButtonShownColor', {
-    default: 'white'
+    default: 'rgb( 153, 206, 255 )'
   } );
 
   public static readonly timeToggleButtonHiddenColorProperty = new ProfileColorProperty( quantumBoundStates, 'timeToggleButtonHiddenColor', {
