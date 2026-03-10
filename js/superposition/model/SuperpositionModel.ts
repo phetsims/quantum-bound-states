@@ -39,7 +39,6 @@ export default class SuperpositionModel extends QBSModel {
     ];
 
     super( {
-      potential: potentials[ 0 ],
       potentials: potentials,
       tandem: tandem
     } );

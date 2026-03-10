@@ -32,7 +32,7 @@ import { electronMassesUnit } from './units/electronMassesUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
-  potential: Potential;
+  potential?: Potential;
   potentials: Potential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
 };
@@ -68,6 +68,7 @@ export default class QBSModel implements TModel {
     const options = optionize<QBSModelOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
+      potential: providedOptions.potentials[ 0 ],
       hasAverageProbabilityDensityOfBandGraph: false
     }, providedOptions );
 

@@ -24,7 +24,6 @@ export default class TwoWellsModel extends QBSModel {
     ];
 
     super( {
-      potential: potentials[ 0 ],
       potentials: potentials,
       tandem: tandem
     } );

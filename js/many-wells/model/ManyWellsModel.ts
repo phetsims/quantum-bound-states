@@ -30,7 +30,6 @@ export default class ManyWellsModel extends QBSModel {
     ];
 
     super( {
-      potential: potentials[ 0 ],
       potentials: potentials,
       hasAverageProbabilityDensityOfBandGraph: true,
       tandem: tandem
