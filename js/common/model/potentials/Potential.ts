@@ -10,13 +10,10 @@ import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../../scenery/js/nodes/Text.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
-import QBSColors from '../../QBSColors.js';
-import QBSConstants from '../../QBSConstants.js';
 
 type SelfOptions = {
   visualNameProperty: TReadOnlyProperty<string>;
@@ -26,7 +23,7 @@ type SelfOptions = {
 
 export type PotentialWellOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
-export default class Potential extends PhetioObject {
+export default abstract class Potential extends PhetioObject {
 
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
@@ -50,13 +47,10 @@ export default class Potential extends PhetioObject {
     this.tandemPrefix = options.tandemPrefix;
   }
 
-  //TODO Make this abstract
-  public createIcon(): Node {
-    return new Text( '?', {
-      font: QBSConstants.CONTROL_FONT,
-      fill: QBSColors.potentialEnergyColorProperty
-    } );
-  }
+  /**
+   * Creates the icon that represents this potential. Used in the combo box for selecting a potential.
+   */
+  public abstract createIcon(): Node;
 
   /**
    * PotentialIO handles PhET-iO serialization of Potential instances, as described in the Serialization section of
