@@ -202,6 +202,9 @@
   "custom5": {
     "value": "Custom 5"
   },
+  "magnificationPower": {
+    "value": "{{value}}x"
+  },
   "keyboardHelp": {
     "referenceLine": {
       "heading": {

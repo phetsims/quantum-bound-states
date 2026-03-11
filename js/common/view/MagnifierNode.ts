@@ -8,6 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { linear } from '../../../../dot/js/util/linear.js';
@@ -15,12 +16,14 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import ProbeNode, { ProbeNodeOptions } from '../../../../scenery-phet/js/ProbeNode.js';
 import ShadedRectangle from '../../../../scenery-phet/js/ShadedRectangle.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -30,14 +33,14 @@ import QBSConstants from '../QBSConstants.js';
 
 const DISPLAY_SIZE = new Dimension2( 170, 70 );
 const CORNER_RADIUS = 8;
-const X_MARGIN = 5;
-const Y_MARGIN = 5;
+const BEZEL_WIDTH = 5;
+const BOTTOM_BEZEL_WIDTH = 20;
 
 export default class MagnifierNode extends Node {
 
   public constructor( magnifier: Magnifier, tandem: Tandem ) {
 
-    const bodyNode = new MagnifierBodyNode();
+    const bodyNode = new MagnifierBodyNode( magnifier );
 
     const probeNode = new MagnifierProbeNode( tandem.createTandem( 'probeNode' ) );
 
@@ -62,9 +65,11 @@ export default class MagnifierNode extends Node {
  */
 class MagnifierBodyNode extends Node {
 
-  public constructor() {
+  public constructor( magnifier: Magnifier ) {
 
-    const shadedRectangle = new ShadedRectangle( new Bounds2( 0, 0, DISPLAY_SIZE.width + 2 * X_MARGIN, DISPLAY_SIZE.height + 2 * Y_MARGIN ), {
+    const shadedRectangle = new ShadedRectangle( new Bounds2( 0, 0,
+      DISPLAY_SIZE.width + BEZEL_WIDTH + 2,
+      DISPLAY_SIZE.height + BEZEL_WIDTH + BOTTOM_BEZEL_WIDTH ), {
       baseColor: QBSColors.magnifierBodyColorProperty,
       lightOffset: 0.95,
       cornerRadius: CORNER_RADIUS
@@ -75,11 +80,24 @@ class MagnifierBodyNode extends Node {
       fill: QBSColors.magnifierDisplayFillProperty,
       stroke: QBSColors.magnifierDisplayStrokeProperty,
       cornerRadius: CORNER_RADIUS / 2, //TODO Why is divided by 2 needed to match ShadedRectangle?
-      center: shadedRectangle.center
+      centerX: shadedRectangle.centerX,
+      top: shadedRectangle.top + BEZEL_WIDTH
+    } );
+
+    const powerStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.magnificationPowerStringProperty, {
+      value: Magnifier.MAGNIFICATION_POWER
+    } );
+    const powerText = new Text( powerStringProperty, {
+      font: new PhetFont( 50 ),
+      fill: QBSColors.magnifierPowerTextColorProperty,
+      centerX: shadedRectangle.centerX,
+      top: displayNode.bottom,
+      maxWidth: DISPLAY_SIZE.width,
+      maxHeight: BOTTOM_BEZEL_WIDTH - 3
     } );
 
     super( {
-      children: [ shadedRectangle, displayNode ]
+      children: [ shadedRectangle, displayNode, powerText ]
     } );
   }
 }

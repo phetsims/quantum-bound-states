@@ -340,14 +340,16 @@ const QuantumBoundStatesFluent = {
   custom3StringProperty: _.get( QuantumBoundStatesStrings, 'custom3StringProperty' ),
   custom4StringProperty: _.get( QuantumBoundStatesStrings, 'custom4StringProperty' ),
   custom5StringProperty: _.get( QuantumBoundStatesStrings, 'custom5StringProperty' ),
-  _comment_22: new FluentComment( {"comment":"Keyboard Help","associatedKey":"keyboardHelp"} ),
+  _comment_22: new FluentComment( {"comment":"Magnifier","associatedKey":"magnificationPower"} ),
+  magnificationPowerStringProperty: _.get( QuantumBoundStatesStrings, 'magnificationPowerStringProperty' ),
+  _comment_23: new FluentComment( {"comment":"Keyboard Help","associatedKey":"keyboardHelp"} ),
   keyboardHelp: {
     referenceLine: {
       headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.headingStringProperty' ),
       checkValuesStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.checkValuesStringProperty' )
     }
   },
-  _comment_23: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
+  _comment_24: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
   a11y: {
     _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"screens"} ),
     _comment_1: new FluentComment( {"comment":"Screens (screen summaries, screen buttons)","associatedKey":"screens"} ),

@@ -191,6 +191,10 @@ export default class QBSColors {
     default: Color.grayColor( 128 )
   } );
 
+  public static readonly magnifierPowerTextColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierPowerTextColor', {
+    default: 'black'
+  } );
+
   public static readonly superpositionCustomizationButtonBaseColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionCustomizationButtonBaseColor', {
     default: 'rgb( 153, 206, 255 )'
   } );

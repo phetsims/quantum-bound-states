@@ -93,6 +93,7 @@ type StringsType = {
   'custom3StringProperty': LocalizedStringProperty;
   'custom4StringProperty': LocalizedStringProperty;
   'custom5StringProperty': LocalizedStringProperty;
+  'magnificationPowerStringProperty': LocalizedStringProperty;
   'keyboardHelp': {
     'referenceLine': {
       'headingStringProperty': LocalizedStringProperty;

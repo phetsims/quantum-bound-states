@@ -100,6 +100,9 @@ custom3:                                           Custom 3
 custom4:                                           Custom 4
 custom5:                                           Custom 5
 
+# Magnifier
+magnificationPower:                                '{{value}}x'
+
 # Keyboard Help
 keyboardHelp:
   referenceLine:
@@ -374,7 +377,7 @@ a11y:
     accessibleContextResponseOff: TODO.waveFunctionToggleButton.accessibleContextResponseOff
 
   presetCustomSwitch:
-    accessibleHelpText:   TODO.presetCustomSwitch.accessibleHelpText
+    accessibleHelpText: TODO.presetCustomSwitch.accessibleHelpText
 
   #=======================================================================================================
   # Tools
