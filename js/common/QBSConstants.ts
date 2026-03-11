@@ -93,6 +93,7 @@ export default class QBSConstants {
   public static readonly ELECTRON_MASS = 9.1093837015e-31; // kg
 
   public static readonly HANDLE_DIAMETER = 18;
+  public static readonly POTENTIAL_ICON_LINE_WIDTH = 2;
 
   public static readonly CHECKBOX_OPTIONS: CheckboxOptions = {
     boxWidth: new Text( 'A', { font: QBSConstants.CONTROL_FONT } ).height,

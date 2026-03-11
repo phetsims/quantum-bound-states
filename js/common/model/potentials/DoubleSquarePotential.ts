@@ -13,6 +13,7 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
+import QBSConstants from '../../QBSConstants.js';
 import Potential from './Potential.js';
 
 export default class DoubleSquarePotential extends Potential {
@@ -27,24 +28,28 @@ export default class DoubleSquarePotential extends Potential {
   }
 
   public override createIcon(): Node {
-    const w = 12;
-    const h = 12;
-    const wings = 8;
-    const spacing = 6;
+
+    const w = 12; // width of one well
+    const h = 12; // height of both wells
+    const edge = 8; // horizontal length of the edges that extend to the left and right of the square wells
+    const spacing = 6; // horizontal spacing between the two square wells
+
+    // Described from left to right
     const shape = new Shape()
       .moveTo( 0, 0 )
-      .lineTo( wings, 0 )
-      .lineTo( wings, h )
-      .lineTo( wings + w, h )
-      .lineTo( wings + w, 0 )
-      .lineTo( wings + w + spacing, 0 )
-      .lineTo( wings + w + spacing, h )
-      .lineTo( wings + w + spacing + w, h )
-      .lineTo( wings + w + spacing + w, 0 )
-      .lineTo( wings + w + spacing + w + wings, 0 );
+      .lineTo( edge, 0 )
+      .lineTo( edge, h )
+      .lineTo( edge + w, h )
+      .lineTo( edge + w, 0 )
+      .lineTo( edge + w + spacing, 0 )
+      .lineTo( edge + w + spacing, h )
+      .lineTo( edge + w + spacing + w, h )
+      .lineTo( edge + w + spacing + w, 0 )
+      .lineTo( edge + w + spacing + w + edge, 0 );
+
     return new Path( shape, {
       stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: 2
+      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     } );
   }
 }

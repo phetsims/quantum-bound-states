@@ -13,6 +13,7 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
+import QBSConstants from '../../QBSConstants.js';
 import Potential from './Potential.js';
 
 export default class InfiniteSquarePotential extends Potential {
@@ -28,11 +29,12 @@ export default class InfiniteSquarePotential extends Potential {
 
   public override createIcon(): Node {
 
-    const w = 12;
-    const h = 12;
+    const w = 12; // width of the well
+    const h = 12; // height of the well
     const arrowHeadWidth = 6;
     const arrowHeadHeight = 4;
 
+    // Draw the well without the arrow heads, described from left to right.
     const wellShape = new Shape()
       .moveTo( 0, 0 )
       .lineTo( 0, h )
@@ -40,20 +42,23 @@ export default class InfiniteSquarePotential extends Potential {
       .lineTo( w, 0 );
     const wellPath = new Path( wellShape, {
       stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: 2
+      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     } );
 
     // Draw the arrow heads, starting at the tip of each.
     const arrowHeadsShape = new Shape()
+      // Left arrow head
       .moveTo( 0, -arrowHeadHeight )
       .lineTo( -arrowHeadWidth / 2, 0 )
       .lineTo( arrowHeadWidth / 2, 0 )
       .close()
+      // Right arrow head
       .newSubpath()
       .moveTo( w, -arrowHeadHeight )
       .lineTo( w - arrowHeadWidth / 2, 0 )
       .lineTo( w + arrowHeadWidth / 2, 0 )
       .close();
+
     const arrowHeadsPath = new Path( arrowHeadsShape, {
       fill: QBSColors.potentialEnergyColorProperty
     } );

@@ -13,6 +13,7 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
+import QBSConstants from '../../QBSConstants.js';
 import Potential from './Potential.js';
 
 export default class HarmonicOscillatorPotential extends Potential {
@@ -27,13 +28,15 @@ export default class HarmonicOscillatorPotential extends Potential {
   }
 
   public override createIcon(): Node {
-    const w = 17;
+
+    // Shape ported from BSWellComboBox.java, values determined empirically.
     const shape = new Shape()
       .moveTo( 0, 3 )
-      .quadraticCurveTo( w / 2, 30, w, 3 );
+      .quadraticCurveTo( 8.5, 30, 17, 3 );
+
     return new Path( shape, {
       stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: 2
+      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     } );
   }
 }

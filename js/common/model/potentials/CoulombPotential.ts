@@ -13,6 +13,7 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
+import QBSConstants from '../../QBSConstants.js';
 import Potential from './Potential.js';
 
 export default class CoulombPotential extends Potential {
@@ -27,14 +28,17 @@ export default class CoulombPotential extends Potential {
   }
 
   public override createIcon(): Node {
+
+    // Shape ported from BSWellComboBox.java, values determined empirically.
     const shape = new Shape()
       .moveTo( 0, 4 )
       .quadraticCurveTo( 8, 5, 7, 16 )
       .moveTo( 10, 16 )
       .quadraticCurveTo( 11, 5, 17, 4 );
+
     return new Path( shape, {
       stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: 2
+      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     } );
   }
 }
