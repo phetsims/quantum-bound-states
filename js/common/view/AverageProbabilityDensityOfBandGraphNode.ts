@@ -39,15 +39,15 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
 
       // Options for the toggle button that shows/hides curves.
       curvesVisibleToggleButtonOptions: {
-        accessibleNameOn: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOnStringProperty,
-        accessibleNameOff: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOffStringProperty,
+        accessibleNameOn: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOnStringProperty,
+        accessibleNameOff: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOffStringProperty,
         accessibleHelpText: new DerivedProperty( [
           model.curvesVisibleProperty,
-          QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOnStringProperty,
-          QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOffStringProperty
+          QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOnStringProperty,
+          QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOffStringProperty
         ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
-        accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOnStringProperty,
-        accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOffStringProperty
+        accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOnStringProperty,
+        accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOffStringProperty
       },
 
       // Options for the button that opens a dialog that shows the expanded equation.

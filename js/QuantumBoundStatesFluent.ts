@@ -190,24 +190,24 @@ addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleNameOff', 'a11y.timeD
 addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleHelpText', 'a11y.timeDisplayToggleButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleContextResponseOn', 'a11y.timeDisplayToggleButton.accessibleContextResponseOnStringProperty' );
 addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleContextResponseOff', 'a11y.timeDisplayToggleButton.accessibleContextResponseOffStringProperty' );
-addToMapIfDefined( 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleNameOn', 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOnStringProperty' );
-addToMapIfDefined( 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleNameOff', 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOffStringProperty' );
-addToMapIfDefined( 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleHelpTextOn', 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOnStringProperty' );
-addToMapIfDefined( 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleHelpTextOff', 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOffStringProperty' );
-addToMapIfDefined( 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleContextResponseOn', 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOnStringProperty' );
-addToMapIfDefined( 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleContextResponseOff', 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOffStringProperty' );
-addToMapIfDefined( 'a11y_probabilityDensityToggleButton_accessibleNameOn', 'a11y.probabilityDensityToggleButton.accessibleNameOnStringProperty' );
-addToMapIfDefined( 'a11y_probabilityDensityToggleButton_accessibleNameOff', 'a11y.probabilityDensityToggleButton.accessibleNameOffStringProperty' );
-addToMapIfDefined( 'a11y_probabilityDensityToggleButton_accessibleHelpTextOn', 'a11y.probabilityDensityToggleButton.accessibleHelpTextOnStringProperty' );
-addToMapIfDefined( 'a11y_probabilityDensityToggleButton_accessibleHelpTextOff', 'a11y.probabilityDensityToggleButton.accessibleHelpTextOffStringProperty' );
-addToMapIfDefined( 'a11y_probabilityDensityToggleButton_accessibleContextResponseOn', 'a11y.probabilityDensityToggleButton.accessibleContextResponseOnStringProperty' );
-addToMapIfDefined( 'a11y_probabilityDensityToggleButton_accessibleContextResponseOff', 'a11y.probabilityDensityToggleButton.accessibleContextResponseOffStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleNameOn', 'a11y.waveFunctionToggleButton.accessibleNameOnStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleNameOff', 'a11y.waveFunctionToggleButton.accessibleNameOffStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleHelpTextOn', 'a11y.waveFunctionToggleButton.accessibleHelpTextOnStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleHelpTextOff', 'a11y.waveFunctionToggleButton.accessibleHelpTextOffStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleContextResponseOn', 'a11y.waveFunctionToggleButton.accessibleContextResponseOnStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionToggleButton_accessibleContextResponseOff', 'a11y.waveFunctionToggleButton.accessibleContextResponseOffStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleNameOn', 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOnStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleNameOff', 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOffStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleHelpTextOn', 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOnStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleHelpTextOff', 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOffStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleContextResponseOn', 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOnStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleContextResponseOff', 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOffStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleNameOn', 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleNameOnStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleNameOff', 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleNameOffStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleHelpTextOn', 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOnStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleHelpTextOff', 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOffStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleContextResponseOn', 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOnStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleContextResponseOff', 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOffStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_waveFunction_accessibleNameOn', 'a11y.curvesVisibleToggleButton.waveFunction.accessibleNameOnStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_waveFunction_accessibleNameOff', 'a11y.curvesVisibleToggleButton.waveFunction.accessibleNameOffStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_waveFunction_accessibleHelpTextOn', 'a11y.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOnStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_waveFunction_accessibleHelpTextOff', 'a11y.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOffStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_waveFunction_accessibleContextResponseOn', 'a11y.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOnStringProperty' );
+addToMapIfDefined( 'a11y_curvesVisibleToggleButton_waveFunction_accessibleContextResponseOff', 'a11y.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOffStringProperty' );
 addToMapIfDefined( 'a11y_presetCustomSwitch_accessibleHelpText', 'a11y.presetCustomSwitch.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_magnifier_accessibleHeading', 'a11y.magnifier.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_magnifier_accessibleParagraph', 'a11y.magnifier.accessibleParagraphStringProperty' );
@@ -588,29 +588,31 @@ const QuantumBoundStatesFluent = {
       accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleContextResponseOnStringProperty' ) ),
       accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeDisplayToggleButton_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.timeDisplayToggleButton.accessibleContextResponseOffStringProperty' ) )
     },
-    averageProbabilityDensityOfBandToggleButton: {
-      accessibleNameOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleNameOn', _.get( QuantumBoundStatesStrings, 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOnStringProperty' ) ),
-      accessibleNameOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleNameOff', _.get( QuantumBoundStatesStrings, 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleNameOffStringProperty' ) ),
-      accessibleHelpTextOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleHelpTextOn', _.get( QuantumBoundStatesStrings, 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOnStringProperty' ) ),
-      accessibleHelpTextOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleHelpTextOff', _.get( QuantumBoundStatesStrings, 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOffStringProperty' ) ),
-      accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOnStringProperty' ) ),
-      accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_averageProbabilityDensityOfBandToggleButton_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOffStringProperty' ) )
-    },
-    probabilityDensityToggleButton: {
-      accessibleNameOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityToggleButton_accessibleNameOn', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityToggleButton.accessibleNameOnStringProperty' ) ),
-      accessibleNameOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityToggleButton_accessibleNameOff', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityToggleButton.accessibleNameOffStringProperty' ) ),
-      accessibleHelpTextOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityToggleButton_accessibleHelpTextOn', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityToggleButton.accessibleHelpTextOnStringProperty' ) ),
-      accessibleHelpTextOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityToggleButton_accessibleHelpTextOff', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityToggleButton.accessibleHelpTextOffStringProperty' ) ),
-      accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityToggleButton_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityToggleButton.accessibleContextResponseOnStringProperty' ) ),
-      accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityToggleButton_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityToggleButton.accessibleContextResponseOffStringProperty' ) )
-    },
-    waveFunctionToggleButton: {
-      accessibleNameOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleNameOn', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleNameOnStringProperty' ) ),
-      accessibleNameOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleNameOff', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleNameOffStringProperty' ) ),
-      accessibleHelpTextOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleHelpTextOn', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleHelpTextOnStringProperty' ) ),
-      accessibleHelpTextOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleHelpTextOff', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleHelpTextOffStringProperty' ) ),
-      accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleContextResponseOnStringProperty' ) ),
-      accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionToggleButton_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionToggleButton.accessibleContextResponseOffStringProperty' ) )
+    curvesVisibleToggleButton: {
+      averageProbabilityDensityOfBand: {
+        accessibleNameOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleNameOn', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOnStringProperty' ) ),
+        accessibleNameOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleNameOff', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOffStringProperty' ) ),
+        accessibleHelpTextOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleHelpTextOn', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOnStringProperty' ) ),
+        accessibleHelpTextOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleHelpTextOff', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOffStringProperty' ) ),
+        accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOnStringProperty' ) ),
+        accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_averageProbabilityDensityOfBand_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOffStringProperty' ) )
+      },
+      probabilityDensity: {
+        accessibleNameOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleNameOn', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleNameOnStringProperty' ) ),
+        accessibleNameOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleNameOff', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleNameOffStringProperty' ) ),
+        accessibleHelpTextOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleHelpTextOn', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOnStringProperty' ) ),
+        accessibleHelpTextOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleHelpTextOff', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOffStringProperty' ) ),
+        accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOnStringProperty' ) ),
+        accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_probabilityDensity_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOffStringProperty' ) )
+      },
+      waveFunction: {
+        accessibleNameOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_waveFunction_accessibleNameOn', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.waveFunction.accessibleNameOnStringProperty' ) ),
+        accessibleNameOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_waveFunction_accessibleNameOff', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.waveFunction.accessibleNameOffStringProperty' ) ),
+        accessibleHelpTextOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_waveFunction_accessibleHelpTextOn', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOnStringProperty' ) ),
+        accessibleHelpTextOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_waveFunction_accessibleHelpTextOff', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOffStringProperty' ) ),
+        accessibleContextResponseOnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_waveFunction_accessibleContextResponseOn', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOnStringProperty' ) ),
+        accessibleContextResponseOffStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_curvesVisibleToggleButton_waveFunction_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOffStringProperty' ) )
+      }
     },
     presetCustomSwitch: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetCustomSwitch_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.presetCustomSwitch.accessibleHelpTextStringProperty' ) )

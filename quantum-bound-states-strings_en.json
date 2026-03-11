@@ -625,64 +625,66 @@
         "value": "Time display hidden."
       }
     },
-    "averageProbabilityDensityOfBandToggleButton": {
-      "accessibleNameOn": {
-        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleNameOn"
+    "curvesVisibleToggleButton": {
+      "averageProbabilityDensityOfBand": {
+        "accessibleNameOn": {
+          "value": "TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOn"
+        },
+        "accessibleNameOff": {
+          "value": "TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOff"
+        },
+        "accessibleHelpTextOn": {
+          "value": "TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOn"
+        },
+        "accessibleHelpTextOff": {
+          "value": "TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOff"
+        },
+        "accessibleContextResponseOn": {
+          "value": "TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOn"
+        },
+        "accessibleContextResponseOff": {
+          "value": "TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOff"
+        }
       },
-      "accessibleNameOff": {
-        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleNameOff"
+      "probabilityDensity": {
+        "accessibleNameOn": {
+          "value": "TODO.curvesVisibleToggleButton.probabilityDensity.accessibleNameOn"
+        },
+        "accessibleNameOff": {
+          "value": "TODO.curvesVisibleToggleButton.probabilityDensity.accessibleNameOff"
+        },
+        "accessibleHelpTextOn": {
+          "value": "TODO.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOn"
+        },
+        "accessibleHelpTextOff": {
+          "value": "TODO.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOff"
+        },
+        "accessibleContextResponseOn": {
+          "value": "TODO.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOn"
+        },
+        "accessibleContextResponseOff": {
+          "value": "TODO.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOff"
+        }
       },
-      "accessibleHelpTextOn": {
-        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOn"
-      },
-      "accessibleHelpTextOff": {
-        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOff"
-      },
-      "accessibleContextResponseOn": {
-        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOn"
-      },
-      "accessibleContextResponseOff": {
-        "value": "TODO.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOff"
-      }
-    },
-    "probabilityDensityToggleButton": {
-      "accessibleNameOn": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleNameOn"
-      },
-      "accessibleNameOff": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleNameOff"
-      },
-      "accessibleHelpTextOn": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleHelpTextOn"
-      },
-      "accessibleHelpTextOff": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleHelpTextOff"
-      },
-      "accessibleContextResponseOn": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleContextResponseOn"
-      },
-      "accessibleContextResponseOff": {
-        "value": "TODO.probabilityDensityToggleButton.accessibleContextResponseOff"
-      }
-    },
-    "waveFunctionToggleButton": {
-      "accessibleNameOn": {
-        "value": "TODO.waveFunctionToggleButton.accessibleNameOn"
-      },
-      "accessibleNameOff": {
-        "value": "TODO.waveFunctionToggleButton.accessibleNameOff"
-      },
-      "accessibleHelpTextOn": {
-        "value": "TODO.waveFunctionToggleButton.accessibleHelpTextOn"
-      },
-      "accessibleHelpTextOff": {
-        "value": "TODO.waveFunctionToggleButton.accessibleHelpTextOff"
-      },
-      "accessibleContextResponseOn": {
-        "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOn"
-      },
-      "accessibleContextResponseOff": {
-        "value": "TODO.waveFunctionToggleButton.accessibleContextResponseOff"
+      "waveFunction": {
+        "accessibleNameOn": {
+          "value": "TODO.curvesVisibleToggleButton.waveFunction.accessibleNameOn"
+        },
+        "accessibleNameOff": {
+          "value": "TODO.curvesVisibleToggleButton.waveFunction.accessibleNameOff"
+        },
+        "accessibleHelpTextOn": {
+          "value": "TODO.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOn"
+        },
+        "accessibleHelpTextOff": {
+          "value": "TODO.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOff"
+        },
+        "accessibleContextResponseOn": {
+          "value": "TODO.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOn"
+        },
+        "accessibleContextResponseOff": {
+          "value": "TODO.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOff"
+        }
       }
     },
     "presetCustomSwitch": {

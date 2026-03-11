@@ -304,29 +304,31 @@ type StringsType = {
       'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
       'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
     };
-    'averageProbabilityDensityOfBandToggleButton': {
-      'accessibleNameOnStringProperty': LocalizedStringProperty;
-      'accessibleNameOffStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
-    };
-    'probabilityDensityToggleButton': {
-      'accessibleNameOnStringProperty': LocalizedStringProperty;
-      'accessibleNameOffStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
-    };
-    'waveFunctionToggleButton': {
-      'accessibleNameOnStringProperty': LocalizedStringProperty;
-      'accessibleNameOffStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
+    'curvesVisibleToggleButton': {
+      'averageProbabilityDensityOfBand': {
+        'accessibleNameOnStringProperty': LocalizedStringProperty;
+        'accessibleNameOffStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
+      };
+      'probabilityDensity': {
+        'accessibleNameOnStringProperty': LocalizedStringProperty;
+        'accessibleNameOffStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
+      };
+      'waveFunction': {
+        'accessibleNameOnStringProperty': LocalizedStringProperty;
+        'accessibleNameOffStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextOnStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextOffStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseOnStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
+      }
     };
     'presetCustomSwitch': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

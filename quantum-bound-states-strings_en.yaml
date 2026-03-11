@@ -352,29 +352,28 @@ a11y:
     accessibleContextResponseOn:  Time display shown.
     accessibleContextResponseOff: Time display hidden.
 
-  averageProbabilityDensityOfBandToggleButton:
-    accessibleNameOn:             TODO.averageProbabilityDensityOfBandToggleButton.accessibleNameOn
-    accessibleNameOff:            TODO.averageProbabilityDensityOfBandToggleButton.accessibleNameOff
-    accessibleHelpTextOn:         TODO.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOn
-    accessibleHelpTextOff:        TODO.averageProbabilityDensityOfBandToggleButton.accessibleHelpTextOff
-    accessibleContextResponseOn:  TODO.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOn
-    accessibleContextResponseOff: TODO.averageProbabilityDensityOfBandToggleButton.accessibleContextResponseOff
-
-  probabilityDensityToggleButton:
-    accessibleNameOn:             TODO.probabilityDensityToggleButton.accessibleNameOn
-    accessibleNameOff:            TODO.probabilityDensityToggleButton.accessibleNameOff
-    accessibleHelpTextOn:         TODO.probabilityDensityToggleButton.accessibleHelpTextOn
-    accessibleHelpTextOff:        TODO.probabilityDensityToggleButton.accessibleHelpTextOff
-    accessibleContextResponseOn:  TODO.probabilityDensityToggleButton.accessibleContextResponseOn
-    accessibleContextResponseOff: TODO.probabilityDensityToggleButton.accessibleContextResponseOff
-
-  waveFunctionToggleButton:
-    accessibleNameOn:             TODO.waveFunctionToggleButton.accessibleNameOn
-    accessibleNameOff:            TODO.waveFunctionToggleButton.accessibleNameOff
-    accessibleHelpTextOn:         TODO.waveFunctionToggleButton.accessibleHelpTextOn
-    accessibleHelpTextOff:        TODO.waveFunctionToggleButton.accessibleHelpTextOff
-    accessibleContextResponseOn:  TODO.waveFunctionToggleButton.accessibleContextResponseOn
-    accessibleContextResponseOff: TODO.waveFunctionToggleButton.accessibleContextResponseOff
+  curvesVisibleToggleButton:
+    averageProbabilityDensityOfBand:
+      accessibleNameOn:             TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOn
+      accessibleNameOff:            TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOff
+      accessibleHelpTextOn:         TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOn
+      accessibleHelpTextOff:        TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOff
+      accessibleContextResponseOn:  TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOn
+      accessibleContextResponseOff: TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOff
+    probabilityDensity:
+      accessibleNameOn:             TODO.curvesVisibleToggleButton.probabilityDensity.accessibleNameOn
+      accessibleNameOff:            TODO.curvesVisibleToggleButton.probabilityDensity.accessibleNameOff
+      accessibleHelpTextOn:         TODO.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOn
+      accessibleHelpTextOff:        TODO.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOff
+      accessibleContextResponseOn:  TODO.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOn
+      accessibleContextResponseOff: TODO.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOff
+    waveFunction:
+      accessibleNameOn:             TODO.curvesVisibleToggleButton.waveFunction.accessibleNameOn
+      accessibleNameOff:            TODO.curvesVisibleToggleButton.waveFunction.accessibleNameOff
+      accessibleHelpTextOn:         TODO.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOn
+      accessibleHelpTextOff:        TODO.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOff
+      accessibleContextResponseOn:  TODO.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOn
+      accessibleContextResponseOff: TODO.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOff
 
   presetCustomSwitch:
     accessibleHelpText: TODO.presetCustomSwitch.accessibleHelpText
