@@ -6,8 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Shape from '../../../../../kite/js/Shape.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../../scenery/js/nodes/Text.js';
+import Path from '../../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -26,11 +27,17 @@ export default class AnharmonicOscillatorPotential extends Potential {
     } );
   }
 
-  //TODO How to draw the icon for Anharmonic Oscillator?
+
   public override createIcon(): Node {
-    return new Text( '?', {
-      font: QBSConstants.CONTROL_FONT,
-      fill: QBSColors.potentialEnergyColorProperty
+
+    //TODO Suggested by Gemini, but not quite right.
+    const shape = new Shape()
+      .moveTo( 9, 9 )
+      .cubicCurveTo( 14, 48, 9, 4, 26, 9 );
+
+    return new Path( shape, {
+      stroke: QBSColors.potentialEnergyColorProperty,
+      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     } );
   }
 
