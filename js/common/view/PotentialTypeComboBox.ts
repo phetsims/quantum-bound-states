@@ -9,6 +9,7 @@
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
@@ -30,11 +31,7 @@ export default class PotentialTypeComboBox extends ComboBox<Potential> {
         value: potential,
         accessibleName: potential.accessibleNameProperty,
         tandemName: `${potential.tandemPrefix}Item`,
-        //TODO Add icon
-        createNode: () => new Text( potential.visualNameProperty, {
-          font: QBSConstants.CONTROL_FONT,
-          maxWidth: 250
-        } )
+        createNode: () => createItemNode( potential )
       };
     } );
 
@@ -49,6 +46,18 @@ export default class PotentialTypeComboBox extends ComboBox<Potential> {
       tandem: tandem
     } );
   }
+}
+
+function createItemNode( potential: Potential ): Node {
+  const text = new Text( potential.visualNameProperty, {
+    font: QBSConstants.CONTROL_FONT,
+    maxWidth: 250
+  } );
+  const icon = potential.createIcon();
+  return new HBox( {
+    children: [ text, icon ],
+    spacing: 5
+  } );
 }
 
 quantumBoundStates.register( 'PotentialTypeComboBox', PotentialTypeComboBox );

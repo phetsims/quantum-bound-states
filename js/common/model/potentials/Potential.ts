@@ -9,10 +9,14 @@
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../../scenery/js/nodes/Text.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
+import QBSColors from '../../QBSColors.js';
+import QBSConstants from '../../QBSConstants.js';
 
 type SelfOptions = {
   visualNameProperty: TReadOnlyProperty<string>;
@@ -44,6 +48,14 @@ export default class Potential extends PhetioObject {
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
+  }
+
+  //TODO Make this abstract
+  public createIcon(): Node {
+    return new Text( '?', {
+      font: QBSConstants.CONTROL_FONT,
+      fill: QBSColors.potentialEnergyColorProperty
+    } );
   }
 
   /**
