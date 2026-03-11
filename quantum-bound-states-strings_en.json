@@ -559,12 +559,12 @@
         "value": "TODO.superpositionDetailsButton.accessibleContextResponse"
       }
     },
-    "graphTypeRadioButtonGroup": {
+    "quantumStateGraphRadioButtonGroup": {
       "accessibleName": {
-        "value": "Graph Type"
+        "value": "Quantum State Graph"
       },
       "accessibleHelpText": {
-        "value": "TODO.graphTypeRadioButtonGroup.accessibleHelpText"
+        "value": "TODO.quantumStateGraphRadioButtonGroup.accessibleHelpText"
       }
     },
     "massControl": {

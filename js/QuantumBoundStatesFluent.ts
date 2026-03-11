@@ -174,8 +174,8 @@ addToMapIfDefined( 'a11y_superpositionCustomizeButton_accessibleContextResponse'
 addToMapIfDefined( 'a11y_superpositionDetailsButton_accessibleName', 'a11y.superpositionDetailsButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_superpositionDetailsButton_accessibleHelpText', 'a11y.superpositionDetailsButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_superpositionDetailsButton_accessibleContextResponse', 'a11y.superpositionDetailsButton.accessibleContextResponseStringProperty' );
-addToMapIfDefined( 'a11y_graphTypeRadioButtonGroup_accessibleName', 'a11y.graphTypeRadioButtonGroup.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_graphTypeRadioButtonGroup_accessibleHelpText', 'a11y.graphTypeRadioButtonGroup.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleName', 'a11y.quantumStateGraphRadioButtonGroup.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleHelpText', 'a11y.quantumStateGraphRadioButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_massControl_accessibleHelpText', 'a11y.massControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_numberOfWellsControl_accessibleHelpText', 'a11y.numberOfWellsControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_electricFieldControl_accessibleHelpText', 'a11y.electricFieldControl.accessibleHelpTextStringProperty' );
@@ -539,13 +539,13 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsButton.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsButton.accessibleContextResponseStringProperty' ) )
     },
-    _comment_19: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
-    _comment_20: new FluentComment( {"comment":"Radio Buttons","associatedKey":"graphTypeRadioButtonGroup"} ),
-    _comment_21: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"graphTypeRadioButtonGroup"} ),
-    _comment_22: new FluentComment( {"comment":"Radio buttons for selecting which graph to display at the bottom of the screen.","associatedKey":"graphTypeRadioButtonGroup"} ),
-    graphTypeRadioButtonGroup: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphTypeRadioButtonGroup_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.graphTypeRadioButtonGroup.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphTypeRadioButtonGroup_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.graphTypeRadioButtonGroup.accessibleHelpTextStringProperty' ) )
+    _comment_19: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"quantumStateGraphRadioButtonGroup"} ),
+    _comment_20: new FluentComment( {"comment":"Radio Buttons","associatedKey":"quantumStateGraphRadioButtonGroup"} ),
+    _comment_21: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"quantumStateGraphRadioButtonGroup"} ),
+    _comment_22: new FluentComment( {"comment":"Radio buttons for selecting which Quantum State Graph to display below the Energy Diagram.","associatedKey":"quantumStateGraphRadioButtonGroup"} ),
+    quantumStateGraphRadioButtonGroup: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_quantumStateGraphRadioButtonGroup_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.quantumStateGraphRadioButtonGroup.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_quantumStateGraphRadioButtonGroup_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.quantumStateGraphRadioButtonGroup.accessibleHelpTextStringProperty' ) )
     },
     _comment_23: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
     _comment_24: new FluentComment( {"comment":"Sliders","associatedKey":"massControl"} ),

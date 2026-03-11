@@ -301,10 +301,10 @@ a11y:
   # Radio Buttons
   #=======================================================================================================
 
-  # Radio buttons for selecting which graph to display at the bottom of the screen.
-  graphTypeRadioButtonGroup:
-    accessibleName:     Graph Type
-    accessibleHelpText: TODO.graphTypeRadioButtonGroup.accessibleHelpText
+  # Radio buttons for selecting which Quantum State Graph to display below the Energy Diagram.
+  quantumStateGraphRadioButtonGroup:
+    accessibleName:     Quantum State Graph
+    accessibleHelpText: TODO.quantumStateGraphRadioButtonGroup.accessibleHelpText
 
   #=======================================================================================================
   # Sliders
