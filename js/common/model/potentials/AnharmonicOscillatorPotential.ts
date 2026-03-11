@@ -33,7 +33,7 @@ export default class AnharmonicOscillatorPotential extends Potential {
     //TODO Suggested by Gemini, but not quite right.
     const shape = new Shape()
       .moveTo( 9, 9 )
-      .cubicCurveTo( 14, 48, 9, 4, 26, 9 );
+      .cubicCurveTo( 14, 48, 9, 4, 26, 10 );
 
     return new Path( shape, {
       stroke: QBSColors.potentialEnergyColorProperty,
