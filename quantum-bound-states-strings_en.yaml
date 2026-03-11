@@ -102,7 +102,7 @@ custom4:                                    Custom 4
 custom5:                                    Custom 5
 
 # Magnifier
-magnificationPower:                         '{{value}}x'
+magnificationPower:                         '{{value}}×'
 
 # Keyboard Help
 keyboardHelp:
