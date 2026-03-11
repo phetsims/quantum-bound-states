@@ -88,7 +88,7 @@ class MagnifierBodyNode extends Node {
       value: Magnifier.MAGNIFICATION_POWER
     } );
     const powerText = new Text( powerStringProperty, {
-      font: new PhetFont( 50 ),
+      font: new PhetFont( 16 ),
       fill: QBSColors.magnifierPowerTextColorProperty,
       centerX: shadedRectangle.centerX,
       top: displayNode.bottom,
