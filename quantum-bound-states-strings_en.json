@@ -705,7 +705,7 @@
       },
       "probe": {
         "accessibleName": {
-          "value": "Magnifier Tool Probe"
+          "value": "Magnifier Probe"
         },
         "accessibleHelpText": {
           "value": "TODO.magnifier.probe.accessibleHelpText"

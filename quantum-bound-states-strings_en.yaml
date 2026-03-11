@@ -386,7 +386,7 @@ a11y:
     accessibleHeading:   Magnifier
     accessibleParagraph: TODO.magnifier.accessibleParagraph
     probe:
-      accessibleName:           Magnifier Tool Probe
+      accessibleName:           Magnifier Probe
       accessibleHelpText:       TODO.magnifier.probe.accessibleHelpText
       accessibleObjectResponse: TODO.magnifier.probe.accessibleObjectResponse
 
