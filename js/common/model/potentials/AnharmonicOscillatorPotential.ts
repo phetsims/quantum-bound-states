@@ -26,6 +26,7 @@ export default class AnharmonicOscillatorPotential extends Potential {
     } );
   }
 
+  //TODO How to draw the icon for Anharmonic Oscillator?
   public override createIcon(): Node {
     return new Text( '?', {
       font: QBSConstants.CONTROL_FONT,
