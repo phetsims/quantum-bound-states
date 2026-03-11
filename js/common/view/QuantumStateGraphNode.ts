@@ -52,8 +52,8 @@ type SelfOptions = {
   // Propagated to curvesVisibleToggleButton
   curvesVisibleToggleButtonOptions: StrictOmit<CurvesVisibleToggleButtonOptions, 'tandem'>;
 
-  // Propagated to detailsButton
-  detailsButtonOptions: StrictOmit<DetailsButtonOptions, 'tandem'>;
+  // Propagated to functionDetailsButton
+  functionDetailsButtonOptions: StrictOmit<DetailsButtonOptions, 'tandem'>;
 };
 
 export type QuantumStateGraphNodeOptions = SelfOptions &
@@ -179,7 +179,7 @@ export default class QuantumStateGraphNode extends Node {
     // Button to open a dialog that shows the expanded equation for the function displayed by the graph.
     const functionDetailsButton = new FunctionDetailsButton( combineOptions<DetailsButtonOptions>( {
       tandem: options.tandem.createTandem( 'functionDetailsButton' )
-    }, options.detailsButtonOptions ) );
+    }, options.functionDetailsButtonOptions ) );
     this.addChild( functionDetailsButton );
 
     // Dynamically position the button in the top-right corner of the chart rectangle.

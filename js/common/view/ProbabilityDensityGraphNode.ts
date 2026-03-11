@@ -48,12 +48,12 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       },
 
       // Options for the button that opens a dialog that shows the expanded equation.
-      detailsButtonOptions: {
+      functionDetailsButtonOptions: {
         listener: () => new ProbabilityDensityDetailsDialog().show(),
-        labelStringProperty: QuantumBoundStatesFluent.probabilityDensityDetailsButtonLabelStringProperty,
-        accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleNameStringProperty,
-        accessibleHelpText: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleHelpTextStringProperty,
-        accessibleContextResponse: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleContextResponseStringProperty
+        labelStringProperty: QuantumBoundStatesFluent.functionDetailsButton.probabilityDensityStringProperty,
+        accessibleName: QuantumBoundStatesFluent.a11y.functionDetailsButton.probabilityDensity.accessibleNameStringProperty,
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.functionDetailsButton.probabilityDensity.accessibleHelpTextStringProperty,
+        accessibleContextResponse: QuantumBoundStatesFluent.a11y.functionDetailsButton.probabilityDensity.accessibleContextResponseStringProperty
       },
       tandem: tandem
     };

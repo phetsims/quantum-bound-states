@@ -48,12 +48,12 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       },
 
       // Options for the button that opens a dialog that shows the expanded equation.
-      detailsButtonOptions: {
+      functionDetailsButtonOptions: {
         listener: () => new WaveFunctionDetailsDialog().show(),
-        labelStringProperty: QuantumBoundStatesFluent.waveFunctionDetailsButtonLabelStringProperty,
-        accessibleName: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleNameStringProperty,
-        accessibleHelpText: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleHelpTextStringProperty,
-        accessibleContextResponse: QuantumBoundStatesFluent.a11y.waveFunctionDetailsButton.accessibleContextResponseStringProperty
+        labelStringProperty: QuantumBoundStatesFluent.functionDetailsButton.waveFunctionStringProperty,
+        accessibleName: QuantumBoundStatesFluent.a11y.functionDetailsButton.waveFunction.accessibleNameStringProperty,
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.functionDetailsButton.waveFunction.accessibleHelpTextStringProperty,
+        accessibleContextResponse: QuantumBoundStatesFluent.a11y.functionDetailsButton.waveFunction.accessibleContextResponseStringProperty
       },
       tandem: tandem
     };

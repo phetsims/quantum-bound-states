@@ -1,13 +1,13 @@
 # Strings for PhET's Quantum Bound States simulation
 
 # Simulation Title
-quantum-bound-states.title:                        Quantum Bound States
+quantum-bound-states.title:                 Quantum Bound States
 
 # Screen Names
-screen.oneWell:                                    One Well
-screen.superposition:                              Superposition
-screen.twoWells:                                   Two Wells
-screen.manyWells:                                  Many Wells
+screen.oneWell:                             One Well
+screen.superposition:                       Superposition
+screen.twoWells:                            Two Wells
+screen.manyWells:                           Many Wells
 
 # Preferences
 phaseFeatureControl:
@@ -15,54 +15,55 @@ phaseFeatureControl:
   description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
 
 # Titles
-potentialEnergy:                                   Potential Energy
-totalEnergy:                                       Total Energy
-position_nm:                                       Position (nm)
-energy_eV:                                         Energy (eV)
-averageProbabilityDensityOfBand:                   Average Probability<br>Density of Band
-probabilityDensity:                                Probability Density
-waveFunction:                                      Wave Function
-quantumStateGraph:                                 Quantum State Graph
-energyDiagram:                                     Energy Diagram
+potentialEnergy:                            Potential Energy
+totalEnergy:                                Total Energy
+position_nm:                                Position (nm)
+energy_eV:                                  Energy (eV)
+averageProbabilityDensityOfBand:            Average Probability<br>Density of Band
+probabilityDensity:                         Probability Density
+waveFunction:                               Wave Function
+quantumStateGraph:                          Quantum State Graph
+energyDiagram:                              Energy Diagram
 
 # Buttons
-averageProbabilityDensityOfBandDetailsButtonLabel: '|Ψ(x,t)|<sup>2</sup> = ...'
-probabilityDensityDetailsButtonLabel:              '|Ψ(x,t)|<sup>2</sup> = ...'
-waveFunctionDetailsButtonLabel:                    'Ψ(x,t) = ...'
+functionDetailsButton:
+  averageProbabilityDensityOfBand: '|Ψ(x,t)|<sup>2</sup> = ...'
+  probabilityDensity:              '|Ψ(x,t)|<sup>2</sup> = ...'
+  waveFunction:                    'Ψ(x,t) = ...'
 
 # Checkboxes
-values:                                            Values
-realPart:                                          Real Part
-imaginaryPart:                                     Imaginary Part
-magnitude:                                         Magnitude
-phase:                                             Phase
-magnifier:                                         Magnifier
-referenceLine:                                     Reference Line
+values:                                     Values
+realPart:                                   Real Part
+imaginaryPart:                              Imaginary Part
+magnitude:                                  Magnitude
+phase:                                      Phase
+magnifier:                                  Magnifier
+referenceLine:                              Reference Line
 
 # ComboBoxes
-superpositionLabel:                                Superposition
+superpositionLabel:                         Superposition
 
 # Dialogs
-averageProbabilityDensityOfBandDialogTitle:        Average Probability Density of Band
-probabilityDensityDialogTitle:                     Probability Density
-waveFunctionDialogTitle:                           Wave Function
-superpositionDetailsDialogTitle:                   Superposition Details
-superpositionCustomizationDialogTitle:             Superposition Customization
+averageProbabilityDensityOfBandDialogTitle: Average Probability Density of Band
+probabilityDensityDialogTitle:              Probability Density
+waveFunctionDialogTitle:                    Wave Function
+superpositionDetailsDialogTitle:            Superposition Details
+superpositionCustomizationDialogTitle:      Superposition Customization
 
 # Sliders
-mass:                                              Mass
-numberOfWells:                                     Number of Wells
-electricField:                                     Electric Field
-slow:                                              slow
-fast:                                              fast
+mass:                                       Mass
+numberOfWells:                              Number of Wells
+electricField:                              Electric Field
+slow:                                       slow
+fast:                                       fast
 
 # Spinners
-energyLevel:                                       Energy Level
-energyLevelPattern:                                E<sub>{{index}}</sub>
+energyLevel:                                Energy Level
+energyLevelPattern:                         E<sub>{{index}}</sub>
 
 # Toggles and Switches
-preset:                                            Preset
-custom:                                            Custom
+preset:                                     Preset
+custom:                                     Custom
 
 # Units
 units:
@@ -91,17 +92,17 @@ potentialWells:
   infiniteStep:         Infinite Step
 
 # Preset superposition states
-localizedParticle:                                 Localized Particle
+localizedParticle:                          Localized Particle
 
 # Custom superposition states
-custom1:                                           Custom 1
-custom2:                                           Custom 2
-custom3:                                           Custom 3
-custom4:                                           Custom 4
-custom5:                                           Custom 5
+custom1:                                    Custom 1
+custom2:                                    Custom 2
+custom3:                                    Custom 3
+custom4:                                    Custom 4
+custom5:                                    Custom 5
 
 # Magnifier
-magnificationPower:                                '{{value}}x'
+magnificationPower:                         '{{value}}x'
 
 # Keyboard Help
 keyboardHelp:
@@ -272,20 +273,19 @@ a11y:
     accessibleHelpText:        TODO.stepForwardButton.accessibleHelpText
     accessibleContextResponse: TODO.stepForwardButton.accessibleContextResponse
 
-  averageProbabilityDensityOfBandDetailsButton:
-    accessibleName:            TODO.averageProbabilityDensityOfBandDetailsButton.accessibleName
-    accessibleHelpText:        TODO.averageProbabilityDensityOfBandDetailsButton.accessibleHelpText
-    accessibleContextResponse: TODO.averageProbabilityDensityOfBandDetailsButton.accessibleContextResponse
-
-  probabilityDensityDetailsButton:
-    accessibleName:            TODO.probabilityDensityDetailsButton.accessibleName
-    accessibleHelpText:        TODO.probabilityDensityDetailsButton.accessibleHelpText
-    accessibleContextResponse: TODO.probabilityDensityDetailsButton.accessibleContextResponse
-
-  waveFunctionDetailsButton:
-    accessibleName:            TODO.waveFunctionDetailsButton.accessibleName
-    accessibleHelpText:        TODO.waveFunctionDetailsButton.accessibleHelpText
-    accessibleContextResponse: TODO.waveFunctionDetailsButton.accessibleContextResponse
+  functionDetailsButton:
+    averageProbabilityDensityOfBand:
+      accessibleName:            TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleName
+      accessibleHelpText:        TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleHelpText
+      accessibleContextResponse: TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleContextResponse
+    probabilityDensity:
+      accessibleName:            TODO.functionDetailsButton.probabilityDensity.accessibleName
+      accessibleHelpText:        TODO.functionDetailsButton.probabilityDensity.accessibleHelpText
+      accessibleContextResponse: TODO.functionDetailsButton.probabilityDensity.accessibleContextResponse
+    waveFunction:
+      accessibleName:            TODO.functionDetailsButton.waveFunction.accessibleName
+      accessibleHelpText:        TODO.functionDetailsButton.waveFunction.accessibleHelpText
+      accessibleContextResponse: TODO.functionDetailsButton.waveFunction.accessibleContextResponse
 
   superpositionCustomizeButton:
     accessibleName:            TODO.superpositionCustomizeButton.accessibleName

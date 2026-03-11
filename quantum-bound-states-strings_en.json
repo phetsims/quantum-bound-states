@@ -49,14 +49,16 @@
   "energyDiagram": {
     "value": "Energy Diagram"
   },
-  "averageProbabilityDensityOfBandDetailsButtonLabel": {
-    "value": "|Ψ(x,t)|<sup>2</sup> = ..."
-  },
-  "probabilityDensityDetailsButtonLabel": {
-    "value": "|Ψ(x,t)|<sup>2</sup> = ..."
-  },
-  "waveFunctionDetailsButtonLabel": {
-    "value": "Ψ(x,t) = ..."
+  "functionDetailsButton": {
+    "averageProbabilityDensityOfBand": {
+      "value": "|Ψ(x,t)|<sup>2</sup> = ..."
+    },
+    "probabilityDensity": {
+      "value": "|Ψ(x,t)|<sup>2</sup> = ..."
+    },
+    "waveFunction": {
+      "value": "Ψ(x,t) = ..."
+    }
   },
   "values": {
     "value": "Values"
@@ -500,37 +502,39 @@
         "value": "TODO.stepForwardButton.accessibleContextResponse"
       }
     },
-    "averageProbabilityDensityOfBandDetailsButton": {
-      "accessibleName": {
-        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleName"
+    "functionDetailsButton": {
+      "averageProbabilityDensityOfBand": {
+        "accessibleName": {
+          "value": "TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleName"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleHelpText"
+        },
+        "accessibleContextResponse": {
+          "value": "TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleContextResponse"
+        }
       },
-      "accessibleHelpText": {
-        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleHelpText"
+      "probabilityDensity": {
+        "accessibleName": {
+          "value": "TODO.functionDetailsButton.probabilityDensity.accessibleName"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.functionDetailsButton.probabilityDensity.accessibleHelpText"
+        },
+        "accessibleContextResponse": {
+          "value": "TODO.functionDetailsButton.probabilityDensity.accessibleContextResponse"
+        }
       },
-      "accessibleContextResponse": {
-        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleContextResponse"
-      }
-    },
-    "probabilityDensityDetailsButton": {
-      "accessibleName": {
-        "value": "TODO.probabilityDensityDetailsButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.probabilityDensityDetailsButton.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.probabilityDensityDetailsButton.accessibleContextResponse"
-      }
-    },
-    "waveFunctionDetailsButton": {
-      "accessibleName": {
-        "value": "TODO.waveFunctionDetailsButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.waveFunctionDetailsButton.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.waveFunctionDetailsButton.accessibleContextResponse"
+      "waveFunction": {
+        "accessibleName": {
+          "value": "TODO.functionDetailsButton.waveFunction.accessibleName"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.functionDetailsButton.waveFunction.accessibleHelpText"
+        },
+        "accessibleContextResponse": {
+          "value": "TODO.functionDetailsButton.waveFunction.accessibleContextResponse"
+        }
       }
     },
     "superpositionCustomizeButton": {

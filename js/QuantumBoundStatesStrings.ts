@@ -34,9 +34,11 @@ type StringsType = {
   'waveFunctionStringProperty': LocalizedStringProperty;
   'quantumStateGraphStringProperty': LocalizedStringProperty;
   'energyDiagramStringProperty': LocalizedStringProperty;
-  'averageProbabilityDensityOfBandDetailsButtonLabelStringProperty': LocalizedStringProperty;
-  'probabilityDensityDetailsButtonLabelStringProperty': LocalizedStringProperty;
-  'waveFunctionDetailsButtonLabelStringProperty': LocalizedStringProperty;
+  'functionDetailsButton': {
+    'averageProbabilityDensityOfBandStringProperty': LocalizedStringProperty;
+    'probabilityDensityStringProperty': LocalizedStringProperty;
+    'waveFunctionStringProperty': LocalizedStringProperty;
+  };
   'valuesStringProperty': LocalizedStringProperty;
   'realPartStringProperty': LocalizedStringProperty;
   'imaginaryPartStringProperty': LocalizedStringProperty;
@@ -241,20 +243,22 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
-    'averageProbabilityDensityOfBandDetailsButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
-    'probabilityDensityDetailsButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
-    'waveFunctionDetailsButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    'functionDetailsButton': {
+      'averageProbabilityDensityOfBand': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseStringProperty': LocalizedStringProperty;
+      };
+      'probabilityDensity': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseStringProperty': LocalizedStringProperty;
+      };
+      'waveFunction': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseStringProperty': LocalizedStringProperty;
+      }
     };
     'superpositionCustomizeButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
