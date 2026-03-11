@@ -55,6 +55,10 @@ export default class PotentialTypeComboBox extends ComboBox<Potential> {
   }
 }
 
+/**
+ * Creates the Node for an item in the combo box. ComboBox unfortunately lacks support for scenery dynamic layout,
+ * so AlignGroups are used to ensure that icons are right-justified and horizontally centered on each other.
+ */
 function createItemNode( potential: Potential, textAlignGroup: AlignGroup, iconAlignGroup: AlignGroup ): Node {
 
   const text = textAlignGroup.createBox( new Text( potential.visualNameProperty, {
