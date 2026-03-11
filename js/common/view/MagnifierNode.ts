@@ -28,7 +28,7 @@ import Magnifier from '../model/Magnifier.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
-const BODY_SIZE = new Dimension2( 175, 75 );
+const DISPLAY_SIZE = new Dimension2( 170, 70 );
 const CORNER_RADIUS = 8;
 const X_MARGIN = 5;
 const Y_MARGIN = 5;
@@ -64,14 +64,14 @@ class MagnifierBodyNode extends Node {
 
   public constructor() {
 
-    const shadedRectangle = new ShadedRectangle( new Bounds2( 0, 0, BODY_SIZE.width, BODY_SIZE.height ), {
+    const shadedRectangle = new ShadedRectangle( new Bounds2( 0, 0, DISPLAY_SIZE.width + 2 * X_MARGIN, DISPLAY_SIZE.height + 2 * Y_MARGIN ), {
       baseColor: QBSColors.magnifierBodyColorProperty,
       lightOffset: 0.95,
       cornerRadius: CORNER_RADIUS
     } );
 
     //TODO This should be a bamboo chart.
-    const displayNode = new Rectangle( 0, 0, BODY_SIZE.width - 2 * X_MARGIN, BODY_SIZE.height - 2 * Y_MARGIN, {
+    const displayNode = new Rectangle( 0, 0, DISPLAY_SIZE.width, DISPLAY_SIZE.height, {
       fill: QBSColors.magnifierDisplayFillProperty,
       stroke: QBSColors.magnifierDisplayStrokeProperty,
       cornerRadius: CORNER_RADIUS / 2, //TODO Why is divided by 2 needed to match ShadedRectangle?
