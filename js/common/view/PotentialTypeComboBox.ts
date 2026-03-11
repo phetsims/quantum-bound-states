@@ -9,6 +9,7 @@
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -26,12 +27,18 @@ export default class PotentialTypeComboBox extends ComboBox<Potential> {
     affirm( potentialProperty.validValues, 'potentialProperty.validValues must be defined.' );
     const potentials = potentialProperty.validValues;
 
+    // To make all Text labels have the same effective size, so that icons will appear right-justified.
+    const textAlignGroup = new AlignGroup();
+
+    // To make all icons have the same effective size so that they can be horizontally centered.
+    const iconAlignGroup = new AlignGroup();
+
     const items: ComboBoxItem<Potential>[] = potentials.map( potential => {
       return {
         value: potential,
         accessibleName: potential.accessibleNameProperty,
         tandemName: `${potential.tandemPrefix}Item`,
-        createNode: () => createItemNode( potential )
+        createNode: () => createItemNode( potential, textAlignGroup, iconAlignGroup )
       };
     } );
 
@@ -48,15 +55,25 @@ export default class PotentialTypeComboBox extends ComboBox<Potential> {
   }
 }
 
-function createItemNode( potential: Potential ): Node {
-  const text = new Text( potential.visualNameProperty, {
+function createItemNode( potential: Potential, textAlignGroup: AlignGroup, iconAlignGroup: AlignGroup ): Node {
+
+  const text = textAlignGroup.createBox( new Text( potential.visualNameProperty, {
     font: QBSConstants.CONTROL_FONT,
     maxWidth: 250
+  } ), {
+    xAlign: 'left'
   } );
-  const icon = potential.createIcon();
+
+  const icon = iconAlignGroup.createBox( potential.createIcon(), {
+    xAlign: 'center'
+  } );
+
   return new HBox( {
     children: [ text, icon ],
-    spacing: 5
+    spacing: 5,
+    layoutOptions: {
+      stretch: true
+    }
   } );
 }
 
