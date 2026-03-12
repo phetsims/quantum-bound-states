@@ -44,8 +44,9 @@ export default class ManyWellsScreen extends Screen<ManyWellsModel, ManyWellsScr
 function createScreenIcon(): ScreenIcon {
   return new ScreenIcon( new FiniteSquareWellsIcon( {
     numberOfWells: 4,
-    wellWidth: 7.5,
+    wellWidth: 8,
     wellDepth: 30,
+    edgeLength: 6,
     lineWidth: 3
   } ), {
     maxIconWidthProportion: 0.85,

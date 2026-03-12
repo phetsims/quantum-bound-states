@@ -15,7 +15,7 @@ import QBSColors from '../QBSColors.js';
 
 type SelfOptions = {
   numberOfWells: number;
-  wellWidth?: number;
+  wellWidth: number;
   wellDepth?: number;
   wellSpacing?: number;
   edgeLength?: number;
@@ -30,25 +30,29 @@ export default class FiniteSquareWellsIcon extends Path {
     const options = optionize<FiniteSquareWellsIconOptions, SelfOptions, PathOptions>()( {
 
       // SelfOptions
-      wellWidth: 10,
-      wellDepth: 10,
-      wellSpacing: 10,
-      edgeLength: 20,
+      wellDepth: 30,
+      wellSpacing: providedOptions.wellWidth,
+      edgeLength: 15,
 
       // PathOptions
       stroke: QBSColors.potentialEnergyColorProperty,
       lineWidth: 2
     }, providedOptions );
 
-    const shape = new Shape().moveTo( 0, 0 ).lineTo( options.wellWidth, 0 );
+    const shape = new Shape().moveTo( 0, 0 ).lineTo( options.edgeLength, 0 );
 
-    let x = options.wellWidth;
+    let x = options.edgeLength;
     for ( let i = 0; i < options.numberOfWells; i++ ) {
       shape.lineTo( x, options.wellDepth );
       x += options.wellWidth;
       shape.lineTo( x, options.wellDepth );
       shape.lineTo( x, 0 );
-      x += options.wellWidth;
+      if ( i < options.numberOfWells - 1 ) {
+        x += options.wellSpacing;
+      }
+      else {
+        x += options.edgeLength;
+      }
       shape.lineTo( x, 0 );
     }
 
