@@ -74,7 +74,7 @@ export default class EnergyDiagramNode extends Node {
     const yAxisLabelNode = new RichText( QuantumBoundStatesFluent.energy_eVStringProperty, {
       font: QBSConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      maxWidth: 0.85 * this.chartRectangle.height
+      maxWidth: 0.5 * this.chartRectangle.height
     } );
     yAxisLabelNode.boundsProperty.link( () => {
       yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ENERGY_DIAGRAM_Y_AXIS_LABEL_OFFSET, 0 );

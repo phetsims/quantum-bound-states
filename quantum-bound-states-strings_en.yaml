@@ -297,6 +297,16 @@ a11y:
     accessibleHelpText:        TODO.superpositionDetailsButton.accessibleHelpText
     accessibleContextResponse: TODO.superpositionDetailsButton.accessibleContextResponse
 
+  yAxisZoomButtonGroup:
+    zoomInButton:
+      accessibleName:            Zoom In
+      accessibleHelpText:        Zoom in y axis for Energy Diagram.
+      accessibleContextResponse: 'zoomed in, y range {$min} to {$max}'
+    zoomOutButton:
+      accessibleName:            Zoom Out
+      accessibleHelpText:        Zoom out y axis for Energy Diagram.
+      accessibleContextResponse: 'zoomed out, y range {$min} to {$max}'
+
   #=======================================================================================================
   # Radio Buttons
   #=======================================================================================================

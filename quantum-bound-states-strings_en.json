@@ -559,6 +559,30 @@
         "value": "TODO.superpositionDetailsButton.accessibleContextResponse"
       }
     },
+    "yAxisZoomButtonGroup": {
+      "zoomInButton": {
+        "accessibleName": {
+          "value": "Zoom In"
+        },
+        "accessibleHelpText": {
+          "value": "Zoom in y axis for Energy Diagram."
+        },
+        "accessibleContextResponse": {
+          "value": "zoomed in, y range {$min} to {$max}"
+        }
+      },
+      "zoomOutButton": {
+        "accessibleName": {
+          "value": "Zoom Out"
+        },
+        "accessibleHelpText": {
+          "value": "Zoom out y axis for Energy Diagram."
+        },
+        "accessibleContextResponse": {
+          "value": "zoomed out, y range {$min} to {$max}"
+        }
+      }
+    },
     "quantumStateGraphRadioButtonGroup": {
       "accessibleName": {
         "value": "Quantum State Graph"

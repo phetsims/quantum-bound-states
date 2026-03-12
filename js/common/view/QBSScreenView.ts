@@ -37,6 +37,7 @@ import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 
 type SelfOptions = {
   listboxParent?: Node;
+  yAxisZoomButtonGroup?: Node;
 };
 
 export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
@@ -45,7 +46,9 @@ export default class QBSScreenView extends ScreenView {
 
   public constructor( model: QBSModel, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {
 
-    const options = optionize<QBSScreenViewOptions, StrictOmit<SelfOptions, 'listboxParent'>, ScreenViewOptions>()( {}, providedOptions );
+    const options = optionize<QBSScreenViewOptions,
+      StrictOmit<SelfOptions, 'listboxParent' | 'yAxisZoomButtonGroup'>,
+      ScreenViewOptions>()( {}, providedOptions );
 
     super( options );
 
@@ -107,6 +110,10 @@ export default class QBSScreenView extends ScreenView {
     magnifierWrapper.y = energyDiagramChartRectangleBounds.y + 5;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    if ( options.yAxisZoomButtonGroup ) {
+      options.yAxisZoomButtonGroup.right = energyDiagramChartRectangleBounds.left - 20;
+      options.yAxisZoomButtonGroup.bottom = energyDiagramChartRectangleBounds.bottom;
+    }
 
     // Dynamic Layout
     potentialTypeComboBox.boundsProperty.link( () => {
@@ -136,26 +143,32 @@ export default class QBSScreenView extends ScreenView {
     } );
 
     // Rendering order, from back to front
+    const screenViewChildren = [
+      potentialTypeComboBox,
+      legendPanel,
+      energyDiagramNode,
+      ...graphNodes,
+      energyDiagramControlPanel,
+      quantumStateGraphControlPanel,
+      toolsPanel,
+      magnifierWrapper,
+      referenceLineWrapper,
+      timePanel,
+      resetAllButton,
+      listboxParent // on top of everything else
+    ];
+    if ( options.yAxisZoomButtonGroup ) {
+      console.log( 'Adding yAxisZoomButtonGroup to screenViewChildren' );
+      screenViewChildren.splice( screenViewChildren.indexOf( energyDiagramNode ), 0, options.yAxisZoomButtonGroup );
+    }
+
     const screenViewRootNode = new Node( {
-      children: [
-        potentialTypeComboBox,
-        legendPanel,
-        energyDiagramNode,
-        ...graphNodes,
-        energyDiagramControlPanel,
-        quantumStateGraphControlPanel,
-        toolsPanel,
-        magnifierWrapper,
-        referenceLineWrapper,
-        timePanel,
-        resetAllButton,
-        listboxParent // on top of everything else
-      ]
+      children: screenViewChildren
     } );
     this.addChild( screenViewRootNode );
 
     // Play Area focus order
-    this.pdomPlayAreaNode.pdomOrder = [
+    const playAreaPDOMOrder = [
       energyDiagramControlPanel,
       quantumStateGraphControlPanel,
       potentialTypeComboBox,
@@ -164,6 +177,10 @@ export default class QBSScreenView extends ScreenView {
       magnifierNode,
       referenceLineNode
     ];
+    if ( options.yAxisZoomButtonGroup ) {
+      playAreaPDOMOrder.splice( playAreaPDOMOrder.indexOf( energyDiagramNode ), 0, options.yAxisZoomButtonGroup );
+    }
+    this.pdomPlayAreaNode.pdomOrder = playAreaPDOMOrder;
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [

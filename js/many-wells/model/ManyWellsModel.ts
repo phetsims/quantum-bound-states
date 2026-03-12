@@ -7,6 +7,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
@@ -19,6 +20,8 @@ export default class ManyWellsModel extends QBSModel {
   public readonly numberOfWellsProperty: NumberProperty;
 
   public readonly electricFieldProperty: NumberProperty;
+
+  public readonly yAxisZoomLevelProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
 
@@ -54,12 +57,19 @@ export default class ManyWellsModel extends QBSModel {
     this.electricFieldProperty.link( electricField => {
       //TODO update potentials
     } );
+
+    this.yAxisZoomLevelProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      range: new Range( 0, 2 ) //TODO How many zoom levels are needed?
+    } );
+    //TODO Derive yAxisScaleProperty from yAxisZoomLevelProperty
   }
 
   public override reset(): void {
     super.reset();
     this.numberOfWellsProperty.reset();
     this.electricFieldProperty.reset();
+    this.yAxisZoomLevelProperty.reset();
   }
 }
 
