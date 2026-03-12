@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { roundSymmetric } from '../../../../../dot/js/util/roundSymmetric.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
@@ -27,13 +28,40 @@ export default class AnharmonicOscillatorPotential extends Potential {
     } );
   }
 
-
+  /**
+   * Creates the icon for this potential.
+   * Note that this implementation was adapted from an implementation that was suggested by Claude Code.
+   */
   public override createIcon(): Node {
 
-    //TODO Suggested by Gemini, but not quite right.
-    const shape = new Shape()
-      .moveTo( 9, 9 )
-      .cubicCurveTo( 14, 48, 9, 4, 26, 10 );
+    // Claude suggested using a Morse curve to approximate this potential shape.
+    const getMorseCurve = ( x: number, depth = 1, width = 1, center = 1 ): number => {
+      const term = 1 - Math.exp( -width * ( x - center ) );
+      return depth * ( Math.pow( term, 2 ) - 1 );
+    };
+
+    // Sample x from 0.2 to 10
+    const xs = Array.from( { length: 99 }, ( _, i ) => ( i + 2 ) * 0.1 );
+    const ys = xs.map( x => getMorseCurve( x ) );
+
+    // Map to SVG coordinate space: x_svg in [4, 60], y_svg in [4, 60] (flipped)
+    const xMin = 0.2;
+    const xMax = 10;
+    const yMin = Math.min( ...ys ) - 0.05;
+    const yMax = Math.max( ...ys ) + 0.05;
+
+    const toSVG = ( x: number, y: number ): [ number, number ] => {
+      const sx = 4 + ( ( x - xMin ) / ( xMax - xMin ) ) * 56;
+      const sy = 60 - ( ( y - yMin ) / ( yMax - yMin ) ) * 56;
+      return [ roundSymmetric( sx * 10 ) / 10, roundSymmetric( sy * 10 ) / 10 ];
+    };
+
+    const points = xs.map( ( x, i ) => toSVG( x, ys[ i ] ) );
+
+    const scale = 0.3; // applied to the points
+
+    const shape = new Shape();
+    points.forEach( ( [ x, y ] ) => shape.lineTo( scale * x, scale * y ) );
 
     return new Path( shape, {
       stroke: QBSColors.potentialEnergyColorProperty,
