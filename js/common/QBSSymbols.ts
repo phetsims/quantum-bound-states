@@ -16,7 +16,7 @@ export default class QBSSymbols {
     // Not intended for instantiation.
   }
 
-  //TODO
+  //TODO Do we need any symbols?
 }
 
 quantumBoundStates.register( 'QBSSymbols', QBSSymbols );
