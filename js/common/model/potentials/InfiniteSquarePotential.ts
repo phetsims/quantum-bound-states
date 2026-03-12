@@ -13,7 +13,7 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
-import QBSConstants from '../../QBSConstants.js';
+import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import Potential from './Potential.js';
 
 export default class InfiniteSquarePotential extends Potential {
@@ -29,20 +29,17 @@ export default class InfiniteSquarePotential extends Potential {
 
   public override createIcon(): Node {
 
-    const w = 12; // width of the well
-    const h = 12; // height of the well
+    const wellWidth = 12; // width of the well
+    const wellDepth = 12; // depth of the well
     const arrowHeadWidth = 6;
     const arrowHeadHeight = 4;
 
-    // Draw the well without the arrow heads, described from left to right.
-    const wellShape = new Shape()
-      .moveTo( 0, 0 )
-      .lineTo( 0, h )
-      .lineTo( w, h )
-      .lineTo( w, 0 );
-    const wellPath = new Path( wellShape, {
-      stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
+    // Draw the well without the arrow heads, with origin at top-left corner.
+    const wellIcon = new FiniteSquareWellsIcon( {
+      numberOfWells: 1,
+      wellWidth: wellWidth,
+      wellDepth: wellDepth,
+      edgeLength: 0
     } );
 
     // Draw the arrow heads, starting at the tip of each.
@@ -54,9 +51,9 @@ export default class InfiniteSquarePotential extends Potential {
       .close()
       // Right arrow head
       .newSubpath()
-      .moveTo( w, -arrowHeadHeight )
-      .lineTo( w - arrowHeadWidth / 2, 0 )
-      .lineTo( w + arrowHeadWidth / 2, 0 )
+      .moveTo( wellWidth, -arrowHeadHeight )
+      .lineTo( wellWidth - arrowHeadWidth / 2, 0 )
+      .lineTo( wellWidth + arrowHeadWidth / 2, 0 )
       .close();
 
     const arrowHeadsPath = new Path( arrowHeadsShape, {
@@ -64,7 +61,7 @@ export default class InfiniteSquarePotential extends Potential {
     } );
 
     return new Node( {
-      children: [ wellPath, arrowHeadsPath ]
+      children: [ wellIcon, arrowHeadsPath ]
     } );
   }
 }
