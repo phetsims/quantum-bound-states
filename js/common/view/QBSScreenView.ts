@@ -37,7 +37,7 @@ import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 
 type SelfOptions = {
   listboxParent?: Node;
-  yAxisZoomButtonGroup?: Node;
+  createYAxisZoomButtonGroup?: ( tandem: Tandem ) => Node;
 };
 
 export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
@@ -47,7 +47,7 @@ export default class QBSScreenView extends ScreenView {
   public constructor( model: QBSModel, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {
 
     const options = optionize<QBSScreenViewOptions,
-      StrictOmit<SelfOptions, 'listboxParent' | 'yAxisZoomButtonGroup'>,
+      StrictOmit<SelfOptions, 'listboxParent' | 'createYAxisZoomButtonGroup'>,
       ScreenViewOptions>()( {}, providedOptions );
 
     super( options );
@@ -60,6 +60,12 @@ export default class QBSScreenView extends ScreenView {
     const legendPanel = new LegendPanel( options.tandem.createTandem( 'legendPanel' ) );
 
     const energyDiagramNode = new EnergyDiagramNode( options.tandem.createTandem( 'energyDiagramNode' ) );
+
+    // Create yAxisZoomButtonGroup for the Energy Diagram and make it look like a child of the Energy Diagram for PhET-iO.
+    let yAxisZoomButtonGroup: Node | undefined;
+    if ( options.createYAxisZoomButtonGroup ) {
+      yAxisZoomButtonGroup = options.createYAxisZoomButtonGroup( energyDiagramNode.tandem.createTandem( 'yAxisZoomButtonGroup' ) );
+    }
 
     const graphNodes = createGraphNodes( model, options.tandem.createTandem( 'graphNodes' ) );
 
@@ -110,9 +116,9 @@ export default class QBSScreenView extends ScreenView {
     magnifierWrapper.y = energyDiagramChartRectangleBounds.y + 5;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
-    if ( options.yAxisZoomButtonGroup ) {
-      options.yAxisZoomButtonGroup.right = energyDiagramChartRectangleBounds.left - 20;
-      options.yAxisZoomButtonGroup.bottom = energyDiagramChartRectangleBounds.bottom;
+    if ( yAxisZoomButtonGroup ) {
+      yAxisZoomButtonGroup.right = energyDiagramChartRectangleBounds.left - 20;
+      yAxisZoomButtonGroup.bottom = energyDiagramChartRectangleBounds.bottom;
     }
 
     // Dynamic Layout
@@ -157,9 +163,8 @@ export default class QBSScreenView extends ScreenView {
       resetAllButton,
       listboxParent // on top of everything else
     ];
-    if ( options.yAxisZoomButtonGroup ) {
-      console.log( 'Adding yAxisZoomButtonGroup to screenViewChildren' );
-      screenViewChildren.splice( screenViewChildren.indexOf( energyDiagramNode ), 0, options.yAxisZoomButtonGroup );
+    if ( yAxisZoomButtonGroup ) {
+      screenViewChildren.splice( screenViewChildren.indexOf( energyDiagramNode ), 0, yAxisZoomButtonGroup );
     }
 
     const screenViewRootNode = new Node( {
@@ -177,8 +182,8 @@ export default class QBSScreenView extends ScreenView {
       magnifierNode,
       referenceLineNode
     ];
-    if ( options.yAxisZoomButtonGroup ) {
-      playAreaPDOMOrder.splice( playAreaPDOMOrder.indexOf( energyDiagramNode ), 0, options.yAxisZoomButtonGroup );
+    if ( yAxisZoomButtonGroup ) {
+      playAreaPDOMOrder.splice( playAreaPDOMOrder.indexOf( energyDiagramNode ), 0, yAxisZoomButtonGroup );
     }
     this.pdomPlayAreaNode.pdomOrder = playAreaPDOMOrder;
 
