@@ -46,6 +46,7 @@ function createScreenIcon(): ScreenIcon {
     numberOfWells: 2,
     wellWidth: 15,
     wellDepth: 30,
+    wellSpacing: 10,
     edgeLength: 8,
     lineWidth: 3
   } ), {
