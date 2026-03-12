@@ -32,8 +32,8 @@ export default class AnharmonicOscillatorPotential extends Potential {
    */
   public override createIcon(): Node {
 
-    // Claude Code suggested using a Morse curve to approximate the potential shape.
-    function getMorseCurve( x: number, depth = 1, width = 1, center = 1 ): number {
+    // Claude Code suggested using a Morse potential curve to approximate the potential shape.
+    function solveMorse( x: number, depth = 1, width = 1, center = 1 ): number {
       const term = 1 - Math.exp( -width * ( x - center ) );
       return depth * ( Math.pow( term, 2 ) - 1 );
     }
@@ -50,7 +50,7 @@ export default class AnharmonicOscillatorPotential extends Potential {
     // Create the Shape by sampling the curve, then scaling xy-coordinates to fit the desired size and coordinate frame.
     const shape = new Shape();
     for ( let x = xMin; x <= xMax; x += dx ) {
-      shape.lineTo( xScale * x, yScale * getMorseCurve( x ) );
+      shape.lineTo( xScale * x, yScale * solveMorse( x ) );
     }
 
     return new Path( shape, {
