@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/scenery-phet/issues/968 Revisit accessible options for buttons used herein.
 /**
  * TimeButtonGroup is the set of buttons for controlling the simulation time.
  *
