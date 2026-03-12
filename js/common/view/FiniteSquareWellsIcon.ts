@@ -2,6 +2,7 @@
 
 /**
  * FiniteSquareWellsIcon draws the icon for a potential that consists of one or more finite square wells.
+ * It is used for screen icons and combo box icons.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
