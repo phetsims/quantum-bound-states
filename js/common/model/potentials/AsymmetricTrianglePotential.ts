@@ -29,17 +29,17 @@ export default class AsymmetricTrianglePotential extends Potential {
 
   public override createIcon(): Node {
 
-    const w = 12; // width of the well
-    const h = 12; // height of the well
-    const edge = 8; // horizontal length of the edges that extend to the left and right of the well
+    const wellWidth = 12;
+    const wellDepth = 12;
+    const edgeLength = 8; // horizontal length of the edges that extend to the left and right of the well
 
     // Described from left to right
     const shape = new Shape()
       .moveTo( 0, 0 )
-      .lineTo( edge, 0 )
-      .lineTo( edge, h )
-      .lineTo( edge + w, 0 )
-      .lineTo( edge + w + edge, 0 );
+      .lineTo( edgeLength, 0 )
+      .lineTo( edgeLength, wellDepth )
+      .lineTo( edgeLength + wellWidth, 0 )
+      .lineTo( edgeLength + wellWidth + edgeLength, 0 );
 
     return new Path( shape, {
       stroke: QBSColors.potentialEnergyColorProperty,

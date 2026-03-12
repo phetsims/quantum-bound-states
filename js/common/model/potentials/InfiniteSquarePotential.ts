@@ -29,8 +29,8 @@ export default class InfiniteSquarePotential extends Potential {
 
   public override createIcon(): Node {
 
-    const wellWidth = 12; // width of the well
-    const wellDepth = 12; // depth of the well
+    const wellWidth = 12;
+    const wellDepth = 12;
     const arrowHeadWidth = 6;
     const arrowHeadHeight = 4;
 

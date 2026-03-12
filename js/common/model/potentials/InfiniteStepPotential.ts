@@ -29,19 +29,19 @@ export default class InfiniteStepPotential extends Potential {
 
   public override createIcon(): Node {
 
-    const w = 12; // width of the well
-    const h = 12; // height of the well
+    const wellWidth = 12;
+    const wellDepth = 12;
     const arrowHeadWidth = 6;
     const arrowHeadHeight = 4;
 
     // Draw the well without the arrow heads, described from left to right.
     const wellShape = new Shape()
       .moveTo( 0, 0 )
-      .lineTo( 0, h )
-      .lineTo( w / 2, h )
-      .lineTo( w / 2, h / 2 )
-      .lineTo( w, h / 2 )
-      .lineTo( w, 0 );
+      .lineTo( 0, wellDepth )
+      .lineTo( wellWidth / 2, wellDepth )
+      .lineTo( wellWidth / 2, wellDepth / 2 )
+      .lineTo( wellWidth, wellDepth / 2 )
+      .lineTo( wellWidth, 0 );
     const wellPath = new Path( wellShape, {
       stroke: QBSColors.potentialEnergyColorProperty,
       lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
@@ -56,9 +56,9 @@ export default class InfiniteStepPotential extends Potential {
       .close()
       // Right arrow head
       .newSubpath()
-      .moveTo( w, -arrowHeadHeight )
-      .lineTo( w - arrowHeadWidth / 2, 0 )
-      .lineTo( w + arrowHeadWidth / 2, 0 )
+      .moveTo( wellWidth, -arrowHeadHeight )
+      .lineTo( wellWidth - arrowHeadWidth / 2, 0 )
+      .lineTo( wellWidth + arrowHeadWidth / 2, 0 )
       .close();
     const arrowHeadsPath = new Path( arrowHeadsShape, {
       fill: QBSColors.potentialEnergyColorProperty
