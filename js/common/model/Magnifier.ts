@@ -22,7 +22,7 @@ export default class Magnifier extends PhetioObject {
   // Position of the probe, in model coordinates.
   public readonly probePositionProperty: Property<Vector2>;
 
-  //TODO Does this need to be dynamic?
+  //TODO Does this need to be dynamic or is a single power sufficient?
   public static readonly MAGNIFICATION_POWER = 10;
 
   public constructor( tandem: Tandem ) {
