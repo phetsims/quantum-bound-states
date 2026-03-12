@@ -47,7 +47,7 @@ export default class AnharmonicOscillatorPotential extends Potential {
     const xScale = 1.7;
     const yScale = -10.1; // negative to invert the y-axis to match scenery's coordinate frame.
 
-    // Create the Shape by sampling the curve, then adjusting xy-coordinates to fit the desired size and coordinate frame.
+    // Create the Shape by sampling the curve, then scaling xy-coordinates to fit the desired size and coordinate frame.
     const shape = new Shape();
     for ( let x = xMin; x <= xMax; x += dx ) {
       shape.lineTo( xScale * x, yScale * getMorseCurve( x ) );
