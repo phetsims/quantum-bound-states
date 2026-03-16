@@ -157,8 +157,8 @@ export default class QBSScreenView extends ScreenView {
       energyDiagramControlPanel,
       quantumStateGraphControlPanel,
       toolsPanel,
-      magnifierWrapper,
       referenceLineWrapper,
+      magnifierWrapper,
       timePanel,
       resetAllButton,
       listboxParent // on top of everything else
