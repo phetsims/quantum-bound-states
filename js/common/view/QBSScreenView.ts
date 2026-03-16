@@ -59,7 +59,7 @@ export default class QBSScreenView extends ScreenView {
 
     const legendPanel = new LegendPanel( options.tandem.createTandem( 'legendPanel' ) );
 
-    const energyDiagramNode = new EnergyDiagramNode( options.tandem.createTandem( 'energyDiagramNode' ) );
+    const energyDiagramNode = new EnergyDiagramNode( model.energyDiagram, options.tandem.createTandem( 'energyDiagramNode' ) );
 
     // Create yAxisZoomButtonGroup for the Energy Diagram and make it look like a child of the Energy Diagram for PhET-iO.
     let yAxisZoomButtonGroup: Node | undefined;

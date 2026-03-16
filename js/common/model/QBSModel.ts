@@ -98,7 +98,8 @@ export default class QBSModel implements TModel {
         phetioFeatured: true
       } );
 
-    this.energyDiagram = new EnergyDiagram( options.tandem.createTandem( 'energyDiagram' ) );
+    this.energyDiagram = new EnergyDiagram( this.potentialProperty,
+      options.tandem.createTandem( 'energyDiagram' ) );
 
     const graphs: QuantumStateGraph[] = [];
     const graphsTandem = options.tandem.createTandem( 'graphs' );

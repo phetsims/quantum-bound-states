@@ -11,6 +11,7 @@ import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
+import LinePlot from '../../../../bamboo/js/LinePlot.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -23,6 +24,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import EnergyDiagram from '../model/EnergyDiagram.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
@@ -39,7 +41,7 @@ export default class EnergyDiagramNode extends Node {
   private readonly yTickLabelSet: TickLabelSet;
   private readonly horizontalGridLines: GridLineSet;
 
-  public constructor( tandem: Tandem ) {
+  public constructor( energyDiagram: EnergyDiagram, tandem: Tandem ) {
 
     super( {
       accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleHeadingStringProperty,
@@ -112,7 +114,15 @@ export default class EnergyDiagramNode extends Node {
       ]
     } );
 
-    this.children = [ pickableFalseNode ];
+    // Plots the shape of the selected potential.
+    const potentialPlot = new LinePlot( this.chartTransform, energyDiagram.potentialPointsProperty.value, {
+      stroke: QBSColors.potentialEnergyColorProperty,
+      lineWidth: 3
+    } );
+    //TODO Reuse points, use Emitter to call energyPlot.update
+    energyDiagram.potentialPointsProperty.lazyLink( points => potentialPlot.setDataSet( points ) );
+
+    this.children = [ pickableFalseNode, potentialPlot ];
   }
 
   public setYRange( yRange: Range ): void {

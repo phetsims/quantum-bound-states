@@ -9,19 +9,35 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QBSConstants from '../QBSConstants.js';
+import Potential from './potentials/Potential.js';
 
 export default class EnergyDiagram {
 
   // Visibility of values on drag handles and energy lines.
   public readonly valuesVisibleProperty: Property<boolean>;
 
-  public constructor( tandem: Tandem ) {
+  // Points to approximate the selected potential.
+  public readonly potentialPointsProperty: Property<Vector2[]>;
+
+  public constructor( potentialProperty: TReadOnlyProperty<Potential>,
+                      tandem: Tandem ) {
 
     this.valuesVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'valuesVisibleProperty' ),
       phetioFeatured: true
+    } );
+
+    //TODO Temporary
+    const xRange = QBSConstants.ALL_GRAPHS_X_RANGE;
+    const numberOfPoints = 1000;
+    this.potentialPointsProperty = new Property( potentialProperty.value.getPotentialPoints( xRange, numberOfPoints ) );
+    potentialProperty.link( potential => {
+      this.potentialPointsProperty.value = potential.getPotentialPoints( xRange, numberOfPoints );
     } );
   }
 

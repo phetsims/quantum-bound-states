@@ -7,6 +7,8 @@
  */
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../../dot/js/Range.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -45,6 +47,25 @@ export default abstract class Potential extends PhetioObject {
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
+  }
+
+  /**
+   * Gets the points that approximate this potential: x in nm, y in eV.
+   */
+  public getPotentialPoints( xRange: Range, numberOfPoints: number ): Vector2[] {
+    const points: Vector2[] = [];
+    const dx = xRange.getLength() / ( numberOfPoints - 1 );
+    for ( let x = xRange.min; x <= xRange.max; x += dx ) {
+      points.push( new Vector2( x, this.getPotentialEnergyAt( x ) ) );
+    }
+    return points;
+  }
+
+  /**
+   * Gets the potential energy at a specified x-coordinate, in nm.
+   */
+  protected getPotentialEnergyAt( x: number ): number {
+    return 0; //TODO This method should be abstract, as in BSAbstractPotential.java getEnergyAt
   }
 
   /**
