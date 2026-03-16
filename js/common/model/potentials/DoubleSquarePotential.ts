@@ -33,7 +33,7 @@ export default class DoubleSquarePotential extends Potential {
       numberOfWells: 2,
       wellWidth: 12,
       wellDepth: 12,
-      edgeLength: 8,
+      edgeLength: 4,
       wellSpacing: 6,
       lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     } );
