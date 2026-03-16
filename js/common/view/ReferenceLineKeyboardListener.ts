@@ -18,7 +18,6 @@ import SoundClipPlayer from '../../../../tambo/js/sound-generators/SoundClipPlay
 import generalBoundaryBoop_mp3 from '../../../../tambo/sounds/generalBoundaryBoop_mp3.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
-import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { ReferenceLineHandleNode } from './ReferenceLineNode.js';
 
 // Same as Slider min and max defaults.
@@ -45,12 +44,6 @@ export class ReferenceLineKeyboardListener extends KeyboardListener<OneKeyStroke
     keyboardHelpDialogLabelStringProperty: SceneryPhetFluent.keyboardHelpDialog.jumpToMaximumStringProperty
   } );
 
-  public static readonly CHECK_VALUES_HOTKEY_DATA = new HotkeyData( {
-    keys: [ 'alt+c' ],
-    repoName: quantumBoundStates.name,
-    keyboardHelpDialogLabelStringProperty: QuantumBoundStatesFluent.keyboardHelp.referenceLine.checkValuesStringProperty
-  } );
-
   private readonly referenceLineHandleNode: ReferenceLineHandleNode;
 
   public constructor( referenceLineHandleNode: ReferenceLineHandleNode,
@@ -61,8 +54,7 @@ export class ReferenceLineKeyboardListener extends KeyboardListener<OneKeyStroke
       tandem: tandem,
       keyStringProperties: HotkeyData.combineKeyStringProperties( [
         ReferenceLineKeyboardListener.HOME_HOTKEY_DATA,
-        ReferenceLineKeyboardListener.END_HOTKEY_DATA,
-        ReferenceLineKeyboardListener.CHECK_VALUES_HOTKEY_DATA
+        ReferenceLineKeyboardListener.END_HOTKEY_DATA
       ] ),
 
       fire: ( event, keysPressed, listener ) => {
@@ -71,9 +63,6 @@ export class ReferenceLineKeyboardListener extends KeyboardListener<OneKeyStroke
         }
         else if ( keysPressed === 'end' ) {
           this.end( xProperty, positionProperty );
-        }
-        else if ( keysPressed === 'alt+c' ) {
-          this.checkValues();
         }
       }
     } );

@@ -99,7 +99,6 @@ type StringsType = {
   'keyboardHelp': {
     'referenceLine': {
       'headingStringProperty': LocalizedStringProperty;
-      'checkValuesStringProperty': LocalizedStringProperty;
     }
   };
   'a11y': {

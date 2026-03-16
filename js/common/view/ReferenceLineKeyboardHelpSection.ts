@@ -48,10 +48,7 @@ export default class ReferenceLineKeyboardHelpSection extends KeyboardHelpSectio
       KeyboardHelpSectionRow.fromHotkeyData( ReferenceLineKeyboardListener.HOME_HOTKEY_DATA ),
 
       // Jump to maximum
-      KeyboardHelpSectionRow.fromHotkeyData( ReferenceLineKeyboardListener.END_HOTKEY_DATA ),
-
-      // Check values
-      KeyboardHelpSectionRow.fromHotkeyData( ReferenceLineKeyboardListener.CHECK_VALUES_HOTKEY_DATA )
+      KeyboardHelpSectionRow.fromHotkeyData( ReferenceLineKeyboardListener.END_HOTKEY_DATA )
     ];
 
     super( QuantumBoundStatesFluent.keyboardHelp.referenceLine.headingStringProperty, rows, {

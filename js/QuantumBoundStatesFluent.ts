@@ -86,7 +86,6 @@ addToMapIfDefined( 'custom3', 'custom3StringProperty' );
 addToMapIfDefined( 'custom4', 'custom4StringProperty' );
 addToMapIfDefined( 'custom5', 'custom5StringProperty' );
 addToMapIfDefined( 'keyboardHelp_referenceLine_heading', 'keyboardHelp.referenceLine.headingStringProperty' );
-addToMapIfDefined( 'keyboardHelp_referenceLine_checkValues', 'keyboardHelp.referenceLine.checkValuesStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenButtonsHelpText', 'a11y.screens.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_playArea', 'a11y.screens.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_controlArea', 'a11y.screens.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -353,8 +352,7 @@ const QuantumBoundStatesFluent = {
   _comment_23: new FluentComment( {"comment":"Keyboard Help","associatedKey":"keyboardHelp"} ),
   keyboardHelp: {
     referenceLine: {
-      headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.headingStringProperty' ),
-      checkValuesStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.checkValuesStringProperty' )
+      headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.headingStringProperty' )
     }
   },
   _comment_24: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),

@@ -108,7 +108,6 @@ magnificationPower:                         '{{value}}×'
 keyboardHelp:
   referenceLine:
     heading:     Reference Line
-    checkValues: Check values
 
 # Strings that are specific to accessibility
 a11y:
