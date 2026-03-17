@@ -69,7 +69,7 @@ export default class QBSScreenView extends ScreenView {
     }
 
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
-    const quantumStateGraphNodes = createGraphNodes( model, quantumStateGraphNodesTandem );
+    const quantumStateGraphNodes = createQuantumStateGraphNodes( model, quantumStateGraphNodesTandem );
 
     // Toggle button for showing/hiding the curves displayed by the visible Quantum State Graph.
     const curvesVisibleToggleButton = new CurvesVisibleToggleButton( model.curvesVisibleProperty,
@@ -224,9 +224,10 @@ export default class QBSScreenView extends ScreenView {
 }
 
 /**
- * Creates a set of graph Nodes for the specified model. Order is not important because only one graph Node is visible at a time.
+ * Creates a set of QuantumStateGraphNodes for the specified model.
+ * Order is not important because only one graph Node is visible at a time.
  */
-function createGraphNodes( model: QBSModel, parentTandem: Tandem ): QuantumStateGraphNode[] {
+function createQuantumStateGraphNodes( model: QBSModel, parentTandem: Tandem ): QuantumStateGraphNode[] {
 
   const graphNodes: QuantumStateGraphNode[] = [];
 
