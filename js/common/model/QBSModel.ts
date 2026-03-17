@@ -48,20 +48,23 @@ export default class QBSModel implements TModel {
   public readonly potentialProperty: Property<Potential>;
 
   public readonly energyLevelProperty: NumberProperty;
-
   public readonly electronMassesProperty: NumberProperty;
   public readonly massProperty: TReadOnlyProperty<number>;
 
   public readonly energyDiagram: EnergyDiagram;
+
+  // The possible QuantumStateGraphs.
   public readonly averageProbabilityDensityOfBandGraph?: AverageProbabilityDensityOfBandGraph;
   public readonly probabilityDensityGraph: ProbabilityDensityGraph;
   public readonly waveFunctionGraph: WaveFunctionGraph;
-  public readonly selectedGraphProperty: Property<QuantumStateGraph>;
+
+  // The QuantumStateGraph that is currently selected and displayed.
+  public readonly quantumStateGraphProperty: Property<QuantumStateGraph>;
 
   public readonly magnifier: Magnifier;
   public readonly referenceLine: ReferenceLine;
 
-  // Whether curves are visible on the Quantum State graphs. Applies to all graphs.
+  // Whether curves are visible on the QuantumStateGraphs. Applies to all graphs.
   public readonly curvesVisibleProperty: Property<boolean>;
 
   protected constructor( providedOptions: QBSModelOptions ) {
@@ -116,9 +119,9 @@ export default class QBSModel implements TModel {
     this.waveFunctionGraph = new WaveFunctionGraph( graphsTandem.createTandem( 'waveFunctionGraph' ) );
     graphs.push( this.waveFunctionGraph );
 
-    this.selectedGraphProperty = new Property( graphs[ 0 ], {
+    this.quantumStateGraphProperty = new Property( graphs[ 0 ], {
       validValues: graphs,
-      tandem: options.tandem.createTandem( 'selectedGraphProperty' ),
+      tandem: options.tandem.createTandem( 'quantumStateGraphProperty' ),
       phetioValueType: QuantumStateGraph.QuantumStateGraphIO,
       phetioFeatured: true
     } );
@@ -160,7 +163,7 @@ export default class QBSModel implements TModel {
     this.averageProbabilityDensityOfBandGraph && this.averageProbabilityDensityOfBandGraph.reset();
     this.probabilityDensityGraph.reset();
     this.waveFunctionGraph.reset();
-    this.selectedGraphProperty.reset();
+    this.quantumStateGraphProperty.reset();
     this.magnifier.reset();
     this.referenceLine.reset();
     this.curvesVisibleProperty.reset();

@@ -28,7 +28,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       yTickLabelDecimals: 1,
 
       // Visible when this graph is selected.
-      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.waveFunctionGraph ),
+      visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.waveFunctionGraph ),
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty,

@@ -84,7 +84,7 @@ export default class QBSScreenView extends ScreenView {
     const toolsPanel = new ToolsPanel( model.energyDiagram.valuesVisibleProperty, model.magnifier.visibleProperty,
       model.referenceLine.visibleProperty, options.tandem.createTandem( 'toolsPanel' ) );
 
-    const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.selectedGraphProperty,
+    const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.quantumStateGraphProperty,
       model.waveFunctionGraph, options.tandem.createTandem( 'quantumStateGraphControlPanel' ) );
 
     const timePanel = new TimePanel( model.time, options.tandem.createTandem( 'timePanel' ) );

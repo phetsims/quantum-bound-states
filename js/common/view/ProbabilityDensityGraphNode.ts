@@ -28,7 +28,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       yTickLabelDecimals: 1,
 
       // Visible when this graph is selected.
-      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.probabilityDensityGraph ),
+      visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.probabilityDensityGraph ),
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty,

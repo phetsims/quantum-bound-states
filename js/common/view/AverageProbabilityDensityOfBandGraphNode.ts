@@ -31,7 +31,7 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
       yTickLabelDecimals: 1,
 
       // Visible when this graph is selected.
-      visibleProperty: new DerivedProperty( [ model.selectedGraphProperty ], selectedGraph => selectedGraph === model.averageProbabilityDensityOfBandGraph ),
+      visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.averageProbabilityDensityOfBandGraph ),
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty,
