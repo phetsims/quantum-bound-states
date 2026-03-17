@@ -37,7 +37,12 @@ import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 
 type SelfOptions = {
+
+  // Optional parent for ComboBox listbox. If not provided, one will be created. Used by subclasses that create
+  // additional ComboBox instances and therefore must be responsible for creating listboxParent.
   listboxParent?: Node;
+
+  // Creates optional zoom buttons for the y-axis.
   createYAxisZoomButtonGroup?: ( tandem: Tandem ) => Node;
 };
 
