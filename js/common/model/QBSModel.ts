@@ -16,6 +16,7 @@ import TModel from '../../../../joist/js/TModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { kilogramsUnit } from '../../../../scenery-phet/js/units/kilogramsUnit.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
@@ -128,6 +129,13 @@ export default class QBSModel implements TModel {
       tandem: options.tandem.createTandem( 'energyLevelProperty' ),
       phetioFeatured: true,
       phetioReadOnly: true
+    } );
+
+    // When potential is changed, reset energy level.
+    this.potentialProperty.lazyLink( () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.energyLevelProperty.reset();
+      }
     } );
 
     this.magnifier = new Magnifier( options.tandem.createTandem( 'magnifier' ) );
