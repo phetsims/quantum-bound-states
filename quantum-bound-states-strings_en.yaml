@@ -107,7 +107,7 @@ magnificationPower:                         '{{value}}×'
 # Keyboard Help
 keyboardHelp:
   referenceLine:
-    heading:     Reference Line
+    heading: Reference Line
 
 # Strings that are specific to accessibility
 a11y:
@@ -362,27 +362,12 @@ a11y:
     accessibleContextResponseOff: Time display hidden.
 
   curvesVisibleToggleButton:
-    averageProbabilityDensityOfBand:
-      accessibleNameOn:             TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOn
-      accessibleNameOff:            TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOff
-      accessibleHelpTextOn:         TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOn
-      accessibleHelpTextOff:        TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOff
-      accessibleContextResponseOn:  TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOn
-      accessibleContextResponseOff: TODO.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOff
-    probabilityDensity:
-      accessibleNameOn:             TODO.curvesVisibleToggleButton.probabilityDensity.accessibleNameOn
-      accessibleNameOff:            TODO.curvesVisibleToggleButton.probabilityDensity.accessibleNameOff
-      accessibleHelpTextOn:         TODO.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOn
-      accessibleHelpTextOff:        TODO.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOff
-      accessibleContextResponseOn:  TODO.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOn
-      accessibleContextResponseOff: TODO.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOff
-    waveFunction:
-      accessibleNameOn:             TODO.curvesVisibleToggleButton.waveFunction.accessibleNameOn
-      accessibleNameOff:            TODO.curvesVisibleToggleButton.waveFunction.accessibleNameOff
-      accessibleHelpTextOn:         TODO.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOn
-      accessibleHelpTextOff:        TODO.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOff
-      accessibleContextResponseOn:  TODO.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOn
-      accessibleContextResponseOff: TODO.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOff
+    accessibleNameOn:             TODO.curvesVisibleToggleButton.accessibleNameOn
+    accessibleNameOff:            TODO.curvesVisibleToggleButton.accessibleNameOff
+    accessibleHelpTextOn:         TODO.curvesVisibleToggleButton.accessibleHelpTextOn
+    accessibleHelpTextOff:        TODO.curvesVisibleToggleButton.accessibleHelpTextOff
+    accessibleContextResponseOn:  TODO.curvesVisibleToggleButton.accessibleContextResponseOn
+    accessibleContextResponseOff: TODO.curvesVisibleToggleButton.accessibleContextResponseOff
 
   presetCustomSwitch:
     accessibleHelpText: TODO.presetCustomSwitch.accessibleHelpText

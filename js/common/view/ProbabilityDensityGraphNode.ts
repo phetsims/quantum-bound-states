@@ -34,19 +34,6 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty,
 
-      // Options for the toggle button that shows/hides curves.
-      curvesVisibleToggleButtonOptions: {
-        accessibleNameOn: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.probabilityDensity.accessibleNameOnStringProperty,
-        accessibleNameOff: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.probabilityDensity.accessibleNameOffStringProperty,
-        accessibleHelpText: new DerivedProperty( [
-          model.curvesVisibleProperty,
-          QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOnStringProperty,
-          QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.probabilityDensity.accessibleHelpTextOffStringProperty
-        ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
-        accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOnStringProperty,
-        accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.probabilityDensity.accessibleContextResponseOffStringProperty
-      },
-
       // Options for the button that opens a dialog that shows the expanded equation.
       functionDetailsButtonOptions: {
         listener: () => new ProbabilityDensityDetailsDialog().show(),

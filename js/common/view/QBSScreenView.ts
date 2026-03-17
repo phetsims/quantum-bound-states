@@ -32,6 +32,7 @@ import WaveFunctionGraphNode from '../../common/view/WaveFunctionGraphNode.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSModel from '../model/QBSModel.js';
 import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
+import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 
@@ -67,7 +68,13 @@ export default class QBSScreenView extends ScreenView {
       yAxisZoomButtonGroup = options.createYAxisZoomButtonGroup( energyDiagramNode.tandem.createTandem( 'yAxisZoomButtonGroup' ) );
     }
 
-    const graphNodes = createGraphNodes( model, options.tandem.createTandem( 'graphNodes' ) );
+    const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
+    const quantumStateGraphNodes = createGraphNodes( model, quantumStateGraphNodesTandem );
+
+    // Toggle button for showing/hiding the curves displayed by this graph.
+    const curvesVisibleToggleButton = new CurvesVisibleToggleButton( model.curvesVisibleProperty,
+      quantumStateGraphNodesTandem.createTandem( 'curvesVisibleToggleButton' ) );
+    this.addChild( curvesVisibleToggleButton );
 
     const toolsPanel = new ToolsPanel( model.energyDiagram.valuesVisibleProperty, model.magnifier.visibleProperty,
       model.referenceLine.visibleProperty, options.tandem.createTandem( 'toolsPanel' ) );
@@ -97,19 +104,21 @@ export default class QBSScreenView extends ScreenView {
     const energyDiagramChartRectangleBounds = this.globalToLocalBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
 
     // All graphs occupy the same position below the Energy diagram. Only one of them is visible at a time.
-    graphNodes.forEach( graphNode => {
+    quantumStateGraphNodes.forEach( graphNode => {
       graphNode.x = energyDiagramChartRectangleBounds.left;
       graphNode.y = energyDiagramChartRectangleBounds.bottom + 5;
     } );
 
-    affirm( graphNodes.length > 0, 'At least one Quantum State graph is required.' );
-    const graphChartRectangleBounds = this.globalToLocalBounds( graphNodes[ 0 ].getChartRectangleGlobalBounds() );
+    affirm( quantumStateGraphNodes.length > 0, 'At least one Quantum State graph is required.' );
+    const graphChartRectangleBounds = this.globalToLocalBounds( quantumStateGraphNodes[ 0 ].getChartRectangleGlobalBounds() );
 
     // Static layout
     energyDiagramControlPanel.left = energyDiagramChartRectangleBounds.right + 10;
     energyDiagramControlPanel.top = energyDiagramChartRectangleBounds.top;
     quantumStateGraphControlPanel.left = energyDiagramChartRectangleBounds.right + 10;
     quantumStateGraphControlPanel.top = graphChartRectangleBounds.top;
+    curvesVisibleToggleButton.left = graphChartRectangleBounds.left + 8;
+    curvesVisibleToggleButton.top = graphChartRectangleBounds.top + 8;
     toolsPanel.left = graphChartRectangleBounds.left;
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     magnifierWrapper.right = energyDiagramChartRectangleBounds.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
@@ -153,7 +162,8 @@ export default class QBSScreenView extends ScreenView {
       potentialTypeComboBox,
       legendPanel,
       energyDiagramNode,
-      ...graphNodes,
+      ...quantumStateGraphNodes,
+      curvesVisibleToggleButton,
       energyDiagramControlPanel,
       quantumStateGraphControlPanel,
       toolsPanel,
@@ -178,7 +188,8 @@ export default class QBSScreenView extends ScreenView {
       quantumStateGraphControlPanel,
       potentialTypeComboBox,
       energyDiagramNode,
-      ...graphNodes,
+      curvesVisibleToggleButton,
+      ...quantumStateGraphNodes,
       magnifierNode,
       referenceLineNode
     ];

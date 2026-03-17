@@ -34,19 +34,6 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty,
 
-      // Options for the toggle button that shows/hides curves.
-      curvesVisibleToggleButtonOptions: {
-        accessibleNameOn: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.waveFunction.accessibleNameOnStringProperty,
-        accessibleNameOff: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.waveFunction.accessibleNameOffStringProperty,
-        accessibleHelpText: new DerivedProperty( [
-          model.curvesVisibleProperty,
-          QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOnStringProperty,
-          QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.waveFunction.accessibleHelpTextOffStringProperty
-        ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
-        accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOnStringProperty,
-        accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.waveFunction.accessibleContextResponseOffStringProperty
-      },
-
       // Options for the button that opens a dialog that shows the expanded equation.
       functionDetailsButtonOptions: {
         listener: () => new WaveFunctionDetailsDialog().show(),

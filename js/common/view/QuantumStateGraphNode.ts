@@ -29,11 +29,7 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import { CurvesVisibleToggleButton, CurvesVisibleToggleButtonOptions } from './CurvesVisibleToggleButton.js';
 import FunctionDetailsButton, { DetailsButtonOptions } from './FunctionDetailsButton.js';
-
-const BUTTON_X_MARGIN = 8;
-const BUTTON_Y_MARGIN = 8;
 
 type SelfOptions = {
 
@@ -48,9 +44,6 @@ type SelfOptions = {
 
   // Number of decimal places in y-axis tick labels.
   yTickLabelDecimals: number;
-
-  // Propagated to curvesVisibleToggleButton
-  curvesVisibleToggleButtonOptions: StrictOmit<CurvesVisibleToggleButtonOptions, 'tandem'>;
 
   // Propagated to functionDetailsButton
   functionDetailsButtonOptions: StrictOmit<DetailsButtonOptions, 'tandem'>;
@@ -167,15 +160,6 @@ export default class QuantumStateGraphNode extends Node {
       ]
     } );
 
-    // Toggle button for showing/hiding the curves displayed by this graph.
-    const curvesVisibleToggleButton = new CurvesVisibleToggleButton( curvesVisibleProperty,
-      combineOptions<CurvesVisibleToggleButtonOptions>( {
-        tandem: options.tandem.createTandem( 'curvesVisibleToggleButton' )
-      }, options.curvesVisibleToggleButtonOptions ) );
-    this.addChild( curvesVisibleToggleButton );
-    curvesVisibleToggleButton.left = this.chartRectangle.x + BUTTON_X_MARGIN;
-    curvesVisibleToggleButton.top = this.chartRectangle.top + BUTTON_Y_MARGIN;
-
     // Button to open a dialog that shows the expanded equation for the function displayed by the graph.
     const functionDetailsButton = new FunctionDetailsButton( combineOptions<DetailsButtonOptions>( {
       tandem: options.tandem.createTandem( 'functionDetailsButton' )
@@ -184,11 +168,11 @@ export default class QuantumStateGraphNode extends Node {
 
     // Dynamically position the button in the top-right corner of the chart rectangle.
     functionDetailsButton.boundsProperty.link( () => {
-      functionDetailsButton.right = this.chartRectangle.right - BUTTON_X_MARGIN;
-      functionDetailsButton.top = this.chartRectangle.y + BUTTON_Y_MARGIN;
+      functionDetailsButton.right = this.chartRectangle.right - 8;
+      functionDetailsButton.top = this.chartRectangle.y + 8;
     } );
 
-    this.children = [ pickableFalseNode, curvesVisibleToggleButton, functionDetailsButton ];
+    this.children = [ pickableFalseNode, functionDetailsButton ];
   }
 
   /**

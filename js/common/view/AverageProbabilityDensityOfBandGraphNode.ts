@@ -37,19 +37,6 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleParagraphStringProperty,
 
-      // Options for the toggle button that shows/hides curves.
-      curvesVisibleToggleButtonOptions: {
-        accessibleNameOn: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOnStringProperty,
-        accessibleNameOff: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleNameOffStringProperty,
-        accessibleHelpText: new DerivedProperty( [
-          model.curvesVisibleProperty,
-          QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOnStringProperty,
-          QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleHelpTextOffStringProperty
-        ], ( curvesVisible, onString, offString ) => curvesVisible ? onString : offString ),
-        accessibleContextResponseOn: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOnStringProperty,
-        accessibleContextResponseOff: QuantumBoundStatesFluent.a11y.curvesVisibleToggleButton.averageProbabilityDensityOfBand.accessibleContextResponseOffStringProperty
-      },
-
       // Options for the button that opens a dialog that shows the expanded equation.
       functionDetailsButtonOptions: {
         listener: () => new AverageProbabilityDensityOfBandDetailsDialog().show(),
