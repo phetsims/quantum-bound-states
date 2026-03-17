@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
@@ -61,7 +60,7 @@ export default class QuantumStateGraphNode extends Node {
   // Outer rectangle of the chart, for layout in subclasses.
   protected readonly chartRectangle: Node;
 
-  protected constructor( curvesVisibleProperty: Property<boolean>, providedOptions: QuantumStateGraphNodeOptions ) {
+  protected constructor( providedOptions: QuantumStateGraphNodeOptions ) {
 
     const options = optionize<QuantumStateGraphNodeOptions, SelfOptions, NodeOptions>()( {
 

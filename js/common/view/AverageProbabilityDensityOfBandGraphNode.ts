@@ -48,7 +48,7 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
       tandem: tandem
     };
 
-    super( model.curvesVisibleProperty, options );
+    super( options );
   }
 }
 
