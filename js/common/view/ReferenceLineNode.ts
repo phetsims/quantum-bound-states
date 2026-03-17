@@ -125,7 +125,8 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
       x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMALS )
     } );
     this.addAccessibleObjectResponse( response, {
-      interruptible: true
+      interruptible: true,
+      alertDelay: 1000
     } );
   }
 }
