@@ -6,7 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../dot/js/Range.js';
+import { kilogramsUnit } from '../../../../scenery-phet/js/units/kilogramsUnit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import AsymmetricTrianglePotential from '../../common/model/potentials/AsymmetricTrianglePotential.js';
 import CoulombPotential from '../../common/model/potentials/CoulombPotential.js';
@@ -15,9 +21,14 @@ import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicO
 import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
 import InfiniteStepPotential from '../../common/model/potentials/InfiniteStepPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
+import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
+import QBSConstants from '../../common/QBSConstants.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class OneWellModel extends QBSModel {
+
+  public readonly electronMassesProperty: NumberProperty;
+  public readonly massProperty: TReadOnlyProperty<number>;
 
   public constructor( tandem: Tandem ) {
 
@@ -37,6 +48,31 @@ export default class OneWellModel extends QBSModel {
       potentials: potentials,
       tandem: tandem
     } );
+
+    this.electronMassesProperty = new NumberProperty( 1, {
+      numberType: 'FloatingPoint',
+      units: electronMassesUnit,
+      range: new Range( 0.5, 1.1 ),
+      tandem: tandem.createTandem( 'electronMassesProperty' ),
+      phetioFeatured: true,
+      phetioDocumentation: 'The number of electron masses, used to compute the value of massProperty.'
+    } );
+
+    this.massProperty = new DerivedProperty( [ this.electronMassesProperty ],
+      electronMasses => electronMasses * QBSConstants.ELECTRON_MASS, {
+        units: kilogramsUnit,
+        tandem: tandem.createTandem( 'massProperty' ),
+        phetioValueType: NumberIO,
+        phetioFeatured: true
+      } );
+    this.massProperty.lazyLink( mass => {
+      //TODO update potentials
+    } );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.electronMassesProperty.reset();
   }
 }
 

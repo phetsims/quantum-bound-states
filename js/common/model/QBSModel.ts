@@ -7,20 +7,15 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { kilogramsUnit } from '../../../../scenery-phet/js/units/kilogramsUnit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
-import QBSConstants from '../QBSConstants.js';
 import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
 import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
@@ -29,7 +24,6 @@ import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import Time from './Time.js';
-import { electronMassesUnit } from './units/electronMassesUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
@@ -44,14 +38,9 @@ export default class QBSModel implements TModel {
 
   public readonly time: Time;
 
-  //TODO Core description refers to this as "potential type".
-  public readonly potentialProperty: Property<Potential>;
-
-  public readonly energyLevelProperty: NumberProperty;
-  public readonly electronMassesProperty: NumberProperty;
-  public readonly massProperty: TReadOnlyProperty<number>;
-
   public readonly energyDiagram: EnergyDiagram;
+  public readonly energyLevelProperty: NumberProperty;
+  public readonly potentialProperty: Property<Potential>; //TODO Core description refers to this as "potential type".
 
   // The possible QuantumStateGraphs.
   public readonly averageProbabilityDensityOfBandGraph?: AverageProbabilityDensityOfBandGraph;
@@ -61,11 +50,11 @@ export default class QBSModel implements TModel {
   // The QuantumStateGraph that is currently selected and displayed.
   public readonly quantumStateGraphProperty: Property<QuantumStateGraph>;
 
-  public readonly magnifier: Magnifier;
-  public readonly referenceLine: ReferenceLine;
-
   // Whether curves are visible on the QuantumStateGraphs. Applies to all graphs.
   public readonly curvesVisibleProperty: Property<boolean>;
+
+  public readonly magnifier: Magnifier;
+  public readonly referenceLine: ReferenceLine;
 
   protected constructor( providedOptions: QBSModelOptions ) {
 
@@ -85,46 +74,8 @@ export default class QBSModel implements TModel {
       phetioFeatured: true
     } );
 
-    this.electronMassesProperty = new NumberProperty( 1, {
-      numberType: 'FloatingPoint',
-      units: electronMassesUnit,
-      range: new Range( 0.5, 1.1 ),
-      tandem: options.tandem.createTandem( 'electronMassesProperty' ),
-      phetioFeatured: true,
-      phetioDocumentation: 'The number of electron masses, used to compute the value of massProperty.'
-    } );
-
-    this.massProperty = new DerivedProperty( [ this.electronMassesProperty ],
-      electronMasses => electronMasses * QBSConstants.ELECTRON_MASS, {
-        units: kilogramsUnit,
-        tandem: options.tandem.createTandem( 'massProperty' ),
-        phetioValueType: NumberIO,
-        phetioFeatured: true
-      } );
-
     this.energyDiagram = new EnergyDiagram( this.potentialProperty,
       options.tandem.createTandem( 'energyDiagram' ) );
-
-    const graphs: QuantumStateGraph[] = [];
-    const graphsTandem = options.tandem.createTandem( 'graphs' );
-
-    if ( options.hasAverageProbabilityDensityOfBandGraph ) {
-      this.averageProbabilityDensityOfBandGraph = new AverageProbabilityDensityOfBandGraph( graphsTandem.createTandem( 'averageProbabilityDensityOfBandGraph' ) );
-      graphs.push( this.averageProbabilityDensityOfBandGraph );
-    }
-
-    this.probabilityDensityGraph = new ProbabilityDensityGraph( graphsTandem.createTandem( 'probabilityDensityGraph' ) );
-    graphs.push( this.probabilityDensityGraph );
-
-    this.waveFunctionGraph = new WaveFunctionGraph( graphsTandem.createTandem( 'waveFunctionGraph' ) );
-    graphs.push( this.waveFunctionGraph );
-
-    this.quantumStateGraphProperty = new Property( graphs[ 0 ], {
-      validValues: graphs,
-      tandem: options.tandem.createTandem( 'quantumStateGraphProperty' ),
-      phetioValueType: QuantumStateGraph.QuantumStateGraphIO,
-      phetioFeatured: true
-    } );
 
     this.energyLevelProperty = new NumberProperty( 1, {
       numberType: 'Integer',
@@ -141,14 +92,36 @@ export default class QBSModel implements TModel {
       }
     } );
 
-    this.magnifier = new Magnifier( options.tandem.createTandem( 'magnifier' ) );
+    const quantumStateGraphs: QuantumStateGraph[] = [];
+    const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphsTandem' );
 
-    this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
+    if ( options.hasAverageProbabilityDensityOfBandGraph ) {
+      this.averageProbabilityDensityOfBandGraph = new AverageProbabilityDensityOfBandGraph(
+        quantumStateGraphsTandem.createTandem( 'averageProbabilityDensityOfBandGraph' ) );
+      quantumStateGraphs.push( this.averageProbabilityDensityOfBandGraph );
+    }
+
+    this.probabilityDensityGraph = new ProbabilityDensityGraph( quantumStateGraphsTandem.createTandem( 'probabilityDensityGraph' ) );
+    quantumStateGraphs.push( this.probabilityDensityGraph );
+
+    this.waveFunctionGraph = new WaveFunctionGraph( quantumStateGraphsTandem.createTandem( 'waveFunctionGraph' ) );
+    quantumStateGraphs.push( this.waveFunctionGraph );
+
+    this.quantumStateGraphProperty = new Property( quantumStateGraphs[ 0 ], {
+      validValues: quantumStateGraphs,
+      tandem: options.tandem.createTandem( 'quantumStateGraphProperty' ),
+      phetioValueType: QuantumStateGraph.QuantumStateGraphIO,
+      phetioFeatured: true
+    } );
 
     this.curvesVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'curvesVisibleProperty' ),
       phetioFeatured: true
     } );
+
+    this.magnifier = new Magnifier( options.tandem.createTandem( 'magnifier' ) );
+
+    this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
   }
 
   /**
@@ -158,7 +131,6 @@ export default class QBSModel implements TModel {
     this.time.reset();
     this.potentialProperty.reset();
     this.energyLevelProperty.reset();
-    this.electronMassesProperty.reset();
     this.energyDiagram.reset();
     this.averageProbabilityDensityOfBandGraph && this.averageProbabilityDensityOfBandGraph.reset();
     this.probabilityDensityGraph.reset();
