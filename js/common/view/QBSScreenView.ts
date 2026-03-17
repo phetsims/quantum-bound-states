@@ -106,59 +106,59 @@ export default class QBSScreenView extends ScreenView {
     // Layout is relative to the Energy diagram.
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
     energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + potentialTypeComboBox.height + 3;
-    const energyDiagramChartRectangleBounds = this.globalToLocalBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
+    const energyDiagramRectangleBounds = this.globalToLocalBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
 
     // All graphs occupy the same position below the Energy diagram. Only one of them is visible at a time.
     quantumStateGraphNodes.forEach( graphNode => {
-      graphNode.x = energyDiagramChartRectangleBounds.left;
-      graphNode.y = energyDiagramChartRectangleBounds.bottom + 5;
+      graphNode.x = energyDiagramRectangleBounds.left;
+      graphNode.y = energyDiagramRectangleBounds.bottom + 5;
     } );
 
     affirm( quantumStateGraphNodes.length > 0, 'At least one Quantum State graph is required.' );
-    const graphChartRectangleBounds = this.globalToLocalBounds( quantumStateGraphNodes[ 0 ].getChartRectangleGlobalBounds() );
+    const quantumStateGraphRectangleBounds = this.globalToLocalBounds( quantumStateGraphNodes[ 0 ].getChartRectangleGlobalBounds() );
 
     // Static layout
-    energyDiagramControlPanel.left = energyDiagramChartRectangleBounds.right + 10;
-    energyDiagramControlPanel.top = energyDiagramChartRectangleBounds.top;
-    quantumStateGraphControlPanel.left = energyDiagramChartRectangleBounds.right + 10;
-    quantumStateGraphControlPanel.top = graphChartRectangleBounds.top;
-    curvesVisibleToggleButton.left = graphChartRectangleBounds.left + 8;
-    curvesVisibleToggleButton.top = graphChartRectangleBounds.top + 8;
-    toolsPanel.left = graphChartRectangleBounds.left;
+    energyDiagramControlPanel.left = energyDiagramRectangleBounds.right + 10;
+    energyDiagramControlPanel.top = energyDiagramRectangleBounds.top;
+    quantumStateGraphControlPanel.left = quantumStateGraphRectangleBounds.right + 10;
+    quantumStateGraphControlPanel.top = quantumStateGraphRectangleBounds.top;
+    curvesVisibleToggleButton.left = quantumStateGraphRectangleBounds.left + 8;
+    curvesVisibleToggleButton.top = quantumStateGraphRectangleBounds.top + 8;
+    toolsPanel.left = quantumStateGraphRectangleBounds.left;
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
-    magnifierWrapper.right = energyDiagramChartRectangleBounds.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
-    magnifierWrapper.y = energyDiagramChartRectangleBounds.y + 5;
+    magnifierWrapper.right = energyDiagramRectangleBounds.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
+    magnifierWrapper.y = energyDiagramRectangleBounds.y + 5;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     if ( yAxisZoomButtonGroup ) {
-      yAxisZoomButtonGroup.right = energyDiagramChartRectangleBounds.left - 20;
-      yAxisZoomButtonGroup.bottom = energyDiagramChartRectangleBounds.bottom;
+      yAxisZoomButtonGroup.right = energyDiagramRectangleBounds.left - 20;
+      yAxisZoomButtonGroup.bottom = energyDiagramRectangleBounds.bottom;
     }
 
     // Dynamic Layout
     potentialTypeComboBox.boundsProperty.link( () => {
-      potentialTypeComboBox.left = energyDiagramChartRectangleBounds.left;
-      potentialTypeComboBox.bottom = energyDiagramChartRectangleBounds.top - 3;
+      potentialTypeComboBox.left = energyDiagramRectangleBounds.left;
+      potentialTypeComboBox.bottom = energyDiagramRectangleBounds.top - 3;
     } );
     legendPanel.boundsProperty.link( () => {
-      legendPanel.right = energyDiagramChartRectangleBounds.right;
-      legendPanel.bottom = energyDiagramChartRectangleBounds.top - 3;
+      legendPanel.right = energyDiagramRectangleBounds.right;
+      legendPanel.bottom = energyDiagramRectangleBounds.top - 3;
     } );
     timePanel.boundsProperty.link( () => {
-      timePanel.right = energyDiagramChartRectangleBounds.right;
+      timePanel.right = energyDiagramRectangleBounds.right;
       timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     } );
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyDiagramNode.chartTransform, {
-      lineLength: Math.abs( energyDiagramChartRectangleBounds.y - graphChartRectangleBounds.bottom ),
+      lineLength: Math.abs( energyDiagramRectangleBounds.y - quantumStateGraphRectangleBounds.bottom ),
       tandem: options.tandem.createTandem( 'referenceLineNode' )
     } );
 
     // Wrap referenceLineNode in a Node so that it drags in the same coordinate frame as the graphs.
     const referenceLineWrapper = new Node( {
       children: [ referenceLineNode ],
-      x: energyDiagramChartRectangleBounds.x,
-      y: graphChartRectangleBounds.bottom
+      x: quantumStateGraphRectangleBounds.x,
+      y: quantumStateGraphRectangleBounds.bottom
     } );
 
     // Rendering order, from back to front
