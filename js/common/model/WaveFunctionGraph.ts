@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QBSQueryParameters from '../QBSQueryParameters.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 
 export default class WaveFunctionGraph extends QuantumStateGraph {
@@ -24,22 +25,22 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
 
     super( tandem );
 
-    this.realPartVisibleProperty = new BooleanProperty( true, {
+    this.realPartVisibleProperty = new BooleanProperty( QBSQueryParameters.realPartVisible, {
       tandem: tandem.createTandem( 'realPartVisibleProperty' ),
       phetioFeatured: true
     } );
 
-    this.imaginaryPartVisibleProperty = new BooleanProperty( false, {
+    this.imaginaryPartVisibleProperty = new BooleanProperty( QBSQueryParameters.imaginaryPartVisible, {
       tandem: tandem.createTandem( 'imaginaryPartVisibleProperty' ),
       phetioFeatured: true
     } );
 
-    this.magnitudeVisibleProperty = new BooleanProperty( false, {
+    this.magnitudeVisibleProperty = new BooleanProperty( QBSQueryParameters.magnitudeVisible, {
       tandem: tandem.createTandem( 'magnitudeVisibleProperty' ),
       phetioFeatured: true
     } );
 
-    this.phaseVisibleProperty = new BooleanProperty( false, {
+    this.phaseVisibleProperty = new BooleanProperty( QBSQueryParameters.phaseVisible, {
       tandem: tandem.createTandem( 'phaseVisibleProperty' ),
       phetioFeatured: true
     } );

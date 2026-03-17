@@ -13,11 +13,61 @@ import quantumBoundStates from '../quantumBoundStates.js';
 
 const QBSQueryParameters = QueryStringMachine.getAll( {
 
+  //====================================================================================================================
+  // public
+  //====================================================================================================================
+
   // Whether the Phase checkbox is visible in the controls panel.
   phaseCheckboxVisible: {
     type: 'boolean',
     defaultValue: true, //TODO default should be false
     public: true
+  },
+
+  //====================================================================================================================
+  // private - for internal use only
+  //====================================================================================================================
+
+  // Initial value of the 'Values' checkbox
+  valuesVisible: {
+    type: 'boolean',
+    defaultValue: true
+  },
+
+  // Initial value of the 'Magnifier' checkbox
+  magnifierVisible: {
+    type: 'boolean',
+    defaultValue: false
+  },
+
+  // Initial value of the 'Reference Line' checkbox
+  referenceLineVisible: {
+    type: 'boolean',
+    defaultValue: false
+  },
+
+  // Initial value of the 'Real Part' checkbox
+  realPartVisible: {
+    type: 'boolean',
+    defaultValue: true
+  },
+
+  // Initial value of the 'Imaginary Part' checkbox
+  imaginaryPartVisible: {
+    type: 'boolean',
+    defaultValue: false
+  },
+
+  // Initial value of the 'Magnitude' checkbox
+  magnitudeVisible: {
+    type: 'boolean',
+    defaultValue: false
+  },
+
+  // Initial value of the 'Phase' checkbox
+  phaseVisible: {
+    type: 'boolean',
+    defaultValue: false
   }
 } );
 

@@ -13,6 +13,7 @@ import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSConstants from '../QBSConstants.js';
+import QBSQueryParameters from '../QBSQueryParameters.js';
 
 export default class ReferenceLine extends PhetioObject {
 
@@ -30,7 +31,7 @@ export default class ReferenceLine extends PhetioObject {
       phetioState: false
     } );
 
-    this.visibleProperty = new BooleanProperty( false, {
+    this.visibleProperty = new BooleanProperty( QBSQueryParameters.referenceLineVisible, {
       tandem: tandem.createTandem( 'visibleProperty' ),
       phetioFeatured: true
     } );

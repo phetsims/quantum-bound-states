@@ -14,6 +14,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSConstants from '../QBSConstants.js';
+import QBSQueryParameters from '../QBSQueryParameters.js';
 import Potential from './potentials/Potential.js';
 
 export default class EnergyDiagram {
@@ -27,7 +28,7 @@ export default class EnergyDiagram {
   public constructor( potentialProperty: TReadOnlyProperty<Potential>,
                       tandem: Tandem ) {
 
-    this.valuesVisibleProperty = new BooleanProperty( true, {
+    this.valuesVisibleProperty = new BooleanProperty( QBSQueryParameters.valuesVisible, {
       tandem: tandem.createTandem( 'valuesVisibleProperty' ),
       phetioFeatured: true
     } );

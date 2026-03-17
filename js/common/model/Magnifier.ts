@@ -13,6 +13,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QBSQueryParameters from '../QBSQueryParameters.js';
 
 export default class Magnifier extends PhetioObject {
 
@@ -33,7 +34,7 @@ export default class Magnifier extends PhetioObject {
       phetioState: false
     } );
 
-    this.visibleProperty = new BooleanProperty( false, {
+    this.visibleProperty = new BooleanProperty( QBSQueryParameters.magnifierVisible, {
       tandem: tandem.createTandem( 'visibleProperty' ),
       phetioFeatured: true
     } );
