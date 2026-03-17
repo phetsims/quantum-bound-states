@@ -2,7 +2,7 @@
 
 /**
  * ReferenceLine is the view for the reference line, a vertical line that connects the same x-coordinate in all graphs.
- * The x-coordinate is changed by dragging a handle left and right.
+ * The x-coordinate is changed by dragging a handle left and right. Origin is at the center of the handle.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -29,9 +29,8 @@ import { ReferenceLineKeyboardListener } from './ReferenceLineKeyboardListener.j
 
 type SelfOptions = {
 
-  // The top and bottom y-coordinates of the vertical line, in view coordinates.
-  lineTop: number;
-  lineBottom: number;
+  // Length of the vertical line, in view coordinates.
+  lineLength: number;
 };
 
 type ReferenceLineNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
@@ -44,10 +43,9 @@ export default class ReferenceLineNode extends Node {
 
     // Spherical handle that can be dragged left and right to change the x-coordinate of the reference line.
     const handleNode = new ReferenceLineHandleNode( referenceLine, chartTransform, providedOptions.tandem.createTandem( 'handleNode' ) );
-    handleNode.centerY = providedOptions.lineBottom;
 
     // Vertical line that passes through all graphs.
-    const verticalLine = new Line( 0, providedOptions.lineTop, 0, providedOptions.lineBottom, {
+    const verticalLine = new Line( 0, -providedOptions.lineLength, 0, 0, {
       stroke: QBSColors.referenceLineStrokeProperty,
       lineWidth: 1,
       pickable: false // optimization

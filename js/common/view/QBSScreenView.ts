@@ -150,8 +150,7 @@ export default class QBSScreenView extends ScreenView {
     } );
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyDiagramNode.chartTransform, {
-      lineTop: energyDiagramChartRectangleBounds.y,
-      lineBottom: graphChartRectangleBounds.bottom,
+      lineLength: Math.abs( energyDiagramChartRectangleBounds.y - graphChartRectangleBounds.bottom ),
       tandem: options.tandem.createTandem( 'referenceLineNode' )
     } );
 
@@ -159,7 +158,7 @@ export default class QBSScreenView extends ScreenView {
     const referenceLineWrapper = new Node( {
       children: [ referenceLineNode ],
       x: energyDiagramChartRectangleBounds.x,
-      y: 0
+      y: graphChartRectangleBounds.bottom
     } );
 
     // Rendering order, from back to front
