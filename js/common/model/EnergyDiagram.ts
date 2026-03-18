@@ -61,8 +61,12 @@ export default class EnergyDiagram {
     const energyMax = 10 * FundamentalConstants.EV_TO_JOULES; // J
 
     const boundStateResult = NumerovSolver.solveNumerov( potentialFunction, mass, gridConfig, energyMin, energyMax );
+    //TODO delete console.log
+    //TODO There are 34 eigenvalues here. Java version had 6 values. What's wrong?
+    console.log( 'boundStateResult.xGridArray.length = ' + boundStateResult.xGridArray.length );
+    console.log( 'boundStateResult.energies.length = ' + boundStateResult.energies.length );
+    console.log( 'boundStateResult.wavefunctions.length = ' + boundStateResult.wavefunctions.length );
 
-    //TODO There are 34 values here. Java version had 6 values. What's wrong?
     this.eigenvaluesProperty = new Property<number[]>( boundStateResult.energies, {
       //TODO PhET-iO
     } );
