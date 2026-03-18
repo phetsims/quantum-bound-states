@@ -65,7 +65,7 @@ export default class NumerovSolver {
     }
 
     /**
-     * Solve the 1D Schrödinger equation using the Numerov method.
+     * Solves the 1D Schrödinger equation using the Numerov method.
      * Main public API that finds all bound states within the energy bounds.
      *
      * Uses the shooting method: scans energy range looking for energies where
@@ -128,7 +128,7 @@ export default class NumerovSolver {
     }
 
     /**
-     * Find bound states using the standard shooting method.
+     * Finds bound states using the standard shooting method.
      */
     private findBoundStates(
         V: number[],
@@ -185,14 +185,14 @@ export default class NumerovSolver {
     }
 
     /**
-     * Evaluate potential on grid.
+     * Evaluates potential on grid.
      */
     private evaluatePotential( potential: PotentialFunction, xGridArray: number[] ): number[] {
         return xGridArray.map( potential );
     }
 
     /**
-     * Get the wavefunction value at the end of the grid.
+     * Gets the wavefunction value at the end of the grid.
      */
     private getEndValue( psi: number[] ): number {
         return psi[ psi.length - 1 ];
