@@ -32,7 +32,7 @@ export type NumerovSolverClassOptions = {
     normalizationMethod?: NormalizationMethod;  // Method for normalization (default: 'trapezoidal')
 };
 
-export default class NumerovSolverClass {
+export default class NumerovSolver {
 
     // Number of energy steps for scanning in the shooting method
     // This is a parameter that affect strongly the performance. A larger value make the energy search moe  robust
@@ -81,7 +81,7 @@ export default class NumerovSolverClass {
      * const mass = FundamentalConstants.ELECTRON_MASS;
      * const potential = ( x: number ) => 0.5 * mass * omega * omega * x * x;
      *
-     * const solver = new NumerovSolverClass( mass );
+     * const solver = new NumerovSolver( mass );
      * const result = solver.solve(
      *   potential,
      *   { xMin: -4e-9, xMax: 4e-9, numPoints: 1001 },
@@ -137,7 +137,7 @@ export default class NumerovSolverClass {
         const wavefunctions: number[][] = [];
 
         // Scan energy range looking for sign changes
-        const energyStep = ( energyMax - energyMin ) / NumerovSolverClass.ENERGY_SCAN_STEPS;
+        const energyStep = ( energyMax - energyMin ) / NumerovSolver.ENERGY_SCAN_STEPS;
 
         // Initialize prevSign by integrating at energyMin
         const psi0 = this.integrator.integrate( energyMin, V, grid );
@@ -213,9 +213,9 @@ export default class NumerovSolverClass {
       energyMin: number,
       energyMax: number
     ): BoundStateResult {
-        const solver = new NumerovSolverClass( mass );
+        const solver = new NumerovSolver( mass );
         return solver.solve( potential, gridConfig, energyMin, energyMax );
     }
 }
 
-quantumBoundStates.register( 'NumerovSolverClass', NumerovSolverClass );
+quantumBoundStates.register( 'NumerovSolver', NumerovSolver );
