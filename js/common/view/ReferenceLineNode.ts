@@ -15,6 +15,7 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
+import isResettingAllProperty from '../../../../scenery-phet/js/isResettingAllProperty.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -107,6 +108,11 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     //TODO Fix transforms so that this is unnecessary and the entire ReferenceLineNode moves as one.
     referenceLine.xProperty.link( x => {
       this.x = chartTransform.modelToViewX( x );
+
+      // If xProperty changed due to resetAll, we also need to keep positionProperty in sync.
+      if ( isResettingAllProperty.value ) {
+        positionProperty.value = new Vector2( x, positionProperty.value.y );
+      }
     } );
 
     this.focusedProperty.lazyLink( focused => {
