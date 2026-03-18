@@ -26,9 +26,12 @@
  * // Calculate probability density
  * const probability = psi0.map( psi => psi * psi );
  */
+
+type NumericMethod = 'numerov' | 'analytical';
+
 export type BoundStateResult = {
-  energies: number[];       // Energy eigenvalues in Joules (sorted from lowest to highest)
+  energies: number[];        // Energy eigenvalues in Joules (sorted from lowest to highest)
   wavefunctions: number[][]; // Normalized wavefunctions (each row is one state)
-  xGridArray: number[];          // Spatial grid points in meters
-  method: string;           // Name of the numerical method used ('numerov' or 'numerov-symmetric')
+  xGridArray: number[];      // Spatial grid points in meters
+  method: NumericMethod;     // Name of the numerical method used
 };
