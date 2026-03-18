@@ -26,10 +26,13 @@ import XGrid from './XGrid.js';
 /**
  * Configuration options for the solver.
  */
-export type NumerovSolverClassOptions = {
-    energyTolerance?: number;  // Optional tolerance for energy refinement (Joules).
-                               // If not provided, uses relative tolerance × (bracket width)
-    normalizationMethod?: NormalizationMethod;  // Method for normalization (default: 'trapezoidal')
+export type NumerovSolverOptions = {
+
+    // Optional tolerance for energy refinement (Joules). If not provided, uses relative tolerance × (bracket width)
+    energyTolerance?: number;
+
+    // Method for normalization (default: 'trapezoidal')
+    normalizationMethod?: NormalizationMethod;
 };
 
 export default class NumerovSolver {
@@ -46,7 +49,7 @@ export default class NumerovSolver {
      * @param mass - Particle mass in kg
      * @param options - Optional solver configuration
      */
-    public constructor( mass: number, options?: NumerovSolverClassOptions ) {
+    public constructor( mass: number, options?: NumerovSolverOptions ) {
         // Create component instances
         this.integrator = new NumerovIntegrator( mass );
 
