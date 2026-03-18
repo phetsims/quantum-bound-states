@@ -30,7 +30,7 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
 
     // Synthesize a ModelViewTransform2 from the ChartTransform.
     const transform = ModelViewTransform2.createOffsetXYScaleMapping(
-      //TODO Offset is incorrect, the origin is not always in the middle of the y-range. It only works because dragging is constrained to horizontal.
+      //TODO Offset is incorrect. This only works because dragging is constrained to horizontal.
       new Vector2( 0, chartTransform.viewHeight / 2 ), // offset of the origin in view coordinates
       chartTransform.viewWidth / chartTransform.modelXRange.getLength(), // xScale, model to view
       -( chartTransform.viewHeight / chartTransform.modelYRange.getLength() ) // yScale, model to view
