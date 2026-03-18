@@ -37,8 +37,8 @@ export type NumerovSolverOptions = {
 
 export default class NumerovSolver {
 
-    // Number of energy steps for scanning in the shooting method
-    // This is a parameter that affect strongly the performance. A larger value make the energy search moe  robust
+    // Number of energy steps for scanning in the shooting method.
+    // This is a parameter that strongly affects the performance. A larger value makes the energy search more robust.
     private static readonly ENERGY_SCAN_STEPS = 200;
 
     private readonly integrator: NumerovIntegrator;
@@ -128,7 +128,7 @@ export default class NumerovSolver {
     }
 
     /**
-     * Find bound states using standard shooting method.
+     * Find bound states using the standard shooting method.
      */
     private findBoundStates(
         V: number[],
