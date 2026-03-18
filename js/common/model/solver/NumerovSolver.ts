@@ -36,6 +36,27 @@ export type NumerovSolverOptions = {
 
 export default class NumerovSolver {
 
+  /**
+   * Main entry point for solving with default NumerovSolverOptions.
+   *
+   * @param potential - Function V(x) that returns potential energy in Joules
+   * @param mass - Particle mass in kg
+   * @param gridConfig - Grid configuration
+   * @param energyMin - Minimum energy to search (Joules)
+   * @param energyMax - Maximum energy to search (Joules)
+   * @returns Bound state results
+   */
+  public static solveNumerov(
+    potential: PotentialFunction,
+    mass: number,
+    gridConfig: GridConfig,
+    energyMin: number,
+    energyMax: number
+  ): BoundStateResult {
+    const solver = new NumerovSolver( mass );
+    return solver.solve( potential, gridConfig, energyMin, energyMax );
+  }
+
   // Number of energy steps for scanning in the shooting method.
   // This is a parameter that strongly affects the performance. A larger value makes the energy search more robust.
   private static readonly ENERGY_SCAN_STEPS = 200;
@@ -192,28 +213,6 @@ export default class NumerovSolver {
    */
   private getEndValue( psi: number[] ): number {
     return psi[ psi.length - 1 ];
-  }
-
-  /**
-   * Convenience method for solving with default settings.
-   * Matches the original functional API.
-   *
-   * @param potential - Function V(x) that returns potential energy in Joules
-   * @param mass - Particle mass in kg
-   * @param gridConfig - Grid configuration
-   * @param energyMin - Minimum energy to search (Joules)
-   * @param energyMax - Maximum energy to search (Joules)
-   * @returns Bound state results
-   */
-  public static solveNumerov(
-    potential: PotentialFunction,
-    mass: number,
-    gridConfig: GridConfig,
-    energyMin: number,
-    energyMax: number
-  ): BoundStateResult {
-    const solver = new NumerovSolver( mass );
-    return solver.solve( potential, gridConfig, energyMin, energyMax );
   }
 }
 
