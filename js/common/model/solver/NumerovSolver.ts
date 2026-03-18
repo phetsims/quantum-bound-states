@@ -177,13 +177,9 @@ export default class NumerovSolver {
       const currentSign = Math.sign( endValue );
 
       if ( currentSign !== 0 && prevSign !== 0 && currentSign !== prevSign ) {
+
         // Refine energy
-        const refinedEnergy = this.energyRefiner.refine(
-          prevEnergy,
-          E,
-          V,
-          grid
-        );
+        const refinedEnergy = this.energyRefiner.refine( prevEnergy, E, V, grid );
         energies.push( refinedEnergy );
 
         // Calculate and normalize wavefunction
