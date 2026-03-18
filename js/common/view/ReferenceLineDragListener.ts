@@ -26,7 +26,7 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
                       chartTransform: ChartTransform,
                       parentTandem: Tandem ) {
 
-    //TODO General creation of ModelViewTransform2 in QBSChartTransform extends ChartTransform.
+    //TODO Generalize creation of ModelViewTransform2 in QBSChartTransform extends ChartTransform.
 
     // Synthesize a ModelViewTransform2 from the ChartTransform.
     const transform = ModelViewTransform2.createOffsetXYScaleMapping(
