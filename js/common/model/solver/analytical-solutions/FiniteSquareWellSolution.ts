@@ -30,8 +30,10 @@
  */
 
 import quantumBoundStates from '../../../../quantumBoundStates.js';
+import { BoundStateResult } from '../BoundStateResult.js';
 import FundamentalConstants from '../FundamentalConstants.js';
-import { BoundStateResult, GridConfig, PotentialFunction } from '../PotentialFunction.js';
+import { GridConfig } from '../GridConfig.js';
+import { PotentialFunction } from '../PotentialFunction.js';
 
 /**
  * Parity of the wavefunction (even or odd symmetry).

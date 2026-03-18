@@ -16,9 +16,11 @@
  */
 
 import quantumBoundStates from '../../../quantumBoundStates.js';
+import { BoundStateResult } from './BoundStateResult.js';
 import EnergyRefiner from './EnergyRefiner.js';
+import { GridConfig } from './GridConfig.js';
 import NumerovIntegrator from './NumerovIntegrator.js';
-import { BoundStateResult, GridConfig, PotentialFunction } from './PotentialFunction.js';
+import { PotentialFunction } from './PotentialFunction.js';
 import WavefunctionNormalizer, { NormalizationMethod } from './WavefunctionNormalizer.js';
 import XGrid from './XGrid.js';
 
