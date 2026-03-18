@@ -64,7 +64,7 @@ export default abstract class Potential extends PhetioObject {
   /**
    * Gets the potential energy at a specified x-coordinate, in nm.
    */
-  protected getPotentialEnergyAt( x: number ): number {
+  public getPotentialEnergyAt( x: number ): number {
     return 0; //TODO This method should be abstract, as in BSAbstractPotential.java getEnergyAt
   }
 

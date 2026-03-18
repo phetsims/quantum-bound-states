@@ -17,6 +17,7 @@ import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -25,6 +26,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import EnergyDiagram from '../model/EnergyDiagram.js';
+import FundamentalConstants from '../model/solver/FundamentalConstants.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
@@ -34,7 +36,7 @@ export default class EnergyDiagramNode extends Node {
   public readonly chartTransform: ChartTransform;
 
   // Outer rectangle of the chart
-  private readonly chartRectangle: Node;
+  private readonly chartRectangle: ChartRectangle;
 
   // y-axis decorations that are mutable
   private readonly yTickMarkSet: TickMarkSet;
@@ -122,7 +124,28 @@ export default class EnergyDiagramNode extends Node {
     //TODO Reuse points, use Emitter to call energyPlot.update
     energyDiagram.potentialPointsProperty.lazyLink( points => potentialPlot.setDataSet( points ) );
 
-    this.children = [ pickableFalseNode, potentialPlot ];
+    const eignevaluesDataSet: Array<Vector2 | null> = [];
+    energyDiagram.eigenvaluesProperty.value.forEach( eigenValue => {
+
+      // Draw a horizontal line from xMin to xMax at the eigenValue.
+      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.min, eigenValue * FundamentalConstants.JOULES_TO_EV ) );
+      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.max, eigenValue * FundamentalConstants.JOULES_TO_EV ) );
+
+      // Move to the next line.
+      eignevaluesDataSet.push( null );
+    } );
+
+    const eigenvaluesPlot = new LinePlot( this.chartTransform, eignevaluesDataSet, {
+      stroke: QBSColors.totalEnergyColorProperty,
+      lineWidth: 2
+    } );
+
+    const curveLayer = new Node( {
+      clipArea: this.chartRectangle.getShape(),
+      children: [ eigenvaluesPlot, potentialPlot ]
+    } );
+
+    this.children = [ pickableFalseNode, curveLayer ];
   }
 
   public setYRange( yRange: Range ): void {

@@ -15,7 +15,8 @@ import Potential from './Potential.js';
 
 export default class FiniteSquarePotential extends Potential {
 
-  //TODO Temporary constants, some of these should be Properties or ES5 setters.
+  //TODO Temporary constants, same as initial state of Java version.
+  // Some of these should be Properties or ES5 setters.
   private readonly numberOfWells = 1;
   private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
   private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
@@ -36,7 +37,7 @@ export default class FiniteSquarePotential extends Potential {
   /**
    * Gets the potential energy (y-value) at a specified x-coordinate, in nm.
    */
-  protected override getPotentialEnergyAt( x: number ): number {
+  public override getPotentialEnergyAt( x: number ): number {
 
     const n = this.numberOfWells;
     const w = this.wellWidth;

@@ -16,6 +16,8 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import Potential from './potentials/Potential.js';
+import FundamentalConstants from './solver/FundamentalConstants.js';
+import NumerovSolver from './solver/NumerovSolver.js';
 
 export default class EnergyDiagram {
 
@@ -25,6 +27,8 @@ export default class EnergyDiagram {
   // Points to approximate the selected potential.
   public readonly potentialPointsProperty: Property<Vector2[]>;
 
+  public readonly eigenvaluesProperty: Property<number[]>;
+
   public constructor( potentialProperty: TReadOnlyProperty<Potential>,
                       tandem: Tandem ) {
 
@@ -33,12 +37,34 @@ export default class EnergyDiagram {
       phetioFeatured: true
     } );
 
-    //TODO Temporary
+    //TODO BoundStateResult doesn't return the potential values that it computed, so we have to compute it separately.
     const xRange = QBSConstants.ALL_GRAPHS_X_RANGE;
     const numberOfPoints = 1000;
-    this.potentialPointsProperty = new Property( potentialProperty.value.getPotentialPoints( xRange, numberOfPoints ) );
+    this.potentialPointsProperty = new Property( potentialProperty.value.getPotentialPoints( xRange, numberOfPoints ), {
+      //TODO PhET-iO
+    } );
     potentialProperty.link( potential => {
       this.potentialPointsProperty.value = potential.getPotentialPoints( xRange, numberOfPoints );
+    } );
+
+    //TODO This will compute the potential energy curve a second time.
+    const potentialFunction = ( x: number ) => potentialProperty.value.getPotentialEnergyAt( x ) * FundamentalConstants.EV_TO_JOULES; // J
+    //TODO So much conversion between units, change the model to use appropriate units.
+    const mass = 1 * FundamentalConstants.ELECTRON_MASS; // kg
+    const gridConfig = {
+      xMin: QBSConstants.ALL_GRAPHS_X_RANGE.min * FundamentalConstants.NM_TO_METERS,  // m
+      xMax: QBSConstants.ALL_GRAPHS_X_RANGE.max * FundamentalConstants.NM_TO_METERS,  // m
+      numPoints: 1001  // number of points
+    };
+    //TODO Why does NumerovSolver.test.js range from -10 to 0 eV?
+    const energyMin = 0 * FundamentalConstants.EV_TO_JOULES; // J
+    const energyMax = 10 * FundamentalConstants.EV_TO_JOULES; // J
+
+    const boundStateResult = NumerovSolver.solveNumerov( potentialFunction, mass, gridConfig, energyMin, energyMax );
+
+    //TODO There are 34 values here. Java version had 6 values. What's wrong?
+    this.eigenvaluesProperty = new Property<number[]>( boundStateResult.energies, {
+      //TODO PhET-iO
     } );
   }
 
