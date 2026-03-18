@@ -109,9 +109,10 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     referenceLine.xProperty.link( x => {
       this.x = chartTransform.modelToViewX( x );
 
-      // If xProperty changed due to resetAll, we also need to keep positionProperty in sync.
+      // If xProperty changed due to resetAll, we also need to keep positionProperty.value.x in sync.
+      // y-value can be anything because movement is constrained to horizontal.
       if ( isResettingAllProperty.value ) {
-        positionProperty.value = new Vector2( x, positionProperty.value.y );
+        positionProperty.value = new Vector2( x, 0 );
       }
     } );
 
