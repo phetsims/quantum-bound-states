@@ -194,28 +194,28 @@ export default class NumerovSolverClass {
     private getEndValue( psi: number[] ): number {
         return psi[ psi.length - 1 ];
     }
-}
 
-/**
- * Convenience function for solving with default settings.
- * Matches the original functional API.
- *
- * @param potential - Function V(x) that returns potential energy in Joules
- * @param mass - Particle mass in kg
- * @param gridConfig - Grid configuration
- * @param energyMin - Minimum energy to search (Joules)
- * @param energyMax - Maximum energy to search (Joules)
- * @returns Bound state results
- */
-export function solveNumerov(
-    potential: PotentialFunction,
-    mass: number,
-    gridConfig: GridConfig,
-    energyMin: number,
-    energyMax: number
-): BoundStateResult {
-    const solver = new NumerovSolverClass( mass );
-    return solver.solve( potential, gridConfig, energyMin, energyMax );
+    /**
+     * Convenience method for solving with default settings.
+     * Matches the original functional API.
+     *
+     * @param potential - Function V(x) that returns potential energy in Joules
+     * @param mass - Particle mass in kg
+     * @param gridConfig - Grid configuration
+     * @param energyMin - Minimum energy to search (Joules)
+     * @param energyMax - Maximum energy to search (Joules)
+     * @returns Bound state results
+     */
+    public static solveNumerov(
+      potential: PotentialFunction,
+      mass: number,
+      gridConfig: GridConfig,
+      energyMin: number,
+      energyMax: number
+    ): BoundStateResult {
+        const solver = new NumerovSolverClass( mass );
+        return solver.solve( potential, gridConfig, energyMin, energyMax );
+    }
 }
 
 quantumBoundStates.register( 'NumerovSolverClass', NumerovSolverClass );
