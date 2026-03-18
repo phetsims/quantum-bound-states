@@ -20,11 +20,10 @@ The implementation follows a modular, component-based architecture where special
 
 ```
 User API
-   └── NumerovSolver.ts (exports solveNumerov function)
-         └── NumerovSolverClass (orchestrator)
-               ├── NumerovIntegrator (integration)
-               ├── EnergyRefiner (eigenvalue refinement)
-               └── WavefunctionNormalizer (probability normalization)
+   └── NumerovSolver (orchestrator, main API entry point)
+         ├── NumerovIntegrator (integration)
+         ├── EnergyRefiner (eigenvalue refinement)
+         └── WavefunctionNormalizer (probability normalization)
 
 Supporting Classes
    ├── XGrid (spatial grid)
@@ -97,22 +96,16 @@ Despite these limitations, Numerov is the standard choice for 1D quantum eigenva
 ## Core Components
 
 ### NumerovSolver.ts
-**Purpose**: Main API entry point
-**Responsibility**: Provides the functional API for users
-
-This is the top-level module that exports the `solveNumerov()` function and all component classes. It serves as the public API surface and delegates to NumerovSolverClass for the actual computation.
-
----
-
-### NumerovSolverClass.ts
-**Purpose**: Solution orchestrator
-**Responsibility**: Coordinates the solving process using the shooting method
+**Purpose**: Solution orchestrator, main API entry point
+**Responsibility**: Coordinates the solving process using the shooting method, provides the functional API for users
 
 This class implements the shooting method algorithm:
 1. Scans an energy range with a coarse step size (200 steps by default)
 2. Detects eigenvalues by finding sign changes in ψ(x_max)
 3. Refines each eigenvalue using bisection
 4. Normalizes the corresponding wavefunction
+
+`public static solveNumerov(...)` is the main API entry point. 
 
 ---
 
@@ -254,7 +247,7 @@ The complete solution process follows this sequence:
    - Evaluate V(x) at all grid points
    - Initialize solver components
 
-2. **Scanning Phase** (NumerovSolverClass)
+2. **Scanning Phase** (NumerovSolver)
    - Scan energy range with step ΔE = (E_max - E_min) / 1000
    - For each energy E:
      - Integrate TISE to get ψ(x)
@@ -308,5 +301,5 @@ The model is validated against analytical solutions found in `js/common/model/an
 - **Wavefunction Normalization**: ∫|ψ|² dx = 1 for all states
 - **Node Counting**: nth excited state has n nodes
 
-Tests are in `test/NumerovSolver.test.js` using Node.js test runner. Each test compares numerical results from the Numerov solver against exact analytical solutions, ensuring accuracy within acceptable tolerances (typically <0.1% for energies).
-
+Tests are in `test/NumerovSolver.test.js` using Node.js test runner. Each test compares numerical results from the
+Numerov solver against exact analytical solutions, ensuring accuracy within acceptable tolerances (typically <0.1% for energies).
