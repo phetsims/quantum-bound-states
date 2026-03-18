@@ -1,19 +1,19 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WavefunctionNormalizer normalizes wavefunctions using various numerical 
+ * WavefunctionNormalizer normalizes wavefunctions using various numerical
  * integration methods. Ensures that the probability density integrates to unity:
  * that is ∫|ψ|² dx = 1
  *
- * Note that we implicitly assume that the wavefunction is real-valued, the grid is 
- * equally spaced, and that the wavefunction is zero outside the bounds of the 
- * spatial grid. The last point is the most likely to fail. It is usually valid 
+ * Note that we implicitly assume that the wavefunction is real-valued, the grid is
+ * equally spaced, and that the wavefunction is zero outside the bounds of the
+ * spatial grid. The last point is the most likely to fail. It is usually valid
  * for bound states, but may not hold for high energy states that have large
- * probability outside (although the errors  would normally be small). 
+ * probability outside (although the errors  would normally be small).
  * Since the purpose of the normalization is to ensure correct relative
- * probabilities when superposing states, small errors in normalization are not 
+ * probabilities when superposing states, small errors in normalization are not
  * usually critical.
- * 
+ *
  * Supports multiple normalization methods:
  * - Trapezoidal rule: O(h²) accuracy
  * - Simpson's rule: O(h⁴) accuracy
@@ -167,8 +167,8 @@ export default class WavefunctionNormalizer {
    */
   public calculateNorm( psi: number[], dx: number ): number {
     return this.method === 'simpson'
-      ? this.calculateSimpsonIntegral( psi, dx )
-      : this.calculateTrapezoidalIntegral( psi, dx );
+           ? this.calculateSimpsonIntegral( psi, dx )
+           : this.calculateTrapezoidalIntegral( psi, dx );
   }
 
   /**

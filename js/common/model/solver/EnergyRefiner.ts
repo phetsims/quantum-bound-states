@@ -80,8 +80,8 @@ export default class EnergyRefiner {
 
     // Convert tolerance to absolute value if it's relative
     const absoluteTolerance = this.isRelative ?
-      this.tolerance * Math.abs( E2 - E1 ) :
-      this.tolerance;
+                              this.tolerance * Math.abs( E2 - E1 ) :
+                              this.tolerance;
 
     // Bisection loop
     while ( energyHigh - energyLow > absoluteTolerance ) {

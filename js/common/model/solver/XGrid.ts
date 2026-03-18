@@ -51,9 +51,9 @@ export default class XGrid {
   /**
    * Get the width (in meters) of the grid.
    */
-    public getWidth(): number {
-        return ( this.xMax - this.xMin );
-    }
+  public getWidth(): number {
+    return ( this.xMax - this.xMin );
+  }
 
   /**
    * Generate the array of x values.

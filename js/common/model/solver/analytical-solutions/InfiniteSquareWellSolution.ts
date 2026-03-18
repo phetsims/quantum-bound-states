@@ -40,14 +40,14 @@ export function createInfiniteSquareWellPotential(
   return ( x: number ) => {
     // Inside well: V = 0
     // Outside well: V = very large (representing infinity)
-       if ( x >= -halfWidth && x <= halfWidth ) {
-        return 0;
-      }
- else {
-        return barrierHeight;
-      }
-    };
-  }
+    if ( x >= -halfWidth && x <= halfWidth ) {
+      return 0;
+    }
+    else {
+      return barrierHeight;
+    }
+  };
+}
 
 /**
  * Analytical solution for the infinite square well (particle in a box).

@@ -1,14 +1,14 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * Physical constants for quantum mechanics calculations. 
- * Note that we use SI units throughout this simulation. 
- * For 64 bits IEEE 754, the maximum value is approximately 10³⁰⁸ while for 
- * 32-bit IEEE 754, the maximum value is approximately 10³⁸. 
- * As a result for 64 bit computation, we have the luxury of being able to 
- * keep everything with SI units, without having to worry about overflow 
+ * Physical constants for quantum mechanics calculations.
+ * Note that we use SI units throughout this simulation.
+ * For 64 bits IEEE 754, the maximum value is approximately 10³⁰⁸ while for
+ * 32-bit IEEE 754, the maximum value is approximately 10³⁸.
+ * As a result for 64 bit computation, we have the luxury of being able to
+ * keep everything with SI units, without having to worry about overflow
  * when using these constants.
- * 
+ *
  * @author Martin Veillette
  */
 
