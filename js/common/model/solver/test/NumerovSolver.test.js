@@ -171,7 +171,7 @@ describe( 'NumerovSolver', () => {
   test( 'Harmonic Oscillator', () => {
 
     const mass = ELECTRON_MASS;  // electron masses
-    const k = 5.685630103565724;  // eV/nm² (spring constant)
+    const k = 5.685630103565724;  // arbitrary spring constant, eV/nm²
     const omega = Math.sqrt( k / mass );  // natural frequency
     const potential = x => 0.5 * k * x * x;  // eV
 
@@ -424,7 +424,7 @@ describe( 'NumerovSolver', () => {
   test( 'Wavefunction Normalization', () => {
 
     const mass = ELECTRON_MASS;
-    const k = 5.685630103565724;  // eV/nm²
+    const k = 5.685630103565724; // arbitrary spring constant, eV/nm²
     const omega = Math.sqrt( k / mass );
     const potential = x => 0.5 * k * x * x;
 
@@ -462,7 +462,7 @@ describe( 'NumerovSolver', () => {
   test( 'Node Counting', () => {
 
     const mass = ELECTRON_MASS;
-    const k = 5.685630103565724;  // eV/nm²
+    const k = 5.685630103565724;  // arbitrary spring constant, eV/nm²
     const omega = Math.sqrt( k / mass );
     const potential = x => 0.5 * k * x * x;
 

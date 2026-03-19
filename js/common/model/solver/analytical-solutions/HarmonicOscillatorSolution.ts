@@ -55,8 +55,7 @@ export function createHarmonicOscillatorPotential(
  * @example
  * // Solve for states within energy range
  * const mass = 1; // electron mass
- * const omega = 1e15; // natural time units
- * const k = mass * omega * omega;
+ * const k = 5.685630103565724; // arbitrary spring constant, eV/nm²
  *
  * const result = solveHarmonicOscillator(
  *   k,

@@ -103,8 +103,7 @@ export default class NumerovSolver {
    * @example
    * // Solve harmonic oscillator
    * const mass = 1;  // electron masses
-   * const omega = 1e15;  // rad/s (in natural time units)
-   * const k = mass * omega * omega;
+   * const k = 5.685630103565724; // arbitrary spring constant, eV/nm²
    * const potential = ( x: number ) => 0.5 * k * x * x;
    *
    * const solver = new NumerovSolver( mass );
