@@ -135,6 +135,7 @@ export default class NumerovSolver {
     );
 
     return {
+      potentials: V,
       energies: energies,
       wavefunctions: wavefunctions,
       method: 'numerov'

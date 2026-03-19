@@ -34,6 +34,7 @@
 type NumericMethod = 'numerov' | 'analytical';
 
 export type BoundStateResult = {
+  potentials: number[];      // Potential energy values in eV, from left to right
   energies: number[];        // Energy eigenvalues in eV (sorted from lowest to highest)
   wavefunctions: number[][]; // Normalized wavefunctions (each row is one state)
   method: NumericMethod;     // Name of the numerical method used

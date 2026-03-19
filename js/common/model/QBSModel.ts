@@ -16,6 +16,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
+import QBSConstants from '../QBSConstants.js';
 import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
 import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
@@ -23,6 +24,7 @@ import Potential from './potentials/Potential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
+import XGrid from './solver/XGrid.js';
 import Time from './Time.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
@@ -37,6 +39,9 @@ export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 't
 export default class QBSModel implements TModel {
 
   public readonly time: Time;
+
+  // Constant grid of x-coordinates, used for all graphs.
+  public readonly xGrid: XGrid;
 
   public readonly energyDiagram: EnergyDiagram;
   public readonly energyLevelProperty: NumberProperty;
@@ -67,6 +72,8 @@ export default class QBSModel implements TModel {
 
     this.time = new Time( options.tandem.createTandem( 'time' ) );
 
+    this.xGrid = new XGrid( QBSConstants.ALL_GRAPHS_X_RANGE.min, QBSConstants.ALL_GRAPHS_X_RANGE.max, 1001 );
+
     this.potentialProperty = new Property( options.potential, {
       validValues: options.potentials,
       phetioValueType: Potential.PotentialIO,
@@ -74,7 +81,7 @@ export default class QBSModel implements TModel {
       phetioFeatured: true
     } );
 
-    this.energyDiagram = new EnergyDiagram( this.potentialProperty,
+    this.energyDiagram = new EnergyDiagram( this.xGrid, this.potentialProperty,
       options.tandem.createTandem( 'energyDiagram' ) );
 
     this.energyLevelProperty = new NumberProperty( 1, {

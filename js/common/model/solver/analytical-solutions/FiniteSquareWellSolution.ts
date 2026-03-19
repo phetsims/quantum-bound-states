@@ -371,6 +371,7 @@ export function solveFiniteSquareWell(
   }
 
   return {
+    potentials: [], // not relevant for analytical solution
     energies: energies,
     wavefunctions: wavefunctions,
     method: 'analytical'
