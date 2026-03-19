@@ -26,7 +26,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import EnergyDiagram from '../model/EnergyDiagram.js';
-import FundamentalConstants from '../model/solver/FundamentalConstants.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
@@ -129,8 +128,8 @@ export default class EnergyDiagramNode extends Node {
     energyDiagram.eigenvaluesProperty.value.forEach( eigenValue => {
 
       // Draw a horizontal line from xMin to xMax at the eigenValue.
-      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.min, eigenValue * FundamentalConstants.JOULES_TO_EV ) );
-      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.max, eigenValue * FundamentalConstants.JOULES_TO_EV ) );
+      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.min, eigenValue ) );
+      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.max, eigenValue ) );
 
       // Move to the next line.
       eignevaluesDataSet.push( null );

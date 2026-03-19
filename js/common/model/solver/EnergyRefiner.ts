@@ -25,7 +25,7 @@ const DEFAULT_RELATIVE_TOLERANCE = 1e-4;
  */
 export type EnergyRefinerOptions = {
   tolerance?: number;   // Tolerance value (default: 1e-4)
-  isRelative?: boolean; // If true, tolerance is relative to bracket width; if false, absolute in Joules (default: true)
+  isRelative?: boolean; // If true, tolerance is relative to bracket width; if false, absolute in eV (default: true)
 };
 
 export default class EnergyRefiner {
@@ -47,10 +47,10 @@ export default class EnergyRefiner {
    * @param integrator - The Numerov integrator to use
    * @param options - Configuration options
    *   - tolerance: Energy tolerance value. If isRelative is true, this is a dimensionless
-   *                relative tolerance. If isRelative is false, this is an absolute tolerance in Joules.
+   *                relative tolerance. If isRelative is false, this is an absolute tolerance in eV.
    *                Default: 1e-4
    *   - isRelative: If true, tolerance is relative to the energy bracket width.
-   *                 If false, tolerance is an absolute value in Joules. Default: true
+   *                 If false, tolerance is an absolute value in eV. Default: true
    */
   public constructor( integrator: NumerovIntegrator, options?: EnergyRefinerOptions ) {
     this.integrator = integrator;
@@ -62,11 +62,11 @@ export default class EnergyRefiner {
    * Refine energy eigenvalue using bisection method.
    * Searches for the energy where ψ(x_max) = 0 within the given bounds.
    *
-   * @param E1 - Lower energy bound (Joules)
-   * @param E2 - Upper energy bound (Joules)
-   * @param V - Potential energy array (Joules)
+   * @param E1 - Lower energy bound (eV)
+   * @param E2 - Upper energy bound (eV)
+   * @param V - Potential energy array (eV)
    * @param grid - Spatial grid configuration
-   * @returns Refined energy eigenvalue (Joules)
+   * @returns Refined energy eigenvalue (eV)
    */
   public refine(
     E1: number,
@@ -80,8 +80,8 @@ export default class EnergyRefiner {
 
     // Convert tolerance to absolute value if it's relative
     const absoluteTolerance = this.isRelative ?
-                              this.tolerance * Math.abs( E2 - E1 ) :
-                              this.tolerance;
+      this.tolerance * Math.abs( E2 - E1 ) :
+      this.tolerance;
 
     // Bisection loop
     while ( energyHigh - energyLow > absoluteTolerance ) {

@@ -30,8 +30,8 @@
 type NumericMethod = 'numerov' | 'analytical';
 
 export type BoundStateResult = {
-  energies: number[];        // Energy eigenvalues in Joules (sorted from lowest to highest)
+  energies: number[];        // Energy eigenvalues in eV (sorted from lowest to highest)
   wavefunctions: number[][]; // Normalized wavefunctions (each row is one state)
-  xGridArray: number[];      // Spatial grid points in meters
+  xGridArray: number[];      // Spatial grid points in nm
   method: NumericMethod;     // Name of the numerical method used
 };

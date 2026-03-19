@@ -16,7 +16,6 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import Potential from './potentials/Potential.js';
-import FundamentalConstants from './solver/FundamentalConstants.js';
 import NumerovSolver from './solver/NumerovSolver.js';
 
 export default class EnergyDiagram {
@@ -48,17 +47,17 @@ export default class EnergyDiagram {
     } );
 
     //TODO This will compute the potential energy curve a second time.
-    const potentialFunction = ( x: number ) => potentialProperty.value.getPotentialEnergyAt( x * FundamentalConstants.METERS_TO_NM ) * FundamentalConstants.EV_TO_JOULES; // J
+    const potentialFunction = ( x: number ) => potentialProperty.value.getPotentialEnergyAt( x ); // nm => eV
     //TODO Change the model to use appropriate units, so that we are not constantly converting.
-    const mass = 1 * FundamentalConstants.ELECTRON_MASS; // kg
+    const mass = 1; // electron masses
     const gridConfig = {
-      xMin: QBSConstants.ALL_GRAPHS_X_RANGE.min * FundamentalConstants.NM_TO_METERS,  // m
-      xMax: QBSConstants.ALL_GRAPHS_X_RANGE.max * FundamentalConstants.NM_TO_METERS,  // m
+      xMin: QBSConstants.ALL_GRAPHS_X_RANGE.min,  // m
+      xMax: QBSConstants.ALL_GRAPHS_X_RANGE.max,  // m
       numPoints: 1001  // number of points
     };
     //TODO Range depends on the y-axis range and the type of potential. Only look for energy values in the range that's visible on the graph.
-    const energyMin = 0 * FundamentalConstants.EV_TO_JOULES; // J
-    const energyMax = 10 * FundamentalConstants.EV_TO_JOULES; // J
+    const energyMin = 0; // eV
+    const energyMax = 10; // eV
 
     const boundStateResult = NumerovSolver.solveNumerov( potentialFunction, mass, gridConfig, energyMin, energyMax );
 
