@@ -11,9 +11,9 @@
 
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import { solveFiniteSquareWell } from './analytical-solutions/FiniteSquareWellSolution.js';
-import { solveHarmonicOscillator } from './analytical-solutions/HarmonicOscillatorSolution.js';
-import { solveInfiniteSquareWell } from './analytical-solutions/InfiniteSquareWellSolution.js';
+import FiniteSquareWellSolution from './analytical-solutions/FiniteSquareWellSolution.js';
+import HarmonicOscillatorSolution from './analytical-solutions/HarmonicOscillatorSolution.js';
+import InfiniteSquareWellSolution from './analytical-solutions/InfiniteSquareWellSolution.js';
 import FundamentalConstants from './FundamentalConstants.js';
 import NumerovSolver from './NumerovSolver.js';
 import XGrid from './XGrid.js';
@@ -180,7 +180,7 @@ function testHarmonicOscillator(): void {
   const numericalResult = NumerovSolver.solveNumerov( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = solveHarmonicOscillator( xGrid, k, mass, energyMin, energyMax );
+  const analyticalResult = HarmonicOscillatorSolution.solve( xGrid, k, mass, energyMin, energyMax );
 
   // Basic smoke test - verify both methods return results
   affirm( numericalResult.energies.length > 0, `Found ${numericalResult.energies.length} numerical states` );
@@ -246,7 +246,7 @@ function testInfiniteSquareWell(): void {
   const numericalResult = NumerovSolver.solveNumerov( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = solveInfiniteSquareWell( xGrid, L, mass, energyMin, energyMax );
+  const analyticalResult = InfiniteSquareWellSolution.solve( xGrid, L, mass, energyMin, energyMax );
 
   console.log( `\nInfinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
@@ -308,7 +308,7 @@ function testFiniteSquareWell(): void {
   const numericalResult = NumerovSolver.solveNumerov( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = solveFiniteSquareWell( xGrid, L, V0, mass, energyMin, energyMax );
+  const analyticalResult = FiniteSquareWellSolution.solve( xGrid, L, V0, mass, energyMin, energyMax );
 
   console.log( `\nFinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
   console.log( `Well parameters: L = ${L} nm, V₀ = ${V0} eV` );

@@ -40,26 +40,101 @@ import XGrid from '../XGrid.js';
  */
 type Parity = 'even' | 'odd';
 
-/**
- * Create the potential function for a finite square well.
- * V(x) = -V₀ for |x| < L/2, V(x) = 0 for |x| > L/2
- *
- * @param wellWidth - Width of the well L in nm
- * @param wellDepth - Depth of the well V₀ in eV (positive value)
- * @returns Potential function V(x) in eV
- */
-export function createFiniteSquareWellPotential(
-  wellWidth: number,
-  wellDepth: number
-): PotentialFunction {
-  return ( x: number ) => {
-    // Inside well: V = -V₀
-    // Outside well: V = 0
-    if ( Math.abs( x ) < wellWidth / 2 ) {
-      return -wellDepth;
+export default class FiniteSquareWellSolution {
+
+  private constructor() {
+    // Not intended for instantiation.
+  }
+
+  /**
+   * Creates the potential function for a finite square well.
+   * V(x) = -V₀ for |x| < L/2, V(x) = 0 for |x| > L/2
+   *
+   * @param wellWidth - Width of the well L in nm
+   * @param wellDepth - Depth of the well V₀ in eV (positive value)
+   * @returns Potential function V(x) in eV
+   */
+  public static createPotential( wellWidth: number, wellDepth: number ): PotentialFunction {
+    return ( x: number ) => {
+      // Inside well: V = -V₀
+      // Outside well: V = 0
+      if ( Math.abs( x ) < wellWidth / 2 ) {
+        return -wellDepth;
+      }
+      return 0;
+    };
+  }
+
+  /**
+   * Analytical solution for the finite square well.
+   *
+   * This function returns a BoundStateResult compatible with NumerovSolver output.
+   * The API matches NumerovSolver.solve() by taking energy bounds.
+   *
+   * @param xGrid - uniformly spaced x-coordinates in nm
+   * @param wellWidth - Width of the well L in nm
+   * @param wellDepth - Depth of the well V₀ in eV (positive value)
+   * @param mass - Particle mass in electron masses
+   * @param energyMin - Minimum energy to search (eV)
+   * @param energyMax - Maximum energy to search (eV)
+   * @returns Bound state results with energies (eV) and wavefunctions
+   *
+   * @example
+   * // Solve for states within energy range
+   * const L = 2; // 2 nm well
+   * const V0 = 10; // 10 eV deep
+   * const mass = 1; // electron mass
+   *
+   * const result = solveFiniteSquareWell(
+   *   L,
+   *   V0,
+   *   mass,
+   *   { xMin: -3, xMax: 3, numPoints: 1001 },  // ±3 nm
+   *   -V0,
+   *   0
+   * );
+   *
+   * console.log( 'Number of bound states:', result.energies.length );
+   */
+  public static solve(
+    xGrid: XGrid,
+    wellWidth: number,
+    wellDepth: number,
+    mass: number,
+    energyMin: number,
+    energyMax: number
+  ): BoundStateResult {
+
+    // Find all bound state energies
+    const { energies, parities } = findBoundStateEnergies(
+      wellWidth,
+      wellDepth,
+      mass,
+      energyMin,
+      energyMax
+    );
+
+    // Calculate wavefunctions for each state
+    const wavefunctions: number[][] = [];
+    for ( let i = 0; i < energies.length; i++ ) {
+      const wavefunction = calculateWavefunction(
+        energies[ i ],
+        parities[ i ],
+        wellWidth,
+        wellDepth,
+        mass,
+        xGrid.xCoordinates
+      );
+      wavefunctions.push( wavefunction );
     }
-    return 0;
-  };
+
+    return {
+      potentials: [], // not relevant for analytical solution
+      energies: energies,
+      wavefunctions: wavefunctions,
+      method: 'analytical'
+    };
+  }
 }
 
 /**
@@ -307,78 +382,4 @@ function calculateWavefunction(
   return wavefunction.map( psi => psi * normalization );
 }
 
-/**
- * Analytical solution for the finite square well.
- *
- * This function returns a BoundStateResult compatible with NumerovSolver output.
- * The API matches NumerovSolver.solve() by taking energy bounds.
- *
- * @param xGrid - uniformly spaced x-coordinates in nm
- * @param wellWidth - Width of the well L in nm
- * @param wellDepth - Depth of the well V₀ in eV (positive value)
- * @param mass - Particle mass in electron masses
- * @param energyMin - Minimum energy to search (eV)
- * @param energyMax - Maximum energy to search (eV)
- * @returns Bound state results with energies (eV) and wavefunctions
- *
- * @example
- * // Solve for states within energy range
- * const L = 2; // 2 nm well
- * const V0 = 10; // 10 eV deep
- * const mass = 1; // electron mass
- *
- * const result = solveFiniteSquareWell(
- *   L,
- *   V0,
- *   mass,
- *   { xMin: -3, xMax: 3, numPoints: 1001 },  // ±3 nm
- *   -V0,
- *   0
- * );
- *
- * console.log( 'Number of bound states:', result.energies.length );
- */
-export function solveFiniteSquareWell(
-  xGrid: XGrid,
-  wellWidth: number,
-  wellDepth: number,
-  mass: number,
-  energyMin: number,
-  energyMax: number
-): BoundStateResult {
-
-  // Find all bound state energies
-  const { energies, parities } = findBoundStateEnergies(
-    wellWidth,
-    wellDepth,
-    mass,
-    energyMin,
-    energyMax
-  );
-
-  // Calculate wavefunctions for each state
-  const wavefunctions: number[][] = [];
-  for ( let i = 0; i < energies.length; i++ ) {
-    const wavefunction = calculateWavefunction(
-      energies[ i ],
-      parities[ i ],
-      wellWidth,
-      wellDepth,
-      mass,
-      xGrid.xCoordinates
-    );
-    wavefunctions.push( wavefunction );
-  }
-
-  return {
-    potentials: [], // not relevant for analytical solution
-    energies: energies,
-    wavefunctions: wavefunctions,
-    method: 'analytical'
-  };
-}
-
-quantumBoundStates.register( 'FiniteSquareWellSolution', {
-  solveFiniteSquareWell: solveFiniteSquareWell,
-  createFiniteSquareWellPotential: createFiniteSquareWellPotential
-} );
+quantumBoundStates.register( 'FiniteSquareWellSolution', FiniteSquareWellSolution );

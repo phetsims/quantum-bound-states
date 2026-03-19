@@ -22,112 +22,117 @@ import { PotentialFunction } from '../PotentialFunction.js';
 import XGrid from '../XGrid.js';
 import { factorial, hermitePolynomial } from './math-utilities.js';
 
-/**
- * Create the potential function for a harmonic oscillator.
- * V(x) = (1/2) * k * x^2
- *
- * @param springConstant - Spring constant k in eV/nm²
- * @returns Potential function V(x) in eV
- */
-export function createHarmonicOscillatorPotential(
-  springConstant: number
-): PotentialFunction {
-  return ( x: number ) => {
-    return 0.5 * springConstant * x * x;
-  };
-}
+export default class HarmonicOscillatorSolution {
 
-/**
- * Analytical solution for a quantum harmonic oscillator.
- * V(x) = (1/2) * k * x^2 = (1/2) * m * ω^2 * x^2
- *
- * This function returns a BoundStateResult compatible with NumerovSolver output,
- * allowing analytical solutions to be used interchangeably with numerical solutions.
- * The API matches NumerovSolver.solve() by taking energy bounds.
- *
- * @param xGrid - uniformly spaced x-coordinates in nm
- * @param springConstant - Spring constant k in eV/nm²
- * @param mass - Particle mass in electron masses
- * @param energyMin - Minimum energy to search (eV)
- * @param energyMax - Maximum energy to search (eV)
- * @returns Bound state results with exact energies (eV) and wavefunctions
- *
- * @example
- * // Solve for states within energy range
- * const mass = 1; // electron mass
- * const k = 5.685630103565724; // arbitrary spring constant, eV/nm²
- *
- * const result = solveHarmonicOscillator(
- *   k,
- *   mass,
- *   { xMin: -4, xMax: 4, numPoints: 1001 },  // ±4 nm
- *   0,
- *   20  // 20 eV
- * );
- *
- * console.log( 'Ground state energy (eV):', result.energies[ 0 ] );
- * console.log( 'Number of states found:', result.energies.length );
- */
-export function solveHarmonicOscillator(
-  xGrid: XGrid,
-  springConstant: number,
-  mass: number,
-  energyMin: number,
-  energyMax: number
-): BoundStateResult {
-  const { HBAR } = FundamentalConstants;
-  const omega = Math.sqrt( springConstant / mass );
-
-  // Calculate energies: E_n = ℏω(n + 1/2) for n = 0, 1, 2, ...
-  // Find all n where energyMin <= E_n <= energyMax
-  const energyQuantum = HBAR * omega;
-
-  // Find the minimum n: E_n >= energyMin
-  // E_n = ℏω(n + 1/2) >= energyMin
-  // n >= (energyMin / ℏω) - 1/2
-  const nMin = Math.max( 0, Math.ceil( ( energyMin / energyQuantum ) - 0.5 ) );
-
-  // Find the maximum n: E_n <= energyMax
-  // E_n = ℏω(n + 1/2) <= energyMax
-  // n <= (energyMax / ℏω) - 1/2
-  const nMax = Math.floor( ( energyMax / energyQuantum ) - 0.5 );
-
-  // Collect all quantum numbers within the energy range
-  const quantumNumbers: number[] = [];
-  const energies: number[] = [];
-  for ( let n = nMin; n <= nMax; n++ ) {
-    const energy = energyQuantum * ( n + 0.5 );
-    quantumNumbers.push( n );
-    energies.push( energy );
+  private constructor() {
+    // Not intended for instantiation.
   }
 
-  // Calculate wavefunctions using Hermite polynomials
-  // ψ_n(x) = (1/√(2^n n!)) * (mω/πℏ)^(1/4) * exp(-mωx^2/(2ℏ)) * H_n(√(mω/ℏ) x)
-  const wavefunctions: number[][] = [];
-  const alpha = Math.sqrt( ( mass * omega ) / HBAR );
+  /**
+   * Creates the potential function for a harmonic oscillator.
+   * V(x) = (1/2) * k * x^2
+   *
+   * @param springConstant - Spring constant k in eV/nm²
+   * @returns Potential function V(x) in eV
+   */
+  public static createPotential( springConstant: number ): PotentialFunction {
+    return ( x: number ) => {
+      return 0.5 * springConstant * x * x;
+    };
+  }
 
-  for ( const n of quantumNumbers ) {
-    const wavefunction: number[] = [];
-    // Normalization: (mω/(πℏ))^(1/4) / √(2^n n!) = (α²/π)^(1/4) / √(2^n n!)
-    const normalization =
-      ( 1 / Math.sqrt( Math.pow( 2, n ) * factorial( n ) ) ) *
-      Math.pow( ( alpha * alpha ) / Math.PI, 0.25 );
+  /**
+   * Analytical solution for a quantum harmonic oscillator.
+   * V(x) = (1/2) * k * x^2 = (1/2) * m * ω^2 * x^2
+   *
+   * This function returns a BoundStateResult compatible with NumerovSolver output,
+   * allowing analytical solutions to be used interchangeably with numerical solutions.
+   * The API matches NumerovSolver.solve() by taking energy bounds.
+   *
+   * @param xGrid - uniformly spaced x-coordinates in nm
+   * @param springConstant - Spring constant k in eV/nm²
+   * @param mass - Particle mass in electron masses
+   * @param energyMin - Minimum energy to search (eV)
+   * @param energyMax - Maximum energy to search (eV)
+   * @returns Bound state results with exact energies (eV) and wavefunctions
+   *
+   * @example
+   * // Solve for states within energy range
+   * const mass = 1; // electron mass
+   * const k = 5.685630103565724; // arbitrary spring constant, eV/nm²
+   *
+   * const result = solveHarmonicOscillator(
+   *   k,
+   *   mass,
+   *   { xMin: -4, xMax: 4, numPoints: 1001 },  // ±4 nm
+   *   0,
+   *   20  // 20 eV
+   * );
+   *
+   * console.log( 'Ground state energy (eV):', result.energies[ 0 ] );
+   * console.log( 'Number of states found:', result.energies.length );
+   */
+  public static solve(
+    xGrid: XGrid,
+    springConstant: number,
+    mass: number,
+    energyMin: number,
+    energyMax: number
+  ): BoundStateResult {
+    const { HBAR } = FundamentalConstants;
+    const omega = Math.sqrt( springConstant / mass );
 
-    for ( const x of xGrid.xCoordinates ) {
-      const xi = alpha * x;
-      const hermite = hermitePolynomial( n, xi );
-      const value = normalization * Math.exp( ( -xi * xi ) / 2 ) * hermite;
-      wavefunction.push( value );
+    // Calculate energies: E_n = ℏω(n + 1/2) for n = 0, 1, 2, ...
+    // Find all n where energyMin <= E_n <= energyMax
+    const energyQuantum = HBAR * omega;
+
+    // Find the minimum n: E_n >= energyMin
+    // E_n = ℏω(n + 1/2) >= energyMin
+    // n >= (energyMin / ℏω) - 1/2
+    const nMin = Math.max( 0, Math.ceil( ( energyMin / energyQuantum ) - 0.5 ) );
+
+    // Find the maximum n: E_n <= energyMax
+    // E_n = ℏω(n + 1/2) <= energyMax
+    // n <= (energyMax / ℏω) - 1/2
+    const nMax = Math.floor( ( energyMax / energyQuantum ) - 0.5 );
+
+    // Collect all quantum numbers within the energy range
+    const quantumNumbers: number[] = [];
+    const energies: number[] = [];
+    for ( let n = nMin; n <= nMax; n++ ) {
+      const energy = energyQuantum * ( n + 0.5 );
+      quantumNumbers.push( n );
+      energies.push( energy );
     }
-    wavefunctions.push( wavefunction );
-  }
 
-  return {
-    potentials: [], // not relevant for analytical solution
-    energies: energies,
-    wavefunctions: wavefunctions,
-    method: 'analytical'
-  };
+    // Calculate wavefunctions using Hermite polynomials
+    // ψ_n(x) = (1/√(2^n n!)) * (mω/πℏ)^(1/4) * exp(-mωx^2/(2ℏ)) * H_n(√(mω/ℏ) x)
+    const wavefunctions: number[][] = [];
+    const alpha = Math.sqrt( ( mass * omega ) / HBAR );
+
+    for ( const n of quantumNumbers ) {
+      const wavefunction: number[] = [];
+      // Normalization: (mω/(πℏ))^(1/4) / √(2^n n!) = (α²/π)^(1/4) / √(2^n n!)
+      const normalization =
+        ( 1 / Math.sqrt( Math.pow( 2, n ) * factorial( n ) ) ) *
+        Math.pow( ( alpha * alpha ) / Math.PI, 0.25 );
+
+      for ( const x of xGrid.xCoordinates ) {
+        const xi = alpha * x;
+        const hermite = hermitePolynomial( n, xi );
+        const value = normalization * Math.exp( ( -xi * xi ) / 2 ) * hermite;
+        wavefunction.push( value );
+      }
+      wavefunctions.push( wavefunction );
+    }
+
+    return {
+      potentials: [], // not relevant for analytical solution
+      energies: energies,
+      wavefunctions: wavefunctions,
+      method: 'analytical'
+    };
+  }
 }
 
-quantumBoundStates.register( 'HarmonicOscillatorSolution', { solveHarmonicOscillator: solveHarmonicOscillator, createHarmonicOscillatorPotential: createHarmonicOscillatorPotential } );
+quantumBoundStates.register( 'HarmonicOscillatorSolution', HarmonicOscillatorSolution );
