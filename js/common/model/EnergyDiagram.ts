@@ -48,7 +48,7 @@ export default class EnergyDiagram {
     } );
 
     //TODO This will compute the potential energy curve a second time.
-    const potentialFunction = ( x: number ) => potentialProperty.value.getPotentialEnergyAt( x ) * FundamentalConstants.EV_TO_JOULES; // J
+    const potentialFunction = ( x: number ) => potentialProperty.value.getPotentialEnergyAt( x * FundamentalConstants.METERS_TO_NM ) * FundamentalConstants.EV_TO_JOULES; // J
     //TODO Change the model to use appropriate units, so that we are not constantly converting.
     const mass = 1 * FundamentalConstants.ELECTRON_MASS; // kg
     const gridConfig = {
@@ -56,13 +56,11 @@ export default class EnergyDiagram {
       xMax: QBSConstants.ALL_GRAPHS_X_RANGE.max * FundamentalConstants.NM_TO_METERS,  // m
       numPoints: 1001  // number of points
     };
-    //TODO Why does NumerovSolver.test.js range from -10 to 0 eV?
+    //TODO Range depends on the y-axis range and the type of potential. Only look for energy values in the range that's visible on the graph.
     const energyMin = 0 * FundamentalConstants.EV_TO_JOULES; // J
     const energyMax = 10 * FundamentalConstants.EV_TO_JOULES; // J
 
     const boundStateResult = NumerovSolver.solveNumerov( potentialFunction, mass, gridConfig, energyMin, energyMax );
-    //TODO There are 34 eigenvalues here. Java version had 6 values. What's wrong?
-    console.log( 'boundStateResult.energies.length = ' + boundStateResult.energies.length ); //TODO delete
 
     this.eigenvaluesProperty = new Property<number[]>( boundStateResult.energies, {
       //TODO PhET-iO
