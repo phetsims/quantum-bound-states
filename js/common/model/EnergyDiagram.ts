@@ -49,7 +49,7 @@ export default class EnergyDiagram {
 
     //TODO This will compute the potential energy curve a second time.
     const potentialFunction = ( x: number ) => potentialProperty.value.getPotentialEnergyAt( x ) * FundamentalConstants.EV_TO_JOULES; // J
-    //TODO So much conversion between units, change the model to use appropriate units.
+    //TODO Change the model to use appropriate units, so that we are not constantly converting.
     const mass = 1 * FundamentalConstants.ELECTRON_MASS; // kg
     const gridConfig = {
       xMin: QBSConstants.ALL_GRAPHS_X_RANGE.min * FundamentalConstants.NM_TO_METERS,  // m
@@ -61,11 +61,8 @@ export default class EnergyDiagram {
     const energyMax = 10 * FundamentalConstants.EV_TO_JOULES; // J
 
     const boundStateResult = NumerovSolver.solveNumerov( potentialFunction, mass, gridConfig, energyMin, energyMax );
-    //TODO delete console.log
     //TODO There are 34 eigenvalues here. Java version had 6 values. What's wrong?
-    console.log( 'boundStateResult.xGridArray.length = ' + boundStateResult.xGridArray.length );
-    console.log( 'boundStateResult.energies.length = ' + boundStateResult.energies.length );
-    console.log( 'boundStateResult.wavefunctions.length = ' + boundStateResult.wavefunctions.length );
+    console.log( 'boundStateResult.energies.length = ' + boundStateResult.energies.length ); //TODO delete
 
     this.eigenvaluesProperty = new Property<number[]>( boundStateResult.energies, {
       //TODO PhET-iO
