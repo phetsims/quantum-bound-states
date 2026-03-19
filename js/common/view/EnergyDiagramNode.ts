@@ -124,6 +124,7 @@ export default class EnergyDiagramNode extends Node {
     //TODO Reuse points, use Emitter to call energyPlot.update
     energyDiagram.potentialPointsProperty.lazyLink( points => potentialPlot.setDataSet( points ) );
 
+    //TODO Create EigenvaluesPlot that draws a set of horizontal lines, with one or more highlighted.
     const eignevaluesDataSet: Array<Vector2 | null> = [];
     energyDiagram.eigenvaluesProperty.value.forEach( eigenValue => {
 
