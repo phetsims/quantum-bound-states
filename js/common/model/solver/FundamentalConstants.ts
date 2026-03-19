@@ -1,5 +1,6 @@
 // Copyright 2025, University of Colorado Boulder
 
+//TODO Move these to QBSConstants
 /**
  * Physical constants for quantum mechanics calculations.
  *
