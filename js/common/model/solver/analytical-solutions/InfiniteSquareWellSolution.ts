@@ -23,33 +23,8 @@
 import quantumBoundStates from '../../../../quantumBoundStates.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import FundamentalConstants from '../FundamentalConstants.js';
-import { GridConfig } from '../GridConfig.js';
 import { PotentialFunction } from '../PotentialFunction.js';
-
-/**
- * Create the potential function for an infinite square well.
- * V(x) = 0 for -L/2 < x < L/2, V(x) = ∞ otherwise
- *
- * @param wellWidth - Width of the well L in nm
- * @param barrierHeight - Height to use for "infinite" barrier in eV (default: 1000 eV)
- * @returns Potential function V(x) in eV
- */
-export function createInfiniteSquareWellPotential(
-  wellWidth: number,
-  barrierHeight = 1000
-): PotentialFunction {
-  const halfWidth = wellWidth / 2;
-  return ( x: number ) => {
-    // Inside well: V = 0
-    // Outside well: V = very large (representing infinity)
-       if ( x >= -halfWidth && x <= halfWidth ) {
-        return 0;
-      }
- else {
-        return barrierHeight;
-      }
-    };
-  }
+import XGrid from '../XGrid.js';
 
 /**
  * Analytical solution for the infinite square well (particle in a box).
@@ -57,17 +32,17 @@ export function createInfiniteSquareWellPotential(
  * This function returns a BoundStateResult compatible with NumerovSolver output.
  * The API matches NumerovSolver.solve() by taking energy bounds.
  *
+ * @param xGrid - uniformly spaced x-coordinates in nm
  * @param wellWidth - Width of the well L in nm
  * @param mass - Particle mass in electron masses
- * @param gridConfig - Grid configuration for wavefunction evaluation (positions in nm)
  * @param energyMin - Minimum energy to search (eV)
  * @param energyMax - Maximum energy to search (eV)
  * @returns Bound state results with exact energies and wavefunctions
  */
 export function solveInfiniteSquareWell(
+  xGrid: XGrid,
   wellWidth: number,
   mass: number,
-  gridConfig: GridConfig,
   energyMin: number,
   energyMax: number
 ): BoundStateResult {
@@ -96,14 +71,6 @@ export function solveInfiniteSquareWell(
     energies.push( energy );
   }
 
-  // Generate grid
-  const numPoints = gridConfig.numPoints;
-  const xGridArray: number[] = [];
-  const dx = ( gridConfig.xMax - gridConfig.xMin ) / ( numPoints - 1 );
-  for ( let i = 0; i < numPoints; i++ ) {
-    xGridArray.push( gridConfig.xMin + i * dx );
-  }
-
   // Calculate wavefunctions: ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L)
   // This is the shifted sine function for a centered well [-L/2, L/2]
   const wavefunctions: number[][] = [];
@@ -113,7 +80,7 @@ export function solveInfiniteSquareWell(
   for ( const n of quantumNumbers ) {
     const wavefunction: number[] = [];
 
-    for ( const x of xGridArray ) {
+    for ( const x of xGrid.xCoordinates ) {
       // Wavefunction is zero outside the well [-L/2, L/2]
       if ( x <= -halfWidth || x >= halfWidth ) {
         wavefunction.push( 0 );
@@ -131,10 +98,34 @@ export function solveInfiniteSquareWell(
   return {
     energies: energies,
     wavefunctions: wavefunctions,
-    xGridArray: xGridArray,
     method: 'analytical'
   };
 }
+
+/**
+ * Create the potential function for an infinite square well.
+ * V(x) = 0 for -L/2 < x < L/2, V(x) = ∞ otherwise
+ *
+ * @param wellWidth - Width of the well L in nm
+ * @param barrierHeight - Height to use for "infinite" barrier in eV (default: 1000 eV)
+ * @returns Potential function V(x) in eV
+ */
+export function createInfiniteSquareWellPotential(
+  wellWidth: number,
+  barrierHeight = 1000
+): PotentialFunction {
+  const halfWidth = wellWidth / 2;
+  return ( x: number ) => {
+    // Inside well: V = 0
+    // Outside well: V = very large (representing infinity)
+       if ( x >= -halfWidth && x <= halfWidth ) {
+        return 0;
+      }
+ else {
+        return barrierHeight;
+      }
+    };
+  }
 
 quantumBoundStates.register( 'InfiniteSquareWellSolution', {
   solveInfiniteSquareWell: solveInfiniteSquareWell,

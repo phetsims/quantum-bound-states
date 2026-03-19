@@ -65,16 +65,16 @@ export default class EnergyRefiner {
    * @param E1 - Lower energy bound (eV)
    * @param E2 - Upper energy bound (eV)
    * @param V - Potential energy array (eV)
-   * @param grid - Spatial grid configuration
+   * @param xGrid - uniform grid of x-coordinates
    * @returns Refined energy eigenvalue (eV)
    */
   public refine(
     E1: number,
     E2: number,
     V: number[],
-    grid: XGrid
+    xGrid: XGrid
   ): number {
-    const N = grid.getNumberOfPoints();
+    const N = xGrid.numberOfPoints;
     let energyLow = E1;
     let energyHigh = E2;
 
@@ -88,8 +88,8 @@ export default class EnergyRefiner {
       const energyMid = this.calculateMidpoint( energyLow, energyHigh );
 
       // Integrate at midpoint and boundary energies
-      const psiMid = this.integrator.integrate( energyMid, V, grid );
-      const psiLow = this.integrator.integrate( energyLow, V, grid );
+      const psiMid = this.integrator.integrate( energyMid, V, xGrid );
+      const psiLow = this.integrator.integrate( energyLow, V, xGrid );
 
       // Look up the wavefunction at the end of the array
       const endValueMid = this.getEndValue( psiMid, N );

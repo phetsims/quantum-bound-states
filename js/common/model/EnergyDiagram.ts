@@ -17,6 +17,7 @@ import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import Potential from './potentials/Potential.js';
 import NumerovSolver from './solver/NumerovSolver.js';
+import XGrid from './solver/XGrid.js';
 
 export default class EnergyDiagram {
 
@@ -46,20 +47,16 @@ export default class EnergyDiagram {
       this.potentialPointsProperty.value = potential.getPotentialPoints( xRange, numberOfPoints );
     } );
 
+    const xGrid = new XGrid( QBSConstants.ALL_GRAPHS_X_RANGE.min, QBSConstants.ALL_GRAPHS_X_RANGE.max, 1001 );
     //TODO This will compute the potential energy curve a second time.
     const potentialFunction = ( x: number ) => potentialProperty.value.getPotentialEnergyAt( x ); // nm => eV
     //TODO Change the model to use appropriate units, so that we are not constantly converting.
     const mass = 1; // electron masses
-    const gridConfig = {
-      xMin: QBSConstants.ALL_GRAPHS_X_RANGE.min,  // m
-      xMax: QBSConstants.ALL_GRAPHS_X_RANGE.max,  // m
-      numPoints: 1001  // number of points
-    };
     //TODO Range depends on the y-axis range and the type of potential. Only look for energy values in the range that's visible on the graph.
     const energyMin = 0; // eV
     const energyMax = 10; // eV
 
-    const boundStateResult = NumerovSolver.solveNumerov( potentialFunction, mass, gridConfig, energyMin, energyMax );
+    const boundStateResult = NumerovSolver.solveNumerov( xGrid, potentialFunction, mass, energyMin, energyMax );
 
     this.eigenvaluesProperty = new Property<number[]>( boundStateResult.energies, {
       //TODO PhET-iO

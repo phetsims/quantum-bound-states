@@ -32,8 +32,8 @@
 import quantumBoundStates from '../../../../quantumBoundStates.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import FundamentalConstants from '../FundamentalConstants.js';
-import { GridConfig } from '../GridConfig.js';
 import { PotentialFunction } from '../PotentialFunction.js';
+import XGrid from '../XGrid.js';
 
 /**
  * Parity of the wavefunction (even or odd symmetry).
@@ -313,10 +313,10 @@ function calculateWavefunction(
  * This function returns a BoundStateResult compatible with NumerovSolver output.
  * The API matches NumerovSolver.solve() by taking energy bounds.
  *
+ * @param xGrid - uniformly spaced x-coordinates in nm
  * @param wellWidth - Width of the well L in nm
  * @param wellDepth - Depth of the well V₀ in eV (positive value)
  * @param mass - Particle mass in electron masses
- * @param gridConfig - Grid configuration for wavefunction evaluation (positions in nm)
  * @param energyMin - Minimum energy to search (eV)
  * @param energyMax - Maximum energy to search (eV)
  * @returns Bound state results with energies (eV) and wavefunctions
@@ -339,13 +339,14 @@ function calculateWavefunction(
  * console.log( 'Number of bound states:', result.energies.length );
  */
 export function solveFiniteSquareWell(
+  xGrid: XGrid,
   wellWidth: number,
   wellDepth: number,
   mass: number,
-  gridConfig: GridConfig,
   energyMin: number,
   energyMax: number
 ): BoundStateResult {
+
   // Find all bound state energies
   const { energies, parities } = findBoundStateEnergies(
     wellWidth,
@@ -354,14 +355,6 @@ export function solveFiniteSquareWell(
     energyMin,
     energyMax
   );
-
-  // Generate grid
-  const numPoints = gridConfig.numPoints;
-  const xGridArray: number[] = [];
-  const dx = ( gridConfig.xMax - gridConfig.xMin ) / ( numPoints - 1 );
-  for ( let i = 0; i < numPoints; i++ ) {
-    xGridArray.push( gridConfig.xMin + i * dx );
-  }
 
   // Calculate wavefunctions for each state
   const wavefunctions: number[][] = [];
@@ -372,7 +365,7 @@ export function solveFiniteSquareWell(
       wellWidth,
       wellDepth,
       mass,
-      xGridArray
+      xGrid.xCoordinates
     );
     wavefunctions.push( wavefunction );
   }
@@ -380,7 +373,6 @@ export function solveFiniteSquareWell(
   return {
     energies: energies,
     wavefunctions: wavefunctions,
-    xGridArray: xGridArray,
     method: 'analytical'
   };
 }

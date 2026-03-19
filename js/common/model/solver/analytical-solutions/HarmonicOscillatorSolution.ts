@@ -18,8 +18,8 @@
 import quantumBoundStates from '../../../../quantumBoundStates.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import FundamentalConstants from '../FundamentalConstants.js';
-import { GridConfig } from '../GridConfig.js';
 import { PotentialFunction } from '../PotentialFunction.js';
+import XGrid from '../XGrid.js';
 import { factorial, hermitePolynomial } from './math-utilities.js';
 
 /**
@@ -45,9 +45,9 @@ export function createHarmonicOscillatorPotential(
  * allowing analytical solutions to be used interchangeably with numerical solutions.
  * The API matches NumerovSolver.solve() by taking energy bounds.
  *
+ * @param xGrid - uniformly spaced x-coordinates in nm
  * @param springConstant - Spring constant k in eV/nm²
  * @param mass - Particle mass in electron masses
- * @param gridConfig - Grid configuration for wavefunction evaluation (positions in nm)
  * @param energyMin - Minimum energy to search (eV)
  * @param energyMax - Maximum energy to search (eV)
  * @returns Bound state results with exact energies (eV) and wavefunctions
@@ -69,9 +69,9 @@ export function createHarmonicOscillatorPotential(
  * console.log( 'Number of states found:', result.energies.length );
  */
 export function solveHarmonicOscillator(
+  xGrid: XGrid,
   springConstant: number,
   mass: number,
-  gridConfig: GridConfig,
   energyMin: number,
   energyMax: number
 ): BoundStateResult {
@@ -101,14 +101,6 @@ export function solveHarmonicOscillator(
     energies.push( energy );
   }
 
-  // Generate grid
-  const numPoints = gridConfig.numPoints;
-  const xGridArray: number[] = [];
-  const dx = ( gridConfig.xMax - gridConfig.xMin ) / ( numPoints - 1 );
-  for ( let i = 0; i < numPoints; i++ ) {
-    xGridArray.push( gridConfig.xMin + i * dx );
-  }
-
   // Calculate wavefunctions using Hermite polynomials
   // ψ_n(x) = (1/√(2^n n!)) * (mω/πℏ)^(1/4) * exp(-mωx^2/(2ℏ)) * H_n(√(mω/ℏ) x)
   const wavefunctions: number[][] = [];
@@ -121,7 +113,7 @@ export function solveHarmonicOscillator(
       ( 1 / Math.sqrt( Math.pow( 2, n ) * factorial( n ) ) ) *
       Math.pow( ( alpha * alpha ) / Math.PI, 0.25 );
 
-    for ( const x of xGridArray ) {
+    for ( const x of xGrid.xCoordinates ) {
       const xi = alpha * x;
       const hermite = hermitePolynomial( n, xi );
       const value = normalization * Math.exp( ( -xi * xi ) / 2 ) * hermite;
@@ -133,7 +125,6 @@ export function solveHarmonicOscillator(
   return {
     energies: energies,
     wavefunctions: wavefunctions,
-    xGridArray: xGridArray,
     method: 'analytical'
   };
 }

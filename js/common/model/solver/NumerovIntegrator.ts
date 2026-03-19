@@ -37,12 +37,12 @@ export default class NumerovIntegrator {
    *
    * @param E - Energy eigenvalue to test (Joules)
    * @param V - Potential energy array (Joules)
-   * @param grid - Spatial grid configuration
+   * @param xGrid - grid of x-coordinates with uniform spacing (nm)
    * @returns Wavefunction array
    */
-  public integrate( E: number, V: number[], grid: XGrid ): number[] {
-    const N = grid.getNumberOfPoints();
-    const dx = grid.getDx();
+  public integrate( E: number, V: number[], xGrid: XGrid ): number[] {
+    const N = xGrid.numberOfPoints;
+    const dx = xGrid.dx;
 
     // Validate that V array matches grid length
     affirm( V.length === N, `V.length (${V.length}) must equal grid.getLength() (${N})` );

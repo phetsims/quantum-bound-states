@@ -18,7 +18,6 @@
 import quantumBoundStates from '../../../quantumBoundStates.js';
 import { BoundStateResult } from './BoundStateResult.js';
 import EnergyRefiner from './EnergyRefiner.js';
-import { GridConfig } from './GridConfig.js';
 import NumerovIntegrator from './NumerovIntegrator.js';
 import { PotentialFunction } from './PotentialFunction.js';
 import WavefunctionNormalizer, { NormalizationMethod } from './WavefunctionNormalizer.js';
@@ -41,22 +40,22 @@ export default class NumerovSolver {
   /**
    * Main entry point for solving with default NumerovSolverOptions.
    *
+   * @param xGrid - uniformly spaced x-coordinates in nm
    * @param potential - Function V(x) that returns potential energy in eV
    * @param mass - Particle mass in electron masses
-   * @param gridConfig - Grid configuration (positions in nm)
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
    * @returns Bound state results
    */
   public static solveNumerov(
+    xGrid: XGrid,
     potential: PotentialFunction,
     mass: number,
-    gridConfig: GridConfig,
     energyMin: number,
     energyMax: number
   ): BoundStateResult {
     const solver = new NumerovSolver( mass );
-    return solver.solve( potential, gridConfig, energyMin, energyMax );
+    return solver.solve( potential, xGrid, energyMin, energyMax );
   }
 
   // Number of energy steps for scanning in the shooting method.
@@ -95,7 +94,7 @@ export default class NumerovSolver {
    * Detects eigenvalues by finding sign changes in ψ(x_max).
    *
    * @param potential - Function V(x) that returns potential energy in eV
-   * @param gridConfig - Grid configuration {xMin, xMax, numPoints} in nm
+   * @param xGrid - uniformly spaced x-coordinates in nm
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
    * @returns Bound state results containing energies, wavefunctions, and grid
@@ -120,23 +119,17 @@ export default class NumerovSolver {
    */
   public solve(
     potential: PotentialFunction,
-    gridConfig: GridConfig,
+    xGrid: XGrid,
     energyMin: number,
     energyMax: number
   ): BoundStateResult {
-    const { xMin, xMax, numPoints } = gridConfig;
 
-    // Create grid
-    const grid = new XGrid( xMin, xMax, numPoints );
-
-    // Generate grid array and evaluate potential
-    const xGridArray = grid.getArray();
-    const V = this.evaluatePotential( potential, xGridArray );
+    const V = this.evaluatePotential( potential, xGrid.xCoordinates );
 
     // Find bound states
     const { energies, wavefunctions } = this.findBoundStates(
       V,
-      grid,
+      xGrid,
       energyMin,
       energyMax
     );
@@ -144,7 +137,6 @@ export default class NumerovSolver {
     return {
       energies: energies,
       wavefunctions: wavefunctions,
-      xGridArray: xGridArray,
       method: 'numerov'
     };
   }
@@ -154,7 +146,7 @@ export default class NumerovSolver {
    */
   private findBoundStates(
     V: number[],
-    grid: XGrid,
+    xGrid: XGrid,
     energyMin: number,
     energyMax: number
   ): { energies: number[]; wavefunctions: number[][] } {
@@ -166,13 +158,13 @@ export default class NumerovSolver {
     const energyStep = ( energyMax - energyMin ) / NumerovSolver.ENERGY_SCAN_STEPS;
 
     // Initialize prevSign by integrating at energyMin
-    const psi0 = this.integrator.integrate( energyMin, V, grid );
+    const psi0 = this.integrator.integrate( energyMin, V, xGrid );
     const endValue0 = this.getEndValue( psi0 );
     let prevSign = Math.sign( endValue0 );
     let prevEnergy = energyMin;
 
     for ( let E = energyMin + energyStep; E <= energyMax; E += energyStep ) {
-      const psi = this.integrator.integrate( E, V, grid );
+      const psi = this.integrator.integrate( E, V, xGrid );
       const endValue = this.getEndValue( psi );
 
       // Check for sign change (indicates bound state)
@@ -181,12 +173,12 @@ export default class NumerovSolver {
       if ( currentSign !== 0 && prevSign !== 0 && currentSign !== prevSign ) {
 
         // Refine energy
-        const refinedEnergy = this.energyRefiner.refine( prevEnergy, E, V, grid );
+        const refinedEnergy = this.energyRefiner.refine( prevEnergy, E, V, xGrid );
         energies.push( refinedEnergy );
 
         // Calculate and normalize wavefunction
-        const refinedPsi = this.integrator.integrate( refinedEnergy, V, grid );
-        const normalizedPsi = this.normalizer.normalize( refinedPsi, grid.getDx() );
+        const refinedPsi = this.integrator.integrate( refinedEnergy, V, xGrid );
+        const normalizedPsi = this.normalizer.normalize( refinedPsi, xGrid.dx );
         wavefunctions.push( normalizedPsi );
       }
 

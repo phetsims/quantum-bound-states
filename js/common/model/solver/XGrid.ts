@@ -1,94 +1,58 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * XGrid represents a uniformly-spaced 1D spatial grid for quantum mechanics calculations.
- * Encapsulates grid parameters and provides utilities for grid operations.
- *
- * This class eliminates redundancy by computing derived properties (dx, width, array values)
- * from the fundamental grid parameters (xMin, xMax, numPoints).
+ * XGrid is a uniformly spaced 1D spatial grid for quantum mechanics calculations.
+ * This class eliminates redundancy by computing derived properties (dx, width, x-coordinates)
+ * from the fundamental grid parameters (xMin, xMax, numberOfPoints).
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Utils from '../../../../../dot/js/Utils.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import quantumBoundStates from '../../../quantumBoundStates.js';
 
 export default class XGrid {
 
+  // Provided values.
   public readonly xMin: number;
   public readonly xMax: number;
-  public readonly numPoints: number;
+  public readonly numberOfPoints: number;
+
+  // Derived values.
+  public readonly width: number;
+  public readonly dx: number;
+  public readonly xCoordinates: number[];
 
   /**
    * @param xMin - Minimum x value (nm)
    * @param xMax - Maximum x value (nm)
-   * @param numPoints - Number of grid points
+   * @param numberOfPoints - Number of grid points
    */
-  public constructor( xMin: number, xMax: number, numPoints: number ) {
-    affirm( numPoints >= 2, 'Grid must have at least 2 points' );
+  public constructor( xMin: number, xMax: number, numberOfPoints: number ) {
+    affirm( numberOfPoints >= 2, 'Grid must have at least 2 points' );
     affirm( xMax > xMin, 'xMax must be greater than xMin' );
 
     this.xMin = xMin;
     this.xMax = xMax;
-    this.numPoints = numPoints;
-  }
+    this.numberOfPoints = numberOfPoints;
+    this.width = this.xMax - this.xMin;
+    this.dx = ( this.xMax - this.xMin ) / ( this.numberOfPoints - 1 );
 
-  /**
-   * Get the grid spacing (distance between adjacent points).
-   */
-  public getDx(): number {
-    return ( this.xMax - this.xMin ) / ( this.numPoints - 1 );
-  }
-
-  /**
-   * Get the length (number of points) of the grid.
-   */
-  public getNumberOfPoints(): number {
-    return this.numPoints;
-  }
-
-  /**
-   * Get the width (in nm) of the grid.
-   */
-  public getWidth(): number {
-    return ( this.xMax - this.xMin );
-  }
-
-  /**
-   * Generate the array of x values.
-   * @returns Array of spatial positions [x_0, x_1, ..., x_N-1]
-   */
-  public getArray(): number[] {
-    const xArray: number[] = [];
-    const dx = this.getDx();
-
-    for ( let i = 0; i < this.numPoints; i++ ) {
-      xArray.push( this.xMin + i * dx );
+    this.xCoordinates = [];
+    for ( let i = 0; i < this.numberOfPoints; i++ ) {
+      if ( i < this.numberOfPoints - 1 ) {
+        this.xCoordinates.push( this.xMin + i * this.dx );
+      }
+      else {
+        // Ensure that xMax is included in the grid.
+        this.xCoordinates.push( this.xMax );
+      }
     }
+    affirm( this.xCoordinates.length === this.numberOfPoints, 'xCoordinates.length should be equal to numberOfPoints' );
 
-    return xArray;
-  }
-
-  /**
-   * Find the index of the grid point closest to x=0.
-   * Useful for symmetric potentials centered at the origin.
-   * @returns Index of center point
-   */
-  public findCenterIndex(): number {
-    // For a grid from xMin to xMax, the index closest to x=0 is:
-    // index = -xMin / (xMax - xMin) * (numPoints - 1)
-    const index = Utils.roundSymmetric( -this.xMin * ( this.numPoints - 1 ) / ( this.getWidth() ) );
-
-    // Clamp to valid range
-    return Math.max( 0, Math.min( this.numPoints - 1, index ) );
-  }
-
-  /**
-   * Get a string representation for debugging.
-   */
-  public toString(): string {
-    return `XGrid(xMin=${this.xMin}, xMax=${this.xMax}, N=${this.numPoints}, dx=${this.getDx()})`;
+    // Prevent further modifications to the array.
+    Object.freeze( this.xCoordinates ); //TODO Is this OK?
   }
 }
 

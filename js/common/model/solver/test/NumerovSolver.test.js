@@ -7,9 +7,6 @@
  * @author Martin Veillette
  */
 
-// Import globals first - this sets up PhET framework globals
-import './globals.js';
-
 import { describe, test } from 'node:test';
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { solveFiniteSquareWell } from '../analytical-solutions/FiniteSquareWellSolution.js';
@@ -17,6 +14,7 @@ import { solveHarmonicOscillator } from '../analytical-solutions/HarmonicOscilla
 import { solveInfiniteSquareWell } from '../analytical-solutions/InfiniteSquareWellSolution.js';
 import FundamentalConstants from '../FundamentalConstants.js';
 import NumerovSolver from '../NumerovSolver.js';
+import XGrid from '../XGrid.js';
 
 const formatNumber = ( value, decimals ) => Number.prototype.toFixed.call( value, decimals );
 
@@ -173,20 +171,16 @@ describe( 'NumerovSolver', () => {
     const E0 = 0.5 * HBAR * omega;  // eV
 
     // Use standard grid from -4nm to 4nm
-    const gridConfig = {
-      xMin: -4,  // nm
-      xMax: 4,  // nm
-      numPoints: 1001  // number of points
-    };
+    const xGrid = new XGrid( -4, 4, 1001 );
 
     const energyMin = 0.1 * E0;
     const energyMax = 20.5 * HBAR * omega;
 
     // Get numerical solution
-    const numericalResult = NumerovSolver.solveNumerov( potential, mass, gridConfig, energyMin, energyMax );
+    const numericalResult = NumerovSolver.solveNumerov( potential, xGrid, mass, energyMin, energyMax );
 
     // Get analytical solution
-    const analyticalResult = solveHarmonicOscillator( k, mass, gridConfig, energyMin, energyMax );
+    const analyticalResult = solveHarmonicOscillator( k, mass, xGrid, energyMin, energyMax );
 
     // Basic smoke test - verify both methods return results
     affirm( numericalResult.energies.length > 0, `Found ${numericalResult.energies.length} numerical states` );
@@ -239,21 +233,17 @@ describe( 'NumerovSolver', () => {
     const potential = x => Math.abs( x ) < L / 2 ? 0 : V0;
 
     // Use grid that matches the infinite square well, as a result V0 is irrelevant
-    const gridConfig = {
-      xMin: -L / 2,
-      xMax: L / 2,
-      numPoints: 1001
-    };
+    const xGrid = new XGrid( -L / 2, L / 2, 1001 );
 
     const E1_analytical = ( Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * L * L );
     const energyMin = 0.5 * E1_analytical;
     const energyMax = 21 * 21 * E1_analytical;
 
     // Get numerical solution
-    const numericalResult = NumerovSolver.solveNumerov( potential, mass, gridConfig, energyMin, energyMax );
+    const numericalResult = NumerovSolver.solveNumerov( potential, xGrid, mass, energyMin, energyMax );
 
     // Get analytical solution
-    const analyticalResult = solveInfiniteSquareWell( L, mass, gridConfig, energyMin, energyMax );
+    const analyticalResult = solveInfiniteSquareWell( xGrid, L, mass, energyMin, energyMax );
 
     console.log( `\nInfinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
@@ -302,21 +292,17 @@ describe( 'NumerovSolver', () => {
     const potential = x => Math.abs( x ) < L / 2 ? -V0 : 0;
 
     // Grid extends beyond the well to capture evanescent tails
-    const gridConfig = {
-      xMin: -3,  // nm
-      xMax: 3,   // nm
-      numPoints: 1001
-    };
+    const xGrid = new XGrid( -3, 3, 1001 );
 
     // Bound states have energies between -V0 and 0
     const energyMin = -V0;
     const energyMax = 0;
 
     // Get numerical solution
-    const numericalResult = NumerovSolver.solveNumerov( potential, mass, gridConfig, energyMin, energyMax );
+    const numericalResult = NumerovSolver.solveNumerov( xGrid, potential, mass, energyMin, energyMax );
 
     // Get analytical solution
-    const analyticalResult = solveFiniteSquareWell( L, V0, mass, gridConfig, energyMin, energyMax );
+    const analyticalResult = solveFiniteSquareWell( xGrid, L, V0, mass, energyMin, energyMax );
 
     console.log( `\nFinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
     console.log( `Well parameters: L = ${L} nm, V₀ = ${V0} eV` );
@@ -387,7 +373,7 @@ describe( 'NumerovSolver', () => {
     console.log( `Finite Square Well - Max error: ${formatNumber( maxRelativeError * 100, 4 )}%` );
 
     // Verify wavefunctions for states found by both methods
-    const dx = ( gridConfig.xMax - gridConfig.xMin ) / ( gridConfig.numPoints - 1 );
+    const dx = xGrid.dx;
     for ( let i = 0; i < minStates; i++ ) {
       const psi_numerical = numericalResult.wavefunctions[ i ];
       const psi_analytical = analyticalResult.wavefunctions[ i ];
@@ -424,19 +410,14 @@ describe( 'NumerovSolver', () => {
 
     // Use standard grid from -4nm to 4nm
     const E0 = 0.5 * HBAR * omega;
-    const gridConfig = {
-      xMin: -4,  // nm
-      xMax: 4,   // nm
-      numPoints: 1001
-    };
+    const xGrid = new XGrid( -4, 4, 1001 );
 
-    const result = NumerovSolver.solveNumerov( potential, mass, gridConfig, 0.1 * E0, 20.5 * HBAR * omega );
+    const result = NumerovSolver.solveNumerov( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
 
     // Ensure we found some states
     affirm( result.wavefunctions.length > 0, `Found ${result.wavefunctions.length} states` );
 
-    const dx = ( gridConfig.xMax - gridConfig.xMin ) / ( gridConfig.numPoints - 1 );
-
+    const dx = xGrid.dx;
     for ( let i = 0; i < result.wavefunctions.length; i++ ) {
       const psi = result.wavefunctions[ i ];
 

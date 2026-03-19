@@ -9,18 +9,22 @@
  * energy eigenvalues, normalized wavefunctions, and the spatial grid.
  *
  * @example
+ *
+ * // Describe the x-axis
+ * const xGrid = new XGrid( -4, 4, 1001 );
+ *
  * // Access computed results
  * const result: BoundStateResult = solver.solve( ... );
  *
  * // Get ground state energy
- * const E0 = result.energies[ 0 ];
+ * const E0 = result.eigenvalues[ 0 ];
  *
  * // Get ground state wavefunction
  * const psi0 = result.wavefunctions[ 0 ];
  *
  * // Plot wavefunction
- * for ( let i = 0; i < result.xGrid.length; i++ ) {
- *   plot( result.xGrid[ i ], psi0[ i ] );
+ * for ( let i = 0; i < xGrid.xCoordinates.length; i++ ) {
+ *   plot( xGrid.xCoordinates[ i ], psi0[ i ] );
  * }
  *
  * // Calculate probability density
@@ -32,6 +36,5 @@ type NumericMethod = 'numerov' | 'analytical';
 export type BoundStateResult = {
   energies: number[];        // Energy eigenvalues in eV (sorted from lowest to highest)
   wavefunctions: number[][]; // Normalized wavefunctions (each row is one state)
-  xGridArray: number[];      // Spatial grid points in nm
   method: NumericMethod;     // Name of the numerical method used
 };
