@@ -74,6 +74,7 @@ export default class EnergyDiagram {
 
   public reset(): void {
     this.valuesVisibleProperty.reset();
+    //TODO Add additional Properties to reset.
   }
 }
 
