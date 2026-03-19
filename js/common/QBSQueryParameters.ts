@@ -28,6 +28,11 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
   // private - for internal use only
   //====================================================================================================================
 
+  // Runs a test at startup that compares NumerovSolver to analytical solutions. Output is in the browser console.
+  testNumerovSolver: {
+    type: 'flag'
+  },
+
   // Initial value of the 'Values' checkbox
   valuesVisible: {
     type: 'boolean',
