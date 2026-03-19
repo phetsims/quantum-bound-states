@@ -11,18 +11,12 @@
 import './globals.js';
 
 import { describe, test } from 'node:test';
-// eslint-disable-next-line phet/bad-sim-text
-import affirm from '../../../../../../chipper/dist/js/perennial-alias/js/browser-and-node/affirm.js';
-// eslint-disable-next-line phet/bad-sim-text
-import { solveFiniteSquareWell } from '../../../../../../chipper/dist/js/quantum-bound-states/js/common/model/solver/analytical-solutions/FiniteSquareWellSolution.js';
-// eslint-disable-next-line phet/bad-sim-text
-import { solveHarmonicOscillator } from '../../../../../../chipper/dist/js/quantum-bound-states/js/common/model/solver/analytical-solutions/HarmonicOscillatorSolution.js';
-// eslint-disable-next-line phet/bad-sim-text
-import { solveInfiniteSquareWell } from '../../../../../../chipper/dist/js/quantum-bound-states/js/common/model/solver/analytical-solutions/InfiniteSquareWellSolution.js';
-// eslint-disable-next-line phet/bad-sim-text
-import FundamentalConstants from '../../../../../../chipper/dist/js/quantum-bound-states/js/common/model/solver/FundamentalConstants.js';
-// eslint-disable-next-line phet/bad-sim-text
-import NumerovSolver from '../../../../../../chipper/dist/js/quantum-bound-states/js/common/model/solver/NumerovSolver.js';
+import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import { solveFiniteSquareWell } from '../analytical-solutions/FiniteSquareWellSolution.js';
+import { solveHarmonicOscillator } from '../analytical-solutions/HarmonicOscillatorSolution.js';
+import { solveInfiniteSquareWell } from '../analytical-solutions/InfiniteSquareWellSolution.js';
+import FundamentalConstants from '../FundamentalConstants.js';
+import NumerovSolver from '../NumerovSolver.js';
 
 const formatNumber = ( value, decimals ) => Number.prototype.toFixed.call( value, decimals );
 
