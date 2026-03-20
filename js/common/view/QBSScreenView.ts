@@ -29,7 +29,6 @@ import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import TimePanel from '../../common/view/TimePanel.js';
 import ToolsPanel from '../../common/view/ToolsPanel.js';
 import WaveFunctionGraphNode from '../../common/view/WaveFunctionGraphNode.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSModel from '../model/QBSModel.js';
 import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
@@ -253,5 +252,3 @@ function createQuantumStateGraphNodes( model: QBSModel, parentTandem: Tandem ): 
 
   return graphNodes;
 }
-
-quantumBoundStates.register( 'QBSScreenView', QBSScreenView );

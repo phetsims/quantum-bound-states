@@ -15,7 +15,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Potential from '../model/potentials/Potential.js';
 import QBSConstants from '../QBSConstants.js';
@@ -81,5 +80,3 @@ function createItemNode( potential: Potential, textAlignGroup: AlignGroup, iconA
     }
   } );
 }
-
-quantumBoundStates.register( 'PotentialTypeComboBox', PotentialTypeComboBox );

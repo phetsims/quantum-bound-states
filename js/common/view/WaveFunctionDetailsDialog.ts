@@ -10,7 +10,6 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 
@@ -34,5 +33,3 @@ export default class WaveFunctionDetailsDialog extends Dialog {
     super( content, options );
   }
 }
-
-quantumBoundStates.register( 'WaveFunctionDetailsDialog', WaveFunctionDetailsDialog );

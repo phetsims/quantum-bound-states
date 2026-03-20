@@ -13,7 +13,6 @@ import RestartButton from '../../../../scenery-phet/js/buttons/RestartButton.js'
 import StepForwardButton from '../../../../scenery-phet/js/buttons/StepForwardButton.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Time from '../model/Time.js';
 import QBSColors from '../QBSColors.js';
@@ -74,5 +73,3 @@ export default class TimeButtonGroup extends HBox {
     } );
   }
 }
-
-quantumBoundStates.register( 'TimeButtonGroup', TimeButtonGroup );

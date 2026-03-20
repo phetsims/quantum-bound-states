@@ -7,7 +7,6 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 
 export default class ProbabilityDensityGraph extends QuantumStateGraph {
@@ -16,5 +15,3 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
     super( tandem );
   }
 }
-
-quantumBoundStates.register( 'ProbabilityDensityGraph', ProbabilityDensityGraph );

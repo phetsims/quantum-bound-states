@@ -11,7 +11,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import { femtosecondsUnit } from '../model/units/femtosecondsUnit.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
@@ -39,5 +38,3 @@ export default class TimeDisplay extends NumberDisplay {
     );
   }
 }
-
-quantumBoundStates.register( 'TimeDisplay', TimeDisplay );

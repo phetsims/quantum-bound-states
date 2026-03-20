@@ -12,7 +12,6 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import AverageProbabilityDensityOfBandGraph from '../model/AverageProbabilityDensityOfBandGraph.js';
 import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
@@ -79,5 +78,3 @@ export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGr
     } );
   }
 }
-
-quantumBoundStates.register( 'QuantumStateGraphRadioButtonGroup', QuantumStateGraphRadioButtonGroup );

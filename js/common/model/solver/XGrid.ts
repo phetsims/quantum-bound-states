@@ -11,7 +11,6 @@
  */
 
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import quantumBoundStates from '../../../quantumBoundStates.js';
 
 export default class XGrid {
 
@@ -56,5 +55,3 @@ export default class XGrid {
     Object.freeze( this.xCoordinates ); //TODO Is this OK?
   }
 }
-
-quantumBoundStates.register( 'XGrid', XGrid );

@@ -15,7 +15,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import { ReferenceLineHandleNode } from './ReferenceLineNode.js';
 
 export default class ReferenceLineDragListener extends SoundRichDragListener {
@@ -75,5 +74,3 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
     } );
   }
 }
-
-quantumBoundStates.register( 'ReferenceLineDragListener', ReferenceLineDragListener );

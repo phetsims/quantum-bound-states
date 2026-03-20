@@ -57,5 +57,3 @@ export default class ReferenceLineKeyboardHelpSection extends KeyboardHelpSectio
     } );
   }
 }
-
-quantumBoundStates.register( 'ReferenceLineKeyboardHelpSection', ReferenceLineKeyboardHelpSection );

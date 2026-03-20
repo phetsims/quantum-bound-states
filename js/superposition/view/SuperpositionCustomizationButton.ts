@@ -12,7 +12,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import editRegularShape from '../../../../sherpa/js/fontawesome-5/editRegularShape.js';
 import RectangularPushButton, { RectangularPushButtonOptions } from '../../../../sun/js/buttons/RectangularPushButton.js';
 import QBSColors from '../../common/QBSColors.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -44,5 +43,3 @@ export default class SuperpositionCustomizationButton extends RectangularPushBut
     this.setPDOMAttribute( 'aria-haspopup', true );
   }
 }
-
-quantumBoundStates.register( 'SuperpositionCustomizationButton', SuperpositionCustomizationButton );

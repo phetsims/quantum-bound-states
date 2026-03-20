@@ -10,7 +10,6 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Time from '../model/Time.js';
 import QBSColors from '../QBSColors.js';
@@ -56,5 +55,3 @@ export default class TimePanel extends Panel {
     super( content, options );
   }
 }
-
-quantumBoundStates.register( 'TimePanel', TimePanel );

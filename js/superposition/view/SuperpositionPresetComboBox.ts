@@ -14,7 +14,6 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class SuperpositionPresetComboBox extends ComboBox<number> {
@@ -78,5 +77,3 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
     } );
   }
 }
-
-quantumBoundStates.register( 'SuperpositionPresetComboBox', SuperpositionPresetComboBox );

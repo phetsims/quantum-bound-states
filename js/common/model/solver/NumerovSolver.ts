@@ -15,7 +15,6 @@
  * @author Martin Veillette
  */
 
-import quantumBoundStates from '../../../quantumBoundStates.js';
 import { BoundStateResult } from './BoundStateResult.js';
 import EnergyRefiner from './EnergyRefiner.js';
 import NumerovIntegrator from './NumerovIntegrator.js';
@@ -206,5 +205,3 @@ export default class NumerovSolver {
     return psi[ psi.length - 1 ];
   }
 }
-
-quantumBoundStates.register( 'NumerovSolver', NumerovSolver );

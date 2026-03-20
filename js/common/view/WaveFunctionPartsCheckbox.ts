@@ -16,7 +16,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSConstants from '../QBSConstants.js';
 
 const DEFAULT_STROKE_PROPERTY = new Property<Color>( Color.BLACK );
@@ -75,5 +74,3 @@ function createContent( stringProperty: TReadOnlyProperty<string>, strokePropert
     ]
   } );
 }
-
-quantumBoundStates.register( 'WaveFunctionPartsCheckbox', WaveFunctionPartsCheckbox );

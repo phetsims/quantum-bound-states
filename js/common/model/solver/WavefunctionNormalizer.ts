@@ -22,8 +22,6 @@
  * @author Martin Veillette
  */
 
-import quantumBoundStates from '../../../quantumBoundStates.js';
-
 export type NormalizationMethod = 'trapezoidal' | 'simpson' | 'max';
 
 export default class WavefunctionNormalizer {
@@ -184,5 +182,3 @@ export default class WavefunctionNormalizer {
     return Math.abs( norm - 1.0 ) < tolerance;
   }
 }
-
-quantumBoundStates.register( 'WavefunctionNormalizer', WavefunctionNormalizer );

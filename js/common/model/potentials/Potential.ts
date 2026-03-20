@@ -13,7 +13,6 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
-import quantumBoundStates from '../../../quantumBoundStates.js';
 
 type SelfOptions = {
   visualNameProperty: TReadOnlyProperty<string>;
@@ -68,5 +67,3 @@ export default abstract class Potential extends PhetioObject {
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }
-
-quantumBoundStates.register( 'Potential', Potential );

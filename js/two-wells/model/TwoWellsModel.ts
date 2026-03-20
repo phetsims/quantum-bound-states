@@ -10,7 +10,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import DoubleSquarePotential from '../../common/model/potentials/DoubleSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class TwoWellsModel extends QBSModel {
 
@@ -29,5 +28,3 @@ export default class TwoWellsModel extends QBSModel {
     } );
   }
 }
-
-quantumBoundStates.register( 'TwoWellsModel', TwoWellsModel );

@@ -23,7 +23,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import EnergyDiagram from '../model/EnergyDiagram.js';
 import QBSColors from '../QBSColors.js';
@@ -171,5 +170,3 @@ export default class EnergyDiagramNode extends Node {
     return this.chartRectangle.localToGlobalBounds( this.chartRectangle.localBounds );
   }
 }
-
-quantumBoundStates.register( 'EnergyDiagramNode', EnergyDiagramNode );

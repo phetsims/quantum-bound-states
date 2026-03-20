@@ -15,8 +15,6 @@
  * @author Martin Veillette
  */
 
-import quantumBoundStates from '../../../quantumBoundStates.js';
-
 export default class FundamentalConstants {
 
   // Reduced Planck constant (hbar) in natural units: √(eV⋅mₑ)⋅nm
@@ -26,5 +24,3 @@ export default class FundamentalConstants {
   // Electron mass (dimensionless, = 1 in natural units)
   public static readonly ELECTRON_MASS = 1;
 }
-
-quantumBoundStates.register( 'FundamentalConstants', FundamentalConstants );

@@ -13,7 +13,6 @@ import { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
@@ -64,5 +63,3 @@ export default class ToolsPanel extends Panel {
     super( content, options );
   }
 }
-
-quantumBoundStates.register( 'ToolsPanel', ToolsPanel );

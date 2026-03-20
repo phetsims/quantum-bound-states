@@ -12,7 +12,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import ABSwitch, { ABSwitchOptions } from '../../../../sun/js/ABSwitch.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
 
@@ -48,5 +47,3 @@ export default class PresetCustomSwitch extends ABSwitch<SuperpositionConfigurat
     super( superpositionConfigurationTypeProperty, 'preset', presetText, 'custom', customText, options );
   }
 }
-
-quantumBoundStates.register( 'PresetCustomSwitch', PresetCustomSwitch );

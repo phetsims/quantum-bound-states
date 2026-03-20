@@ -8,7 +8,6 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import TwoWellsModel from '../model/TwoWellsModel.js';
 import { TwoWellsControlPanel } from './TwoWellsControlPanel.js';
 import TwoWellsScreenSummaryContent from './TwoWellsScreenSummaryContent.js';
@@ -26,5 +25,3 @@ export default class TwoWellsScreenView extends QBSScreenView {
     } );
   }
 }
-
-quantumBoundStates.register( 'TwoWellsScreenView', TwoWellsScreenView );

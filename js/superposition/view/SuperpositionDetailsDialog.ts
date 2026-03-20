@@ -11,7 +11,6 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class SuperpositionDetailsDialog extends Dialog {
@@ -34,5 +33,3 @@ export default class SuperpositionDetailsDialog extends Dialog {
     super( content, options );
   }
 }
-
-quantumBoundStates.register( 'SuperpositionDetailsDialog', SuperpositionDetailsDialog );

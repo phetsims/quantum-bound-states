@@ -14,7 +14,6 @@
  */
 
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import quantumBoundStates from '../../../quantumBoundStates.js';
 import FundamentalConstants from './FundamentalConstants.js';
 import XGrid from './XGrid.js';
 
@@ -195,5 +194,3 @@ export default class NumerovIntegrator {
     }
   }
 }
-
-quantumBoundStates.register( 'NumerovIntegrator', NumerovIntegrator );

@@ -7,7 +7,6 @@
  */
 
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class SuperpositionScreenSummaryContent extends ScreenSummaryContent {
@@ -23,5 +22,3 @@ export default class SuperpositionScreenSummaryContent extends ScreenSummaryCont
     } );
   }
 }
-
-quantumBoundStates.register( 'SuperpositionScreenSummaryContent', SuperpositionScreenSummaryContent );

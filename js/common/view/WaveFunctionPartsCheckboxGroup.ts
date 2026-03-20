@@ -11,7 +11,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
@@ -70,5 +69,3 @@ export default class WaveFunctionPartsCheckboxGroup extends VBox {
     super( options );
   }
 }
-
-quantumBoundStates.register( 'WaveFunctionPartsCheckboxGroup', WaveFunctionPartsCheckboxGroup );

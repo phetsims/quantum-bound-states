@@ -9,7 +9,6 @@
 import TRangedProperty from '../../../../axon/js/TRangedProperty.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class ManyWellsZoomButtonGroup extends PlusMinusZoomButtonGroup {
@@ -37,5 +36,3 @@ export default class ManyWellsZoomButtonGroup extends PlusMinusZoomButtonGroup {
     } );
   }
 }
-
-quantumBoundStates.register( 'ManyWellsZoomButtonGroup', ManyWellsZoomButtonGroup );

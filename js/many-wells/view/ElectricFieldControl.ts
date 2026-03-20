@@ -15,7 +15,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { voltsPerNanometer } from '../../common/model/units/voltsPerNanometer.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 // These values are all related. Designers tend to request specific values and frequent changes.
@@ -89,5 +88,3 @@ function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
   return majorTicks;
 }
-
-quantumBoundStates.register( 'ElectricFieldControl', ElectricFieldControl );

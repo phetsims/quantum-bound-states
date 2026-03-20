@@ -8,7 +8,6 @@
 
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import Potential from './Potential.js';
@@ -34,5 +33,3 @@ export default class InfiniteSquarePotential extends Potential {
     } );
   }
 }
-
-quantumBoundStates.register( 'InfiniteSquarePotential', InfiniteSquarePotential );

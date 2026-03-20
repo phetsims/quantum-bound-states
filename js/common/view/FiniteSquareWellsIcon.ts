@@ -11,7 +11,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSColors from '../QBSColors.js';
 
 type SelfOptions = {
@@ -60,5 +59,3 @@ export default class FiniteSquareWellsIcon extends Path {
     super( shape, options );
   }
 }
-
-quantumBoundStates.register( 'FiniteSquareWellsIcon', FiniteSquareWellsIcon );

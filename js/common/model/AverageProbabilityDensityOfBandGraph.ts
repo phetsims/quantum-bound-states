@@ -7,7 +7,6 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 
 export default class AverageProbabilityDensityOfBandGraph extends QuantumStateGraph {
@@ -16,5 +15,3 @@ export default class AverageProbabilityDensityOfBandGraph extends QuantumStateGr
     super( tandem );
   }
 }
-
-quantumBoundStates.register( 'AverageProbabilityDensityOfBandGraph', AverageProbabilityDensityOfBandGraph );

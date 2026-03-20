@@ -11,7 +11,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import FiniteSquareWellsIcon from './FiniteSquareWellsIcon.js';
@@ -88,5 +87,3 @@ export default class InfiniteSquareWellIcon extends Node {
     } );
   }
 }
-
-quantumBoundStates.register( 'InfiniteSquareWellIcon', InfiniteSquareWellIcon );

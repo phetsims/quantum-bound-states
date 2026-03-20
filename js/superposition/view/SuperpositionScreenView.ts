@@ -9,7 +9,6 @@
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import SuperpositionModel from '../model/SuperpositionModel.js';
 import { SuperpositionControlPanel } from './SuperpositionControlPanel.js';
 import SuperpositionScreenSummaryContent from './SuperpositionScreenSummaryContent.js';
@@ -33,5 +32,3 @@ export default class SuperpositionScreenView extends QBSScreenView {
     } );
   }
 }
-
-quantumBoundStates.register( 'SuperpositionScreenView', SuperpositionScreenView );

@@ -15,7 +15,6 @@
  * @author Martin Veillette
  */
 
-import quantumBoundStates from '../../../../quantumBoundStates.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import FundamentalConstants from '../FundamentalConstants.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -134,5 +133,3 @@ export default class HarmonicOscillatorSolution {
     };
   }
 }
-
-quantumBoundStates.register( 'HarmonicOscillatorSolution', HarmonicOscillatorSolution );

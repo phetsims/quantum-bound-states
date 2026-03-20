@@ -15,7 +15,6 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ToggleSwitch, { ToggleSwitchOptions } from '../../../../sun/js/ToggleSwitch.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 
@@ -55,5 +54,3 @@ export default class PhaseFeatureControl extends PreferencesControl {
     } );
   }
 }
-
-quantumBoundStates.register( 'PhaseFeatureControl', PhaseFeatureControl );

@@ -14,7 +14,6 @@ import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePot
 import QBSModel from '../../common/model/QBSModel.js';
 import { voltsPerNanometer } from '../../common/model/units/voltsPerNanometer.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class ManyWellsModel extends QBSModel {
 
@@ -74,5 +73,3 @@ export default class ManyWellsModel extends QBSModel {
     this.yAxisZoomLevelProperty.reset();
   }
 }
-
-quantumBoundStates.register( 'ManyWellsModel', ManyWellsModel );

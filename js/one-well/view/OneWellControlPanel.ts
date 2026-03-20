@@ -16,7 +16,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import MassControl from './MassControl.js';
 
@@ -55,5 +54,3 @@ export class OneWellControlPanel extends Panel {
     super( content, options );
   }
 }
-
-quantumBoundStates.register( 'OneWellControlPanel', OneWellControlPanel );

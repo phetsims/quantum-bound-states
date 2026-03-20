@@ -16,7 +16,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ElectricFieldControl from './ElectricFieldControl.js';
 import NumberOfWellsControl from './NumberOfWellsControl.js';
@@ -58,5 +57,3 @@ export class ManyWellsControlPanel extends Panel {
     super( content, options );
   }
 }
-
-quantumBoundStates.register( 'ManyWellsControlPanel', ManyWellsControlPanel );

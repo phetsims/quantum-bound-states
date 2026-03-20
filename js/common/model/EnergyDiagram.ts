@@ -11,7 +11,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import Potential from './potentials/Potential.js';
 import NumerovSolver from './solver/NumerovSolver.js';
@@ -59,5 +58,3 @@ export default class EnergyDiagram {
     //TODO Add additional Properties to reset.
   }
 }
-
-quantumBoundStates.register( 'EnergyDiagram', EnergyDiagram );

@@ -18,7 +18,6 @@ import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import { DialogOptions } from '../../../sun/js/Dialog.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../quantumBoundStates.js';
 import QBSColors from './QBSColors.js';
 
 export default class QBSConstants {
@@ -154,5 +153,3 @@ export default class QBSConstants {
     maxWidth: 50
   };
 }
-
-quantumBoundStates.register( 'QBSConstants', QBSConstants );

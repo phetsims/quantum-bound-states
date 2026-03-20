@@ -11,7 +11,6 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 
@@ -35,5 +34,3 @@ export default class ValuesCheckbox extends Checkbox {
     super( valuesVisibleProperty, content, options );
   }
 }
-
-quantumBoundStates.register( 'ValuesCheckbox', ValuesCheckbox );

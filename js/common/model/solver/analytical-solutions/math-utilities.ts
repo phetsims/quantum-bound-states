@@ -7,8 +7,6 @@
  * @author Martin Veillette
  */
 
-import quantumBoundStates from '../../../../quantumBoundStates.js';
-
 /**
  * Calculate factorial n!
  */
@@ -48,5 +46,3 @@ export function hermitePolynomial( n: number, x: number ): number {
 
   return H_curr;
 }
-
-quantumBoundStates.register( 'math-utilities', { factorial: factorial, hermitePolynomial: hermitePolynomial } );

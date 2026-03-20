@@ -17,7 +17,6 @@ import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePot
 import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicOscillatorPotential.js';
 import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import { SuperpositionConfigurationType, SuperpositionConfigurationTypeValues } from './SuperpositionConfigurationType.js';
 
 export default class SuperpositionModel extends QBSModel {
@@ -73,5 +72,3 @@ export default class SuperpositionModel extends QBSModel {
     this.superpositionCustomProperty.reset();
   }
 }
-
-quantumBoundStates.register( 'SuperpositionModel', SuperpositionModel );

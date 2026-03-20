@@ -8,7 +8,6 @@
 
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
@@ -39,5 +38,3 @@ export default class DoubleSquarePotential extends Potential {
     } );
   }
 }
-
-quantumBoundStates.register( 'DoubleSquarePotential', DoubleSquarePotential );

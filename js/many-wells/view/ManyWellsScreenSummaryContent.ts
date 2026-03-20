@@ -7,7 +7,6 @@
  */
 
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class ManyWellsScreenSummaryContent extends ScreenSummaryContent {
@@ -23,5 +22,3 @@ export default class ManyWellsScreenSummaryContent extends ScreenSummaryContent 
     } );
   }
 }
-
-quantumBoundStates.register( 'ManyWellsScreenSummaryContent', ManyWellsScreenSummaryContent );

@@ -9,7 +9,6 @@
 
 import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import PhetUnit from '../../../../../scenery-phet/js/PhetUnit.js';
-import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 
 export const electronMassesUnit = new PhetUnit<ReadOnlyProperty<string>>( 'm<sub>e</sub>', {
@@ -17,5 +16,3 @@ export const electronMassesUnit = new PhetUnit<ReadOnlyProperty<string>>( 'm<sub
   visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.electronMasses.symbolPatternStringProperty,
   accessiblePattern: QuantumBoundStatesFluent.a11y.units.electronMasses.accessiblePattern
 } );
-
-quantumBoundStates.register( 'electronMassesUnit', electronMassesUnit );

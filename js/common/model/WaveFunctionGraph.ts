@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 
@@ -54,5 +53,3 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     this.phaseVisibleProperty.reset();
   }
 }
-
-quantumBoundStates.register( 'WaveFunctionGraph', WaveFunctionGraph );

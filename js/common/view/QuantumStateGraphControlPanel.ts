@@ -14,7 +14,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QuantumStateGraph from '../model/QuantumStateGraph.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
@@ -70,5 +69,3 @@ export default class QuantumStateGraphControlPanel extends Panel {
     super( content, options );
   }
 }
-
-quantumBoundStates.register( 'QuantumStateGraphControlPanel', QuantumStateGraphControlPanel );

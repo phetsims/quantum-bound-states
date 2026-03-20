@@ -12,7 +12,6 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import { femtosecondsUnit } from './units/femtosecondsUnit.js';
 
 export default class Time {
@@ -100,5 +99,3 @@ export default class Time {
     this._currentTimeProperty.reset();
   }
 }
-
-quantumBoundStates.register( 'Time', Time );

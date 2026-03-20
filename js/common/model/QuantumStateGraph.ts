@@ -10,7 +10,6 @@ import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class QuantumStateGraph extends PhetioObject {
 
@@ -38,5 +37,3 @@ export default class QuantumStateGraph extends PhetioObject {
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }
-
-quantumBoundStates.register( 'QuantumStateGraph', QuantumStateGraph );

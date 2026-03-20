@@ -9,7 +9,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 
 export default class QBSPreferences {
@@ -24,5 +23,3 @@ export default class QBSPreferences {
     phetioDocumentation: 'Determines whether the Phase checkbox is visible in control panels.'
   } );
 }
-
-quantumBoundStates.register( 'QBSPreferences', QBSPreferences );

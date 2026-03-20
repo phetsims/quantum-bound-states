@@ -21,7 +21,6 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ReferenceLine from '../model/ReferenceLine.js';
 import QBSColors from '../QBSColors.js';
@@ -137,5 +136,3 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     } );
   }
 }
-
-quantumBoundStates.register( 'ReferenceLineNode', ReferenceLineNode );

@@ -102,5 +102,3 @@ export class ReferenceLineKeyboardListener extends KeyboardListener<OneKeyStroke
     this.referenceLineHandleNode.doAccessibleObjectResponse();
   }
 }
-
-quantumBoundStates.register( 'ReferenceLineKeyboardListener', ReferenceLineKeyboardListener );

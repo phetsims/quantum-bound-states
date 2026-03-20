@@ -11,7 +11,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 
@@ -48,5 +47,3 @@ export default class ReferenceLine extends PhetioObject {
     this.xProperty.reset();
   }
 }
-
-quantumBoundStates.register( 'ReferenceLine', ReferenceLine );

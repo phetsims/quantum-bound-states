@@ -13,7 +13,6 @@
  * @author Martin Veillette
  */
 
-import quantumBoundStates from '../../../quantumBoundStates.js';
 import NumerovIntegrator from './NumerovIntegrator.js';
 import XGrid from './XGrid.js';
 
@@ -128,5 +127,3 @@ export default class EnergyRefiner {
     return Math.sign( value1 ) === Math.sign( value2 );
   }
 }
-
-quantumBoundStates.register( 'EnergyRefiner', EnergyRefiner );

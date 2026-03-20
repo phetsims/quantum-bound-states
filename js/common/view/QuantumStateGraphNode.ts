@@ -24,7 +24,6 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
@@ -181,5 +180,3 @@ export default class QuantumStateGraphNode extends Node {
     return this.chartRectangle.localToGlobalBounds( this.chartRectangle.localBounds );
   }
 }
-
-quantumBoundStates.register( 'QuantumStateGraphNode', QuantumStateGraphNode );

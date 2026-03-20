@@ -15,7 +15,6 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 
@@ -65,5 +64,3 @@ class EnergyLevelSpinner extends NumberSpinner {
     } );
   }
 }
-
-quantumBoundStates.register( 'EnergyLevelControl', EnergyLevelControl );

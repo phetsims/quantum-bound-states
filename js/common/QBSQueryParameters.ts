@@ -9,7 +9,6 @@
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import quantumBoundStates from '../quantumBoundStates.js';
 
 const QBSQueryParameters = QueryStringMachine.getAll( {
 
@@ -75,8 +74,6 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
     defaultValue: false
   }
 } );
-
-quantumBoundStates.register( 'QBSQueryParameters', QBSQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );

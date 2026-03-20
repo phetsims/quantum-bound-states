@@ -19,7 +19,6 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSConstants from '../QBSConstants.js';
@@ -86,5 +85,3 @@ function createContent( stringProperty: TReadOnlyProperty<string>, strokePropert
     ]
   } );
 }
-
-quantumBoundStates.register( 'PhaseCheckbox', PhaseCheckbox );

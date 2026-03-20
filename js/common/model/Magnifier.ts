@@ -12,7 +12,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 
 export default class Magnifier extends PhetioObject {
@@ -50,5 +49,3 @@ export default class Magnifier extends PhetioObject {
     this.probePositionProperty.reset();
   }
 }
-
-quantumBoundStates.register( 'Magnifier', Magnifier );

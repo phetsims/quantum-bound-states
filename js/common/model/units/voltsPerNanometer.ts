@@ -9,7 +9,6 @@
 
 import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import PhetUnit from '../../../../../scenery-phet/js/PhetUnit.js';
-import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 
 export const voltsPerNanometer = new PhetUnit<ReadOnlyProperty<string>>( 'V/nm', {
@@ -17,5 +16,3 @@ export const voltsPerNanometer = new PhetUnit<ReadOnlyProperty<string>>( 'V/nm',
   visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.voltsPerNanometer.symbolPatternStringProperty,
   accessiblePattern: QuantumBoundStatesFluent.a11y.units.voltsPerNanometer.accessiblePattern
 } );
-
-quantumBoundStates.register( 'voltsPerNanometer', voltsPerNanometer );

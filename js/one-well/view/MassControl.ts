@@ -16,7 +16,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 // These values are all related. Designers tend to request specific values and frequent changes.
@@ -102,5 +101,3 @@ function createMajorTicks( range: Range ): NumberControlMajorTick[] {
     }
   ];
 }
-
-quantumBoundStates.register( 'MassControl', MassControl );

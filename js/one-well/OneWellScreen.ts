@@ -12,7 +12,6 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import QBSColors from '../common/QBSColors.js';
 import FiniteSquareWellsIcon from '../common/view/FiniteSquareWellsIcon.js';
 import QBSKeyboardHelpContent from '../common/view/QBSKeyboardHelpContent.js';
-import quantumBoundStates from '../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../QuantumBoundStatesFluent.js';
 import OneWellModel from './model/OneWellModel.js';
 import OneWellScreenView from './view/OneWellScreenView.js';
@@ -53,6 +52,3 @@ function createScreenIcon(): ScreenIcon {
     fill: QBSColors.screenBackgroundColorProperty
   } );
 }
-
-
-quantumBoundStates.register( 'OneWellScreen', OneWellScreen );

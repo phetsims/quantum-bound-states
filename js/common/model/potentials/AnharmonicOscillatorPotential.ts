@@ -10,7 +10,6 @@ import Shape from '../../../../../kite/js/Shape.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
@@ -59,5 +58,3 @@ export default class AnharmonicOscillatorPotential extends Potential {
     } );
   }
 }
-
-quantumBoundStates.register( 'AnharmonicOscillatorPotential', AnharmonicOscillatorPotential );

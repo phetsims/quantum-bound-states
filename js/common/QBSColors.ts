@@ -211,5 +211,3 @@ export default class QBSColors {
     default: 'rgb( 153, 206, 255 )'
   } );
 }
-
-quantumBoundStates.register( 'QBSColors', QBSColors );

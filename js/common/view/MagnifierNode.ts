@@ -25,7 +25,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Magnifier from '../model/Magnifier.js';
 import QBSColors from '../QBSColors.js';
@@ -159,5 +158,3 @@ class MagnifierWireNode extends Path {
     } );
   }
 }
-
-quantumBoundStates.register( 'MagnifierNode', MagnifierNode );

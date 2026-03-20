@@ -23,7 +23,6 @@ import InfiniteStepPotential from '../../common/model/potentials/InfiniteStepPot
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 
 export default class OneWellModel extends QBSModel {
 
@@ -75,5 +74,3 @@ export default class OneWellModel extends QBSModel {
     this.electronMassesProperty.reset();
   }
 }
-
-quantumBoundStates.register( 'OneWellModel', OneWellModel );

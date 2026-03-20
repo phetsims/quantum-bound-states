@@ -8,8 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import quantumBoundStates from '../quantumBoundStates.js';
-
 export default class QBSSymbols {
 
   private constructor() {
@@ -18,5 +16,3 @@ export default class QBSSymbols {
 
   //TODO Do we need to factor out any symbols?
 }
-
-quantumBoundStates.register( 'QBSSymbols', QBSSymbols );

@@ -11,7 +11,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import InfoButton, { InfoButtonOptions } from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import QBSColors from '../../common/QBSColors.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -38,5 +37,3 @@ export default class SuperpositionDetailsButton extends InfoButton {
     super( options );
   }
 }
-
-quantumBoundStates.register( 'SuperpositionDetailsButton', SuperpositionDetailsButton );

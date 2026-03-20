@@ -9,7 +9,6 @@
 
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import quantumBoundStates from '../../quantumBoundStates.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import PhaseFeatureControl from './PhaseFeatureControl.js';
 
@@ -31,5 +30,3 @@ export default class QBSSimulationPreferencesNode extends VBox {
     } );
   }
 }
-
-quantumBoundStates.register( 'QBSSimulationPreferencesNode', QBSSimulationPreferencesNode );

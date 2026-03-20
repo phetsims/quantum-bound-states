@@ -10,7 +10,6 @@ import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import QBSColors from '../common/QBSColors.js';
 import QBSKeyboardHelpContent from '../common/view/QBSKeyboardHelpContent.js';
-import quantumBoundStates from '../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../QuantumBoundStatesFluent.js';
 import SuperpositionModel from './model/SuperpositionModel.js';
 import SuperpositionScreenView from './view/SuperpositionScreenView.js';
@@ -34,5 +33,3 @@ export default class SuperpositionScreen extends Screen<SuperpositionModel, Supe
     );
   }
 }
-
-quantumBoundStates.register( 'SuperpositionScreen', SuperpositionScreen );
