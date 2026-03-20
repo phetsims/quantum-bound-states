@@ -81,6 +81,6 @@ quantumBoundStates.register( 'QBSQueryParameters', QBSQueryParameters );
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.quantumBoundStates.QBSQueryParameters' );
+phet.log && phet.log( `QBSQueryParameters: ${JSON.stringify( QBSQueryParameters, null, 2 )}` );
 
 export default QBSQueryParameters;
