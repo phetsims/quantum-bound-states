@@ -363,4 +363,6 @@ type StringsType = {
 
 const QuantumBoundStatesStrings = getStringModule( 'QUANTUM_BOUND_STATES' ) as StringsType;
 
+quantumBoundStates.register( 'QuantumBoundStatesStrings', QuantumBoundStatesStrings );
+
 export default QuantumBoundStatesStrings;

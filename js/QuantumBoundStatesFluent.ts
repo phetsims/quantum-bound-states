@@ -647,3 +647,5 @@ const QuantumBoundStatesFluent = {
 };
 
 export default QuantumBoundStatesFluent;
+
+quantumBoundStates.register('QuantumBoundStatesFluent', QuantumBoundStatesFluent);
