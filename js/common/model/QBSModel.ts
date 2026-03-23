@@ -23,6 +23,8 @@ import Potential from './potentials/Potential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
+import { BoundStateResult } from './solver/BoundStateResult.js';
+import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
 import Time from './Time.js';
 import WavefunctionGraph from './WavefunctionGraph.js';
@@ -41,6 +43,8 @@ export default class QBSModel implements TModel {
 
   // Constant grid of x-coordinates, used for all graphs.
   public readonly xGrid: XGrid;
+
+  public readonly boundStateResultProperty: Property<BoundStateResult>;
 
   public readonly energyDiagram: EnergyDiagram;
   public readonly energyLevelProperty: NumberProperty;
@@ -80,8 +84,17 @@ export default class QBSModel implements TModel {
       phetioFeatured: true
     } );
 
-    this.energyDiagram = new EnergyDiagram( this.xGrid, this.potentialProperty,
-      options.tandem.createTandem( 'energyDiagram' ) );
+    const potentialFunction = ( x: number ) => this.potentialProperty.value.getPotentialEnergyAt( x ); // nm => eV
+    const mass = 1; // electron masses
+    //TODO Range depends on the y-axis range and the type of potential. Only look for energy values in the range that's visible on the graph.
+    const energyMin = 0; // eV
+    const energyMax = 10; // eV
+
+    const boundStateResult = NumerovSolver.solveNumerov( this.xGrid, potentialFunction, mass, energyMin, energyMax );
+
+    this.boundStateResultProperty = new Property( boundStateResult );
+
+    this.energyDiagram = new EnergyDiagram( this.xGrid, this.boundStateResultProperty, options.tandem.createTandem( 'energyDiagram' ) );
 
     this.energyLevelProperty = new NumberProperty( 1, {
       numberType: 'Integer',

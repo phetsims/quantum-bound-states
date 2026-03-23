@@ -116,9 +116,9 @@ export default class EnergyDiagramNode extends Node {
 
     //TODO Create a Plot that takes a fixed set of x-coordinates and variable set of y-coordinates.
     const potentialDataSet: Vector2[] = [];
-    energyDiagram.potentialEnergiesProperty.value.forEach( ( potentialEnergy, i ) => {
+    energyDiagram.boundStateResultProperty.value.potentials.forEach( ( pe, i ) => {
       const x = energyDiagram.xGrid.xCoordinates[ i ];
-      potentialDataSet.push( new Vector2( x, potentialEnergy ) );
+      potentialDataSet.push( new Vector2( x, pe ) );
     } );
 
     // Plots the shape of the selected potential.
@@ -129,11 +129,11 @@ export default class EnergyDiagramNode extends Node {
 
     //TODO Create EigenvaluesPlot that draws a set of horizontal lines, with one or more highlighted.
     const eignevaluesDataSet: Array<Vector2 | null> = [];
-    energyDiagram.eigenvaluesProperty.value.forEach( eigenValue => {
+    energyDiagram.boundStateResultProperty.value.energies.forEach( eigenvalue => {
 
-      // Draw a horizontal line from xMin to xMax at the eigenValue.
-      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.min, eigenValue ) );
-      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.max, eigenValue ) );
+      // Draw a horizontal line from xMin to xMax at the eigenvalue.
+      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.min, eigenvalue ) );
+      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.max, eigenvalue ) );
 
       // Move to the next line.
       eignevaluesDataSet.push( null );

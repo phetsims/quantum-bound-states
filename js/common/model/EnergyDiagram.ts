@@ -12,44 +12,27 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
-import Potential from './potentials/Potential.js';
-import NumerovSolver from './solver/NumerovSolver.js';
+import { BoundStateResult } from './solver/BoundStateResult.js';
 import XGrid from './solver/XGrid.js';
 
 export default class EnergyDiagram {
 
+  public readonly xGrid: XGrid;
+  public readonly boundStateResultProperty: TReadOnlyProperty<BoundStateResult>;
+
   // Visibility of values on drag handles and energy lines.
   public readonly valuesVisibleProperty: Property<boolean>;
 
-  public readonly xGrid: XGrid;
-  public readonly potentialEnergiesProperty: Property<number[]>;
-  public readonly eigenvaluesProperty: Property<number[]>;
-
   public constructor( xGrid: XGrid,
-                      potentialProperty: TReadOnlyProperty<Potential>,
+                      boundStateResultProperty: TReadOnlyProperty<BoundStateResult>,
                       tandem: Tandem ) {
+
+    this.xGrid = xGrid;
+    this.boundStateResultProperty = boundStateResultProperty;
 
     this.valuesVisibleProperty = new BooleanProperty( QBSQueryParameters.valuesVisible, {
       tandem: tandem.createTandem( 'valuesVisibleProperty' ),
       phetioFeatured: true
-    } );
-
-    const potentialFunction = ( x: number ) => potentialProperty.value.getPotentialEnergyAt( x ); // nm => eV
-    const mass = 1; // electron masses
-    //TODO Range depends on the y-axis range and the type of potential. Only look for energy values in the range that's visible on the graph.
-    const energyMin = 0; // eV
-    const energyMax = 10; // eV
-
-    const boundStateResult = NumerovSolver.solveNumerov( xGrid, potentialFunction, mass, energyMin, energyMax );
-
-    this.xGrid = xGrid;
-
-    this.potentialEnergiesProperty = new Property( boundStateResult.potentials, {
-      //TODO PhET-iO
-    } );
-
-    this.eigenvaluesProperty = new Property<number[]>( boundStateResult.energies, {
-      //TODO PhET-iO
     } );
   }
 
