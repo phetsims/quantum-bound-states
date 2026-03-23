@@ -36,12 +36,12 @@ export default class QBSColors {
     default: 'rgb( 92, 184, 79 )'
   } );
 
-  public static readonly graphRectangleFillProperty = new ProfileColorProperty( quantumBoundStates, 'graphRectangleFill', {
+  public static readonly chartRectangleFillProperty = new ProfileColorProperty( quantumBoundStates, 'chartRectangleFill', {
     default: 'white',
     projector: 'black'
   } );
 
-  public static readonly graphRectangleStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'graphRectangleStroke', {
+  public static readonly chartRectangleStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'chartRectangleStroke', {
     default: Color.grayColor( 100 ),
     projector: Color.grayColor( 200 )
   } );

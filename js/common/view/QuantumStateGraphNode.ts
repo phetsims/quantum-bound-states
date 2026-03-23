@@ -77,8 +77,8 @@ export default class QuantumStateGraphNode extends Node {
     } );
 
     this.chartRectangle = new ChartRectangle( this.chartTransform, {
-      fill: QBSColors.graphRectangleFillProperty,
-      stroke: QBSColors.graphRectangleStrokeProperty,
+      fill: QBSColors.chartRectangleFillProperty,
+      stroke: QBSColors.chartRectangleStrokeProperty,
       pickable: false // optimization
     } );
 

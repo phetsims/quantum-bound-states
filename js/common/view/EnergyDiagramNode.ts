@@ -53,12 +53,12 @@ export default class EnergyDiagramNode extends Node {
       viewWidth: QBSConstants.ENERGY_DIAGRAM_VIEW_WIDTH,
       viewHeight: QBSConstants.ENERGY_DIAGRAM_VIEW_HEIGHT,
       modelXRange: QBSConstants.ENERGY_DIAGRAM_X_RANGE,
-      modelYRange: QBSConstants.ENERGY_DIAGRAM_Y_RANGE
+      modelYRange: QBSConstants.ENERGY_DIAGRAM_Y_RANGE //TODO specific to selected potential
     } );
 
     this.chartRectangle = new ChartRectangle( this.chartTransform, {
-      fill: QBSColors.graphRectangleFillProperty,
-      stroke: QBSColors.graphRectangleStrokeProperty,
+      fill: QBSColors.chartRectangleFillProperty,
+      stroke: QBSColors.chartRectangleStrokeProperty,
       pickable: false // optimization
     } );
 
