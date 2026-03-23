@@ -37,6 +37,7 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
     );
 
     // Drag bounds in model coordinates. y values can be anything because movement is constrained to horizontal.
+    //TODO dragBoundsProperty is incorrect, y-range is dynamic. But reference line only moves horizontally, so maybe that's OK.
     const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, 0, chartTransform.modelXRange.max, 0 ) );
 
     // Value of xProperty at the start of the drag.
