@@ -13,7 +13,7 @@
  * ENERGY EIGENVALUES:
  *   E_n = (n² π² ℏ²) / (2mL²)    for n = 1, 2, 3, ...
  *
- * WAVE FUNCTIONS:
+ * WAVEFUNCTIONS:
  *   ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L),  -L/2 ≤ x ≤ L/2
  *   ψ_n(x) = 0,  |x| > L/2
  *
@@ -64,7 +64,7 @@ export default class InfiniteSquareWellSolution {
    * @param mass - Particle mass in electron masses
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
-   * @returns Bound state results with exact energies and wave functions
+   * @returns Bound state results with exact energies and wavefunctions
    */
   public static solve(
     xGrid: XGrid,
@@ -98,34 +98,34 @@ export default class InfiniteSquareWellSolution {
       energies.push( energy );
     }
 
-    // Calculate wave functions: ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L)
+    // Calculate wavefunctions: ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L)
     // This is the shifted sine function for a centered well [-L/2, L/2]
-    const waveFunctions: number[][] = [];
+    const wavefunctions: number[][] = [];
     const normalization = Math.sqrt( 2 / wellWidth );
     const halfWidth = wellWidth / 2;
 
     for ( const n of quantumNumbers ) {
-      const waveFunction: number[] = [];
+      const wavefunction: number[] = [];
 
       for ( const x of xGrid.xCoordinates ) {
-        // Wave function is zero outside the well [-L/2, L/2]
+        // Wavefunction is zero outside the well [-L/2, L/2]
         if ( x <= -halfWidth || x >= halfWidth ) {
-          waveFunction.push( 0 );
+          wavefunction.push( 0 );
         }
         else {
           // Inside the well: ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L)
           // This shifts the [0,L] solution to be centered at x=0
           const value = normalization * Math.sin( n * Math.PI * ( x + halfWidth ) / wellWidth );
-          waveFunction.push( value );
+          wavefunction.push( value );
         }
       }
-      waveFunctions.push( waveFunction );
+      wavefunctions.push( wavefunction );
     }
 
     return {
       potentials: [], // not relevant for analytical solution
       energies: energies,
-      waveFunctions: waveFunctions,
+      wavefunctions: wavefunctions,
       method: 'analytical'
     };
   }

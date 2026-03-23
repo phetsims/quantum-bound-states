@@ -17,7 +17,7 @@
  *   - Odd parity: -cot(ξ) = η/ξ
  *   where ξ = (L/2)√(2m(E+V₀)/ℏ²) and η = (L/2)√(-2mE/ℏ²)
  *
- * WAVE FUNCTIONS:
+ * WAVEFUNCTIONS:
  *   Inside the well (|x| < L/2):
  *   - Even: ψ(x) = A cos(kx)
  *   - Odd: ψ(x) = A sin(kx)
@@ -35,7 +35,7 @@ import { PotentialFunction } from '../PotentialFunction.js';
 import XGrid from '../XGrid.js';
 
 /**
- * Parity of the wave function (even or odd symmetry).
+ * Parity of the wavefunction (even or odd symmetry).
  */
 type Parity = 'even' | 'odd';
 
@@ -76,7 +76,7 @@ export default class FiniteSquareWellSolution {
    * @param mass - Particle mass in electron masses
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
-   * @returns Bound state results with energies (eV) and wave functions
+   * @returns Bound state results with energies (eV) and wavefunctions
    *
    * @example
    * // Solve for states within energy range
@@ -113,10 +113,10 @@ export default class FiniteSquareWellSolution {
       energyMax
     );
 
-    // Calculate wave functions for each state
-    const waveFunctions: number[][] = [];
+    // Calculate wavefunctions for each state
+    const wavefunctions: number[][] = [];
     for ( let i = 0; i < energies.length; i++ ) {
-      const waveFunction = calculateWaveFunction(
+      const wavefunction = calculateWavefunction(
         energies[ i ],
         parities[ i ],
         wellWidth,
@@ -124,13 +124,13 @@ export default class FiniteSquareWellSolution {
         mass,
         xGrid.xCoordinates
       );
-      waveFunctions.push( waveFunction );
+      wavefunctions.push( wavefunction );
     }
 
     return {
       potentials: [], // not relevant for analytical solution
       energies: energies,
-      waveFunctions: waveFunctions,
+      wavefunctions: wavefunctions,
       method: 'analytical'
     };
   }
@@ -311,7 +311,7 @@ function findBoundStateEnergies(
 }
 
 /**
- * Calculate normalized wave function for a finite square well state.
+ * Calculate normalized wavefunction for a finite square well state.
  *
  * @param energy - Energy of the state in eV
  * @param parity - Parity of the state (even or odd)
@@ -319,9 +319,9 @@ function findBoundStateEnergies(
  * @param wellDepth - Depth of the well V₀ in eV (positive value)
  * @param mass - Particle mass in electron masses
  * @param xGridArray - Array of x positions in nm
- * @returns Normalized wave function array
+ * @returns Normalized wavefunction array
  */
-function calculateWaveFunction(
+function calculateWavefunction(
   energy: number,
   parity: Parity,
   wellWidth: number,
@@ -335,9 +335,9 @@ function calculateWaveFunction(
   const k = Math.sqrt( 2 * mass * ( energy + wellDepth ) / ( HBAR * HBAR ) );
   const kappa = Math.sqrt( -2 * mass * energy / ( HBAR * HBAR ) );
 
-  const waveFunction: number[] = [];
+  const wavefunction: number[] = [];
 
-  // Calculate wave function at each grid point
+  // Calculate wavefunction at each grid point
   for ( const x of xGridArray ) {
     let value: number;
 
@@ -367,16 +367,16 @@ function calculateWaveFunction(
       }
     }
 
-    waveFunction.push( value );
+    wavefunction.push( value );
   }
 
-  // Normalize the wave function
+  // Normalize the wavefunction
   const dx = xGridArray.length > 1 ? xGridArray[ 1 ] - xGridArray[ 0 ] : 0;
   let integral = 0;
-  for ( let i = 0; i < waveFunction.length - 1; i++ ) {
-    integral += ( waveFunction[ i ] * waveFunction[ i ] + waveFunction[ i + 1 ] * waveFunction[ i + 1 ] ) * dx / 2;
+  for ( let i = 0; i < wavefunction.length - 1; i++ ) {
+    integral += ( wavefunction[ i ] * wavefunction[ i ] + wavefunction[ i + 1 ] * wavefunction[ i + 1 ] ) * dx / 2;
   }
 
   const normalization = 1 / Math.sqrt( integral );
-  return waveFunction.map( psi => psi * normalization );
+  return wavefunction.map( psi => psi * normalization );
 }

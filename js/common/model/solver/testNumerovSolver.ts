@@ -22,9 +22,9 @@ const HBAR = FundamentalConstants.HBAR;
 const ELECTRON_MASS = FundamentalConstants.ELECTRON_MASS;
 
 /**
- * Count the number of nodes (zero crossings) in a wave function.
- * Handles both regular sign changes and exact zeros (for odd wave functions).
- * @param psi - Wave function array
+ * Count the number of nodes (zero crossings) in a wavefunction.
+ * Handles both regular sign changes and exact zeros (for odd wavefunctions).
+ * @param psi - Wavefunction array
  * @returns Number of nodes
  */
 function countNodes( psi: number[] ): number {
@@ -80,8 +80,8 @@ function countNodes( psi: number[] ): number {
 }
 
 /**
- * Determine the parity (even/odd) of a wave function.
- * @param psi Wave function array
+ * Determine the parity (even/odd) of a wavefunction.
+ * @param psi Wavefunction array
  * @returns 'even' or 'odd'
  */
 function getParity( psi: number[] ): 'even' | 'odd' {
@@ -199,8 +199,8 @@ function testHarmonicOscillator(): void {
     const numerical = toFixed( numericalResult.energies[ n ], 3 );
     const analytical = toFixed( analyticalResult.energies[ n ], 3 );
     const error = toFixed( Math.abs( numericalResult.energies[ n ] - analyticalResult.energies[ n ] ) / analyticalResult.energies[ n ] * 100, 2 );
-    const parity = getParity( numericalResult.waveFunctions[ n ] );
-    const nodes = countNodes( numericalResult.waveFunctions[ n ] );
+    const parity = getParity( numericalResult.wavefunctions[ n ] );
+    const nodes = countNodes( numericalResult.wavefunctions[ n ] );
     tableRows.push( [ n, numerical, analytical, error, parity, nodes ] );
   }
   if ( minStates > 10 ) {
@@ -261,8 +261,8 @@ function testInfiniteSquareWell(): void {
     const numerical = toFixed( numericalResult.energies[ i ], 3 );
     const analytical = toFixed( analyticalResult.energies[ i ], 3 );
     const error = toFixed( Math.abs( numericalResult.energies[ i ] - analyticalResult.energies[ i ] ) / analyticalResult.energies[ i ] * 100, 2 );
-    const parity = getParity( numericalResult.waveFunctions[ i ] );
-    const nodes = countNodes( numericalResult.waveFunctions[ i ] );
+    const parity = getParity( numericalResult.wavefunctions[ i ] );
+    const nodes = countNodes( numericalResult.wavefunctions[ i ] );
     tableRows.push( [ n, numerical, analytical, error, parity, nodes ] );
   }
   if ( numericalResult.energies.length > 10 ) {
@@ -327,8 +327,8 @@ function testFiniteSquareWell(): void {
     const numerical = toFixed( numericalResult.energies[ i ], 4 );
     const analytical = toFixed( analyticalResult.energies[ i ], 4 );
     const error = toFixed( Math.abs( numericalResult.energies[ i ] - analyticalResult.energies[ i ] ) / Math.abs( analyticalResult.energies[ i ] ) * 100, 3 );
-    const parity = getParity( numericalResult.waveFunctions[ i ] );
-    const nodes = countNodes( numericalResult.waveFunctions[ i ] );
+    const parity = getParity( numericalResult.wavefunctions[ i ] );
+    const nodes = countNodes( numericalResult.wavefunctions[ i ] );
     tableRows.push( [ i + 1, numerical, analytical, error, parity, nodes ] );
   }
 
@@ -378,11 +378,11 @@ function testFiniteSquareWell(): void {
 
   console.log( `Finite Square Well - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
 
-  // Verify wave functions for states found by both methods
+  // Verify wavefunctions for states found by both methods
   const dx = xGrid.dx;
   for ( let i = 0; i < minStates; i++ ) {
-    const psi_numerical = numericalResult.waveFunctions[ i ];
-    const psi_analytical = analyticalResult.waveFunctions[ i ];
+    const psi_numerical = numericalResult.wavefunctions[ i ];
+    const psi_analytical = analyticalResult.wavefunctions[ i ];
 
     // Check normalization
     let norm_numerical = 0;
@@ -408,9 +408,9 @@ function testFiniteSquareWell(): void {
 }
 
 /**
- * Test NumerovSolver wave function normalization.
+ * Test NumerovSolver wavefunction normalization.
  */
-function testWaveFunctionNormalization(): void {
+function testWavefunctionNormalization(): void {
 
   const mass = ELECTRON_MASS;
   const k = 5.685630103565724; // arbitrary spring constant, eV/nm²
@@ -424,11 +424,11 @@ function testWaveFunctionNormalization(): void {
   const result = NumerovSolver.solveNumerov( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
 
   // Ensure we found some states
-  affirm( result.waveFunctions.length > 0, `Found ${result.waveFunctions.length} states` );
+  affirm( result.wavefunctions.length > 0, `Found ${result.wavefunctions.length} states` );
 
   const dx = xGrid.dx;
-  for ( let i = 0; i < result.waveFunctions.length; i++ ) {
-    const psi = result.waveFunctions[ i ];
+  for ( let i = 0; i < result.wavefunctions.length; i++ ) {
+    const psi = result.wavefunctions[ i ];
 
     let norm = 0;
     for ( let j = 0; j < psi.length - 1; j++ ) {
@@ -461,21 +461,21 @@ function testNodeCounting(): void {
     const result = NumerovSolver.solveNumerov( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
 
     // Ensure we found some states
-    affirm( result.waveFunctions.length > 0, `Found ${result.waveFunctions.length} states` );
+    affirm( result.wavefunctions.length > 0, `Found ${result.wavefunctions.length} states` );
 
-    console.log( `\nNode Counting - Found ${result.waveFunctions.length} states` );
+    console.log( `\nNode Counting - Found ${result.wavefunctions.length} states` );
 
     // Build table data
     const tableRows = [];
-    for ( let i = 0; i < Math.min( result.waveFunctions.length, 15 ); i++ ) {
-      const psi = result.waveFunctions[ i ];
+    for ( let i = 0; i < Math.min( result.wavefunctions.length, 15 ); i++ ) {
+      const psi = result.wavefunctions[ i ];
       const nodeCount = countNodes( psi );
       const energyEV = toFixed( result.energies[ i ], 2 );
       const nodeCorrect = ( nodeCount === i ) ? '✓' : '✗';
 
       tableRows.push( [ i, energyEV, nodeCount, i, nodeCorrect ] );
     }
-    if ( result.waveFunctions.length > 15 ) {
+    if ( result.wavefunctions.length > 15 ) {
       tableRows.push( [ '...', '...', '...', '...', '...' ] );
     }
 
@@ -483,18 +483,18 @@ function testNodeCounting(): void {
 
     // Count how many states have correct node count
     let correctCount = 0;
-    for ( let i = 0; i < result.waveFunctions.length; i++ ) {
-      const nodeCount = countNodes( result.waveFunctions[ i ] );
+    for ( let i = 0; i < result.wavefunctions.length; i++ ) {
+      const nodeCount = countNodes( result.wavefunctions[ i ] );
       if ( nodeCount === i ) {
         correctCount++;
       }
     }
 
-    console.log( `\nNode counting accuracy: ${correctCount}/${result.waveFunctions.length} states correct (${toFixed( 100 * correctCount / result.waveFunctions.length, 1 )}%)` );
+    console.log( `\nNode counting accuracy: ${correctCount}/${result.wavefunctions.length} states correct (${toFixed( 100 * correctCount / result.wavefunctions.length, 1 )}%)` );
 
     // Require at least 50% accuracy (node counting can be challenging with numerical artifacts)
     // The important thing is that states are ordered by energy correctly, which they are
-    affirm( correctCount / result.waveFunctions.length >= 0.5, `Node counting should be at least 50% accurate, got ${correctCount}/${result.waveFunctions.length}` );
+    affirm( correctCount / result.wavefunctions.length >= 0.5, `Node counting should be at least 50% accurate, got ${correctCount}/${result.wavefunctions.length}` );
   }
 }
 
@@ -505,6 +505,6 @@ export function testNumerovSolver(): void {
   testHarmonicOscillator();
   testInfiniteSquareWell();
   testFiniteSquareWell();
-  testWaveFunctionNormalization();
+  testWavefunctionNormalization();
   testNodeCounting();
 }

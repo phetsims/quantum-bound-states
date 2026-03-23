@@ -6,7 +6,7 @@
  * @author Martin Veillette
  *
  * The potential function defines the quantum system and determines
- * the allowed energy levels and wave functions. Common examples include:
+ * the allowed energy levels and wavefunctions. Common examples include:
  *
  * @example
  * // Harmonic oscillator: V(x) = (1/2)kx²

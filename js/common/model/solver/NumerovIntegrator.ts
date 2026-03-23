@@ -37,7 +37,7 @@ export default class NumerovIntegrator {
    * @param E - Energy eigenvalue to test (Joules)
    * @param V - Potential energy array (Joules)
    * @param xGrid - grid of x-coordinates with uniform spacing (nm)
-   * @returns Wave function array
+   * @returns Wavefunction array
    */
   public integrate( E: number, V: number[], xGrid: XGrid ): number[] {
     const N = xGrid.numberOfPoints;
@@ -46,7 +46,7 @@ export default class NumerovIntegrator {
     // Validate that V array matches grid length
     affirm( V.length === N, `V.length (${V.length}) must equal grid.getLength() (${N})` );
 
-    // Initialize the wave function array
+    // Initialize the wavefunction array
     const psi = new Array( N ).fill( 0 );
 
     // Calculate k²(x) and Numerov factors
@@ -66,7 +66,7 @@ export default class NumerovIntegrator {
    * Set initial conditions at left boundary (x_min).
    * Uses physically-motivated scales based on dimensional analysis: ψ ~ 1/√L
    *
-   * @param psi - Wave function array (modified in place)
+   * @param psi - Wavefunction array (modified in place)
    * @param k2 - Array of k² values
    * @param dx - Grid spacing
    * @param N - Number of grid points
@@ -81,30 +81,30 @@ export default class NumerovIntegrator {
     psi[ 0 ] = 0;
 
     // Physical motivation for initial value at second point:
-    // The wave function will be normalized after finding the eigenstate, so the absolute scale
+    // The wavefunction will be normalized after finding the eigenstate, so the absolute scale
     // here is arbitrary. However, choosing a physically-motivated scale helps avoid numerical
     // overflow/underflow during integration.
     //
     // For a bound state in a box of size L ≈ N·dx, dimensional analysis gives the typical
-    // wave function scale as ψ ~ 1/√L. We use a slightly larger initial value to ensure
+    // wavefunction scale as ψ ~ 1/√L. We use a slightly larger initial value to ensure
     // good numerical behavior: ψ(x₁) ~ 1/(N·√(dx·N))
     //
     // This gives units [1/√length] and magnitude that grows gradually from the boundary.
 
     const L = N * dx; // Total domain size (meters)
 
-    // Base scale for unnormalized wave function during integration
+    // Base scale for unnormalized wavefunction during integration
     const psiScale = 1 / ( N * Math.sqrt( L ) );
 
     // Set second point based on whether we're in classically allowed or forbidden region
     if ( k2[ 1 ] >= 0 ) {
       // Classically allowed region: E > V(x₁)
-      // Wave function oscillates. Start with base scale value.
+      // Wavefunction oscillates. Start with base scale value.
       psi[ 1 ] = psiScale * Math.sin( Math.sqrt( k2[ 1 ] ) * dx );
     }
     else {
       // Classically forbidden region: E < V(x₁)
-      // Wave function decays exponentially as ψ ~ exp(-κx) where κ = √(2m(V-E)/ℏ²)
+      // Wavefunction decays exponentially as ψ ~ exp(-κx) where κ = √(2m(V-E)/ℏ²)
       // Apply exponential suppression over the characteristic decay length
       const kappa = Math.sqrt( Math.abs( k2[ 1 ] ) ); // Decay constant κ = √|k²| (1/m)
       const decayLength = L / 2; // Use half the domain as characteristic scale
@@ -115,7 +115,7 @@ export default class NumerovIntegrator {
   /**
    * Integrate forward from left boundary to right boundary.
    *
-   * @param psi - Wave function array (modified in place)
+   * @param psi - Wavefunction array (modified in place)
    * @param f - Numerov factors
    */
   private integrateForward( psi: number[], f: number[] ): void {
@@ -161,12 +161,12 @@ export default class NumerovIntegrator {
    * Single Numerov integration step.
    * ψ_(j+1) = [(2 - 10f_j)ψ_j - (1+f_(j-1))ψ_(j-1)] / (1+f_(j+1))
    *
-   * @param psi_j - Wave function at current point
-   * @param psi_jMinus1 - Wave function at previous point
+   * @param psi_j - Wavefunction at current point
+   * @param psi_jMinus1 - Wavefunction at previous point
    * @param f_j - Numerov factor at current point
    * @param f_jMinus1 - Numerov factor at previous point
    * @param f_jPlus1 - Numerov factor at next point
-   * @returns Wave function at next point
+   * @returns Wavefunction at next point
    */
   private numerovStep(
     psi_j: number,
@@ -184,7 +184,7 @@ export default class NumerovIntegrator {
    * Fill array with divergent value from given index onwards.
    * Used to mark non-bound states that diverge.
    *
-   * @param psi - Wave function array to fill
+   * @param psi - Wavefunction array to fill
    * @param startIndex - Index to start filling from
    * @param value - Value to fill with (defaults to 1e300)
    */

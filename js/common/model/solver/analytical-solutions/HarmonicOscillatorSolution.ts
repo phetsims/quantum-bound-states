@@ -8,7 +8,7 @@
  *   E_n = ℏω(n + 1/2),  n = 0, 1, 2, ...
  *   where ω = √(k/m)
  *
- * WAVE FUNCTIONS:
+ * WAVEFUNCTIONS:
  *   ψ_n(x) = (1/√(2^n n!)) · (mω/πℏ)^(1/4) · exp(-mωx²/(2ℏ)) · H_n(√(mω/ℏ) x)
  *   where H_n are the Hermite polynomials
  *
@@ -54,7 +54,7 @@ export default class HarmonicOscillatorSolution {
    * @param mass - Particle mass in electron masses
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
-   * @returns Bound state results with exact energies (eV) and wave functions
+   * @returns Bound state results with exact energies (eV) and wavefunctions
    *
    * @example
    * // Solve for states within energy range
@@ -105,13 +105,13 @@ export default class HarmonicOscillatorSolution {
       energies.push( energy );
     }
 
-    // Calculate wave functions using Hermite polynomials
+    // Calculate wavefunctions using Hermite polynomials
     // ψ_n(x) = (1/√(2^n n!)) * (mω/πℏ)^(1/4) * exp(-mωx^2/(2ℏ)) * H_n(√(mω/ℏ) x)
-    const waveFunctions: number[][] = [];
+    const wavefunctions: number[][] = [];
     const alpha = Math.sqrt( ( mass * omega ) / HBAR );
 
     for ( const n of quantumNumbers ) {
-      const waveFunction: number[] = [];
+      const wavefunction: number[] = [];
       // Normalization: (mω/(πℏ))^(1/4) / √(2^n n!) = (α²/π)^(1/4) / √(2^n n!)
       const normalization =
         ( 1 / Math.sqrt( Math.pow( 2, n ) * factorial( n ) ) ) *
@@ -121,15 +121,15 @@ export default class HarmonicOscillatorSolution {
         const xi = alpha * x;
         const hermite = hermitePolynomial( n, xi );
         const value = normalization * Math.exp( ( -xi * xi ) / 2 ) * hermite;
-        waveFunction.push( value );
+        wavefunction.push( value );
       }
-      waveFunctions.push( waveFunction );
+      wavefunctions.push( wavefunction );
     }
 
     return {
       potentials: [], // not relevant for analytical solution
       energies: energies,
-      waveFunctions: waveFunctions,
+      wavefunctions: wavefunctions,
       method: 'analytical'
     };
   }
