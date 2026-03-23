@@ -25,8 +25,8 @@ export default class MagnifierDragListener extends SoundRichDragListener {
 
     // Synthesize a ModelViewTransform2 from the ChartTransform.
     const transform = ModelViewTransform2.createOffsetXYScaleMapping(
-      //TODO y-offset is incorrect, it is dynamic.
-      new Vector2( chartTransform.modelToViewX( 0 ), chartTransform.modelToViewY( 0 ) ), // offset of the origin in view coordinates
+      //TODO y-offset is incorrect, y-range is dynamic.
+      chartTransform.modelToViewPosition( Vector2.ZERO ), // offset of the origin in view coordinates
       chartTransform.viewWidth / chartTransform.modelXRange.getLength(), // xScale, model to view
       -( chartTransform.viewHeight / chartTransform.modelYRange.getLength() ) // yScale, model to view
     );
