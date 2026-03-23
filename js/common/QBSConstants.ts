@@ -43,10 +43,7 @@ export default class QBSConstants {
   public static readonly SCREEN_VIEW_Y_MARGIN = 15;
 
   // Preferences
-  public static readonly PREFERENCES_LABEL_FONT = new PhetFont( {
-    size: 16,
-    weight: 'bold'
-  } );
+  public static readonly PREFERENCES_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } );
   public static readonly PREFERENCES_LABEL_MAX_WIDTH = 200;
   public static readonly PREFERENCES_DESCRIPTION_FONT = new PhetFont( 16 );
   public static readonly PREFERENCES_DESCRIPTION_LINE_WRAP = 450;
