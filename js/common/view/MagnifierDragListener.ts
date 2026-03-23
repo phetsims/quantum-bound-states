@@ -33,7 +33,9 @@ export default class MagnifierDragListener extends SoundRichDragListener {
     );
 
     // Drag bounds in model coordinates. y values can be anything because movement is constrained to horizontal.
-    const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, 0, chartTransform.modelXRange.max, 0 ) );
+    //TODO dragBoundsProperty is incorrect, y-range is dynamic.
+    const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, chartTransform.modelYRange.min,
+      chartTransform.modelXRange.max, chartTransform.modelYRange.max ) );
 
     super( {
       transform: transform,

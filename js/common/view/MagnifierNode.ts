@@ -121,7 +121,6 @@ export class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
     this.addInputListener( new MagnifierDragListener( this, magnifier.probePositionProperty, chartTransform, tandem ) );
 
-    //TODO Probe moves horizontally but not vertically.
     magnifier.probePositionProperty.link( probePosition => {
       this.translation = chartTransform.modelToViewPosition( probePosition );
     } );
