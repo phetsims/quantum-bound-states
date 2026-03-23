@@ -2,10 +2,10 @@
 
 /**
  * EnergyRefiner refines energy eigenvalues using the bisection method.
- * Used to find the precise energy where the wavefunction satisfies boundary conditions.
+ * Used to find the precise energy where the wave function satisfies boundary conditions.
  *
  * The shooting method looks for energies where ψ(x_max) = 0. We search for sign changes
- * in the end value of the wavefunction, then refine using bisection to achieve the desired tolerance.
+ * in the end value of the wave function, then refine using bisection to achieve the desired tolerance.
  *
  * This is a very robust method in root finding, but it generates a lot of iterations, so it is not the most efficient.
  * This approach could be refined if performance is needed.
@@ -90,7 +90,7 @@ export default class EnergyRefiner {
       const psiMid = this.integrator.integrate( energyMid, V, xGrid );
       const psiLow = this.integrator.integrate( energyLow, V, xGrid );
 
-      // Look up the wavefunction at the end of the array
+      // Look up the wave function at the end of the array
       const endValueMid = this.getEndValue( psiMid, N );
       const endValueLow = this.getEndValue( psiLow, N );
 
@@ -114,7 +114,7 @@ export default class EnergyRefiner {
   }
 
   /**
-   * Get the wavefunction value at the end of the grid.
+   * Get the wave function value at the end of the grid.
    */
   private getEndValue( psi: number[], N: number ): number {
     return psi[ N - 1 ];

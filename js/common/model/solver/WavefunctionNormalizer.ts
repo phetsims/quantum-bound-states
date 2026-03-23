@@ -1,12 +1,12 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WavefunctionNormalizer normalizes wavefunctions using various numerical
+ * WaveFunctionNormalizer normalizes wave functions using various numerical
  * integration methods. Ensures that the probability density integrates to unity:
  * that is ∫|ψ|² dx = 1
  *
- * Note that we implicitly assume that the wavefunction is real-valued, the grid is
- * equally spaced, and that the wavefunction is zero outside the bounds of the
+ * Note that we implicitly assume that the wave function is real-valued, the grid is
+ * equally spaced, and that the wave function is zero outside the bounds of the
  * spatial grid. The last point is the most likely to fail. It is usually valid
  * for bound states, but may not hold for high energy states that have large
  * probability outside (although the errors  would normally be small).
@@ -36,11 +36,11 @@ export default class WavefunctionNormalizer {
   }
 
   /**
-   * Normalize a wavefunction according to the selected method.
+   * Normalize a wave function according to the selected method.
    *
-   * @param psi - Wavefunction array
+   * @param psi - Wave function array
    * @param dx - Grid spacing (meters)
-   * @returns Normalized wavefunction
+   * @returns Normalized wave function
    */
   public normalize( psi: number[], dx: number ): number[] {
     switch( this.method ) {
@@ -62,7 +62,7 @@ export default class WavefunctionNormalizer {
     const integral = this.calculateTrapezoidalIntegral( psi, dx );
     const normalization = Math.sqrt( integral );
 
-    return this.scaleWavefunction( psi, normalization );
+    return this.scaleWaveFunction( psi, normalization );
   }
 
   /**
@@ -72,7 +72,7 @@ export default class WavefunctionNormalizer {
     const integral = this.calculateSimpsonIntegral( psi, dx );
     const normalization = Math.sqrt( integral );
 
-    return this.scaleWavefunction( psi, normalization );
+    return this.scaleWaveFunction( psi, normalization );
   }
 
   /**
@@ -80,7 +80,7 @@ export default class WavefunctionNormalizer {
    */
   private normalizeMax( psi: number[] ): number[] {
     const maxAbs = this.findMaxAbsoluteValue( psi );
-    return this.scaleWavefunction( psi, maxAbs );
+    return this.scaleWaveFunction( psi, maxAbs );
   }
 
   /**
@@ -137,9 +137,9 @@ export default class WavefunctionNormalizer {
   }
 
   /**
-   * Scale wavefunction: ψ → ψ / normalization.
+   * Scale wave function: ψ → ψ / normalization.
    */
-  private scaleWavefunction( psi: number[], normalization: number ): number[] {
+  private scaleWaveFunction( psi: number[], normalization: number ): number[] {
     // Avoid division by zero
     if ( normalization === 0 || !isFinite( normalization ) ) {
       return psi.slice(); // Return copy of original
@@ -157,9 +157,9 @@ export default class WavefunctionNormalizer {
 
   /**
    * Calculate the norm (integral of |ψ|²) without normalizing.
-   * Useful for checking if a wavefunction is already normalized.
+   * Useful for checking if a wave function is already normalized.
    *
-   * @param psi - Wavefunction array
+   * @param psi - Wave function array
    * @param dx - Grid spacing
    * @returns Integral of |ψ|² dx
    */
@@ -170,9 +170,9 @@ export default class WavefunctionNormalizer {
   }
 
   /**
-   * Check if a wavefunction is approximately normalized.
+   * Check if a wave function is approximately normalized.
    *
-   * @param psi - Wavefunction array
+   * @param psi - Wave function array
    * @param dx - Grid spacing
    * @param tolerance - Tolerance for checking (default: 1e-6) compared to 1
    * @returns True if |∫|ψ|² dx - 1| < tolerance
