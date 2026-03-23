@@ -64,7 +64,7 @@ export default class QBSConstants {
   public static readonly ALL_GRAPHS_Y_AXIS_LABEL_OFFSET = -32;
   public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1.05 );
   public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = QBSConstants.AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE;
-  public static readonly WAVE_FUNCTION_GRAPH_Y_RANGE = new Range( -1.05, 1.05 );
+  public static readonly WAVEFUNCTION_GRAPH_Y_RANGE = new Range( -1.05, 1.05 );
 
   // Energy Diagram
   public static readonly ENERGY_DIAGRAM_VIEW_WIDTH = QBSConstants.ALL_GRAPHS_VIEW_WIDTH;

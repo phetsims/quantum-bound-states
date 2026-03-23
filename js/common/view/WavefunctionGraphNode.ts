@@ -22,7 +22,7 @@ export default class WavefunctionGraphNode extends QuantumStateGraphNode {
 
       // Options related to the y-axis.
       yAxisLabelStringProperty: QuantumBoundStatesFluent.wavefunctionStringProperty,
-      yRange: QBSConstants.WAVE_FUNCTION_GRAPH_Y_RANGE,
+      yRange: QBSConstants.WAVEFUNCTION_GRAPH_Y_RANGE,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
 
