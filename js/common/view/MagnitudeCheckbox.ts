@@ -14,8 +14,8 @@ import WavefunctionPartsCheckbox from './WavefunctionPartsCheckbox.js';
 
 export default class MagnitudeCheckbox extends WavefunctionPartsCheckbox {
 
-  public constructor( imaginaryPartVisibleProperty: Property<boolean>, tandem: Tandem ) {
-    super( imaginaryPartVisibleProperty, {
+  public constructor( magnitudeVisibleProperty: Property<boolean>, tandem: Tandem ) {
+    super( magnitudeVisibleProperty, {
       stringProperty: QuantumBoundStatesFluent.magnitudeStringProperty,
       strokeProperty: QBSColors.magnitudeStrokeProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.magnitudeCheckbox.accessibleHelpTextStringProperty,
