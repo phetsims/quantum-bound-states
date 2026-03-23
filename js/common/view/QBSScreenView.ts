@@ -109,7 +109,7 @@ export default class QBSScreenView extends ScreenView {
 
     // All graphs occupy the same position below the Energy diagram. Only one of them is visible at a time.
     quantumStateGraphNodes.forEach( graphNode => {
-      graphNode.x = energyDiagramRectangleBounds.left;
+      graphNode.x = energyDiagramNode.x;
       graphNode.y = energyDiagramRectangleBounds.bottom + 5;
     } );
 
