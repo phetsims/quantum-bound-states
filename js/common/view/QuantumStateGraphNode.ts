@@ -56,8 +56,8 @@ export default class QuantumStateGraphNode extends Node {
   // bamboo model-view transform
   private readonly chartTransform: ChartTransform;
 
-  // Outer rectangle of the chart, for layout in subclasses.
-  protected readonly chartRectangle: Node;
+  // Outer rectangle of the chart
+  private readonly chartRectangle: Node;
 
   protected constructor( providedOptions: QuantumStateGraphNodeOptions ) {
 
