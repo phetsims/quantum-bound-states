@@ -32,8 +32,7 @@ Supporting Classes
    └── analytical-solutions/ (validation)
          ├── HarmonicOscillatorSolution
          ├── InfiniteSquareWellSolution
-         ├── FiniteSquareWellSolution
-         └── math-utilities
+         └── FiniteSquareWellSolution
 ```
 
 ## The Numerov Method
@@ -226,15 +225,6 @@ Used to validate the solver for discontinuous potentials and hard boundaries.
 - Finite number of bound states (depends on well depth)
 
 Used to validate the solver for potentials with both bound and unbound regions.
-
----
-
-### math-utilities.ts
-**Purpose**: Mathematical helper functions
-**Contents**:
-- Special functions (Hermite polynomials, factorials)
-- Numerical utilities for analytical solutions
-- Shared mathematical operations
 
 ---
 

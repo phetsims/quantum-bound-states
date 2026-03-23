@@ -1,19 +1,15 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Move to dot/js/util/
 /**
- * Mathematical utility functions for analytical solutions.
- * These are used by various potential solvers for special functions and polynomials.
- *
- * @author Martin Veillette
- */
-
-/**
- * Calculate the Hermite polynomial H_n(x) using recurrence relation.
+ * Calculates the Hermite polynomial H_n(x) using recurrence relation.
  * H_0(x) = 1
  * H_1(x) = 2x
  * H_(n+1)(x) = 2x*H_n(x) - 2n*H_(n-1)(x)
+ *
+ * @author Martin Veillette
  */
-export function hermitePolynomial( n: number, x: number ): number {
+export default function hermitePolynomial( n: number, x: number ): number {
   if ( n === 0 ) {
     return 1;
   }
