@@ -64,7 +64,7 @@ export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGr
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
         } ),
-        tandemName: 'wavefunctionRadioButton'
+        tandemName: 'waveFunctionRadioButton'
       } );
     }
 
