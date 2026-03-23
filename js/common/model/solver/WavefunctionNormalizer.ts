@@ -24,7 +24,7 @@
 
 export type NormalizationMethod = 'trapezoidal' | 'simpson' | 'max';
 
-export default class WaveFunctionNormalizer {
+export default class WavefunctionNormalizer {
 
   private readonly method: NormalizationMethod;
 
