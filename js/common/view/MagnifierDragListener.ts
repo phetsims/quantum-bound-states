@@ -28,6 +28,7 @@ export default class MagnifierDragListener extends SoundRichDragListener {
       //TODO y-offset is incorrect, y-range is dynamic.
       chartTransform.modelToViewPosition( Vector2.ZERO ), // offset of the origin in view coordinates
       chartTransform.viewWidth / chartTransform.modelXRange.getLength(), // xScale, model to view
+      //TODO y-scale is incorrect, y-range is dynamic.
       -( chartTransform.viewHeight / chartTransform.modelYRange.getLength() ) // yScale, model to view
     );
 

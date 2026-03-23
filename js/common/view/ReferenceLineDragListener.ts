@@ -32,6 +32,7 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
       //TODO y-offset is incorrect, y-range is dynamic.
       chartTransform.modelToViewPosition( Vector2.ZERO ), // offset of the origin in view coordinates
       chartTransform.viewWidth / chartTransform.modelXRange.getLength(), // xScale, model to view
+      //TODO y-scale is incorrect, y-range is dynamic. But reference line only moves horizontally, so maybe that's OK.
       -( chartTransform.viewHeight / chartTransform.modelYRange.getLength() ) // yScale, model to view
     );
 
