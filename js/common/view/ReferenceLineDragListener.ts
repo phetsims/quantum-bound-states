@@ -45,7 +45,6 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
       transform: transform,
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
-
       dragListenerOptions: {
         useParentOffset: true
       },
