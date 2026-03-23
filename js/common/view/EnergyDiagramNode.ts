@@ -161,6 +161,6 @@ export default class EnergyDiagramNode extends Node {
    * Gets the bounds of the chart rectangle in global coordinates.
    */
   public getChartRectangleGlobalBounds(): Bounds2 {
-    return this.chartRectangle.localToGlobalBounds( this.chartRectangle.localBounds );
+    return this.chartRectangle.parentToGlobalBounds( this.chartRectangle.bounds );
   }
 }

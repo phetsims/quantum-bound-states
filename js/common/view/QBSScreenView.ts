@@ -105,7 +105,7 @@ export default class QBSScreenView extends ScreenView {
     // Layout is relative to the Energy diagram.
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
     energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + potentialTypeComboBox.height + 3;
-    const energyDiagramRectangleBounds = this.globalToLocalBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
+    const energyDiagramRectangleBounds = this.globalToParentBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
 
     // All graphs occupy the same position below the Energy diagram. Only one of them is visible at a time.
     quantumStateGraphNodes.forEach( graphNode => {
@@ -114,7 +114,7 @@ export default class QBSScreenView extends ScreenView {
     } );
 
     affirm( quantumStateGraphNodes.length > 0, 'At least one Quantum State graph is required.' );
-    const quantumStateGraphRectangleBounds = this.globalToLocalBounds( quantumStateGraphNodes[ 0 ].getChartRectangleGlobalBounds() );
+    const quantumStateGraphRectangleBounds = this.globalToParentBounds( quantumStateGraphNodes[ 0 ].getChartRectangleGlobalBounds() );
 
     // Static layout
     energyDiagramControlPanel.left = energyDiagramRectangleBounds.right + 10;
@@ -156,7 +156,7 @@ export default class QBSScreenView extends ScreenView {
     // Wrap referenceLineNode in a Node so that it drags in the same coordinate frame as the graphs.
     const referenceLineWrapper = new Node( {
       children: [ referenceLineNode ],
-      x: quantumStateGraphRectangleBounds.x,
+      x: energyDiagramNode.x,
       y: quantumStateGraphRectangleBounds.y + QBSConstants.ALL_GRAPHS_VIEW_HEIGHT
     } );
 
