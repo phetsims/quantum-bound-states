@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO In relation to vertical grid line, ReferenceLineNode looks 0.5 pixel to the left of where it should be.
 /**
  * ReferenceLine is the view for the reference line, a vertical line that connects the same x-coordinate in all graphs.
  * The x-coordinate is changed by dragging a handle left and right. Origin is at the center of the handle.
@@ -68,7 +69,7 @@ export default class ReferenceLineNode extends Node {
 
     //TODO Fix transforms so that this can be this.x = chartTransform.moveToViewX( x )
     referenceLine.xProperty.link( x => {
-      verticalLine.x = chartTransform.modelToViewX( x );
+      verticalLine.centerX = chartTransform.modelToViewX( x );
     } );
   }
 }
@@ -106,7 +107,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
 
     //TODO Fix transforms so that this is unnecessary and the entire ReferenceLineNode moves as one.
     referenceLine.xProperty.link( x => {
-      this.x = chartTransform.modelToViewX( x );
+      this.centerX = chartTransform.modelToViewX( x );
 
       // If xProperty changed due to resetAll, we also need to keep positionProperty.value.x in sync.
       // y-value can be anything because movement is constrained to horizontal.
