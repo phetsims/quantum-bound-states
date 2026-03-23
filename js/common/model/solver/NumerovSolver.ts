@@ -75,8 +75,8 @@ export default class NumerovSolver {
 
     // If energyTolerance is provided, it's absolute (in eV); otherwise use default relative tolerance
     const energyRefinerOptions = options?.energyTolerance !== undefined ?
-      { tolerance: options.energyTolerance, isRelative: false }
-                                                                        : {};
+      { tolerance: options.energyTolerance, isRelative: false } : {};
+
     this.energyRefiner = new EnergyRefiner( this.integrator, energyRefinerOptions );
 
     this.normalizer = new WavefunctionNormalizer(
