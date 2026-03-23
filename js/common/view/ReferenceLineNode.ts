@@ -105,7 +105,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     this.addInputListener( new ReferenceLineKeyboardListener( this, referenceLine.xProperty,
       positionProperty, tandem.createTandem( 'keyboardListener' ) ) );
 
-    //TODO Fix transforms so that this is unnecessary and the entire ReferenceLineNode moves as one.
+    // Center the handle on the x-coordinate of the reference line.
     referenceLine.xProperty.link( x => {
       this.centerX = chartTransform.modelToViewX( x );
 
