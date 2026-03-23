@@ -15,11 +15,12 @@
  * @author Martin Veillette
  */
 
+import factorial from '../../../../../../dot/js/util/factorial.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import FundamentalConstants from '../FundamentalConstants.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import XGrid from '../XGrid.js';
-import { factorial, hermitePolynomial } from './math-utilities.js';
+import { hermitePolynomial } from './math-utilities.js';
 
 export default class HarmonicOscillatorSolution {
 
