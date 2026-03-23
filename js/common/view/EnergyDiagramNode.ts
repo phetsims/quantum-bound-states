@@ -82,11 +82,11 @@ export default class EnergyDiagramNode extends Node {
       yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ENERGY_DIAGRAM_Y_AXIS_LABEL_OFFSET, 0 );
     } );
 
-    this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, QBSConstants.ENERGY_DIAGRAM_Y_TICK_SPACING,
-      QBSConstants.GRID_LINE_SET_OPTIONS );
+    this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL,
+      QBSConstants.ENERGY_DIAGRAM_Y_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
-    const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL, QBSConstants.ENERGY_DIAGRAM_X_TICK_SPACING,
-      QBSConstants.GRID_LINE_SET_OPTIONS );
+    const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
+      QBSConstants.ENERGY_DIAGRAM_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
     const xAxis = new AxisLine( this.chartTransform, Orientation.HORIZONTAL, {
       extension: 0,
