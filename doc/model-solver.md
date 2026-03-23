@@ -12,7 +12,7 @@ The model solves the 1D time-independent Schrödinger equation (TISE):
 -ℏ²/(2m) d²ψ/dx² + V(x)ψ = Eψ
 ```
 
-to find bound state energies and wavefunctions for arbitrary potential energy functions V(x).
+to find bound state energies and wave functions for arbitrary potential energy functions V(x).
 
 ## Architecture Overview
 
@@ -102,7 +102,7 @@ This class implements the shooting method algorithm:
 1. Scans an energy range with a coarse step size (200 steps by default)
 2. Detects eigenvalues by finding sign changes in ψ(x_max)
 3. Refines each eigenvalue using bisection
-4. Normalizes the corresponding wavefunction
+4. Normalizes the corresponding wave function
 
 `public static solveNumerov(...)` is the main API entry point. 
 
@@ -126,7 +126,7 @@ This class implements forward integration from the left boundary to the right bo
 
 2. **Integration** (`integrateForward`): Applies the Numerov formula iteratively from left to right with divergence detection
 
-3. **Return**: Provides the full wavefunction array
+3. **Return**: Provides the full wave function array
 
 The divergence threshold (1e300) is set very high to accommodate finite potential barriers that cause large but finite exponential growth.
 
@@ -140,7 +140,7 @@ The divergence threshold (1e300) is set very high to accommodate finite potentia
 
 After the shooting method detects a sign change indicating a bound state, this class refines the energy to high precision. It uses bisection on the interval [E_low, E_high] and stops when the bracket width falls below a tolerance.
 
-**Key insight**: The wavefunction endpoint ψ(x_max) is a monotonic function of energy near an eigenvalue, so bisection is guaranteed to converge.
+**Key insight**: The wave function endpoint ψ(x_max) is a monotonic function of energy near an eigenvalue, so bisection is guaranteed to converge.
 
 **When to modify**: When changing convergence criteria, adding alternative root-finding methods, or adjusting tolerance strategies.
 
@@ -150,7 +150,7 @@ After the shooting method detects a sign change indicating a bound state, this c
 **Purpose**: Probability normalization
 **Responsibility**: Ensures ∫|ψ|² dx = 1
 
-After finding an eigenstate, the wavefunction must be normalized so its integral equals unity (unit probability). This class supports multiple numerical integration methods:
+After finding an eigenstate, the wave function must be normalized so its integral equals unity (unit probability). This class supports multiple numerical integration methods:
 
 - **Trapezoidal** (default): Simple and robust, O(h²) accuracy
 - **Simpson's**: Higher accuracy O(h⁴), requires odd number of points
@@ -176,18 +176,6 @@ All calculations in the model use natural units: electron masses for mass, eV fo
 
 ---
 
-### PotentialFunction.ts
-**Purpose**: Type definitions
-**Responsibility**: TypeScript interfaces for inputs and outputs
-
-Key types:
-- `PotentialFunction`: (x: number) => number
-- `GridConfig`: {xMin, xMax, numPoints}
-- `BoundStateResult`: {energies, wavefunctions, xGrid, method}
-- `Parity`: 'symmetric' | 'antisymmetric'
-
----
-
 ## Analytical Solutions (analytical-solutions/)
 
 This subdirectory contains exact analytical solutions for quantum systems that can be solved mathematically. These modules serve two purposes:
@@ -199,7 +187,7 @@ This subdirectory contains exact analytical solutions for quantum systems that c
 **Purpose**: Exact solutions for the quantum harmonic oscillator
 **Key formulas**:
 - Energy eigenvalues: E_n = ℏω(n + ½) for n = 0, 1, 2, ...
-- Wavefunctions: Hermite polynomials × Gaussian envelope
+- Wave functions: Hermite polynomials × Gaussian envelope
 - All states are bound (infinite tower of levels)
 
 Used to validate the Numerov solver for a symmetric, smooth potential.
@@ -210,7 +198,7 @@ Used to validate the Numerov solver for a symmetric, smooth potential.
 **Purpose**: Exact solutions for particle in a box
 **Key formulas**:
 - Energy eigenvalues: E_n = n²π²ℏ²/(2mL²) for n = 1, 2, 3, ...
-- Wavefunctions: ψ_n(x) = √(2/L) sin(nπ(x-L/2)/L)
+- Wave functions: ψ_n(x) = √(2/L) sin(nπ(x-L/2)/L)
 - Hard boundary conditions (ψ = 0 at walls)
 
 Used to validate the solver for discontinuous potentials and hard boundaries.
@@ -255,7 +243,7 @@ The complete solution process follows this sequence:
    - Add to results
 
 5. **Return**
-   - Package energies, wavefunctions, and grid into BoundStateResult
+   - Package energies, wave functions, and grid into BoundStateResult
 
 ## Performance Characteristics
 
@@ -265,7 +253,7 @@ The complete solution process follows this sequence:
 - ε = energy tolerance
 - N = number of grid points
 
-**Memory**: O(N) per wavefunction, O(M × N) total for M states
+**Memory**: O(N) per wave function, O(M × N) total for M states
 
 ## Common Maintenance Tasks
 
@@ -291,7 +279,7 @@ The tests are found in testNumerovSolver.ts and validate the following:
 - **Harmonic Oscillator** (HarmonicOscillatorSolution.ts): E_n = ℏω(n + ½) for n = 0, 1, 2, ...
 - **Infinite Square Well** (InfiniteSquareWellSolution.ts): E_n = n²π²ℏ²/(2mL²) for n = 1, 2, 3, ...
 - **Finite Square Well** (FiniteSquareWellSolution.ts): Transcendental equations for bound states
-- **Wavefunction Normalization**: ∫|ψ|² dx = 1 for all states
+- **Wave Function Normalization**: ∫|ψ|² dx = 1 for all states
 - **Node Counting**: nth excited state has n nodes
 
 Each test compares numerical results for NumerovSolver against exact analytical solutions, ensuring accuracy 
