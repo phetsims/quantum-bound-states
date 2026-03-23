@@ -62,7 +62,7 @@ export default abstract class Potential extends PhetioObject {
    * PotentialIO handles PhET-iO serialization of Potential instances, as described in the Serialization section of
    * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
    */
-  public static readonly PotentialIO = new IOType<Potential, ReferenceIOState>( 'VectorIO', {
+  public static readonly PotentialIO = new IOType<Potential, ReferenceIOState>( 'PotentialIO', {
     valueType: Potential,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
