@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionPartsCheckbox is the base class for checkboxes that show/hide a component of the wave function.
+ * WaveFunctionPartsCheckbox is the base class for checkboxes that show/hide a component of the wavefunction.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

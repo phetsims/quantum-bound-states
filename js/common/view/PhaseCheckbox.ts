@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PhaseCheckbox is the checkbox used to show/hide the phase component of the wave function.
+ * PhaseCheckbox is the checkbox used to show/hide the phase component of the wavefunction.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

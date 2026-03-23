@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionDetailsDialog is a dialog that displays the expanded wave function.
+ * WaveFunctionDetailsDialog is a dialog that displays the expanded wavefunction.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

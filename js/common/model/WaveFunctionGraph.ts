@@ -14,7 +14,7 @@ import QuantumStateGraph from './QuantumStateGraph.js';
 
 export default class WaveFunctionGraph extends QuantumStateGraph {
 
-  // Visibility of the wave function components
+  // Visibility of the wavefunction components
   public readonly realPartVisibleProperty: Property<boolean>;
   public readonly imaginaryPartVisibleProperty: Property<boolean>;
   public readonly magnitudeVisibleProperty: Property<boolean>;
