@@ -60,7 +60,7 @@ export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGr
     if ( wavefunctionGraph ) {
       items.push( {
         value: wavefunctionGraph,
-        createNode: tandem => new RichText( QuantumBoundStatesFluent.waveFunctionStringProperty, {
+        createNode: tandem => new RichText( QuantumBoundStatesFluent.wavefunctionStringProperty, {
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
         } ),

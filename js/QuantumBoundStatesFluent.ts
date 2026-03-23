@@ -40,12 +40,12 @@ addToMapIfDefined( 'position_nm', 'position_nmStringProperty' );
 addToMapIfDefined( 'energy_eV', 'energy_eVStringProperty' );
 addToMapIfDefined( 'averageProbabilityDensityOfBand', 'averageProbabilityDensityOfBandStringProperty' );
 addToMapIfDefined( 'probabilityDensity', 'probabilityDensityStringProperty' );
-addToMapIfDefined( 'waveFunction', 'waveFunctionStringProperty' );
+addToMapIfDefined( 'wavefunction', 'wavefunctionStringProperty' );
 addToMapIfDefined( 'quantumStateGraph', 'quantumStateGraphStringProperty' );
 addToMapIfDefined( 'energyDiagram', 'energyDiagramStringProperty' );
 addToMapIfDefined( 'functionDetailsButton_averageProbabilityDensityOfBand', 'functionDetailsButton.averageProbabilityDensityOfBandStringProperty' );
 addToMapIfDefined( 'functionDetailsButton_probabilityDensity', 'functionDetailsButton.probabilityDensityStringProperty' );
-addToMapIfDefined( 'functionDetailsButton_waveFunction', 'functionDetailsButton.waveFunctionStringProperty' );
+addToMapIfDefined( 'functionDetailsButton_wavefunction', 'functionDetailsButton.wavefunctionStringProperty' );
 addToMapIfDefined( 'values', 'valuesStringProperty' );
 addToMapIfDefined( 'realPart', 'realPartStringProperty' );
 addToMapIfDefined( 'imaginaryPart', 'imaginaryPartStringProperty' );
@@ -56,7 +56,7 @@ addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'superpositionLabel', 'superpositionLabelStringProperty' );
 addToMapIfDefined( 'averageProbabilityDensityOfBandDialogTitle', 'averageProbabilityDensityOfBandDialogTitleStringProperty' );
 addToMapIfDefined( 'probabilityDensityDialogTitle', 'probabilityDensityDialogTitleStringProperty' );
-addToMapIfDefined( 'waveFunctionDialogTitle', 'waveFunctionDialogTitleStringProperty' );
+addToMapIfDefined( 'wavefunctionDialogTitle', 'wavefunctionDialogTitleStringProperty' );
 addToMapIfDefined( 'superpositionDetailsDialogTitle', 'superpositionDetailsDialogTitleStringProperty' );
 addToMapIfDefined( 'superpositionCustomizationDialogTitle', 'superpositionCustomizationDialogTitleStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
@@ -109,7 +109,7 @@ addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_interactionHi
 addToMapIfDefined( 'a11y_energyDiagramControls_accessibleHeading', 'a11y.energyDiagramControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_superpositionControls_accessibleHeading', 'a11y.superpositionControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphControls_accessibleHeading', 'a11y.quantumStateGraphControls.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionParts_accessibleHeading', 'a11y.waveFunctionParts.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_wavefunctionParts_accessibleHeading', 'a11y.wavefunctionParts.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeControls_accessibleHeading', 'a11y.timeControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_toolControls_accessibleHeading', 'a11y.toolControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_valuesCheckbox_accessibleHelpText', 'a11y.valuesCheckbox.accessibleHelpTextStringProperty' );
@@ -148,8 +148,8 @@ addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleH
 addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleParagraph', 'a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_graphs_probabilityDensityGraph_accessibleHeading', 'a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_graphs_probabilityDensityGraph_accessibleParagraph', 'a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty' );
-addToMapIfDefined( 'a11y_graphs_waveFunctionGraph_accessibleHeading', 'a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_graphs_waveFunctionGraph_accessibleParagraph', 'a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_graphs_wavefunctionGraph_accessibleHeading', 'a11y.graphs.wavefunctionGraph.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_graphs_wavefunctionGraph_accessibleParagraph', 'a11y.graphs.wavefunctionGraph.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_timeButtonGroup_accessibleHeading', 'a11y.timeButtonGroup.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeButtonGroup_accessibleHelpText', 'a11y.timeButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_restartButton_accessibleHelpText', 'a11y.restartButton.accessibleHelpTextStringProperty' );
@@ -164,9 +164,9 @@ addToMapIfDefined( 'a11y_functionDetailsButton_averageProbabilityDensityOfBand_a
 addToMapIfDefined( 'a11y_functionDetailsButton_probabilityDensity_accessibleName', 'a11y.functionDetailsButton.probabilityDensity.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_functionDetailsButton_probabilityDensity_accessibleHelpText', 'a11y.functionDetailsButton.probabilityDensity.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_functionDetailsButton_probabilityDensity_accessibleContextResponse', 'a11y.functionDetailsButton.probabilityDensity.accessibleContextResponseStringProperty' );
-addToMapIfDefined( 'a11y_functionDetailsButton_waveFunction_accessibleName', 'a11y.functionDetailsButton.waveFunction.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_functionDetailsButton_waveFunction_accessibleHelpText', 'a11y.functionDetailsButton.waveFunction.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_functionDetailsButton_waveFunction_accessibleContextResponse', 'a11y.functionDetailsButton.waveFunction.accessibleContextResponseStringProperty' );
+addToMapIfDefined( 'a11y_functionDetailsButton_wavefunction_accessibleName', 'a11y.functionDetailsButton.wavefunction.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_functionDetailsButton_wavefunction_accessibleHelpText', 'a11y.functionDetailsButton.wavefunction.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_functionDetailsButton_wavefunction_accessibleContextResponse', 'a11y.functionDetailsButton.wavefunction.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomizeButton_accessibleName', 'a11y.superpositionCustomizeButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomizeButton_accessibleHelpText', 'a11y.superpositionCustomizeButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomizeButton_accessibleContextResponse', 'a11y.superpositionCustomizeButton.accessibleContextResponseStringProperty' );
@@ -251,7 +251,7 @@ const QuantumBoundStatesFluent = {
   energy_eVStringProperty: _.get( QuantumBoundStatesStrings, 'energy_eVStringProperty' ),
   averageProbabilityDensityOfBandStringProperty: _.get( QuantumBoundStatesStrings, 'averageProbabilityDensityOfBandStringProperty' ),
   probabilityDensityStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityStringProperty' ),
-  waveFunctionStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionStringProperty' ),
+  wavefunctionStringProperty: _.get( QuantumBoundStatesStrings, 'wavefunctionStringProperty' ),
   quantumStateGraphStringProperty: _.get( QuantumBoundStatesStrings, 'quantumStateGraphStringProperty' ),
   _comment_2: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
   _comment_3: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),
@@ -261,7 +261,7 @@ const QuantumBoundStatesFluent = {
   functionDetailsButton: {
     averageProbabilityDensityOfBandStringProperty: _.get( QuantumBoundStatesStrings, 'functionDetailsButton.averageProbabilityDensityOfBandStringProperty' ),
     probabilityDensityStringProperty: _.get( QuantumBoundStatesStrings, 'functionDetailsButton.probabilityDensityStringProperty' ),
-    waveFunctionStringProperty: _.get( QuantumBoundStatesStrings, 'functionDetailsButton.waveFunctionStringProperty' )
+    wavefunctionStringProperty: _.get( QuantumBoundStatesStrings, 'functionDetailsButton.wavefunctionStringProperty' )
   },
   _comment_6: new FluentComment( {"comment":"Checkboxes","associatedKey":"values"} ),
   valuesStringProperty: _.get( QuantumBoundStatesStrings, 'valuesStringProperty' ),
@@ -279,7 +279,7 @@ const QuantumBoundStatesFluent = {
   _comment_11: new FluentComment( {"comment":"Dialogs","associatedKey":"averageProbabilityDensityOfBandDialogTitle"} ),
   averageProbabilityDensityOfBandDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'averageProbabilityDensityOfBandDialogTitleStringProperty' ),
   probabilityDensityDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityDialogTitleStringProperty' ),
-  waveFunctionDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionDialogTitleStringProperty' ),
+  wavefunctionDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'wavefunctionDialogTitleStringProperty' ),
   superpositionDetailsDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionDetailsDialogTitleStringProperty' ),
   superpositionCustomizationDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionCustomizationDialogTitleStringProperty' ),
   _comment_12: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
@@ -398,8 +398,8 @@ const QuantumBoundStatesFluent = {
     quantumStateGraphControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_quantumStateGraphControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.quantumStateGraphControls.accessibleHeadingStringProperty' ) )
     },
-    waveFunctionParts: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionParts_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionParts.accessibleHeadingStringProperty' ) )
+    wavefunctionParts: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_wavefunctionParts_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.wavefunctionParts.accessibleHeadingStringProperty' ) )
     },
     timeControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.accessibleHeadingStringProperty' ) )
@@ -479,9 +479,9 @@ const QuantumBoundStatesFluent = {
         accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_probabilityDensityGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty' ) ),
         accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_probabilityDensityGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty' ) )
       },
-      waveFunctionGraph: {
-        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_waveFunctionGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty' ) ),
-        accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_waveFunctionGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty' ) )
+      wavefunctionGraph: {
+        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_wavefunctionGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.graphs.wavefunctionGraph.accessibleHeadingStringProperty' ) ),
+        accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_graphs_wavefunctionGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.graphs.wavefunctionGraph.accessibleParagraphStringProperty' ) )
       }
     },
     _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeButtonGroup"} ),
@@ -515,10 +515,10 @@ const QuantumBoundStatesFluent = {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_functionDetailsButton_probabilityDensity_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.functionDetailsButton.probabilityDensity.accessibleHelpTextStringProperty' ) ),
         accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_functionDetailsButton_probabilityDensity_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.functionDetailsButton.probabilityDensity.accessibleContextResponseStringProperty' ) )
       },
-      waveFunction: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_functionDetailsButton_waveFunction_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.functionDetailsButton.waveFunction.accessibleNameStringProperty' ) ),
-        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_functionDetailsButton_waveFunction_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.functionDetailsButton.waveFunction.accessibleHelpTextStringProperty' ) ),
-        accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_functionDetailsButton_waveFunction_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.functionDetailsButton.waveFunction.accessibleContextResponseStringProperty' ) )
+      wavefunction: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_functionDetailsButton_wavefunction_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.functionDetailsButton.wavefunction.accessibleNameStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_functionDetailsButton_wavefunction_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.functionDetailsButton.wavefunction.accessibleHelpTextStringProperty' ) ),
+        accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_functionDetailsButton_wavefunction_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.functionDetailsButton.wavefunction.accessibleContextResponseStringProperty' ) )
       }
     },
     superpositionCustomizeButton: {

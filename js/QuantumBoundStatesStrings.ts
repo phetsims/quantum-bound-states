@@ -31,13 +31,13 @@ type StringsType = {
   'energy_eVStringProperty': LocalizedStringProperty;
   'averageProbabilityDensityOfBandStringProperty': LocalizedStringProperty;
   'probabilityDensityStringProperty': LocalizedStringProperty;
-  'waveFunctionStringProperty': LocalizedStringProperty;
+  'wavefunctionStringProperty': LocalizedStringProperty;
   'quantumStateGraphStringProperty': LocalizedStringProperty;
   'energyDiagramStringProperty': LocalizedStringProperty;
   'functionDetailsButton': {
     'averageProbabilityDensityOfBandStringProperty': LocalizedStringProperty;
     'probabilityDensityStringProperty': LocalizedStringProperty;
-    'waveFunctionStringProperty': LocalizedStringProperty;
+    'wavefunctionStringProperty': LocalizedStringProperty;
   };
   'valuesStringProperty': LocalizedStringProperty;
   'realPartStringProperty': LocalizedStringProperty;
@@ -49,7 +49,7 @@ type StringsType = {
   'superpositionLabelStringProperty': LocalizedStringProperty;
   'averageProbabilityDensityOfBandDialogTitleStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
-  'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
+  'wavefunctionDialogTitleStringProperty': LocalizedStringProperty;
   'superpositionDetailsDialogTitleStringProperty': LocalizedStringProperty;
   'superpositionCustomizationDialogTitleStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
@@ -149,7 +149,7 @@ type StringsType = {
     'quantumStateGraphControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
-    'waveFunctionParts': {
+    'wavefunctionParts': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
     'timeControls': {
@@ -221,7 +221,7 @@ type StringsType = {
         'accessibleHeadingStringProperty': LocalizedStringProperty;
         'accessibleParagraphStringProperty': LocalizedStringProperty;
       };
-      'waveFunctionGraph': {
+      'wavefunctionGraph': {
         'accessibleHeadingStringProperty': LocalizedStringProperty;
         'accessibleParagraphStringProperty': LocalizedStringProperty;
       }
@@ -253,7 +253,7 @@ type StringsType = {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleContextResponseStringProperty': LocalizedStringProperty;
       };
-      'waveFunction': {
+      'wavefunction': {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleContextResponseStringProperty': LocalizedStringProperty;

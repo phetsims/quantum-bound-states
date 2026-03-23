@@ -16,10 +16,10 @@
   },
   "phaseFeatureControl": {
     "label": {
-      "value": "Wave Function Phase"
+      "value": "Wavefunction Phase"
     },
     "description": {
-      "value": "Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function."
+      "value": "Adds a Phase checkbox to control panels for showing and hiding the phase of the wavefunction."
     }
   },
   "potentialEnergy": {
@@ -40,8 +40,8 @@
   "probabilityDensity": {
     "value": "Probability Density"
   },
-  "waveFunction": {
-    "value": "Wave Function"
+  "wavefunction": {
+    "value": "Wavefunction"
   },
   "quantumStateGraph": {
     "value": "Quantum State Graph"
@@ -56,7 +56,7 @@
     "probabilityDensity": {
       "value": "|Ψ(x,t)|<sup>2</sup> = ..."
     },
-    "waveFunction": {
+    "wavefunction": {
       "value": "Ψ(x,t) = ..."
     }
   },
@@ -90,8 +90,8 @@
   "probabilityDensityDialogTitle": {
     "value": "Probability Density"
   },
-  "waveFunctionDialogTitle": {
-    "value": "Wave Function"
+  "wavefunctionDialogTitle": {
+    "value": "Wavefunction"
   },
   "superpositionDetailsDialogTitle": {
     "value": "Superposition Details"
@@ -308,9 +308,9 @@
         "value": "Quantum State Graph Controls"
       }
     },
-    "waveFunctionParts": {
+    "wavefunctionParts": {
       "accessibleHeading": {
-        "value": "Wave Function Parts"
+        "value": "Wavefunction Parts"
       }
     },
     "timeControls": {
@@ -336,7 +336,7 @@
     },
     "realPartCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the real part of the wave function."
+        "value": "Show or hide the real part of the wavefunction."
       },
       "accessibleContextResponseChecked": {
         "value": "Real part shown."
@@ -347,7 +347,7 @@
     },
     "imaginaryPartCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the imaginary part of the wave function."
+        "value": "Show or hide the imaginary part of the wavefunction."
       },
       "accessibleContextResponseChecked": {
         "value": "Imaginary part shown."
@@ -358,7 +358,7 @@
     },
     "magnitudeCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the magnitude of the wave function."
+        "value": "Show or hide the magnitude of the wavefunction."
       },
       "accessibleContextResponseChecked": {
         "value": "Magnitude shown."
@@ -369,7 +369,7 @@
     },
     "phaseCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the phase of the wave function."
+        "value": "Show or hide the phase of the wavefunction."
       },
       "accessibleContextResponseChecked": {
         "value": "Phase shown."
@@ -458,12 +458,12 @@
           "value": "TODO.probabilityDensityGraph.accessibleParagraph"
         }
       },
-      "waveFunctionGraph": {
+      "wavefunctionGraph": {
         "accessibleHeading": {
-          "value": "Wave Function Graph"
+          "value": "Wavefunction Graph"
         },
         "accessibleParagraph": {
-          "value": "TODO.waveFunctionGraph.accessibleParagraph"
+          "value": "TODO.wavefunctionGraph.accessibleParagraph"
         }
       }
     },
@@ -522,15 +522,15 @@
           "value": "TODO.functionDetailsButton.probabilityDensity.accessibleContextResponse"
         }
       },
-      "waveFunction": {
+      "wavefunction": {
         "accessibleName": {
-          "value": "TODO.functionDetailsButton.waveFunction.accessibleName"
+          "value": "TODO.functionDetailsButton.wavefunction.accessibleName"
         },
         "accessibleHelpText": {
-          "value": "TODO.functionDetailsButton.waveFunction.accessibleHelpText"
+          "value": "TODO.functionDetailsButton.wavefunction.accessibleHelpText"
         },
         "accessibleContextResponse": {
-          "value": "TODO.functionDetailsButton.waveFunction.accessibleContextResponse"
+          "value": "TODO.functionDetailsButton.wavefunction.accessibleContextResponse"
         }
       }
     },

@@ -11,8 +11,8 @@ screen.manyWells:                           Many Wells
 
 # Preferences
 phaseFeatureControl:
-  label:       Wave Function Phase
-  description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
+  label:       Wavefunction Phase
+  description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wavefunction.
 
 # Titles
 potentialEnergy:                            Potential Energy
@@ -21,7 +21,7 @@ position_nm:                                Position (nm)
 energy_eV:                                  Energy (eV)
 averageProbabilityDensityOfBand:            Average Probability<br>Density of Band
 probabilityDensity:                         Probability Density
-waveFunction:                               Wave Function
+wavefunction:                               Wavefunction
 quantumStateGraph:                          Quantum State Graph
 energyDiagram:                              Energy Diagram
 
@@ -29,7 +29,7 @@ energyDiagram:                              Energy Diagram
 functionDetailsButton:
   averageProbabilityDensityOfBand: '|Ψ(x,t)|<sup>2</sup> = ...'
   probabilityDensity:              '|Ψ(x,t)|<sup>2</sup> = ...'
-  waveFunction:                    'Ψ(x,t) = ...'
+  wavefunction:                    'Ψ(x,t) = ...'
 
 # Checkboxes
 values:                                     Values
@@ -46,7 +46,7 @@ superpositionLabel:                         Superposition
 # Dialogs
 averageProbabilityDensityOfBandDialogTitle: Average Probability Density of Band
 probabilityDensityDialogTitle:              Probability Density
-waveFunctionDialogTitle:                    Wave Function
+wavefunctionDialogTitle:                    Wavefunction
 superpositionDetailsDialogTitle:            Superposition Details
 superpositionCustomizationDialogTitle:      Superposition Customization
 
@@ -163,8 +163,8 @@ a11y:
   quantumStateGraphControls:
     accessibleHeading: Quantum State Graph Controls
 
-  waveFunctionParts:
-    accessibleHeading: Wave Function Parts
+  wavefunctionParts:
+    accessibleHeading: Wavefunction Parts
 
   timeControls:
     accessibleHeading: Time Controls
@@ -182,22 +182,22 @@ a11y:
     accessibleContextResponseUnchecked: Values shown on focus.
 
   realPartCheckbox:
-    accessibleHelpText:                 Show or hide the real part of the wave function.
+    accessibleHelpText:                 Show or hide the real part of the wavefunction.
     accessibleContextResponseChecked:   Real part shown.
     accessibleContextResponseUnchecked: Real part hidden.
 
   imaginaryPartCheckbox:
-    accessibleHelpText:                 Show or hide the imaginary part of the wave function.
+    accessibleHelpText:                 Show or hide the imaginary part of the wavefunction.
     accessibleContextResponseChecked:   Imaginary part shown.
     accessibleContextResponseUnchecked: Imaginary part hidden.
 
   magnitudeCheckbox:
-    accessibleHelpText:                 Show or hide the magnitude of the wave function.
+    accessibleHelpText:                 Show or hide the magnitude of the wavefunction.
     accessibleContextResponseChecked:   Magnitude shown.
     accessibleContextResponseUnchecked: Magnitude hidden.
 
   phaseCheckbox:
-    accessibleHelpText:                 Show or hide the phase of the wave function.
+    accessibleHelpText:                 Show or hide the phase of the wavefunction.
     accessibleContextResponseChecked:   Phase shown.
     accessibleContextResponseUnchecked: Phase hidden.
 
@@ -248,9 +248,9 @@ a11y:
       accessibleHeading:   Probability Density Graph
       accessibleParagraph: TODO.probabilityDensityGraph.accessibleParagraph
 
-    waveFunctionGraph:
-      accessibleHeading:   Wave Function Graph
-      accessibleParagraph: TODO.waveFunctionGraph.accessibleParagraph
+    wavefunctionGraph:
+      accessibleHeading:   Wavefunction Graph
+      accessibleParagraph: TODO.wavefunctionGraph.accessibleParagraph
 
   #=======================================================================================================
   # Push Buttons
@@ -281,10 +281,10 @@ a11y:
       accessibleName:            TODO.functionDetailsButton.probabilityDensity.accessibleName
       accessibleHelpText:        TODO.functionDetailsButton.probabilityDensity.accessibleHelpText
       accessibleContextResponse: TODO.functionDetailsButton.probabilityDensity.accessibleContextResponse
-    waveFunction:
-      accessibleName:            TODO.functionDetailsButton.waveFunction.accessibleName
-      accessibleHelpText:        TODO.functionDetailsButton.waveFunction.accessibleHelpText
-      accessibleContextResponse: TODO.functionDetailsButton.waveFunction.accessibleContextResponse
+    wavefunction:
+      accessibleName:            TODO.functionDetailsButton.wavefunction.accessibleName
+      accessibleHelpText:        TODO.functionDetailsButton.wavefunction.accessibleHelpText
+      accessibleContextResponse: TODO.functionDetailsButton.wavefunction.accessibleContextResponse
 
   superpositionCustomizeButton:
     accessibleName:            TODO.superpositionCustomizeButton.accessibleName
