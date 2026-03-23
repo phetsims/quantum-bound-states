@@ -88,12 +88,6 @@ export default class QBSScreenView extends ScreenView {
 
     const timePanel = new TimePanel( model.time, options.tandem.createTandem( 'timePanel' ) );
 
-    // Wrap magnifierNode in a Node so that the probe drags in the same coordinate frame as the graphs.
-    const magnifierNode = new MagnifierNode( model.magnifier, options.tandem.createTandem( 'magnifierNode' ) );
-    const magnifierWrapper = new Node( {
-      children: [ magnifierNode ]
-    } );
-
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
@@ -125,8 +119,6 @@ export default class QBSScreenView extends ScreenView {
     curvesVisibleToggleButton.top = quantumStateGraphRectangleBounds.top + 8;
     toolsPanel.left = quantumStateGraphRectangleBounds.left;
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
-    magnifierWrapper.right = energyDiagramRectangleBounds.x + QBSConstants.ALL_GRAPHS_VIEW_WIDTH - 5;
-    magnifierWrapper.y = energyDiagramRectangleBounds.y + 5;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     if ( yAxisZoomButtonGroup ) {
@@ -146,6 +138,17 @@ export default class QBSScreenView extends ScreenView {
     timePanel.boundsProperty.link( () => {
       timePanel.right = energyDiagramRectangleBounds.right;
       timePanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
+    } );
+
+    const magnifierNode = new MagnifierNode( model.magnifier, energyDiagramNode.chartTransform,
+      options.tandem.createTandem( 'magnifierNode' ) );
+
+    // Wrap magnifierNode in a Node so that the probe drags in the same coordinate frame as the graphs.
+    // Caution! Positioning is very specific to account for the lineWidth of the stroke around the ChartRectangles.
+    const magnifierWrapper = new Node( {
+      children: [ magnifierNode ],
+      x: energyDiagramNode.x,
+      y: energyDiagramNode.y
     } );
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyDiagramNode.chartTransform, {

@@ -37,7 +37,8 @@ export default class Magnifier extends PhetioObject {
       tandem: tandem.createTandem( 'visibleProperty' ),
       phetioFeatured: true
     } );
-    
+
+    //TODO probePositionProperty must be updated when y-axis range changes.
     this.probePositionProperty = new Vector2Property( Vector2.ZERO, {
       tandem: tandem.createTandem( 'probePositionProperty' ),
       phetioFeatured: true

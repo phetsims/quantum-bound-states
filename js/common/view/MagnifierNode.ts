@@ -9,6 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { linear } from '../../../../dot/js/util/linear.js';
@@ -29,6 +30,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Magnifier from '../model/Magnifier.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import MagnifierDragListener from './MagnifierDragListener.js';
 
 const DISPLAY_SIZE = new Dimension2( 170, 70 );
 const CORNER_RADIUS = 8;
@@ -37,11 +39,13 @@ const BOTTOM_BEZEL_WIDTH = 20;
 
 export default class MagnifierNode extends Node {
 
-  public constructor( magnifier: Magnifier, tandem: Tandem ) {
+  public constructor( magnifier: Magnifier, chartTransform: ChartTransform, tandem: Tandem ) {
 
     const bodyNode = new MagnifierBodyNode( magnifier );
+    bodyNode.right = chartTransform.modelToViewX( chartTransform.modelXRange.max ) - 5;
+    bodyNode.top = 5;
 
-    const probeNode = new MagnifierProbeNode( tandem.createTandem( 'probeNode' ) );
+    const probeNode = new MagnifierProbeNode( magnifier, chartTransform, tandem.createTandem( 'probeNode' ) );
 
     const wireNode = new MagnifierWireNode( bodyNode, probeNode );
 
@@ -52,10 +56,6 @@ export default class MagnifierNode extends Node {
       accessibleParagraph: QuantumBoundStatesFluent.a11y.magnifier.accessibleParagraphStringProperty,
       tandem: tandem
     } );
-
-    //TODO delete this
-    probeNode.right = bodyNode.left - 50;
-    probeNode.top = bodyNode.bottom;
   }
 }
 
@@ -104,9 +104,9 @@ class MagnifierBodyNode extends Node {
 /**
  * MagnifierProbeNode is the movable probe, for selecting which part of the Energy graph is displayed.
  */
-class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
+export class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
-  public constructor( tandem: Tandem ) {
+  public constructor( magnifier: Magnifier, chartTransform: ChartTransform, tandem: Tandem ) {
 
     const options = combineOptions<ProbeNodeOptions>( {}, AccessibleDraggableOptions, QBSConstants.PROBE_NODE_OPTIONS, {
       cursor: 'pointer',
@@ -118,6 +118,17 @@ class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
     } );
 
     super( options );
+
+    this.addInputListener( new MagnifierDragListener( this, magnifier.probePositionProperty, chartTransform, tandem ) );
+
+    magnifier.probePositionProperty.link( probePosition => {
+      console.log( 'probePosition = ' + probePosition );//TODO
+      this.translation = probePosition;
+    } );
+  }
+
+  public doAccessibleObjectResponse(): void {
+    //TODO doAccessibleObjectResponse
   }
 }
 
