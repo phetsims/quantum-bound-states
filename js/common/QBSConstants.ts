@@ -26,7 +26,7 @@ export default class QBSConstants {
     // Not intended for instantiation.
   }
 
-  // Credits are shared by all sims in this family.
+  // Credits are shared by all sims in this suite.
   public static readonly CREDITS: CreditsData = {
     leadDesign: 'Sam McKagan',
     softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
