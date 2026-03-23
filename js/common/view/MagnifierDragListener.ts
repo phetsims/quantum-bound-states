@@ -38,6 +38,9 @@ export default class MagnifierDragListener extends SoundRichDragListener {
       transform: transform,
       positionProperty: probePositionProperty,
       dragBoundsProperty: dragBoundsProperty,
+      dragListenerOptions: {
+        useParentOffset: true //TODO delete this?
+      },
       keyboardDragListenerOptions: {
         dragDelta: chartTransform.modelToViewDeltaX( 0.1 ),
         shiftDragDelta: chartTransform.modelToViewDeltaX( 0.01 ),

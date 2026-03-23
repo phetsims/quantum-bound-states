@@ -121,6 +121,7 @@ export class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
     this.addInputListener( new MagnifierDragListener( this, magnifier.probePositionProperty, chartTransform, tandem ) );
 
+    //TODO Positioning of the probe does not work yet.
     magnifier.probePositionProperty.link( probePosition => {
       console.log( 'probePosition = ' + probePosition );//TODO
       this.translation = probePosition;
