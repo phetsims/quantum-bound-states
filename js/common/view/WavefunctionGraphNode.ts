@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionGraphNode is the view for the 'Wave Function' graph.
+ * WavefunctionGraphNode is the view for the Wavefunction graph.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,9 +12,9 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
-import WaveFunctionDetailsDialog from './WaveFunctionDetailsDialog.js';
+import WavefunctionDetailsDialog from './WavefunctionDetailsDialog.js';
 
-export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
+export default class WavefunctionGraphNode extends QuantumStateGraphNode {
 
   public constructor( model: QBSModel, tandem: Tandem ) {
 
@@ -27,7 +27,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       yTickLabelDecimals: 1,
 
       // Visible when this graph is selected.
-      visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.waveFunctionGraph ),
+      visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.wavefunctionGraph ),
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty,
@@ -35,7 +35,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
       // Options for the button that opens a dialog that shows the expanded equation.
       functionDetailsButtonOptions: {
-        listener: () => new WaveFunctionDetailsDialog().show(),
+        listener: () => new WavefunctionDetailsDialog().show(),
         labelStringProperty: QuantumBoundStatesFluent.functionDetailsButton.waveFunctionStringProperty,
         accessibleName: QuantumBoundStatesFluent.a11y.functionDetailsButton.waveFunction.accessibleNameStringProperty,
         accessibleHelpText: QuantumBoundStatesFluent.a11y.functionDetailsButton.waveFunction.accessibleHelpTextStringProperty,

@@ -10,9 +10,9 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
-import WaveFunctionPartsCheckbox from './WaveFunctionPartsCheckbox.js';
+import WavefunctionPartsCheckbox from './WavefunctionPartsCheckbox.js';
 
-export default class MagnitudeCheckbox extends WaveFunctionPartsCheckbox {
+export default class MagnitudeCheckbox extends WavefunctionPartsCheckbox {
 
   public constructor( imaginaryPartVisibleProperty: Property<boolean>, tandem: Tandem ) {
     super( imaginaryPartVisibleProperty, {

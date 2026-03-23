@@ -22,7 +22,7 @@ import TColor from '../../../../scenery/js/util/TColor.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSConstants from '../QBSConstants.js';
-import WaveFunctionPartsCheckbox, { WaveFunctionComponentCheckboxOptions } from './WaveFunctionPartsCheckbox.js';
+import WavefunctionPartsCheckbox, { WaveFunctionComponentCheckboxOptions } from './WavefunctionPartsCheckbox.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -30,7 +30,7 @@ type PhaseCheckboxOptions = SelfOptions &
   PickOptional<WaveFunctionComponentCheckboxOptions, 'layoutOptions' | 'visibleProperty' | 'enabledProperty'> &
   PickRequired<WaveFunctionComponentCheckboxOptions, 'tandem'>;
 
-export default class PhaseCheckbox extends WaveFunctionPartsCheckbox {
+export default class PhaseCheckbox extends WavefunctionPartsCheckbox {
 
   public constructor( phaseVisibleProperty: Property<boolean>, providedOptions: PhaseCheckboxOptions ) {
 

@@ -25,7 +25,7 @@ import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import XGrid from './solver/XGrid.js';
 import Time from './Time.js';
-import WaveFunctionGraph from './WaveFunctionGraph.js';
+import WavefunctionGraph from './WavefunctionGraph.js';
 
 type SelfOptions = {
   potential?: Potential;
@@ -49,7 +49,7 @@ export default class QBSModel implements TModel {
   // The possible QuantumStateGraphs.
   public readonly averageProbabilityDensityOfBandGraph?: AverageProbabilityDensityOfBandGraph;
   public readonly probabilityDensityGraph: ProbabilityDensityGraph;
-  public readonly waveFunctionGraph: WaveFunctionGraph;
+  public readonly wavefunctionGraph: WavefunctionGraph;
 
   // The QuantumStateGraph that is currently selected and displayed.
   public readonly quantumStateGraphProperty: Property<QuantumStateGraph>;
@@ -110,8 +110,8 @@ export default class QBSModel implements TModel {
     this.probabilityDensityGraph = new ProbabilityDensityGraph( quantumStateGraphsTandem.createTandem( 'probabilityDensityGraph' ) );
     quantumStateGraphs.push( this.probabilityDensityGraph );
 
-    this.waveFunctionGraph = new WaveFunctionGraph( quantumStateGraphsTandem.createTandem( 'waveFunctionGraph' ) );
-    quantumStateGraphs.push( this.waveFunctionGraph );
+    this.wavefunctionGraph = new WavefunctionGraph( quantumStateGraphsTandem.createTandem( 'wavefunctionGraph' ) );
+    quantumStateGraphs.push( this.wavefunctionGraph );
 
     this.quantumStateGraphProperty = new Property( quantumStateGraphs[ 0 ], {
       validValues: quantumStateGraphs,
@@ -140,7 +140,7 @@ export default class QBSModel implements TModel {
     this.energyDiagram.reset();
     this.averageProbabilityDensityOfBandGraph && this.averageProbabilityDensityOfBandGraph.reset();
     this.probabilityDensityGraph.reset();
-    this.waveFunctionGraph.reset();
+    this.wavefunctionGraph.reset();
     this.quantumStateGraphProperty.reset();
     this.magnifier.reset();
     this.referenceLine.reset();

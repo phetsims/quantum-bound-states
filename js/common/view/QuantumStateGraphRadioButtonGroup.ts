@@ -16,7 +16,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import AverageProbabilityDensityOfBandGraph from '../model/AverageProbabilityDensityOfBandGraph.js';
 import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
 import QuantumStateGraph from '../model/QuantumStateGraph.js';
-import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
+import WavefunctionGraph from '../model/WavefunctionGraph.js';
 import QBSConstants from '../QBSConstants.js';
 
 const TEXT_MAX_WIDTH = 165;
@@ -55,11 +55,11 @@ export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGr
       } );
     }
 
-    // Wave Function
-    const waveFunctionGraph = _.find( graphs, graph => graph instanceof WaveFunctionGraph );
-    if ( waveFunctionGraph ) {
+    // Wavefunction
+    const wavefunctionGraph = _.find( graphs, graph => graph instanceof WavefunctionGraph );
+    if ( wavefunctionGraph ) {
       items.push( {
-        value: waveFunctionGraph,
+        value: wavefunctionGraph,
         createNode: tandem => new RichText( QuantumBoundStatesFluent.waveFunctionStringProperty, {
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH

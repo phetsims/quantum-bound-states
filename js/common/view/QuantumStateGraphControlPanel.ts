@@ -16,17 +16,17 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QuantumStateGraph from '../model/QuantumStateGraph.js';
-import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
+import WavefunctionGraph from '../model/WavefunctionGraph.js';
 import QBSConstants from '../QBSConstants.js';
 import QuantumStateGraphRadioButtonGroup from './QuantumStateGraphRadioButtonGroup.js';
-import WaveFunctionPartsCheckboxGroup from './WaveFunctionPartsCheckboxGroup.js';
+import WavefunctionPartsCheckboxGroup from './WavefunctionPartsCheckboxGroup.js';
 
 export default class QuantumStateGraphControlPanel extends Panel {
 
   public static readonly FIXED_WIDTH = 235;
 
   public constructor( selectedGraphProperty: Property<QuantumStateGraph>,
-                      waveFunctionGraph: WaveFunctionGraph,
+                      wavefunctionGraph: WavefunctionGraph,
                       tandem: Tandem ) {
 
     const titleText = new Text( QuantumBoundStatesFluent.quantumStateGraphStringProperty, {
@@ -40,12 +40,12 @@ export default class QuantumStateGraphControlPanel extends Panel {
     const quantumStateGraphRadioButtonGroup = new QuantumStateGraphRadioButtonGroup( selectedGraphProperty,
       tandem.createTandem( 'quantumStateGraphRadioButtonGroup' ) );
 
-    const waveFunctionPartsCheckboxGroup = new WaveFunctionPartsCheckboxGroup( waveFunctionGraph, {
+    const wavefunctionPartsCheckboxGroup = new WavefunctionPartsCheckboxGroup( wavefunctionGraph, {
       layoutOptions: {
-        leftMargin: 25 // indent below graphTypeRadioButtonGroup
+        leftMargin: 25 // indent below quantumStateGraphRadioButtonGroup
       },
-      enabledProperty: new DerivedProperty( [ selectedGraphProperty ], selectedGraph => selectedGraph === waveFunctionGraph ),
-      tandem: tandem.createTandem( 'waveFunctionPartsCheckboxGroup' )
+      enabledProperty: new DerivedProperty( [ selectedGraphProperty ], selectedGraph => selectedGraph === wavefunctionGraph ),
+      tandem: tandem.createTandem( 'wavefunctionPartsCheckboxGroup' )
     } );
 
     const content = new VBox( {
@@ -54,7 +54,7 @@ export default class QuantumStateGraphControlPanel extends Panel {
       children: [
         titleText,
         quantumStateGraphRadioButtonGroup,
-        waveFunctionPartsCheckboxGroup
+        wavefunctionPartsCheckboxGroup
       ]
     } );
 

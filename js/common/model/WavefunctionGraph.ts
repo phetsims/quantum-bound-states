@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionGraph is the model for the 'Wave Function' graph.
+ * WavefunctionGraph is the model for the Wavefunction graph.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,7 +12,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 
-export default class WaveFunctionGraph extends QuantumStateGraph {
+export default class WavefunctionGraph extends QuantumStateGraph {
 
   // Visibility of the wavefunction components
   public readonly realPartVisibleProperty: Property<boolean>;

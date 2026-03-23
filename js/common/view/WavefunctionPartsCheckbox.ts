@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionPartsCheckbox is the base class for checkboxes that show/hide a component of the wavefunction.
+ * WavefunctionPartsCheckbox is the base class for checkboxes that show/hide a component of the wavefunction.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -34,7 +34,7 @@ type SelfOptions = {
 
 export type WaveFunctionComponentCheckboxOptions = SelfOptions & CheckboxOptions & PickRequired<CheckboxOptions, 'tandem'>;
 
-export default class WaveFunctionPartsCheckbox extends Checkbox {
+export default class WavefunctionPartsCheckbox extends Checkbox {
 
   protected constructor( componentVisibleProperty: Property<boolean>,
                          providedOptions: WaveFunctionComponentCheckboxOptions ) {
