@@ -121,15 +121,14 @@ export class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
     this.addInputListener( new MagnifierDragListener( this, magnifier.probePositionProperty, chartTransform, tandem ) );
 
-    //TODO Positioning of the probe does not work yet.
+    //TODO Probe moves horizontally but not vertically.
     magnifier.probePositionProperty.link( probePosition => {
-      console.log( 'probePosition = ' + probePosition );//TODO
-      this.translation = probePosition;
+      this.translation = chartTransform.modelToViewPosition( probePosition );
     } );
   }
 
   public doAccessibleObjectResponse(): void {
-    //TODO doAccessibleObjectResponse
+    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.magnifier.probe.accessibleObjectResponseStringProperty );
   }
 }
 
