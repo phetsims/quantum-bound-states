@@ -154,6 +154,7 @@ export default class QBSScreenView extends ScreenView {
     } );
 
     // Wrap referenceLineNode in a Node so that it drags in the same coordinate frame as the graphs.
+    // Caution! Positioning is very specific to account for the lineWidth of the stroke around the ChartRectangles.
     const referenceLineWrapper = new Node( {
       children: [ referenceLineNode ],
       x: energyDiagramNode.x,
