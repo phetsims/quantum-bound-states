@@ -55,6 +55,11 @@ export default class ReferenceLineNode extends Node {
       pickable: false // optimization
     } );
 
+    // Keep the vertical line centered on the handle.
+    handleNode.boundsProperty.link( bounds => {
+      verticalLine.centerX = bounds.centerX;
+    } );
+
     const options = optionize<ReferenceLineNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
@@ -66,11 +71,6 @@ export default class ReferenceLineNode extends Node {
     }, providedOptions );
 
     super( options );
-
-    //TODO Fix transforms so that this can be this.x = chartTransform.moveToViewX( x )
-    referenceLine.xProperty.link( x => {
-      verticalLine.centerX = chartTransform.modelToViewX( x );
-    } );
   }
 }
 
