@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { GridLineSetOptions } from '../../../bamboo/js/GridLineSet.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
 import RangeWithValue from '../../../dot/js/RangeWithValue.js';
@@ -101,6 +102,12 @@ export default class QBSConstants {
 
   public static readonly DIALOG_OPTIONS: DialogOptions = {
     tandem: Tandem.OPT_OUT // Not instrumenting dialogs was a design decision.
+  };
+
+  public static readonly GRID_LINE_SET_OPTIONS: GridLineSetOptions = {
+    lineWidth: 1,
+    lineDash: [ 4, 4 ],
+    stroke: QBSColors.gridLinesStrokeProperty
   };
 
   public static readonly NUMBER_CONTROL_OPTIONS: NumberControlOptions = {

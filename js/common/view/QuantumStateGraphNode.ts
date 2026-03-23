@@ -123,17 +123,11 @@ export default class QuantumStateGraphNode extends Node {
       } )
     } );
 
-    const horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
-      lineWidth: 1,
-      lineDash: [ 4, 4 ],
-      stroke: QBSColors.gridLinesStrokeProperty
-    } );
+    const horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing,
+      QBSConstants.GRID_LINE_SET_OPTIONS );
 
-    const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL, QBSConstants.ALL_GRAPHS_X_TICK_SPACING, {
-      lineWidth: 1,
-      lineDash: [ 4, 4 ],
-      stroke: QBSColors.gridLinesStrokeProperty
-    } );
+    const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL, QBSConstants.ALL_GRAPHS_X_TICK_SPACING,
+      QBSConstants.GRID_LINE_SET_OPTIONS );
 
     const xAxis = new AxisLine( this.chartTransform, Orientation.HORIZONTAL, {
       extension: 0,
