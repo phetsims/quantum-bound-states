@@ -23,7 +23,7 @@ User API
    └── NumerovSolver (orchestrator, main API entry point)
          ├── NumerovIntegrator (integration)
          ├── EnergyRefiner (eigenvalue refinement)
-         └── WavefunctionNormalizer (probability normalization)
+         └── WaveFunctionNormalizer (probability normalization)
 
 Supporting Classes
    ├── XGrid (spatial grid)
@@ -146,7 +146,7 @@ After the shooting method detects a sign change indicating a bound state, this c
 
 ---
 
-### WavefunctionNormalizer.ts
+### WaveFunctionNormalizer.ts
 **Purpose**: Probability normalization
 **Responsibility**: Ensures ∫|ψ|² dx = 1
 
@@ -251,7 +251,7 @@ The complete solution process follows this sequence:
 
 4. **Finalization Phase**
    - Integrate at refined energy to get final ψ(x)
-   - Normalize using WavefunctionNormalizer
+   - Normalize using WaveFunctionNormalizer
    - Add to results
 
 5. **Return**

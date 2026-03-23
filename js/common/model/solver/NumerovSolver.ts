@@ -19,7 +19,7 @@ import { BoundStateResult } from './BoundStateResult.js';
 import EnergyRefiner from './EnergyRefiner.js';
 import NumerovIntegrator from './NumerovIntegrator.js';
 import { PotentialFunction } from './PotentialFunction.js';
-import WavefunctionNormalizer, { NormalizationMethod } from './WavefunctionNormalizer.js';
+import WaveFunctionNormalizer, { NormalizationMethod } from './WaveFunctionNormalizer.js';
 import XGrid from './XGrid.js';
 
 /**
@@ -63,7 +63,7 @@ export default class NumerovSolver {
 
   private readonly integrator: NumerovIntegrator;
   private readonly energyRefiner: EnergyRefiner;
-  private readonly normalizer: WavefunctionNormalizer;
+  private readonly normalizer: WaveFunctionNormalizer;
 
   /**
    * @param mass - Particle mass in kg
@@ -79,7 +79,7 @@ export default class NumerovSolver {
                                                                         : {};
     this.energyRefiner = new EnergyRefiner( this.integrator, energyRefinerOptions );
 
-    this.normalizer = new WavefunctionNormalizer(
+    this.normalizer = new WaveFunctionNormalizer(
       options?.normalizationMethod ?? 'trapezoidal'
     );
   }
