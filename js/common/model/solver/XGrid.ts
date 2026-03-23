@@ -1,6 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO This needs a better name, 'grid' implies 2D.
+//TODO This needs a better name, 'grid' implies 2D. LinearSpacedVector?
 /**
  * XGrid is a uniformly spaced 1D spatial grid for quantum mechanics calculations.
  * This class eliminates redundancy by computing derived properties (dx, width, x-coordinates)
