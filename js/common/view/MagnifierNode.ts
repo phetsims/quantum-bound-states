@@ -13,6 +13,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { linear } from '../../../../dot/js/util/linear.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
@@ -83,6 +84,17 @@ class MagnifierBodyNode extends Node {
       top: shadedRectangle.top + BEZEL_WIDTH
     } );
 
+    //TODO temporarily display probe position as (x,y)
+    const xyStringProperty = new DerivedProperty( [ magnifier.probePositionProperty ],
+      probePosition => `(${toFixed( probePosition.x, 2 )}, ${toFixed( probePosition.y, 2 )})` );
+    const xyText = new Text( xyStringProperty, {
+      font: new PhetFont( 12 ),
+      fill: 'red'
+    } );
+    xyText.boundsProperty.link( bounds => {
+      xyText.center = displayNode.center;
+    } );
+
     const powerStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.magnificationPowerStringProperty, {
       value: Magnifier.MAGNIFICATION_POWER
     } );
@@ -96,7 +108,7 @@ class MagnifierBodyNode extends Node {
     } );
 
     super( {
-      children: [ shadedRectangle, displayNode, powerText ]
+      children: [ shadedRectangle, displayNode, xyText, powerText ]
     } );
   }
 }
