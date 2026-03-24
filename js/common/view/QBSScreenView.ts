@@ -152,7 +152,8 @@ export default class QBSScreenView extends ScreenView {
     } );
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyDiagramNode.chartTransform, {
-      lineLength: Math.abs( energyDiagramRectangleBounds.top - quantumStateGraphRectangleBounds.bottom ),
+      // -2 so that line is inside stroke of chartRectangles
+      lineLength: Math.abs( energyDiagramRectangleBounds.top - quantumStateGraphRectangleBounds.bottom ) - 2,
       tandem: options.tandem.createTandem( 'referenceLineNode' )
     } );
 
