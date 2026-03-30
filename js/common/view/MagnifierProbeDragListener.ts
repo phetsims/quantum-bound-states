@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MagnifierDragListener is the drag listener for moving the Magnifier.
+ * MagnifierProbeDragListener is the drag listener for moving the Magnifier.
  * It supports both pointer and keyboard dragging, with sound feedback.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -16,7 +16,7 @@ import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragList
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { MagnifierProbeNode } from './MagnifierNode.js';
 
-export default class MagnifierDragListener extends SoundRichDragListener {
+export default class MagnifierProbeDragListener extends SoundRichDragListener {
 
   public constructor( magnifierProbeNode: MagnifierProbeNode,
                       probePositionProperty: Property<Vector2>,

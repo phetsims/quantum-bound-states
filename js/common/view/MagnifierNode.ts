@@ -31,7 +31,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Magnifier from '../model/Magnifier.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import MagnifierDragListener from './MagnifierDragListener.js';
+import MagnifierProbeDragListener from './MagnifierProbeDragListener.js';
 
 const DISPLAY_SIZE = new Dimension2( 170, 70 );
 const CORNER_RADIUS = 8;
@@ -131,7 +131,7 @@ export class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
     super( options );
 
-    this.addInputListener( new MagnifierDragListener( this, magnifier.probePositionProperty, chartTransform, tandem ) );
+    this.addInputListener( new MagnifierProbeDragListener( this, magnifier.probePositionProperty, chartTransform, tandem ) );
 
     magnifier.probePositionProperty.link( probePosition => {
       this.translation = chartTransform.modelToViewPosition( probePosition );
