@@ -180,8 +180,8 @@ class MagnifierWireNode extends Path {
       const c1XOffset = 0;
       const c1YOffset = linear( 0, 800, 0, 200, Math.abs( bodyNode.centerX - probeNode.centerX ) ); // x distance -> y offset
       const c1 = new Vector2( bodyConnectionPoint.x + c1XOffset, bodyConnectionPoint.y + c1YOffset );
-      const c2XOffset = 50 * ( ( bodyNode.centerX - probeNode.centerX > 0 ) ? 1 : -1 );
-      const c2YOffset = 150;
+      const c2XOffset = 0;
+      const c2YOffset = linear( 0, 800, 100, 150, Math.abs( bodyNode.centerX - probeNode.centerX ) ); // x distance -> y offset
       const c2 = new Vector2( probeConnectionPoint.x + c2XOffset, probeConnectionPoint.y + c2YOffset );
 
       // cubic curve
