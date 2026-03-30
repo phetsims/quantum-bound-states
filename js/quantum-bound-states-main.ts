@@ -35,9 +35,6 @@ simLauncher.launch( () => {
   const options: SimOptions = {
     credits: QBSConstants.CREDITS,
     preferencesModel: new PreferencesModel( {
-      visualOptions: {
-        supportsProjectorMode: true
-      },
       simulationOptions: {
         customPreferences: [ {
           createContent: tandem => new QBSSimulationPreferencesNode( tandem.createTandem( 'content' ) )

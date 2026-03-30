@@ -37,13 +37,11 @@ export default class QBSColors {
   } );
 
   public static readonly chartRectangleFillProperty = new ProfileColorProperty( quantumBoundStates, 'chartRectangleFill', {
-    default: 'white',
-    projector: 'black'
+    default: 'white'
   } );
 
   public static readonly chartRectangleStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'chartRectangleStroke', {
-    default: Color.grayColor( 100 ),
-    projector: Color.grayColor( 200 )
+    default: Color.grayColor( 100 )
   } );
 
   public static readonly controlPanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'controlPanelFill', {
@@ -79,13 +77,11 @@ export default class QBSColors {
   } );
 
   public static readonly xAxisStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'xAxisStroke', {
-    default: Color.grayColor( 100 ),
-    projector: Color.grayColor( 200 )
+    default: Color.grayColor( 100 )
   } );
 
   public static readonly gridLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'gridLinesStroke', {
-    default: Color.grayColor( 200 ),
-    projector: Color.grayColor( 100 )
+    default: Color.grayColor( 200 )
   } );
 
   public static readonly referenceLineStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'referenceLineStroke', {
@@ -169,8 +165,7 @@ export default class QBSColors {
   } );
 
   public static readonly magnifierDisplayFillProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierDisplayFill', {
-    default: 'white',
-    projector: 'black'
+    default: 'white'
   } );
 
   public static readonly magnifierDisplayStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierDisplayStroke', {
@@ -178,13 +173,11 @@ export default class QBSColors {
   } );
 
   public static readonly magnifierProbeColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierProbeColor', {
-    default: Color.grayColor( 150 ),
-    projector: Color.grayColor( 200 )
+    default: Color.grayColor( 150 )
   } );
 
   public static readonly magnifierCrosshairsStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierCrosshairsStroke', {
-    default: 'black',
-    projector: 'white'
+    default: 'black'
   } );
 
   public static readonly magnifierWireStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierWireStroke', {
