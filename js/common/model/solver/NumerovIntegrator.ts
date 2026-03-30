@@ -17,7 +17,6 @@ import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js
 import NumerovSolver from './NumerovSolver.js';
 import XGrid from './XGrid.js';
 
-const HBAR = NumerovSolver.HBAR;
 const VERY_LARGE_VALUE = 1e300;
 
 export default class NumerovIntegrator {
@@ -142,7 +141,7 @@ export default class NumerovIntegrator {
    * @returns Array of k² values
    */
   private calculateK2( E: number, V: number[] ): number[] {
-    return V.map( v => ( 2 * this.mass * ( E - v ) ) / ( HBAR * HBAR ) );
+    return V.map( v => ( 2 * this.mass * ( E - v ) ) / ( NumerovSolver.HBAR * NumerovSolver.HBAR ) );
   }
 
   /**
