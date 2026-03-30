@@ -28,7 +28,6 @@ User API
 Supporting Classes
    ├── XGrid (spatial grid)
    ├── FundamentalConstants (physical constants)
-   ├── PotentialFunction (type definitions)
    └── analytical-solutions/ (validation)
          ├── HarmonicOscillatorSolution
          ├── InfiniteSquareWellSolution
@@ -176,18 +175,6 @@ All calculations in the model use natural units: electron masses for mass, eV fo
 
 ---
 
-### PotentialFunction.ts
-**Purpose**: Type definitions
-**Responsibility**: TypeScript interfaces for inputs and outputs
-
-Key types:
-- `PotentialFunction`: (x: number) => number
-- `GridConfig`: {xMin, xMax, numPoints}
-- `BoundStateResult`: {potentials, energies, waveFunctions, method}
-- `Parity`: 'symmetric' | 'antisymmetric'
-
----
-
 ## Analytical Solutions (analytical-solutions/)
 
 This subdirectory contains exact analytical solutions for quantum systems that can be solved mathematically. These modules serve two purposes:
@@ -255,7 +242,7 @@ The complete solution process follows this sequence:
    - Add to results
 
 5. **Return**
-   - Package energies, wave functions, and grid into BoundStateResult
+   - Potential energies, eigenvalues, and wave functions
 
 ## Performance Characteristics
 
