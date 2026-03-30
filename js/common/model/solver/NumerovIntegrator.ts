@@ -14,10 +14,10 @@
  */
 
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import FundamentalConstants from './FundamentalConstants.js';
+import NumerovSolver from './NumerovSolver.js';
 import XGrid from './XGrid.js';
 
-const HBAR = FundamentalConstants.HBAR;
+const HBAR = NumerovSolver.HBAR;
 const VERY_LARGE_VALUE = 1e300;
 
 export default class NumerovIntegrator {

@@ -30,9 +30,11 @@
  */
 
 import { BoundStateResult } from '../BoundStateResult.js';
-import FundamentalConstants from '../FundamentalConstants.js';
+import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import XGrid from '../XGrid.js';
+
+const HBAR = NumerovSolver.HBAR;
 
 /**
  * Parity of the wave function (even or odd symmetry).
@@ -226,7 +228,6 @@ function findBoundStateEnergies(
   energyMin: number,
   energyMax: number
 ): { energies: number[]; parities: Parity[] } {
-  const { HBAR } = FundamentalConstants;
 
   // All bound states have energies between -V₀ and 0
   const actualEnergyMin = Math.max( energyMin, -wellDepth );
@@ -329,7 +330,6 @@ function calculateWaveFunction(
   mass: number,
   xGridArray: number[]
 ): number[] {
-  const { HBAR } = FundamentalConstants;
 
   // Calculate wave numbers
   const k = Math.sqrt( 2 * mass * ( energy + wellDepth ) / ( HBAR * HBAR ) );

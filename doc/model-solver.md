@@ -27,7 +27,6 @@ User API
 
 Supporting Classes
    ├── XGrid (spatial grid)
-   ├── FundamentalConstants (physical constants)
    └── analytical-solutions/ (validation)
          ├── HarmonicOscillatorSolution
          ├── InfiniteSquareWellSolution
@@ -164,14 +163,6 @@ The class also provides validation through `isNormalized()` to verify normalizat
 **Responsibility**: Manages the spatial grid x[0], x[1], ..., x[N-1]
 
 The grid is uniform with spacing dx = (xMax - xMin) / (numPoints - 1).
-
----
-
-### FundamentalConstants.ts
-**Purpose**: Physical constants
-**Responsibility**: Provides natural unit constants (mₑ = 1, eV = 1, nm = 1)
-
-All calculations in the model use natural units: electron masses for mass, eV for energy, nm for length.
 
 ---
 

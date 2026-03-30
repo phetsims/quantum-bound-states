@@ -17,10 +17,12 @@
 
 import factorial from '../../../../../../dot/js/util/factorial.js';
 import { BoundStateResult } from '../BoundStateResult.js';
-import FundamentalConstants from '../FundamentalConstants.js';
+import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import XGrid from '../XGrid.js';
 import hermitePolynomial from './hermitePolynomial.js';
+
+const HBAR = NumerovSolver.HBAR;
 
 export default class HarmonicOscillatorSolution {
 
@@ -79,7 +81,6 @@ export default class HarmonicOscillatorSolution {
     energyMin: number,
     energyMax: number
   ): BoundStateResult {
-    const { HBAR } = FundamentalConstants;
     const omega = Math.sqrt( springConstant / mass );
 
     // Calculate energies: E_n = ℏω(n + 1/2) for n = 0, 1, 2, ...

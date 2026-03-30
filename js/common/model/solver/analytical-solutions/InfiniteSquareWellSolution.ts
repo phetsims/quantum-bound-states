@@ -21,9 +21,11 @@
  */
 
 import { BoundStateResult } from '../BoundStateResult.js';
-import FundamentalConstants from '../FundamentalConstants.js';
+import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import XGrid from '../XGrid.js';
+
+const HBAR = NumerovSolver.HBAR;
 
 export default class InfiniteSquareWellSolution {
 
@@ -73,7 +75,6 @@ export default class InfiniteSquareWellSolution {
     energyMin: number,
     energyMax: number
   ): BoundStateResult {
-    const { HBAR } = FundamentalConstants;
 
     // Calculate energies: E_n = (n² π² ℏ²) / (2mL²) for n = 1, 2, 3, ...
     // Find all n where energyMin <= E_n <= energyMax

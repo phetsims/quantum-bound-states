@@ -36,6 +36,10 @@ export type NumerovSolverOptions = {
 
 export default class NumerovSolver {
 
+  // Reduced Planck constant (hbar) in natural units: √(eV⋅mₑ)⋅nm
+  // Computed as: 1.054571817e-34 / (1e-9 * sqrt(9.1093837015e-31 * 1.602176634e-19))
+  public static readonly HBAR = 0.2760428268035944;
+
   /**
    * Main entry point for solving with default NumerovSolverOptions.
    *

@@ -14,12 +14,11 @@ import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js
 import FiniteSquareWellSolution from './analytical-solutions/FiniteSquareWellSolution.js';
 import HarmonicOscillatorSolution from './analytical-solutions/HarmonicOscillatorSolution.js';
 import InfiniteSquareWellSolution from './analytical-solutions/InfiniteSquareWellSolution.js';
-import FundamentalConstants from './FundamentalConstants.js';
 import NumerovSolver from './NumerovSolver.js';
 import XGrid from './XGrid.js';
 
-const HBAR = FundamentalConstants.HBAR;
-const ELECTRON_MASS = FundamentalConstants.ELECTRON_MASS;
+const HBAR = NumerovSolver.HBAR;
+const ELECTRON_MASSES = 1; // electron masses
 
 /**
  * Count the number of nodes (zero crossings) in a wave function.
@@ -162,7 +161,7 @@ function formatTable( rows: Array<Array<string | number>>, headers?: Array<strin
  */
 function testHarmonicOscillator(): void {
 
-  const mass = ELECTRON_MASS;  // electron masses
+  const mass = ELECTRON_MASSES;  // electron masses
   const k = 5.685630103565724;  // arbitrary spring constant, eV/nm²
   const omega = Math.sqrt( k / mass );  // natural frequency
   const potential = ( x: number ) => 0.5 * k * x * x;  // eV
@@ -230,7 +229,7 @@ function testHarmonicOscillator(): void {
  */
 function testInfiniteSquareWell(): void {
 
-  const mass = ELECTRON_MASS;
+  const mass = ELECTRON_MASSES; // electron masses
   const L = 4;  // 4 nm
   const V0 = 50;  // 50 eV barrier
   const potential = ( x: number ) => Math.abs( x ) < L / 2 ? 0 : V0;
@@ -292,7 +291,7 @@ function testInfiniteSquareWell(): void {
  */
 function testFiniteSquareWell(): void {
 
-  const mass = ELECTRON_MASS;
+  const mass = ELECTRON_MASSES; // electron masses
   const L = 2;  // 2 nm well width
   const V0 = 10;  // 10 eV well depth
   const potential = ( x: number ) => Math.abs( x ) < L / 2 ? -V0 : 0;
@@ -412,7 +411,7 @@ function testFiniteSquareWell(): void {
  */
 function testWaveFunctionNormalization(): void {
 
-  const mass = ELECTRON_MASS;
+  const mass = ELECTRON_MASSES; // electron masses
   const k = 5.685630103565724; // arbitrary spring constant, eV/nm²
   const omega = Math.sqrt( k / mass );
   const potential = ( x: number ) => 0.5 * k * x * x;
@@ -448,7 +447,7 @@ function testWaveFunctionNormalization(): void {
  */
 function testNodeCounting(): void {
 
-  const mass = ELECTRON_MASS;
+  const mass = ELECTRON_MASSES; // electron masses
   const k = 5.685630103565724;  // arbitrary spring constant, eV/nm²
   const omega = Math.sqrt( k / mass );
   const potential = ( x: number ) => 0.5 * k * x * x;
@@ -457,7 +456,6 @@ function testNodeCounting(): void {
   const E0 = 0.5 * HBAR * omega;
   const xGrid = new XGrid( -4, 4, 1001 );
   {
-
     const result = NumerovSolver.solveNumerov( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
 
     // Ensure we found some states
