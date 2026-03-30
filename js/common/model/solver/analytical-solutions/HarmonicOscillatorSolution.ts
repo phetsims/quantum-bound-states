@@ -54,7 +54,7 @@ export default class HarmonicOscillatorSolution {
    * @param mass - Particle mass in electron masses
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
-   * @returns Bound state results with exact energies (eV) and wavefunctions
+   * @returns Bound state results with exact energies (eV) and wave functions
    *
    * @example
    * // Solve for states within energy range
@@ -105,13 +105,14 @@ export default class HarmonicOscillatorSolution {
       energies.push( energy );
     }
 
-    // Calculate wavefunctions using Hermite polynomials
+    // Calculate wave functions using Hermite polynomials
     // ψ_n(x) = (1/√(2^n n!)) * (mω/πℏ)^(1/4) * exp(-mωx^2/(2ℏ)) * H_n(√(mω/ℏ) x)
-    const wavefunctions: number[][] = [];
+    const waveFunctions: number[][] = [];
     const alpha = Math.sqrt( ( mass * omega ) / HBAR );
 
     for ( const n of quantumNumbers ) {
-      const wavefunction: number[] = [];
+      const waveFunction: number[] = [];
+
       // Normalization: (mω/(πℏ))^(1/4) / √(2^n n!) = (α²/π)^(1/4) / √(2^n n!)
       const normalization =
         ( 1 / Math.sqrt( Math.pow( 2, n ) * factorial( n ) ) ) *
@@ -121,15 +122,15 @@ export default class HarmonicOscillatorSolution {
         const xi = alpha * x;
         const hermite = hermitePolynomial( n, xi );
         const value = normalization * Math.exp( ( -xi * xi ) / 2 ) * hermite;
-        wavefunction.push( value );
+        waveFunction.push( value );
       }
-      wavefunctions.push( wavefunction );
+      waveFunctions.push( waveFunction );
     }
 
     return {
       potentials: [], // not relevant for analytical solution
       energies: energies,
-      wavefunctions: wavefunctions,
+      waveFunctions: waveFunctions,
       method: 'analytical'
     };
   }

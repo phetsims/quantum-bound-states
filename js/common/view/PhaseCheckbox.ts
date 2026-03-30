@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PhaseCheckbox is the checkbox used to show/hide the phase component of the wavefunction.
+ * PhaseCheckbox is the checkbox used to show/hide the phase component of the wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -22,7 +22,7 @@ import TColor from '../../../../scenery/js/util/TColor.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSConstants from '../QBSConstants.js';
-import WavefunctionPartsCheckbox, { WaveFunctionComponentCheckboxOptions } from './WavefunctionPartsCheckbox.js';
+import WaveFunctionPartsCheckbox, { WaveFunctionComponentCheckboxOptions } from './WaveFunctionPartsCheckbox.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -30,7 +30,7 @@ type PhaseCheckboxOptions = SelfOptions &
   PickOptional<WaveFunctionComponentCheckboxOptions, 'layoutOptions' | 'visibleProperty' | 'enabledProperty'> &
   PickRequired<WaveFunctionComponentCheckboxOptions, 'tandem'>;
 
-export default class PhaseCheckbox extends WavefunctionPartsCheckbox {
+export default class PhaseCheckbox extends WaveFunctionPartsCheckbox {
 
   public constructor( phaseVisibleProperty: Property<boolean>, providedOptions: PhaseCheckboxOptions ) {
 

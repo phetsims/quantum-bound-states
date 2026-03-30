@@ -12,7 +12,7 @@ The model solves the 1D time-independent Schrödinger equation (TISE):
 -ℏ²/(2m) d²ψ/dx² + V(x)ψ = Eψ
 ```
 
-to find bound state energies and wavefunctions for arbitrary potential energy functions V(x).
+to find bound state energies and wave functions for arbitrary potential energy functions V(x).
 
 ## Architecture Overview
 
@@ -23,7 +23,7 @@ User API
    └── NumerovSolver (orchestrator, main API entry point)
          ├── NumerovIntegrator (integration)
          ├── EnergyRefiner (eigenvalue refinement)
-         └── WavefunctionNormalizer (probability normalization)
+         └── WaveFunctionNormalizer (probability normalization)
 
 Supporting Classes
    ├── XGrid (spatial grid)
@@ -102,7 +102,7 @@ This class implements the shooting method algorithm:
 1. Scans an energy range with a coarse step size (200 steps by default)
 2. Detects eigenvalues by finding sign changes in ψ(x_max)
 3. Refines each eigenvalue using bisection
-4. Normalizes the corresponding wavefunction
+4. Normalizes the corresponding wave function
 
 `public static solveNumerov(...)` is the main API entry point. 
 
@@ -126,7 +126,7 @@ This class implements forward integration from the left boundary to the right bo
 
 2. **Integration** (`integrateForward`): Applies the Numerov formula iteratively from left to right with divergence detection
 
-3. **Return**: Provides the full wavefunction array
+3. **Return**: Provides the full wave function array
 
 The divergence threshold (1e300) is set very high to accommodate finite potential barriers that cause large but finite exponential growth.
 
@@ -140,17 +140,17 @@ The divergence threshold (1e300) is set very high to accommodate finite potentia
 
 After the shooting method detects a sign change indicating a bound state, this class refines the energy to high precision. It uses bisection on the interval [E_low, E_high] and stops when the bracket width falls below a tolerance.
 
-**Key insight**: The wavefunction endpoint ψ(x_max) is a monotonic function of energy near an eigenvalue, so bisection is guaranteed to converge.
+**Key insight**: The wave function endpoint ψ(x_max) is a monotonic function of energy near an eigenvalue, so bisection is guaranteed to converge.
 
 **When to modify**: When changing convergence criteria, adding alternative root-finding methods, or adjusting tolerance strategies.
 
 ---
 
-### WavefunctionNormalizer.ts
+### WaveFunctionNormalizer.ts
 **Purpose**: Probability normalization
 **Responsibility**: Ensures ∫|ψ|² dx = 1
 
-After finding an eigenstate, the wavefunction must be normalized so its integral equals unity (unit probability). This class supports multiple numerical integration methods:
+After finding an eigenstate, the wave function must be normalized so its integral equals unity (unit probability). This class supports multiple numerical integration methods:
 
 - **Trapezoidal** (default): Simple and robust, O(h²) accuracy
 - **Simpson's**: Higher accuracy O(h⁴), requires odd number of points
@@ -183,7 +183,7 @@ All calculations in the model use natural units: electron masses for mass, eV fo
 Key types:
 - `PotentialFunction`: (x: number) => number
 - `GridConfig`: {xMin, xMax, numPoints}
-- `BoundStateResult`: {energies, wavefunctions, xGrid, method}
+- `BoundStateResult`: {potentials, energies, waveFunctions, method}
 - `Parity`: 'symmetric' | 'antisymmetric'
 
 ---
@@ -251,7 +251,7 @@ The complete solution process follows this sequence:
 
 4. **Finalization Phase**
    - Integrate at refined energy to get final ψ(x)
-   - Normalize using WavefunctionNormalizer
+   - Normalize using WaveFunctionNormalizer
    - Add to results
 
 5. **Return**

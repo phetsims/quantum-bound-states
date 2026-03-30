@@ -8,7 +8,7 @@
  * Architecture:
  * - NumerovIntegrator: Handles forward integration
  * - EnergyRefiner: Refines energy eigenvalues using bisection
- * - WavefunctionNormalizer: Normalizes wavefunctions
+ * - WaveFunctionNormalizer: Normalizes wave functions
  *
  * The TISE is: -ℏ²/(2m) d²ψ/dx² + V(x)ψ = Eψ
  *
@@ -19,7 +19,7 @@ import { BoundStateResult } from './BoundStateResult.js';
 import EnergyRefiner from './EnergyRefiner.js';
 import NumerovIntegrator from './NumerovIntegrator.js';
 import { PotentialFunction } from './PotentialFunction.js';
-import WavefunctionNormalizer, { NormalizationMethod } from './WavefunctionNormalizer.js';
+import WaveFunctionNormalizer, { NormalizationMethod } from './WaveFunctionNormalizer.js';
 import XGrid from './XGrid.js';
 
 /**
@@ -63,7 +63,7 @@ export default class NumerovSolver {
 
   private readonly integrator: NumerovIntegrator;
   private readonly energyRefiner: EnergyRefiner;
-  private readonly normalizer: WavefunctionNormalizer;
+  private readonly normalizer: WaveFunctionNormalizer;
 
   /**
    * @param mass - Particle mass in kg
@@ -79,7 +79,7 @@ export default class NumerovSolver {
 
     this.energyRefiner = new EnergyRefiner( this.integrator, energyRefinerOptions );
 
-    this.normalizer = new WavefunctionNormalizer(
+    this.normalizer = new WaveFunctionNormalizer(
       options?.normalizationMethod ?? 'trapezoidal'
     );
   }
@@ -89,14 +89,14 @@ export default class NumerovSolver {
    * Main public API that finds all bound states within the energy bounds.
    *
    * Uses the shooting method: scans energy range looking for energies where
-   * the wavefunction satisfies boundary conditions (ψ → 0 at boundaries).
+   * the wave function satisfies boundary conditions (ψ → 0 at boundaries).
    * Detects eigenvalues by finding sign changes in ψ(x_max).
    *
    * @param potential - Function V(x) that returns potential energy in eV
    * @param xGrid - uniformly spaced x-coordinates in nm
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
-   * @returns Bound state results containing energies, wavefunctions, and grid
+   * @returns Bound state results containing energies, wave functions, and grid
    *
    * @example
    * // Solve harmonic oscillator
@@ -126,7 +126,7 @@ export default class NumerovSolver {
     const V = this.evaluatePotential( potential, xGrid.xCoordinates );
 
     // Find bound states
-    const { energies, wavefunctions } = this.findBoundStates(
+    const { energies, waveFunctions } = this.findBoundStates(
       V,
       xGrid,
       energyMin,
@@ -136,7 +136,7 @@ export default class NumerovSolver {
     return {
       potentials: V,
       energies: energies,
-      wavefunctions: wavefunctions,
+      waveFunctions: waveFunctions,
       method: 'numerov'
     };
   }
@@ -149,10 +149,10 @@ export default class NumerovSolver {
     xGrid: XGrid,
     energyMin: number,
     energyMax: number
-  ): { energies: number[]; wavefunctions: number[][] } {
+  ): { energies: number[]; waveFunctions: number[][] } {
 
     const energies: number[] = [];
-    const wavefunctions: number[][] = [];
+    const waveFunctions: number[][] = [];
 
     // Scan energy range looking for sign changes
     const energyStep = ( energyMax - energyMin ) / NumerovSolver.ENERGY_SCAN_STEPS;
@@ -176,10 +176,10 @@ export default class NumerovSolver {
         const refinedEnergy = this.energyRefiner.refine( prevEnergy, E, V, xGrid );
         energies.push( refinedEnergy );
 
-        // Calculate and normalize wavefunction
+        // Calculate and normalize wave function
         const refinedPsi = this.integrator.integrate( refinedEnergy, V, xGrid );
         const normalizedPsi = this.normalizer.normalize( refinedPsi, xGrid.dx );
-        wavefunctions.push( normalizedPsi );
+        waveFunctions.push( normalizedPsi );
       }
 
       if ( currentSign !== 0 ) {
@@ -188,7 +188,7 @@ export default class NumerovSolver {
       }
     }
 
-    return { energies: energies, wavefunctions: wavefunctions };
+    return { energies: energies, waveFunctions: waveFunctions };
   }
 
   /**
@@ -199,7 +199,7 @@ export default class NumerovSolver {
   }
 
   /**
-   * Gets the wavefunction value at the end of the grid.
+   * Gets the wave function value at the end of the grid.
    */
   private getEndValue( psi: number[] ): number {
     return psi[ psi.length - 1 ];

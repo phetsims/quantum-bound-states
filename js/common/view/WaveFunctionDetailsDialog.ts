@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WavefunctionDetailsDialog is a dialog that displays the expanded wavefunction.
+ * WaveFunctionDetailsDialog is a dialog that displays the expanded wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,7 +13,7 @@ import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class WavefunctionDetailsDialog extends Dialog {
+export default class WaveFunctionDetailsDialog extends Dialog {
 
   public constructor() {
 

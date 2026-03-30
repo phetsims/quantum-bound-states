@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ImaginaryPartCheckbox is the checkbox used to show/hide the imaginary part of the wavefunction.
+ * ImaginaryPartCheckbox is the checkbox used to show/hide the imaginary part of the wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,9 +10,9 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
-import WavefunctionPartsCheckbox from './WavefunctionPartsCheckbox.js';
+import WaveFunctionPartsCheckbox from './WaveFunctionPartsCheckbox.js';
 
-export default class ImaginaryPartCheckbox extends WavefunctionPartsCheckbox {
+export default class ImaginaryPartCheckbox extends WaveFunctionPartsCheckbox {
 
   public constructor( imaginaryPartVisibleProperty: Property<boolean>, tandem: Tandem ) {
     super( imaginaryPartVisibleProperty, {

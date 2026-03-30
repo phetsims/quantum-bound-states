@@ -64,7 +64,7 @@ export default class InfiniteSquareWellSolution {
    * @param mass - Particle mass in electron masses
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
-   * @returns Bound state results with exact energies and wavefunctions
+   * @returns Bound state results with exact energies and wave functions
    */
   public static solve(
     xGrid: XGrid,
@@ -98,34 +98,34 @@ export default class InfiniteSquareWellSolution {
       energies.push( energy );
     }
 
-    // Calculate wavefunctions: ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L)
+    // Calculate wave functions: ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L)
     // This is the shifted sine function for a centered well [-L/2, L/2]
-    const wavefunctions: number[][] = [];
+    const waveFunctions: number[][] = [];
     const normalization = Math.sqrt( 2 / wellWidth );
     const halfWidth = wellWidth / 2;
 
     for ( const n of quantumNumbers ) {
-      const wavefunction: number[] = [];
+      const waveFunction: number[] = [];
 
       for ( const x of xGrid.xCoordinates ) {
-        // Wavefunction is zero outside the well [-L/2, L/2]
+        // Wave function is zero outside the well [-L/2, L/2]
         if ( x <= -halfWidth || x >= halfWidth ) {
-          wavefunction.push( 0 );
+          waveFunction.push( 0 );
         }
         else {
           // Inside the well: ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L)
           // This shifts the [0,L] solution to be centered at x=0
           const value = normalization * Math.sin( n * Math.PI * ( x + halfWidth ) / wellWidth );
-          wavefunction.push( value );
+          waveFunction.push( value );
         }
       }
-      wavefunctions.push( wavefunction );
+      waveFunctions.push( waveFunction );
     }
 
     return {
       potentials: [], // not relevant for analytical solution
       energies: energies,
-      wavefunctions: wavefunctions,
+      waveFunctions: waveFunctions,
       method: 'analytical'
     };
   }

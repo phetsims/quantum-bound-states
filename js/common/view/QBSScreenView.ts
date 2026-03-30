@@ -33,7 +33,7 @@ import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensit
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
-import WavefunctionGraphNode from './WavefunctionGraphNode.js';
+import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
 
 type SelfOptions = {
 
@@ -84,7 +84,7 @@ export default class QBSScreenView extends ScreenView {
       model.referenceLine.visibleProperty, options.tandem.createTandem( 'toolsPanel' ) );
 
     const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.quantumStateGraphProperty,
-      model.wavefunctionGraph, options.tandem.createTandem( 'quantumStateGraphControlPanel' ) );
+      model.waveFunctionGraph, options.tandem.createTandem( 'quantumStateGraphControlPanel' ) );
 
     const timePanel = new TimePanel( model.time, options.tandem.createTandem( 'timePanel' ) );
 
@@ -250,9 +250,9 @@ function createQuantumStateGraphNodes( model: QBSModel, parentTandem: Tandem ): 
     graphNodes.push( probabilityDensityGraphNode );
   }
 
-  if ( model.wavefunctionGraph ) {
-    const wavefunctionGraphNode = new WavefunctionGraphNode( model, parentTandem.createTandem( 'wavefunctionGraphNode' ) );
-    graphNodes.push( wavefunctionGraphNode );
+  if ( model.waveFunctionGraph ) {
+    const waveFunctionGraphNode = new WaveFunctionGraphNode( model, parentTandem.createTandem( 'waveFunctionGraphNode' ) );
+    graphNodes.push( waveFunctionGraphNode );
   }
 
   return graphNodes;
