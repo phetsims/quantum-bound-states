@@ -191,7 +191,8 @@ class MagnifierWireNode extends Path {
 
       // For debugging, draw the control points.
       if ( phet.chipper.queryParameters.dev ) {
-        shape.newSubpath().moveToPoint( c1 ).circle( c1, 2 ).newSubpath().moveToPoint( c2 ).circle( c2, 2 );
+        shape.newSubpath().moveToPoint( c1 ).circle( c1, 2 ) // c1
+          .newSubpath().moveToPoint( c2 ).circle( c2, 2 ); // c2
       }
 
       return shape;
