@@ -32,11 +32,11 @@ export default class MagnifierBodyDragListener extends SoundRichDragListener {
       -( chartTransform.viewHeight / chartTransform.modelYRange.getLength() ) // yScale, model to view
     );
 
-    // Drag bounds in model coordinates. y values can be anything because movement is constrained to horizontal.
+    // Drag bounds in model coordinates, adjusted for the size of the body.
+    // y values can be anything because movement is constrained to horizontal.
     //TODO dragBoundsProperty is incorrect, y-range is dynamic.
     const bodyWidth = chartTransform.viewToModelDeltaX( magnifierBodyNode.width );
     const bodyHeight = chartTransform.viewToModelDeltaY( magnifierBodyNode.height );
-    console.log( `bodyWidth=${bodyWidth} bodyHeight=${bodyHeight}` );//XXX
     const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, chartTransform.modelYRange.min - bodyHeight,
       chartTransform.modelXRange.max - bodyWidth, chartTransform.modelYRange.max ) );
 
