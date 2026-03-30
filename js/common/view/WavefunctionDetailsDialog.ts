@@ -17,7 +17,7 @@ export default class WavefunctionDetailsDialog extends Dialog {
 
   public constructor() {
 
-    const titleNode = new Text( QuantumBoundStatesFluent.wavefunctionDialogTitleStringProperty, {
+    const titleNode = new Text( QuantumBoundStatesFluent.waveFunctionDialogTitleStringProperty, {
       font: QBSConstants.TITLE_FONT
     } );
 

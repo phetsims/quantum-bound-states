@@ -21,7 +21,7 @@ export default class WavefunctionGraphNode extends QuantumStateGraphNode {
     const options: QuantumStateGraphNodeOptions = {
 
       // Options related to the y-axis.
-      yAxisLabelStringProperty: QuantumBoundStatesFluent.wavefunctionStringProperty,
+      yAxisLabelStringProperty: QuantumBoundStatesFluent.waveFunctionStringProperty,
       yRange: QBSConstants.WAVEFUNCTION_GRAPH_Y_RANGE,
       yTickSpacing: 0.5,
       yTickLabelDecimals: 1,
@@ -30,16 +30,16 @@ export default class WavefunctionGraphNode extends QuantumStateGraphNode {
       visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.wavefunctionGraph ),
 
       // Core-description options for this graph.
-      accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.wavefunctionGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.wavefunctionGraph.accessibleParagraphStringProperty,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty,
 
       // Options for the button that opens a dialog that shows the expanded equation.
       functionDetailsButtonOptions: {
         listener: () => new WavefunctionDetailsDialog().show(),
-        labelStringProperty: QuantumBoundStatesFluent.functionDetailsButton.wavefunctionStringProperty,
-        accessibleName: QuantumBoundStatesFluent.a11y.functionDetailsButton.wavefunction.accessibleNameStringProperty,
-        accessibleHelpText: QuantumBoundStatesFluent.a11y.functionDetailsButton.wavefunction.accessibleHelpTextStringProperty,
-        accessibleContextResponse: QuantumBoundStatesFluent.a11y.functionDetailsButton.wavefunction.accessibleContextResponseStringProperty
+        labelStringProperty: QuantumBoundStatesFluent.functionDetailsButton.waveFunctionStringProperty,
+        accessibleName: QuantumBoundStatesFluent.a11y.functionDetailsButton.waveFunction.accessibleNameStringProperty,
+        accessibleHelpText: QuantumBoundStatesFluent.a11y.functionDetailsButton.waveFunction.accessibleHelpTextStringProperty,
+        accessibleContextResponse: QuantumBoundStatesFluent.a11y.functionDetailsButton.waveFunction.accessibleContextResponseStringProperty
       },
       tandem: tandem
     };
