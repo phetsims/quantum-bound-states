@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MagnifierProbeDragListener is the drag listener for moving the magnifier probe.
+ * MagnifierBodyDragListener is the drag listener for moving the body of the magnifier.
  * It supports both pointer and keyboard dragging, with sound feedback.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -14,12 +14,12 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { MagnifierProbeNode } from './MagnifierNode.js';
+import { MagnifierBodyNode } from './MagnifierNode.js';
 
-export default class MagnifierProbeDragListener extends SoundRichDragListener {
+export default class MagnifierBodyDragListener extends SoundRichDragListener {
 
-  public constructor( magnifierProbeNode: MagnifierProbeNode,
-                      probePositionProperty: Property<Vector2>,
+  public constructor( magnifierBodyNode: MagnifierBodyNode,
+                      bodyPositionProperty: Property<Vector2>,
                       chartTransform: ChartTransform,
                       parentTandem: Tandem ) {
 
@@ -34,12 +34,15 @@ export default class MagnifierProbeDragListener extends SoundRichDragListener {
 
     // Drag bounds in model coordinates. y values can be anything because movement is constrained to horizontal.
     //TODO dragBoundsProperty is incorrect, y-range is dynamic.
-    const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, chartTransform.modelYRange.min,
-      chartTransform.modelXRange.max, chartTransform.modelYRange.max ) );
+    const bodyWidth = chartTransform.viewToModelDeltaX( magnifierBodyNode.width );
+    const bodyHeight = chartTransform.viewToModelDeltaY( magnifierBodyNode.height );
+    console.log( `bodyWidth=${bodyWidth} bodyHeight=${bodyHeight}` );//XXX
+    const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, chartTransform.modelYRange.min - bodyHeight,
+      chartTransform.modelXRange.max - bodyWidth, chartTransform.modelYRange.max ) );
 
     super( {
       transform: transform,
-      positionProperty: probePositionProperty,
+      positionProperty: bodyPositionProperty,
       dragBoundsProperty: dragBoundsProperty,
       dragListenerOptions: {
         useParentOffset: true //TODO delete this?
@@ -50,7 +53,7 @@ export default class MagnifierProbeDragListener extends SoundRichDragListener {
         moveOnHoldInterval: 50
       },
 
-      end: () => magnifierProbeNode.doAccessibleObjectResponse(),
+      end: () => magnifierBodyNode.doAccessibleObjectResponse(),
 
       tandem: parentTandem
     } );

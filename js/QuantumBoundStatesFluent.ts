@@ -207,6 +207,9 @@ addToMapIfDefined( 'a11y_magnifier_accessibleParagraph', 'a11y.magnifier.accessi
 addToMapIfDefined( 'a11y_magnifier_probe_accessibleName', 'a11y.magnifier.probe.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_magnifier_probe_accessibleHelpText', 'a11y.magnifier.probe.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_magnifier_probe_accessibleObjectResponse', 'a11y.magnifier.probe.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_magnifier_body_accessibleName', 'a11y.magnifier.body.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_magnifier_body_accessibleHelpText', 'a11y.magnifier.body.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_magnifier_body_accessibleObjectResponse', 'a11y.magnifier.body.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleName', 'a11y.referenceLine.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleHelpText', 'a11y.referenceLine.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse', 'a11y.referenceLine.accessibleObjectResponseStringProperty' );
@@ -618,6 +621,11 @@ const QuantumBoundStatesFluent = {
         accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifier_probe_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.magnifier.probe.accessibleNameStringProperty' ) ),
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifier_probe_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnifier.probe.accessibleHelpTextStringProperty' ) ),
         accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifier_probe_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.magnifier.probe.accessibleObjectResponseStringProperty' ) )
+      },
+      body: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifier_body_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.magnifier.body.accessibleNameStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifier_body_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.magnifier.body.accessibleHelpTextStringProperty' ) ),
+        accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_magnifier_body_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.magnifier.body.accessibleObjectResponseStringProperty' ) )
       }
     },
     referenceLine: {

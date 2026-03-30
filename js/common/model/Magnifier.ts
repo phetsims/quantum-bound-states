@@ -19,8 +19,11 @@ export default class Magnifier extends PhetioObject {
   // Whether the magnifier is visible.
   public readonly visibleProperty: Property<boolean>;
   
-  // Position of the probe, in model coordinates.
+  // Center of the magnifier probe.
   public readonly probePositionProperty: Property<Vector2>;
+
+  // Top-left corner of the magnifier body.
+  public readonly bodyPositionProperty: Property<Vector2>;
 
   //TODO Does this need to be dynamic or is a single power sufficient?
   public static readonly MAGNIFICATION_POWER = 10;
@@ -43,10 +46,17 @@ export default class Magnifier extends PhetioObject {
       tandem: tandem.createTandem( 'probePositionProperty' ),
       phetioFeatured: true
     } );
+
+    //TODO bodyPositionProperty must be updated when y-axis range changes.
+    this.bodyPositionProperty = new Vector2Property( new Vector2( 1.65, 15 ), {
+      tandem: tandem.createTandem( 'bodyPositionProperty' ),
+      phetioFeatured: true
+    } );
   }
 
   public reset(): void {
     this.visibleProperty.reset();
     this.probePositionProperty.reset();
+    this.bodyPositionProperty.reset();
   }
 }

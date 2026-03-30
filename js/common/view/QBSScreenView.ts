@@ -196,9 +196,9 @@ export default class QBSScreenView extends ScreenView {
       quantumStateGraphControlPanel,
       potentialTypeComboBox,
       energyDiagramNode,
+      magnifierNode,
       curvesVisibleToggleButton,
       ...quantumStateGraphNodes,
-      magnifierNode,
       referenceLineNode
     ];
     if ( yAxisZoomButtonGroup ) {

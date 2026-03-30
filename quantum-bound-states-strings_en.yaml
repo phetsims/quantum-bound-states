@@ -383,6 +383,10 @@ a11y:
       accessibleName:           Magnifier Probe
       accessibleHelpText:       TODO.magnifier.probe.accessibleHelpText
       accessibleObjectResponse: TODO.magnifier.probe.accessibleObjectResponse
+    body:
+      accessibleName:           TODO.magnifier.body.accessibleName
+      accessibleHelpText:       TODO.magnifier.body.accessibleHelpText
+      accessibleObjectResponse: TODO.magnifier.body.accessibleObjectResponse
 
   referenceLine:
     accessibleName:           Reference Line

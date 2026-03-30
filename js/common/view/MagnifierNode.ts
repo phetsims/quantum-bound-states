@@ -22,7 +22,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import ProbeNode, { ProbeNodeOptions } from '../../../../scenery-phet/js/ProbeNode.js';
 import ShadedRectangle from '../../../../scenery-phet/js/ShadedRectangle.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -31,6 +31,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Magnifier from '../model/Magnifier.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import MagnifierBodyDragListener from './MagnifierBodyDragListener.js';
 import MagnifierProbeDragListener from './MagnifierProbeDragListener.js';
 
 const DISPLAY_SIZE = new Dimension2( 170, 70 );
@@ -42,9 +43,7 @@ export default class MagnifierNode extends Node {
 
   public constructor( magnifier: Magnifier, chartTransform: ChartTransform, tandem: Tandem ) {
 
-    const bodyNode = new MagnifierBodyNode( magnifier );
-    bodyNode.right = chartTransform.modelToViewX( chartTransform.modelXRange.max ) - 5;
-    bodyNode.top = 5;
+    const bodyNode = new MagnifierBodyNode( magnifier, chartTransform, tandem.createTandem( 'bodyNode' ) );
 
     const probeNode = new MagnifierProbeNode( magnifier, chartTransform, tandem.createTandem( 'probeNode' ) );
 
@@ -57,15 +56,26 @@ export default class MagnifierNode extends Node {
       accessibleParagraph: QuantumBoundStatesFluent.a11y.magnifier.accessibleParagraphStringProperty,
       tandem: tandem
     } );
+
+    this.pdomOrder = [ probeNode, bodyNode ];
   }
 }
 
 /**
  * MagnifierBodyNode is the body of the magnifier, where the magnified energy levels are displayed.
  */
-class MagnifierBodyNode extends Node {
+export class MagnifierBodyNode extends InteractiveHighlighting( Node ) {
 
-  public constructor( magnifier: Magnifier ) {
+  public constructor( magnifier: Magnifier, chartTransform: ChartTransform, tandem: Tandem ) {
+
+    const options = combineOptions<NodeOptions>( {}, AccessibleDraggableOptions, {
+      cursor: 'pointer',
+      accessibleName: QuantumBoundStatesFluent.a11y.magnifier.body.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifier.body.accessibleHelpTextStringProperty,
+      tandem: tandem,
+      phetioInputEnabledPropertyInstrumented: true,
+      phetioVisiblePropertyInstrumented: false
+    } );
 
     const shadedRectangle = new ShadedRectangle( new Bounds2( 0, 0,
       DISPLAY_SIZE.width + BEZEL_WIDTH + 2,
@@ -107,9 +117,19 @@ class MagnifierBodyNode extends Node {
       maxHeight: BOTTOM_BEZEL_WIDTH - 3
     } );
 
-    super( {
-      children: [ shadedRectangle, displayNode, xyText, powerText ]
+    options.children = [ shadedRectangle, displayNode, xyText, powerText ];
+
+    super( options );
+
+    this.addInputListener( new MagnifierBodyDragListener( this, magnifier.bodyPositionProperty, chartTransform, tandem ) );
+
+    magnifier.bodyPositionProperty.link( bodyPosition => {
+      this.translation = chartTransform.modelToViewPosition( bodyPosition );
     } );
+  }
+
+  public doAccessibleObjectResponse(): void {
+    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.magnifier.body.accessibleObjectResponseStringProperty );
   }
 }
 

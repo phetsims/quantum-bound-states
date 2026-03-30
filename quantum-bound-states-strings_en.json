@@ -692,6 +692,17 @@
         "accessibleObjectResponse": {
           "value": "TODO.magnifier.probe.accessibleObjectResponse"
         }
+      },
+      "body": {
+        "accessibleName": {
+          "value": "TODO.magnifier.body.accessibleName"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.magnifier.body.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "TODO.magnifier.body.accessibleObjectResponse"
+        }
       }
     },
     "referenceLine": {
