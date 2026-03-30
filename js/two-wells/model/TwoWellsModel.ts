@@ -8,7 +8,7 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
-import DoubleSquarePotential from '../../common/model/potentials/DoubleSquarePotential.js';
+import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 
 export default class TwoWellsModel extends QBSModel {
@@ -18,7 +18,7 @@ export default class TwoWellsModel extends QBSModel {
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
-      new DoubleSquarePotential( potentialsTandem.createTandem( 'doubleSquarePotential' ) ),
+      new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) ),
       new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) )
     ];
 
