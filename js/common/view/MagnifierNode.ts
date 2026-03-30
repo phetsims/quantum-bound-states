@@ -178,14 +178,21 @@ class MagnifierWireNode extends Path {
       // control points
       // The y coordinate of the body's control point varies with the x distance between the body and probe.
       const c1Offset = new Vector2( 0, linear( 0, 800, 0, 200, Math.abs( bodyNode.centerX - probeNode.centerX ) ) ); // x distance -> y coordinate
-      const c2Offset = new Vector2( 50, 150 );
+      const c2Offset = new Vector2( 50 * ( ( bodyNode.centerX - probeNode.centerX > 0 ) ? 1 : -1 ), 150 );
       const c1 = new Vector2( bodyConnectionPoint.x + c1Offset.x, bodyConnectionPoint.y + c1Offset.y );
       const c2 = new Vector2( probeConnectionPoint.x + c2Offset.x, probeConnectionPoint.y + c2Offset.y );
 
       // cubic curve
-      return new Shape()
+      const shape = new Shape()
         .moveTo( bodyConnectionPoint.x, bodyConnectionPoint.y )
         .cubicCurveTo( c1.x, c1.y, c2.x, c2.y, probeConnectionPoint.x, probeConnectionPoint.y );
+
+      // Draw the control points
+      if ( phet.chipper.queryParameters.dev ) {
+        shape.newSubpath().moveToPoint( c1 ).circle( c1, 2 ).newSubpath().moveToPoint( c2 ).circle( c2, 2 );
+      }
+
+      return shape;
     } );
 
     super( shapeProperty, {
