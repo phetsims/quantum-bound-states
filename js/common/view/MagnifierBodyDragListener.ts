@@ -52,9 +52,7 @@ export default class MagnifierBodyDragListener extends SoundRichDragListener {
         shiftDragDelta: chartTransform.modelToViewDeltaX( 0.01 ),
         moveOnHoldInterval: 50
       },
-
       end: () => magnifierBodyNode.doAccessibleObjectResponse(),
-
       tandem: parentTandem
     } );
   }
