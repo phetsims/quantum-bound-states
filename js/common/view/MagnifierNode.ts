@@ -177,10 +177,12 @@ class MagnifierWireNode extends Path {
 
       // control points
       // The y coordinate of the body's control point varies with the x distance between the body and probe.
-      const c1Offset = new Vector2( 0, linear( 0, 800, 0, 200, Math.abs( bodyNode.centerX - probeNode.centerX ) ) ); // x distance -> y coordinate
-      const c2Offset = new Vector2( 50 * ( ( bodyNode.centerX - probeNode.centerX > 0 ) ? 1 : -1 ), 150 );
-      const c1 = new Vector2( bodyConnectionPoint.x + c1Offset.x, bodyConnectionPoint.y + c1Offset.y );
-      const c2 = new Vector2( probeConnectionPoint.x + c2Offset.x, probeConnectionPoint.y + c2Offset.y );
+      const c1XOffset = 0;
+      const c1YOffset = linear( 0, 800, 0, 200, Math.abs( bodyNode.centerX - probeNode.centerX ) ); // x distance -> y offset
+      const c1 = new Vector2( bodyConnectionPoint.x + c1XOffset, bodyConnectionPoint.y + c1YOffset );
+      const c2XOffset = 50 * ( ( bodyNode.centerX - probeNode.centerX > 0 ) ? 1 : -1 );
+      const c2YOffset = 150;
+      const c2 = new Vector2( probeConnectionPoint.x + c2XOffset, probeConnectionPoint.y + c2YOffset );
 
       // cubic curve
       const shape = new Shape()
