@@ -199,7 +199,7 @@ This subdirectory contains exact analytical solutions for quantum systems that c
 **Purpose**: Exact solutions for the quantum harmonic oscillator
 **Key formulas**:
 - Energy eigenvalues: E_n = ℏω(n + ½) for n = 0, 1, 2, ...
-- Wavefunctions: Hermite polynomials × Gaussian envelope
+- Wave functions: Hermite polynomials × Gaussian envelope
 - All states are bound (infinite tower of levels)
 
 Used to validate the Numerov solver for a symmetric, smooth potential.
@@ -210,7 +210,7 @@ Used to validate the Numerov solver for a symmetric, smooth potential.
 **Purpose**: Exact solutions for particle in a box
 **Key formulas**:
 - Energy eigenvalues: E_n = n²π²ℏ²/(2mL²) for n = 1, 2, 3, ...
-- Wavefunctions: ψ_n(x) = √(2/L) sin(nπ(x-L/2)/L)
+- Wave functions: ψ_n(x) = √(2/L) sin(nπ(x-L/2)/L)
 - Hard boundary conditions (ψ = 0 at walls)
 
 Used to validate the solver for discontinuous potentials and hard boundaries.
@@ -255,7 +255,7 @@ The complete solution process follows this sequence:
    - Add to results
 
 5. **Return**
-   - Package energies, wavefunctions, and grid into BoundStateResult
+   - Package energies, wave functions, and grid into BoundStateResult
 
 ## Performance Characteristics
 
@@ -265,7 +265,7 @@ The complete solution process follows this sequence:
 - ε = energy tolerance
 - N = number of grid points
 
-**Memory**: O(N) per wavefunction, O(M × N) total for M states
+**Memory**: O(N) per wave function, O(M × N) total for M states
 
 ## Common Maintenance Tasks
 
@@ -291,7 +291,7 @@ The tests are found in testNumerovSolver.ts and validate the following:
 - **Harmonic Oscillator** (HarmonicOscillatorSolution.ts): E_n = ℏω(n + ½) for n = 0, 1, 2, ...
 - **Infinite Square Well** (InfiniteSquareWellSolution.ts): E_n = n²π²ℏ²/(2mL²) for n = 1, 2, 3, ...
 - **Finite Square Well** (FiniteSquareWellSolution.ts): Transcendental equations for bound states
-- **Wavefunction Normalization**: ∫|ψ|² dx = 1 for all states
+- **Wave Function Normalization**: ∫|ψ|² dx = 1 for all states
 - **Node Counting**: nth excited state has n nodes
 
 Each test compares numerical results for NumerovSolver against exact analytical solutions, ensuring accuracy 
