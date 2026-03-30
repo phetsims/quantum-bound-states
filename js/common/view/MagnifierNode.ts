@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Base this on DetectorNode in beers-law-lab.
 /**
  * MagnifierNode is the view of the magnifier.
  *
