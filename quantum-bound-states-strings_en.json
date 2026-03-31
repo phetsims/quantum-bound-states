@@ -400,15 +400,15 @@
         "value": "Reference Line hidden."
       }
     },
-    "potentialTypeComboBox": {
+    "potentialComboBox": {
       "accessibleName": {
-        "value": "Potential Type"
+        "value": "Potential"
       },
       "accessibleHelpText": {
         "value": "Choose a potential shape for the energy graph."
       },
       "accessibleContextResponse": {
-        "value": "potential set to {$potentialType}"
+        "value": "potential set to {$accessibleName}"
       }
     },
     "superpositionPresetComboBox": {

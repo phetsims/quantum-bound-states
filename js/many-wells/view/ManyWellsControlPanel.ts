@@ -18,7 +18,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Potential from '../../common/model/potentials/Potential.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
-import PotentialTypeComboBox from '../../common/view/PotentialTypeComboBox.js';
+import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ElectricFieldControl from './ElectricFieldControl.js';
@@ -47,7 +47,7 @@ export class ManyWellsControlPanel extends Panel {
         new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) ),
         new NumberOfWellsControl( numberOfWellsProperty, tandem.createTandem( 'numberOfWellsControl' ) ),
         new ElectricFieldControl( electricFieldProperty, tandem.createTandem( 'electricFieldControl' ) ),
-        new PotentialTypeComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialTypeComboBox' ) )
+        new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) )
       ]
     } ) );
 

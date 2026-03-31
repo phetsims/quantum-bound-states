@@ -20,7 +20,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Potential from '../../common/model/potentials/Potential.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import PotentialTypeComboBox from '../../common/view/PotentialTypeComboBox.js';
+import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
@@ -96,7 +96,7 @@ export class SuperpositionControlPanel extends Panel {
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: [
         titleText,
-        new PotentialTypeComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialTypeComboBox' ) ),
+        new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         subtitleText,
         new PresetCustomSwitch( superpositionConfigurationTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
         new Node( {

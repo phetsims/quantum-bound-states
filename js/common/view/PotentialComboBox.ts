@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialTypeComboBox is the combo box for selecting a potential.
+ * PotentialComboBox is the combo box for selecting a potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +19,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Potential from '../model/potentials/Potential.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class PotentialTypeComboBox extends ComboBox<Potential> {
+export default class PotentialComboBox extends ComboBox<Potential> {
 
   public constructor( potentialProperty: Property<Potential>, listboxParent: Node, tandem: Tandem ) {
 
@@ -44,10 +44,10 @@ export default class PotentialTypeComboBox extends ComboBox<Potential> {
     super( potentialProperty, items, listboxParent, {
       xMargin: 10,
       yMargin: 6,
-      accessibleName: QuantumBoundStatesFluent.a11y.potentialTypeComboBox.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.potentialTypeComboBox.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.potentialTypeComboBox.accessibleContextResponse.createProperty( {
-        potentialType: new DerivedStringProperty( [ potentialProperty ], potential => potential.accessibleNameProperty.value )
+      accessibleName: QuantumBoundStatesFluent.a11y.potentialComboBox.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.potentialComboBox.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.potentialComboBox.accessibleContextResponse.createProperty( {
+        accessibleName: new DerivedStringProperty( [ potentialProperty ], potential => potential.accessibleNameProperty.value )
       } ),
       tandem: tandem
     } );
