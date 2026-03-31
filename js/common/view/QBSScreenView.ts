@@ -90,6 +90,9 @@ export default class QBSScreenView extends ScreenView {
     energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + legendPanel.height + 3;
     const energyDiagramRectangleBounds = this.globalToParentBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
 
+    // Constrain the Energy Diagram control panel to the height of the Energy diagram.
+    energyDiagramControlPanel.maxHeight = energyDiagramRectangleBounds.height;
+
     // All graphs occupy the same position below the Energy diagram. Only one of them is visible at a time.
     quantumStateGraphNodes.forEach( graphNode => {
       graphNode.x = energyDiagramNode.x;
