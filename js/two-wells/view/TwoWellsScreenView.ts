@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import TwoWellsModel from '../model/TwoWellsModel.js';
@@ -16,10 +17,12 @@ export default class TwoWellsScreenView extends QBSScreenView {
 
   public constructor( model: TwoWellsModel, tandem: Tandem ) {
 
-    const energyDiagramControlPanel = new TwoWellsControlPanel( model.energyLevelProperty,
-      tandem.createTandem( 'energyDiagramControlPanel' ) );
+    const listboxParent = new Node();
 
-    super( model, energyDiagramControlPanel, {
+    const energyDiagramControlPanel = new TwoWellsControlPanel( listboxParent, model.energyLevelProperty,
+      model.potentialProperty, tandem.createTandem( 'energyDiagramControlPanel' ) );
+
+    super( model, listboxParent, energyDiagramControlPanel, {
       screenSummaryContent: new TwoWellsScreenSummaryContent(),
       tandem: tandem
     } );

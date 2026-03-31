@@ -13,12 +13,14 @@ import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Potential from '../../common/model/potentials/Potential.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import PotentialTypeComboBox from '../../common/view/PotentialTypeComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
@@ -36,11 +38,20 @@ const BUTTON_SPACING = 8;
 export class SuperpositionControlPanel extends Panel {
 
   public constructor( listboxParent: Node,
+                      potentialProperty: Property<Potential>,
                       superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>,
                       superpositionPresetProperty: NumberProperty,
                       tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.superpositionLabelStringProperty, {
+    const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
+      font: QBSConstants.TITLE_FONT,
+      maxWidth: 200,
+      tandem: tandem.createTandem( 'titleText' ),
+      phetioVisiblePropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
+    } );
+
+    const subtitleText = new Text( QuantumBoundStatesFluent.superpositionLabelStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
       phetioVisiblePropertyInstrumented: true,
@@ -82,17 +93,17 @@ export class SuperpositionControlPanel extends Panel {
       visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'custom' )
     } );
 
-    const content = new VBox( {
-      align: 'left',
-      spacing: 10,
+    const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: [
         titleText,
+        new PotentialTypeComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialTypeComboBox' ) ),
+        subtitleText,
         new PresetCustomSwitch( superpositionConfigurationTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
         new Node( {
           children: [ presetHBox, customHBox ]
         } )
       ]
-    } );
+    } ) );
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       isDisposable: false,

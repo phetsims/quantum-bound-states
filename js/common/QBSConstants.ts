@@ -14,6 +14,7 @@ import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import NumberControl, { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import ProbeNode, { ProbeNodeOptions } from '../../../scenery-phet/js/ProbeNode.js';
+import { VBoxOptions } from '../../../scenery/js/layout/nodes/VBox.js';
 import Text, { TextOptions } from '../../../scenery/js/nodes/Text.js';
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import { DialogOptions } from '../../../sun/js/Dialog.js';
@@ -113,6 +114,7 @@ export default class QBSConstants {
   public static readonly NUMBER_CONTROL_OPTIONS: NumberControlOptions = {
     layoutFunction: NumberControl.createLayoutFunction1( {
       align: 'left',
+      ySpacing: 4,
       arrowButtonsXSpacing: 5
     } ),
     sliderOptions: {
@@ -150,6 +152,11 @@ export default class QBSConstants {
       lineWidth: 2,
       intersectionRadius: 4
     } )
+  };
+
+  public static readonly VBOX_OPTIONS: VBoxOptions = {
+    align: 'left',
+    spacing: 7
   };
 
   public static readonly TICK_TEXT_OPTIONS: TextOptions = {

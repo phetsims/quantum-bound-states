@@ -23,7 +23,6 @@ import QBSConstants from '../../common/QBSConstants.js';
 import EnergyDiagramNode from '../../common/view/EnergyDiagramNode.js';
 import LegendPanel from '../../common/view/LegendPanel.js';
 import MagnifierNode from '../../common/view/MagnifierNode.js';
-import PotentialTypeComboBox from '../../common/view/PotentialTypeComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import TimePanel from '../../common/view/TimePanel.js';
@@ -37,10 +36,6 @@ import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
 
 type SelfOptions = {
 
-  // Optional parent for ComboBox listbox. If not provided, one will be created. Used by subclasses that create
-  // additional ComboBox instances and therefore must be responsible for creating listboxParent.
-  listboxParent?: Node;
-
   // Creates optional zoom buttons for the y-axis.
   createYAxisZoomButtonGroup?: ( tandem: Tandem ) => Node;
 };
@@ -49,18 +44,12 @@ export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions,
 
 export default class QBSScreenView extends ScreenView {
 
-  public constructor( model: QBSModel, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {
+  public constructor( model: QBSModel, listboxParent: Node, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {
 
-    const options = optionize<QBSScreenViewOptions,
-      StrictOmit<SelfOptions, 'listboxParent' | 'createYAxisZoomButtonGroup'>,
-      ScreenViewOptions>()( {}, providedOptions );
+    const options = optionize<QBSScreenViewOptions, StrictOmit<SelfOptions, 'createYAxisZoomButtonGroup'>, ScreenViewOptions>()(
+      {}, providedOptions );
 
     super( options );
-
-    const listboxParent = options.listboxParent || new Node();
-
-    const potentialTypeComboBox = new PotentialTypeComboBox( model.potentialProperty, listboxParent,
-      options.tandem.createTandem( 'potentialTypeComboBox' ) );
 
     const legendPanel = new LegendPanel( options.tandem.createTandem( 'legendPanel' ) );
 
@@ -98,7 +87,7 @@ export default class QBSScreenView extends ScreenView {
 
     // Layout is relative to the Energy diagram.
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
-    energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + potentialTypeComboBox.height + 3;
+    energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + legendPanel.height + 3;
     const energyDiagramRectangleBounds = this.globalToParentBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
 
     // All graphs occupy the same position below the Energy diagram. Only one of them is visible at a time.
@@ -127,12 +116,8 @@ export default class QBSScreenView extends ScreenView {
     }
 
     // Dynamic Layout
-    potentialTypeComboBox.boundsProperty.link( () => {
-      potentialTypeComboBox.left = energyDiagramRectangleBounds.left;
-      potentialTypeComboBox.bottom = energyDiagramRectangleBounds.top - 3;
-    } );
     legendPanel.boundsProperty.link( () => {
-      legendPanel.right = energyDiagramRectangleBounds.right;
+      legendPanel.left = energyDiagramRectangleBounds.left;
       legendPanel.bottom = energyDiagramRectangleBounds.top - 3;
     } );
     timePanel.boundsProperty.link( () => {
@@ -167,7 +152,6 @@ export default class QBSScreenView extends ScreenView {
 
     // Rendering order, from back to front
     const screenViewChildren = [
-      potentialTypeComboBox,
       legendPanel,
       energyDiagramNode,
       ...quantumStateGraphNodes,
@@ -193,12 +177,11 @@ export default class QBSScreenView extends ScreenView {
     // Play Area focus order
     const playAreaPDOMOrder = [
       energyDiagramControlPanel,
-      quantumStateGraphControlPanel,
-      potentialTypeComboBox,
       energyDiagramNode,
       magnifierNode,
       curvesVisibleToggleButton,
       ...quantumStateGraphNodes,
+      quantumStateGraphControlPanel,
       referenceLineNode
     ];
     if ( yAxisZoomButtonGroup ) {
