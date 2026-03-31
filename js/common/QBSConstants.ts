@@ -118,7 +118,7 @@ export default class QBSConstants {
       arrowButtonsXSpacing: 5
     } ),
     sliderOptions: {
-      trackSize: new Dimension2( 135, 3 ),
+      trackSize: new Dimension2( 150, 3 ),
       thumbSize: new Dimension2( 15, 25 ),
       majorTickLength: 13,
       tickLabelSpacing: 4,

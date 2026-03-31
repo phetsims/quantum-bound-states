@@ -7,6 +7,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
@@ -50,6 +51,7 @@ export default class MassControl extends NumberControl {
         minBackgroundWidth: 65
       },
       sliderOptions: {
+        trackSize: new Dimension2( 135, 3 ),
         majorTicks: createMajorTicks( electronMassesProperty.range ),
         minorTickSpacing: 0.1,
         thumbFill: QBSColors.massSliderThumbFillProperty,
