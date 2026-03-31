@@ -27,7 +27,7 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
   // private - for internal use only
   //====================================================================================================================
 
-  // Runs a test at startup that compares NumerovSolver to analytical solutions. Output is in the browser console.
+  // Runs a test at startup that compares NumerovSolver to analytic solutions. Output is in the browser console.
   testNumerovSolver: {
     type: 'flag'
   },
