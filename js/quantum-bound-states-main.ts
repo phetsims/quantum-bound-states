@@ -47,7 +47,7 @@ simLauncher.launch( () => {
   sim.start();
 
   // Compare NumerovSolver to analytical solutions.
-  if ( QBSQueryParameters.testNumerovSolver ) {
+  if ( QBSQueryParameters.testNumerovSolver || QBSQueryParameters.testNumerovSolverVerbose ) {
     testNumerovSolver();
   }
 } );

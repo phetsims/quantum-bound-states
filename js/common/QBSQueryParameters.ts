@@ -32,6 +32,11 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
     type: 'flag'
   },
 
+  // Same as testNumerovSolver, but with verbose console logging.
+  testNumerovSolverVerbose: {
+    type: 'flag'
+  },
+
   // Initial value of the 'Values' checkbox
   valuesVisible: {
     type: 'boolean',

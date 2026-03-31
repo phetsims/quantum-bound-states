@@ -11,6 +11,7 @@
 
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import QBSQueryParameters from '../../QBSQueryParameters.js';
 import FiniteSquareWellSolution from './analytical-solutions/FiniteSquareWellSolution.js';
 import HarmonicOscillatorSolution from './analytical-solutions/HarmonicOscillatorSolution.js';
 import InfiniteSquareWellSolution from './analytical-solutions/InfiniteSquareWellSolution.js';
@@ -19,6 +20,23 @@ import XGrid from './XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 const ELECTRON_MASSES = 1; // electron masses
+
+/**
+ * For verbose logging, when running with ?testNumerovSolverVerbose.
+ */
+function logVerbose( message: string ): void {
+  if ( QBSQueryParameters.testNumerovSolverVerbose ) {
+    console.log( message );
+  }
+}
+
+/**
+ * For summary logging, when running with ?testNumerovSolver or ?testNumerovSolverVerbose.
+ * Summary messages are logged in red to make them easier to identify in the console.
+ */
+function logSummary( message: string ): void {
+  console.log( `%c${message}`, 'color: red' );
+}
 
 /**
  * Count the number of nodes (zero crossings) in a wave function.
@@ -185,7 +203,7 @@ function testHarmonicOscillator(): void {
   affirm( numericalResult.energies.length > 0, `Found ${numericalResult.energies.length} numerical states` );
   affirm( analyticalResult.energies.length > 0, `Found ${analyticalResult.energies.length} analytical states` );
 
-  console.log( `\nHarmonic Oscillator - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
+  logVerbose( `\nHarmonic Oscillator - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
   // Methods may find slightly different numbers of states due to boundary effects
   // Compare the states that both methods found
@@ -206,7 +224,7 @@ function testHarmonicOscillator(): void {
     tableRows.push( [ '...', '...', '...', '...', '...', '...' ] );
   }
 
-  console.log( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes' ] ) );
+  logVerbose( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes' ] ) );
 
   let maxRelativeError = 0;
   for ( let n = 0; n < minStates; n++ ) {
@@ -221,7 +239,7 @@ function testHarmonicOscillator(): void {
     );
   }
 
-  console.log( `Harmonic Oscillator - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
+  logSummary( `Harmonic Oscillator - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
 }
 
 /**
@@ -247,7 +265,7 @@ function testInfiniteSquareWell(): void {
   // Get analytical solution
   const analyticalResult = InfiniteSquareWellSolution.solve( xGrid, L, mass, energyMin, energyMax );
 
-  console.log( `\nInfinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
+  logVerbose( `\nInfinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
   affirm( numericalResult.energies.length >= 5, `Found ${numericalResult.energies.length} numerical states (expected at least 5)` );
   affirm( analyticalResult.energies.length >= 5, `Found ${analyticalResult.energies.length} analytical states (expected at least 5)` );
@@ -268,7 +286,7 @@ function testInfiniteSquareWell(): void {
     tableRows.push( [ '...', '...', '...', '...', '...', '...' ] );
   }
 
-  console.log( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes' ] ) );
+  logVerbose( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes' ] ) );
 
   let maxRelativeError = 0;
   for ( let i = 0; i < maxStates; i++ ) {
@@ -283,7 +301,7 @@ function testInfiniteSquareWell(): void {
     );
   }
 
-  console.log( `Infinite Square Well - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
+  logSummary( `Infinite Square Well - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
 }
 
 /**
@@ -309,8 +327,9 @@ function testFiniteSquareWell(): void {
   // Get analytical solution
   const analyticalResult = FiniteSquareWellSolution.solve( xGrid, L, V0, mass, energyMin, energyMax );
 
-  console.log( `\nFinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
-  console.log( `Well parameters: L = ${L} nm, V₀ = ${V0} eV` );
+  logVerbose( `\nFinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
+
+  logVerbose( `Well parameters: L = ${L} nm, V₀ = ${V0} eV` );
 
   affirm( numericalResult.energies.length > 0, `Found ${numericalResult.energies.length} numerical states` );
   affirm( analyticalResult.energies.length > 0, `Found ${analyticalResult.energies.length} analytical states` );
@@ -331,12 +350,12 @@ function testFiniteSquareWell(): void {
     tableRows.push( [ i + 1, numerical, analytical, error, parity, nodes ] );
   }
 
-  console.log( formatTable( tableRows, [ 'State', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes' ] ) );
+  logVerbose( formatTable( tableRows, [ 'State', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes' ] ) );
 
   // Note: Numerical and analytical solvers may find different numbers of states
   // The numerical solver may pick up resonances/quasi-bound states near the continuum
   // We'll validate that the analytical states are present in the numerical results
-  console.log( '\nValidating correspondence between numerical and analytical states...' );
+  logVerbose( '\nValidating correspondence between numerical and analytical states...' );
 
   // Match analytical states to numerical states by energy proximity
   let goodMatches = 0;
@@ -363,9 +382,9 @@ function testFiniteSquareWell(): void {
       maxRelativeError = Math.max( maxRelativeError, relativeError );
     }
 
-    console.log( `  Analytical state ${i + 1}: ${toFixed( E_analytical, 4 )} eV ` +
-                 `→ Numerical state ${closestIdx + 1}: ${toFixed( E_numerical, 4 )} eV ` +
-                 `(error: ${toFixed( relativeError * 100, 2 )}%)` );
+    logVerbose( `  Analytical state ${i + 1}: ${toFixed( E_analytical, 4 )} eV ` +
+                `→ Numerical state ${closestIdx + 1}: ${toFixed( E_numerical, 4 )} eV ` +
+                `(error: ${toFixed( relativeError * 100, 2 )}%)` );
   }
 
   // Require that most analytical states have good numerical matches
@@ -375,7 +394,7 @@ function testFiniteSquareWell(): void {
     `At least 50% of analytical states should match numerical states (found ${goodMatches}/${analyticalResult.energies.length})`
   );
 
-  console.log( `Finite Square Well - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
+  logSummary( `Finite Square Well - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
 
   // Verify wave functions for states found by both methods
   const dx = xGrid.dx;
@@ -403,7 +422,7 @@ function testFiniteSquareWell(): void {
     );
   }
 
-  console.log( 'Finite Square Well - All normalizations verified' );
+  logVerbose( 'Finite Square Well - All normalizations verified' );
 }
 
 /**
@@ -461,7 +480,7 @@ function testNodeCounting(): void {
     // Ensure we found some states
     affirm( result.waveFunctions.length > 0, `Found ${result.waveFunctions.length} states` );
 
-    console.log( `\nNode Counting - Found ${result.waveFunctions.length} states` );
+    logVerbose( `\nNode Counting - Found ${result.waveFunctions.length} states` );
 
     // Build table data
     const tableRows = [];
@@ -477,7 +496,7 @@ function testNodeCounting(): void {
       tableRows.push( [ '...', '...', '...', '...', '...' ] );
     }
 
-    console.log( formatTable( tableRows, [ 'State', 'Energy (eV)', 'Nodes', 'Expected', 'Match' ] ) );
+    logVerbose( formatTable( tableRows, [ 'State', 'Energy (eV)', 'Nodes', 'Expected', 'Match' ] ) );
 
     // Count how many states have correct node count
     let correctCount = 0;
@@ -488,7 +507,7 @@ function testNodeCounting(): void {
       }
     }
 
-    console.log( `\nNode counting accuracy: ${correctCount}/${result.waveFunctions.length} states correct (${toFixed( 100 * correctCount / result.waveFunctions.length, 1 )}%)` );
+    logSummary( `\nNode counting accuracy: ${correctCount}/${result.waveFunctions.length} states correct (${toFixed( 100 * correctCount / result.waveFunctions.length, 1 )}%)` );
 
     // Require at least 50% accuracy (node counting can be challenging with numerical artifacts)
     // The important thing is that states are ordered by energy correctly, which they are
