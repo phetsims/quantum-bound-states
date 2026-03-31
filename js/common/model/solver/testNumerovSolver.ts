@@ -176,7 +176,7 @@ function testHarmonicOscillator(): void {
   const energyMax = 20.5 * HBAR * omega;
 
   // Get numerical solution
-  const numericalResult = NumerovSolver.solveNumerov( xGrid, potential, mass, energyMin, energyMax );
+  const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
   const analyticalResult = HarmonicOscillatorSolution.solve( xGrid, k, mass, energyMin, energyMax );
@@ -242,7 +242,7 @@ function testInfiniteSquareWell(): void {
   const energyMax = 21 * 21 * E1_analytical;
 
   // Get numerical solution
-  const numericalResult = NumerovSolver.solveNumerov( xGrid, potential, mass, energyMin, energyMax );
+  const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
   const analyticalResult = InfiniteSquareWellSolution.solve( xGrid, L, mass, energyMin, energyMax );
@@ -304,7 +304,7 @@ function testFiniteSquareWell(): void {
   const energyMax = 0;
 
   // Get numerical solution
-  const numericalResult = NumerovSolver.solveNumerov( xGrid, potential, mass, energyMin, energyMax );
+  const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
   const analyticalResult = FiniteSquareWellSolution.solve( xGrid, L, V0, mass, energyMin, energyMax );
@@ -420,7 +420,7 @@ function testWaveFunctionNormalization(): void {
   const E0 = 0.5 * HBAR * omega;
   const xGrid = new XGrid( -4, 4, 1001 );
 
-  const result = NumerovSolver.solveNumerov( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
+  const result = NumerovSolver.solve( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
 
   // Ensure we found some states
   affirm( result.waveFunctions.length > 0, `Found ${result.waveFunctions.length} states` );
@@ -456,7 +456,7 @@ function testNodeCounting(): void {
   const E0 = 0.5 * HBAR * omega;
   const xGrid = new XGrid( -4, 4, 1001 );
   {
-    const result = NumerovSolver.solveNumerov( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
+    const result = NumerovSolver.solve( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
 
     // Ensure we found some states
     affirm( result.waveFunctions.length > 0, `Found ${result.waveFunctions.length} states` );

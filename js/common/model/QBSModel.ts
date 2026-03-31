@@ -90,7 +90,7 @@ export default class QBSModel implements TModel {
     const energyMin = 0; // eV
     const energyMax = 10; // eV
 
-    const boundStateResult = NumerovSolver.solveNumerov( this.xGrid, potentialFunction, mass, energyMin, energyMax );
+    const boundStateResult = NumerovSolver.solve( this.xGrid, potentialFunction, mass, energyMin, energyMax );
 
     this.boundStateResultProperty = new Property( boundStateResult );
 

@@ -50,7 +50,7 @@ export default class NumerovSolver {
    * @param energyMax - Maximum energy to search (eV)
    * @returns Bound state results
    */
-  public static solveNumerov(
+  public static solve(
     xGrid: XGrid,
     potential: PotentialFunction,
     mass: number,
@@ -58,7 +58,7 @@ export default class NumerovSolver {
     energyMax: number
   ): BoundStateResult {
     const solver = new NumerovSolver( mass );
-    return solver.solve( potential, xGrid, energyMin, energyMax );
+    return solver.getBoundStateResult( potential, xGrid, energyMin, energyMax );
   }
 
   // Number of energy steps for scanning in the shooting method.
@@ -109,7 +109,7 @@ export default class NumerovSolver {
    * const potential = ( x: number ) => 0.5 * k * x * x;
    *
    * const solver = new NumerovSolver( mass );
-   * const result = solver.solve(
+   * const result = solver.getBoundStateResult(
    *   potential,
    *   { xMin: -4, xMax: 4, numPoints: 1001 }, // nm
    *   0, // Ground state is above 0
@@ -120,7 +120,7 @@ export default class NumerovSolver {
    * console.log( 'Ground state energy:', result.energies[ 0 ] );
    * console.log( 'First excited energy:', result.energies[ 1 ] );
    */
-  public solve(
+  public getBoundStateResult(
     potential: PotentialFunction,
     xGrid: XGrid,
     energyMin: number,

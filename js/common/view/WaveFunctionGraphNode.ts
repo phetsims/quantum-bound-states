@@ -44,6 +44,6 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       tandem: tandem
     };
 
-    super( options );
+    super( model.curvesVisibleProperty, options );
   }
 }

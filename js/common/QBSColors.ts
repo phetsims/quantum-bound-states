@@ -88,6 +88,10 @@ export default class QBSColors {
     default: PhetColorScheme.RED_COLORBLIND
   } );
 
+  public static readonly probabilityDensityStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'probabilityDensityStroke', {
+    default: 'black'
+  } );
+
   public static readonly realPartStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'realPartStroke', {
     default: 'rgb( 10, 70, 250 )'
   } );

@@ -14,7 +14,7 @@
  * const xGrid = new XGrid( -4, 4, 1001 );
  *
  * // Access computed results
- * const result: BoundStateResult = solver.solve( ... );
+ * const result: BoundStateResult = NumerovSolver.solve( ... );
  *
  * // Get ground state energy
  * const E0 = result.eigenvalues[ 0 ];

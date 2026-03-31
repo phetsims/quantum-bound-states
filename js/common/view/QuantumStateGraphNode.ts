@@ -53,12 +53,14 @@ export type QuantumStateGraphNodeOptions = SelfOptions &
 export default class QuantumStateGraphNode extends Node {
 
   // bamboo model-view transform
-  private readonly chartTransform: ChartTransform;
+  protected readonly chartTransform: ChartTransform;
 
   // Outer rectangle of the chart
-  private readonly chartRectangle: Node;
+  private readonly chartRectangle: ChartRectangle;
 
-  protected constructor( providedOptions: QuantumStateGraphNodeOptions ) {
+  protected readonly curveLayer: Node;
+
+  protected constructor( curvesVisibleProperty: TReadOnlyProperty<boolean>, providedOptions: QuantumStateGraphNodeOptions ) {
 
     const options = optionize<QuantumStateGraphNodeOptions, SelfOptions, NodeOptions>()( {
 
@@ -128,6 +130,11 @@ export default class QuantumStateGraphNode extends Node {
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
       QBSConstants.ALL_GRAPHS_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
+    this.curveLayer = new Node( {
+      clipArea: this.chartRectangle.getShape(),
+      visibleProperty: curvesVisibleProperty
+    } );
+
     // Parents for all non-interactive elements.
     const pickableFalseNode = new Node( {
       pickable: false, // optimization
@@ -140,7 +147,8 @@ export default class QuantumStateGraphNode extends Node {
         yTickLabelSet,
         this.chartRectangle,
         horizontalGridLines,
-        verticalGridLines
+        verticalGridLines,
+        this.curveLayer
       ]
     } );
 
