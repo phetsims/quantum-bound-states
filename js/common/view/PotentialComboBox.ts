@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialComboBox is the combo box for selecting a potential.
+ * PotentialComboBox is the combo box for selecting a quantum potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
