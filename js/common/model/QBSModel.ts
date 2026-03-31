@@ -41,14 +41,20 @@ export default class QBSModel implements TModel {
 
   public readonly time: Time;
 
+  // The quantum potential that is currently selected.
+  public readonly potentialProperty: Property<Potential>;
+
+  // Result from NumerovSolver for the selected quantum potential.
+  public readonly boundStateResultProperty: Property<BoundStateResult>;
+
   // Constant grid of x-coordinates, used for all graphs.
   public readonly xGrid: XGrid;
 
-  public readonly boundStateResultProperty: Property<BoundStateResult>;
-
-  public readonly energyDiagram: EnergyDiagram;
+  // The selected energy level.
   public readonly energyLevelProperty: NumberProperty;
-  public readonly potentialProperty: Property<Potential>; //TODO Core description refers to this as "potential type".
+
+  // Energy diagram
+  public readonly energyDiagram: EnergyDiagram;
 
   // The possible QuantumStateGraphs.
   public readonly averageProbabilityDensityOfBandGraph?: AverageProbabilityDensityOfBandGraph;
