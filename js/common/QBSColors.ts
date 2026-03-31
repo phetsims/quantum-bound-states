@@ -76,6 +76,10 @@ export default class QBSColors {
     default: Color.TRANSPARENT
   } );
 
+  public static readonly xAxisStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'xAxisStroke', {
+    default: Color.grayColor( 100 )
+  } );
+
   public static readonly gridLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'gridLinesStroke', {
     default: Color.grayColor( 200 )
   } );

@@ -177,22 +177,19 @@ class MagnifierWireNode extends Path {
 
       // control points
       // The y coordinate of the body's control point varies with the x distance between the body and probe.
-      const xOffset1 = 0;
-      const yOffset1 = linear( 0, 800, 0, 200, Math.abs( bodyNode.centerX - probeNode.centerX ) ); // x distance -> y offset
-      const c1 = new Vector2( bodyConnectionPoint.x + xOffset1, bodyConnectionPoint.y + yOffset1 );
-      const xOffset2 = 0;
-      const yOffset2 = linear( 0, 800, 100, 150, Math.abs( bodyNode.centerX - probeNode.centerX ) ); // x distance -> y offset
-      const c2 = new Vector2( probeConnectionPoint.x + xOffset2, probeConnectionPoint.y + yOffset2 );
+      const c1Offset = new Vector2( 0, linear( 0, 800, 0, 200, Math.abs( bodyNode.centerX - probeNode.centerX ) ) ); // x distance -> y coordinate
+      const c2Offset = new Vector2( 50 * ( ( bodyNode.centerX - probeNode.centerX > 0 ) ? 1 : -1 ), 150 );
+      const c1 = new Vector2( bodyConnectionPoint.x + c1Offset.x, bodyConnectionPoint.y + c1Offset.y );
+      const c2 = new Vector2( probeConnectionPoint.x + c2Offset.x, probeConnectionPoint.y + c2Offset.y );
 
       // cubic curve
       const shape = new Shape()
         .moveTo( bodyConnectionPoint.x, bodyConnectionPoint.y )
         .cubicCurveTo( c1.x, c1.y, c2.x, c2.y, probeConnectionPoint.x, probeConnectionPoint.y );
 
-      // For debugging, draw the control points.
+      // Draw the control points
       if ( phet.chipper.queryParameters.dev ) {
-        shape.newSubpath().moveToPoint( c1 ).circle( c1, 2 ) // c1
-          .newSubpath().moveToPoint( c2 ).circle( c2, 2 ); // c2
+        shape.newSubpath().moveToPoint( c1 ).circle( c1, 2 ).newSubpath().moveToPoint( c2 ).circle( c2, 2 );
       }
 
       return shape;

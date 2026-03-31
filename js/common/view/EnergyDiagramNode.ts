@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -87,6 +88,12 @@ export default class EnergyDiagramNode extends Node {
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
       QBSConstants.ENERGY_DIAGRAM_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
+    const xAxis = new AxisLine( this.chartTransform, Orientation.HORIZONTAL, {
+      extension: 0,
+      lineWidth: 1,
+      stroke: QBSColors.xAxisStrokeProperty
+    } );
+
     // Parents for all non-interactive elements.
     const pickableFalseNode = new Node( {
       pickable: false, // optimization
@@ -96,7 +103,8 @@ export default class EnergyDiagramNode extends Node {
         yAxisLabelNode,
         this.chartRectangle,
         this.horizontalGridLines,
-        verticalGridLines
+        verticalGridLines,
+        xAxis
       ]
     } );
 
