@@ -10,7 +10,6 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import SpectrumNode from '../../../../scenery-phet/js/SpectrumNode.js';
@@ -22,19 +21,19 @@ import TColor from '../../../../scenery/js/util/TColor.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSConstants from '../QBSConstants.js';
-import WaveFunctionPartsCheckbox, { WaveFunctionComponentCheckboxOptions } from './WaveFunctionPartsCheckbox.js';
+import WaveFunctionPartsCheckbox, { WaveFunctionPartsCheckboxOptions } from './WaveFunctionPartsCheckbox.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type PhaseCheckboxOptions = SelfOptions &
-  PickOptional<WaveFunctionComponentCheckboxOptions, 'layoutOptions' | 'visibleProperty' | 'enabledProperty'> &
-  PickRequired<WaveFunctionComponentCheckboxOptions, 'tandem'>;
+  PickRequired<WaveFunctionPartsCheckboxOptions, 'tandem' | 'enabledProperty' | 'layoutOptions'>;
 
 export default class PhaseCheckbox extends WaveFunctionPartsCheckbox {
 
   public constructor( phaseVisibleProperty: Property<boolean>, providedOptions: PhaseCheckboxOptions ) {
 
-    const options = optionize4<PhaseCheckboxOptions, SelfOptions, StrictOmit<WaveFunctionComponentCheckboxOptions, 'tandem'>>()(
+    const options = optionize4<PhaseCheckboxOptions, SelfOptions,
+      StrictOmit<WaveFunctionPartsCheckboxOptions, 'tandem' | 'enabledProperty' | 'layoutOptions'>>()(
       {}, QBSConstants.CHECKBOX_OPTIONS, {
         createContent: createContent,
         stringProperty: QuantumBoundStatesFluent.phaseStringProperty,

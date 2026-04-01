@@ -44,7 +44,7 @@ export default class QuantumStateGraphControlPanel extends Panel {
       layoutOptions: {
         leftMargin: 25 // indent below quantumStateGraphRadioButtonGroup
       },
-      enabledProperty: new DerivedProperty( [ selectedGraphProperty ], selectedGraph => selectedGraph === waveFunctionGraph ),
+      checkboxesEnabledProperty: new DerivedProperty( [ selectedGraphProperty ], selectedGraph => selectedGraph === waveFunctionGraph ),
       tandem: tandem.createTandem( 'waveFunctionPartsCheckboxGroup' )
     } );
 

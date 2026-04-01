@@ -7,21 +7,28 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
-import WaveFunctionPartsCheckbox from './WaveFunctionPartsCheckbox.js';
+import WaveFunctionPartsCheckbox, { WaveFunctionPartsCheckboxOptions } from './WaveFunctionPartsCheckbox.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type RealPartCheckboxOptions = SelfOptions & PickRequired<WaveFunctionPartsCheckboxOptions, 'tandem' | 'enabledProperty'>;
 
 export default class RealPartCheckbox extends WaveFunctionPartsCheckbox {
 
-  public constructor( realPartVisibleProperty: Property<boolean>, tandem: Tandem ) {
-    super( realPartVisibleProperty, {
+  public constructor( realPartVisibleProperty: Property<boolean>, providedOptions: RealPartCheckboxOptions ) {
+
+    const options = optionize<RealPartCheckboxOptions, SelfOptions, WaveFunctionPartsCheckboxOptions>()( {
       stringProperty: QuantumBoundStatesFluent.realPartStringProperty,
       strokeProperty: QBSColors.realPartStrokeProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.realPartCheckbox.accessibleHelpTextStringProperty,
       accessibleContextResponseChecked: QuantumBoundStatesFluent.a11y.realPartCheckbox.accessibleContextResponseCheckedStringProperty,
-      accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.realPartCheckbox.accessibleContextResponseUncheckedStringProperty,
-      tandem: tandem
-    } );
+      accessibleContextResponseUnchecked: QuantumBoundStatesFluent.a11y.realPartCheckbox.accessibleContextResponseUncheckedStringProperty
+    }, providedOptions );
+
+    super( realPartVisibleProperty, options );
   }
 }

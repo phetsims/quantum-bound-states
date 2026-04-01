@@ -30,16 +30,18 @@ type SelfOptions = {
 
   // Color of the horizontal line.
   strokeProperty?: TReadOnlyProperty<Color>;
+
+  enabledProperty: TReadOnlyProperty<boolean>;
 };
 
-export type WaveFunctionComponentCheckboxOptions = SelfOptions & CheckboxOptions & PickRequired<CheckboxOptions, 'tandem'>;
+export type WaveFunctionPartsCheckboxOptions = SelfOptions & CheckboxOptions & PickRequired<CheckboxOptions, 'tandem'>;
 
 export default class WaveFunctionPartsCheckbox extends Checkbox {
 
   protected constructor( componentVisibleProperty: Property<boolean>,
-                         providedOptions: WaveFunctionComponentCheckboxOptions ) {
+                         providedOptions: WaveFunctionPartsCheckboxOptions ) {
 
-    const options = optionize4<WaveFunctionComponentCheckboxOptions, SelfOptions, CheckboxOptions>()(
+    const options = optionize4<WaveFunctionPartsCheckboxOptions, SelfOptions, CheckboxOptions>()(
       {}, QBSConstants.CHECKBOX_OPTIONS, {
 
         // SelfOptions
