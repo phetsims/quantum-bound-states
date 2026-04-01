@@ -40,8 +40,8 @@ export class TwoWellsControlPanel extends Panel {
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: [
         titleText,
-        new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
-        new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) )
+        new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) ),
+        new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) )
       ]
     } ) );
 
