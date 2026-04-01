@@ -1,5 +1,5 @@
 {
-  "comment": "# quantum-bound-states 1.0.0-dev.1 Wed Apr 01 2026 10:00:29 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# quantum-bound-states 1.0.0-dev.1 Wed Apr 01 2026 10:20:28 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "51cb1f03d29ea7ba229d27533e544e789d5a2a31",
     "branch": "main"
@@ -33,7 +33,7 @@
     "branch": "main"
   },
   "perennial-alias": {
-    "sha": "f6d55d6daf50e05b4f873aef11999244f93a0f60",
+    "sha": "5ea5d8390b165c9e8e63e7907e5f23095858179a",
     "branch": "main"
   },
   "phet-core": {
@@ -61,7 +61,7 @@
     "branch": "main"
   },
   "quantum-bound-states": {
-    "sha": "6742a0cd9836221958825bd74eee5c0635cafb4b",
+    "sha": "51859427566d42e574bc8c8358e0e6aaab7f141b",
     "branch": "main"
   },
   "query-string-machine": {
