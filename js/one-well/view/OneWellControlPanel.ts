@@ -42,9 +42,9 @@ export class OneWellControlPanel extends Panel {
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: [
         titleText,
-        new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) ),
+        new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new MassControl( electronMassesProperty, tandem.createTandem( 'massControl' ) ),
-        new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) )
+        new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );
 

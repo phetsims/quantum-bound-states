@@ -44,10 +44,10 @@ export class ManyWellsControlPanel extends Panel {
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: [
         titleText,
-        new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) ),
+        new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new NumberOfWellsControl( numberOfWellsProperty, tandem.createTandem( 'numberOfWellsControl' ) ),
         new ElectricFieldControl( electricFieldProperty, tandem.createTandem( 'electricFieldControl' ) ),
-        new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) )
+        new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );
 
