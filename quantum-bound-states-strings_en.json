@@ -588,6 +588,14 @@
         "value": "TODO.quantumStateGraphRadioButtonGroup.accessibleHelpText"
       }
     },
+    "timeSpeedSlider": {
+      "accessibleName": {
+        "value": "TODO.timeSpeedSlider.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.timeSpeedSlider.accessibleHelpText"
+      }
+    },
     "massControl": {
       "accessibleHelpText": {
         "value": "Adjust the relative mass of the system."

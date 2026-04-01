@@ -181,6 +181,8 @@ addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleHelpText',
 addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleContextResponse', 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleName', 'a11y.quantumStateGraphRadioButtonGroup.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleHelpText', 'a11y.quantumStateGraphRadioButtonGroup.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_timeSpeedSlider_accessibleName', 'a11y.timeSpeedSlider.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_timeSpeedSlider_accessibleHelpText', 'a11y.timeSpeedSlider.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_massControl_accessibleHelpText', 'a11y.massControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_numberOfWellsControl_accessibleHelpText', 'a11y.numberOfWellsControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_electricFieldControl_accessibleHelpText', 'a11y.electricFieldControl.accessibleHelpTextStringProperty' );
@@ -554,9 +556,13 @@ const QuantumBoundStatesFluent = {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_quantumStateGraphRadioButtonGroup_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.quantumStateGraphRadioButtonGroup.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_quantumStateGraphRadioButtonGroup_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.quantumStateGraphRadioButtonGroup.accessibleHelpTextStringProperty' ) )
     },
-    _comment_23: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
-    _comment_24: new FluentComment( {"comment":"Sliders","associatedKey":"massControl"} ),
-    _comment_25: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"massControl"} ),
+    _comment_23: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeSpeedSlider"} ),
+    _comment_24: new FluentComment( {"comment":"Sliders","associatedKey":"timeSpeedSlider"} ),
+    _comment_25: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeSpeedSlider"} ),
+    timeSpeedSlider: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeSpeedSlider_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.timeSpeedSlider.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeSpeedSlider_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.timeSpeedSlider.accessibleHelpTextStringProperty' ) )
+    },
     massControl: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_massControl_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.massControl.accessibleHelpTextStringProperty' ) )
     },

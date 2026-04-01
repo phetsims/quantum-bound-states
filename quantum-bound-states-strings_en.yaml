@@ -319,6 +319,10 @@ a11y:
   # Sliders
   #=======================================================================================================
 
+  timeSpeedSlider:
+    accessibleName: TODO.timeSpeedSlider.accessibleName
+    accessibleHelpText: TODO.timeSpeedSlider.accessibleHelpText
+
   massControl:
     accessibleHelpText: Adjust the relative mass of the system.
 

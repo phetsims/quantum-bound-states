@@ -285,6 +285,10 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
+    'timeSpeedSlider': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
     'massControl': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };

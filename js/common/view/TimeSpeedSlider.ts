@@ -33,6 +33,8 @@ export default class TimeSpeedSlider extends HSlider {
       thumbFillHighlighted: QBSColors.timeSpeedSliderThumbFillHighlightedProperty,
       majorTickLength: 15,
       constrainValue: value => findClosestValue( value, validValues ),
+      accessibleName: QuantumBoundStatesFluent.a11y.timeSpeedSlider.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.timeSpeedSlider.accessibleHelpTextStringProperty,
       tandem: tandem
     };
 
