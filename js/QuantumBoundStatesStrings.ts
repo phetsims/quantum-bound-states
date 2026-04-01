@@ -193,17 +193,14 @@ type StringsType = {
     'potentialComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'superpositionPresetComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'superpositionCustomComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'energyDiagram': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;

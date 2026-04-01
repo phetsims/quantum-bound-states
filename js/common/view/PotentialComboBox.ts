@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
@@ -46,9 +45,6 @@ export default class PotentialComboBox extends ComboBox<Potential> {
       yMargin: 6,
       accessibleName: QuantumBoundStatesFluent.a11y.potentialComboBox.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.potentialComboBox.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.potentialComboBox.accessibleContextResponse.createProperty( {
-        accessibleName: new DerivedStringProperty( [ potentialProperty ], potential => potential.accessibleNameProperty.value )
-      } ),
       tandem: tandem
     } );
   }

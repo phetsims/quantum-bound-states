@@ -71,7 +71,6 @@ export default class SuperpositionCustomComboBox extends ComboBox<number> {
       yMargin: 6,
       accessibleName: QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.accessibleContextResponseStringProperty,
       tandem: tandem
     } );
   }

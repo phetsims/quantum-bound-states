@@ -72,7 +72,6 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
       yMargin: 6,
       accessibleName: QuantumBoundStatesFluent.a11y.superpositionPresetComboBox.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.superpositionPresetComboBox.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.superpositionPresetComboBox.accessibleContextResponseStringProperty,
       tandem: tandem
     } );
   }

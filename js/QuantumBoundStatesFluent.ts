@@ -134,13 +134,10 @@ addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseChecked'
 addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseUnchecked', 'a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_potentialComboBox_accessibleName', 'a11y.potentialComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_potentialComboBox_accessibleHelpText', 'a11y.potentialComboBox.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_potentialComboBox_accessibleContextResponse', 'a11y.potentialComboBox.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_superpositionPresetComboBox_accessibleName', 'a11y.superpositionPresetComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_superpositionPresetComboBox_accessibleHelpText', 'a11y.superpositionPresetComboBox.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_superpositionPresetComboBox_accessibleContextResponse', 'a11y.superpositionPresetComboBox.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleName', 'a11y.superpositionCustomComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleHelpText', 'a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleContextResponse', 'a11y.superpositionCustomComboBox.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleParagraph', 'a11y.energyDiagram.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleHeading', 'a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty' );
@@ -451,18 +448,15 @@ const QuantumBoundStatesFluent = {
     _comment_11: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"potentialComboBox"} ),
     potentialComboBox: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_potentialComboBox_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.potentialComboBox.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_potentialComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.potentialComboBox.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponse: new FluentPattern<{ accessibleName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_potentialComboBox_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.potentialComboBox.accessibleContextResponseStringProperty' ), [{"name":"accessibleName"}] )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_potentialComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.potentialComboBox.accessibleHelpTextStringProperty' ) )
     },
     superpositionPresetComboBox: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionPresetComboBox_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionPresetComboBox.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionPresetComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionPresetComboBox.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionPresetComboBox_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionPresetComboBox.accessibleContextResponseStringProperty' ) )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionPresetComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionPresetComboBox.accessibleHelpTextStringProperty' ) )
     },
     superpositionCustomComboBox: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.accessibleContextResponseStringProperty' ) )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty' ) )
     },
     _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
     _comment_13: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),

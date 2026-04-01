@@ -401,9 +401,6 @@
       },
       "accessibleHelpText": {
         "value": "Choose a potential shape for the energy graph."
-      },
-      "accessibleContextResponse": {
-        "value": "potential set to {$accessibleName}"
       }
     },
     "superpositionPresetComboBox": {
@@ -412,9 +409,6 @@
       },
       "accessibleHelpText": {
         "value": "TODO.superpositionPresetComboBox.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.superpositionPresetComboBox.accessibleContextResponse"
       }
     },
     "superpositionCustomComboBox": {
@@ -423,9 +417,6 @@
       },
       "accessibleHelpText": {
         "value": "TODO.superpositionCustomComboBox.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.superpositionCustomComboBox.accessibleContextResponse"
       }
     },
     "energyDiagram": {

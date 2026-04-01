@@ -215,17 +215,14 @@ a11y:
   potentialComboBox:
     accessibleName:            Potential
     accessibleHelpText:        Choose a potential shape for the energy graph.
-    accessibleContextResponse: potential set to {$accessibleName}
 
   superpositionPresetComboBox:
     accessibleName:            TODO.superpositionPresetComboBox.accessibleName
     accessibleHelpText:        TODO.superpositionPresetComboBox.accessibleHelpText
-    accessibleContextResponse: TODO.superpositionPresetComboBox.accessibleContextResponse
 
   superpositionCustomComboBox:
     accessibleName:            TODO.superpositionCustomComboBox.accessibleName
     accessibleHelpText:        TODO.superpositionCustomComboBox.accessibleHelpText
-    accessibleContextResponse: TODO.superpositionCustomComboBox.accessibleContextResponse
 
   #=======================================================================================================
   # Graphs
