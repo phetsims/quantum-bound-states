@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO This control panel is visibly scaled down for some reason.
 /**
  * SuperpositionControlPanel is the control panel that is specific to the 'Superposition' screen,
  * positioned to the right of the 'Energy' diagram.
