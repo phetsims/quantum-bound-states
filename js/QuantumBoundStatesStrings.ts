@@ -143,9 +143,6 @@ type StringsType = {
     'energyDiagramControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };
-    'superpositionControls': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-    };
     'quantumStateGraphControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
     };

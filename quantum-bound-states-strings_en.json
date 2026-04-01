@@ -298,11 +298,6 @@
         "value": "Energy Diagram Controls"
       }
     },
-    "superpositionControls": {
-      "accessibleHeading": {
-        "value": "Superposition Controls"
-      }
-    },
     "quantumStateGraphControls": {
       "accessibleHeading": {
         "value": "Quantum State Graph Controls"

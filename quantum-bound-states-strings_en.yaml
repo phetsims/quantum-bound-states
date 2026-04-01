@@ -157,9 +157,6 @@ a11y:
   energyDiagramControls:
     accessibleHeading: Energy Diagram Controls
 
-  superpositionControls:
-    accessibleHeading: Superposition Controls
-
   quantumStateGraphControls:
     accessibleHeading: Quantum State Graph Controls
 

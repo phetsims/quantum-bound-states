@@ -110,7 +110,7 @@ export class SuperpositionControlPanel extends Panel {
       isDisposable: false,
       minWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
       maxWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
-      accessibleHeading: QuantumBoundStatesFluent.a11y.superpositionControls.accessibleHeadingStringProperty,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagramControls.accessibleHeadingStringProperty,
       tandem: tandem
     } );
 
