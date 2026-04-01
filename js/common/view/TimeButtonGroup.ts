@@ -32,6 +32,7 @@ export default class TimeButtonGroup extends HBox {
       baseColor: QBSColors.restartButtonColorProperty,
       radius: RESTART_BUTTON_RADIUS,
       touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
+      enabledProperty: new DerivedProperty( [ time.currentTimeProperty ], currentTime => currentTime !== 0 ),
       accessibleHelpText: QuantumBoundStatesFluent.a11y.restartButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.restartButton.accessibleContextResponseStringProperty,
       tandem: tandem.createTandem( 'restartButton' )
