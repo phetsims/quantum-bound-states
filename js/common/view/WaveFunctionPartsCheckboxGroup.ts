@@ -1,8 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WaveFunctionPartsCheckboxGroup is a group of checkboxes for controlling the visibility of various
- * components of the wave function.
+ * WaveFunctionPartsCheckboxGroup is a group of checkboxes for controlling the visibility of components (parts)
+ * of the wave function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
