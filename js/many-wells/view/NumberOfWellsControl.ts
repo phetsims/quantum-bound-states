@@ -12,7 +12,6 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
@@ -33,10 +32,6 @@ export default class NumberOfWellsControl extends NumberControl {
       sliderOptions: {
         majorTicks: createMajorTicks( numberOfWellsProperty.range ),
         minorTickSpacing: 1,
-        createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {
-          decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
-          showTrailingZeros: false
-        } ),
         keyboardStep: KEYBOARD_STEP,
         shiftKeyboardStep: SHIFT_KEYBOARD_STEP,
         pageKeyboardStep: PAGE_KEYBOARD_STEP
