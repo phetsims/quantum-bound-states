@@ -39,7 +39,7 @@ export default class WaveFunctionNormalizer {
    * Normalize a wave function according to the selected method.
    *
    * @param psi - Wave function array
-   * @param dx - Grid spacing (meters)
+   * @param dx - Grid spacing (nm)
    * @returns Normalized wave function
    */
   public normalize( psi: number[], dx: number ): number[] {

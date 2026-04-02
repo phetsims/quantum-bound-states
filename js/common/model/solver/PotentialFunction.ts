@@ -11,7 +11,7 @@
  * @example
  * // Harmonic oscillator: V(x) = (1/2)kx²
  * const harmonicOscillator = ( x: number ) => {
- *   const k = 1e3;  // Spring constant in eV/nm²
+ *   const k = 1;  // Spring constant in eV/nm²
  *   return 0.5 * k * x * x;
  * };
  *

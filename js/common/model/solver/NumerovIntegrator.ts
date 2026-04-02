@@ -33,8 +33,8 @@ export default class NumerovIntegrator {
   /**
    * Integrate the Schrödinger equation using Numerov formula.
    *
-   * @param E - Energy eigenvalue to test (Joules)
-   * @param V - Potential energy array (Joules)
+   * @param E - Energy eigenvalue to test (eV)
+   * @param V - Potential energy array (eV) corresponding to xGrid points
    * @param xGrid - grid of x-coordinates with uniform spacing (nm)
    * @returns Wave function array
    */
@@ -90,7 +90,7 @@ export default class NumerovIntegrator {
     //
     // This gives units [1/√length] and magnitude that grows gradually from the boundary.
 
-    const L = N * dx; // Total domain size (meters)
+    const L = N * dx; // Total domain size (nm)
 
     // Base scale for unnormalized wave function during integration
     const psiScale = 1 / ( N * Math.sqrt( L ) );
@@ -136,8 +136,8 @@ export default class NumerovIntegrator {
   /**
    * Calculate k²(x) = 2m(E - V(x))/ℏ² for all grid points.
    *
-   * @param E - Energy eigenvalue (Joules)
-   * @param V - Potential energy array (Joules)
+   * @param E - Energy eigenvalue (eV)
+   * @param V - Potential energy array (eV)
    * @returns Array of k² values
    */
   private calculateK2( E: number, V: number[] ): number[] {
