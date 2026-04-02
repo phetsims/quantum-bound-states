@@ -4,17 +4,15 @@
  * EnergyRefiner refines energy eigenvalues using the bisection method.
  * Used to find the precise energy where the wave function satisfies boundary conditions.
  *
- * The shooting method looks for energies where ψ(x_max) = 0. We search for sign changes
- * in the end value of the wave function, then refine using bisection to achieve the desired tolerance.
+ * The caller supplies a mismatch function f(E) that returns a signed value whose zero
+ * corresponds to an eigenvalue (e.g. ψ(x_max), a Wronskian, or a log-derivative difference).
+ * Bisection is applied between two energies where f changes sign.
  *
  * This is a very robust method in root finding, but it generates a lot of iterations, so it is not the most efficient.
  * This approach could be refined if performance is needed.
  *
  * @author Martin Veillette
  */
-
-import NumerovIntegrator from './NumerovIntegrator.js';
-import XGrid from './XGrid.js';
 
 // Default relative precision of 10^-4 gives absolute tolerance = 10^-4 × (bracket width)
 const DEFAULT_RELATIVE_TOLERANCE = 1e-4;
@@ -29,7 +27,6 @@ export type EnergyRefinerOptions = {
 
 export default class EnergyRefiner {
 
-  private readonly integrator: NumerovIntegrator;
   private readonly tolerance: number;
   private readonly isRelative: boolean;
 
@@ -43,7 +40,6 @@ export default class EnergyRefiner {
    * 10^-4 ensures the eigenvalue is accurate to ~4 significant figures relative to
    * the bracket width.
    *
-   * @param integrator - The Numerov integrator to use
    * @param options - Configuration options
    *   - tolerance: Energy tolerance value. If isRelative is true, this is a dimensionless
    *                relative tolerance. If isRelative is false, this is an absolute tolerance in eV.
@@ -51,29 +47,24 @@ export default class EnergyRefiner {
    *   - isRelative: If true, tolerance is relative to the energy bracket width.
    *                 If false, tolerance is an absolute value in eV. Default: true
    */
-  public constructor( integrator: NumerovIntegrator, options?: EnergyRefinerOptions ) {
-    this.integrator = integrator;
+  public constructor( options?: EnergyRefinerOptions ) {
     this.tolerance = options?.tolerance ?? DEFAULT_RELATIVE_TOLERANCE;
     this.isRelative = options?.isRelative ?? true;
   }
 
   /**
    * Refine energy eigenvalue using bisection method.
-   * Searches for the energy where ψ(x_max) = 0 within the given bounds.
    *
-   * @param E1 - Lower energy bound (eV)
+   * @param E1 - Lower energy bound (eV); mismatch(E1) and mismatch(E2) must have opposite signs
    * @param E2 - Upper energy bound (eV)
-   * @param V - Potential energy array (eV)
-   * @param xGrid - uniform grid of x-coordinates
+   * @param mismatch - Function returning a signed value whose zero is the eigenvalue
    * @returns Refined energy eigenvalue (eV)
    */
   public refine(
     E1: number,
     E2: number,
-    V: number[],
-    xGrid: XGrid
+    mismatch: ( E: number ) => number
   ): number {
-    const N = xGrid.numberOfPoints;
     let energyLow = E1;
     let energyHigh = E2;
 
@@ -82,20 +73,14 @@ export default class EnergyRefiner {
       this.tolerance * Math.abs( E2 - E1 ) :
       this.tolerance;
 
+    const signLow = Math.sign( mismatch( energyLow ) );
+
     // Bisection loop
     while ( energyHigh - energyLow > absoluteTolerance ) {
-      const energyMid = this.calculateMidpoint( energyLow, energyHigh );
+      const energyMid = ( energyLow + energyHigh ) / 2;
+      const signMid = Math.sign( mismatch( energyMid ) );
 
-      // Integrate at midpoint and boundary energies
-      const psiMid = this.integrator.integrate( energyMid, V, xGrid );
-      const psiLow = this.integrator.integrate( energyLow, V, xGrid );
-
-      // Look up the wave function at the end of the array
-      const endValueMid = this.getEndValue( psiMid, N );
-      const endValueLow = this.getEndValue( psiLow, N );
-
-      // Update bounds based on sign change
-      if ( this.haveSameSign( endValueMid, endValueLow ) ) {
+      if ( signMid === signLow ) {
         energyLow = energyMid;
       }
       else {
@@ -103,27 +88,6 @@ export default class EnergyRefiner {
       }
     }
 
-    return this.calculateMidpoint( energyLow, energyHigh );
-  }
-
-  /**
-   * Calculate the midpoint between two energies.
-   */
-  private calculateMidpoint( E1: number, E2: number ): number {
-    return ( E1 + E2 ) / 2;
-  }
-
-  /**
-   * Get the wave function value at the end of the grid.
-   */
-  private getEndValue( psi: number[], N: number ): number {
-    return psi[ N - 1 ];
-  }
-
-  /**
-   * Check if two values have the same sign.
-   */
-  private haveSameSign( value1: number, value2: number ): boolean {
-    return Math.sign( value1 ) === Math.sign( value2 );
+    return ( energyLow + energyHigh ) / 2;
   }
 }
