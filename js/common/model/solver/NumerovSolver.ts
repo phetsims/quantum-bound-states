@@ -158,7 +158,7 @@ export default class NumerovSolver {
    *   3. Uses the Wronskian across the meeting point m: W = ψ_L[m]·ψ_R[m+1] − ψ_L[m+1]·ψ_R[m]
    *      (zero when log-derivatives match, i.e. at an eigenvalue). Default m is the grid midpoint.
    *   4. Refines each detected sign change via bisection.
-   *   5. Stitches left and right solutions at m for the final wavefunction.
+   *   5. Stitches left and right solutions at m for the final wave function.
    */
   private findBoundStates(
     V: number[],
@@ -194,7 +194,7 @@ export default class NumerovSolver {
         const refinedEnergy = this.energyRefiner.refine( prevEnergy, E, wronskian );
         energies.push( refinedEnergy );
 
-        // Build the final wavefunction by stitching left and right solutions.
+        // Build the final wave function by stitching left and right solutions.
         const psiL = this.integrator.integrate( refinedEnergy, V, xGrid );
         const psiR = this.integrator.integrateBackward( refinedEnergy, V, xGrid );
         const stitched = this.stitchWaveFunctions( psiL, psiR, meetingPointIndex );
@@ -231,7 +231,7 @@ export default class NumerovSolver {
    * Because psiL and psiR are integrated from opposite ends with independent
    * initial conditions, they may have opposite signs at the meeting point.
    * The scale factor (which may be negative) effectively flips the sign of psiR
-   * when necessary so the stitched wavefunction is continuous.
+   * when necessary, so the stitched wave function is continuous.
    */
   private stitchWaveFunctions( psiL: number[], psiR: number[], meetingPointIndex: number ): number[] {
     const N = psiL.length;
