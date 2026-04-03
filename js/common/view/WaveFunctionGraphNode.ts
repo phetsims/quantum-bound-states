@@ -49,6 +49,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
+    //TODO temporary dataset for wave function
     // Build a dataset from the currently selected wave function (1-indexed energyLevelProperty -> 0-indexed array).
     const buildDataSet = (): Vector2[] => {
       const stateIndex = model.energyLevelProperty.value - 1;
