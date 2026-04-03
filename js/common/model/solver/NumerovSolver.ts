@@ -15,7 +15,6 @@
  * @author Martin Veillette
  */
 
-import ToggleButtonInteractionStateProperty from '../../../../../sun/js/buttons/ToggleButtonInteractionStateProperty.js';
 import { BoundStateResult } from './BoundStateResult.js';
 import EnergyRefiner from './EnergyRefiner.js';
 import NumerovIntegrator from './NumerovIntegrator.js';
@@ -208,7 +207,10 @@ export default class NumerovSolver {
       }
     }
 
-    return { energies, waveFunctions };
+    return {
+      energies: energies,
+      waveFunctions: waveFunctions
+    };
   }
 
   /**
