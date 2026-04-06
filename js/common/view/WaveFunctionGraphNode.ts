@@ -7,8 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import LinePlot from '../../../../bamboo/js/LinePlot.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
@@ -16,6 +14,7 @@ import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 import WaveFunctionDetailsDialog from './WaveFunctionDetailsDialog.js';
+import YLinePlot from './YLinePlot.js';
 
 export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
@@ -50,26 +49,23 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     super( model.curvesVisibleProperty, options );
 
     //TODO temporary dataset for wave function
-    // Build a dataset from the currently selected wave function (1-indexed energyLevelProperty -> 0-indexed array).
-    const buildDataSet = (): Vector2[] => {
+    const buildYCoordinates = (): number[] => {
       const stateIndex = model.energyLevelProperty.value - 1;
       const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
       if ( stateIndex < 0 || stateIndex >= waveFunctions.length ) {
         return [];
       }
-      return waveFunctions[ stateIndex ].map( ( value, i ) =>
-        new Vector2( model.xGrid.xCoordinates[ i ], value )
-      );
+      return waveFunctions[ stateIndex ];
     };
 
-    const waveFunctionPlot = new LinePlot( this.chartTransform, buildDataSet(), {
+    const waveFunctionPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, buildYCoordinates(), {
       stroke: QBSColors.realPartStrokeProperty,
       lineWidth: 2
     } );
     this.curveLayer.addChild( waveFunctionPlot );
 
     // Update the plot when the selected energy level or the bound-state result changes.
-    model.energyLevelProperty.link( () => { waveFunctionPlot.setDataSet( buildDataSet() ); } );
-    model.boundStateResultProperty.link( () => { waveFunctionPlot.setDataSet( buildDataSet() ); } );
+    model.energyLevelProperty.link( () => { waveFunctionPlot.setYCoordinates( buildYCoordinates() ); } );
+    model.boundStateResultProperty.link( () => { waveFunctionPlot.setYCoordinates( buildYCoordinates() ); } );
   }
 }

@@ -7,8 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import LinePlot from '../../../../bamboo/js/LinePlot.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
@@ -16,6 +14,7 @@ import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
+import YLinePlot from './YLinePlot.js';
 
 export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
@@ -49,15 +48,9 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
-    //TODO Create a Plot that takes a fixed set of x-coordinates and variable set of y-coordinates.
-    const probabilityDensityDataSet: Vector2[] = [];
-    const groundStateWaveFunction = model.energyDiagram.boundStateResultProperty.value.waveFunctions[ 0 ];
-    groundStateWaveFunction.forEach( ( value, i ) => {
-      const x = model.energyDiagram.xGrid.xCoordinates[ i ];
-      probabilityDensityDataSet.push( new Vector2( x, value * value ) );
-    } );
-
-    const probabilityDensityPlot = new LinePlot( this.chartTransform, probabilityDensityDataSet, {
+    const probabilityDensityYCoordinates = model.energyDiagram.boundStateResultProperty.value.waveFunctions[ 0 ].map( x => x * x );
+    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.energyDiagram.xGrid.xCoordinates,
+      probabilityDensityYCoordinates, {
       stroke: QBSColors.probabilityDensityStrokeProperty,
       lineWidth: 2
     } );

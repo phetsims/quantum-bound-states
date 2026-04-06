@@ -26,6 +26,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import EnergyDiagram from '../model/EnergyDiagram.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import YLinePlot from './YLinePlot.js';
 
 export default class EnergyDiagramNode extends Node {
 
@@ -100,15 +101,9 @@ export default class EnergyDiagramNode extends Node {
       ]
     } );
 
-    //TODO Create a Plot that takes a fixed set of x-coordinates and variable set of y-coordinates.
-    const potentialDataSet: Vector2[] = [];
-    energyDiagram.boundStateResultProperty.value.potentials.forEach( ( pe, i ) => {
-      const x = energyDiagram.xGrid.xCoordinates[ i ];
-      potentialDataSet.push( new Vector2( x, pe ) );
-    } );
-
     // Plots the shape of the selected potential.
-    const potentialPlot = new LinePlot( this.chartTransform, potentialDataSet, {
+    const potentialPlot = new YLinePlot( this.chartTransform, energyDiagram.xGrid.xCoordinates,
+      energyDiagram.boundStateResultProperty.value.potentials, {
       stroke: QBSColors.potentialEnergyColorProperty,
       lineWidth: 3
     } );
