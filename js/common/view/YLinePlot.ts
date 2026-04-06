@@ -3,7 +3,7 @@
 /**
  * YLinePlotOptions plots a curve with fixed x-coordinates and variable y-coordinates.
  *
- * @author Sam Reid (PhET Interactive Simulations)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
