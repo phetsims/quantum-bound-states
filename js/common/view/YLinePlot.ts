@@ -18,7 +18,7 @@ export type YLinePlotOptions = SelfOptions & PathOptions;
 
 export default class YLinePlot extends Path {
 
-  private chartTransform: ChartTransform;
+  private readonly chartTransform: ChartTransform;
   private readonly xCoordinates: number[];
   private yCoordinates: number[];
 

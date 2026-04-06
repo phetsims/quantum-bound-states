@@ -17,7 +17,7 @@ export type EigenvaluesPlotOptions = SelfOptions & PathOptions;
 
 export default class EigenvaluesPlot extends Path {
 
-  private chartTransform: ChartTransform;
+  private readonly chartTransform: ChartTransform;
   private eigenvalues: number[];
 
   public constructor( chartTransform: ChartTransform,
