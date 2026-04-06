@@ -40,9 +40,6 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
     //TODO dragBoundsProperty is incorrect, y-range is dynamic. But reference line only moves horizontally, so maybe that's OK.
     const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, 0, chartTransform.modelXRange.max, 0 ) );
 
-    // Value of xProperty at the start of the drag.
-    let xStart: number;
-
     super( {
       transform: transform,
       positionProperty: positionProperty,
@@ -51,13 +48,10 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
         useParentOffset: true
       },
       keyboardDragListenerOptions: {
+        keyboardDragDirection: 'leftRight',
         dragDelta: chartTransform.modelToViewDeltaX( 0.1 ),
         shiftDragDelta: chartTransform.modelToViewDeltaX( 0.01 ),
         moveOnHoldInterval: 50
-      },
-
-      start: ( event, listener ) => {
-        xStart = xProperty.value;
       },
 
       drag: ( event, listener ) => {
@@ -65,10 +59,7 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
       },
 
       end: () => {
-        // So that we don't get a response if upArrow and downArrow are used.
-        if ( xProperty.value !== xStart ) {
-          referenceLineHandleNode.doAccessibleObjectResponse();
-        }
+        referenceLineHandleNode.doAccessibleObjectResponse();
       },
 
       tandem: parentTandem
