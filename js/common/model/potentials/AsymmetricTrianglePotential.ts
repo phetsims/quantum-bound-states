@@ -18,7 +18,6 @@ import Potential from './Potential.js';
 export default class AsymmetricTrianglePotential extends Potential {
 
   //TODO Temporary constants, same as initial state of Java version.
-  // Some of these should be Properties or ES5 setters.
   private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
   private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
   private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well

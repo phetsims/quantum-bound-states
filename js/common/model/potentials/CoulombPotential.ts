@@ -17,6 +17,12 @@ import Potential from './Potential.js';
 
 export default class CoulombPotential extends Potential {
 
+  //TODO Temporary constants, same as initial state of Java version.
+  private readonly numberOfWells = 1;
+  private readonly yOffset = 0; //TODO Java [-15,5] eV, bottom of well
+  private readonly centerX = 0; //TODO Constant 0 nm in Java
+  private readonly electricField = 0; //TODO Java [-1,1] V/nm
+
   public constructor( tandem: Tandem ) {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
@@ -24,6 +30,33 @@ export default class CoulombPotential extends Potential {
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with one Coulomb well.'
     } );
+  }
+
+  /**
+   * Gets the potential energy (eV) at a specified x-coordinate (nm).
+   */
+  public override getPotentialEnergyAt( x: number ): number {
+
+    const n = this.numberOfWells; //TODO not needed?
+    const spacing = 0; //TODO
+    const yOffset = this.yOffset;
+    const centerX = this.centerX;
+
+    let energy = 0;
+    for ( let i = 1; i <= n; i++ ) {
+      const xi = spacing * ( i - ( ( n + 1 ) / 2.0 ) );
+      let deltaEnergy = -QBSConstants.KE2 / Math.abs( ( x - centerX ) - xi );
+      const BIG_NEGATIVE = -1E10; //TODO
+      if ( deltaEnergy < BIG_NEGATIVE ) {
+        deltaEnergy = BIG_NEGATIVE;
+      }
+      energy += deltaEnergy;
+    }
+
+    // Apply electric field.
+    energy += ( this.electricField * x );
+
+    return yOffset + energy;
   }
 
   public override createIcon(): Node {

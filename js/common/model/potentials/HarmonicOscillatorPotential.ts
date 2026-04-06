@@ -19,7 +19,6 @@ import Potential from './Potential.js';
 export default class HarmonicOscillatorPotential extends Potential {
 
   //TODO Temporary constants, same as initial state of Java version.
-  // Some of these should be Properties or ES5 setters.
   private readonly angularFrequency = 1; //TODO Java: [-5,15] fs^-1
   private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
   private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
@@ -39,6 +38,9 @@ export default class HarmonicOscillatorPotential extends Potential {
     this.massProperty = massProperty;
   }
 
+  /**
+   * Gets the potential energy (eV) at a specified x-coordinate (nm).
+   */
   public override getPotentialEnergyAt( x: number ): number {
     //TODO affirm 1 well
 

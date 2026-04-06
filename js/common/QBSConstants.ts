@@ -89,6 +89,7 @@ export default class QBSConstants {
 
   // From BSConstants.java
   public static readonly ELECTRON_MASS = 5.68; // eV/c^2
+  public static readonly KE2 = 1.44; // ke^2, eV nm
 
   public static readonly HANDLE_DIAMETER = 18;
   public static readonly POTENTIAL_ICON_LINE_WIDTH = 2;
