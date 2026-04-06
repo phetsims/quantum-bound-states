@@ -20,7 +20,6 @@ export default class HarmonicOscillatorPotential extends Potential {
 
   //TODO Temporary constants, same as initial state of Java version.
   private readonly angularFrequency = 1; //TODO Java: [-5,15] fs^-1
-  private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
   private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
   private readonly centerX = 0; //TODO Constant 0 nm in Java
 
