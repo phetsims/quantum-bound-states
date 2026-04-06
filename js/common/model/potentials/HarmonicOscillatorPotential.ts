@@ -49,6 +49,7 @@ export default class HarmonicOscillatorPotential extends Potential {
     const m = this.massProperty.value;
     const omega = this.angularFrequency;
 
+    // From BSHarmonicOscillatorPotential.java
     return yOffset + ( 0.5 * m * omega * omega * ( x - centerX ) * ( x - centerX ) );
   }
 

@@ -42,6 +42,7 @@ export default class CoulombPotential extends Potential {
     const yOffset = this.yOffset;
     const centerX = this.centerX;
 
+    // From BSCoulomb1DPotential.java
     let energy = 0;
     for ( let i = 1; i <= n; i++ ) {
       const xi = spacing * ( i - ( ( n + 1 ) / 2.0 ) );
