@@ -10,13 +10,11 @@
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
-import LinePlot from '../../../../bamboo/js/LinePlot.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -26,6 +24,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import EnergyDiagram from '../model/EnergyDiagram.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import EigenvaluesPlot from './EigenvaluesPlot.js';
 import YLinePlot from './YLinePlot.js';
 
 export default class EnergyDiagramNode extends Node {
@@ -104,25 +103,19 @@ export default class EnergyDiagramNode extends Node {
     // Plots the shape of the selected potential.
     const potentialPlot = new YLinePlot( this.chartTransform, energyDiagram.xGrid.xCoordinates,
       energyDiagram.boundStateResultProperty.value.potentials, {
-      stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: 3
-    } );
+        stroke: QBSColors.potentialEnergyColorProperty,
+        lineWidth: 3
+      } );
 
-    //TODO Create EigenvaluesPlot that draws a set of horizontal lines, with one or more highlighted.
-    const eignevaluesDataSet: Array<Vector2 | null> = [];
-    energyDiagram.boundStateResultProperty.value.energies.forEach( eigenvalue => {
-
-      // Draw a horizontal line from xMin to xMax at the eigenvalue.
-      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.min, eigenvalue ) );
-      eignevaluesDataSet.push( new Vector2( this.chartTransform.modelXRange.max, eigenvalue ) );
-
-      // Move to the next line.
-      eignevaluesDataSet.push( null );
-    } );
-
-    const eigenvaluesPlot = new LinePlot( this.chartTransform, eignevaluesDataSet, {
+    // Plots the eigenvalues of the selected potential.
+    const eigenvaluesPlot = new EigenvaluesPlot( this.chartTransform, energyDiagram.boundStateResultProperty.value.energies, {
       stroke: QBSColors.totalEnergyColorProperty,
       lineWidth: 2
+    } );
+
+    energyDiagram.boundStateResultProperty.lazyLink( boundStateResult => {
+      potentialPlot.setYCoordinates( boundStateResult.potentials );
+      eigenvaluesPlot.setEigenvalues( boundStateResult.energies );
     } );
 
     const curveLayer = new Node( {
