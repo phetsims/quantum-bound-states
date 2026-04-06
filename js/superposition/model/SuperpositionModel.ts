@@ -17,6 +17,7 @@ import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePot
 import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicOscillatorPotential.js';
 import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
+import QBSConstants from '../../common/QBSConstants.js';
 import { SuperpositionConfigurationType, SuperpositionConfigurationTypeValues } from './SuperpositionConfigurationType.js';
 
 export default class SuperpositionModel extends QBSModel {
@@ -27,12 +28,14 @@ export default class SuperpositionModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
+    const massProperty = new Property( 1 * QBSConstants.ELECTRON_MASS ); //TODO move to QBSModel
+
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
       new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) ),
       new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),
-      new HarmonicOscillatorPotential( potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
+      new HarmonicOscillatorPotential( massProperty, potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
       new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) ),
       new DoubleSquarePotential( potentialsTandem.createTandem( 'doubleSquarePotential' ) )
     ];

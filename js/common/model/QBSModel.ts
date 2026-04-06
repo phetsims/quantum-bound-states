@@ -100,6 +100,15 @@ export default class QBSModel implements TModel {
 
     this.boundStateResultProperty = new Property( boundStateResult );
 
+    this.potentialProperty.lazyLink( potential => {
+      const potentialFunction = ( x: number ) => potential.getPotentialEnergyAt( x );
+      const mass = 1; // electron masses
+      //TODO Range depends on the y-axis range and the type of potential. Only look for energy values in the range that's visible on the graph.
+      const energyMin = 0; // eV
+      const energyMax = 10; // eV
+      this.boundStateResultProperty.value = NumerovSolver.solve( this.xGrid, potentialFunction, mass, energyMin, energyMax );
+    } );
+
     this.energyDiagram = new EnergyDiagram( this.xGrid, this.boundStateResultProperty, options.tandem.createTandem( 'energyDiagram' ) );
 
     this.energyLevelProperty = new NumberProperty( 1, {

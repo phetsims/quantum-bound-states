@@ -48,12 +48,25 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
-    const probabilityDensityYCoordinates = model.energyDiagram.boundStateResultProperty.value.waveFunctions[ 0 ].map( x => x * x );
-    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.energyDiagram.xGrid.xCoordinates,
-      probabilityDensityYCoordinates, {
+    const buildYCoordinates = (): number[] => {
+      const stateIndex = model.energyLevelProperty.value - 1;
+      const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
+      if ( stateIndex < 0 || stateIndex >= waveFunctions.length ) {
+        return waveFunctions[ 0 ].map( x => 0 ); //TODO temporary
+      }
+      else {
+        return waveFunctions[ stateIndex ].map( x => x * x );
+      }
+    };
+
+    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.energyDiagram.xGrid.xCoordinates, buildYCoordinates(), {
       stroke: QBSColors.probabilityDensityStrokeProperty,
       lineWidth: 2
     } );
+
+    // Update the plot when the selected energy level or the bound-state result changes.
+    model.energyLevelProperty.link( () => { probabilityDensityPlot.setYCoordinates( buildYCoordinates() ); } );
+    model.boundStateResultProperty.link( () => { probabilityDensityPlot.setYCoordinates( buildYCoordinates() ); } );
 
     this.curveLayer.addChild( probabilityDensityPlot );
   }

@@ -87,8 +87,8 @@ export default class QBSConstants {
   public static readonly NUMBER_OF_WELLS_RANGE = new RangeWithValue( 1, 10, 5 );
   public static readonly ELECTRIC_FIELD_RANGE = new RangeWithValue( -1, 1, 0 );
 
-  //TODO From MV's FundamentalConstants.ts. Is a small value like this a problem?
-  public static readonly ELECTRON_MASS = 9.1093837015e-31; // kg
+  // From BSConstants.java
+  public static readonly ELECTRON_MASS = 5.68; // eV/c^2
 
   public static readonly HANDLE_DIAMETER = 18;
   public static readonly POTENTIAL_ICON_LINE_WIDTH = 2;

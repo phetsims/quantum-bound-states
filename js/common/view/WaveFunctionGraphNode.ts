@@ -53,9 +53,11 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       const stateIndex = model.energyLevelProperty.value - 1;
       const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
       if ( stateIndex < 0 || stateIndex >= waveFunctions.length ) {
-        return [];
+        return waveFunctions[ 0 ].map( x => 0 ); //TODO temporary
       }
-      return waveFunctions[ stateIndex ];
+      else {
+        return waveFunctions[ stateIndex ];
+      }
     };
 
     const waveFunctionPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, buildYCoordinates(), {

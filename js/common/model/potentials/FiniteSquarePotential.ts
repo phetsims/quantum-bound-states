@@ -19,7 +19,7 @@ export default class FiniteSquarePotential extends Potential {
   private readonly numberOfWells = 1;
   private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
   private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
-  private readonly offset = 0; //TODO Java [-5,15] eV, bottom of well. Varies by well type - some put the offset at the top of the well, others at the bottom.
+  private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
   private readonly centerX = 0; //TODO Constant 0 nm in Java
   private readonly separation = 0; //TODO Java [0.05,0.7] nm, distance between walls of adjacent wells
   private readonly electricField = 0; //TODO Java [-1,1] V/nm
@@ -34,23 +34,23 @@ export default class FiniteSquarePotential extends Potential {
   }
 
   /**
-   * Gets the potential energy (y-value) at a specified x-coordinate, in nm.
+   * Gets the potential energy (y-value) at a specified x-coordinate.
    */
   public override getPotentialEnergyAt( x: number ): number {
 
     const n = this.numberOfWells;
-    const w = this.wellWidth;
-    const offset = this.offset;
+    const wellWidth = this.wellWidth;
+    const yOffset = this.yOffset;
     const centerX = this.centerX;
-    const s = w + this.separation; // spacing between well centers
+    const s = wellWidth + this.separation; // spacing between well centers
 
-    let pe = offset + this.wellDepth;
+    let pe = yOffset + this.wellDepth;
 
     // From BSSquarePotential.java
     for ( let i = 1; i <= n; i++ ) {
       const xi = s * ( i - ( ( n + 1 ) / 2 ) );
-      if ( ( ( x - centerX ) >= xi - ( w / 2 ) ) && ( ( x - centerX ) <= xi + ( w / 2 ) ) ) {
-        pe = offset;
+      if ( ( ( x - centerX ) >= xi - ( wellWidth / 2 ) ) && ( ( x - centerX ) <= xi + ( wellWidth / 2 ) ) ) {
+        pe = yOffset;
         break;
       }
     }

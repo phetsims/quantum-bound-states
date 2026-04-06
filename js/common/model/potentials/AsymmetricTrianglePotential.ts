@@ -17,6 +17,13 @@ import Potential from './Potential.js';
 
 export default class AsymmetricTrianglePotential extends Potential {
 
+  //TODO Temporary constants, same as initial state of Java version.
+  // Some of these should be Properties or ES5 setters.
+  private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
+  private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
+  private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
+  private readonly centerX = 0; //TODO Constant 0 nm in Java
+
   public constructor( tandem: Tandem ) {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.asymmetricTriangleStringProperty,
@@ -24,6 +31,27 @@ export default class AsymmetricTrianglePotential extends Potential {
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with one asymmetric triangle well.'
     } );
+  }
+
+  /**
+   * Gets the potential energy (eV) at a specified x-coordinate (nm).
+   */
+  public override getPotentialEnergyAt( x: number ): number {
+
+    //TODO affirm 1 well
+
+    const wellWidth = this.wellWidth;
+    const wellDepth = this.wellDepth;
+    const centerX = this.centerX;
+    const yOffset = this.yOffset;
+
+    // From BSAsymmetricPotential.java
+    let pe = yOffset + wellDepth;
+    if ( Math.abs( x - centerX ) <= wellWidth / 2 ) {
+      pe = yOffset + ( wellDepth - ( Math.abs( centerX + wellWidth / 2 - x ) * wellDepth / wellWidth ) );
+    }
+
+    return pe;
   }
 
   public override createIcon(): Node {
