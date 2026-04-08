@@ -54,6 +54,13 @@ export default abstract class Potential extends PhetioObject {
   }
 
   /**
+   * Gets the index of the ground state, 1 for most potential types.
+   */
+  public getGroundStateIndex(): number {
+    return 1;
+  }
+
+  /**
    * Creates the icon that represents this potential. Used in the combo box for selecting a potential.
    */
   public abstract createIcon(): Node;

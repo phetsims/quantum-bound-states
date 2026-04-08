@@ -31,6 +31,13 @@ export default class AnharmonicOscillatorPotential extends Potential {
   }
 
   /**
+   * Gets the index of the ground state.
+   */
+  public override getGroundStateIndex(): number {
+    return 0;
+  }
+
+  /**
    * Creates the icon for this potential.
    */
   public override createIcon(): Node {

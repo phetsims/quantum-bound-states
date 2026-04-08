@@ -52,6 +52,13 @@ export default class HarmonicOscillatorPotential extends Potential {
     return yOffset + ( 0.5 * m * omega * omega * ( x - centerX ) * ( x - centerX ) );
   }
 
+  /**
+   * Gets the index of the ground state.
+   */
+  public override getGroundStateIndex(): number {
+    return 0;
+  }
+
   //TODO Used by HarmonicOscillatorSolution. This probably does not belong here.
   /**
    * Spring constant k = m * ω², in eV/nm².
