@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Add to testNumerovSolver?
 /**
  * Analytical solution for the Morse (anharmonic oscillator) potential.
  *
