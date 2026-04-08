@@ -52,6 +52,16 @@ export default class HarmonicOscillatorPotential extends Potential {
     return yOffset + ( 0.5 * m * omega * omega * ( x - centerX ) * ( x - centerX ) );
   }
 
+  //TODO Used by HarmonicOscillatorSolution. This probably does not belong here.
+  /**
+   * Spring constant k = m * ω², in eV/nm².
+   */
+  public get springConstant(): number {
+    const m = this.massProperty.value;
+    const omega = this.angularFrequency;
+    return m * omega * omega;
+  }
+
   public override createIcon(): Node {
 
     // Shape ported from BSWellComboBox.java, values determined empirically.
