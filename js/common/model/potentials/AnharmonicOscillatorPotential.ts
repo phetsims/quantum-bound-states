@@ -33,7 +33,7 @@ export default class AnharmonicOscillatorPotential extends Potential {
 
     // Claude Code suggested using a Morse potential curve to approximate the potential shape.
     function solveMorse( x: number, depth = 1, width = 1, center = 1 ): number {
-      const term = 1 - Math.exp( -width * ( x - center ) );
+      const term = 1 - Math.exp( -( x - center ) / width );
       return depth * ( Math.pow( term, 2 ) - 1 );
     }
 
