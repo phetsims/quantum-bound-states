@@ -48,14 +48,16 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
+    //TODO temporary dataset for probability density
     const buildYCoordinates = (): number[] => {
-      const stateIndex = model.energyLevelProperty.value - 1;
+      const groundStateIndex = model.potentialProperty.value.getGroundStateIndex();
+      const waveFunctionsIndex = model.energyLevelProperty.value - groundStateIndex;
       const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
-      if ( stateIndex < 0 || stateIndex >= waveFunctions.length ) {
+      if ( waveFunctionsIndex < 0 || waveFunctionsIndex >= waveFunctions.length ) {
         return new Array( model.energyDiagram.xGrid.xCoordinates.length ).fill( 0 ); //TODO temporary
       }
       else {
-        return waveFunctions[ stateIndex ].map( x => x * x );
+        return waveFunctions[ waveFunctionsIndex ].map( x => x * x );
       }
     };
 

@@ -129,18 +129,33 @@ export default class QBSModel implements TModel {
 
     this.energyDiagram = new EnergyDiagram( this.xGrid, this.boundStateResultProperty, options.tandem.createTandem( 'energyDiagram' ) );
 
-    this.energyLevelProperty = new NumberProperty( 1, {
+    this.energyLevelProperty = new NumberProperty( this.potentialProperty.value.getGroundStateIndex(), {
       numberType: 'Integer',
-      range: new Range( 1, 25 ), //TODO initial value must be computed, value is dynamic depending on selected potential
+      range: getEnergyLevelRange( this.potentialProperty.value.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length ),
       tandem: options.tandem.createTandem( 'energyLevelProperty' ),
       phetioFeatured: true,
       phetioReadOnly: true
     } );
 
-    // When potential is changed, reset energy level.
-    this.potentialProperty.lazyLink( () => {
+    // When potential is changed, adjust energy level range and set to the ground state.
+    this.potentialProperty.lazyLink( potential => {
       if ( !isSettingPhetioStateProperty.value ) {
-        this.energyLevelProperty.reset();
+        const energyLevelRange = getEnergyLevelRange( potential.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length );
+        this.energyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
+      }
+    } );
+
+    // When boundStateResult is changed, adjust the energy level range. If the current energy level no longer exists,
+    // set to the ground state.
+    this.boundStateResultProperty.lazyLink( boundStateResult => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        const energyLevelRange = getEnergyLevelRange( this.potentialProperty.value.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length );
+        if ( energyLevelRange.contains( this.energyLevelProperty.value ) ) {
+          this.energyLevelProperty.rangeProperty.value = energyLevelRange;
+        }
+        else {
+          this.energyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
+        }
       }
     } );
 
@@ -202,4 +217,8 @@ export default class QBSModel implements TModel {
       this.time.step( dt );
     }
   }
+}
+
+function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalue: number ): Range {
+  return new Range( groundStateIndex, groundStateIndex + numberOfEigenvalue - 1 );
 }

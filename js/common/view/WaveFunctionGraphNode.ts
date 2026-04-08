@@ -50,13 +50,14 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     //TODO temporary dataset for wave function
     const buildYCoordinates = (): number[] => {
-      const stateIndex = model.energyLevelProperty.value - 1;
+      const groundStateIndex = model.potentialProperty.value.getGroundStateIndex();
+      const waveFunctionIndex = model.energyLevelProperty.value - groundStateIndex;
       const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
-      if ( stateIndex < 0 || stateIndex >= waveFunctions.length ) {
+      if ( waveFunctionIndex < 0 || waveFunctionIndex >= waveFunctions.length ) {
         return new Array( model.energyDiagram.xGrid.xCoordinates.length ).fill( 0 ); //TODO temporary
       }
       else {
-        return waveFunctions[ stateIndex ];
+        return waveFunctions[ waveFunctionIndex ];
       }
     };
 
