@@ -14,6 +14,11 @@ import Potential from './Potential.js';
 
 export default class InfiniteSquarePotential extends Potential {
 
+  //TODO Temporary constants
+  private readonly wellWidth = 2;
+  private readonly centerX = 0; //TODO Constant 0 nm in Java
+  private readonly yOffset = 0;
+
   public constructor( tandem: Tandem ) {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteSquareStringProperty,
@@ -21,6 +26,16 @@ export default class InfiniteSquarePotential extends Potential {
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with one infinite square well.'
     } );
+  }
+
+  /**
+   * Gets the potential energy (y-value) at a specified x-coordinate.
+   */
+  public override getPotentialEnergyAt( x: number ): number {
+    //TODO affirm 1 well
+    const leftX = this.centerX - this.wellWidth / 2;
+    const rightX = this.centerX + this.wellWidth / 2;
+    return ( leftX <= x && x <= rightX ) ? this.yOffset : 1E20;
   }
 
   /**
