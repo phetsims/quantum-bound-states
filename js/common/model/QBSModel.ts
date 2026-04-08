@@ -149,7 +149,7 @@ export default class QBSModel implements TModel {
     // set to the ground state.
     this.boundStateResultProperty.lazyLink( boundStateResult => {
       if ( !isSettingPhetioStateProperty.value ) {
-        const energyLevelRange = getEnergyLevelRange( this.potentialProperty.value.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length );
+        const energyLevelRange = getEnergyLevelRange( this.potentialProperty.value.getGroundStateIndex(), boundStateResult.energies.length );
         if ( energyLevelRange.contains( this.energyLevelProperty.value ) ) {
           this.energyLevelProperty.rangeProperty.value = energyLevelRange;
         }
