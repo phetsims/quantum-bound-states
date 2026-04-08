@@ -14,6 +14,15 @@ import Potential from './Potential.js';
 
 export default class InfiniteStepPotential extends Potential {
 
+  // Total width of the well L in nm, centred at x = 0 (spans [-wellWidth/2, wellWidth/2]).
+  private readonly wellWidth = 2;
+
+  // Height of the potential step V₀ in eV (applies to the right half, x > 0).
+  private readonly stepHeight = 3;
+
+  private readonly centerX = 0;
+  private readonly yOffset = 0;
+
   public constructor( tandem: Tandem ) {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
@@ -21,6 +30,19 @@ export default class InfiniteStepPotential extends Potential {
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with one infinite step well.'
     } );
+  }
+
+  public override getPotentialEnergyAt( x: number ): number {
+    const halfWidth = this.wellWidth / 2;
+    if ( x <= -halfWidth || x >= halfWidth ) {
+      return 1E20; //TODO 1E20 instead of Number.POSITIVE_INFINITY
+    }
+    else if ( x >= 0 ) {
+      return this.stepHeight;
+    }
+    else {
+      return 0;
+    }
   }
 
   /**
