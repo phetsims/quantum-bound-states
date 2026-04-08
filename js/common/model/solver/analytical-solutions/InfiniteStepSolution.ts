@@ -98,8 +98,12 @@ export default class InfiniteStepSolution {
       waveFunctions.push( waveFunction );
     }
 
+    //TODO CM added this here because we need to return a valid BoundStateResult, which include potentials.
+    // But InfiniteStepSolution.createPotential is a different implementation than InfiniteStepPotential.getPotentialEnergyAt.
+    const potentialFunction = InfiniteStepSolution.createPotential( wellWidth, stepHeight );
+
     return {
-      potentials: [], // not relevant for analytical solution
+      potentials: xGrid.xCoordinates.map( x => potentialFunction( x ) ),
       energies: energies,
       waveFunctions: waveFunctions,
       method: 'analytical'

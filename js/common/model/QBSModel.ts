@@ -20,11 +20,13 @@ import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfB
 import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
 import InfiniteSquarePotential from './potentials/InfiniteSquarePotential.js';
+import InfiniteStepPotential from './potentials/InfiniteStepPotential.js';
 import Potential from './potentials/Potential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import InfiniteSquareWellSolution from './solver/analytical-solutions/InfiniteSquareWellSolution.js';
+import InfiniteStepSolution from './solver/analytical-solutions/InfiniteStepSolution.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
@@ -100,10 +102,12 @@ export default class QBSModel implements TModel {
 
     // Solve for bound states, dispatching to analytical solutions where available.
     const solveBoundStates = ( potential: Potential ): BoundStateResult => {
-      //TODO InfiniteStepPotential also requires analytic solution.
       //TODO Analytic and numeric solutions have different methods of computing potential energy.
       if ( potential instanceof InfiniteSquarePotential ) {
         return InfiniteSquareWellSolution.solve( this.xGrid, potential.wellWidth, mass, energyMin, energyMax );
+      }
+      else if ( potential instanceof InfiniteStepPotential ) {
+        return InfiniteStepSolution.solve( this.xGrid, potential.wellWidth, potential.stepHeight, mass, energyMin, energyMax );
       }
       else {
         return NumerovSolver.solve( this.xGrid, potentialFunction, mass, energyMin, energyMax );

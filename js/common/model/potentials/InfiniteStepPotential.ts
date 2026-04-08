@@ -15,10 +15,10 @@ import Potential from './Potential.js';
 export default class InfiniteStepPotential extends Potential {
 
   // Total width of the well L in nm, centred at x = 0 (spans [-wellWidth/2, wellWidth/2]).
-  private readonly wellWidth = 2;
+  public readonly wellWidth = 2;
 
   // Height of the potential step V₀ in eV (applies to the right half, x > 0).
-  private readonly stepHeight = 3;
+  public readonly stepHeight = 3;
 
   private readonly centerX = 0;
   private readonly yOffset = 0;
