@@ -104,9 +104,13 @@ export default class QBSModel implements TModel {
     const solveBoundStates = ( potential: Potential ): BoundStateResult => {
       //TODO Analytic and numeric solutions have different methods of computing potential energy.
       if ( potential instanceof InfiniteSquarePotential ) {
+
+        // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
         return InfiniteSquareWellSolution.solve( this.xGrid, potential.wellWidth, mass, energyMin, energyMax );
       }
       else if ( potential instanceof InfiniteStepPotential ) {
+
+        // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
         return InfiniteStepSolution.solve( this.xGrid, potential.wellWidth, potential.stepHeight, mass, energyMin, energyMax );
       }
       else {
