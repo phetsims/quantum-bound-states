@@ -29,9 +29,11 @@
  * @author Martin Veillette
  */
 
+import { findRoot } from '../../../../../../dot/js/util/findRoot.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
+import WaveFunctionNormalizer from '../WaveFunctionNormalizer.js';
 import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
@@ -165,50 +167,58 @@ function oddParityEquation( xi: number, z0: number ): number {
 }
 
 /**
- * Find a root of the transcendental equation using bisection method.
+ * Derivative of the even parity transcendental equation with respect to ξ.
  *
- * @param equation - Function to find root of
- * @param xiLeft - Left bound
- * @param xiRight - Right bound
- * @param tolerance - Convergence tolerance
- * @returns Root of the equation (or null if not found)
+ * d/dξ [tan(ξ) − η/ξ] = sec²(ξ) + z₀² / (η ξ²)
+ * (always positive → function is strictly increasing in each search interval)
+ *
+ * @param xi - Value of ξ
+ * @param z0 - Value of (L/2)√(2mV₀/ℏ²)
+ * @returns df/dξ for the even parity equation
  */
-function findRootBisection(
-  equation: ( xi: number ) => number,
-  xiLeft: number,
-  xiRight: number,
-  tolerance = 1e-10
-): number | null {
-  let left = xiLeft;
-  let right = xiRight;
-  let fLeft = equation( left );
-  let fRight = equation( right );
+function evenParityDerivative( xi: number, z0: number ): number {
+  const cos = Math.cos( xi );
+  const eta = Math.sqrt( z0 * z0 - xi * xi );
+  return 1 / ( cos * cos ) + z0 * z0 / ( eta * xi * xi );
+}
 
-  // Check if there's a sign change
-  if ( fLeft * fRight > 0 ) {
+/**
+ * Derivative of the odd parity transcendental equation with respect to ξ.
+ *
+ * d/dξ [−cot(ξ) − η/ξ] = csc²(ξ) + z₀² / (η ξ²)
+ * (always positive → function is strictly increasing in each search interval)
+ *
+ * @param xi - Value of ξ
+ * @param z0 - Value of (L/2)√(2mV₀/ℏ²)
+ * @returns df/dξ for the odd parity equation
+ */
+function oddParityDerivative( xi: number, z0: number ): number {
+  const sin = Math.sin( xi );
+  const eta = Math.sqrt( z0 * z0 - xi * xi );
+  return 1 / ( sin * sin ) + z0 * z0 / ( eta * xi * xi );
+}
+
+/**
+ * Find a root of a transcendental equation using dot's hybrid Newton/bisection.
+ * Returns null if no sign change is detected (no bound state in this interval).
+ *
+ * @param f  - Transcendental equation (strictly increasing in the given interval)
+ * @param df - Derivative of f
+ * @param xiLeft  - Left bound
+ * @param xiRight - Right bound
+ * @returns Root of the equation, or null if none found
+ */
+function findRootInInterval(
+  f: ( xi: number ) => number,
+  df: ( xi: number ) => number,
+  xiLeft: number,
+  xiRight: number
+): number | null {
+  // No sign change → no bound state in this interval
+  if ( f( xiLeft ) * f( xiRight ) > 0 ) {
     return null;
   }
-
-  // Bisection iteration
-  while ( right - left > tolerance ) {
-    const mid = ( left + right ) / 2;
-    const fMid = equation( mid );
-
-    if ( Math.abs( fMid ) < tolerance ) {
-      return mid;
-    }
-
-    if ( fLeft * fMid < 0 ) {
-      right = mid;
-      fRight = fMid;
-    }
-    else {
-      left = mid;
-      fLeft = fMid;
-    }
-  }
-
-  return ( left + right ) / 2;
+  return findRoot( xiLeft, xiRight, 1e-10, f, df );
 }
 
 /**
@@ -261,13 +271,11 @@ function findBoundStateEnergies(
       const xiMax = Math.min( evenCount * Math.PI + Math.PI / 2 - 0.001, z0 - 0.001 );
 
       if ( xiMin < xiMax && xiMin < z0 ) {
-        const equation = ( xiVal: number ) => evenParityEquation( xiVal, z0 );
-        xi = findRootBisection( equation, xiMin, xiMax, 1e-10 );
-
-        // Validate the root (allow slightly larger tolerance for validation)
-        if ( xi !== null && Math.abs( equation( xi ) ) > 1e-6 ) {
-          xi = null;
-        }
+        xi = findRootInInterval(
+          ( xiVal: number ) => evenParityEquation( xiVal, z0 ),
+          ( xiVal: number ) => evenParityDerivative( xiVal, z0 ),
+          xiMin, xiMax
+        );
       }
 
       parity = 'even';
@@ -279,13 +287,11 @@ function findBoundStateEnergies(
       const xiMax = Math.min( ( oddCount + 1 ) * Math.PI - 0.001, z0 - 0.001 );
 
       if ( xiMin < xiMax && xiMin < z0 ) {
-        const equation = ( xiVal: number ) => oddParityEquation( xiVal, z0 );
-        xi = findRootBisection( equation, xiMin, xiMax, 1e-10 );
-
-        // Validate the root (allow slightly larger tolerance for validation)
-        if ( xi !== null && Math.abs( equation( xi ) ) > 1e-6 ) {
-          xi = null;
-        }
+        xi = findRootInInterval(
+          ( xiVal: number ) => oddParityEquation( xiVal, z0 ),
+          ( xiVal: number ) => oddParityDerivative( xiVal, z0 ),
+          xiMin, xiMax
+        );
       }
 
       parity = 'odd';
@@ -370,13 +376,6 @@ function calculateWaveFunction(
     waveFunction.push( value );
   }
 
-  // Normalize the wave function
   const dx = xGridArray.length > 1 ? xGridArray[ 1 ] - xGridArray[ 0 ] : 0;
-  let integral = 0;
-  for ( let i = 0; i < waveFunction.length - 1; i++ ) {
-    integral += ( waveFunction[ i ] * waveFunction[ i ] + waveFunction[ i + 1 ] * waveFunction[ i + 1 ] ) * dx / 2;
-  }
-
-  const normalization = 1 / Math.sqrt( integral );
-  return waveFunction.map( psi => psi * normalization );
+  return new WaveFunctionNormalizer().normalize( waveFunction, dx );
 }
