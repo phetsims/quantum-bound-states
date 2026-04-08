@@ -33,6 +33,7 @@ export default class InfiniteSquareWellSolution {
     // Not intended for instantiation.
   }
 
+  //TODO If we use this analytic solution in production, it needs to be generalized to support centerX and yOffset.
   /**
    * Creates the potential function for an infinite square well.
    * V(x) = 0 for -L/2 < x < L/2, V(x) = ∞ otherwise
@@ -123,8 +124,12 @@ export default class InfiniteSquareWellSolution {
       waveFunctions.push( waveFunction );
     }
 
+    //TODO CM added this here because we need to return a valid BoundStateResult, which include potentials.
+    // But InfiniteSquareWellSolution.createPotential is a different implementation than InfiniteSquarePotential.getPotentialEnergyAt.
+    const potentialFunction = InfiniteSquareWellSolution.createPotential( wellWidth );
+
     return {
-      potentials: [], // not relevant for analytical solution
+      potentials: xGrid.xCoordinates.map( x => potentialFunction( x ) ),
       energies: energies,
       waveFunctions: waveFunctions,
       method: 'analytical'

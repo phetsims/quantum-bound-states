@@ -19,10 +19,12 @@ import QBSConstants from '../QBSConstants.js';
 import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
 import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
+import InfiniteSquarePotential from './potentials/InfiniteSquarePotential.js';
 import Potential from './potentials/Potential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
+import InfiniteSquareWellSolution from './solver/analytical-solutions/InfiniteSquareWellSolution.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
@@ -91,22 +93,30 @@ export default class QBSModel implements TModel {
     } );
 
     const potentialFunction = ( x: number ) => this.potentialProperty.value.getPotentialEnergyAt( x ); // nm => eV
-    const mass = 1; // electron masses
+    const mass = 1; //TODO electron masses
     //TODO Range depends on the y-axis range and the type of potential. Only look for energy values in the range that's visible on the graph.
-    const energyMin = 0; // eV
-    const energyMax = 10; // eV
+    const energyMin = 0; //TODO eV
+    const energyMax = 10; //TODO eV
 
-    const boundStateResult = NumerovSolver.solve( this.xGrid, potentialFunction, mass, energyMin, energyMax );
+    // Solve for bound states, dispatching to analytical solutions where available.
+    const solveBoundStates = ( potential: Potential ): BoundStateResult => {
+      //TODO InfiniteStepPotential also requires analytic solution.
+      //TODO Analytic and numeric solutions have different methods of computing potential energy.
+      if ( potential instanceof InfiniteSquarePotential ) {
+        return InfiniteSquareWellSolution.solve( this.xGrid, potential.wellWidth, mass, energyMin, energyMax );
+      }
+      else {
+        return NumerovSolver.solve( this.xGrid, potentialFunction, mass, energyMin, energyMax );
+      }
+    };
 
-    this.boundStateResultProperty = new Property( boundStateResult );
+    this.boundStateResultProperty = new Property( solveBoundStates( options.potential ) );
 
     this.potentialProperty.lazyLink( potential => {
-      const potentialFunction = ( x: number ) => potential.getPotentialEnergyAt( x );
-      const mass = 1; // electron masses
-      //TODO Range depends on the y-axis range and the type of potential. Only look for energy values in the range that's visible on the graph.
-      const energyMin = 0; // eV
-      const energyMax = 10; // eV
-      this.boundStateResultProperty.value = NumerovSolver.solve( this.xGrid, potentialFunction, mass, energyMin, energyMax );
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.boundStateResultProperty.value = solveBoundStates( potential );
+        this.energyLevelProperty.reset();
+      }
     } );
 
     this.energyDiagram = new EnergyDiagram( this.xGrid, this.boundStateResultProperty, options.tandem.createTandem( 'energyDiagram' ) );

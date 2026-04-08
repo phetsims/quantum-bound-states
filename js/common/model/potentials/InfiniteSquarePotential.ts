@@ -15,7 +15,7 @@ import Potential from './Potential.js';
 export default class InfiniteSquarePotential extends Potential {
 
   //TODO Temporary constants
-  private readonly wellWidth = 2;
+  public readonly wellWidth = 2;
   private readonly centerX = 0; //TODO Constant 0 nm in Java
   private readonly yOffset = 0;
 
