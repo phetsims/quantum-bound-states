@@ -17,6 +17,10 @@ import Potential from './Potential.js';
 
 export default class AnharmonicOscillatorPotential extends Potential {
 
+  //TODO Added by MV
+  private readonly wellDepth = 10; // Dissociation energy D_e in eV
+  private readonly wellWidth = 0.5; // w = 1/a in nm
+
   public constructor( tandem: Tandem ) {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.anharmonicOscillatorStringProperty,
