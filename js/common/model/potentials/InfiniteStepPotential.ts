@@ -33,16 +33,26 @@ export default class InfiniteStepPotential extends Potential {
   }
 
   public override getPotentialEnergyAt( x: number ): number {
-    const halfWidth = this.wellWidth / 2;
-    if ( x <= -halfWidth || x >= halfWidth ) {
-      return 1E20; //TODO 1E20 instead of Number.POSITIVE_INFINITY
-    }
-    else if ( x >= 0 ) {
-      return this.stepHeight;
+    //TODO affirm 1 well
+    const leftX = this.centerX - this.wellWidth / 2;
+    const rightX = this.centerX + this.wellWidth / 2;
+    let pe: number;
+    if ( leftX <= x && x <= rightX ) {
+      // inside the well
+      if ( x <= leftX + this.wellWidth / 2 ) {
+        // to the left of the step
+        pe = this.yOffset;
+      }
+      else {
+        // at the step
+        pe = this.yOffset + this.stepHeight;
+      }
     }
     else {
-      return 0;
+      // outside the well
+      pe = 1E20; //TODO 1E20 instead of Number.POSITIVE_INFINITY
     }
+    return pe;
   }
 
   /**

@@ -35,7 +35,16 @@ export default class InfiniteSquarePotential extends Potential {
     //TODO affirm 1 well
     const leftX = this.centerX - this.wellWidth / 2;
     const rightX = this.centerX + this.wellWidth / 2;
-    return ( leftX <= x && x <= rightX ) ? this.yOffset : 1E20; //TODO 1E20 instead of Number.POSITIVE_INFINITY
+    let pe: number;
+    if ( leftX <= x && x <= rightX ) {
+      // inside the well
+      pe = this.yOffset;
+    }
+    else {
+      // outside the well
+      pe = 1E20; //TODO 1E20 instead of Number.POSITIVE_INFINITY
+    }
+    return pe;
   }
 
   /**
