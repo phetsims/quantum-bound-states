@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
@@ -48,26 +49,22 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
-    //TODO temporary dataset for probability density
-    const buildYCoordinates = (): number[] => {
+    // Computes the y-coordinates for the probability density plot.
+    const computeYCoordinates = (): number[] => {
       const groundStateIndex = model.potentialProperty.value.getGroundStateIndex();
       const waveFunctionsIndex = model.energyLevelProperty.value - groundStateIndex;
       const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
-      if ( waveFunctionsIndex < 0 || waveFunctionsIndex >= waveFunctions.length ) {
-        return new Array( model.energyDiagram.xGrid.xCoordinates.length ).fill( 0 ); //TODO temporary
-      }
-      else {
-        return waveFunctions[ waveFunctionsIndex ].map( x => x * x );
-      }
+      affirm( waveFunctionsIndex >= 0 && waveFunctions.length, `waveFunctionsIndex out of range: ${waveFunctionsIndex}` );
+      return waveFunctions[ waveFunctionsIndex ].map( x => x * x );
     };
 
-    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.energyDiagram.xGrid.xCoordinates, buildYCoordinates(), {
+    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.energyDiagram.xGrid.xCoordinates, computeYCoordinates(), {
       stroke: QBSColors.probabilityDensityStrokeProperty,
       lineWidth: 2
     } );
 
     // Update the plot when the selected energy level or the bound-state result changes.
-    const updateProbabilityDensityPlot = () => probabilityDensityPlot.setYCoordinates( buildYCoordinates() );
+    const updateProbabilityDensityPlot = () => probabilityDensityPlot.setYCoordinates( computeYCoordinates() );
     model.energyLevelProperty.link( updateProbabilityDensityPlot );
     model.boundStateResultProperty.link( updateProbabilityDensityPlot );
 

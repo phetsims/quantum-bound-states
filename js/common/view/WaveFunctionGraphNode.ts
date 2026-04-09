@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
@@ -48,27 +49,23 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
-    //TODO temporary dataset for wave function
-    const buildYCoordinates = (): number[] => {
+    // Computes the y-coordinates for the wave function plot.
+    const computeYCoordinates = (): number[] => {
       const groundStateIndex = model.potentialProperty.value.getGroundStateIndex();
-      const waveFunctionIndex = model.energyLevelProperty.value - groundStateIndex;
+      const waveFunctionsIndex = model.energyLevelProperty.value - groundStateIndex;
       const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
-      if ( waveFunctionIndex < 0 || waveFunctionIndex >= waveFunctions.length ) {
-        return new Array( model.energyDiagram.xGrid.xCoordinates.length ).fill( 0 ); //TODO temporary
-      }
-      else {
-        return waveFunctions[ waveFunctionIndex ];
-      }
+      affirm( waveFunctionsIndex >= 0 && waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
+      return waveFunctions[ waveFunctionsIndex ];
     };
 
-    const waveFunctionPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, buildYCoordinates(), {
+    const waveFunctionPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, computeYCoordinates(), {
       stroke: QBSColors.realPartStrokeProperty,
       lineWidth: 2
     } );
     this.curveLayer.addChild( waveFunctionPlot );
 
     // Update the plot when the selected energy level or the bound-state result changes.
-    const updateWaveFunctionPlot = () => waveFunctionPlot.setYCoordinates( buildYCoordinates() );
+    const updateWaveFunctionPlot = () => waveFunctionPlot.setYCoordinates( computeYCoordinates() );
     model.energyLevelProperty.link( updateWaveFunctionPlot );
     model.boundStateResultProperty.link( updateWaveFunctionPlot );
   }
