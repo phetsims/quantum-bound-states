@@ -17,7 +17,7 @@ import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePot
 import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicOscillatorPotential.js';
 import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import QBSConstants from '../../common/QBSConstants.js';
+import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import { SuperpositionConfigurationType, SuperpositionConfigurationTypeValues } from './SuperpositionConfigurationType.js';
 
 export default class SuperpositionModel extends QBSModel {
@@ -28,7 +28,15 @@ export default class SuperpositionModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
-    const massProperty = new Property( 1 * QBSConstants.ELECTRON_MASS ); //TODO move to QBSModel
+    //TODO move electronMassesProperty to QBSModel?
+    const electronMassesProperty = new NumberProperty( 1, {
+      numberType: 'FloatingPoint',
+      units: electronMassesUnit,
+      range: new Range( 0.5, 1.1 ),
+      tandem: tandem.createTandem( 'electronMassesProperty' ),
+      phetioFeatured: true,
+      phetioDocumentation: 'The number of electron masses.'
+    } );
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
@@ -37,7 +45,7 @@ export default class SuperpositionModel extends QBSModel {
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),
-      new HarmonicOscillatorPotential( massProperty, potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
+      new HarmonicOscillatorPotential( electronMassesProperty, potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
       new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) ),
       new DoubleSquarePotential( {
         tandem: potentialsTandem.createTandem( 'doubleSquarePotential' )

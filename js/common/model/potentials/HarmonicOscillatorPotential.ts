@@ -23,9 +23,9 @@ export default class HarmonicOscillatorPotential extends Potential {
   private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
   private readonly centerX = 0; //TODO Constant 0 nm in Java
 
-  private readonly massProperty: TReadOnlyProperty<number>;
+  private readonly electronMassesProperty: TReadOnlyProperty<number>;
 
-  public constructor( massProperty: TReadOnlyProperty<number>, tandem: Tandem ) {
+  public constructor( electronMassesProperty: TReadOnlyProperty<number>, tandem: Tandem ) {
 
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.harmonicOscillatorStringProperty,
@@ -34,7 +34,7 @@ export default class HarmonicOscillatorPotential extends Potential {
       phetioDocumentation: 'A quantum potential with one harmonic oscillator.'
     } );
 
-    this.massProperty = massProperty;
+    this.electronMassesProperty = electronMassesProperty;
   }
 
   /**
@@ -45,11 +45,11 @@ export default class HarmonicOscillatorPotential extends Potential {
 
     const yOffset = this.yOffset;
     const centerX = this.centerX;
-    const m = this.massProperty.value;
+    const mass = this.electronMassesProperty.value * QBSConstants.ELECTRON_MASS;
     const omega = this.angularFrequency;
 
     // From BSHarmonicOscillatorPotential.java
-    return yOffset + ( 0.5 * m * omega * omega * ( x - centerX ) * ( x - centerX ) );
+    return yOffset + ( 0.5 * mass * omega * omega * ( x - centerX ) * ( x - centerX ) );
   }
 
   /**
@@ -72,9 +72,9 @@ export default class HarmonicOscillatorPotential extends Potential {
    * Spring constant k = m * ω², in eV/nm².
    */
   public get springConstant(): number {
-    const m = this.massProperty.value;
+    const mass = this.electronMassesProperty.value * QBSConstants.ELECTRON_MASS;
     const omega = this.angularFrequency;
-    return m * omega * omega;
+    return mass * omega * omega;
   }
 
   public override createIcon(): Node {
