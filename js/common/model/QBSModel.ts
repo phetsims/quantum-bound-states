@@ -11,6 +11,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
@@ -103,20 +104,29 @@ export default class QBSModel implements TModel {
       const minPotentialEnergy = potential.getMinPotentialEnergy();
       const maxPotentialEnergy = potential.getMaxPotentialEnergy();
 
+      let result: BoundStateResult;
+
       //TODO Analytic and numeric solutions have different methods of computing potential energy.
       if ( potential instanceof InfiniteSquarePotential ) {
 
         // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-        return InfiniteSquareWellSolution.solve( this.xGrid, potential.wellWidth, mass, minPotentialEnergy, maxPotentialEnergy );
+        result = InfiniteSquareWellSolution.solve( this.xGrid, potential.wellWidth, mass, minPotentialEnergy, maxPotentialEnergy );
       }
       else if ( potential instanceof InfiniteStepPotential ) {
 
         // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-        return InfiniteStepSolution.solve( this.xGrid, potential.wellWidth, potential.stepHeight, mass, minPotentialEnergy, maxPotentialEnergy );
+        result = InfiniteStepSolution.solve( this.xGrid, potential.wellWidth, potential.stepHeight, mass, minPotentialEnergy, maxPotentialEnergy );
       }
       else {
-        return NumerovSolver.solve( this.xGrid, potentialFunction, mass, minPotentialEnergy, maxPotentialEnergy );
+        result = NumerovSolver.solve( this.xGrid, potentialFunction, mass, minPotentialEnergy, maxPotentialEnergy );
       }
+
+      affirm( result.potentials.length > 0, 'BoundStateResult has no potentials.' );
+      affirm( result.energies.length > 0, 'BoundStateResult has no eigenvalues.' );
+      affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions.' );
+      affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult has does not have a wave function for each eigenvalue.' );
+
+      return result;
     };
 
     this.boundStateResultProperty = new Property( solveBoundStates( options.potential ) );
