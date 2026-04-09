@@ -76,8 +76,8 @@ export default class QBSConstants {
   public static readonly WAVEFUNCTION_GRAPH_Y_RANGE = new Range( -1, 1 ).dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
 
   // Decimal places
-  public static readonly ELECTRON_MASSES_DECIMAL_PLACES = 2;
-  public static readonly TIME_DECIMAL_PLACES = 1;
+  public static readonly ELECTRON_MASSES_DECIMALS = 2;
+  public static readonly TIME_DECIMALS = 1;
   public static readonly X_DECIMALS = 2;
   public static readonly ELECTRIC_FIELD_DECIMALS = 1;
 

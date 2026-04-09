@@ -37,7 +37,7 @@ export default class ElectronMassesControl extends NumberControl {
 
         // Add units to the displayed value.
         numberFormatter: value => electronMassesUnit.getVisualSymbolPatternString( value, {
-          decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES,
+          decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMALS,
           showTrailingZeros: true
         } ),
 
@@ -57,7 +57,7 @@ export default class ElectronMassesControl extends NumberControl {
         thumbFill: QBSColors.massSliderThumbFillProperty,
         thumbFillHighlighted: QBSColors.massSliderThumbFillHighlightedProperty,
         createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {
-          decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES,
+          decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMALS,
           showTrailingZeros: false
         } ),
         keyboardStep: KEYBOARD_STEP,
@@ -83,12 +83,12 @@ export default class ElectronMassesControl extends NumberControl {
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
   const minStringProperty = electronMassesUnit.getVisualSymbolPatternString( range.min, {
-    decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES,
+    decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMALS,
     showTrailingZeros: false
   } );
 
   const maxStringProperty = electronMassesUnit.getVisualSymbolPatternString( range.max, {
-    decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES,
+    decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMALS,
     showTrailingZeros: false
   } );
 

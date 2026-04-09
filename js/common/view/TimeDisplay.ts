@@ -30,7 +30,7 @@ export default class TimeDisplay extends NumberDisplay {
         backgroundFill: new DerivedProperty( [ timeVisibleProperty ],
           timeVisible => timeVisible ? QBSColors.timeDisplayEnabledProperty.value : QBSColors.timeDisplayDisabledProperty.value ),
         numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString( value, {
-          decimalPlaces: QBSConstants.TIME_DECIMAL_PLACES,
+          decimalPlaces: QBSConstants.TIME_DECIMALS,
           showTrailingZeros: true
         } ),
         tandem: tandem.createTandem( 'valueDisplay' )
