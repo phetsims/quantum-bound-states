@@ -75,7 +75,7 @@ export default class QBSConstants {
   public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = QBSConstants.AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE;
   public static readonly WAVEFUNCTION_GRAPH_Y_RANGE = new Range( -1, 1 ).dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
 
-  // Decimal places
+  // Decimal places in displayed values
   public static readonly ELECTRON_MASSES_DECIMALS = 2;
   public static readonly TIME_DECIMALS = 1;
   public static readonly X_DECIMALS = 2;
@@ -85,7 +85,7 @@ export default class QBSConstants {
   public static readonly NUMBER_OF_WELLS_RANGE = new RangeWithValue( 1, 10, 5 );
   public static readonly ELECTRIC_FIELD_RANGE = new RangeWithValue( -1, 1, 0 );
 
-  //TODO from BSConstants.java, are these compatible with units in new code?
+  //TODO from BSConstants.java, are these compatible with values and units in new code?
   public static readonly ELECTRON_MASS = 5.68; // eV/c^2
   public static readonly KE2 = 1.44; // ke^2, eV nm
 
@@ -153,13 +153,13 @@ export default class QBSConstants {
     } )
   };
 
-  public static readonly VBOX_OPTIONS: VBoxOptions = {
-    align: 'left',
-    spacing: 7
-  };
-
   public static readonly TICK_TEXT_OPTIONS: TextOptions = {
     font: new PhetFont( 10 ),
     maxWidth: 50
+  };
+
+  public static readonly VBOX_OPTIONS: VBoxOptions = {
+    align: 'left',
+    spacing: 7
   };
 }
