@@ -102,6 +102,7 @@ export default class QBSModel implements TModel {
 
     // Solve for bound states, dispatching to analytical solutions where available.
     const solveBoundStates = ( potential: Potential ): BoundStateResult => {
+
       //TODO Analytic and numeric solutions have different methods of computing potential energy.
       if ( potential instanceof InfiniteSquarePotential ) {
 
