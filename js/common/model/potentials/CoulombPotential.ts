@@ -70,6 +70,14 @@ export default class CoulombPotential extends Potential {
     return ENERGY_AXIS_RANGE;
   }
 
+  public override getMinPotentialEnergy(): number {
+    return this.getEnergyAxisRange().min; //TODO incorrect
+  }
+
+  public override getMaxPotentialEnergy(): number {
+    return this.getEnergyAxisRange().max; //TODO incorrect
+  }
+
   public override createIcon(): Node {
 
     // Shape ported from BSWellComboBox.java, values determined empirically.

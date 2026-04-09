@@ -53,6 +53,14 @@ export default class AsymmetricTrianglePotential extends Potential {
     return pe;
   }
 
+  public override getMinPotentialEnergy(): number {
+    return this.yOffset;
+  }
+
+  public override getMaxPotentialEnergy(): number {
+    return this.yOffset + this.wellDepth;
+  }
+
   public override createIcon(): Node {
 
     const wellWidth = 12;

@@ -59,6 +59,14 @@ export default class HarmonicOscillatorPotential extends Potential {
     return 0;
   }
 
+  public override getMinPotentialEnergy(): number {
+    return this.yOffset;
+  }
+
+  public override getMaxPotentialEnergy(): number {
+    return this.getEnergyAxisRange().max;
+  }
+
   //TODO Used by HarmonicOscillatorSolution. This probably does not belong here.
   /**
    * Spring constant k = m * ω², in eV/nm².

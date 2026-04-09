@@ -15,6 +15,15 @@ import Potential from './Potential.js';
 
 export default class DoubleSquarePotential extends Potential {
 
+  //TODO Temporary constants, same as initial state of Java version.
+  private readonly numberOfWells = 1;
+  private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
+  private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
+  private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
+  private readonly centerX = 0; //TODO Constant 0 nm in Java
+  private readonly separation = 0; //TODO Java [0.05,0.7] nm, distance between walls of adjacent wells
+  private readonly electricField = 0; //TODO Java [-1,1] V/nm
+
   public constructor( tandem: Tandem ) {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.doubleSquareStringProperty,
@@ -22,6 +31,14 @@ export default class DoubleSquarePotential extends Potential {
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with two finite square wells.'
     } );
+  }
+
+  public override getMinPotentialEnergy(): number {
+    return this.yOffset;
+  }
+
+  public override getMaxPotentialEnergy(): number {
+    return this.yOffset + this.wellDepth;
   }
 
   /**

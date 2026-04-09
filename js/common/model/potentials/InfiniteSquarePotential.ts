@@ -47,6 +47,14 @@ export default class InfiniteSquarePotential extends Potential {
     return pe;
   }
 
+  public override getMinPotentialEnergy(): number {
+    return this.yOffset;
+  }
+
+  public override getMaxPotentialEnergy(): number {
+    return this.getEnergyAxisRange().max;
+  }
+
   /**
    * Creates the icon for this potential.
    */

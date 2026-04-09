@@ -96,26 +96,26 @@ export default class QBSModel implements TModel {
 
     const potentialFunction = ( x: number ) => this.potentialProperty.value.getPotentialEnergyAt( x ); // nm => eV
     const mass = 1; //TODO electron masses
-    //TODO Range depends on the y-axis range and the type of potential. Only look for energy values in the range that's visible on the graph.
-    const energyMin = 0; //TODO eV
-    const energyMax = 10; //TODO eV
 
     // Solve for bound states, dispatching to analytical solutions where available.
     const solveBoundStates = ( potential: Potential ): BoundStateResult => {
+
+      const minPotentialEnergy = potential.getMinPotentialEnergy();
+      const maxPotentialEnergy = potential.getMaxPotentialEnergy();
 
       //TODO Analytic and numeric solutions have different methods of computing potential energy.
       if ( potential instanceof InfiniteSquarePotential ) {
 
         // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-        return InfiniteSquareWellSolution.solve( this.xGrid, potential.wellWidth, mass, energyMin, energyMax );
+        return InfiniteSquareWellSolution.solve( this.xGrid, potential.wellWidth, mass, minPotentialEnergy, maxPotentialEnergy );
       }
       else if ( potential instanceof InfiniteStepPotential ) {
 
         // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-        return InfiniteStepSolution.solve( this.xGrid, potential.wellWidth, potential.stepHeight, mass, energyMin, energyMax );
+        return InfiniteStepSolution.solve( this.xGrid, potential.wellWidth, potential.stepHeight, mass, minPotentialEnergy, maxPotentialEnergy );
       }
       else {
-        return NumerovSolver.solve( this.xGrid, potentialFunction, mass, energyMin, energyMax );
+        return NumerovSolver.solve( this.xGrid, potentialFunction, mass, minPotentialEnergy, maxPotentialEnergy );
       }
     };
 

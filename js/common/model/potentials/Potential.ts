@@ -71,6 +71,9 @@ export default abstract class Potential extends PhetioObject {
     return ENERGY_AXIS_RANGE;
   }
 
+  public abstract getMinPotentialEnergy(): number;
+  public abstract getMaxPotentialEnergy(): number;
+
   /**
    * Creates the icon that represents this potential. Used in the combo box for selecting a potential.
    */

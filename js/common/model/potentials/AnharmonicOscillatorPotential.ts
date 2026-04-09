@@ -37,6 +37,14 @@ export default class AnharmonicOscillatorPotential extends Potential {
     return 0;
   }
 
+  public override getMinPotentialEnergy(): number {
+    return this.getEnergyAxisRange().min; //TODO incorrect
+  }
+
+  public override getMaxPotentialEnergy(): number {
+    return this.getEnergyAxisRange().max; //TODO incorrect
+  }
+
   /**
    * Creates the icon for this potential.
    */
