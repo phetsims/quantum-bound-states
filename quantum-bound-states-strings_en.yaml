@@ -217,11 +217,11 @@ a11y:
     accessibleHelpText: Choose a potential shape for the energy graph.
 
   superpositionPresetComboBox:
-    accessibleName:     TODO.superpositionPresetComboBox.accessibleName
+    accessibleName:     Superposition Preset
     accessibleHelpText: TODO.superpositionPresetComboBox.accessibleHelpText
 
   superpositionCustomComboBox:
-    accessibleName:     TODO.superpositionCustomComboBox.accessibleName
+    accessibleName:     Superposition Custom
     accessibleHelpText: TODO.superpositionCustomComboBox.accessibleHelpText
 
   #=======================================================================================================
@@ -268,25 +268,25 @@ a11y:
 
   functionDetailsButton:
     averageProbabilityDensityOfBand:
-      accessibleName:            TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleName
+      accessibleName:            Average Probability Density of Band Details
       accessibleHelpText:        TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleHelpText
       accessibleContextResponse: TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleContextResponse
     probabilityDensity:
-      accessibleName:            TODO.functionDetailsButton.probabilityDensity.accessibleName
+      accessibleName:            Probability Density Details
       accessibleHelpText:        TODO.functionDetailsButton.probabilityDensity.accessibleHelpText
       accessibleContextResponse: TODO.functionDetailsButton.probabilityDensity.accessibleContextResponse
     waveFunction:
-      accessibleName:            TODO.functionDetailsButton.waveFunction.accessibleName
+      accessibleName:            Wave Function Details
       accessibleHelpText:        TODO.functionDetailsButton.waveFunction.accessibleHelpText
       accessibleContextResponse: TODO.functionDetailsButton.waveFunction.accessibleContextResponse
 
   superpositionCustomizeButton:
-    accessibleName:            TODO.superpositionCustomizeButton.accessibleName
+    accessibleName:            Superposition Customize
     accessibleHelpText:        TODO.superpositionCustomizeButton.accessibleHelpText
     accessibleContextResponse: TODO.superpositionCustomizeButton.accessibleContextResponse
 
   superpositionDetailsButton:
-    accessibleName:            TODO.superpositionDetailsButton.accessibleName
+    accessibleName:            Superposition Details
     accessibleHelpText:        TODO.superpositionDetailsButton.accessibleHelpText
     accessibleContextResponse: TODO.superpositionDetailsButton.accessibleContextResponse
 
@@ -314,7 +314,7 @@ a11y:
   #=======================================================================================================
 
   timeSpeedSlider:
-    accessibleName:     TODO.timeSpeedSlider.accessibleName
+    accessibleName:     Time Speed
     accessibleHelpText: TODO.timeSpeedSlider.accessibleHelpText
 
   massControl:
@@ -360,8 +360,8 @@ a11y:
     accessibleContextResponseOff: Time display hidden.
 
   curvesVisibleToggleButton:
-    accessibleNameOn:             TODO.curvesVisibleToggleButton.accessibleNameOn
-    accessibleNameOff:            TODO.curvesVisibleToggleButton.accessibleNameOff
+    accessibleNameOn:             Hide Curves
+    accessibleNameOff:            Show Curves
     accessibleHelpTextOn:         TODO.curvesVisibleToggleButton.accessibleHelpTextOn
     accessibleHelpTextOff:        TODO.curvesVisibleToggleButton.accessibleHelpTextOff
     accessibleContextResponseOn:  TODO.curvesVisibleToggleButton.accessibleContextResponseOn
@@ -382,7 +382,7 @@ a11y:
       accessibleHelpText:       TODO.magnifier.probe.accessibleHelpText
       accessibleObjectResponse: TODO.magnifier.probe.accessibleObjectResponse
     body:
-      accessibleName:           TODO.magnifier.body.accessibleName
+      accessibleName:           Magnifier Body
       accessibleHelpText:       TODO.magnifier.body.accessibleHelpText
       accessibleObjectResponse: TODO.magnifier.body.accessibleObjectResponse
 

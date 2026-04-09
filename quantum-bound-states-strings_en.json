@@ -405,7 +405,7 @@
     },
     "superpositionPresetComboBox": {
       "accessibleName": {
-        "value": "TODO.superpositionPresetComboBox.accessibleName"
+        "value": "Superposition Preset"
       },
       "accessibleHelpText": {
         "value": "TODO.superpositionPresetComboBox.accessibleHelpText"
@@ -413,7 +413,7 @@
     },
     "superpositionCustomComboBox": {
       "accessibleName": {
-        "value": "TODO.superpositionCustomComboBox.accessibleName"
+        "value": "Superposition Custom"
       },
       "accessibleHelpText": {
         "value": "TODO.superpositionCustomComboBox.accessibleHelpText"
@@ -488,7 +488,7 @@
     "functionDetailsButton": {
       "averageProbabilityDensityOfBand": {
         "accessibleName": {
-          "value": "TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleName"
+          "value": "Average Probability Density of Band Details"
         },
         "accessibleHelpText": {
           "value": "TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleHelpText"
@@ -499,7 +499,7 @@
       },
       "probabilityDensity": {
         "accessibleName": {
-          "value": "TODO.functionDetailsButton.probabilityDensity.accessibleName"
+          "value": "Probability Density Details"
         },
         "accessibleHelpText": {
           "value": "TODO.functionDetailsButton.probabilityDensity.accessibleHelpText"
@@ -510,7 +510,7 @@
       },
       "waveFunction": {
         "accessibleName": {
-          "value": "TODO.functionDetailsButton.waveFunction.accessibleName"
+          "value": "Wave Function Details"
         },
         "accessibleHelpText": {
           "value": "TODO.functionDetailsButton.waveFunction.accessibleHelpText"
@@ -522,7 +522,7 @@
     },
     "superpositionCustomizeButton": {
       "accessibleName": {
-        "value": "TODO.superpositionCustomizeButton.accessibleName"
+        "value": "Superposition Customize"
       },
       "accessibleHelpText": {
         "value": "TODO.superpositionCustomizeButton.accessibleHelpText"
@@ -533,7 +533,7 @@
     },
     "superpositionDetailsButton": {
       "accessibleName": {
-        "value": "TODO.superpositionDetailsButton.accessibleName"
+        "value": "Superposition Details"
       },
       "accessibleHelpText": {
         "value": "TODO.superpositionDetailsButton.accessibleHelpText"
@@ -576,7 +576,7 @@
     },
     "timeSpeedSlider": {
       "accessibleName": {
-        "value": "TODO.timeSpeedSlider.accessibleName"
+        "value": "Time Speed"
       },
       "accessibleHelpText": {
         "value": "TODO.timeSpeedSlider.accessibleHelpText"
@@ -646,10 +646,10 @@
     },
     "curvesVisibleToggleButton": {
       "accessibleNameOn": {
-        "value": "TODO.curvesVisibleToggleButton.accessibleNameOn"
+        "value": "Hide Curves"
       },
       "accessibleNameOff": {
-        "value": "TODO.curvesVisibleToggleButton.accessibleNameOff"
+        "value": "Show Curves"
       },
       "accessibleHelpTextOn": {
         "value": "TODO.curvesVisibleToggleButton.accessibleHelpTextOn"
@@ -689,7 +689,7 @@
       },
       "body": {
         "accessibleName": {
-          "value": "TODO.magnifier.body.accessibleName"
+          "value": "Magnifier Body"
         },
         "accessibleHelpText": {
           "value": "TODO.magnifier.body.accessibleHelpText"
