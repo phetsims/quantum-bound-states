@@ -81,6 +81,9 @@ export default class QBSConstants {
   public static readonly X_DECIMALS = 2;
   public static readonly ELECTRIC_FIELD_DECIMALS = 1;
 
+  //TODO Is this OK or do we need to use Number.Infinity?
+  public static readonly EFFECTIVELY_INFINITE_ENERGY = 1E20; // eV
+
   // Value ranges
   public static readonly NUMBER_OF_WELLS_RANGE = new RangeWithValue( 1, 10, 5 );
   public static readonly ELECTRIC_FIELD_RANGE = new RangeWithValue( -1, 1, 0 );

@@ -9,6 +9,7 @@
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
+import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import QuantumPotential from './QuantumPotential.js';
 
@@ -47,7 +48,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
     }
     else {
       // outside the well
-      pe = 1E20; //TODO 1E20 instead of Number.POSITIVE_INFINITY
+      pe = QBSConstants.EFFECTIVELY_INFINITE_ENERGY;
     }
     return pe;
   }
