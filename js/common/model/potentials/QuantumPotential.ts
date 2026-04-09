@@ -77,6 +77,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     return ENERGY_AXIS_RANGE;
   }
 
+  //TODO Combine getMinPotentialEnergy and getMaxPotentialEnergy into getPotentialEnergyLimits(): Range?
   /**
    * Gets the minimum potential energy (eV) used to compute eigenstates and wave functions.
    */
