@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Potential is the base class for all potential potentials.
+ * Potential is the base class for all quantum potentials.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
