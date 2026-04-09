@@ -124,7 +124,7 @@ export default class QBSModel implements TModel {
       affirm( result.potentials.length > 0, 'BoundStateResult has no potentials.' );
       affirm( result.energies.length > 0, 'BoundStateResult has no eigenvalues.' );
       affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions.' );
-      affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult has does not have a wave function for each eigenvalue.' );
+      affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each eigenvalue.' );
 
       return result;
     };
