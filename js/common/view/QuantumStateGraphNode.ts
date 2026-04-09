@@ -78,7 +78,7 @@ export default class QuantumStateGraphNode extends Node {
 
     this.chartTransform = new ChartTransform( {
       viewWidth: QBSConstants.ALL_GRAPHS_VIEW_WIDTH,
-      viewHeight: QBSConstants.ALL_GRAPHS_VIEW_HEIGHT,
+      viewHeight: QBSConstants.QUANTUM_STATE_GRAPHS_VIEW_HEIGHT,
       modelXRange: QBSConstants.ALL_GRAPHS_X_RANGE,
       modelYRange: options.yRange
     } );

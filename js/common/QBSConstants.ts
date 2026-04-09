@@ -58,20 +58,22 @@ export default class QBSConstants {
   public static readonly TITLE_FONT = new PhetFont( { size: 14, weight: 'bold' } );
   public static readonly TIME_FONT = new PhetFont( 16 );
 
-  // Quantum State Graphs
+  // Energy Diagram & all Quantum State Graphs
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 700;
-  public static readonly ALL_GRAPHS_VIEW_HEIGHT = 175;
   public static readonly ALL_GRAPHS_X_RANGE = new Range( -3.5, 3.5 );
   public static readonly ALL_GRAPHS_X_TICK_SPACING = 1;
   public static readonly ALL_GRAPHS_Y_AXIS_LABEL_X_OFFSET = -32;
-  public static readonly ALL_GRAPHS_Y_RANGE_DILATION = 0.1;
-  public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1 ).dilated( QBSConstants.ALL_GRAPHS_Y_RANGE_DILATION );
-  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = QBSConstants.AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE;
-  public static readonly WAVEFUNCTION_GRAPH_Y_RANGE = new Range( -1, 1 ).dilated( QBSConstants.ALL_GRAPHS_Y_RANGE_DILATION );
 
   // Energy Diagram
   public static readonly ENERGY_DIAGRAM_VIEW_HEIGHT = 265;
   public static readonly ENERGY_DIAGRAM_Y_TICK_SPACING = 5;
+
+  // Quantum State Graphs
+  public static readonly QUANTUM_STATE_GRAPHS_VIEW_HEIGHT = 175;
+  public static readonly QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION = 0.1;
+  public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1 ).dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
+  public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = QBSConstants.AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE;
+  public static readonly WAVEFUNCTION_GRAPH_Y_RANGE = new Range( -1, 1 ).dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
 
   // Decimal places
   public static readonly ELECTRON_MASS_DECIMAL_PLACES = 2;

@@ -73,7 +73,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       //TODO Temporarily change y-axis and tick marks to fit the entire curve, until we decide how to handle normalization and y-range.
       const minY = Math.min( ...yCoordinates );
       const maxY = Math.max( ...yCoordinates );
-      const absMaxY = Math.max( Math.abs( minY ), Math.abs( maxY ) ) + QBSConstants.ALL_GRAPHS_Y_RANGE_DILATION;
+      const absMaxY = Math.max( Math.abs( minY ), Math.abs( maxY ) ) + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION;
       this.setYRange( new Range( -absMaxY, absMaxY ) );
       this.setYTickSpacing( maxY );
     };

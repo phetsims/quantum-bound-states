@@ -150,7 +150,7 @@ export default class QBSScreenView extends ScreenView {
     const referenceLineWrapper = new Node( {
       children: [ referenceLineNode ],
       x: energyDiagramNode.x,
-      y: quantumStateGraphRectangleBounds.y + QBSConstants.ALL_GRAPHS_VIEW_HEIGHT
+      y: quantumStateGraphRectangleBounds.y + QBSConstants.QUANTUM_STATE_GRAPHS_VIEW_HEIGHT
     } );
 
     // Rendering order, from back to front
