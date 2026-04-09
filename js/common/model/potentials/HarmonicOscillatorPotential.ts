@@ -14,9 +14,9 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
-import Potential from './Potential.js';
+import QuantumPotential from './QuantumPotential.js';
 
-export default class HarmonicOscillatorPotential extends Potential {
+export default class HarmonicOscillatorPotential extends QuantumPotential {
 
   //TODO Temporary constants, same as initial state of Java version.
   private readonly angularFrequency = 1; //TODO Java: [-5,15] fs^-1

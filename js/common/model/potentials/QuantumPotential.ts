@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Potential is the base class for all quantum potentials.
+ * QuantumPotential is the base class for all quantum potentials.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -24,9 +24,9 @@ type SelfOptions = {
   tandemPrefix: string;
 };
 
-export type PotentialOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
+export type QuantumPotentialOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
-export default abstract class Potential extends PhetioObject {
+export default abstract class QuantumPotential extends PhetioObject {
 
   // Horizontal offset of the potential from x=0 nm.
   // As in the Java version, this is constant in the sim and is provided for future-proofing.
@@ -38,15 +38,15 @@ export default abstract class Potential extends PhetioObject {
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
 
-  protected constructor( providedOptions: PotentialOptions ) {
+  protected constructor( providedOptions: QuantumPotentialOptions ) {
 
-    const options = optionize<PotentialOptions, SelfOptions, PhetioObjectOptions>()( {
+    const options = optionize<QuantumPotentialOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       accessibleNameProperty: providedOptions.visualNameProperty,
 
       // PhetioObjectOptions
-      phetioState: false // because PotentialIO implements reference-type serialization.
+      phetioState: false // because QuantumPotentialIO implements reference-type serialization.
     }, providedOptions );
 
     super( options );
@@ -93,11 +93,12 @@ export default abstract class Potential extends PhetioObject {
   public abstract createIcon(): Node;
 
   /**
-   * PotentialIO handles PhET-iO serialization of Potential instances, as described in the Serialization section of
+   * QuantumPotentialIO handles PhET-iO serialization of QuantumPotential instances.
+   * It uses reference-type serialization as described in the Serialization section of
    * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
    */
-  public static readonly PotentialIO = new IOType<Potential, ReferenceIOState>( 'PotentialIO', {
-    valueType: Potential,
+  public static readonly QuantumPotentialIO = new IOType<QuantumPotential, ReferenceIOState>( 'QuantumPotentialIO', {
+    valueType: QuantumPotential,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }

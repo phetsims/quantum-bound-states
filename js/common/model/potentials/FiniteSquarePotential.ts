@@ -13,7 +13,7 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import Potential, { PotentialOptions } from './Potential.js';
+import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
   numberOfWells?: number;
@@ -21,10 +21,10 @@ type SelfOptions = {
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
-  PickOptional<PotentialOptions, 'visualNameProperty' | 'tandemPrefix' | 'phetioDocumentation'> &
-  PickRequired<PotentialOptions, 'tandem'>;
+  PickOptional<QuantumPotentialOptions, 'visualNameProperty' | 'tandemPrefix' | 'phetioDocumentation'> &
+  PickRequired<QuantumPotentialOptions, 'tandem'>;
 
-export default class FiniteSquarePotential extends Potential {
+export default class FiniteSquarePotential extends QuantumPotential {
 
   //TODO Temporary constants, same as initial state of Java version.
   private readonly numberOfWells: number;
@@ -35,13 +35,13 @@ export default class FiniteSquarePotential extends Potential {
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
-    const options = optionize<FiniteSquarePotentialOptions, SelfOptions, PotentialOptions>()( {
+    const options = optionize<FiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
       numberOfWells: 1,
       separation: 0,
 
-      // PotentialOptions
+      // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
       tandemPrefix: 'finiteSquarePotential',
       phetioDocumentation: 'A quantum potential composed of one or more finite square wells.'

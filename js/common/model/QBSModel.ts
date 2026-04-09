@@ -22,7 +22,7 @@ import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
 import InfiniteSquarePotential from './potentials/InfiniteSquarePotential.js';
 import InfiniteStepPotential from './potentials/InfiniteStepPotential.js';
-import Potential from './potentials/Potential.js';
+import QuantumPotential from './potentials/QuantumPotential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
@@ -35,8 +35,8 @@ import Time from './Time.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
-  potential?: Potential;
-  potentials: Potential[];
+  potential?: QuantumPotential;
+  potentials: QuantumPotential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
 };
 
@@ -47,7 +47,7 @@ export default class QBSModel implements TModel {
   public readonly time: Time;
 
   // The quantum potential that is currently selected.
-  public readonly potentialProperty: Property<Potential>;
+  public readonly potentialProperty: Property<QuantumPotential>;
 
   // Result from NumerovSolver for the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
@@ -90,7 +90,7 @@ export default class QBSModel implements TModel {
 
     this.potentialProperty = new Property( options.potential, {
       validValues: options.potentials,
-      phetioValueType: Potential.PotentialIO,
+      phetioValueType: QuantumPotential.QuantumPotentialIO,
       tandem: options.tandem.createTandem( 'potentialProperty' ),
       phetioFeatured: true
     } );
@@ -207,7 +207,7 @@ function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalues: num
 /**
  * Solve for bound states, dispatching to analytical solutions where available.
  */
-function solveBoundStates( potential: Potential, xGrid: XGrid ): BoundStateResult {
+function solveBoundStates( potential: QuantumPotential, xGrid: XGrid ): BoundStateResult {
 
   const potentialFunction = ( x: number ) => potential.getPotentialEnergyAt( x ); // nm => eV
   const electronMasses = 1; //TODO number of electron masses

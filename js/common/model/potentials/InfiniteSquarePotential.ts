@@ -10,9 +10,9 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import Potential from './Potential.js';
+import QuantumPotential from './QuantumPotential.js';
 
-export default class InfiniteSquarePotential extends Potential {
+export default class InfiniteSquarePotential extends QuantumPotential {
 
   //TODO Temporary constants
   public readonly wellWidth = 2;

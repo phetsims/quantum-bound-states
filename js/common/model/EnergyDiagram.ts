@@ -14,7 +14,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
-import Potential from './potentials/Potential.js';
+import QuantumPotential from './potentials/QuantumPotential.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import XGrid from './solver/XGrid.js';
 
@@ -28,7 +28,7 @@ export default class EnergyDiagram {
   // Visibility of values on drag handles and energy lines.
   public readonly valuesVisibleProperty: Property<boolean>;
 
-  public constructor( potentialProperty: TReadOnlyProperty<Potential>,
+  public constructor( potentialProperty: TReadOnlyProperty<QuantumPotential>,
                       xGrid: XGrid,
                       boundStateResultProperty: TReadOnlyProperty<BoundStateResult>,
                       tandem: Tandem ) {

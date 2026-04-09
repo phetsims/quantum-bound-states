@@ -14,11 +14,11 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
-import Potential from './Potential.js';
+import QuantumPotential from './QuantumPotential.js';
 
 const ENERGY_AXIS_RANGE = new Range( -15.5, 5.5 );
 
-export default class CoulombPotential extends Potential {
+export default class CoulombPotential extends QuantumPotential {
 
   //TODO Temporary constants, same as initial state of Java version.
   private readonly numberOfWells = 1;

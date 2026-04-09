@@ -13,9 +13,9 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
-import Potential from './Potential.js';
+import QuantumPotential from './QuantumPotential.js';
 
-export default class AsymmetricTrianglePotential extends Potential {
+export default class AsymmetricTrianglePotential extends QuantumPotential {
 
   //TODO Temporary constants, same as initial state of Java version.
   private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
