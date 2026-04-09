@@ -20,9 +20,6 @@ export default class InfiniteStepPotential extends Potential {
   // Height of the potential step V₀ in eV (applies to the right half, x > 0).
   public readonly stepHeight = 3;
 
-  private readonly centerX = 0;
-  private readonly yOffset = 0;
-
   public constructor( tandem: Tandem ) {
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
@@ -34,8 +31,8 @@ export default class InfiniteStepPotential extends Potential {
 
   public override getPotentialEnergyAt( x: number ): number {
     //TODO affirm 1 well
-    const leftX = this.centerX - this.wellWidth / 2;
-    const rightX = this.centerX + this.wellWidth / 2;
+    const leftX = this.xOffset - this.wellWidth / 2;
+    const rightX = this.xOffset + this.wellWidth / 2;
     let pe: number;
     if ( leftX <= x && x <= rightX ) {
       // inside the well

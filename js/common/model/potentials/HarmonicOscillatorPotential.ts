@@ -20,8 +20,6 @@ export default class HarmonicOscillatorPotential extends Potential {
 
   //TODO Temporary constants, same as initial state of Java version.
   private readonly angularFrequency = 1; //TODO Java: [-5,15] fs^-1
-  private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
-  private readonly centerX = 0; //TODO Constant 0 nm in Java
 
   private readonly electronMassesProperty: TReadOnlyProperty<number>;
 
@@ -43,13 +41,13 @@ export default class HarmonicOscillatorPotential extends Potential {
   public override getPotentialEnergyAt( x: number ): number {
     //TODO affirm 1 well
 
+    const xOffset = this.xOffset;
     const yOffset = this.yOffset;
-    const centerX = this.centerX;
     const mass = this.electronMassesProperty.value * QBSConstants.ELECTRON_MASS;
     const omega = this.angularFrequency;
 
     // From BSHarmonicOscillatorPotential.java
-    return yOffset + ( 0.5 * mass * omega * omega * ( x - centerX ) * ( x - centerX ) );
+    return yOffset + ( 0.5 * mass * omega * omega * ( x - xOffset ) * ( x - xOffset ) );
   }
 
   /**

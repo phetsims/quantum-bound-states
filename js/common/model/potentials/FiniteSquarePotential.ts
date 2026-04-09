@@ -30,8 +30,6 @@ export default class FiniteSquarePotential extends Potential {
   private readonly numberOfWells: number;
   private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
   protected readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
-  protected readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
-  private readonly centerX = 0; //TODO Constant 0 nm in Java
   private readonly separation: number; //TODO Java [0.05,0.7] nm, distance between walls of adjacent wells
   private readonly electricField = 0; //TODO Java [-1,1] V/nm
 
@@ -62,8 +60,8 @@ export default class FiniteSquarePotential extends Potential {
 
     const n = this.numberOfWells;
     const wellWidth = this.wellWidth;
+    const xOffset = this.xOffset;
     const yOffset = this.yOffset;
-    const centerX = this.centerX;
     const s = wellWidth + this.separation; // spacing between well centers
 
     let pe = yOffset + this.wellDepth;
@@ -71,7 +69,7 @@ export default class FiniteSquarePotential extends Potential {
     // From BSSquarePotential.java
     for ( let i = 1; i <= n; i++ ) {
       const xi = s * ( i - ( ( n + 1 ) / 2 ) );
-      if ( ( ( x - centerX ) >= xi - ( wellWidth / 2 ) ) && ( ( x - centerX ) <= xi + ( wellWidth / 2 ) ) ) {
+      if ( ( ( x - xOffset ) >= xi - ( wellWidth / 2 ) ) && ( ( x - xOffset ) <= xi + ( wellWidth / 2 ) ) ) {
         pe = yOffset;
         break;
       }

@@ -20,8 +20,6 @@ export default class AnharmonicOscillatorPotential extends Potential {
   //TODO Added by MV
   private readonly wellDepth = 10; // Dissociation energy D_e in eV
   private readonly wellWidth = 0.5; // w = 1/a in nm
-  private readonly yOffset = 0;
-  private readonly centerX = 0; //TODO Constant 0 nm in Java
 
   public constructor( tandem: Tandem ) {
     super( {
@@ -77,7 +75,7 @@ export default class AnharmonicOscillatorPotential extends Potential {
 /**
  * Use a Morse potential curve to approximate the potential shape.
  */
-function solveMorse( x: number, wellDepth = 1, wellWidth = 1, centerX = 1 ): number {
-  const term = 1 - Math.exp( -( x - centerX ) / wellWidth );
+function solveMorse( x: number, wellDepth = 1, wellWidth = 1, xOffset = 1 ): number {
+  const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
   return wellDepth * ( Math.pow( term, 2 ) - 1 );
 }

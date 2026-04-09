@@ -28,6 +28,12 @@ export type PotentialOptions = SelfOptions & PickRequired<PhetioObjectOptions, '
 
 export default abstract class Potential extends PhetioObject {
 
+  // Horizontal offset of the potential from x=0 nm.
+  // As in the Java version, this is constant in the sim and is provided for future-proofing.
+  protected readonly xOffset = 0;
+
+  protected readonly yOffset = 0; //TODO mutable
+
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;

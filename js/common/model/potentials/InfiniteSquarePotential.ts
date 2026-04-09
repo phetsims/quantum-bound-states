@@ -16,8 +16,6 @@ export default class InfiniteSquarePotential extends Potential {
 
   //TODO Temporary constants
   public readonly wellWidth = 2;
-  private readonly centerX = 0; //TODO Constant 0 nm in Java
-  private readonly yOffset = 0;
 
   public constructor( tandem: Tandem ) {
     super( {
@@ -33,8 +31,8 @@ export default class InfiniteSquarePotential extends Potential {
    */
   public override getPotentialEnergyAt( x: number ): number {
     //TODO affirm 1 well
-    const leftX = this.centerX - this.wellWidth / 2;
-    const rightX = this.centerX + this.wellWidth / 2;
+    const leftX = this.xOffset - this.wellWidth / 2;
+    const rightX = this.xOffset + this.wellWidth / 2;
     let pe: number;
     if ( leftX <= x && x <= rightX ) {
       // inside the well

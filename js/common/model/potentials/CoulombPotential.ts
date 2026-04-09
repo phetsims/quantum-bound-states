@@ -22,8 +22,6 @@ export default class CoulombPotential extends Potential {
 
   //TODO Temporary constants, same as initial state of Java version.
   private readonly numberOfWells = 1;
-  private readonly yOffset = 0; //TODO Java [-15,5] eV, bottom of well
-  private readonly centerX = 0; //TODO Constant 0 nm in Java
   private readonly electricField = 0; //TODO Java [-1,1] V/nm
 
   public constructor( tandem: Tandem ) {
@@ -42,14 +40,14 @@ export default class CoulombPotential extends Potential {
 
     const n = this.numberOfWells; //TODO not needed?
     const spacing = 0; //TODO
+    const xOffset = this.xOffset;
     const yOffset = this.yOffset;
-    const centerX = this.centerX;
 
     // From BSCoulomb1DPotential.java
     let energy = 0;
     for ( let i = 1; i <= n; i++ ) {
       const xi = spacing * ( i - ( ( n + 1 ) / 2.0 ) );
-      let deltaEnergy = -QBSConstants.KE2 / Math.abs( ( x - centerX ) - xi );
+      let deltaEnergy = -QBSConstants.KE2 / Math.abs( ( x - xOffset ) - xi );
       const BIG_NEGATIVE = -1E10; //TODO
       if ( deltaEnergy < BIG_NEGATIVE ) {
         deltaEnergy = BIG_NEGATIVE;

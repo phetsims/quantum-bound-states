@@ -20,8 +20,6 @@ export default class AsymmetricTrianglePotential extends Potential {
   //TODO Temporary constants, same as initial state of Java version.
   private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
   private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
-  private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
-  private readonly centerX = 0; //TODO Constant 0 nm in Java
 
   public constructor( tandem: Tandem ) {
     super( {
@@ -41,13 +39,13 @@ export default class AsymmetricTrianglePotential extends Potential {
 
     const wellWidth = this.wellWidth;
     const wellDepth = this.wellDepth;
-    const centerX = this.centerX;
+    const xOffset = this.xOffset;
     const yOffset = this.yOffset;
 
     // From BSAsymmetricPotential.java
     let pe = yOffset + wellDepth;
-    if ( Math.abs( x - centerX ) <= wellWidth / 2 ) {
-      pe = yOffset + ( wellDepth - ( Math.abs( centerX + wellWidth / 2 - x ) * wellDepth / wellWidth ) );
+    if ( Math.abs( x - xOffset ) <= wellWidth / 2 ) {
+      pe = yOffset + ( wellDepth - ( Math.abs( xOffset + wellWidth / 2 - x ) * wellDepth / wellWidth ) );
     }
 
     return pe;
