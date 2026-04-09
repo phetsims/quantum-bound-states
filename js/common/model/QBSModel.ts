@@ -95,48 +95,11 @@ export default class QBSModel implements TModel {
       phetioFeatured: true
     } );
 
-    const potentialFunction = ( x: number ) => this.potentialProperty.value.getPotentialEnergyAt( x ); // nm => eV
-    const mass = 1; //TODO electron masses
-
-    // Solve for bound states, dispatching to analytical solutions where available.
-    const solveBoundStates = ( potential: Potential ): BoundStateResult => {
-
-      const minPotentialEnergy = potential.getMinPotentialEnergy();
-      const maxPotentialEnergy = potential.getMaxPotentialEnergy();
-
-      let result: BoundStateResult;
-
-      //TODO Analytic and numeric solutions have different methods of computing potential energy.
-      if ( potential instanceof InfiniteSquarePotential ) {
-
-        // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-        result = InfiniteSquareWellSolution.solve( this.xGrid, potential.wellWidth, mass, minPotentialEnergy, maxPotentialEnergy );
-      }
-      else if ( potential instanceof InfiniteStepPotential ) {
-
-        // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-        result = InfiniteStepSolution.solve( this.xGrid, potential.wellWidth, potential.stepHeight, mass, minPotentialEnergy, maxPotentialEnergy );
-      }
-      else {
-
-        // For all other potentials, use the numerical Numerov method.
-        result = NumerovSolver.solve( this.xGrid, potentialFunction, mass, minPotentialEnergy, maxPotentialEnergy );
-      }
-
-      // Validate the result.
-      affirm( result.potentials.length > 0, 'BoundStateResult has no potentials.' );
-      affirm( result.energies.length > 0, 'BoundStateResult has no eigenvalues.' );
-      affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions.' );
-      affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each eigenvalue.' );
-
-      return result;
-    };
-
-    this.boundStateResultProperty = new Property( solveBoundStates( options.potential ) );
+    this.boundStateResultProperty = new Property( solveBoundStates( options.potential, this.xGrid ) );
 
     this.potentialProperty.lazyLink( potential => {
       if ( !isSettingPhetioStateProperty.value ) {
-        this.boundStateResultProperty.value = solveBoundStates( potential );
+        this.boundStateResultProperty.value = solveBoundStates( potential, this.xGrid );
         this.energyLevelProperty.reset();
       }
     } );
@@ -234,6 +197,48 @@ export default class QBSModel implements TModel {
   }
 }
 
+/**
+ * Gets the energy level range for the given ground state index and number of eigenvalues.
+ */
 function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalues: number ): Range {
   return new Range( groundStateIndex, groundStateIndex + numberOfEigenvalues - 1 );
+}
+
+/**
+ * Solve for bound states, dispatching to analytical solutions where available.
+ */
+function solveBoundStates( potential: Potential, xGrid: XGrid ): BoundStateResult {
+
+  const potentialFunction = ( x: number ) => potential.getPotentialEnergyAt( x ); // nm => eV
+  const electronMasses = 1; //TODO number of electron masses
+
+  const minPotentialEnergy = potential.getMinPotentialEnergy();
+  const maxPotentialEnergy = potential.getMaxPotentialEnergy();
+
+  let result: BoundStateResult;
+
+  //TODO Analytic and numeric solutions have different methods of computing potential energy.
+  if ( potential instanceof InfiniteSquarePotential ) {
+
+    // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
+    result = InfiniteSquareWellSolution.solve( xGrid, potential.wellWidth, electronMasses, minPotentialEnergy, maxPotentialEnergy );
+  }
+  else if ( potential instanceof InfiniteStepPotential ) {
+
+    // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
+    result = InfiniteStepSolution.solve( xGrid, potential.wellWidth, potential.stepHeight, electronMasses, minPotentialEnergy, maxPotentialEnergy );
+  }
+  else {
+
+    // For all other potentials, use the numerical Numerov method.
+    result = NumerovSolver.solve( xGrid, potentialFunction, electronMasses, minPotentialEnergy, maxPotentialEnergy );
+  }
+
+  // Validate the result.
+  affirm( result.potentials.length > 0, 'BoundStateResult has no potentials.' );
+  affirm( result.energies.length > 0, 'BoundStateResult has no eigenvalues.' );
+  affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions.' );
+  affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each eigenvalue.' );
+
+  return result;
 }
