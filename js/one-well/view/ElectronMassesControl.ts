@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MassControl is the control for setting the mass.
+ * ElectronMassesControl is the control for setting the number of electron masses.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,7 +26,7 @@ const KEYBOARD_STEP = 0.1;
 const SHIFT_KEYBOARD_STEP = 0.01;
 const PAGE_KEYBOARD_STEP = 0.1;
 
-export default class MassControl extends NumberControl {
+export default class ElectronMassesControl extends NumberControl {
 
   public constructor( electronMassesProperty: NumberProperty, tandem: Tandem ) {
 
@@ -37,7 +37,7 @@ export default class MassControl extends NumberControl {
 
         // Add units to the displayed value.
         numberFormatter: value => electronMassesUnit.getVisualSymbolPatternString( value, {
-          decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
+          decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES,
           showTrailingZeros: true
         } ),
 
@@ -57,7 +57,7 @@ export default class MassControl extends NumberControl {
         thumbFill: QBSColors.massSliderThumbFillProperty,
         thumbFillHighlighted: QBSColors.massSliderThumbFillHighlightedProperty,
         createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {
-          decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
+          decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES,
           showTrailingZeros: false
         } ),
         keyboardStep: KEYBOARD_STEP,
@@ -83,12 +83,12 @@ export default class MassControl extends NumberControl {
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
 
   const minStringProperty = electronMassesUnit.getVisualSymbolPatternString( range.min, {
-    decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
+    decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES,
     showTrailingZeros: false
   } );
 
   const maxStringProperty = electronMassesUnit.getVisualSymbolPatternString( range.max, {
-    decimalPlaces: QBSConstants.ELECTRON_MASS_DECIMAL_PLACES,
+    decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES,
     showTrailingZeros: false
   } );
 

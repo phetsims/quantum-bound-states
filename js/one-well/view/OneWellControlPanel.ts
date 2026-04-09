@@ -21,7 +21,7 @@ import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import MassControl from './MassControl.js';
+import ElectronMassesControl from './ElectronMassesControl.js';
 
 export class OneWellControlPanel extends Panel {
 
@@ -43,7 +43,7 @@ export class OneWellControlPanel extends Panel {
       children: [
         titleText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
-        new MassControl( electronMassesProperty, tandem.createTandem( 'massControl' ) ),
+        new ElectronMassesControl( electronMassesProperty, tandem.createTandem( 'electronMassesControl' ) ),
         new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );
