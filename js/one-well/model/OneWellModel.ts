@@ -51,7 +51,9 @@ export default class OneWellModel extends QBSModel {
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
-      new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) ),
+      new FiniteSquarePotential( {
+        tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
+      } ),
       new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),
       new InfiniteStepPotential( potentialsTandem.createTandem( 'infiniteStepPotential' ) ),
       new AsymmetricTrianglePotential( potentialsTandem.createTandem( 'asymmetricTrianglePotential' ) ),

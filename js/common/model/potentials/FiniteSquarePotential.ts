@@ -7,30 +7,52 @@
  */
 
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import Potential from './Potential.js';
+import Potential, { PotentialOptions } from './Potential.js';
+
+type SelfOptions = {
+  numberOfWells?: number;
+  separation?: number;
+};
+
+export type FiniteSquarePotentialOptions = SelfOptions &
+  PickOptional<PotentialOptions, 'visualNameProperty' | 'tandemPrefix' | 'phetioDocumentation'> &
+  PickRequired<PotentialOptions, 'tandem'>;
 
 export default class FiniteSquarePotential extends Potential {
 
   //TODO Temporary constants, same as initial state of Java version.
-  private readonly numberOfWells = 1;
+  private readonly numberOfWells: number;
   private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
-  private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
-  private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
+  protected readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
+  protected readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
   private readonly centerX = 0; //TODO Constant 0 nm in Java
-  private readonly separation = 0; //TODO Java [0.05,0.7] nm, distance between walls of adjacent wells
+  private readonly separation: number; //TODO Java [0.05,0.7] nm, distance between walls of adjacent wells
   private readonly electricField = 0; //TODO Java [-1,1] V/nm
 
-  public constructor( tandem: Tandem ) {
-    super( {
+  public constructor( providedOptions: FiniteSquarePotentialOptions ) {
+
+    const options = optionize<FiniteSquarePotentialOptions, SelfOptions, PotentialOptions>()( {
+
+      // SelfOptions
+      numberOfWells: 1,
+      separation: 0,
+
+      // PotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
       tandemPrefix: 'finiteSquarePotential',
-      tandem: tandem,
-      phetioDocumentation: 'A quantum potential with one finite square well.'
-    } );
+      phetioDocumentation: 'A quantum potential composed of one or more finite square wells.'
+    }, providedOptions );
+
+    super( options );
+
+    this.numberOfWells = options.numberOfWells;
+    this.separation = options.separation;
   }
 
   /**

@@ -33,11 +33,15 @@ export default class SuperpositionModel extends QBSModel {
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
-      new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) ),
+      new FiniteSquarePotential( {
+        tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
+      } ),
       new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),
       new HarmonicOscillatorPotential( massProperty, potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
       new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) ),
-      new DoubleSquarePotential( potentialsTandem.createTandem( 'doubleSquarePotential' ) )
+      new DoubleSquarePotential( {
+        tandem: potentialsTandem.createTandem( 'doubleSquarePotential' )
+      } )
     ];
 
     super( {

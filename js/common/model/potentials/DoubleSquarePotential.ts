@@ -6,31 +6,34 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import Potential from './Potential.js';
+import FiniteSquarePotential, { FiniteSquarePotentialOptions } from './FiniteSquarePotential.js';
 
-export default class DoubleSquarePotential extends Potential {
+type SelfOptions = EmptySelfOptions;
 
-  //TODO Temporary constants, same as initial state of Java version.
-  private readonly numberOfWells = 1;
-  private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
-  private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
-  private readonly yOffset = 0; //TODO Java [-5,15] eV, bottom of well
-  private readonly centerX = 0; //TODO Constant 0 nm in Java
-  private readonly separation = 0; //TODO Java [0.05,0.7] nm, distance between walls of adjacent wells
-  private readonly electricField = 0; //TODO Java [-1,1] V/nm
+type DoubleSquarePotentialOptions = SelfOptions &
+  PickRequired<FiniteSquarePotentialOptions, 'tandem'>;
 
-  public constructor( tandem: Tandem ) {
-    super( {
+export default class DoubleSquarePotential extends FiniteSquarePotential {
+
+  public constructor( providedOptions: DoubleSquarePotentialOptions ) {
+
+    const options = optionize<DoubleSquarePotentialOptions, SelfOptions, FiniteSquarePotentialOptions>()( {
+
+      // FiniteSquarePotentialOptions
+      numberOfWells: 2,
+      separation: 1,
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.doubleSquareStringProperty,
       tandemPrefix: 'doubleSquarePotential',
-      tandem: tandem,
       phetioDocumentation: 'A quantum potential with two finite square wells.'
-    } );
+    }, providedOptions );
+
+    super( options );
   }
 
   public override getMinPotentialEnergy(): number {

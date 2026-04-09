@@ -28,7 +28,9 @@ export default class ManyWellsModel extends QBSModel {
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
-      new FiniteSquarePotential( potentialsTandem.createTandem( 'finiteSquarePotential' ) ),
+      new FiniteSquarePotential( {
+        tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
+      } ),
       new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) )
     ];
 

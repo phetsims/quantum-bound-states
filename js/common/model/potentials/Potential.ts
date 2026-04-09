@@ -24,7 +24,7 @@ type SelfOptions = {
   tandemPrefix: string;
 };
 
-export type PotentialWellOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
+export type PotentialOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
 export default abstract class Potential extends PhetioObject {
 
@@ -32,9 +32,9 @@ export default abstract class Potential extends PhetioObject {
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
 
-  protected constructor( providedOptions: PotentialWellOptions ) {
+  protected constructor( providedOptions: PotentialOptions ) {
 
-    const options = optionize<PotentialWellOptions, SelfOptions, PhetioObjectOptions>()( {
+    const options = optionize<PotentialOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       accessibleNameProperty: providedOptions.visualNameProperty,
