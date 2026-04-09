@@ -8,10 +8,13 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
+import Potential from './potentials/Potential.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import XGrid from './solver/XGrid.js';
 
@@ -20,15 +23,25 @@ export default class EnergyDiagram {
   public readonly xGrid: XGrid;
   public readonly boundStateResultProperty: TReadOnlyProperty<BoundStateResult>;
 
+  public readonly yRangeProperty: TReadOnlyProperty<Range>;
+
   // Visibility of values on drag handles and energy lines.
   public readonly valuesVisibleProperty: Property<boolean>;
 
-  public constructor( xGrid: XGrid,
+  public constructor( potentialProperty: TReadOnlyProperty<Potential>,
+                      xGrid: XGrid,
                       boundStateResultProperty: TReadOnlyProperty<BoundStateResult>,
                       tandem: Tandem ) {
 
     this.xGrid = xGrid;
     this.boundStateResultProperty = boundStateResultProperty;
+
+    this.yRangeProperty = new DerivedProperty( [ potentialProperty ],
+      potential => potential.getEnergyAxisRange(), {
+        tandem: tandem.createTandem( 'yRangeProperty' ),
+        phetioValueType: Range.RangeIO,
+        phetioFeatured: true
+      } );
 
     this.valuesVisibleProperty = new BooleanProperty( QBSQueryParameters.valuesVisible, {
       tandem: tandem.createTandem( 'valuesVisibleProperty' ),

@@ -127,7 +127,8 @@ export default class QBSModel implements TModel {
       }
     } );
 
-    this.energyDiagram = new EnergyDiagram( this.xGrid, this.boundStateResultProperty, options.tandem.createTandem( 'energyDiagram' ) );
+    this.energyDiagram = new EnergyDiagram( this.potentialProperty, this.xGrid, this.boundStateResultProperty,
+      options.tandem.createTandem( 'energyDiagram' ) );
 
     this.energyLevelProperty = new NumberProperty( this.potentialProperty.value.getGroundStateIndex(), {
       numberType: 'Integer',

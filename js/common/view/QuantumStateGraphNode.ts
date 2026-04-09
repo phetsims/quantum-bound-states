@@ -110,7 +110,7 @@ export default class QuantumStateGraphNode extends Node {
       maxWidth: 0.85 * this.chartRectangle.height
     } );
     yAxisLabelNode.boundsProperty.link( () => {
-      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_OFFSET, 0 );
+      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_X_OFFSET, 0 );
     } );
 
     const yTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {

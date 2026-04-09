@@ -7,12 +7,16 @@
  */
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
+
+// Energy axis range for most potential types.
+const ENERGY_AXIS_RANGE = new Range( -0.5, 20.5 );
 
 type SelfOptions = {
   visualNameProperty: TReadOnlyProperty<string>;
@@ -58,6 +62,13 @@ export default abstract class Potential extends PhetioObject {
    */
   public getGroundStateIndex(): number {
     return 1;
+  }
+
+  /**
+   * Gets the range of the energy axis (y-axis).
+   */
+  public getEnergyAxisRange(): Range {
+    return ENERGY_AXIS_RANGE;
   }
 
   /**

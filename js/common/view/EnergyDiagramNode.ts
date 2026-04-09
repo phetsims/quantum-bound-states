@@ -13,7 +13,6 @@ import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -49,10 +48,10 @@ export default class EnergyDiagramNode extends Node {
     } );
 
     this.chartTransform = new ChartTransform( {
-      viewWidth: QBSConstants.ENERGY_DIAGRAM_VIEW_WIDTH,
+      viewWidth: QBSConstants.ALL_GRAPHS_VIEW_WIDTH,
       viewHeight: QBSConstants.ENERGY_DIAGRAM_VIEW_HEIGHT,
-      modelXRange: QBSConstants.ENERGY_DIAGRAM_X_RANGE,
-      modelYRange: QBSConstants.ENERGY_DIAGRAM_Y_RANGE //TODO specific to selected potential
+      modelXRange: QBSConstants.ALL_GRAPHS_X_RANGE,
+      modelYRange: energyDiagram.yRangeProperty.value
     } );
 
     this.chartRectangle = new ChartRectangle( this.chartTransform, {
@@ -78,14 +77,14 @@ export default class EnergyDiagramNode extends Node {
       maxWidth: 0.5 * this.chartRectangle.height
     } );
     yAxisLabelNode.boundsProperty.link( () => {
-      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ENERGY_DIAGRAM_Y_AXIS_LABEL_OFFSET, 0 );
+      yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_X_OFFSET, 0 );
     } );
 
     this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL,
       QBSConstants.ENERGY_DIAGRAM_Y_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
-      QBSConstants.ENERGY_DIAGRAM_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
+      QBSConstants.ALL_GRAPHS_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
     // Parents for all non-interactive elements.
     const pickableFalseNode = new Node( {
@@ -124,10 +123,8 @@ export default class EnergyDiagramNode extends Node {
     } );
 
     this.children = [ pickableFalseNode, curveLayer ];
-  }
 
-  public setYRange( yRange: Range ): void {
-    this.chartTransform.setModelYRange( yRange );
+    energyDiagram.yRangeProperty.lazyLink( yRange => this.chartTransform.setModelYRange( yRange ) );
   }
 
   //TODO Delete if this method is not used.

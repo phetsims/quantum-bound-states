@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
@@ -14,6 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import Potential from './Potential.js';
+
+const ENERGY_AXIS_RANGE = new Range( -15.5, 5.5 );
 
 export default class CoulombPotential extends Potential {
 
@@ -58,6 +61,13 @@ export default class CoulombPotential extends Potential {
     energy += ( this.electricField * x );
 
     return yOffset + energy;
+  }
+
+  /**
+   * Gets the range of the energy axis (y-axis).
+   */
+  public override getEnergyAxisRange(): Range {
+    return ENERGY_AXIS_RANGE;
   }
 
   public override createIcon(): Node {
