@@ -221,6 +221,6 @@ export default class QBSModel implements TModel {
   }
 }
 
-function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalue: number ): Range {
-  return new Range( groundStateIndex, groundStateIndex + numberOfEigenvalue - 1 );
+function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalues: number ): Range {
+  return new Range( groundStateIndex, groundStateIndex + numberOfEigenvalues - 1 );
 }
