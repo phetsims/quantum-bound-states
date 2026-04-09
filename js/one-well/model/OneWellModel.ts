@@ -21,11 +21,11 @@ import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.
 
 export default class OneWellModel extends QBSModel {
 
+  //TODO move electronMassesProperty to QBSModel?
   public readonly electronMassesProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
 
-    //TODO move electronMassesProperty to QBSModel?
     const electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
