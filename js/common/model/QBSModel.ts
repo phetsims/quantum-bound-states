@@ -119,7 +119,7 @@ export default class QBSModel implements TModel {
       }
       else {
 
-        // For all others, use the numerical Numerov method.
+        // For all other potentials, use the numerical Numerov method.
         result = NumerovSolver.solve( this.xGrid, potentialFunction, mass, minPotentialEnergy, maxPotentialEnergy );
       }
 
