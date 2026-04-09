@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -65,7 +66,17 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     this.curveLayer.addChild( waveFunctionPlot );
 
     // Update the plot when the selected energy level or the bound-state result changes.
-    const updateWaveFunctionPlot = () => waveFunctionPlot.setYCoordinates( computeYCoordinates() );
+    const updateWaveFunctionPlot = () => {
+      const yCoordinates = computeYCoordinates();
+      waveFunctionPlot.setYCoordinates( yCoordinates );
+
+      //TODO Temporarily change y-axis and tick marks to fit the entire curve, until we decide how to handle normalization and y-range.
+      const minY = Math.min( ...yCoordinates );
+      const maxY = Math.max( ...yCoordinates );
+      const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
+      this.setYRange( new Range( -maxAbsY - 0.05, maxAbsY + 0.05 ) );
+      this.setYTickSpacing( maxY );
+    };
     model.energyLevelProperty.link( updateWaveFunctionPlot );
     model.boundStateResultProperty.link( updateWaveFunctionPlot );
   }

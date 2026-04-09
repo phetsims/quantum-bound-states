@@ -13,6 +13,7 @@ import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -124,7 +125,11 @@ export default class EnergyDiagramNode extends Node {
 
     this.children = [ pickableFalseNode, curveLayer ];
 
-    energyDiagram.yRangeProperty.lazyLink( yRange => this.chartTransform.setModelYRange( yRange ) );
+    energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
+  }
+
+  private setYRange( yRange: Range ): void {
+    this.chartTransform.setModelYRange( yRange );
   }
 
   //TODO Delete if this method is not used.

@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -64,7 +65,16 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
     } );
 
     // Update the plot when the selected energy level or the bound-state result changes.
-    const updateProbabilityDensityPlot = () => probabilityDensityPlot.setYCoordinates( computeYCoordinates() );
+    const updateProbabilityDensityPlot = () => {
+      const yCoordinates = computeYCoordinates();
+      probabilityDensityPlot.setYCoordinates( yCoordinates );
+
+      //TODO Temporarily change y-axis and tick marks to fit the entire curve, until we decide how to handle normalization and y-range.
+      const minY = this.getYRange().min;
+      const maxY = Math.max( ...yCoordinates );
+      this.setYRange( new Range( minY, maxY + 0.05 ) );
+      this.setYTickSpacing( maxY );
+    };
     model.energyLevelProperty.link( updateProbabilityDensityPlot );
     model.boundStateResultProperty.link( updateProbabilityDensityPlot );
 

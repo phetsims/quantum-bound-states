@@ -58,7 +58,13 @@ export default class QuantumStateGraphNode extends Node {
   // Outer rectangle of the chart
   private readonly chartRectangle: ChartRectangle;
 
+  // Parent node for curves, clipped to chartRectangle.
   protected readonly curveLayer: Node;
+
+  // y-axis decorations that are mutable
+  private readonly yTickMarkSet: TickMarkSet;
+  private readonly yTickLabelSet: TickLabelSet;
+  private readonly horizontalGridLines: GridLineSet;
 
   protected constructor( curvesVisibleProperty: TReadOnlyProperty<boolean>, providedOptions: QuantumStateGraphNodeOptions ) {
 
@@ -113,18 +119,18 @@ export default class QuantumStateGraphNode extends Node {
       yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_X_OFFSET, 0 );
     } );
 
-    const yTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
+    this.yTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
       edge: 'min'
     } );
 
-    const yTickLabelSet = new TickLabelSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
+    this.yTickLabelSet = new TickLabelSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing, {
       edge: 'min',
       createLabel: ( value: number ) => new Text( toFixed( value, options.yTickLabelDecimals ), {
         font: QBSConstants.TICK_LABEL_FONT
       } )
     } );
 
-    const horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing,
+    this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL, options.yTickSpacing,
       QBSConstants.GRID_LINE_SET_OPTIONS );
 
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
@@ -143,10 +149,10 @@ export default class QuantumStateGraphNode extends Node {
         xTickMarkSet,
         xTickLabelSet,
         yAxisLabelNode,
-        yTickMarkSet,
-        yTickLabelSet,
+        this.yTickMarkSet,
+        this.yTickLabelSet,
         this.chartRectangle,
-        horizontalGridLines,
+        this.horizontalGridLines,
         verticalGridLines,
         this.curveLayer
       ]
@@ -172,5 +178,26 @@ export default class QuantumStateGraphNode extends Node {
    */
   public getChartRectangleGlobalBounds(): Bounds2 {
     return this.chartRectangle.parentToGlobalBounds( this.chartRectangle.bounds );
+  }
+
+  /**
+   * Gets the range of the y-axis, in model coordinates.
+   */
+  public getYRange(): Range {
+    return this.chartTransform.modelYRange;
+  }
+
+  /**
+   * Sets the range of the y-axis, in model coordinates.
+   */
+  public setYRange( yRange: Range ): void {
+    this.chartTransform.setModelYRange( yRange );
+  }
+
+  //TODO Delete if this method is not used.
+  public setYTickSpacing( spacing: number ): void {
+    this.yTickMarkSet.setSpacing( spacing );
+    this.yTickLabelSet.setSpacing( spacing );
+    this.horizontalGridLines.setSpacing( spacing );
   }
 }
