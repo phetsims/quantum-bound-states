@@ -48,6 +48,8 @@ class EnergyLevelSpinner extends NumberSpinner {
     super( energyLevelProperty, rangeProperty, {
       arrowsScale: 2,
       numberDisplayOptions: {
+        minBackgroundWidth: 40, // Energy level index may be large, so provide extra space, determined empirically.
+        align: 'center',
         cornerRadius: 0,
         backgroundStroke: 'rgb( 200, 200, 200 )',
         textOptions: {
