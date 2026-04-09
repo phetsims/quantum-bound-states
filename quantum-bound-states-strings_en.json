@@ -700,6 +700,9 @@
       }
     },
     "referenceLine": {
+      "accessibleRoleDescription": {
+        "value": "custom slider"
+      },
       "accessibleName": {
         "value": "Reference Line"
       },

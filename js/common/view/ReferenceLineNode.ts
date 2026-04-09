@@ -14,7 +14,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
+import AccessibleInteractiveOptions from '../../../../scenery-phet/js/accessibility/AccessibleInteractiveOptions.js';
 import isResettingAllProperty from '../../../../scenery-phet/js/isResettingAllProperty.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
@@ -82,10 +82,13 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
 
   public constructor( referenceLine: ReferenceLine, chartTransform: ChartTransform, tandem: Tandem ) {
 
-    const options = combineOptions<ShadedSphereNodeOptions>( {}, AccessibleDraggableOptions, {
+    const options = combineOptions<ShadedSphereNodeOptions>( {}, AccessibleInteractiveOptions, {
       isDisposable: false,
       cursor: 'ew-resize',
       mainColor: QBSColors.referenceLineHandleColorProperty,
+
+      // As in Calculus Grapher, see https://github.com/phetsims/calculus-grapher/issues/405#issuecomment-4185183008.
+      accessibleRoleDescription: QuantumBoundStatesFluent.a11y.referenceLine.accessibleRoleDescriptionStringProperty,
       tandem: tandem
     } );
 

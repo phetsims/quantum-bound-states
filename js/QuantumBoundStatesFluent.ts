@@ -208,6 +208,7 @@ addToMapIfDefined( 'a11y_magnifier_probe_accessibleObjectResponse', 'a11y.magnif
 addToMapIfDefined( 'a11y_magnifier_body_accessibleName', 'a11y.magnifier.body.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_magnifier_body_accessibleHelpText', 'a11y.magnifier.body.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_magnifier_body_accessibleObjectResponse', 'a11y.magnifier.body.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleRoleDescription', 'a11y.referenceLine.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleName', 'a11y.referenceLine.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleHelpText', 'a11y.referenceLine.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse', 'a11y.referenceLine.accessibleObjectResponseStringProperty' );
@@ -625,6 +626,7 @@ const QuantumBoundStatesFluent = {
       }
     },
     referenceLine: {
+      accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleRoleDescription', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleRoleDescriptionStringProperty' ) ),
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleHelpTextStringProperty' ) ),
       accessibleObjectResponse: new FluentPattern<{ x: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponseStringProperty' ), [{"name":"x"}] )

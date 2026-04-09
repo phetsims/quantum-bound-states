@@ -213,16 +213,16 @@ a11y:
   #=======================================================================================================
 
   potentialComboBox:
-    accessibleName:            Potential
-    accessibleHelpText:        Choose a potential shape for the energy graph.
+    accessibleName:     Potential
+    accessibleHelpText: Choose a potential shape for the energy graph.
 
   superpositionPresetComboBox:
-    accessibleName:            TODO.superpositionPresetComboBox.accessibleName
-    accessibleHelpText:        TODO.superpositionPresetComboBox.accessibleHelpText
+    accessibleName:     TODO.superpositionPresetComboBox.accessibleName
+    accessibleHelpText: TODO.superpositionPresetComboBox.accessibleHelpText
 
   superpositionCustomComboBox:
-    accessibleName:            TODO.superpositionCustomComboBox.accessibleName
-    accessibleHelpText:        TODO.superpositionCustomComboBox.accessibleHelpText
+    accessibleName:     TODO.superpositionCustomComboBox.accessibleName
+    accessibleHelpText: TODO.superpositionCustomComboBox.accessibleHelpText
 
   #=======================================================================================================
   # Graphs
@@ -314,7 +314,7 @@ a11y:
   #=======================================================================================================
 
   timeSpeedSlider:
-    accessibleName: TODO.timeSpeedSlider.accessibleName
+    accessibleName:     TODO.timeSpeedSlider.accessibleName
     accessibleHelpText: TODO.timeSpeedSlider.accessibleHelpText
 
   massControl:
@@ -387,9 +387,10 @@ a11y:
       accessibleObjectResponse: TODO.magnifier.body.accessibleObjectResponse
 
   referenceLine:
-    accessibleName:           Reference Line
-    accessibleHelpText:       Move across graphs to set a reference position.
-    accessibleObjectResponse: reference position at {$x} nanometers
+    accessibleRoleDescription: custom slider
+    accessibleName:            Reference Line
+    accessibleHelpText:        Move across graphs to set a reference position.
+    accessibleObjectResponse:  reference position at {$x} nanometers
 
   #=======================================================================================================
   # Units

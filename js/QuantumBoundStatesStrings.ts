@@ -343,6 +343,7 @@ type StringsType = {
       }
     };
     'referenceLine': {
+      'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
