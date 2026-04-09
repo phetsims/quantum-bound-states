@@ -123,6 +123,7 @@ export default class QBSModel implements TModel {
         result = NumerovSolver.solve( this.xGrid, potentialFunction, mass, minPotentialEnergy, maxPotentialEnergy );
       }
 
+      // Validate the result.
       affirm( result.potentials.length > 0, 'BoundStateResult has no potentials.' );
       affirm( result.energies.length > 0, 'BoundStateResult has no eigenvalues.' );
       affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions.' );
