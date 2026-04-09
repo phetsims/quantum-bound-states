@@ -38,7 +38,7 @@ export default class CoulombPotential extends QuantumPotential {
    */
   public override getPotentialEnergyAt( x: number ): number {
 
-    const n = this.numberOfWells; //TODO not needed?
+    const n = this.numberOfWells; //TODO not needed? Appears only in One Well screen.
     const spacing = 0; //TODO
     const xOffset = this.xOffset;
     const yOffset = this.yOffset;
