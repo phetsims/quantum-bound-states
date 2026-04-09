@@ -20,6 +20,8 @@ export default class AnharmonicOscillatorPotential extends Potential {
   //TODO Added by MV
   private readonly wellDepth = 10; // Dissociation energy D_e in eV
   private readonly wellWidth = 0.5; // w = 1/a in nm
+  private readonly yOffset = 0;
+  private readonly centerX = 0; //TODO Constant 0 nm in Java
 
   public constructor( tandem: Tandem ) {
     super( {
@@ -50,12 +52,6 @@ export default class AnharmonicOscillatorPotential extends Potential {
    */
   public override createIcon(): Node {
 
-    // Claude Code suggested using a Morse potential curve to approximate the potential shape.
-    function solveMorse( x: number, depth = 1, width = 1, center = 1 ): number {
-      const term = 1 - Math.exp( -( x - center ) / width );
-      return depth * ( Math.pow( term, 2 ) - 1 );
-    }
-
     // Sampling parameters.
     const xMin = 0.2;
     const xMax = 10;
@@ -76,4 +72,12 @@ export default class AnharmonicOscillatorPotential extends Potential {
       lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     } );
   }
+}
+
+/**
+ * Use a Morse potential curve to approximate the potential shape.
+ */
+function solveMorse( x: number, wellDepth = 1, wellWidth = 1, centerX = 1 ): number {
+  const term = 1 - Math.exp( -( x - centerX ) / wellWidth );
+  return wellDepth * ( Math.pow( term, 2 ) - 1 );
 }
