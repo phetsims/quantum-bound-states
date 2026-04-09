@@ -71,7 +71,14 @@ export default abstract class Potential extends PhetioObject {
     return ENERGY_AXIS_RANGE;
   }
 
+  /**
+   * Gets the minimum potential energy (eV) used to compute eigenstates and wave functions.
+   */
   public abstract getMinPotentialEnergy(): number;
+
+  /**
+   * Gets the maximum potential energy (eV) used to compute eigenstates and wave functions.
+   */
   public abstract getMaxPotentialEnergy(): number;
 
   /**
