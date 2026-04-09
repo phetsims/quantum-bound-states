@@ -118,6 +118,8 @@ export default class QBSModel implements TModel {
         result = InfiniteStepSolution.solve( this.xGrid, potential.wellWidth, potential.stepHeight, mass, minPotentialEnergy, maxPotentialEnergy );
       }
       else {
+
+        // For all others, use the numerical Numerov method.
         result = NumerovSolver.solve( this.xGrid, potentialFunction, mass, minPotentialEnergy, maxPotentialEnergy );
       }
 
