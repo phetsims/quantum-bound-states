@@ -179,7 +179,7 @@ addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleName', 'a11
 addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleHelpText', 'a11y.quantumStateGraphRadioButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_timeSpeedSlider_accessibleName', 'a11y.timeSpeedSlider.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_timeSpeedSlider_accessibleHelpText', 'a11y.timeSpeedSlider.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_massControl_accessibleHelpText', 'a11y.massControl.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_electronMassesControl_accessibleHelpText', 'a11y.electronMassesControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_numberOfWellsControl_accessibleHelpText', 'a11y.numberOfWellsControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_electricFieldControl_accessibleHelpText', 'a11y.electricFieldControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_energyLevelSpinner_accessibleName', 'a11y.energyLevelSpinner.accessibleNameStringProperty' );
@@ -554,8 +554,8 @@ const QuantumBoundStatesFluent = {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeSpeedSlider_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.timeSpeedSlider.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeSpeedSlider_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.timeSpeedSlider.accessibleHelpTextStringProperty' ) )
     },
-    massControl: {
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_massControl_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.massControl.accessibleHelpTextStringProperty' ) )
+    electronMassesControl: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_electronMassesControl_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.electronMassesControl.accessibleHelpTextStringProperty' ) )
     },
     numberOfWellsControl: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_numberOfWellsControl_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.numberOfWellsControl.accessibleHelpTextStringProperty' ) )

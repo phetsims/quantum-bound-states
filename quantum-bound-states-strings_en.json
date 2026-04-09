@@ -331,7 +331,7 @@
     },
     "realPartCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the real part of the wave function."
+        "value": "Show or hide real part of wave function."
       },
       "accessibleContextResponseChecked": {
         "value": "Real part shown."
@@ -342,7 +342,7 @@
     },
     "imaginaryPartCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the imaginary part of the wave function."
+        "value": "Show or hide imaginary part of wave function."
       },
       "accessibleContextResponseChecked": {
         "value": "Imaginary part shown."
@@ -353,7 +353,7 @@
     },
     "magnitudeCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the magnitude of the wave function."
+        "value": "Show or hide magnitude of wave function."
       },
       "accessibleContextResponseChecked": {
         "value": "Magnitude shown."
@@ -364,7 +364,7 @@
     },
     "phaseCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the phase of the wave function."
+        "value": "Show or hide phase of wave function."
       },
       "accessibleContextResponseChecked": {
         "value": "Phase shown."
@@ -375,7 +375,7 @@
     },
     "magnifierCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the magnifier."
+        "value": "Show or hide magnifier."
       },
       "accessibleContextResponseChecked": {
         "value": "Magnifier shown."
@@ -386,7 +386,7 @@
     },
     "referenceLineCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide the vertical position Reference Line across the energy and display graphs."
+        "value": "Show or hide vertical Reference Line across Energy Diagram and Quantum State Graph."
       },
       "accessibleContextResponseChecked": {
         "value": "Reference Line shown."
@@ -400,7 +400,7 @@
         "value": "Potential"
       },
       "accessibleHelpText": {
-        "value": "Choose a potential shape for the energy graph."
+        "value": "Choose a potential shape for Energy Diagram."
       }
     },
     "superpositionPresetComboBox": {
@@ -582,9 +582,9 @@
         "value": "TODO.timeSpeedSlider.accessibleHelpText"
       }
     },
-    "massControl": {
+    "electronMassesControl": {
       "accessibleHelpText": {
-        "value": "Adjust the relative mass of the system."
+        "value": "Adjust relative mass of system."
       }
     },
     "numberOfWellsControl": {

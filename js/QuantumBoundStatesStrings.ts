@@ -283,7 +283,7 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
-    'massControl': {
+    'electronMassesControl': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'numberOfWellsControl': {

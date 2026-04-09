@@ -64,7 +64,7 @@ export default class MassControl extends NumberControl {
         shiftKeyboardStep: SHIFT_KEYBOARD_STEP,
         pageKeyboardStep: PAGE_KEYBOARD_STEP
       },
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.massControl.accessibleHelpTextStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.electronMassesControl.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
 
