@@ -67,8 +67,9 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
     } );
 
     // Update the plot when the selected energy level or the bound-state result changes.
-    model.energyLevelProperty.link( () => { probabilityDensityPlot.setYCoordinates( buildYCoordinates() ); } );
-    model.boundStateResultProperty.link( () => { probabilityDensityPlot.setYCoordinates( buildYCoordinates() ); } );
+    const updateProbabilityDensityPlot = () => probabilityDensityPlot.setYCoordinates( buildYCoordinates() );
+    model.energyLevelProperty.link( updateProbabilityDensityPlot );
+    model.boundStateResultProperty.link( updateProbabilityDensityPlot );
 
     this.curveLayer.addChild( probabilityDensityPlot );
   }

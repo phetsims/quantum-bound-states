@@ -68,7 +68,8 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     this.curveLayer.addChild( waveFunctionPlot );
 
     // Update the plot when the selected energy level or the bound-state result changes.
-    model.energyLevelProperty.link( () => { waveFunctionPlot.setYCoordinates( buildYCoordinates() ); } );
-    model.boundStateResultProperty.link( () => { waveFunctionPlot.setYCoordinates( buildYCoordinates() ); } );
+    const updateWaveFunctionPlot = () => waveFunctionPlot.setYCoordinates( buildYCoordinates() );
+    model.energyLevelProperty.link( updateWaveFunctionPlot );
+    model.boundStateResultProperty.link( updateWaveFunctionPlot );
   }
 }
