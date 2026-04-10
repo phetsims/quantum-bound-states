@@ -80,8 +80,8 @@ export default class QBSConstants {
   public static readonly TIME_DECIMALS = 1;
   public static readonly X_DECIMALS = 2;
   public static readonly ELECTRIC_FIELD_DECIMALS = 1;
-  public static readonly WELL_WIDTH_DECIMAL_PLACES = 1;
-  public static readonly WELL_DEPTH_DECIMAL_PLACES = 1;
+  public static readonly WELL_WIDTH_DECIMALS = 1;
+  public static readonly WELL_DEPTH_DECIMALS = 1;
 
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_ENERGY = 1E20; // eV
