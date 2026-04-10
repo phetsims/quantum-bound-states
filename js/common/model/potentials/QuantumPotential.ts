@@ -15,8 +15,8 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/Phet
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
 
-// Energy axis range for most potential types.
-const ENERGY_AXIS_RANGE = new Range( -0.5, 20.5 );
+// Energy axis (y-axis) range for most potential types.
+const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 
 type SelfOptions = {
   visualNameProperty: TReadOnlyProperty<string>;
@@ -74,7 +74,7 @@ export default abstract class QuantumPotential extends PhetioObject {
    * Gets the range of the energy axis (y-axis).
    */
   public getEnergyAxisRange(): Range {
-    return ENERGY_AXIS_RANGE;
+    return DEFAULT_ENERGY_AXIS_RANGE;
   }
 
   //TODO Combine getMinPotentialEnergy and getMaxPotentialEnergy into getPotentialEnergyLimits(): Range?
