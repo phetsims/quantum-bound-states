@@ -6,13 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
+import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
@@ -28,10 +32,11 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
   //TODO Temporary constants, same as initial state of Java version.
   private readonly numberOfWells: number;
-  private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
-  protected readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
   private readonly separation: number; //TODO Java [0.05,0.7] nm, distance between walls of adjacent wells
   private readonly electricField = 0; //TODO Java [-1,1] V/nm
+
+  public readonly wellWidthProperty: NumberProperty;
+  public readonly wellDepthProperty: NumberProperty;
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
@@ -51,6 +56,22 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     this.numberOfWells = options.numberOfWells;
     this.separation = options.separation;
+
+    this.wellWidthProperty = new NumberProperty( 1, {
+      units: nanometersUnit,
+      range: new Range( 0.1, 6 )
+    } );
+
+    this.wellDepthProperty = new NumberProperty( 10, {
+      units: electronVoltsUnit,
+      range: new Range( 0, 20 )
+    } );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.wellWidthProperty.reset();
+    this.wellDepthProperty.reset();
   }
 
   /**
@@ -59,12 +80,12 @@ export default class FiniteSquarePotential extends QuantumPotential {
   public override getPotentialEnergyAt( x: number ): number {
 
     const n = this.numberOfWells;
-    const wellWidth = this.wellWidth;
+    const wellWidth = this.wellWidthProperty.value;
     const xOffset = this.xOffset;
     const yOffset = this.yOffset;
     const s = wellWidth + this.separation; // spacing between well centers
 
-    let pe = yOffset + this.wellDepth;
+    let pe = yOffset + this.wellDepthProperty.value;
 
     // From BSSquarePotential.java
     for ( let i = 1; i <= n; i++ ) {
@@ -87,7 +108,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.yOffset + this.wellDepth;
+    return this.yOffset + this.wellDepthProperty.value;
   }
 
   /**

@@ -56,6 +56,10 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.tandemPrefix = options.tandemPrefix;
   }
 
+  public reset(): void {
+    //TODO
+  }
+
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */

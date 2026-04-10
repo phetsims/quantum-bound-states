@@ -36,14 +36,6 @@ export default class DoubleSquarePotential extends FiniteSquarePotential {
     super( options );
   }
 
-  public override getMinPotentialEnergy(): number {
-    return this.yOffset;
-  }
-
-  public override getMaxPotentialEnergy(): number {
-    return this.yOffset + this.wellDepth;
-  }
-
   /**
    * Creates the icon for this potential.
    */

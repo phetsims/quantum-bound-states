@@ -29,6 +29,7 @@ import TimePanel from '../../common/view/TimePanel.js';
 import ToolsPanel from '../../common/view/ToolsPanel.js';
 import QBSModel from '../model/QBSModel.js';
 import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
+import ConfigurePotentialButton from './ConfigurePotentialButton.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
@@ -198,6 +199,15 @@ export default class QBSScreenView extends ScreenView {
       timePanel,
       resetAllButton
     ];
+
+    if ( phet.chipper.queryParameters.dev ) {
+
+      // Press this button to open a dialog for configuring the selected potential.
+      const configurePotentialButton = new ConfigurePotentialButton( model.potentialProperty );
+      screenViewRootNode.addChild( configurePotentialButton );
+      configurePotentialButton.right = energyDiagramRectangleBounds.right;
+      configurePotentialButton.bottom = energyDiagramRectangleBounds.top - 5;
+    }
   }
 
   /**
