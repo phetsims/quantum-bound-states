@@ -1,20 +1,19 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WellWidthControl is a control for setting the well width. This is for debugging purposes, and not part of the
- * public UI. There is no support for localization, alt input, core description, or PhET-iO.
+ * WellWidthControl is a control for setting the well width.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Range from '../../../../dot/js/Range.js';
-import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
-import { nanometersUnit } from '../../../../scenery-phet/js/units/nanometersUnit.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import QBSConstants from '../QBSConstants.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
+import { toFixedNumber } from '../../../../../dot/js/util/toFixedNumber.js';
+import { combineOptions } from '../../../../../phet-core/js/optionize.js';
+import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../../scenery-phet/js/NumberControl.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
+import Text from '../../../../../scenery/js/nodes/Text.js';
+import QBSConstants from '../../QBSConstants.js';
 
 export default class WellWidthControl extends NumberControl {
 

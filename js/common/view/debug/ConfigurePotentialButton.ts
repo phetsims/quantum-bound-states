@@ -8,20 +8,20 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import preferencesIconOnWhite_png from '../../../../joist/images/preferencesIconOnWhite_png.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
-import RoundPushButton, { RoundPushButtonOptions } from '../../../../sun/js/buttons/RoundPushButton.js';
-import Dialog from '../../../../sun/js/Dialog.js';
-import AnharmonicOscillatorPotential from '../model/potentials/AnharmonicOscillatorPotential.js';
-import AsymmetricTrianglePotential from '../model/potentials/AsymmetricTrianglePotential.js';
-import CoulombPotential from '../model/potentials/CoulombPotential.js';
-import FiniteSquarePotential from '../model/potentials/FiniteSquarePotential.js';
-import HarmonicOscillatorPotential from '../model/potentials/HarmonicOscillatorPotential.js';
-import InfiniteSquarePotential from '../model/potentials/InfiniteSquarePotential.js';
-import InfiniteStepPotential from '../model/potentials/InfiniteStepPotential.js';
-import QuantumPotential from '../model/potentials/QuantumPotential.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import preferencesIconOnWhite_png from '../../../../../joist/images/preferencesIconOnWhite_png.js';
+import Image from '../../../../../scenery/js/nodes/Image.js';
+import ButtonNode from '../../../../../sun/js/buttons/ButtonNode.js';
+import RoundPushButton, { RoundPushButtonOptions } from '../../../../../sun/js/buttons/RoundPushButton.js';
+import Dialog from '../../../../../sun/js/Dialog.js';
+import AnharmonicOscillatorPotential from '../../model/potentials/AnharmonicOscillatorPotential.js';
+import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
+import CoulombPotential from '../../model/potentials/CoulombPotential.js';
+import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
+import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
+import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
+import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
+import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import ConfigureFiniteSquareDialog from './ConfigureFiniteSquareDialog.js';
 
 export default class ConfigurePotentialButton extends RoundPushButton {

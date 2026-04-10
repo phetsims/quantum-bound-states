@@ -29,7 +29,7 @@ import TimePanel from '../../common/view/TimePanel.js';
 import ToolsPanel from '../../common/view/ToolsPanel.js';
 import QBSModel from '../model/QBSModel.js';
 import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
-import ConfigurePotentialButton from './ConfigurePotentialButton.js';
+import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
