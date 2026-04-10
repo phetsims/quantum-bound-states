@@ -2,7 +2,7 @@
 
 /**
  * Tests NumerovSolver by comparing results to analytical solutions.
- * Add query parameter ?testNumerovSolver to run this when the simulations starts.
+ * Add query parameter ?testSolvers to run this when the simulations starts.
  * Results will be displayed in the browser console.
  *
  * @author Martin Veillette
@@ -25,13 +25,13 @@ const ELECTRON_MASSES = 1; // electron masses
  * For verbose logging, when running with ?testNumerovSolverVerbose.
  */
 function logVerbose( message: string ): void {
-  if ( QBSQueryParameters.testNumerovSolverVerbose ) {
+  if ( QBSQueryParameters.testSolversVerbose ) {
     console.log( message );
   }
 }
 
 /**
- * For summary logging, when running with ?testNumerovSolver or ?testNumerovSolverVerbose.
+ * For summary logging, when running with ?testSolvers or ?testNumerovSolverVerbose.
  * Summary messages are logged in red to make them easier to identify in the console.
  */
 function logSummary( message: string ): void {
@@ -518,7 +518,7 @@ function testNodeCounting(): void {
 /**
  * Main entry point for testing NumerovSolver.
  */
-export function testNumerovSolver(): void {
+export function testSolvers(): void {
   testHarmonicOscillator();
   testInfiniteSquareWell();
   testFiniteSquareWell();

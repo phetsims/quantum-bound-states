@@ -10,7 +10,7 @@ import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
 import Sim, { SimOptions } from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
-import { testNumerovSolver } from './common/model/solver/testNumerovSolver.js';
+import { testSolvers } from './common/model/solver/testSolvers.js';
 import QBSConstants from './common/QBSConstants.js';
 import QBSQueryParameters from './common/QBSQueryParameters.js';
 import QBSSimulationPreferencesNode from './common/view/QBSSimulationPreferencesNode.js';
@@ -47,8 +47,8 @@ simLauncher.launch( () => {
   sim.start();
   console.log( 'Quantum Bound States sim started' );
 
-  // Compare NumerovSolver to analytical solutions.
-  if ( QBSQueryParameters.testNumerovSolver || QBSQueryParameters.testNumerovSolverVerbose ) {
-    testNumerovSolver();
+  // Run tests of numerical (NumerovSolver) and analytic solutions.
+  if ( QBSQueryParameters.testSolvers || QBSQueryParameters.testSolversVerbose ) {
+    testSolvers();
   }
 } );
