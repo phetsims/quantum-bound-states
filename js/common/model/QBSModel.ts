@@ -218,7 +218,7 @@ function solveBoundStates( potential: QuantumPotential, xGrid: XGrid ): BoundSta
   let result: BoundStateResult;
 
   //TODO Analytic and numeric solutions have different methods of computing potential energy.
-  //TODO Move the decision about whether to use numercial or analytic solutions to the QuantumPotential subclass.
+  //TODO Move the decision about whether to use numerical or analytic solutions to the QuantumPotential subclass.
   if ( potential instanceof InfiniteSquarePotential ) {
 
     // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
