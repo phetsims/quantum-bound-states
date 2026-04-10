@@ -23,7 +23,6 @@ export default class ConfigureQuantumPotentialDialog extends Dialog {
         maxWidth: 300
       } ),
       ySpacing: 15,
-      xSpacing: 0,
 
       // In the upper right corner of the layoutBounds, so that it's not covering the Energy Diagram.
       maxWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,

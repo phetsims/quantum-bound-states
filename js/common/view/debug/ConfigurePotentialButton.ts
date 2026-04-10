@@ -22,11 +22,13 @@ import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillat
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
+import ConfigureAnharmonicOscillatorDialog from './ConfigureAnharmonicOscillatorDialog.js';
 import ConfigureAsymmetricTriangleDialog from './ConfigureAsymmetricTriangleDialog.js';
+import ConfigureCoulombDialog from './ConfigureCoulombDialog.js';
 import ConfigureFiniteSquareDialog from './ConfigureFiniteSquareDialog.js';
+import ConfigureHarmonicOscillatorDialog from './ConfigureHarmonicOscillatorDialog.js';
 import ConfigureInfiniteSquareDialog from './ConfigureInfiniteSquareDialog.js';
 import ConfigureInfiniteStepDialog from './ConfigureInfiniteStepDialog.js';
-import ConfigureUnderConstructionDialog from './ConfigureUnderConstructionDialog.js';
 
 export default class ConfigurePotentialButton extends RoundPushButton {
 
@@ -58,19 +60,19 @@ export default class ConfigurePotentialButton extends RoundPushButton {
     const potential = this.potentialProperty.value;
     let dialog: Dialog | undefined;
     if ( potential instanceof AnharmonicOscillatorPotential ) {
-      dialog = new ConfigureUnderConstructionDialog( 'Anharmonic Oscillator' ); //TODO
+      dialog = new ConfigureAnharmonicOscillatorDialog( potential );
     }
     else if ( potential instanceof AsymmetricTrianglePotential ) {
       dialog = new ConfigureAsymmetricTriangleDialog( potential );
     }
     else if ( potential instanceof CoulombPotential ) {
-      dialog = new ConfigureUnderConstructionDialog( 'Coulomb' ); //TODO
+      dialog = new ConfigureCoulombDialog( potential );
     }
     else if ( potential instanceof FiniteSquarePotential ) {
       dialog = new ConfigureFiniteSquareDialog( potential );
     }
     else if ( potential instanceof HarmonicOscillatorPotential ) {
-      dialog = new ConfigureUnderConstructionDialog( 'Harmonic Oscillator' ); //TODO
+      dialog = new ConfigureHarmonicOscillatorDialog( potential );
     }
     else if ( potential instanceof InfiniteSquarePotential ) {
       dialog = new ConfigureInfiniteSquareDialog( potential );
