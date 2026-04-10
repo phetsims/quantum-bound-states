@@ -6,6 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -15,16 +18,27 @@ import QuantumPotential from './QuantumPotential.js';
 
 export default class InfiniteSquarePotential extends QuantumPotential {
 
-  //TODO Temporary constants
-  public readonly wellWidth = 2;
+  public readonly wellWidthProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
+
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteSquareStringProperty,
       tandemPrefix: 'infiniteSquarePotential',
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with one infinite square well.'
     } );
+
+    this.wellWidthProperty = new NumberProperty( 1, {
+      units: nanometersUnit,
+      range: new Range( 0.1, 6 ),
+      tandem: tandem.createTandem( 'wellWidthProperty' )
+    } );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.wellWidthProperty.reset();
   }
 
   /**
@@ -32,8 +46,9 @@ export default class InfiniteSquarePotential extends QuantumPotential {
    */
   public override getPotentialEnergyAt( x: number ): number {
     //TODO affirm 1 well
-    const leftX = this.xOffset - this.wellWidth / 2;
-    const rightX = this.xOffset + this.wellWidth / 2;
+    const wellWidth = 2; //this.wellWidthProperty.value;
+    const leftX = this.xOffset - wellWidth / 2;
+    const rightX = this.xOffset + wellWidth / 2;
     let pe: number;
     if ( leftX <= x && x <= rightX ) {
       // inside the well

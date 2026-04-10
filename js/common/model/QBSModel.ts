@@ -221,12 +221,12 @@ function solveBoundStates( potential: QuantumPotential, xGrid: XGrid ): BoundSta
   if ( potential instanceof InfiniteSquarePotential ) {
 
     // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-    result = InfiniteSquareWellSolution.solve( xGrid, potential.wellWidth, electronMasses, minPotentialEnergy, maxPotentialEnergy );
+    result = InfiniteSquareWellSolution.solve( xGrid, potential.wellWidthProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
   }
   else if ( potential instanceof InfiniteStepPotential ) {
 
     // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-    result = InfiniteStepSolution.solve( xGrid, potential.wellWidth, potential.stepHeight, electronMasses, minPotentialEnergy, maxPotentialEnergy );
+    result = InfiniteStepSolution.solve( xGrid, potential.wellWidthProperty.value, potential.stepHeightProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
   }
   else {
 

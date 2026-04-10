@@ -15,21 +15,23 @@ import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersU
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import QBSConstants from '../../QBSConstants.js';
 
+const DECIMALS = QBSConstants.WELL_WIDTH_DECIMALS;
+
 export default class WellWidthControl extends NumberControl {
 
   public constructor( wellWidthProperty: NumberProperty ) {
 
     super( 'Well Width', wellWidthProperty, wellWidthProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: Math.pow( 10, -QBSConstants.WELL_WIDTH_DECIMALS ),
+        delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {
           numberFormatter: value => nanometersUnit.getVisualSymbolPatternString( value, {
-            decimalPlaces: QBSConstants.WELL_WIDTH_DECIMALS,
+            decimalPlaces: DECIMALS,
             showTrailingZeros: true
           } )
         },
         sliderOptions: {
-          majorTicks: WellWidthControl.createMinMaxTicks( wellWidthProperty.range, QBSConstants.WELL_WIDTH_DECIMALS )
+          majorTicks: WellWidthControl.createMinMaxTicks( wellWidthProperty.range, DECIMALS )
         }
       } ) );
   }

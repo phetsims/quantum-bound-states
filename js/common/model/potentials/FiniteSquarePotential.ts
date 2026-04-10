@@ -59,12 +59,14 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     this.wellWidthProperty = new NumberProperty( 1, {
       units: nanometersUnit,
-      range: new Range( 0.1, 6 )
+      range: new Range( 0.1, 6 ),
+      tandem: options.tandem.createTandem( 'wellWidthProperty' )
     } );
 
     this.wellDepthProperty = new NumberProperty( 10, {
       units: electronVoltsUnit,
-      range: new Range( 0, 20 )
+      range: new Range( 0, 20 ),
+      tandem: options.tandem.createTandem( 'wellDepthProperty' )
     } );
   }
 

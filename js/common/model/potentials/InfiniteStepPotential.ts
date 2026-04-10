@@ -6,44 +6,67 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
+import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential from './QuantumPotential.js';
 
 export default class InfiniteStepPotential extends QuantumPotential {
 
-  // Total width of the well L in nm, centred at x = 0 (spans [-wellWidth/2, wellWidth/2]).
-  public readonly wellWidth = 2;
+  public readonly wellWidthProperty: NumberProperty;
 
-  // Height of the potential step V₀ in eV (applies to the right half, x > 0).
-  public readonly stepHeight = 3;
+  // Height of the potential step V₀ in eV, applies to the right half of the well.
+  public readonly stepHeightProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
+
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
       tandemPrefix: 'infiniteStepPotential',
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with one infinite step well.'
     } );
+
+    this.wellWidthProperty = new NumberProperty( 1, {
+      units: nanometersUnit,
+      range: new Range( 0.1, 6 ),
+      tandem: tandem.createTandem( 'wellWidthProperty' )
+    } );
+
+    this.stepHeightProperty = new NumberProperty( 3, {
+      units: electronVoltsUnit,
+      range: new Range( 0.1, 10 ),
+      tandem: tandem.createTandem( 'stepHeightProperty' )
+    } );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.wellWidthProperty.reset();
+    this.stepHeightProperty.reset();
   }
 
   public override getPotentialEnergyAt( x: number ): number {
     //TODO affirm 1 well
-    const leftX = this.xOffset - this.wellWidth / 2;
-    const rightX = this.xOffset + this.wellWidth / 2;
+    const wellWidth = this.wellWidthProperty.value;
+    const leftX = this.xOffset - wellWidth / 2;
+    const rightX = this.xOffset + wellWidth / 2;
     let pe: number;
     if ( leftX <= x && x <= rightX ) {
       // inside the well
-      if ( x <= leftX + this.wellWidth / 2 ) {
+      if ( x <= leftX + wellWidth / 2 ) {
         // to the left of the step
         pe = this.yOffset;
       }
       else {
         // at the step
-        pe = this.yOffset + this.stepHeight;
+        pe = this.yOffset + this.stepHeightProperty.value;
       }
     }
     else {

@@ -23,6 +23,8 @@ import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotent
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import ConfigureFiniteSquareDialog from './ConfigureFiniteSquareDialog.js';
+import ConfigureInfiniteSquareDialog from './ConfigureInfiniteSquareDialog.js';
+import ConfigureInfiniteStepDialog from './ConfigureInfiniteStepDialog.js';
 
 export default class ConfigurePotentialButton extends RoundPushButton {
 
@@ -69,10 +71,10 @@ export default class ConfigurePotentialButton extends RoundPushButton {
       //TODO
     }
     else if ( potential instanceof InfiniteSquarePotential ) {
-      //TODO
+      dialog = new ConfigureInfiniteSquareDialog( potential );
     }
     else if ( potential instanceof InfiniteStepPotential ) {
-      //TODO
+      dialog = new ConfigureInfiniteStepDialog( potential );
     }
 
     dialog && dialog.show();
