@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
@@ -31,9 +32,11 @@ export default class InfiniteSquarePotential extends QuantumPotential {
 
     this.wellWidthProperty = new NumberProperty( 1, {
       units: nanometersUnit,
-      range: new Range( 0.1, 6 ),
+      range: new Range( 0.2, 6 ), //TODO wellWidth < 0.2 causes assertion failure, no eigenvalues
       tandem: tandem.createTandem( 'wellWidthProperty' )
     } );
+
+    Multilink.multilink( [ this.wellWidthProperty ], () => this.propertyChangedEmitter.emit() );
   }
 
   public override reset(): void {

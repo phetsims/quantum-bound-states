@@ -97,13 +97,6 @@ export default class QBSModel implements TModel {
 
     this.boundStateResultProperty = new Property( solveBoundStates( options.potential, this.xGrid ) );
 
-    this.potentialProperty.lazyLink( potential => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.boundStateResultProperty.value = solveBoundStates( potential, this.xGrid );
-        this.energyLevelProperty.reset();
-      }
-    } );
-
     this.energyDiagram = new EnergyDiagram( this.potentialProperty, this.xGrid, this.boundStateResultProperty,
       options.tandem.createTandem( 'energyDiagram' ) );
 
@@ -115,9 +108,20 @@ export default class QBSModel implements TModel {
       phetioReadOnly: true
     } );
 
-    // When potential is changed, adjust energy level range and set to the ground state.
-    this.potentialProperty.lazyLink( potential => {
+    const potentialChangedListener = () => {
+      this.boundStateResultProperty.value = solveBoundStates( this.potentialProperty.value, this.xGrid );
+    };
+    this.potentialProperty.value.propertyChangedEmitter.addListener( potentialChangedListener );
+
+    this.potentialProperty.lazyLink( ( potential, previousPotential ) => {
+      previousPotential && previousPotential.propertyChangedEmitter.removeListener( potentialChangedListener );
+      potential.propertyChangedEmitter.addListener( potentialChangedListener );
       if ( !isSettingPhetioStateProperty.value ) {
+
+        // Recompute the bound state.
+        this.boundStateResultProperty.value = solveBoundStates( potential, this.xGrid );
+
+        // Adjust energy level range and set to the ground state.
         const energyLevelRange = getEnergyLevelRange( potential.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length );
         this.energyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
       }

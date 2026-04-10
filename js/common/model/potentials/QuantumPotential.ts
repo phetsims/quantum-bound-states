@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Emitter from '../../../../../axon/js/Emitter.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -38,6 +39,9 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
 
+  // Fires when any Property of the QuantumPotential changes.
+  public readonly propertyChangedEmitter: Emitter;
+
   protected constructor( providedOptions: QuantumPotentialOptions ) {
 
     const options = optionize<QuantumPotentialOptions, SelfOptions, PhetioObjectOptions>()( {
@@ -54,6 +58,8 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
+
+    this.propertyChangedEmitter = new Emitter(); //TODO PhET-iO?
   }
 
   public reset(): void {
