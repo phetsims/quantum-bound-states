@@ -1,8 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WellWidthControl is a control for setting the well width.
- * This is for debugging purposes, and not part of the public UI.
+ * WellWidthControl is a control for setting the well width. This is for debugging purposes, and not part of the
+ * public UI. There is no support for localization, alt input, core description, or PhET-iO.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,20 +16,13 @@ import { nanometersUnit } from '../../../../scenery-phet/js/units/nanometersUnit
 import Text from '../../../../scenery/js/nodes/Text.js';
 import QBSConstants from '../QBSConstants.js';
 
-// These values are all related. Designers tend to request specific values and frequent changes.
-// So use constant values rather than attempting to compute these.
-const DELTA = 0.1;
-const KEYBOARD_STEP = 0.1;
-const SHIFT_KEYBOARD_STEP = 0.1;
-const PAGE_KEYBOARD_STEP = 0.5;
-
 export default class WellWidthControl extends NumberControl {
 
   public constructor( wellWidthProperty: NumberProperty ) {
 
     super( 'Well Width', wellWidthProperty, wellWidthProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: DELTA,
+        delta: Math.pow( 10, -QBSConstants.WELL_WIDTH_DECIMALS ),
         numberDisplayOptions: {
           numberFormatter: value => nanometersUnit.getVisualSymbolPatternString( value, {
             decimalPlaces: QBSConstants.WELL_WIDTH_DECIMALS,
@@ -37,27 +30,25 @@ export default class WellWidthControl extends NumberControl {
           } )
         },
         sliderOptions: {
-          majorTicks: createMinMaxTicks( wellWidthProperty.range, QBSConstants.WELL_WIDTH_DECIMALS ),
-          keyboardStep: KEYBOARD_STEP,
-          shiftKeyboardStep: SHIFT_KEYBOARD_STEP,
-          pageKeyboardStep: PAGE_KEYBOARD_STEP
+          majorTicks: WellWidthControl.createMinMaxTicks( wellWidthProperty.range, QBSConstants.WELL_WIDTH_DECIMALS )
         }
       } ) );
   }
-}
 
-/**
- * Creates major tick marks for min and max values.
- */
-function createMinMaxTicks( range: Range, decimals: number ): NumberControlMajorTick[] {
-  return [
-    {
-      value: toFixedNumber( range.min, decimals ),
-      label: new Text( range.min, QBSConstants.TICK_TEXT_OPTIONS )
-    },
-    {
-      value: toFixedNumber( range.max, decimals ),
-      label: new Text( range.max, QBSConstants.TICK_TEXT_OPTIONS )
-    }
-  ];
+  //TODO createMinMaxTicks belongs in a base class, because it is currently used in sibling classes.
+  /**
+   * Creates major tick marks for min and max values.
+   */
+  public static createMinMaxTicks( range: Range, decimals: number ): NumberControlMajorTick[] {
+    return [
+      {
+        value: toFixedNumber( range.min, decimals ),
+        label: new Text( range.min, QBSConstants.TICK_TEXT_OPTIONS )
+      },
+      {
+        value: toFixedNumber( range.max, decimals ),
+        label: new Text( range.max, QBSConstants.TICK_TEXT_OPTIONS )
+      }
+    ];
+  }
 }
