@@ -61,13 +61,15 @@ export default class FiniteSquarePotential extends QuantumPotential {
     this.wellWidthProperty = new NumberProperty( 1, {
       units: nanometersUnit,
       range: new Range( 0.1, 6 ),
-      tandem: options.tandem.createTandem( 'wellWidthProperty' )
+      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
+      phetioFeatured: true
     } );
 
     this.wellDepthProperty = new NumberProperty( 10, {
       units: electronVoltsUnit,
       range: new Range( 0.1, 20 ),
-      tandem: options.tandem.createTandem( 'wellDepthProperty' )
+      tandem: options.tandem.createTandem( 'wellDepthProperty' ),
+      phetioFeatured: true
     } );
 
     Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty ], () => this.propertyChangedEmitter.emit() );

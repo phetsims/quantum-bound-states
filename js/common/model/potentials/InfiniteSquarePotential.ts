@@ -33,7 +33,8 @@ export default class InfiniteSquarePotential extends QuantumPotential {
     this.wellWidthProperty = new NumberProperty( 1, {
       units: nanometersUnit,
       range: new Range( 0.2, 6 ), //TODO wellWidth < 0.2 causes assertion failure, no eigenvalues
-      tandem: tandem.createTandem( 'wellWidthProperty' )
+      tandem: tandem.createTandem( 'wellWidthProperty' ),
+      phetioFeatured: true
     } );
 
     Multilink.multilink( [ this.wellWidthProperty ], () => this.propertyChangedEmitter.emit() );

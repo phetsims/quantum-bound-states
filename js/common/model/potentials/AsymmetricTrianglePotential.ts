@@ -37,13 +37,15 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
     this.wellWidthProperty = new NumberProperty( 1, {
       units: nanometersUnit,
       range: new Range( 0.1, 6 ),
-      tandem: tandem.createTandem( 'wellWidthProperty' )
+      tandem: tandem.createTandem( 'wellWidthProperty' ),
+      phetioFeatured: true
     } );
 
     this.wellDepthProperty = new NumberProperty( 10, {
       units: electronVoltsUnit,
       range: new Range( 0.1, 20 ),
-      tandem: tandem.createTandem( 'wellDepthProperty' )
+      tandem: tandem.createTandem( 'wellDepthProperty' ),
+      phetioFeatured: true
     } );
 
     Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty ], () => this.propertyChangedEmitter.emit() );
