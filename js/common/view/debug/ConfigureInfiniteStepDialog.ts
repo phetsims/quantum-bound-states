@@ -8,14 +8,13 @@
 
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
-import Text from '../../../../../scenery/js/nodes/Text.js';
-import Dialog from '../../../../../sun/js/Dialog.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSConstants from '../../QBSConstants.js';
+import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import StepHeightControl from './StepHeightControl.js';
 import WellWidthControl from './WellWidthControl.js';
 
-export default class ConfigureInfiniteStepDialog extends Dialog {
+export default class ConfigureInfiniteStepDialog extends ConfigureQuantumPotentialDialog {
 
   public constructor( potential: InfiniteStepPotential ) {
 
@@ -26,12 +25,6 @@ export default class ConfigureInfiniteStepDialog extends Dialog {
       ]
     } ) );
 
-    super( content, {
-      title: new Text( 'Infinite Step', {
-        font: QBSConstants.TITLE_FONT,
-        maxWidth: 300
-      } ),
-      ySpacing: 15
-    } );
+    super( 'Infinite Step', content );
   }
 }

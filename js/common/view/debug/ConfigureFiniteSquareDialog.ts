@@ -8,14 +8,13 @@
 
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
-import Text from '../../../../../scenery/js/nodes/Text.js';
-import Dialog from '../../../../../sun/js/Dialog.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSConstants from '../../QBSConstants.js';
+import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import WellDepthControl from './WellDepthControl.js';
 import WellWidthControl from './WellWidthControl.js';
 
-export default class ConfigureFiniteSquareDialog extends Dialog {
+export default class ConfigureFiniteSquareDialog extends ConfigureQuantumPotentialDialog {
 
   public constructor( potential: FiniteSquarePotential ) {
 
@@ -26,12 +25,6 @@ export default class ConfigureFiniteSquareDialog extends Dialog {
       ]
     } ) );
 
-    super( content, {
-      title: new Text( 'Finite Square', {
-        font: QBSConstants.TITLE_FONT,
-        maxWidth: 300
-      } ),
-      ySpacing: 15
-    } );
+    super( 'Finite Square', content );
   }
 }
