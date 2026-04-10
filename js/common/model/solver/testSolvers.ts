@@ -1,8 +1,11 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Tests NumerovSolver by comparing results to analytical solutions.
- * Add query parameter ?testSolvers to run this when the simulations starts.
+ * Tests for numerical and analytic solutions. These tests are bidirectional: they validate both the numerical solver
+ * (NumerovSolver) and the analytical solutions.
+ *
+ * Usage:
+ * Add query parameter ?testSolver (or ?testSolverVerbose for verbose output) to run these tests when the sim starts.
  * Results will be displayed in the browser console.
  *
  * @author Martin Veillette
@@ -12,9 +15,11 @@
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import QBSQueryParameters from '../../QBSQueryParameters.js';
+import AnharmonicOscillatorSolution from './analytical-solutions/AnharmonicOscillatorSolution.js';
 import FiniteSquareWellSolution from './analytical-solutions/FiniteSquareWellSolution.js';
 import HarmonicOscillatorSolution from './analytical-solutions/HarmonicOscillatorSolution.js';
 import InfiniteSquareWellSolution from './analytical-solutions/InfiniteSquareWellSolution.js';
+import InfiniteStepSolution from './analytical-solutions/InfiniteStepSolution.js';
 import NumerovSolver from './NumerovSolver.js';
 import XGrid from './XGrid.js';
 
@@ -22,7 +27,7 @@ const HBAR = NumerovSolver.HBAR;
 const ELECTRON_MASSES = 1; // electron masses
 
 /**
- * For verbose logging, when running with ?testNumerovSolverVerbose.
+ * For verbose logging.
  */
 function logVerbose( message: string ): void {
   if ( QBSQueryParameters.testSolversVerbose ) {
@@ -31,11 +36,19 @@ function logVerbose( message: string ): void {
 }
 
 /**
- * For summary logging, when running with ?testSolvers or ?testNumerovSolverVerbose.
- * Summary messages are logged in red to make them easier to identify in the console.
+ * For summary logging. Summary messages are logged in green to make them easier to identify in the console.
  */
 function logSummary( message: string ): void {
-  console.log( `%c${message}`, 'color: red' );
+  console.log( `%c${message}`, 'color: green' );
+}
+
+/**
+ * For error logging. If the supplied predicate does not evaluate to true, the message is logged in red.
+ */
+function affirmOrLog( predicate: boolean, message: string ): void {
+  if ( !predicate ) {
+    console.log( `%c${message}`, 'color: red' );
+  }
 }
 
 /**
@@ -137,6 +150,33 @@ function getParity( psi: number[] ): 'even' | 'odd' {
 }
 
 /**
+ * Compute the RMS error between two normalized wave functions, accounting for the
+ * overall sign ambiguity (ψ and -ψ represent the same physical state).
+ * @param psi1 - First wave function (normalized)
+ * @param psi2 - Second wave function (normalized)
+ * @param dx - Grid spacing in nm
+ * @returns RMS error after optimal sign alignment
+ */
+function waveFunctionRMSError( psi1: number[], psi2: number[], dx: number ): number {
+  // Determine the sign of the overlap integral ∫ ψ1 · ψ2 dx
+  let overlap = 0;
+  for ( let i = 0; i < psi1.length; i++ ) {
+    overlap += psi1[ i ] * psi2[ i ];
+  }
+  overlap *= dx;
+
+  const sign = overlap >= 0 ? 1 : -1;
+
+  // Compute RMS of (ψ1 - sign·ψ2)
+  let sumSq = 0;
+  for ( let i = 0; i < psi1.length; i++ ) {
+    const diff = psi1[ i ] - sign * psi2[ i ];
+    sumSq += diff * diff;
+  }
+  return Math.sqrt( sumSq * dx );
+}
+
+/**
  * Format a table for console output with aligned columns
  * @param rows - Array of rows, where each row is an array of cell values
  * @param headers - Optional column headers
@@ -211,6 +251,7 @@ function testHarmonicOscillator(): void {
   affirm( minStates > 0, 'At least one state found by both methods' );
 
   // Build comparison table for states found by both methods
+  const dx = xGrid.dx;
   const tableRows = [];
   for ( let n = 0; n < Math.min( minStates, 10 ); n++ ) {
     const numerical = toFixed( numericalResult.energies[ n ], 3 );
@@ -218,28 +259,30 @@ function testHarmonicOscillator(): void {
     const error = toFixed( Math.abs( numericalResult.energies[ n ] - analyticalResult.energies[ n ] ) / analyticalResult.energies[ n ] * 100, 2 );
     const parity = getParity( numericalResult.waveFunctions[ n ] );
     const nodes = countNodes( numericalResult.waveFunctions[ n ] );
-    tableRows.push( [ n, numerical, analytical, error, parity, nodes ] );
+    const wfRMS = toFixed( waveFunctionRMSError( numericalResult.waveFunctions[ n ], analyticalResult.waveFunctions[ n ], dx ) * 100, 3 );
+    tableRows.push( [ n, numerical, analytical, error, parity, nodes, wfRMS ] );
   }
   if ( minStates > 10 ) {
-    tableRows.push( [ '...', '...', '...', '...', '...', '...' ] );
+    tableRows.push( [ '...', '...', '...', '...', '...', '...', '...' ] );
   }
 
-  logVerbose( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes' ] ) );
+  logVerbose( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes', 'WF RMS (%)' ] ) );
 
   let maxRelativeError = 0;
+  let maxWFError = 0;
   for ( let n = 0; n < minStates; n++ ) {
     const E_numerical = numericalResult.energies[ n ];
     const E_analytical = analyticalResult.energies[ n ];
     const relativeError = Math.abs( E_numerical - E_analytical ) / E_analytical;
     maxRelativeError = Math.max( maxRelativeError, relativeError );
+    affirmOrLog( relativeError < 0.01, `Harmonic Oscillator: State n=${n}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
 
-    affirm(
-      relativeError < 0.01,
-      `State n=${n}: Error=${toFixed( relativeError * 100, 4 )}%`
-    );
+    const rmsError = waveFunctionRMSError( numericalResult.waveFunctions[ n ], analyticalResult.waveFunctions[ n ], dx );
+    maxWFError = Math.max( maxWFError, rmsError );
+    affirmOrLog( rmsError < 0.05, `Harmonic Oscillator: State n=${n}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
   }
 
-  logSummary( `Harmonic Oscillator - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
+  logSummary( `Harmonic Oscillator - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
 }
 
 /**
@@ -271,6 +314,7 @@ function testInfiniteSquareWell(): void {
   affirm( analyticalResult.energies.length >= 5, `Found ${analyticalResult.energies.length} analytical states (expected at least 5)` );
 
   // Build comparison table
+  const dx = xGrid.dx;
   const tableRows = [];
   const maxStates = Math.min( numericalResult.energies.length, analyticalResult.energies.length, 10 );
   for ( let i = 0; i < maxStates; i++ ) {
@@ -280,28 +324,30 @@ function testInfiniteSquareWell(): void {
     const error = toFixed( Math.abs( numericalResult.energies[ i ] - analyticalResult.energies[ i ] ) / analyticalResult.energies[ i ] * 100, 2 );
     const parity = getParity( numericalResult.waveFunctions[ i ] );
     const nodes = countNodes( numericalResult.waveFunctions[ i ] );
-    tableRows.push( [ n, numerical, analytical, error, parity, nodes ] );
+    const wfRMS = toFixed( waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], dx ) * 100, 3 );
+    tableRows.push( [ n, numerical, analytical, error, parity, nodes, wfRMS ] );
   }
   if ( numericalResult.energies.length > 10 ) {
-    tableRows.push( [ '...', '...', '...', '...', '...', '...' ] );
+    tableRows.push( [ '...', '...', '...', '...', '...', '...', '...' ] );
   }
 
-  logVerbose( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes' ] ) );
+  logVerbose( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes', 'WF RMS (%)' ] ) );
 
   let maxRelativeError = 0;
+  let maxWFError = 0;
   for ( let i = 0; i < maxStates; i++ ) {
     const E_numerical = numericalResult.energies[ i ];
     const E_analytical = analyticalResult.energies[ i ];
     const relativeError = Math.abs( E_numerical - E_analytical ) / E_analytical;
     maxRelativeError = Math.max( maxRelativeError, relativeError );
+    affirmOrLog( relativeError < 0.01, `Infinite Square Well: State n=${i + 1}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
 
-    affirm(
-      relativeError < 0.01,
-      `State n=${i + 1}: Error=${toFixed( relativeError * 100, 4 )}%`
-    );
+    const rmsError = waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], dx );
+    maxWFError = Math.max( maxWFError, rmsError );
+    affirmOrLog( rmsError < 0.05, `Infinite Square Well: State n=${i + 1}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
   }
 
-  logSummary( `Infinite Square Well - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
+  logSummary( `Infinite Square Well - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
 }
 
 /**
@@ -340,89 +386,38 @@ function testFiniteSquareWell(): void {
   affirm( minStates > 0, 'At least one state found by both methods' );
 
   // Build comparison table for states found by both methods
+  const dx = xGrid.dx;
   const tableRows = [];
-  for ( let i = 0; i < minStates; i++ ) {
+  for ( let i = 0; i < Math.min( minStates, 10 ); i++ ) {
     const numerical = toFixed( numericalResult.energies[ i ], 4 );
     const analytical = toFixed( analyticalResult.energies[ i ], 4 );
     const error = toFixed( Math.abs( numericalResult.energies[ i ] - analyticalResult.energies[ i ] ) / Math.abs( analyticalResult.energies[ i ] ) * 100, 3 );
     const parity = getParity( numericalResult.waveFunctions[ i ] );
     const nodes = countNodes( numericalResult.waveFunctions[ i ] );
-    tableRows.push( [ i + 1, numerical, analytical, error, parity, nodes ] );
+    const wfRMS = toFixed( waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], dx ) * 100, 3 );
+    tableRows.push( [ i + 1, numerical, analytical, error, parity, nodes, wfRMS ] );
+  }
+  if ( minStates > 10 ) {
+    tableRows.push( [ '...', '...', '...', '...', '...', '...', '...' ] );
   }
 
-  logVerbose( formatTable( tableRows, [ 'State', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes' ] ) );
+  logVerbose( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Parity', 'Nodes', 'WF RMS (%)' ] ) );
 
-  // Note: Numerical and analytical solvers may find different numbers of states
-  // The numerical solver may pick up resonances/quasi-bound states near the continuum
-  // We'll validate that the analytical states are present in the numerical results
-  logVerbose( '\nValidating correspondence between numerical and analytical states...' );
-
-  // Match analytical states to numerical states by energy proximity
-  let goodMatches = 0;
   let maxRelativeError = 0;
-  for ( let i = 0; i < analyticalResult.energies.length; i++ ) {
-    const E_analytical = analyticalResult.energies[ i ];
-
-    // Find closest numerical state
-    let closestIdx = 0;
-    let minDiff = Infinity;
-    for ( let j = 0; j < numericalResult.energies.length; j++ ) {
-      const diff = Math.abs( numericalResult.energies[ j ] - E_analytical );
-      if ( diff < minDiff ) {
-        minDiff = diff;
-        closestIdx = j;
-      }
-    }
-
-    const E_numerical = numericalResult.energies[ closestIdx ];
-    const relativeError = Math.abs( E_numerical - E_analytical ) / Math.abs( E_analytical );
-
-    if ( relativeError < 0.05 ) {
-      goodMatches++;
-      maxRelativeError = Math.max( maxRelativeError, relativeError );
-    }
-
-    logVerbose( `  Analytical state ${i + 1}: ${toFixed( E_analytical, 4 )} eV ` +
-                `→ Numerical state ${closestIdx + 1}: ${toFixed( E_numerical, 4 )} eV ` +
-                `(error: ${toFixed( relativeError * 100, 2 )}%)` );
-  }
-
-  // Require that most analytical states have good numerical matches
-  const matchRatio = goodMatches / analyticalResult.energies.length;
-  affirm(
-    matchRatio >= 0.5,
-    `At least 50% of analytical states should match numerical states (found ${goodMatches}/${analyticalResult.energies.length})`
-  );
-
-  logSummary( `Finite Square Well - Max error: ${toFixed( maxRelativeError * 100, 4 )}%` );
-
-  // Verify wave functions for states found by both methods
-  const dx = xGrid.dx;
+  let maxWFError = 0;
   for ( let i = 0; i < minStates; i++ ) {
-    const psi_numerical = numericalResult.waveFunctions[ i ];
-    const psi_analytical = analyticalResult.waveFunctions[ i ];
+    const E_numerical = numericalResult.energies[ i ];
+    const E_analytical = analyticalResult.energies[ i ];
+    const relativeError = Math.abs( E_numerical - E_analytical ) / Math.abs( E_analytical );
+    maxRelativeError = Math.max( maxRelativeError, relativeError );
+    affirmOrLog( relativeError < 0.01, `Finite Square Well: State n=${i + 1}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
 
-    // Check normalization
-    let norm_numerical = 0;
-    let norm_analytical = 0;
-    for ( let j = 0; j < psi_numerical.length - 1; j++ ) {
-      norm_numerical += ( psi_numerical[ j ] * psi_numerical[ j ] + psi_numerical[ j + 1 ] * psi_numerical[ j + 1 ] ) / 2;
-      norm_analytical += ( psi_analytical[ j ] * psi_analytical[ j ] + psi_analytical[ j + 1 ] * psi_analytical[ j + 1 ] ) / 2;
-    }
-    norm_numerical *= dx;
-    norm_analytical *= dx;
-
-    affirm(
-      Math.abs( norm_numerical - 1.0 ) < 0.01,
-      `State ${i + 1}: Numerical norm = ${toFixed( norm_numerical, 6 )}`
-    );
-    affirm(
-      Math.abs( norm_analytical - 1.0 ) < 0.01,
-      `State ${i + 1}: Analytical norm = ${toFixed( norm_analytical, 6 )}`
-    );
+    const rmsError = waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], dx );
+    maxWFError = Math.max( maxWFError, rmsError );
+    affirmOrLog( rmsError < 0.05, `Finite Square Well: State n=${i + 1}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
   }
 
-  logVerbose( 'Finite Square Well - All normalizations verified' );
+  logSummary( `Finite Square Well - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
 }
 
 /**
@@ -454,9 +449,9 @@ function testWaveFunctionNormalization(): void {
     }
     norm *= dx;
 
-    affirm(
+    affirmOrLog(
       Math.abs( norm - 1.0 ) < 0.00001,
-      `State ${i}: Norm = ${toFixed( norm, 6 )}`
+      `Wave Function Normalization: State ${i}: Norm = ${toFixed( norm, 6 )}`
     );
   }
 }
@@ -511,17 +506,158 @@ function testNodeCounting(): void {
 
     // Require at least 50% accuracy (node counting can be challenging with numerical artifacts)
     // The important thing is that states are ordered by energy correctly, which they are
-    affirm( correctCount / result.waveFunctions.length >= 0.5, `Node counting should be at least 50% accurate, got ${correctCount}/${result.waveFunctions.length}` );
+    affirmOrLog( correctCount / result.waveFunctions.length >= 0.5, `Node Counting: Should be at least 50% accurate, got ${correctCount}/${result.waveFunctions.length}` );
   }
 }
 
 /**
- * Main entry point for testing NumerovSolver.
+ * Compare NumerovSolver to the analytical solution for an anharmonic oscillator (Morse potential).
+ */
+function testAnharmonicOscillator(): void {
+
+  const mass = ELECTRON_MASSES; // electron masses
+  const wellDepth = 10;  // D_e = 10 eV
+  const width = 0.5;  // w = 0.5 nm
+
+  // The Morse potential: V(x) = D_e*(1 - e^{-x/w})^2 - D_e
+  // Well bottom at x=0 (V = -D_e), dissociation limit at x→+∞ (V = 0), repulsive wall at x→-∞
+  const potential = AnharmonicOscillatorSolution.createPotential( wellDepth, width );
+
+  // Grid: from -0.5 nm (high repulsive wall ~20 eV above all bound states) to 5 nm (V ≈ 0)
+  const xGrid = new XGrid( -0.5, 5, 1001 );
+
+  // All bound-state energies lie between -D_e and 0
+  const energyMin = -wellDepth;
+  const energyMax = -0.001;  // just below the dissociation limit
+
+  // Get numerical solution
+  const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
+
+  // Get analytical solution
+  const analyticalResult = AnharmonicOscillatorSolution.solve( xGrid, wellDepth, width, mass, energyMin, energyMax );
+
+  logVerbose( `\nAnharmonic Oscillator (Morse) - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
+
+  affirm( numericalResult.energies.length > 0, `Found ${numericalResult.energies.length} numerical states` );
+  affirm( analyticalResult.energies.length > 0, `Found ${analyticalResult.energies.length} analytical states` );
+
+  const minStates = Math.min( numericalResult.energies.length, analyticalResult.energies.length );
+  affirm( minStates > 0, 'At least one state found by both methods' );
+
+  // Build comparison table
+  const dx = xGrid.dx;
+  const tableRows = [];
+  for ( let v = 0; v < Math.min( minStates, 10 ); v++ ) {
+    const numerical = toFixed( numericalResult.energies[ v ], 4 );
+    const analytical = toFixed( analyticalResult.energies[ v ], 4 );
+    const error = toFixed( Math.abs( numericalResult.energies[ v ] - analyticalResult.energies[ v ] ) / Math.abs( analyticalResult.energies[ v ] ) * 100, 3 );
+    const nodes = countNodes( numericalResult.waveFunctions[ v ] );
+    const wfRMS = toFixed( waveFunctionRMSError( numericalResult.waveFunctions[ v ], analyticalResult.waveFunctions[ v ], dx ) * 100, 3 );
+    tableRows.push( [ v, numerical, analytical, error, nodes, wfRMS ] );
+  }
+  if ( minStates > 10 ) {
+    tableRows.push( [ '...', '...', '...', '...', '...', '...' ] );
+  }
+
+  logVerbose( formatTable( tableRows, [ 'v', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Nodes', 'WF RMS (%)' ] ) );
+
+  let maxRelativeError = 0;
+  let maxWFError = 0;
+  for ( let v = 0; v < minStates; v++ ) {
+    const E_numerical = numericalResult.energies[ v ];
+    const E_analytical = analyticalResult.energies[ v ];
+    const relativeError = Math.abs( E_numerical - E_analytical ) / Math.abs( E_analytical );
+    maxRelativeError = Math.max( maxRelativeError, relativeError );
+    affirmOrLog( relativeError < 0.01, `Anharmonic Oscillator: State v=${v}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
+
+    const rmsError = waveFunctionRMSError( numericalResult.waveFunctions[ v ], analyticalResult.waveFunctions[ v ], dx );
+    maxWFError = Math.max( maxWFError, rmsError );
+    affirmOrLog( rmsError < 0.05, `Anharmonic Oscillator: State v=${v}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
+  }
+
+  logSummary( `Anharmonic Oscillator (Morse) - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
+}
+
+/**
+ * Compare NumerovSolver to the analytical solution for an infinite step well.
+ */
+function testInfiniteStep(): void {
+
+  const mass = ELECTRON_MASSES; // electron masses
+  const wellWidth = 2;  // L = 2 nm
+  const stepHeight = 3;  // V₀ = 3 eV
+
+  // Potential: 0 in left half [-L/2, 0), V₀ in right half [0, L/2], infinite walls at boundaries.
+  // Use a large but finite barrier to represent the infinite walls for NumerovSolver.
+  const barrierHeight = 1000;  // eV
+  const potential = InfiniteStepSolution.createPotential( wellWidth, stepHeight, barrierHeight );
+
+  // Grid spans exactly the well: [-L/2, L/2]
+  const xGrid = new XGrid( -wellWidth / 2, wellWidth / 2, 1001 );
+
+  // First infinite-square-well energy (upper bound on ground state): E₁ = π²ℏ²/(2mL²)
+  const E1_ISW = ( Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * wellWidth * wellWidth );
+  const energyMin = 0.1 * E1_ISW;
+  const energyMax = 100 * E1_ISW;  // covers ~10 states comfortably
+
+  // Get numerical solution
+  const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
+
+  // Get analytical solution
+  const analyticalResult = InfiniteStepSolution.solve( xGrid, wellWidth, stepHeight, mass, energyMin, energyMax );
+
+  logVerbose( `\nInfinite Step Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
+  logVerbose( `Well parameters: L = ${wellWidth} nm, V₀ = ${stepHeight} eV` );
+
+  affirm( numericalResult.energies.length > 0, `Found ${numericalResult.energies.length} numerical states` );
+  affirm( analyticalResult.energies.length > 0, `Found ${analyticalResult.energies.length} analytical states` );
+
+  const minStates = Math.min( numericalResult.energies.length, analyticalResult.energies.length );
+  affirm( minStates > 0, 'At least one state found by both methods' );
+
+  // Build comparison table
+  const dx = xGrid.dx;
+  const tableRows = [];
+  for ( let i = 0; i < Math.min( minStates, 10 ); i++ ) {
+    const numerical = toFixed( numericalResult.energies[ i ], 4 );
+    const analytical = toFixed( analyticalResult.energies[ i ], 4 );
+    const error = toFixed( Math.abs( numericalResult.energies[ i ] - analyticalResult.energies[ i ] ) / analyticalResult.energies[ i ] * 100, 3 );
+    const nodes = countNodes( numericalResult.waveFunctions[ i ] );
+    const wfRMS = toFixed( waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], dx ) * 100, 3 );
+    tableRows.push( [ i + 1, numerical, analytical, error, nodes, wfRMS ] );
+  }
+  if ( minStates > 10 ) {
+    tableRows.push( [ '...', '...', '...', '...', '...', '...' ] );
+  }
+
+  logVerbose( formatTable( tableRows, [ 'n', 'Numerical (eV)', 'Analytical (eV)', 'Error (%)', 'Nodes', 'WF RMS (%)' ] ) );
+
+  let maxRelativeError = 0;
+  let maxWFError = 0;
+  for ( let i = 0; i < minStates; i++ ) {
+    const E_numerical = numericalResult.energies[ i ];
+    const E_analytical = analyticalResult.energies[ i ];
+    const relativeError = Math.abs( E_numerical - E_analytical ) / E_analytical;
+    maxRelativeError = Math.max( maxRelativeError, relativeError );
+    affirmOrLog( relativeError < 0.01, `Infinite Step Well: State n=${i + 1}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
+
+    const rmsError = waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], dx );
+    maxWFError = Math.max( maxWFError, rmsError );
+    affirmOrLog( rmsError < 0.05, `Infinite Step Well: State n=${i + 1}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
+  }
+
+  logSummary( `Infinite Step Well - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
+}
+
+/**
+ * Main entry point for running these tests/
  */
 export function testSolvers(): void {
   testHarmonicOscillator();
   testInfiniteSquareWell();
   testFiniteSquareWell();
+  testAnharmonicOscillator();
+  testInfiniteStep();
   testWaveFunctionNormalization();
   testNodeCounting();
 }
