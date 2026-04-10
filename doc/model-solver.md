@@ -261,16 +261,21 @@ The complete solution process follows this sequence:
 
 ## Testing Strategy
 
-Run with query parameter `?testNumerovSolver` to validate NumerovSolver against analytical solutions 
-found in `js/common/model/solver/analytical-solutions/`.
+Run with query parameter `?testSolvers` (or `?testSolversVerbose` for more verbose output) to run 
+the tests in testSolvers.ts.  These tests validate the numerical solution (NumerovSolver) and analytical solutions
+(found in js/model/solver/analytical-solutions/).
 
-The tests are found in testNumerovSolver.ts and validate the following:
+NumerovSolverTests.ts was originally written to validate the Numerov numerical solver by comparing its output against
+known analytical solutions. That purpose has been served: the Numerov method is working well across all tested potentials (harmonic oscillator, infinite/finite square well) and we found some issues with the wavefunction that we were able to resolve as a result of the test.
 
-- **Harmonic Oscillator** (HarmonicOscillatorSolution.ts): E_n = ℏω(n + ½) for n = 0, 1, 2, ...
-- **Infinite Square Well** (InfiniteSquareWellSolution.ts): E_n = n²π²ℏ²/(2mL²) for n = 1, 2, 3, ...
-- **Finite Square Well** (FiniteSquareWellSolution.ts): Transcendental equations for bound states
-- **Wave Function Normalization**: ∫|ψ|² dx = 1 for all states
-- **Node Counting**: nth excited state has n nodes
+Even though NumerovSolver can be slow, it can be very accurate. The numerical solver gives us a cheap, general-purpose
+oracle. If a new analytical solution disagrees with Numerov by more than the established tolerances (say < 1% energy,
+< 5% wavefunction RMS value), the bug is almost certainly in the analytical implementation, not in NumerovSolver.
+This makes the test suite a powerful regression tool whenever analytical solutions are added or modified. 
+Use NumerovSolver as a reference to validate the analytical solution implementations themselves.
 
-Each test compares numerical results for NumerovSolver against exact analytical solutions, ensuring accuracy 
-within acceptable tolerances (typically <0.1% for energies).
+Analytical solutions are surprisingly easy to get subtly wrong. Common failure modes include, say normalization
+constants that are off by a factor, sign errors in the potential definition, missing factors of 2. There are many
+ways to fails, especially as the wavefunction solution can get more complicated. These bugs can be hard to catch by
+inspection but are immediately visible when the analytical wave function or energy fails to agree with a trusted
+numerical result.
