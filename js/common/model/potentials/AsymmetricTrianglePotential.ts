@@ -6,28 +6,53 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
+import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential from './QuantumPotential.js';
 
 export default class AsymmetricTrianglePotential extends QuantumPotential {
 
-  //TODO Temporary constants, same as initial state of Java version.
-  private readonly wellWidth = 1; //TODO Java: [0.1,6] nm and named 'width'
-  private readonly wellDepth = 10; //TODO Java: [0,20] eV and named 'height'
+  public readonly wellWidthProperty: NumberProperty;
+  public readonly wellDepthProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
+
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.asymmetricTriangleStringProperty,
       tandemPrefix: 'asymmetricTrianglePotential',
       tandem: tandem,
       phetioDocumentation: 'A quantum potential with one asymmetric triangle well.'
     } );
+
+    this.wellWidthProperty = new NumberProperty( 1, {
+      units: nanometersUnit,
+      range: new Range( 0.1, 6 ),
+      tandem: tandem.createTandem( 'wellWidthProperty' )
+    } );
+
+    this.wellDepthProperty = new NumberProperty( 10, {
+      units: electronVoltsUnit,
+      range: new Range( 0.1, 20 ),
+      tandem: tandem.createTandem( 'wellDepthProperty' )
+    } );
+
+    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty ], () => this.propertyChangedEmitter.emit() );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.wellWidthProperty.reset();
+    this.wellDepthProperty.reset();
   }
 
   /**
@@ -37,8 +62,8 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
 
     //TODO affirm 1 well
 
-    const wellWidth = this.wellWidth;
-    const wellDepth = this.wellDepth;
+    const wellWidth = this.wellWidthProperty.value;
+    const wellDepth = this.wellDepthProperty.value;
     const xOffset = this.xOffset;
     const yOffset = this.yOffset;
 
@@ -56,7 +81,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.yOffset + this.wellDepth;
+    return this.yOffset + this.wellDepthProperty.value;
   }
 
   public override createIcon(): Node {

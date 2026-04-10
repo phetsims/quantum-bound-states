@@ -22,6 +22,7 @@ import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillat
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
+import ConfigureAsymmetricTriangleDialog from './ConfigureAsymmetricTriangleDialog.js';
 import ConfigureFiniteSquareDialog from './ConfigureFiniteSquareDialog.js';
 import ConfigureInfiniteSquareDialog from './ConfigureInfiniteSquareDialog.js';
 import ConfigureInfiniteStepDialog from './ConfigureInfiniteStepDialog.js';
@@ -60,7 +61,7 @@ export default class ConfigurePotentialButton extends RoundPushButton {
       dialog = new ConfigureUnderConstructionDialog( 'Anharmonic Oscillator' ); //TODO
     }
     else if ( potential instanceof AsymmetricTrianglePotential ) {
-      dialog = new ConfigureUnderConstructionDialog( 'Asymmetric Triangle' ); //TODO
+      dialog = new ConfigureAsymmetricTriangleDialog( potential );
     }
     else if ( potential instanceof CoulombPotential ) {
       dialog = new ConfigureUnderConstructionDialog( 'Coulomb' ); //TODO
