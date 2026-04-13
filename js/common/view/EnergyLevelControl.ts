@@ -39,7 +39,6 @@ export default class EnergyLevelControl extends HBox {
   }
 }
 
-//TODO Subscripts > 9 cause this spinner's value to be visibly scaled down.
 class EnergyLevelSpinner extends NumberSpinner {
 
   public constructor( energyLevelProperty: Property<number>,
@@ -49,12 +48,13 @@ class EnergyLevelSpinner extends NumberSpinner {
     super( energyLevelProperty, rangeProperty, {
       arrowsScale: 2,
       numberDisplayOptions: {
-        minBackgroundWidth: 40, // Energy level index may be large, so provide extra space, determined empirically.
+        minBackgroundWidth: 45, // to handle large E subscripts, e.g. 'E<sub>100</sub>'
         align: 'center',
         cornerRadius: 0,
         backgroundStroke: 'rgb( 200, 200, 200 )',
         textOptions: {
-          font: QBSConstants.CONTROL_FONT
+          font: QBSConstants.CONTROL_FONT,
+          maxWidth: 120 // to handle large E subscripts, e.g. 'E<sub>100</sub>'
         },
         useRichText: true,
         numberFormatter: value => StringUtils.fillIn( QuantumBoundStatesFluent.energyLevelPatternStringProperty, {
