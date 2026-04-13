@@ -13,7 +13,7 @@ import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersU
 import QBSConstants from '../../QBSConstants.js';
 import WellWidthControl from './WellWidthControl.js';
 
-const DECIMALS = QBSConstants.WELL_DEPTH_DECIMALS;
+const DECIMALS = QBSConstants.WELL_DEPTH_DECIMAL_PLACES;
 
 export default class WellDepthControl extends NumberControl {
 

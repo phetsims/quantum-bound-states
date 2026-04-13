@@ -35,7 +35,7 @@ export default class ElectricFieldControl extends NumberControl {
 
         // Add units to the displayed value.
         numberFormatter: value => voltsPerNanometerUnit.getVisualSymbolPatternString( value, {
-          decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
+          decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMAL_PLACES,
           showTrailingZeros: true
         } ),
 
@@ -49,7 +49,7 @@ export default class ElectricFieldControl extends NumberControl {
         majorTicks: createMajorTicks( electricFieldProperty.range ),
         minorTickSpacing: 0.5,
         createAriaValueText: value => voltsPerNanometerUnit.getAccessibleString( value, {
-          decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
+          decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMAL_PLACES,
           showTrailingZeros: false
         } ),
         keyboardStep: KEYBOARD_STEP,
@@ -80,7 +80,7 @@ function createMajorTicks( range: Range ): NumberControlMajorTick[] {
   let value = range.min;
   while ( value <= range.max ) {
     majorTicks.push( {
-      value: toFixedNumber( value, QBSConstants.ELECTRIC_FIELD_DECIMALS ),
+      value: toFixedNumber( value, QBSConstants.ELECTRIC_FIELD_DECIMAL_PLACES ),
       label: new Text( value, QBSConstants.TICK_TEXT_OPTIONS )
     } );
     value += TICK_SPACING;

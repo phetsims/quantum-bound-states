@@ -76,13 +76,13 @@ export default class QBSConstants {
   public static readonly WAVEFUNCTION_GRAPH_Y_RANGE = new Range( -1, 1 ).dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
 
   // Decimal places in displayed values
-  public static readonly ELECTRON_MASSES_DECIMALS = 2;
-  public static readonly TIME_DECIMALS = 1;
-  public static readonly X_DECIMALS = 2;
-  public static readonly ELECTRIC_FIELD_DECIMALS = 1;
-  public static readonly WELL_WIDTH_DECIMALS = 1;
-  public static readonly WELL_DEPTH_DECIMALS = 1;
-  public static readonly STEP_HEIGHT_DECIMALS = 1;
+  public static readonly ELECTRON_MASSES_DECIMAL_PLACES = 2;
+  public static readonly TIME_DECIMAL_PLACES = 1;
+  public static readonly X_DECIMAL_PLACES = 2;
+  public static readonly ELECTRIC_FIELD_DECIMAL_PLACES = 1;
+  public static readonly WELL_WIDTH_DECIMAL_PLACES = 1;
+  public static readonly WELL_DEPTH_DECIMAL_PLACES = 1;
+  public static readonly STEP_HEIGHT_DECIMAL_PLACES = 1;
 
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_ENERGY = 1E20; // eV

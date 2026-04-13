@@ -131,7 +131,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
    */
   public doAccessibleObjectResponse(): void {
     const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
-      x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMALS )
+      x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
     } );
     this.addAccessibleObjectResponse( response, {
       interruptible: true,

@@ -13,7 +13,7 @@ import { electronVoltsUnit } from '../../model/units/electronVoltsUnit.js';
 import QBSConstants from '../../QBSConstants.js';
 import WellWidthControl from './WellWidthControl.js';
 
-const DECIMALS = QBSConstants.STEP_HEIGHT_DECIMALS;
+const DECIMALS = QBSConstants.STEP_HEIGHT_DECIMAL_PLACES;
 
 export default class StepHeightControl extends NumberControl {
 
