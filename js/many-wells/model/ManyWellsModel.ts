@@ -12,7 +12,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import { voltsPerNanometer } from '../../common/model/units/voltsPerNanometer.js';
+import { voltsPerNanometerUnits } from '../../common/model/units/voltsPerNanometerUnits.js';
 import QBSConstants from '../../common/QBSConstants.js';
 
 export default class ManyWellsModel extends QBSModel {
@@ -53,7 +53,7 @@ export default class ManyWellsModel extends QBSModel {
     this.electricFieldProperty = new NumberProperty( QBSConstants.ELECTRIC_FIELD_RANGE.defaultValue, {
       numberType: 'FloatingPoint',
       range: QBSConstants.ELECTRIC_FIELD_RANGE,
-      units: voltsPerNanometer,
+      units: voltsPerNanometerUnits,
       tandem: tandem.createTandem( 'electricFieldProperty' )
     } );
 

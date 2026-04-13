@@ -13,7 +13,7 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { voltsPerNanometer } from '../../common/model/units/voltsPerNanometer.js';
+import { voltsPerNanometerUnits } from '../../common/model/units/voltsPerNanometerUnits.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
@@ -34,7 +34,7 @@ export default class ElectricFieldControl extends NumberControl {
       numberDisplayOptions: {
 
         // Add units to the displayed value.
-        numberFormatter: value => voltsPerNanometer.getVisualSymbolPatternString( value, {
+        numberFormatter: value => voltsPerNanometerUnits.getVisualSymbolPatternString( value, {
           decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
           showTrailingZeros: true
         } ),
@@ -48,7 +48,7 @@ export default class ElectricFieldControl extends NumberControl {
       sliderOptions: {
         majorTicks: createMajorTicks( electricFieldProperty.range ),
         minorTickSpacing: 0.5,
-        createAriaValueText: value => voltsPerNanometer.getAccessibleString( value, {
+        createAriaValueText: value => voltsPerNanometerUnits.getAccessibleString( value, {
           decimalPlaces: QBSConstants.ELECTRIC_FIELD_DECIMALS,
           showTrailingZeros: false
         } ),
