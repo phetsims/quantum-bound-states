@@ -37,6 +37,14 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
     type: 'flag'
   },
 
+  // Number of sample points for approximating each curve
+  numberOfPoints: {
+    type: 'number',
+    isValidValue: value => value > 0,
+    // This value was arrived at by experimenting and provides a nice tradeoff between smoothness of the curve and performance.
+    defaultValue: 3001
+  },
+
   // Initial value of the 'Values' checkbox
   valuesVisible: {
     type: 'boolean',

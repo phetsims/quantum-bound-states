@@ -17,6 +17,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import QBSConstants from '../QBSConstants.js';
+import QBSQueryParameters from '../QBSQueryParameters.js';
 import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
 import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
@@ -86,7 +87,7 @@ export default class QBSModel implements TModel {
 
     this.time = new Time( options.tandem.createTandem( 'time' ) );
 
-    this.xGrid = new XGrid( QBSConstants.ALL_GRAPHS_X_RANGE.min, QBSConstants.ALL_GRAPHS_X_RANGE.max, 1001 );
+    this.xGrid = new XGrid( QBSConstants.ALL_GRAPHS_X_RANGE.min, QBSConstants.ALL_GRAPHS_X_RANGE.max, QBSQueryParameters.numberOfPoints );
 
     this.potentialProperty = new Property( options.potential, {
       validValues: options.potentials,
