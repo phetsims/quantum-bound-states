@@ -39,6 +39,7 @@ export default class EnergyLevelControl extends HBox {
   }
 }
 
+//TODO Subscripts > 9 cause this spinner's value to be scaled down.
 class EnergyLevelSpinner extends NumberSpinner {
 
   public constructor( energyLevelProperty: Property<number>,
