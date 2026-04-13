@@ -188,16 +188,16 @@
   },
   "superpositionConfigurations": {
     "preset1": {
-      "value": "c<sub>1</sub>Ψ<sub>1</sub> + c<sub>2</sub>Ψ<sub>2</sub>"
+      "value": "cΨ<sub>1</sub> + cΨ<sub>2</sub>"
     },
     "preset2": {
-      "value": "c<sub>1</sub>Ψ<sub>1</sub> + c<sub>3</sub>Ψ<sub>3</sub>"
+      "value": "cΨ<sub>1</sub> + cΨ<sub>3</sub>"
     },
     "preset3": {
-      "value": "c<sub>1</sub>Ψ<sub>1</sub> - c<sub>2</sub>Ψ<sub>2</sub>"
+      "value": "cΨ<sub>1</sub> - cΨ<sub>2</sub>"
     },
     "preset4": {
-      "value": "c<sub>1</sub>Ψ<sub>1</sub> + c<sub>2</sub>Ψ<sub>2</sub> + c<sub>3</sub>Ψ<sub>3</sub>"
+      "value": "cΨ<sub>1</sub> + cΨ<sub>2</sub> + cΨ<sub>3</sub>"
     },
     "preset5": {
       "value": "Localized Particle"
@@ -434,22 +434,22 @@
       },
       "preset1": {
         "accessibleName": {
-          "value": "c sub 1 times psi sub 1 plus c sub 2 times psi sub 2"
+          "value": "c times psi sub 1 plus c times psi sub 2"
         }
       },
       "preset2": {
         "accessibleName": {
-          "value": "c sub 1 times psi sub 1 plus c sub 3 times psi sub 3"
+          "value": "c times psi sub 1 plus c times psi sub 3"
         }
       },
       "preset3": {
         "accessibleName": {
-          "value": "c sub 1 times psi sub 1 minus c sub 2 times psi sub 2"
+          "value": "c times psi sub 1 minus c times psi sub 2"
         }
       },
       "preset4": {
         "accessibleName": {
-          "value": "c sub 1 times psi sub 1 plus c sub 2 times psi sub 2 plus c sub 3 times psi sub 3"
+          "value": "c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3"
         }
       }
     },
