@@ -42,7 +42,7 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
     type: 'number',
     isValidValue: value => value > 0,
     // This value was arrived at by experimenting and provides a nice tradeoff between smoothness of the curve and performance.
-    defaultValue: 3001
+    defaultValue: 3001 //TODO Decide what the optimal value should be.
   },
 
   // Initial value of the 'Values' checkbox
