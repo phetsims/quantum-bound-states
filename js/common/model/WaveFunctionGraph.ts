@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Move model stuff from WaveFunctionGraphNode to WaveFunctionGraph.
 /**
  * WaveFunctionGraph is the model for the wave function graph.
  *
