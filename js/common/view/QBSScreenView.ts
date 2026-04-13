@@ -10,6 +10,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -199,6 +200,10 @@ export default class QBSScreenView extends ScreenView {
       timePanel,
       resetAllButton
     ];
+
+    // Changes to these Properties will interrupt all interactions.
+    Multilink.multilink( [ model.potentialProperty ],
+      () => this.interruptSubtreeInput() );
 
     if ( phet.chipper.queryParameters.dev ) {
 
