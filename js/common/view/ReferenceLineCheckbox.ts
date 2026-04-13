@@ -19,6 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import ReferenceLineNode from './ReferenceLineNode.js';
 
 export default class ReferenceLineCheckbox extends Checkbox {
 
@@ -58,7 +59,7 @@ function createIcon(): Node {
     stroke: QBSColors.referenceLineStrokeProperty
   } );
 
-  const handleNode = new ShadedSphereNode( QBSConstants.HANDLE_DIAMETER, {
+  const handleNode = new ShadedSphereNode( ReferenceLineNode.HANDLE_DIAMETER, {
     mainColor: QBSColors.referenceLineHandleColorProperty
   } );
 

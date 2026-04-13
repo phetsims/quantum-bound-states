@@ -38,6 +38,8 @@ type ReferenceLineNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'
 
 export default class ReferenceLineNode extends Node {
 
+  public static readonly HANDLE_DIAMETER = 10;
+
   public constructor( referenceLine: ReferenceLine,
                       chartTransform: ChartTransform,
                       providedOptions: ReferenceLineNodeOptions ) {
@@ -92,7 +94,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
       tandem: tandem
     } );
 
-    super( QBSConstants.HANDLE_DIAMETER, options );
+    super( ReferenceLineNode.HANDLE_DIAMETER, options );
 
     this.referenceLine = referenceLine;
 
