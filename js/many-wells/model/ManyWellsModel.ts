@@ -25,13 +25,21 @@ export default class ManyWellsModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
+    const numberOfWellsProperty = new NumberProperty( QBSConstants.NUMBER_OF_WELLS_RANGE.defaultValue, {
+      numberType: 'Integer',
+      range: QBSConstants.NUMBER_OF_WELLS_RANGE,
+      tandem: tandem.createTandem( 'numberOfWellsProperty' )
+    } );
+
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
       new FiniteSquarePotential( {
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
-      new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) )
+      new AnharmonicOscillatorPotential( {
+        tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
+      } )
     ];
 
     super( {
@@ -40,14 +48,10 @@ export default class ManyWellsModel extends QBSModel {
       tandem: tandem
     } );
 
-    this.numberOfWellsProperty = new NumberProperty( QBSConstants.NUMBER_OF_WELLS_RANGE.defaultValue, {
-      numberType: 'Integer',
-      range: QBSConstants.NUMBER_OF_WELLS_RANGE,
-      tandem: tandem.createTandem( 'numberOfWellsProperty' )
-    } );
+    this.numberOfWellsProperty = numberOfWellsProperty;
 
     this.numberOfWellsProperty.link( numberOfWells => {
-      //TODO update potentials
+      potentials.forEach( potential => potential.setNumberOfWells( numberOfWells ) );
     } );
 
     this.electricFieldProperty = new NumberProperty( QBSConstants.ELECTRIC_FIELD_RANGE.defaultValue, {

@@ -46,7 +46,9 @@ export default class SuperpositionModel extends QBSModel {
       } ),
       new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),
       new HarmonicOscillatorPotential( electronMassesProperty, potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
-      new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) ),
+      new AnharmonicOscillatorPotential( {
+        tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
+      } ),
       new DoubleSquarePotential( {
         tandem: potentialsTandem.createTandem( 'doubleSquarePotential' )
       } )

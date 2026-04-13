@@ -32,7 +32,7 @@ export type FiniteSquarePotentialOptions = SelfOptions &
 export default class FiniteSquarePotential extends QuantumPotential {
 
   //TODO Temporary constants, same as initial state of Java version.
-  private readonly numberOfWells: number;
+  private _numberOfWells: number;
   private readonly separation: number; //TODO Java [0.05,0.7] nm, distance between walls of adjacent wells
   private readonly electricField = 0; //TODO Java [-1,1] V/nm
 
@@ -55,7 +55,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     super( options );
 
-    this.numberOfWells = options.numberOfWells;
+    this._numberOfWells = options.numberOfWells;
     this.separation = options.separation;
 
     this.wellWidthProperty = new NumberProperty( 1, {
@@ -81,12 +81,21 @@ export default class FiniteSquarePotential extends QuantumPotential {
     this.wellDepthProperty.reset();
   }
 
+  public getNumberOfWells(): number {
+    return this._numberOfWells;
+  }
+
+  public setNumberOfWells( value: number ): void {
+    this._numberOfWells = value;
+    this.propertyChangedEmitter.emit();
+  }
+
   /**
    * Gets the potential energy (y-value) at a specified x-coordinate.
    */
   public override getPotentialEnergyAt( x: number ): number {
 
-    const n = this.numberOfWells;
+    const n = this._numberOfWells;
     const wellWidth = this.wellWidthProperty.value;
     const xOffset = this.xOffset;
     const yOffset = this.yOffset;

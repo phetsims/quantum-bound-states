@@ -7,27 +7,56 @@
  */
 
 import Shape from '../../../../../kite/js/Shape.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
-import QuantumPotential from './QuantumPotential.js';
+import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
+
+type SelfOptions = {
+  numberOfWells?: number;
+  spacing?: number; //TODO How to use this?
+};
+
+export type AnharmonicOscillatorPotentialOptions = SelfOptions & PickRequired<QuantumPotentialOptions, 'tandem'>;
 
 export default class AnharmonicOscillatorPotential extends QuantumPotential {
+
+  private _numberOfWells: number;
 
   //TODO Added by MV
   private readonly wellDepth = 10; // Dissociation energy D_e in eV
   private readonly wellWidth = 0.5; // w = 1/a in nm
 
-  public constructor( tandem: Tandem ) {
-    super( {
+  public constructor( providedOptions: AnharmonicOscillatorPotentialOptions ) {
+
+    const options = optionize<AnharmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+
+      // SelfOptions
+      numberOfWells: 1,
+      spacing: 0,
+
+      // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.anharmonicOscillatorStringProperty,
       tandemPrefix: 'anharmonicOscillatorPotential',
-      tandem: tandem,
       phetioDocumentation: 'A quantum potential with one anharmonic oscillator.'
-    } );
+    }, providedOptions );
+
+    super( options );
+
+    this._numberOfWells = options.numberOfWells;
+  }
+
+  public getNumberOfWells(): number {
+    return this._numberOfWells;
+  }
+
+  public setNumberOfWells( value: number ): void {
+    this._numberOfWells = value;
+    this.propertyChangedEmitter.emit();
   }
 
   /**

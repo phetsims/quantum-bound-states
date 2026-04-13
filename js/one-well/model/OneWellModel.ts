@@ -45,7 +45,9 @@ export default class OneWellModel extends QBSModel {
       new InfiniteStepPotential( potentialsTandem.createTandem( 'infiniteStepPotential' ) ),
       new AsymmetricTrianglePotential( potentialsTandem.createTandem( 'asymmetricTrianglePotential' ) ),
       new HarmonicOscillatorPotential( electronMassesProperty, potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
-      new AnharmonicOscillatorPotential( potentialsTandem.createTandem( 'anharmonicOscillatorPotential' ) ),
+      new AnharmonicOscillatorPotential( {
+        tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
+      } ),
       new CoulombPotential( potentialsTandem.createTandem( 'coulombPotential' ) )
     ];
 
