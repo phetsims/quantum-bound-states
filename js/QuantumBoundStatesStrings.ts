@@ -46,7 +46,7 @@ type StringsType = {
   'phaseStringProperty': LocalizedStringProperty;
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
-  'superpositionLabelStringProperty': LocalizedStringProperty;
+  'superpositionStringProperty': LocalizedStringProperty;
   'averageProbabilityDensityOfBandDialogTitleStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
@@ -89,12 +89,18 @@ type StringsType = {
     'coulombStringProperty': LocalizedStringProperty;
     'infiniteStepStringProperty': LocalizedStringProperty;
   };
-  'localizedParticleStringProperty': LocalizedStringProperty;
-  'custom1StringProperty': LocalizedStringProperty;
-  'custom2StringProperty': LocalizedStringProperty;
-  'custom3StringProperty': LocalizedStringProperty;
-  'custom4StringProperty': LocalizedStringProperty;
-  'custom5StringProperty': LocalizedStringProperty;
+  'superpositionConfigurations': {
+    'preset1StringProperty': LocalizedStringProperty;
+    'preset2StringProperty': LocalizedStringProperty;
+    'preset3StringProperty': LocalizedStringProperty;
+    'preset4StringProperty': LocalizedStringProperty;
+    'preset5StringProperty': LocalizedStringProperty;
+    'custom1StringProperty': LocalizedStringProperty;
+    'custom2StringProperty': LocalizedStringProperty;
+    'custom3StringProperty': LocalizedStringProperty;
+    'custom4StringProperty': LocalizedStringProperty;
+    'custom5StringProperty': LocalizedStringProperty;
+  };
   'magnificationPowerStringProperty': LocalizedStringProperty;
   'keyboardHelp': {
     'referenceLine': {
@@ -201,6 +207,18 @@ type StringsType = {
     'superpositionCustomComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'preset1': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      };
+      'preset2': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      };
+      'preset3': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      };
+      'preset4': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+      }
     };
     'energyDiagram': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
@@ -295,20 +313,6 @@ type StringsType = {
     'energyLevelSpinner': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-    };
-    'superpositionPresets': {
-      'preset1': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-      };
-      'preset2': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-      };
-      'preset3': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-      };
-      'preset4': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-      }
     };
     'timeDisplayToggleButton': {
       'accessibleNameOnStringProperty': LocalizedStringProperty;

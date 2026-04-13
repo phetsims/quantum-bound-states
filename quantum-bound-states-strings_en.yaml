@@ -41,7 +41,7 @@ magnifier:                                  Magnifier
 referenceLine:                              Reference Line
 
 # ComboBoxes
-superpositionLabel:                         Superposition
+superposition:                              Superposition
 
 # Dialogs
 averageProbabilityDensityOfBandDialogTitle: Average Probability Density of Band
@@ -91,15 +91,18 @@ potentialWells:
   coulomb:              Coulomb
   infiniteStep:         Infinite Step
 
-# Preset superposition states
-localizedParticle:                          Localized Particle
-
-# Custom superposition states
-custom1:                                    Custom 1
-custom2:                                    Custom 2
-custom3:                                    Custom 3
-custom4:                                    Custom 4
-custom5:                                    Custom 5
+# Superposition configurations
+superpositionConfigurations:
+  preset1: c<sub>1</sub>Ψ<sub>1</sub> + c<sub>2</sub>Ψ<sub>2</sub>
+  preset2: c<sub>1</sub>Ψ<sub>1</sub> + c<sub>3</sub>Ψ<sub>3</sub>
+  preset3: c<sub>1</sub>Ψ<sub>1</sub> - c<sub>2</sub>Ψ<sub>2</sub>
+  preset4: c<sub>1</sub>Ψ<sub>1</sub> + c<sub>2</sub>Ψ<sub>2</sub> + c<sub>3</sub>Ψ<sub>3</sub>
+  preset5: Localized Particle
+  custom1: Custom 1
+  custom2: Custom 2
+  custom3: Custom 3
+  custom4: Custom 4
+  custom5: Custom 5
 
 # Magnifier
 magnificationPower:                         '{{value}}×'
@@ -223,6 +226,14 @@ a11y:
   superpositionCustomComboBox:
     accessibleName:     Superposition Custom
     accessibleHelpText: TODO.superpositionCustomComboBox.accessibleHelpText
+    preset1:
+      accessibleName: c sub 1 times psi sub 1 plus c sub 2 times psi sub 2
+    preset2:
+      accessibleName: c sub 1 times psi sub 1 plus c sub 3 times psi sub 3
+    preset3:
+      accessibleName: c sub 1 times psi sub 1 minus c sub 2 times psi sub 2
+    preset4:
+      accessibleName: c sub 1 times psi sub 1 plus c sub 2 times psi sub 2 plus c sub 3 times psi sub 3
 
   #=======================================================================================================
   # Graphs
@@ -333,20 +344,6 @@ a11y:
   energyLevelSpinner:
     accessibleName:     Energy Level
     accessibleHelpText: TODO.energyLevelSpinner.accessibleHelpText
-
-  #=======================================================================================================
-  # Superposition States
-  #=======================================================================================================
-
-  superpositionPresets:
-    preset1:
-      accessibleName: 'c times psi sub 1 plus c times psi sub 2'
-    preset2:
-      accessibleName: 'c times psi sub 1 plus c times psi sub 3'
-    preset3:
-      accessibleName: 'c times psi sub 1 minus c times psi sub 2'
-    preset4:
-      accessibleName: 'c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3'
 
   #=======================================================================================================
   # Toggle Buttons and Switches

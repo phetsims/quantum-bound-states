@@ -52,7 +52,7 @@ export class SuperpositionControlPanel extends Panel {
       visiblePropertyOptions: { phetioFeatured: true }
     } );
 
-    const subtitleText = new Text( QuantumBoundStatesFluent.superpositionLabelStringProperty, {
+    const subtitleText = new Text( QuantumBoundStatesFluent.superpositionStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
       phetioVisiblePropertyInstrumented: true,

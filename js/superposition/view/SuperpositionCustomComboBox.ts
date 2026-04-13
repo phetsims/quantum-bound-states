@@ -42,27 +42,37 @@ export default class SuperpositionCustomComboBox extends ComboBox<number> {
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom1StringProperty, richTextOptions ), alignBoxOptions )
+        createNode: () => alignGroup.createBox(
+          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom1StringProperty, richTextOptions ),
+          alignBoxOptions )
       },
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom2StringProperty, richTextOptions ), alignBoxOptions )
+        createNode: () => alignGroup.createBox(
+          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom2StringProperty, richTextOptions ),
+          alignBoxOptions )
       },
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom3StringProperty, richTextOptions ), alignBoxOptions )
+        createNode: () => alignGroup.createBox(
+          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom3StringProperty, richTextOptions ),
+          alignBoxOptions )
       },
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom4StringProperty, richTextOptions ), alignBoxOptions )
+        createNode: () => alignGroup.createBox(
+          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom4StringProperty, richTextOptions ),
+          alignBoxOptions )
       },
       {
         value: index++,
         tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox( new RichText( QuantumBoundStatesFluent.custom5StringProperty, richTextOptions ), alignBoxOptions )
+        createNode: () => alignGroup.createBox(
+          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom5StringProperty, richTextOptions ),
+          alignBoxOptions )
       }
     ];
 

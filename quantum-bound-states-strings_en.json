@@ -81,7 +81,7 @@
   "referenceLine": {
     "value": "Reference Line"
   },
-  "superpositionLabel": {
+  "superposition": {
     "value": "Superposition"
   },
   "averageProbabilityDensityOfBandDialogTitle": {
@@ -186,23 +186,37 @@
       "value": "Infinite Step"
     }
   },
-  "localizedParticle": {
-    "value": "Localized Particle"
-  },
-  "custom1": {
-    "value": "Custom 1"
-  },
-  "custom2": {
-    "value": "Custom 2"
-  },
-  "custom3": {
-    "value": "Custom 3"
-  },
-  "custom4": {
-    "value": "Custom 4"
-  },
-  "custom5": {
-    "value": "Custom 5"
+  "superpositionConfigurations": {
+    "preset1": {
+      "value": "c<sub>1</sub>Ψ<sub>1</sub> + c<sub>2</sub>Ψ<sub>2</sub>"
+    },
+    "preset2": {
+      "value": "c<sub>1</sub>Ψ<sub>1</sub> + c<sub>3</sub>Ψ<sub>3</sub>"
+    },
+    "preset3": {
+      "value": "c<sub>1</sub>Ψ<sub>1</sub> - c<sub>2</sub>Ψ<sub>2</sub>"
+    },
+    "preset4": {
+      "value": "c<sub>1</sub>Ψ<sub>1</sub> + c<sub>2</sub>Ψ<sub>2</sub> + c<sub>3</sub>Ψ<sub>3</sub>"
+    },
+    "preset5": {
+      "value": "Localized Particle"
+    },
+    "custom1": {
+      "value": "Custom 1"
+    },
+    "custom2": {
+      "value": "Custom 2"
+    },
+    "custom3": {
+      "value": "Custom 3"
+    },
+    "custom4": {
+      "value": "Custom 4"
+    },
+    "custom5": {
+      "value": "Custom 5"
+    }
   },
   "magnificationPower": {
     "value": "{{value}}×"
@@ -417,6 +431,26 @@
       },
       "accessibleHelpText": {
         "value": "TODO.superpositionCustomComboBox.accessibleHelpText"
+      },
+      "preset1": {
+        "accessibleName": {
+          "value": "c sub 1 times psi sub 1 plus c sub 2 times psi sub 2"
+        }
+      },
+      "preset2": {
+        "accessibleName": {
+          "value": "c sub 1 times psi sub 1 plus c sub 3 times psi sub 3"
+        }
+      },
+      "preset3": {
+        "accessibleName": {
+          "value": "c sub 1 times psi sub 1 minus c sub 2 times psi sub 2"
+        }
+      },
+      "preset4": {
+        "accessibleName": {
+          "value": "c sub 1 times psi sub 1 plus c sub 2 times psi sub 2 plus c sub 3 times psi sub 3"
+        }
       }
     },
     "energyDiagram": {
@@ -603,28 +637,6 @@
       },
       "accessibleHelpText": {
         "value": "TODO.energyLevelSpinner.accessibleHelpText"
-      }
-    },
-    "superpositionPresets": {
-      "preset1": {
-        "accessibleName": {
-          "value": "c times psi sub 1 plus c times psi sub 2"
-        }
-      },
-      "preset2": {
-        "accessibleName": {
-          "value": "c times psi sub 1 plus c times psi sub 3"
-        }
-      },
-      "preset3": {
-        "accessibleName": {
-          "value": "c times psi sub 1 minus c times psi sub 2"
-        }
-      },
-      "preset4": {
-        "accessibleName": {
-          "value": "c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3"
-        }
       }
     },
     "timeDisplayToggleButton": {
