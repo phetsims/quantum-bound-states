@@ -115,7 +115,7 @@ export default class QBSModel implements TModel {
     this.potentialProperty.value.propertyChangedEmitter.addListener( potentialChangedListener );
 
     this.potentialProperty.lazyLink( ( potential, previousPotential ) => {
-      previousPotential && previousPotential.propertyChangedEmitter.removeListener( potentialChangedListener );
+      previousPotential.propertyChangedEmitter.removeListener( potentialChangedListener );
       potential.propertyChangedEmitter.addListener( potentialChangedListener );
       if ( !isSettingPhetioStateProperty.value ) {
 
