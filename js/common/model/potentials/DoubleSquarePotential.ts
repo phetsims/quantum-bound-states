@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO More doc about why this class is required, and how it differs from other potentials in Superposition screen.
 /**
  * DoubleSquarePotential is a quantum potential composed of 2 finite square wells.
  *
