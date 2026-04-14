@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -17,7 +17,9 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  electronMassesProperty: ReadOnlyProperty<number>;
+};
 
 type HarmonicOscillatorPotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
@@ -26,9 +28,9 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
   //TODO Temporary constants, same as initial state of Java version.
   private readonly angularFrequency = 1; //TODO Java: [-5,15] fs^-1
 
-  private readonly electronMassesProperty: TReadOnlyProperty<number>;
+  private readonly electronMassesProperty: ReadOnlyProperty<number>;
 
-  public constructor( electronMassesProperty: TReadOnlyProperty<number>, providedOptions: HarmonicOscillatorPotentialOptions ) {
+  public constructor( providedOptions: HarmonicOscillatorPotentialOptions ) {
 
     const options = optionize<HarmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
@@ -40,8 +42,12 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
     super( options );
 
-    this.electronMassesProperty = electronMassesProperty;
+    this.electronMassesProperty = options.electronMassesProperty;
+    this.addLinkedElement( this.electronMassesProperty );
+
     // Do not trigger notification when electronMassesProperty changes, because it is owned by the top-level model.
+
+    this.addLinkedElement( this.electronMassesProperty );
   }
 
   /**

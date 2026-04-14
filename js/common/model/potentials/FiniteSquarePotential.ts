@@ -8,7 +8,7 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -22,14 +22,12 @@ import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // esli
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-const DEFAULT_ELECTRIC_FIELD = 0; // V/nm
-
 type SelfOptions = {
+  electricFieldProperty: ReadOnlyProperty<number>;
   wellWidth?: number;
   wellWidthRange?: Range;
   separation?: number;
   separationRange?: Range;
-  electricFieldProperty?: TReadOnlyProperty<number>;
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
@@ -40,13 +38,11 @@ export default class FiniteSquarePotential extends QuantumPotential {
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
   public readonly separationProperty: NumberProperty; // distance between walls of adjacent wells
-  public readonly electricFieldProperty: TReadOnlyProperty<number>;
+  public readonly electricFieldProperty: ReadOnlyProperty<number>;
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
-    const options = optionize<FiniteSquarePotentialOptions,
-      StrictOmit<SelfOptions, 'separationRange' | 'electricFieldProperty'>,
-      QuantumPotentialOptions>()( {
+    const options = optionize<FiniteSquarePotentialOptions, StrictOmit<SelfOptions, 'separationRange'>, QuantumPotentialOptions>()( {
 
       // SelfOptions
       wellWidth: QBSConstants.WELL_WIDTH_RANGE.defaultValue,
@@ -85,11 +81,8 @@ export default class FiniteSquarePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    // Default to electricField that is effectively constant and not PhET-iO instrumented.
-    this.electricFieldProperty = options.electricFieldProperty || new NumberProperty( DEFAULT_ELECTRIC_FIELD, {
-      units: electronVoltsUnit,
-      range: new Range( DEFAULT_ELECTRIC_FIELD, DEFAULT_ELECTRIC_FIELD )
-    } );
+    this.electricFieldProperty = options.electricFieldProperty;
+    this.addLinkedElement( this.electricFieldProperty );
 
     // Changes to Properties owned by FiniteSquarePotential trigger notification.
     // This does not include electricFieldProperty because it is owned by the top-level model.

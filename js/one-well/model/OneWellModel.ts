@@ -18,7 +18,7 @@ import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquar
 import InfiniteStepPotential from '../../common/model/potentials/InfiniteStepPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
-import QBSConstants from '../../common/QBSConstants.js';
+import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
 
 export default class OneWellModel extends QBSModel {
 
@@ -31,13 +31,22 @@ export default class OneWellModel extends QBSModel {
       phetioReadOnly: true
     } );
 
-    const electronMassesProperty = new NumberProperty( QBSConstants.ELECTRON_MASSES_RANGE.defaultValue, {
+    const electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
-      range: QBSConstants.ELECTRON_MASSES_RANGE,
+      range: new Range( 0.5, 1.1 ),
       tandem: tandem.createTandem( 'electronMassesProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'The number of electron masses.'
+    } );
+
+    // Effectively constant
+    const electricFieldProperty = new NumberProperty( 0, {
+      units: voltsPerNanometerUnit,
+      range: new Range( 0, 0 ),
+      tandem: tandem.createTandem( 'electricFieldProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
@@ -45,6 +54,7 @@ export default class OneWellModel extends QBSModel {
     const potentials = [
       new FiniteSquarePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new InfiniteSquarePotential( {
@@ -59,12 +69,14 @@ export default class OneWellModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'asymmetricTrianglePotential' )
       } ),
-      new HarmonicOscillatorPotential( electronMassesProperty, {
+      new HarmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ),
       new AnharmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } ),
       new CoulombPotential( {
@@ -74,7 +86,9 @@ export default class OneWellModel extends QBSModel {
     ];
 
     super( {
+      numberOfWellsProperty: numberOfWellsProperty,
       electronMassesProperty: electronMassesProperty,
+      electricFieldProperty: electricFieldProperty,
       potentials: potentials,
       tandem: tandem
     } );

@@ -15,7 +15,6 @@ import TModel from '../../../../joist/js/TModel.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import QBSConstants from '../QBSConstants.js';
@@ -35,21 +34,15 @@ import { BoundStateResult } from './solver/BoundStateResult.js';
 import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
 import Time from './Time.js';
-import { electronMassesUnit } from './units/electronMassesUnit.js';
-import { voltsPerNanometerUnit } from './units/voltsPerNanometerUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
-
-const DEFAULT_NUMBER_OF_WELLS = 1;
-const DEFAULT_ELECTRON_MASSES = 1; // me
-const DEFAULT_ELECTRIC_FIELD = 0; // V/nm
 
 type SelfOptions = {
   potential?: QuantumPotential;
   potentials: QuantumPotential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
-  numberOfWellsProperty?: NumberProperty;
-  electronMassesProperty?: NumberProperty;
-  electricFieldProperty?: NumberProperty;
+  numberOfWellsProperty: NumberProperty;
+  electronMassesProperty: NumberProperty;
+  electricFieldProperty: NumberProperty;
 };
 
 export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -94,31 +87,16 @@ export default class QBSModel implements TModel {
 
   protected constructor( providedOptions: QBSModelOptions ) {
 
-    const options = optionize<QBSModelOptions,
-      StrictOmit<SelfOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty'>,
-      PhetioObjectOptions>()( {
+    const options = optionize<QBSModelOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       potential: providedOptions.potentials[ 0 ],
       hasAverageProbabilityDensityOfBandGraph: false
     }, providedOptions );
 
-    // Default to numberOfWells that is effectively constant and not PhET-iO instrumented.
-    this.numberOfWellsProperty = options.numberOfWellsProperty || new NumberProperty( DEFAULT_NUMBER_OF_WELLS, {
-      range: new Range( DEFAULT_NUMBER_OF_WELLS, DEFAULT_NUMBER_OF_WELLS )
-    } );
-
-    // Default to electronMasses that is effectively constant and not PhET-iO instrumented.
-    this.electronMassesProperty = options.electronMassesProperty || new NumberProperty( DEFAULT_ELECTRON_MASSES, {
-      units: electronMassesUnit,
-      range: new Range( DEFAULT_ELECTRON_MASSES, DEFAULT_ELECTRON_MASSES )
-    } );
-
-    // Default to electricField that is effectively constant and not PhET-iO instrumented.
-    this.electricFieldProperty = options.electricFieldProperty || new NumberProperty( DEFAULT_ELECTRIC_FIELD, {
-      units: voltsPerNanometerUnit,
-      range: new Range( DEFAULT_ELECTRIC_FIELD, DEFAULT_ELECTRIC_FIELD )
-    } );
+    this.numberOfWellsProperty = options.numberOfWellsProperty;
+    this.electronMassesProperty = options.electronMassesProperty;
+    this.electricFieldProperty = options.electricFieldProperty;
 
     this.time = new Time( options.tandem.createTandem( 'time' ) );
 

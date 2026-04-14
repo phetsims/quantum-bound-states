@@ -18,6 +18,7 @@ import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicO
 import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
+import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
 import { SuperpositionConfigurationType, SuperpositionConfigurationTypeValues } from './SuperpositionConfigurationType.js';
 
 export default class SuperpositionModel extends QBSModel {
@@ -44,29 +45,47 @@ export default class SuperpositionModel extends QBSModel {
       phetioDocumentation: 'The number of electron masses.'
     } );
 
+    // Effectively constant
+    const electricFieldProperty = new NumberProperty( 0, {
+      units: voltsPerNanometerUnit,
+      range: new Range( 0, 0 ),
+      tandem: tandem.createTandem( 'electricFieldProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
       new FiniteSquarePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new InfiniteSquarePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
       } ),
-      new HarmonicOscillatorPotential( electronMassesProperty, {
+      new HarmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ),
       new AnharmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } ),
-      new DoubleSquarePotential( potentialsTandem.createTandem( 'doubleSquarePotential' ) )
+      new DoubleSquarePotential( {
+        electricFieldProperty: electricFieldProperty,
+        tandem: potentialsTandem.createTandem( 'doubleSquarePotential' )
+      } )
     ];
 
     super( {
+      numberOfWellsProperty: numberOfWellsProperty,
+      electronMassesProperty: electronMassesProperty,
+      electricFieldProperty: electricFieldProperty,
       potentials: potentials,
       tandem: tandem
     } );

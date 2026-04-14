@@ -92,8 +92,6 @@ export default class QBSConstants {
   public static readonly WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 6, 1 );
   public static readonly WELL_DEPTH_RANGE = new RangeWithValue( 0.1, 20, 10 );
   public static readonly STEP_HEIGHT_RANGE = new RangeWithValue( 0.1, 20, 3 );
-  public static readonly ELECTRON_MASSES_RANGE = new RangeWithValue( 0.5, 1.1, 1 );
-  public static readonly ELECTRIC_FIELD_RANGE = new RangeWithValue( -1, 1, 0 );
 
   //TODO from BSConstants.java, are these compatible with values and units in new code?
   public static readonly ELECTRON_MASS = 5.68; // eV/c^2

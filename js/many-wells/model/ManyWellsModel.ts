@@ -13,10 +13,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
+import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
-import QBSConstants from '../../common/QBSConstants.js';
 
-const NUMBER_OF_WELLS_RANGE = new RangeWithValue( 1, 10, 5 );
 const WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 0.5, 0.5 );
 const SEPARATION_RANGE = new RangeWithValue( 0.05, 0.2, 0.1 );
 
@@ -26,15 +25,25 @@ export default class ManyWellsModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
-    const numberOfWellsProperty = new NumberProperty( NUMBER_OF_WELLS_RANGE.defaultValue, {
+    const numberOfWellsProperty = new NumberProperty( 5, {
       numberType: 'Integer',
-      range: NUMBER_OF_WELLS_RANGE,
+      range: new Range( 1, 10 ),
       tandem: tandem.createTandem( 'numberOfWellsProperty' )
     } );
 
-    const electricFieldProperty = new NumberProperty( QBSConstants.ELECTRIC_FIELD_RANGE.defaultValue, {
+    // Effectively constant
+    const electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
-      range: QBSConstants.ELECTRIC_FIELD_RANGE,
+      units: electronMassesUnit,
+      range: new Range( 1, 1 ),
+      tandem: tandem.createTandem( 'electronMassesProperty' ),
+      phetioFeatured: true,
+      phetioDocumentation: 'The number of electron masses.'
+    } );
+
+    const electricFieldProperty = new NumberProperty( 0, {
+      numberType: 'FloatingPoint',
+      range: new Range( -1, 1 ),
       units: voltsPerNanometerUnit,
       tandem: tandem.createTandem( 'electricFieldProperty' )
     } );
@@ -44,15 +53,16 @@ export default class ManyWellsModel extends QBSModel {
     const potentials = [
       new FiniteSquarePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         wellWidth: WELL_WIDTH_RANGE.defaultValue,
         wellWidthRange: WELL_WIDTH_RANGE,
         separation: SEPARATION_RANGE.defaultValue,
         separationRange: SEPARATION_RANGE,
-        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new AnharmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } )
@@ -60,6 +70,7 @@ export default class ManyWellsModel extends QBSModel {
 
     super( {
       numberOfWellsProperty: numberOfWellsProperty,
+      electronMassesProperty: electronMassesProperty,
       electricFieldProperty: electricFieldProperty,
       potentials: potentials,
       hasAverageProbabilityDensityOfBandGraph: true,

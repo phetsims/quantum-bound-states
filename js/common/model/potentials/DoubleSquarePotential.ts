@@ -9,33 +9,40 @@
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import FiniteSquarePotential from './FiniteSquarePotential.js';
+import FiniteSquarePotential, { FiniteSquarePotentialOptions } from './FiniteSquarePotential.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type DoubleSquarePotentialOptions = SelfOptions & Pick<FiniteSquarePotentialOptions, 'electricFieldProperty' | 'tandem'>;
 
 export default class DoubleSquarePotential extends FiniteSquarePotential {
 
-  public constructor( tandem: Tandem ) {
+  public constructor( providedOptions: DoubleSquarePotentialOptions ) {
 
     // Effectively constant
     const numberOfWellsProperty = new NumberProperty( 2, {
       numberType: 'Integer',
       range: new Range( 2, 2 ),
-      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
+      tandem: providedOptions.tandem.createTandem( 'numberOfWellsProperty' ),
       phetioFeatured: true,
       phetioReadOnly: true
     } );
 
-    super( {
+    const options = optionize<DoubleSquarePotentialOptions, SelfOptions, FiniteSquarePotentialOptions>()( {
+
+      // FiniteSquarePotentialOptions
       numberOfWellsProperty: numberOfWellsProperty,
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.doubleSquareStringProperty,
       tandemPrefix: 'doubleSquarePotential',
-      tandem: tandem,
       phetioDocumentation: 'A quantum potential with two finite square wells.'
-    } );
+    }, providedOptions );
+
+    super( options );
   }
 
   /**

@@ -7,6 +7,7 @@
  */
 
 import Emitter from '../../../../../axon/js/Emitter.js';
+import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -21,7 +22,7 @@ import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/Re
 const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 
 type SelfOptions = {
-  numberOfWellsProperty: TReadOnlyProperty<number>;
+  numberOfWellsProperty: ReadOnlyProperty<number>;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
@@ -37,7 +38,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   protected readonly yOffset = 0; //TODO mutable
 
-  protected readonly numberOfWellsProperty: TReadOnlyProperty<number>;
+  protected readonly numberOfWellsProperty: ReadOnlyProperty<number>;
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
@@ -59,6 +60,8 @@ export default abstract class QuantumPotential extends PhetioObject {
     super( options );
 
     this.numberOfWellsProperty = options.numberOfWellsProperty;
+    this.addLinkedElement( this.numberOfWellsProperty );
+
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;

@@ -6,8 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -15,7 +17,9 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  electricFieldProperty: ReadOnlyProperty<number>;
+};
 
 export type AnharmonicOscillatorPotentialOptions = SelfOptions &
   Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
@@ -28,7 +32,8 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
 
   public constructor( providedOptions: AnharmonicOscillatorPotentialOptions ) {
 
-    const options = optionize<AnharmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+    const options = optionize<AnharmonicOscillatorPotentialOptions,
+      StrictOmit<SelfOptions, 'electricFieldProperty'>, QuantumPotentialOptions>()( {
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.anharmonicOscillatorStringProperty,
