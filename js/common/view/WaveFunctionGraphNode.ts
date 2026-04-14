@@ -68,13 +68,12 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     // Update the plot when the selected energy level or the bound-state result changes.
     const updateWaveFunctionPlot = () => {
       const yCoordinates = computeYCoordinates();
-      waveFunctionPlot.setYCoordinates( yCoordinates );
 
-      //TODO Temporarily change y-axis and tick marks to fit the entire curve, until we decide how to handle normalization and y-range.
+      // Change the y-axis range and tick marks to fit the entire curve.
       const minY = Math.min( ...yCoordinates );
       const maxY = Math.max( ...yCoordinates );
-      const absMaxY = Math.max( Math.abs( minY ), Math.abs( maxY ) ) + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION;
-      this.setYRange( new Range( -absMaxY, absMaxY ) );
+      const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
+      this.setYRange( new Range( -maxAbsY, maxAbsY ).dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( maxY );
     };
     model.energyLevelProperty.link( updateWaveFunctionPlot );
