@@ -17,6 +17,7 @@ import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanomete
 import QBSConstants from '../../common/QBSConstants.js';
 
 const NUMBER_OF_WELLS_RANGE = new RangeWithValue( 1, 10, 5 );
+const WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 0.5, 0.5 );
 const SEPARATION_RANGE = new RangeWithValue( 0.05, 0.2, 0.1 );
 
 export default class ManyWellsModel extends QBSModel {
@@ -41,6 +42,8 @@ export default class ManyWellsModel extends QBSModel {
       new FiniteSquarePotential( {
         numberOfWells: numberOfWellsProperty.value,
         numberOfWellsRange: numberOfWellsProperty.range,
+        wellWidth: WELL_WIDTH_RANGE.defaultValue,
+        wellWidthRange: WELL_WIDTH_RANGE,
         separation: SEPARATION_RANGE.defaultValue,
         separationRange: SEPARATION_RANGE,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
@@ -48,7 +51,7 @@ export default class ManyWellsModel extends QBSModel {
       new AnharmonicOscillatorPotential( {
         numberOfWells: numberOfWellsProperty.value,
         numberOfWellsRange: numberOfWellsProperty.range,
-        //TODO spacing?
+        //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } )
     ];

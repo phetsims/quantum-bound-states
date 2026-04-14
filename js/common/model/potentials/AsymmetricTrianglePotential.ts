@@ -41,9 +41,9 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    this.wellDepthProperty = new NumberProperty( 10, {
+    this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
       units: electronVoltsUnit,
-      range: new Range( 0.1, 20 ),
+      range: QBSConstants.WELL_DEPTH_RANGE,
       tandem: tandem.createTandem( 'wellDepthProperty' ),
       phetioFeatured: true
     } );

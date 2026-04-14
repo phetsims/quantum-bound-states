@@ -17,16 +17,20 @@ import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
+import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 const DEFAULT_NUMBER_OF_WELLS = 1;
+const DEFAULT_WELL_WIDTH = 1;
 const DEFAULT_SEPARATION = 0.1;
 
 type SelfOptions = {
   numberOfWells?: number;
   numberOfWellsRange?: Range;
+  wellWidth?: number;
+  wellWidthRange?: Range;
   separation?: number;
   separationRange?: Range;
 };
@@ -47,11 +51,13 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
-    const options = optionize<FiniteSquarePotentialOptions, StrictOmit<SelfOptions, 'numberOfWellsRange' | 'separationRange'>,
+    const options = optionize<FiniteSquarePotentialOptions,
+      StrictOmit<SelfOptions, 'numberOfWellsRange' | 'wellWidthRange' | 'separationRange'>,
       QuantumPotentialOptions>()( {
 
       // SelfOptions
       numberOfWells: DEFAULT_NUMBER_OF_WELLS,
+      wellWidth: DEFAULT_WELL_WIDTH,
       separation: DEFAULT_SEPARATION,
 
       // QuantumPotentialOptions
@@ -62,6 +68,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     // If ranges are not specified, set the range length to zero so that the Properties are effectively constants.
     options.numberOfWellsRange = options.numberOfWellsRange || new Range( options.numberOfWells, options.numberOfWells );
+    options.wellWidthRange = options.wellWidthRange || new Range( options.wellWidth, options.wellWidth );
     options.separationRange = options.separationRange || new Range( options.separation, options.separation );
 
     super( options );
@@ -74,16 +81,16 @@ export default class FiniteSquarePotential extends QuantumPotential {
       phetioReadOnly: true
     } );
 
-    this.wellWidthProperty = new NumberProperty( 1, {
+    this.wellWidthProperty = new NumberProperty( options.wellWidth, {
       units: nanometersUnit,
-      range: new Range( 0.1, 6 ),
+      range: options.wellWidthRange,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
 
-    this.wellDepthProperty = new NumberProperty( 10, {
+    this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
       units: electronVoltsUnit,
-      range: new Range( 0.1, 20 ),
+      range: QBSConstants.WELL_DEPTH_RANGE,
       tandem: options.tandem.createTandem( 'wellDepthProperty' ),
       phetioFeatured: true
     } );
