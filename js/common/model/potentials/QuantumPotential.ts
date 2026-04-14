@@ -28,7 +28,7 @@ type SelfOptions = {
   tandemPrefix: string;
 };
 
-export type QuantumPotentialOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
+export type QuantumPotentialOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default abstract class QuantumPotential extends PhetioObject {
 

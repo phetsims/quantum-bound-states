@@ -36,8 +36,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.asymmetricTriangleStringProperty,
-      tandemPrefix: 'asymmetricTrianglePotential',
-      phetioDocumentation: 'A quantum potential with one asymmetric triangle well.'
+      tandemPrefix: 'asymmetricTrianglePotential'
     }, providedOptions );
 
     super( options );

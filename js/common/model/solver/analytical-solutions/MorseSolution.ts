@@ -46,7 +46,7 @@ import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 
-export default class AnharmonicOscillatorSolution {
+export default class MorseSolution {
 
   private constructor() {
     // Not intended for instantiation.

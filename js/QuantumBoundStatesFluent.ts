@@ -76,7 +76,7 @@ addToMapIfDefined( 'potentialWells_infiniteSquare', 'potentialWells.infiniteSqua
 addToMapIfDefined( 'potentialWells_doubleSquare', 'potentialWells.doubleSquareStringProperty' );
 addToMapIfDefined( 'potentialWells_asymmetricTriangle', 'potentialWells.asymmetricTriangleStringProperty' );
 addToMapIfDefined( 'potentialWells_harmonicOscillator', 'potentialWells.harmonicOscillatorStringProperty' );
-addToMapIfDefined( 'potentialWells_anharmonicOscillator', 'potentialWells.anharmonicOscillatorStringProperty' );
+addToMapIfDefined( 'potentialWells_morse', 'potentialWells.morseStringProperty' );
 addToMapIfDefined( 'potentialWells_coulomb', 'potentialWells.coulombStringProperty' );
 addToMapIfDefined( 'potentialWells_infiniteStep', 'potentialWells.infiniteStepStringProperty' );
 addToMapIfDefined( 'superpositionConfigurations_preset1', 'superpositionConfigurations.preset1StringProperty' );
@@ -330,7 +330,7 @@ const QuantumBoundStatesFluent = {
     doubleSquareStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.doubleSquareStringProperty' ),
     asymmetricTriangleStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.asymmetricTriangleStringProperty' ),
     harmonicOscillatorStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.harmonicOscillatorStringProperty' ),
-    anharmonicOscillatorStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.anharmonicOscillatorStringProperty' ),
+    morseStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.morseStringProperty' ),
     coulombStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.coulombStringProperty' ),
     infiniteStepStringProperty: _.get( QuantumBoundStatesStrings, 'potentialWells.infiniteStepStringProperty' )
   },

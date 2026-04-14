@@ -36,8 +36,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
-      tandemPrefix: 'infiniteStepPotential',
-      phetioDocumentation: 'A quantum potential with one infinite step well.'
+      tandemPrefix: 'infiniteStepPotential'
     }, providedOptions );
 
     super( options );

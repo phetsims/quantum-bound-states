@@ -38,8 +38,7 @@ export default class DoubleSquarePotential extends FiniteSquarePotential {
       // FiniteSquarePotentialOptions
       numberOfWellsProperty: numberOfWellsProperty,
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.doubleSquareStringProperty,
-      tandemPrefix: 'doubleSquarePotential',
-      phetioDocumentation: 'A quantum potential with two finite square wells.'
+      tandemPrefix: 'doubleSquarePotential'
     }, providedOptions );
 
     super( options );

@@ -34,8 +34,7 @@ export default class CoulombPotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
-      tandemPrefix: 'coulombPotential',
-      phetioDocumentation: 'A quantum potential with one Coulomb well.'
+      tandemPrefix: 'coulombPotential'
     }, providedOptions );
 
     super( options );

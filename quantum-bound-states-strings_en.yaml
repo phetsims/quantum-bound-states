@@ -82,14 +82,14 @@ units:
 
 # Potential Wells
 potentialWells:
-  finiteSquare:         Finite Square
-  infiniteSquare:       Infinite Square
-  doubleSquare:         Double Square
-  asymmetricTriangle:   Asymmetric Triangle
-  harmonicOscillator:   Harmonic Oscillator
-  anharmonicOscillator: Anharmonic Oscillator
-  coulomb:              Coulomb
-  infiniteStep:         Infinite Step
+  finiteSquare:       Finite Square
+  infiniteSquare:     Infinite Square
+  doubleSquare:       Double Square
+  asymmetricTriangle: Asymmetric Triangle
+  harmonicOscillator: Harmonic Oscillator
+  morse:              Morse
+  coulomb:            Coulomb
+  infiniteStep:       Infinite Step
 
 # Superposition configurations
 superpositionConfigurations:

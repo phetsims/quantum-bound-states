@@ -15,7 +15,7 @@
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import QBSQueryParameters from '../../QBSQueryParameters.js';
-import AnharmonicOscillatorSolution from './analytical-solutions/AnharmonicOscillatorSolution.js';
+import MorseSolution from './analytical-solutions/MorseSolution.js';
 import FiniteSquareWellSolution from './analytical-solutions/FiniteSquareWellSolution.js';
 import HarmonicOscillatorSolution from './analytical-solutions/HarmonicOscillatorSolution.js';
 import InfiniteSquareWellSolution from './analytical-solutions/InfiniteSquareWellSolution.js';
@@ -511,9 +511,9 @@ function testNodeCounting(): void {
 }
 
 /**
- * Compare NumerovSolver to the analytical solution for an anharmonic oscillator (Morse potential).
+ * Compare NumerovSolver to the analytical solution for a Morse potential.
  */
-function testAnharmonicOscillator(): void {
+function testMorsePotential(): void {
 
   const mass = ELECTRON_MASSES; // electron masses
   const wellDepth = 10;  // D_e = 10 eV
@@ -521,7 +521,7 @@ function testAnharmonicOscillator(): void {
 
   // The Morse potential: V(x) = D_e*(1 - e^{-x/w})^2 - D_e
   // Well bottom at x=0 (V = -D_e), dissociation limit at x→+∞ (V = 0), repulsive wall at x→-∞
-  const potential = AnharmonicOscillatorSolution.createPotential( wellDepth, width );
+  const potential = MorseSolution.createPotential( wellDepth, width );
 
   // Grid: from -0.5 nm (high repulsive wall ~20 eV above all bound states) to 5 nm (V ≈ 0)
   const xGrid = new XGrid( -0.5, 5, 1001 );
@@ -534,7 +534,7 @@ function testAnharmonicOscillator(): void {
   const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = AnharmonicOscillatorSolution.solve( xGrid, wellDepth, width, mass, energyMin, energyMax );
+  const analyticalResult = MorseSolution.solve( xGrid, wellDepth, width, mass, energyMin, energyMax );
 
   logVerbose( `\nAnharmonic Oscillator (Morse) - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
@@ -656,7 +656,7 @@ export function testSolvers(): void {
   testHarmonicOscillator();
   testInfiniteSquareWell();
   testFiniteSquareWell();
-  testAnharmonicOscillator();
+  testMorsePotential();
   testInfiniteStep();
   testWaveFunctionNormalization();
   testNodeCounting();

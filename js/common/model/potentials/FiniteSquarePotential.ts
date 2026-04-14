@@ -31,7 +31,7 @@ type SelfOptions = {
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
-  WithOptional<QuantumPotentialOptions, 'visualNameProperty' | 'tandemPrefix' | 'phetioDocumentation'>;
+  WithOptional<QuantumPotentialOptions, 'visualNameProperty' | 'tandemPrefix'>;
 
 export default class FiniteSquarePotential extends QuantumPotential {
 
@@ -51,8 +51,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
-      tandemPrefix: 'finiteSquarePotential',
-      phetioDocumentation: 'A quantum potential composed of one or more finite square wells.'
+      tandemPrefix: 'finiteSquarePotential'
     }, providedOptions );
 
     // If range is not specified, set the range length to zero so that the Property is effectively constant.

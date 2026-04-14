@@ -14,7 +14,7 @@ import Image from '../../../../../scenery/js/nodes/Image.js';
 import ButtonNode from '../../../../../sun/js/buttons/ButtonNode.js';
 import RoundPushButton, { RoundPushButtonOptions } from '../../../../../sun/js/buttons/RoundPushButton.js';
 import Dialog from '../../../../../sun/js/Dialog.js';
-import AnharmonicOscillatorPotential from '../../model/potentials/AnharmonicOscillatorPotential.js';
+import MorsePotential from '../../model/potentials/MorsePotential.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
@@ -59,7 +59,7 @@ export default class ConfigurePotentialButton extends RoundPushButton {
   private openDialog(): void {
     const potential = this.potentialProperty.value;
     let dialog: Dialog | undefined;
-    if ( potential instanceof AnharmonicOscillatorPotential ) {
+    if ( potential instanceof MorsePotential ) {
       dialog = new ConfigureAnharmonicOscillatorDialog( potential );
     }
     else if ( potential instanceof AsymmetricTrianglePotential ) {

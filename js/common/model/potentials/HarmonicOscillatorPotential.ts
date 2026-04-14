@@ -36,8 +36,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.harmonicOscillatorStringProperty,
-      tandemPrefix: 'harmonicOscillatorPotential',
-      phetioDocumentation: 'A quantum potential with one harmonic oscillator.'
+      tandemPrefix: 'harmonicOscillatorPotential'
     }, providedOptions );
 
     super( options );

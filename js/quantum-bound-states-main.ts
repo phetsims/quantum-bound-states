@@ -45,7 +45,6 @@ simLauncher.launch( () => {
 
   const sim = new Sim( titleStringProperty, screens, options );
   sim.start();
-  console.log( 'Quantum Bound States sim started' );
 
   // Run tests of numerical (NumerovSolver) and analytic solutions.
   if ( QBSQueryParameters.testSolvers || QBSQueryParameters.testSolversVerbose ) {

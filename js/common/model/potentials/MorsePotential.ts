@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * AnharmonicOscillatorPotential is a quantum potential composed of 1 anharmonic oscillator well.
+ * MorsePotential is a quantum potential composed of 1 anharmonic oscillator well.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -24,7 +24,7 @@ type SelfOptions = {
 export type AnharmonicOscillatorPotentialOptions = SelfOptions &
   Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
-export default class AnharmonicOscillatorPotential extends QuantumPotential {
+export default class MorsePotential extends QuantumPotential {
 
   //TODO Added by MV
   private readonly wellDepth = 10; // Dissociation energy D_e in eV
@@ -38,9 +38,8 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
       StrictOmit<SelfOptions, 'electricFieldProperty'>, QuantumPotentialOptions>()( {
 
       // QuantumPotentialOptions
-      visualNameProperty: QuantumBoundStatesFluent.potentialWells.anharmonicOscillatorStringProperty,
-      tandemPrefix: 'anharmonicOscillatorPotential',
-      phetioDocumentation: 'A quantum potential with one anharmonic oscillator.'
+      visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
+      tandemPrefix: 'morsePotential'
     }, providedOptions );
 
     super( options );
