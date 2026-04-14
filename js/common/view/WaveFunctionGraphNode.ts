@@ -61,6 +61,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     // Update the plot when the selected energy level or the bound-state result changes.
     const updateWaveFunctionPlot = () => {
       const yCoordinates = computeYCoordinates();
+      waveFunctionPlot.setYCoordinates( yCoordinates );
 
       // Change the y-axis range and tick marks to fit the entire curve.
       const minY = Math.min( ...yCoordinates );
