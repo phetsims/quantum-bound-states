@@ -80,10 +80,14 @@ addToMapIfDefined( 'potentialWells_anharmonicOscillator', 'potentialWells.anharm
 addToMapIfDefined( 'potentialWells_morse', 'potentialWells.morseStringProperty' );
 addToMapIfDefined( 'potentialWells_coulomb', 'potentialWells.coulombStringProperty' );
 addToMapIfDefined( 'potentialWells_infiniteStep', 'potentialWells.infiniteStepStringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_preset1', 'superpositionConfigurations.preset1StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_preset2', 'superpositionConfigurations.preset2StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_preset3', 'superpositionConfigurations.preset3StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_preset4', 'superpositionConfigurations.preset4StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_groundState0_preset1', 'superpositionConfigurations.groundState0.preset1StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_groundState0_preset2', 'superpositionConfigurations.groundState0.preset2StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_groundState0_preset3', 'superpositionConfigurations.groundState0.preset3StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_groundState0_preset4', 'superpositionConfigurations.groundState0.preset4StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_groundState1_preset1', 'superpositionConfigurations.groundState1.preset1StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_groundState1_preset2', 'superpositionConfigurations.groundState1.preset2StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_groundState1_preset3', 'superpositionConfigurations.groundState1.preset3StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_groundState1_preset4', 'superpositionConfigurations.groundState1.preset4StringProperty' );
 addToMapIfDefined( 'superpositionConfigurations_preset5', 'superpositionConfigurations.preset5StringProperty' );
 addToMapIfDefined( 'superpositionConfigurations_custom1', 'superpositionConfigurations.custom1StringProperty' );
 addToMapIfDefined( 'superpositionConfigurations_custom2', 'superpositionConfigurations.custom2StringProperty' );
@@ -143,10 +147,14 @@ addToMapIfDefined( 'a11y_superpositionPresetComboBox_accessibleName', 'a11y.supe
 addToMapIfDefined( 'a11y_superpositionPresetComboBox_accessibleHelpText', 'a11y.superpositionPresetComboBox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleName', 'a11y.superpositionCustomComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleHelpText', 'a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_superpositionCustomComboBox_preset1_accessibleName', 'a11y.superpositionCustomComboBox.preset1.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_superpositionCustomComboBox_preset2_accessibleName', 'a11y.superpositionCustomComboBox.preset2.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_superpositionCustomComboBox_preset3_accessibleName', 'a11y.superpositionCustomComboBox.preset3.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_superpositionCustomComboBox_preset4_accessibleName', 'a11y.superpositionCustomComboBox.preset4.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState0_accessibleNamePreset1', 'a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset1StringProperty' );
+addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState0_accessibleNamePreset2', 'a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset2StringProperty' );
+addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState0_accessibleNamePreset3', 'a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset3StringProperty' );
+addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState0_accessibleNamePreset4', 'a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset4StringProperty' );
+addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset1', 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset1StringProperty' );
+addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset2', 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset2StringProperty' );
+addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset3', 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset3StringProperty' );
+addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset4', 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset4StringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleParagraph', 'a11y.energyDiagram.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_graphs_averageProbabilityDensityOfBandGraph_accessibleHeading', 'a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty' );
@@ -338,10 +346,18 @@ const QuantumBoundStatesFluent = {
   },
   _comment_20: new FluentComment( {"comment":"Superposition configurations","associatedKey":"superpositionConfigurations"} ),
   superpositionConfigurations: {
-    preset1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset1StringProperty' ),
-    preset2StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset2StringProperty' ),
-    preset3StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset3StringProperty' ),
-    preset4StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset4StringProperty' ),
+    groundState0: {
+      preset1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState0.preset1StringProperty' ),
+      preset2StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState0.preset2StringProperty' ),
+      preset3StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState0.preset3StringProperty' ),
+      preset4StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState0.preset4StringProperty' )
+    },
+    groundState1: {
+      preset1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState1.preset1StringProperty' ),
+      preset2StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState1.preset2StringProperty' ),
+      preset3StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState1.preset3StringProperty' ),
+      preset4StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState1.preset4StringProperty' )
+    },
     preset5StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset5StringProperty' ),
     custom1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.custom1StringProperty' ),
     custom2StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.custom2StringProperty' ),
@@ -470,17 +486,17 @@ const QuantumBoundStatesFluent = {
     superpositionCustomComboBox: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty' ) ),
-      preset1: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_preset1_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.preset1.accessibleNameStringProperty' ) )
+      groundState0: {
+        accessibleNamePreset1StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_groundState0_accessibleNamePreset1', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset1StringProperty' ) ),
+        accessibleNamePreset2StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_groundState0_accessibleNamePreset2', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset2StringProperty' ) ),
+        accessibleNamePreset3StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_groundState0_accessibleNamePreset3', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset3StringProperty' ) ),
+        accessibleNamePreset4StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_groundState0_accessibleNamePreset4', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset4StringProperty' ) )
       },
-      preset2: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_preset2_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.preset2.accessibleNameStringProperty' ) )
-      },
-      preset3: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_preset3_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.preset3.accessibleNameStringProperty' ) )
-      },
-      preset4: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_preset4_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.preset4.accessibleNameStringProperty' ) )
+      groundState1: {
+        accessibleNamePreset1StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset1', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset1StringProperty' ) ),
+        accessibleNamePreset2StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset2', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset2StringProperty' ) ),
+        accessibleNamePreset3StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset3', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset3StringProperty' ) ),
+        accessibleNamePreset4StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset4', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset4StringProperty' ) )
       }
     },
     _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),

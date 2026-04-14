@@ -66,8 +66,8 @@ export class SuperpositionControlPanel extends Panel {
     // This is a workaround for the lack of dynamic layout support in ComboBox.
     const comboBoxItemAlignGroup = new AlignGroup();
 
-    const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent,
-      comboBoxItemAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
+    const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, potentialProperty,
+      listboxParent, comboBoxItemAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
 
     const detailsButton = new SuperpositionDetailsButton( {
       listener: () => new SuperpositionDetailsDialog().show(),

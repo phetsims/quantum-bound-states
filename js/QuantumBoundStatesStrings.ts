@@ -91,10 +91,18 @@ type StringsType = {
     'infiniteStepStringProperty': LocalizedStringProperty;
   };
   'superpositionConfigurations': {
-    'preset1StringProperty': LocalizedStringProperty;
-    'preset2StringProperty': LocalizedStringProperty;
-    'preset3StringProperty': LocalizedStringProperty;
-    'preset4StringProperty': LocalizedStringProperty;
+    'groundState0': {
+      'preset1StringProperty': LocalizedStringProperty;
+      'preset2StringProperty': LocalizedStringProperty;
+      'preset3StringProperty': LocalizedStringProperty;
+      'preset4StringProperty': LocalizedStringProperty;
+    };
+    'groundState1': {
+      'preset1StringProperty': LocalizedStringProperty;
+      'preset2StringProperty': LocalizedStringProperty;
+      'preset3StringProperty': LocalizedStringProperty;
+      'preset4StringProperty': LocalizedStringProperty;
+    };
     'preset5StringProperty': LocalizedStringProperty;
     'custom1StringProperty': LocalizedStringProperty;
     'custom2StringProperty': LocalizedStringProperty;
@@ -208,17 +216,17 @@ type StringsType = {
     'superpositionCustomComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'preset1': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
+      'groundState0': {
+        'accessibleNamePreset1StringProperty': LocalizedStringProperty;
+        'accessibleNamePreset2StringProperty': LocalizedStringProperty;
+        'accessibleNamePreset3StringProperty': LocalizedStringProperty;
+        'accessibleNamePreset4StringProperty': LocalizedStringProperty;
       };
-      'preset2': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-      };
-      'preset3': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-      };
-      'preset4': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
+      'groundState1': {
+        'accessibleNamePreset1StringProperty': LocalizedStringProperty;
+        'accessibleNamePreset2StringProperty': LocalizedStringProperty;
+        'accessibleNamePreset3StringProperty': LocalizedStringProperty;
+        'accessibleNamePreset4StringProperty': LocalizedStringProperty;
       }
     };
     'energyDiagram': {

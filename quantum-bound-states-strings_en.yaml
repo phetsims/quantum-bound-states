@@ -94,10 +94,16 @@ potentialWells:
 
 # Superposition configurations
 superpositionConfigurations:
-  preset1: cΨ<sub>1</sub> + cΨ<sub>2</sub>
-  preset2: cΨ<sub>1</sub> + cΨ<sub>3</sub>
-  preset3: cΨ<sub>1</sub> - cΨ<sub>2</sub>
-  preset4: cΨ<sub>1</sub> + cΨ<sub>2</sub> + cΨ<sub>3</sub>
+  groundState0:
+    preset1: cΨ<sub>0</sub> + cΨ<sub>1</sub>
+    preset2: cΨ<sub>0</sub> + cΨ<sub>2</sub>
+    preset3: cΨ<sub>0</sub> - cΨ<sub>1</sub>
+    preset4: cΨ<sub>0</sub> + cΨ<sub>1</sub> + cΨ<sub>2</sub>
+  groundState1:
+    preset1: cΨ<sub>1</sub> + cΨ<sub>2</sub>
+    preset2: cΨ<sub>1</sub> + cΨ<sub>3</sub>
+    preset3: cΨ<sub>1</sub> - cΨ<sub>2</sub>
+    preset4: cΨ<sub>1</sub> + cΨ<sub>2</sub> + cΨ<sub>3</sub>
   preset5: Localized Particle
   custom1: Custom 1
   custom2: Custom 2
@@ -227,14 +233,16 @@ a11y:
   superpositionCustomComboBox:
     accessibleName:     Superposition Custom
     accessibleHelpText: TODO.superpositionCustomComboBox.accessibleHelpText
-    preset1:
-      accessibleName: c times psi sub 1 plus c times psi sub 2
-    preset2:
-      accessibleName: c times psi sub 1 plus c times psi sub 3
-    preset3:
-      accessibleName: c times psi sub 1 minus c times psi sub 2
-    preset4:
-      accessibleName: c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3
+    groundState0:
+      accessibleNamePreset1: c times psi sub 0 plus c times psi sub 1
+      accessibleNamePreset2: c times psi sub 0 plus c times psi sub 2
+      accessibleNamePreset3: c times psi sub 0 minus c times psi sub 1
+      accessibleNamePreset4: c times psi sub 0 plus c times psi sub 1 plus c times psi sub 2
+    groundState1:
+      accessibleNamePreset1: c times psi sub 1 plus c times psi sub 2
+      accessibleNamePreset2: c times psi sub 1 plus c times psi sub 3
+      accessibleNamePreset3: c times psi sub 1 minus c times psi sub 2
+      accessibleNamePreset4: c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3
 
   #=======================================================================================================
   # Graphs
