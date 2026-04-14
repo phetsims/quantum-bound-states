@@ -52,14 +52,14 @@ export default class SuperpositionModel extends QBSModel {
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
+      new InfiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
+      } ),
       new FiniteSquarePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
         electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
-      } ),
-      new InfiniteSquarePotential( {
-        numberOfWellsProperty: numberOfWellsProperty,
-        tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
       } ),
       new HarmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
