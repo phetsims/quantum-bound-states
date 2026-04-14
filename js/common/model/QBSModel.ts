@@ -14,6 +14,7 @@ import TModel from '../../../../joist/js/TModel.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import QBSConstants from '../QBSConstants.js';
@@ -33,12 +34,16 @@ import { BoundStateResult } from './solver/BoundStateResult.js';
 import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
 import Time from './Time.js';
+import { electronMassesUnit } from './units/electronMassesUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
+
+const DEFAULT_ELECTRON_MASSES = 1;
 
 type SelfOptions = {
   potential?: QuantumPotential;
   potentials: QuantumPotential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
+  electronMassesProperty?: NumberProperty;
 };
 
 export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -49,6 +54,8 @@ export default class QBSModel implements TModel {
 
   // The quantum potential that is currently selected.
   public readonly potentialProperty: Property<QuantumPotential>;
+
+  public readonly electronMassesProperty: NumberProperty;
 
   // Result from NumerovSolver for the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
@@ -78,12 +85,18 @@ export default class QBSModel implements TModel {
 
   protected constructor( providedOptions: QBSModelOptions ) {
 
-    const options = optionize<QBSModelOptions, SelfOptions, PhetioObjectOptions>()( {
+    const options = optionize<QBSModelOptions, StrictOmit<SelfOptions, 'electronMassesProperty'>, PhetioObjectOptions>()( {
 
       // SelfOptions
       potential: providedOptions.potentials[ 0 ],
       hasAverageProbabilityDensityOfBandGraph: false
     }, providedOptions );
+
+    // Default to electronMasses that is effectively constant.
+    this.electronMassesProperty = options.electronMassesProperty || new NumberProperty( DEFAULT_ELECTRON_MASSES, {
+      units: electronMassesUnit,
+      range: new Range( DEFAULT_ELECTRON_MASSES, DEFAULT_ELECTRON_MASSES )
+    } );
 
     this.time = new Time( options.tandem.createTandem( 'time' ) );
 
@@ -96,7 +109,7 @@ export default class QBSModel implements TModel {
       phetioFeatured: true
     } );
 
-    this.boundStateResultProperty = new Property( solveBoundStates( options.potential, this.xGrid ) );
+    this.boundStateResultProperty = new Property( solveBoundState( options.potential, this.xGrid, this.electronMassesProperty.value ) );
 
     this.energyDiagram = new EnergyDiagram( this.potentialProperty, this.xGrid, this.boundStateResultProperty,
       options.tandem.createTandem( 'energyDiagram' ) );
@@ -110,7 +123,7 @@ export default class QBSModel implements TModel {
     } );
 
     const potentialChangedListener = () => {
-      this.boundStateResultProperty.value = solveBoundStates( this.potentialProperty.value, this.xGrid );
+      this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, this.electronMassesProperty.value );
     };
     this.potentialProperty.value.propertyChangedEmitter.addListener( potentialChangedListener );
 
@@ -120,7 +133,7 @@ export default class QBSModel implements TModel {
       if ( !isSettingPhetioStateProperty.value ) {
 
         // Recompute the bound state.
-        this.boundStateResultProperty.value = solveBoundStates( potential, this.xGrid );
+        this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, this.electronMassesProperty.value );
 
         // Adjust energy level range and set to the ground state.
         const energyLevelRange = getEnergyLevelRange( potential.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length );
@@ -140,6 +153,10 @@ export default class QBSModel implements TModel {
           this.energyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
         }
       }
+    } );
+
+    this.electronMassesProperty.lazyLink( electronMasses => {
+      this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
     } );
 
     const quantumStateGraphs: QuantumStateGraph[] = [];
@@ -210,12 +227,11 @@ function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalues: num
 }
 
 /**
- * Solve for bound states, dispatching to analytical solutions where necessary.
+ * Solve for bound state, dispatching to analytical solutions where necessary.
  */
-function solveBoundStates( potential: QuantumPotential, xGrid: XGrid ): BoundStateResult {
+function solveBoundState( potential: QuantumPotential, xGrid: XGrid, electronMasses: number ): BoundStateResult {
 
   const potentialFunction = ( x: number ) => potential.getPotentialEnergyAt( x ); // nm => eV
-  const electronMasses = 1; //TODO use electronMassesProperty.value
 
   const minPotentialEnergy = potential.getMinPotentialEnergy();
   const maxPotentialEnergy = potential.getMaxPotentialEnergy();

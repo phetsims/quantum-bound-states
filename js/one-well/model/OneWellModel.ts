@@ -21,9 +21,6 @@ import QBSConstants from '../../common/QBSConstants.js';
 
 export default class OneWellModel extends QBSModel {
 
-  //TODO move electronMassesProperty to QBSModel?
-  public readonly electronMassesProperty: NumberProperty;
-
   public constructor( tandem: Tandem ) {
 
     const electronMassesProperty = new NumberProperty( QBSConstants.ELECTRON_MASSES_RANGE.defaultValue, {
@@ -52,11 +49,10 @@ export default class OneWellModel extends QBSModel {
     ];
 
     super( {
+      electronMassesProperty: electronMassesProperty,
       potentials: potentials,
       tandem: tandem
     } );
-
-    this.electronMassesProperty = electronMassesProperty;
   }
 
   public override reset(): void {
