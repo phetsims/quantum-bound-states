@@ -8,7 +8,7 @@
 
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FunctionDetailsButton from '../../common/view/FunctionDetailsButton.js';
+import FunctionDetailsButton from './FunctionDetailsButton.js';
 import ProbabilityDensityDetailsDialog from '../../common/view/ProbabilityDensityDetailsDialog.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import WaveFunctionDetailsDialog from '../../common/view/WaveFunctionDetailsDialog.js';

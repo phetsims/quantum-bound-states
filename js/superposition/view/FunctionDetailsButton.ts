@@ -12,8 +12,8 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import RectangularPushButton, { RectangularPushButtonOptions } from '../../../../sun/js/buttons/RectangularPushButton.js';
-import QBSColors from '../QBSColors.js';
-import QBSConstants from '../QBSConstants.js';
+import QBSColors from '../../common/QBSColors.js';
+import QBSConstants from '../../common/QBSConstants.js';
 
 type SelfOptions = {
   labelStringProperty: TReadOnlyProperty<string>;
