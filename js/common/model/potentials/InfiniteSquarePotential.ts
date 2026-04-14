@@ -9,6 +9,7 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
+import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -51,7 +52,8 @@ export default class InfiniteSquarePotential extends QuantumPotential {
    * Gets the potential energy (y-value) at a specified x-coordinate.
    */
   public override getPotentialEnergyAt( x: number ): number {
-    //TODO affirm 1 well
+    affirm( this.numberOfWellsProperty.value === 1, 'InfiniteSquarePotential does not support multiple wells.' );
+
     const wellWidth = 2; //this.wellWidthProperty.value;
     const leftX = this.xOffset - wellWidth / 2;
     const rightX = this.xOffset + wellWidth / 2;

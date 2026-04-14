@@ -12,9 +12,8 @@ import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
+import WithOptional from '../../../../../phet-core/js/types/WithOptional.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -23,11 +22,9 @@ import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // esli
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-const DEFAULT_NUMBER_OF_WELLS = 1;
 const DEFAULT_ELECTRIC_FIELD = 0; // V/nm
 
 type SelfOptions = {
-  numberOfWellsProperty?: TReadOnlyProperty<number>;
   wellWidth?: number;
   wellWidthRange?: Range;
   separation?: number;
@@ -36,12 +33,10 @@ type SelfOptions = {
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
-  PickOptional<QuantumPotentialOptions, 'visualNameProperty' | 'tandemPrefix' | 'phetioDocumentation'> &
-  PickRequired<QuantumPotentialOptions, 'tandem'>;
+  WithOptional<QuantumPotentialOptions, 'visualNameProperty' | 'tandemPrefix' | 'phetioDocumentation'>;
 
 export default class FiniteSquarePotential extends QuantumPotential {
 
-  public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
   public readonly separationProperty: NumberProperty; // distance between walls of adjacent wells
@@ -50,7 +45,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
     const options = optionize<FiniteSquarePotentialOptions,
-      StrictOmit<SelfOptions, 'numberOfWellsProperty' | 'separationRange' | 'electricFieldProperty'>,
+      StrictOmit<SelfOptions, 'separationRange' | 'electricFieldProperty'>,
       QuantumPotentialOptions>()( {
 
       // SelfOptions
@@ -68,12 +63,6 @@ export default class FiniteSquarePotential extends QuantumPotential {
     options.separationRange = options.separationRange || new Range( options.separation, options.separation );
 
     super( options );
-
-    // Default is effectively constant and not PhET-iO instrumented.
-    this.numberOfWellsProperty = options.numberOfWellsProperty || new NumberProperty( DEFAULT_NUMBER_OF_WELLS, {
-      numberType: 'Integer',
-      range: new Range( DEFAULT_NUMBER_OF_WELLS, DEFAULT_NUMBER_OF_WELLS )
-    } );
 
     this.wellWidthProperty = new NumberProperty( options.wellWidth, {
       units: nanometersUnit,

@@ -8,6 +8,7 @@
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Shape from '../../../../../kite/js/Shape.js';
+import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -33,14 +34,14 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     } );
 
     this.electronMassesProperty = electronMassesProperty;
-    // Do not trigger notification when electronMassesProperty changes, because it is owned by OneWellsModel.
+    // Do not trigger notification when electronMassesProperty changes, because it is owned by the top-level model.
   }
 
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public override getPotentialEnergyAt( x: number ): number {
-    //TODO affirm 1 well
+    affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
 
     const xOffset = this.xOffset;
     const yOffset = this.yOffset;

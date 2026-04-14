@@ -6,13 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
-import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -20,17 +17,13 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-const DEFAULT_NUMBER_OF_WELLS = 1;
+type SelfOptions = EmptySelfOptions;
 
-type SelfOptions = {
-  numberOfWellsProperty?: TReadOnlyProperty<number>;
-};
-
-export type AnharmonicOscillatorPotentialOptions = SelfOptions & PickRequired<QuantumPotentialOptions, 'tandem'>;
+export type AnharmonicOscillatorPotentialOptions = SelfOptions &
+  PickOptional<QuantumPotentialOptions, 'numberOfWellsProperty'> &
+  PickRequired<QuantumPotentialOptions, 'tandem'>;
 
 export default class AnharmonicOscillatorPotential extends QuantumPotential {
-
-  public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
 
   //TODO Added by MV
   private readonly wellDepth = 10; // Dissociation energy D_e in eV
@@ -38,9 +31,7 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
 
   public constructor( providedOptions: AnharmonicOscillatorPotentialOptions ) {
 
-    const options = optionize<AnharmonicOscillatorPotentialOptions,
-      StrictOmit<SelfOptions, 'numberOfWellsProperty'>,
-      QuantumPotentialOptions>()( {
+    const options = optionize<AnharmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.anharmonicOscillatorStringProperty,
@@ -49,13 +40,13 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
     }, providedOptions );
 
     super( options );
+  }
 
-    // Default is effectively constant and not PhET-iO instrumented.
-    this.numberOfWellsProperty = options.numberOfWellsProperty || new NumberProperty( DEFAULT_NUMBER_OF_WELLS, {
-      numberType: 'Integer',
-      range: new Range( DEFAULT_NUMBER_OF_WELLS, DEFAULT_NUMBER_OF_WELLS )
-    } );
-    // Do not trigger notification when electronMassesProperty changes, because it is owned by ManyWellsModel.
+  /**
+   * Gets the potential energy (eV) at a specified x-coordinate (nm).
+   */
+  public getPotentialEnergyAt( x: number ): number {
+    return 0; //TODO implement getPotentialEnergyAt
   }
 
   /**

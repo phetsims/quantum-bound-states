@@ -7,19 +7,24 @@
  */
 
 import Emitter from '../../../../../axon/js/Emitter.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
 
+const DEFAULT_NUMBER_OF_WELLS = 1;
+
 // Energy axis (y-axis) range for most potential types.
 const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 
 type SelfOptions = {
+  numberOfWellsProperty?: TReadOnlyProperty<number>;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
@@ -35,6 +40,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   protected readonly yOffset = 0; //TODO mutable
 
+  protected readonly numberOfWellsProperty: TReadOnlyProperty<number>;
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
@@ -44,7 +50,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   protected constructor( providedOptions: QuantumPotentialOptions ) {
 
-    const options = optionize<QuantumPotentialOptions, SelfOptions, PhetioObjectOptions>()( {
+    const options = optionize<QuantumPotentialOptions, StrictOmit<SelfOptions, 'numberOfWellsProperty'>, PhetioObjectOptions>()( {
 
       // SelfOptions
       accessibleNameProperty: providedOptions.visualNameProperty,
@@ -55,11 +61,19 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     super( options );
 
+    // Default is effectively constant and not PhET-iO instrumented.
+    this.numberOfWellsProperty = options.numberOfWellsProperty || new NumberProperty( DEFAULT_NUMBER_OF_WELLS, {
+      numberType: 'Integer',
+      range: new Range( DEFAULT_NUMBER_OF_WELLS, DEFAULT_NUMBER_OF_WELLS )
+    } );
+
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
 
     this.propertyChangedEmitter = new Emitter(); //TODO PhET-iO?
+
+    // Do not trigger notification when numberOfWellsProperty changes, because it is owned by the top-level model.
   }
 
   public reset(): void {
@@ -69,9 +83,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
-  public getPotentialEnergyAt( x: number ): number {
-    return 0; //TODO This method should be abstract, as in BSAbstractPotential.java getEnergyAt
-  }
+  public abstract getPotentialEnergyAt( x: number ): number;
 
   /**
    * Gets the index of the ground state, 1 for most potential types.

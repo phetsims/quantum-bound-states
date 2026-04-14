@@ -9,6 +9,7 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Shape from '../../../../../kite/js/Shape.js';
+import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
@@ -60,8 +61,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public override getPotentialEnergyAt( x: number ): number {
-
-    //TODO affirm 1 well
+    affirm( this.numberOfWellsProperty.value === 1, 'AsymmetricTrianglePotential does not support multiple wells.' );
 
     const wellWidth = this.wellWidthProperty.value;
     const wellDepth = this.wellDepthProperty.value;

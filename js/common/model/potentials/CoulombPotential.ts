@@ -8,6 +8,7 @@
 
 import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
+import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -37,6 +38,7 @@ export default class CoulombPotential extends QuantumPotential {
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public override getPotentialEnergyAt( x: number ): number {
+    affirm( this.numberOfWellsProperty.value === 1, 'CoulombPotential does not support multiple wells.' );
 
     // This algorithm handles multiple wells, but we only have 1 well in the current implementation.
     const n = 1; // number of wells
