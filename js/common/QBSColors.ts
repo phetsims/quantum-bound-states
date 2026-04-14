@@ -191,6 +191,10 @@ export default class QBSColors {
     default: 'rgb( 153, 206, 255 )'
   } );
 
+  public static readonly superpositionCustomizationButtonIconColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionCustomizationButtonIconColor', {
+    default: 'black'
+  } );
+
   public static readonly superpositionDetailsButtonBaseColorProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionDetailsButtonBaseColor', {
     default: 'rgb( 153, 206, 255 )'
   } );

@@ -27,7 +27,7 @@ export default class SuperpositionCustomizationButton extends RectangularPushBut
       // RectangularPushButtonOptions
       content: new Path( editRegularShape, {
         scale: 0.03,
-        fill: 'black'
+        fill: QBSColors.superpositionCustomizationButtonIconColorProperty
       } ),
       baseColor: QBSColors.superpositionCustomizationButtonBaseColorProperty,
       touchAreaXDilation: 5,
