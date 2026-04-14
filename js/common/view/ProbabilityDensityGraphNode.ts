@@ -69,10 +69,9 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       const yCoordinates = computeYCoordinates();
       probabilityDensityPlot.setYCoordinates( yCoordinates );
 
-      //TODO Temporarily change y-axis and tick marks to fit the entire curve, until we decide how to handle normalization and y-range.
-      const minY = this.getYRange().min;
+      // Change y-axis range and tick marks to fit the entire curve.
       const maxY = Math.max( ...yCoordinates );
-      this.setYRange( new Range( minY, maxY + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
+      this.setYRange( new Range( 0, maxY + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( maxY );
     };
     model.energyLevelProperty.link( updateProbabilityDensityPlot );
