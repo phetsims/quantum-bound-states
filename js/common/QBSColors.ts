@@ -6,7 +6,7 @@
  * For static colors that are used in more than one place, add them here.
  *
  * For dynamic colors, add instances of ProfileColorProperty here, each of which is required to have a default color.
- * Note that dynamic colors can be edited by running the sim from phetmarks using the "Color Editor" mode.
+ * Note that dynamic colors can be edited by running the sim in PhET's "Color Editor" wrapper.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
