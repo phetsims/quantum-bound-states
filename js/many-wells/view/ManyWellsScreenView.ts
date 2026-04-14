@@ -30,7 +30,7 @@ export default class ManyWellsScreenView extends QBSScreenView {
 
     super( model, listboxParent, energyDiagramControlPanel, {
       screenSummaryContent: new ManyWellsScreenSummaryContent(),
-      createYAxisZoomButtonGroup: tandem => new ManyWellsZoomButtonGroup( model.yAxisZoomLevelProperty, tandem ),
+      createZoomButtonGroup: tandem => new ManyWellsZoomButtonGroup( model.yAxisZoomLevelProperty, tandem ),
       tandem: tandem
     } );
   }
