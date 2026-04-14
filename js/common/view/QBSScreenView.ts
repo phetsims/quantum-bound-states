@@ -11,11 +11,11 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -30,38 +30,33 @@ import TimePanel from '../../common/view/TimePanel.js';
 import ToolsPanel from '../../common/view/ToolsPanel.js';
 import QBSModel from '../model/QBSModel.js';
 import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
-import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
+import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
 
-type SelfOptions = {
-
-  // Creates optional zoom buttons for the y-axis.
-  createYAxisZoomButtonGroup?: ( tandem: Tandem ) => Node;
-};
+type SelfOptions = EmptySelfOptions;
 
 export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
 
 export default class QBSScreenView extends ScreenView {
 
+  // For layout and pdomOrder in subclasses.
+  protected readonly energyDiagramNode: EnergyDiagramNode;
+  protected readonly energyDiagramRectangleBounds: Bounds2;
+  protected readonly screenViewRootNode: Node;
+
   public constructor( model: QBSModel, listboxParent: Node, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {
 
-    const options = optionize<QBSScreenViewOptions, StrictOmit<SelfOptions, 'createYAxisZoomButtonGroup'>, ScreenViewOptions>()(
-      {}, providedOptions );
+    const options = optionize<QBSScreenViewOptions, SelfOptions, ScreenViewOptions>()( {}, providedOptions );
 
     super( options );
 
     const legendPanel = new LegendPanel( options.tandem.createTandem( 'legendPanel' ) );
 
     const energyDiagramNode = new EnergyDiagramNode( model.energyDiagram, options.tandem.createTandem( 'energyDiagramNode' ) );
-
-    // Create yAxisZoomButtonGroup for the Energy Diagram and make it look like a child of the Energy Diagram for PhET-iO.
-    let yAxisZoomButtonGroup: Node | undefined;
-    if ( options.createYAxisZoomButtonGroup ) {
-      yAxisZoomButtonGroup = options.createYAxisZoomButtonGroup( energyDiagramNode.tandem.createTandem( 'yAxisZoomButtonGroup' ) );
-    }
+    this.energyDiagramNode = energyDiagramNode;
 
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
     const quantumStateGraphNodes = createQuantumStateGraphNodes( model, quantumStateGraphNodesTandem );
@@ -91,6 +86,7 @@ export default class QBSScreenView extends ScreenView {
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
     energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + legendPanel.height + 3;
     const energyDiagramRectangleBounds = this.globalToParentBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
+    this.energyDiagramRectangleBounds = energyDiagramRectangleBounds;
 
     // Constrain the Energy Diagram control panel to the height of the Energy diagram.
     energyDiagramControlPanel.maxHeight = energyDiagramRectangleBounds.height;
@@ -115,10 +111,6 @@ export default class QBSScreenView extends ScreenView {
     toolsPanel.bottom = this.layoutBounds.bottom - QBSConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - QBSConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
-    if ( yAxisZoomButtonGroup ) {
-      yAxisZoomButtonGroup.right = energyDiagramRectangleBounds.left - 20;
-      yAxisZoomButtonGroup.bottom = energyDiagramRectangleBounds.bottom;
-    }
 
     // Dynamic Layout
     legendPanel.boundsProperty.link( () => {
@@ -170,17 +162,15 @@ export default class QBSScreenView extends ScreenView {
       resetAllButton,
       listboxParent // on top of everything else
     ];
-    if ( yAxisZoomButtonGroup ) {
-      screenViewChildren.splice( screenViewChildren.indexOf( energyDiagramNode ), 0, yAxisZoomButtonGroup );
-    }
 
     const screenViewRootNode = new Node( {
       children: screenViewChildren
     } );
     this.addChild( screenViewRootNode );
+    this.screenViewRootNode = screenViewRootNode;
 
     // Play Area focus order
-    const playAreaPDOMOrder = [
+    this.pdomPlayAreaNode.pdomOrder = [
       energyDiagramControlPanel,
       energyDiagramNode,
       magnifierNode,
@@ -189,10 +179,6 @@ export default class QBSScreenView extends ScreenView {
       quantumStateGraphControlPanel,
       referenceLineNode
     ];
-    if ( yAxisZoomButtonGroup ) {
-      playAreaPDOMOrder.splice( playAreaPDOMOrder.indexOf( energyDiagramNode ), 0, yAxisZoomButtonGroup );
-    }
-    this.pdomPlayAreaNode.pdomOrder = playAreaPDOMOrder;
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
