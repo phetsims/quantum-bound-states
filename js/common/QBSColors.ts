@@ -5,9 +5,8 @@
  *
  * For static colors that are used in more than one place, add them here.
  *
- * For dynamic colors that can be controlled via colorProfileProperty.js, add instances of ProfileColorProperty here,
- * each of which is required to have a default color. Note that dynamic colors can be edited by running the sim from
- * phetmarks using the "Color Editor" mode.
+ * For dynamic colors, add instances of ProfileColorProperty here, each of which is required to have a default color.
+ * Note that dynamic colors can be edited by running the sim from phetmarks using the "Color Editor" mode.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
