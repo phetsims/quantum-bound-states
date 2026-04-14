@@ -19,7 +19,7 @@ import YLinePlot from './YLinePlot.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type WaveFunctionGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNodeOptions, 'createFunctionDetailsButton' | 'tandem'>;
+type WaveFunctionGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNodeOptions, 'createEquationDetailsButton' | 'tandem'>;
 
 export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 

@@ -7,19 +7,19 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import FunctionDetailsButton from './FunctionDetailsButton.js';
+import EquationDetailsButton from './EquationDetailsButton.js';
+import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
 
-export default class ProbabilityDensityDetailsButton extends FunctionDetailsButton {
+export default class ProbabilityDensityDetailsButton extends EquationDetailsButton {
 
   public constructor( tandem: Tandem ) {
     super( {
       listener: () => new ProbabilityDensityDetailsDialog().show(),
-      labelStringProperty: QuantumBoundStatesFluent.functionDetailsButton.probabilityDensityStringProperty,
-      accessibleName: QuantumBoundStatesFluent.a11y.functionDetailsButton.probabilityDensity.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.functionDetailsButton.probabilityDensity.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.functionDetailsButton.probabilityDensity.accessibleContextResponseStringProperty,
+      labelStringProperty: QuantumBoundStatesFluent.probabilityDensityDetailsButtonStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsButton.accessibleContextResponseStringProperty,
       tandem: tandem
     } );
   }

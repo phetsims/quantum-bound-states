@@ -49,16 +49,11 @@
   "energyDiagram": {
     "value": "Energy Diagram"
   },
-  "functionDetailsButton": {
-    "averageProbabilityDensityOfBand": {
-      "value": "|Ψ(x,t)|<sup>2</sup> = ..."
-    },
-    "probabilityDensity": {
-      "value": "|Ψ(x,t)|<sup>2</sup> = ..."
-    },
-    "waveFunction": {
-      "value": "Ψ(x,t) = ..."
-    }
+  "probabilityDensityDetailsButton": {
+    "value": "|Ψ(x,t)|<sup>2</sup> = ..."
+  },
+  "waveFunctionDetailsButton": {
+    "value": "Ψ(x,t) = ..."
   },
   "values": {
     "value": "Values"
@@ -546,39 +541,26 @@
         "value": "TODO.stepForwardButton.accessibleContextResponse"
       }
     },
-    "functionDetailsButton": {
-      "averageProbabilityDensityOfBand": {
-        "accessibleName": {
-          "value": "Average Probability Density of Band Details"
-        },
-        "accessibleHelpText": {
-          "value": "TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleHelpText"
-        },
-        "accessibleContextResponse": {
-          "value": "TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleContextResponse"
-        }
+    "probabilityDensityDetailsButton": {
+      "accessibleName": {
+        "value": "Probability Density Details"
       },
-      "probabilityDensity": {
-        "accessibleName": {
-          "value": "Probability Density Details"
-        },
-        "accessibleHelpText": {
-          "value": "TODO.functionDetailsButton.probabilityDensity.accessibleHelpText"
-        },
-        "accessibleContextResponse": {
-          "value": "TODO.functionDetailsButton.probabilityDensity.accessibleContextResponse"
-        }
+      "accessibleHelpText": {
+        "value": "TODO.probabilityDensityDetailsButton.accessibleHelpText"
       },
-      "waveFunction": {
-        "accessibleName": {
-          "value": "Wave Function Details"
-        },
-        "accessibleHelpText": {
-          "value": "TODO.functionDetailsButton.waveFunction.accessibleHelpText"
-        },
-        "accessibleContextResponse": {
-          "value": "TODO.functionDetailsButton.waveFunction.accessibleContextResponse"
-        }
+      "accessibleContextResponse": {
+        "value": "TODO.probabilityDensityDetailsButton.accessibleContextResponse"
+      }
+    },
+    "waveFunctionDetailsButton": {
+      "accessibleName": {
+        "value": "Wave Function Details"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.waveFunctionDetailsButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.waveFunctionDetailsButton.accessibleContextResponse"
       }
     },
     "superpositionCustomizeButton": {

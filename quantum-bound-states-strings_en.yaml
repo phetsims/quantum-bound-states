@@ -26,10 +26,8 @@ quantumStateGraph:                          Quantum State Graph
 energyDiagram:                              Energy Diagram
 
 # Buttons
-functionDetailsButton:
-  averageProbabilityDensityOfBand: '|Ψ(x,t)|<sup>2</sup> = ...'
-  probabilityDensity:              '|Ψ(x,t)|<sup>2</sup> = ...'
-  waveFunction:                    'Ψ(x,t) = ...'
+probabilityDensityDetailsButton:            '|Ψ(x,t)|<sup>2</sup> = ...'
+waveFunctionDetailsButton:                  'Ψ(x,t) = ...'
 
 # Checkboxes
 values:                                     Values
@@ -286,19 +284,15 @@ a11y:
     accessibleHelpText:        TODO.stepForwardButton.accessibleHelpText
     accessibleContextResponse: TODO.stepForwardButton.accessibleContextResponse
 
-  functionDetailsButton:
-    averageProbabilityDensityOfBand:
-      accessibleName:            Average Probability Density of Band Details
-      accessibleHelpText:        TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleHelpText
-      accessibleContextResponse: TODO.functionDetailsButton.averageProbabilityDensityOfBand.accessibleContextResponse
-    probabilityDensity:
-      accessibleName:            Probability Density Details
-      accessibleHelpText:        TODO.functionDetailsButton.probabilityDensity.accessibleHelpText
-      accessibleContextResponse: TODO.functionDetailsButton.probabilityDensity.accessibleContextResponse
-    waveFunction:
-      accessibleName:            Wave Function Details
-      accessibleHelpText:        TODO.functionDetailsButton.waveFunction.accessibleHelpText
-      accessibleContextResponse: TODO.functionDetailsButton.waveFunction.accessibleContextResponse
+  probabilityDensityDetailsButton:
+    accessibleName:            Probability Density Details
+    accessibleHelpText:        TODO.probabilityDensityDetailsButton.accessibleHelpText
+    accessibleContextResponse: TODO.probabilityDensityDetailsButton.accessibleContextResponse
+
+  waveFunctionDetailsButton:
+    accessibleName:            Wave Function Details
+    accessibleHelpText:        TODO.waveFunctionDetailsButton.accessibleHelpText
+    accessibleContextResponse: TODO.waveFunctionDetailsButton.accessibleContextResponse
 
   superpositionCustomizeButton:
     accessibleName:            Superposition Customize

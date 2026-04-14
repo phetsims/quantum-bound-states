@@ -41,8 +41,8 @@ type SelfOptions = {
   // Number of decimal places in y-axis tick labels.
   yTickLabelDecimals: number;
 
-  // Creates optional functionDetailsButton
-  createFunctionDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
+  // Creates optional equationDetailsButton
+  createEquationDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
 };
 
 export type QuantumStateGraphNodeOptions = SelfOptions &
@@ -71,7 +71,7 @@ export default class QuantumStateGraphNode extends Node {
 
       // NodeOptions
       isDisposable: false,
-      createFunctionDetailsButton: null
+      createEquationDetailsButton: null
     }, providedOptions );
 
     super( options );
@@ -159,16 +159,16 @@ export default class QuantumStateGraphNode extends Node {
     } );
     this.addChild( pickableFalseNode );
 
-    // Button to open a dialog that shows the expanded function displayed by the graph.
-    if ( options.createFunctionDetailsButton ) {
+    // Button to open a dialog that shows the expanded equation displayed by the graph.
+    if ( options.createEquationDetailsButton ) {
 
-      const functionDetailsButton = options.createFunctionDetailsButton( options.tandem.createTandem( 'functionDetailsButton' ) );
-      this.addChild( functionDetailsButton );
+      const equationDetailsButton = options.createEquationDetailsButton( options.tandem.createTandem( 'equationDetailsButton' ) );
+      this.addChild( equationDetailsButton );
 
       // Dynamically position the button in the top-right corner of the chart rectangle.
-      functionDetailsButton.boundsProperty.link( () => {
-        functionDetailsButton.right = this.chartRectangle.right - 8;
-        functionDetailsButton.top = this.chartRectangle.y + 8;
+      equationDetailsButton.boundsProperty.link( () => {
+        equationDetailsButton.right = this.chartRectangle.right - 8;
+        equationDetailsButton.top = this.chartRectangle.y + 8;
       } );
     }
   }

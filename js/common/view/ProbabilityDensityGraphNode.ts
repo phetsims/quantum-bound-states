@@ -19,7 +19,7 @@ import YLinePlot from './YLinePlot.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ProbabilityDensityGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNodeOptions, 'createFunctionDetailsButton' | 'tandem'>;
+type ProbabilityDensityGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNodeOptions, 'createEquationDetailsButton' | 'tandem'>;
 
 export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 

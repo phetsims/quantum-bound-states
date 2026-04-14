@@ -200,7 +200,7 @@ export default class QBSColors {
     default: 'black'
   } );
 
-  public static readonly functionDetailsButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'functionDetailsButtonColor', {
+  public static readonly equationDetailsButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'equationDetailsButtonColor', {
     default: 'rgb( 153, 206, 255 )'
   } );
 }
