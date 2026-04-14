@@ -42,8 +42,8 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
     super( options );
 
-    this.electronMassesProperty = options.electronMassesProperty;
     // Do not trigger notification when electronMassesProperty changes, because it is owned by the top-level model.
+    this.electronMassesProperty = options.electronMassesProperty;
   }
 
   /**

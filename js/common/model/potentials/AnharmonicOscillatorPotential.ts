@@ -45,8 +45,8 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
 
     super( options );
 
-    this.electricFieldProperty = options.electricFieldProperty;
     // Do not trigger notification when electricFieldProperty changes, because it is owned by the top-level model.
+    this.electricFieldProperty = options.electricFieldProperty;
   }
 
   /**

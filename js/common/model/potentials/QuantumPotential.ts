@@ -38,13 +38,13 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   protected readonly yOffset = 0; //TODO mutable
 
+  // Fires when any Property of the QuantumPotential changes.
+  public readonly propertyChangedEmitter: Emitter;
+
   protected readonly numberOfWellsProperty: ReadOnlyProperty<number>;
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
-
-  // Fires when any Property of the QuantumPotential changes.
-  public readonly propertyChangedEmitter: Emitter;
 
   protected constructor( providedOptions: QuantumPotentialOptions ) {
 
@@ -59,14 +59,14 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     super( options );
 
-    this.numberOfWellsProperty = options.numberOfWellsProperty;
-    this.visualNameProperty = options.visualNameProperty;
-    this.accessibleNameProperty = options.accessibleNameProperty;
-    this.tandemPrefix = options.tandemPrefix;
-
     this.propertyChangedEmitter = new Emitter(); //TODO PhET-iO?
 
     // Do not trigger notification when numberOfWellsProperty changes, because it is owned by the top-level model.
+    this.numberOfWellsProperty = options.numberOfWellsProperty;
+
+    this.visualNameProperty = options.visualNameProperty;
+    this.accessibleNameProperty = options.accessibleNameProperty;
+    this.tandemPrefix = options.tandemPrefix;
   }
 
   public reset(): void {
