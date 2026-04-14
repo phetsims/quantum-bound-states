@@ -7,7 +7,7 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ProbabilityDensityDetailsDialog from '../../common/view/ProbabilityDensityDetailsDialog.js';
+import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import FunctionDetailsButton from './FunctionDetailsButton.js';
 

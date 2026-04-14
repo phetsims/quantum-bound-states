@@ -11,7 +11,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import QBSConstants from '../QBSConstants.js';
+import QBSConstants from '../../common/QBSConstants.js';
 
 export default class WaveFunctionDetailsDialog extends Dialog {
 

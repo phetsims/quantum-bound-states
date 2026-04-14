@@ -7,7 +7,7 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import WaveFunctionDetailsDialog from '../../common/view/WaveFunctionDetailsDialog.js';
+import WaveFunctionDetailsDialog from './WaveFunctionDetailsDialog.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import FunctionDetailsButton from './FunctionDetailsButton.js';
 
