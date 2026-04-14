@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -23,15 +23,14 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 const DEFAULT_NUMBER_OF_WELLS = 1;
 
 type SelfOptions = {
-  numberOfWells?: number;
-  numberOfWellsRange?: Range;
+  numberOfWellsProperty?: TReadOnlyProperty<number>;
 };
 
 export type AnharmonicOscillatorPotentialOptions = SelfOptions & PickRequired<QuantumPotentialOptions, 'tandem'>;
 
 export default class AnharmonicOscillatorPotential extends QuantumPotential {
 
-  public readonly numberOfWellsProperty: NumberProperty;
+  public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
 
   //TODO Added by MV
   private readonly wellDepth = 10; // Dissociation energy D_e in eV
@@ -39,11 +38,9 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
 
   public constructor( providedOptions: AnharmonicOscillatorPotentialOptions ) {
 
-    const options = optionize<AnharmonicOscillatorPotentialOptions, StrictOmit<SelfOptions, 'numberOfWellsRange'>,
+    const options = optionize<AnharmonicOscillatorPotentialOptions,
+      StrictOmit<SelfOptions, 'numberOfWellsProperty'>,
       QuantumPotentialOptions>()( {
-
-      // SelfOptions
-      numberOfWells: DEFAULT_NUMBER_OF_WELLS,
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.anharmonicOscillatorStringProperty,
@@ -51,21 +48,14 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
       phetioDocumentation: 'A quantum potential with one anharmonic oscillator.'
     }, providedOptions );
 
-    // If ranges are not specified, set the range length to zero so that the Properties are effectively constants.
-    options.numberOfWellsRange = options.numberOfWellsRange || new Range( options.numberOfWells, options.numberOfWells );
-
     super( options );
 
-    this.numberOfWellsProperty = new NumberProperty( options.numberOfWells, {
+    // Default is effectively constant and not PhET-iO instrumented.
+    this.numberOfWellsProperty = options.numberOfWellsProperty || new NumberProperty( DEFAULT_NUMBER_OF_WELLS, {
       numberType: 'Integer',
-      range: options.numberOfWellsRange,
-      tandem: options.tandem.createTandem( 'numberOfWellsProperty' ),
-      phetioFeatured: true,
-      phetioReadOnly: true
+      range: new Range( DEFAULT_NUMBER_OF_WELLS, DEFAULT_NUMBER_OF_WELLS )
     } );
-
-    //TODO Other Properties?
-    Multilink.multilink( [ this.numberOfWellsProperty ], () => this.propertyChangedEmitter.emit() );
+    // Do not trigger notification when electronMassesProperty changes, because it is owned by ManyWellsModel.
   }
 
   /**

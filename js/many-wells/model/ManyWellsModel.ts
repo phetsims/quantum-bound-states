@@ -22,8 +22,6 @@ const SEPARATION_RANGE = new RangeWithValue( 0.05, 0.2, 0.1 );
 
 export default class ManyWellsModel extends QBSModel {
 
-  public readonly numberOfWellsProperty: NumberProperty;
-
   public readonly yAxisZoomLevelProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
@@ -45,8 +43,7 @@ export default class ManyWellsModel extends QBSModel {
 
     const potentials = [
       new FiniteSquarePotential( {
-        numberOfWells: numberOfWellsProperty.value,
-        numberOfWellsRange: numberOfWellsProperty.range,
+        numberOfWellsProperty: numberOfWellsProperty,
         wellWidth: WELL_WIDTH_RANGE.defaultValue,
         wellWidthRange: WELL_WIDTH_RANGE,
         separation: SEPARATION_RANGE.defaultValue,
@@ -55,26 +52,18 @@ export default class ManyWellsModel extends QBSModel {
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new AnharmonicOscillatorPotential( {
-        numberOfWells: numberOfWellsProperty.value,
-        numberOfWellsRange: numberOfWellsProperty.range,
+        numberOfWellsProperty: numberOfWellsProperty,
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } )
     ];
 
     super( {
+      numberOfWellsProperty: numberOfWellsProperty,
       electricFieldProperty: electricFieldProperty,
       potentials: potentials,
       hasAverageProbabilityDensityOfBandGraph: true,
       tandem: tandem
-    } );
-
-    this.numberOfWellsProperty = numberOfWellsProperty;
-
-    this.numberOfWellsProperty.link( numberOfWells => {
-      potentials.forEach( potential => {
-        potential.numberOfWellsProperty.value = numberOfWells;
-      } );
     } );
 
     this.yAxisZoomLevelProperty = new NumberProperty( 0, {
@@ -86,8 +75,6 @@ export default class ManyWellsModel extends QBSModel {
 
   public override reset(): void {
     super.reset();
-    this.numberOfWellsProperty.reset();
-    this.electricFieldProperty.reset();
     this.yAxisZoomLevelProperty.reset();
   }
 }

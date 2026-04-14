@@ -39,6 +39,7 @@ import { electronMassesUnit } from './units/electronMassesUnit.js';
 import { voltsPerNanometerUnit } from './units/voltsPerNanometerUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
+const DEFAULT_NUMBER_OF_WELLS = 1;
 const DEFAULT_ELECTRON_MASSES = 1; // me
 const DEFAULT_ELECTRIC_FIELD = 0; // V/nm
 
@@ -46,6 +47,7 @@ type SelfOptions = {
   potential?: QuantumPotential;
   potentials: QuantumPotential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
+  numberOfWellsProperty?: NumberProperty;
   electronMassesProperty?: NumberProperty;
   electricFieldProperty?: NumberProperty;
 };
@@ -59,6 +61,8 @@ export default class QBSModel implements TModel {
   // The quantum potential that is currently selected.
   public readonly potentialProperty: Property<QuantumPotential>;
 
+  // Properties that are shared by all potentials.
+  public readonly numberOfWellsProperty: NumberProperty;
   public readonly electronMassesProperty: NumberProperty;
   public readonly electricFieldProperty: NumberProperty;
 
@@ -90,13 +94,19 @@ export default class QBSModel implements TModel {
 
   protected constructor( providedOptions: QBSModelOptions ) {
 
-    const options = optionize<QBSModelOptions, StrictOmit<SelfOptions, 'electronMassesProperty' | 'electricFieldProperty'>,
+    const options = optionize<QBSModelOptions,
+      StrictOmit<SelfOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty'>,
       PhetioObjectOptions>()( {
 
       // SelfOptions
       potential: providedOptions.potentials[ 0 ],
       hasAverageProbabilityDensityOfBandGraph: false
     }, providedOptions );
+
+    // Default to numberOfWells that is effectively constant and not PhET-iO instrumented.
+    this.numberOfWellsProperty = options.numberOfWellsProperty || new NumberProperty( DEFAULT_NUMBER_OF_WELLS, {
+      range: new Range( DEFAULT_NUMBER_OF_WELLS, DEFAULT_NUMBER_OF_WELLS )
+    } );
 
     // Default to electronMasses that is effectively constant and not PhET-iO instrumented.
     this.electronMassesProperty = options.electronMassesProperty || new NumberProperty( DEFAULT_ELECTRON_MASSES, {
@@ -170,8 +180,8 @@ export default class QBSModel implements TModel {
     // These Properties are owned by the top-level model - QBSModel and its subclasses. They are shared by all potentials,
     // so we do not get notification from the potentials when they change. Instead, we must listen for changes and
     // recompute the bound state.
-    Multilink.multilink( [ this.electronMassesProperty, this.electricFieldProperty ],
-      ( electronMasses, electricField ) => {
+    Multilink.multilink( [ this.numberOfWellsProperty, this.electronMassesProperty, this.electricFieldProperty ],
+      ( numberOfWells, electronMasses, electricField ) => {
         this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
       } );
 
@@ -212,6 +222,9 @@ export default class QBSModel implements TModel {
    */
   public reset(): void {
     this.time.reset();
+    this.numberOfWellsProperty.reset();
+    this.electronMassesProperty.reset();
+    this.electricFieldProperty.reset();
     this.potentialProperty.reset();
     this.energyLevelProperty.reset();
     this.energyDiagram.reset();

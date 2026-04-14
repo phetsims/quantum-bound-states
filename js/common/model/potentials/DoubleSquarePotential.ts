@@ -6,6 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -17,8 +19,17 @@ export default class DoubleSquarePotential extends FiniteSquarePotential {
 
   public constructor( tandem: Tandem ) {
 
+    // Effectively constant
+    const numberOfWellsProperty = new NumberProperty( 2, {
+      numberType: 'Integer',
+      range: new Range( 2, 2 ),
+      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+
     super( {
-      numberOfWells: 2,
+      numberOfWellsProperty: numberOfWellsProperty,
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.doubleSquareStringProperty,
       tandemPrefix: 'doubleSquarePotential',
       tandem: tandem,

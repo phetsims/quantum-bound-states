@@ -6,6 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
@@ -20,11 +22,17 @@ export default class TwoWellsModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
+    // Effectively constant and not PhET-iO instrumented.
+    const numberOfWellsProperty = new NumberProperty( NUMBER_OF_WELLS, {
+      numberType: 'Integer',
+      range: new Range( NUMBER_OF_WELLS, NUMBER_OF_WELLS )
+    } );
+
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
       new FiniteSquarePotential( {
-        numberOfWells: NUMBER_OF_WELLS,
+        numberOfWellsProperty: numberOfWellsProperty,
         wellWidth: WELL_WIDTH_RANGE.defaultValue,
         wellWidthRange: WELL_WIDTH_RANGE,
         separation: SEPARATION_RANGE.defaultValue,
@@ -32,13 +40,14 @@ export default class TwoWellsModel extends QBSModel {
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new AnharmonicOscillatorPotential( {
-        numberOfWells: NUMBER_OF_WELLS,
+        numberOfWellsProperty: numberOfWellsProperty,
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } )
     ];
 
     super( {
+      numberOfWellsProperty: numberOfWellsProperty,
       potentials: potentials,
       tandem: tandem
     } );

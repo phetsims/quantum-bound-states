@@ -23,11 +23,11 @@ import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // esli
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
+const DEFAULT_NUMBER_OF_WELLS = 1;
 const DEFAULT_ELECTRIC_FIELD = 0; // V/nm
 
 type SelfOptions = {
-  numberOfWells?: number;
-  numberOfWellsRange?: Range;
+  numberOfWellsProperty?: TReadOnlyProperty<number>;
   wellWidth?: number;
   wellWidthRange?: Range;
   separation?: number;
@@ -41,7 +41,7 @@ export type FiniteSquarePotentialOptions = SelfOptions &
 
 export default class FiniteSquarePotential extends QuantumPotential {
 
-  public readonly numberOfWellsProperty: NumberProperty;
+  public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
   public readonly separationProperty: NumberProperty; // distance between walls of adjacent wells
@@ -50,11 +50,10 @@ export default class FiniteSquarePotential extends QuantumPotential {
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
     const options = optionize<FiniteSquarePotentialOptions,
-      StrictOmit<SelfOptions, 'numberOfWellsRange' | 'separationRange' | 'electricFieldProperty'>,
+      StrictOmit<SelfOptions, 'numberOfWellsProperty' | 'separationRange' | 'electricFieldProperty'>,
       QuantumPotentialOptions>()( {
 
       // SelfOptions
-      numberOfWells: 1,
       wellWidth: QBSConstants.WELL_WIDTH_RANGE.defaultValue,
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
       separation: 0.1,
@@ -65,18 +64,15 @@ export default class FiniteSquarePotential extends QuantumPotential {
       phetioDocumentation: 'A quantum potential composed of one or more finite square wells.'
     }, providedOptions );
 
-    // If ranges are not specified, set the range length to zero so that the Properties are effectively constants.
-    options.numberOfWellsRange = options.numberOfWellsRange || new Range( options.numberOfWells, options.numberOfWells );
+    // If range is not specified, set the range length to zero so that the Property is effectively constant.
     options.separationRange = options.separationRange || new Range( options.separation, options.separation );
 
     super( options );
 
-    this.numberOfWellsProperty = new NumberProperty( options.numberOfWells, {
+    // Default is effectively constant and not PhET-iO instrumented.
+    this.numberOfWellsProperty = options.numberOfWellsProperty || new NumberProperty( DEFAULT_NUMBER_OF_WELLS, {
       numberType: 'Integer',
-      range: options.numberOfWellsRange,
-      tandem: options.tandem.createTandem( 'numberOfWellsProperty' ),
-      phetioFeatured: true,
-      phetioReadOnly: true
+      range: new Range( DEFAULT_NUMBER_OF_WELLS, DEFAULT_NUMBER_OF_WELLS )
     } );
 
     this.wellWidthProperty = new NumberProperty( options.wellWidth, {
@@ -107,15 +103,14 @@ export default class FiniteSquarePotential extends QuantumPotential {
     } );
 
     // Changes to Properties owned by FiniteSquarePotential trigger notification.
-    // This does not include electricFieldProperty because that is owned by ManyWellsModel.
+    // This does not include numberOfWellsProperty and electricFieldProperty because they are owned by top-level model.
     Multilink.multilink(
-      [ this.numberOfWellsProperty, this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
+      [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
       () => this.propertyChangedEmitter.emit() );
   }
 
   public override reset(): void {
     super.reset();
-    this.numberOfWellsProperty.reset();
     this.wellWidthProperty.reset();
     this.wellDepthProperty.reset();
     this.separationProperty.reset();
