@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * FunctionDetailsButton is the button used to open a dialog that shows the expanded function.
+ * FunctionDetailsButton is the base class for buttons used to open a dialog that shows the expanded function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -27,7 +27,7 @@ export default class FunctionDetailsButton extends RectangularPushButton {
   // For making all instances of this type of button have the same size.
   private static readonly alignGroup = new AlignGroup();
 
-  public constructor( providedOptions: FunctionDetailsButtonOptions ) {
+  protected constructor( providedOptions: FunctionDetailsButtonOptions ) {
 
     const labelNode = FunctionDetailsButton.alignGroup.createBox( new RichText( providedOptions.labelStringProperty, {
       font: QBSConstants.CONTROL_FONT
