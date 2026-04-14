@@ -106,8 +106,10 @@ export default class FiniteSquarePotential extends QuantumPotential {
       range: new Range( DEFAULT_ELECTRIC_FIELD, DEFAULT_ELECTRIC_FIELD )
     } );
 
+    // Changes to Properties owned by FiniteSquarePotential trigger notification.
+    // This does not include electricFieldProperty because that is owned by ManyWellsModel.
     Multilink.multilink(
-      [ this.numberOfWellsProperty, this.wellWidthProperty, this.wellDepthProperty, this.separationProperty, this.electricFieldProperty ],
+      [ this.numberOfWellsProperty, this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
       () => this.propertyChangedEmitter.emit() );
   }
 

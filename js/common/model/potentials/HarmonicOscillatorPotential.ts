@@ -33,8 +33,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     } );
 
     this.electronMassesProperty = electronMassesProperty;
-
-    this.electronMassesProperty.lazyLink( () => this.propertyChangedEmitter.emit() );
+    // Do not trigger notification when electronMassesProperty changes, because it is owned by OneWellsModel.
   }
 
   /**

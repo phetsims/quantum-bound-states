@@ -167,7 +167,9 @@ export default class QBSModel implements TModel {
       }
     } );
 
-    //TODO previousPotential.propertyChangedEmitter already fires for these Properties. Are we doing duplicate work?
+    // These Properties are owned by the top-level model - QBSModel and its subclasses. They are shared by all potentials,
+    // so we do not get notification from the potentials when they change. Instead, we must listen for changes and
+    // recompute the bound state.
     Multilink.multilink( [ this.electronMassesProperty, this.electricFieldProperty ],
       ( electronMasses, electricField ) => {
         this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
