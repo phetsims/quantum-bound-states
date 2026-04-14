@@ -18,13 +18,13 @@ import QuantumPotential from './QuantumPotential.js';
 
 const ENERGY_AXIS_RANGE = new Range( -15.5, 5.5 );
 
+// getPotentialEnergyAt handles an electric field, but it is not currently used in the sim.
+const ELECTRIC_FIELD = 0; // V/nm
+
 export default class CoulombPotential extends QuantumPotential {
 
-  //TODO Temporary constants, same as initial state of Java version.
-  private readonly numberOfWells = 1;
-  private readonly electricField = 0; //TODO Java [-1,1] V/nm
-
   public constructor( tandem: Tandem ) {
+
     super( {
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
       tandemPrefix: 'coulombPotential',
@@ -38,8 +38,10 @@ export default class CoulombPotential extends QuantumPotential {
    */
   public override getPotentialEnergyAt( x: number ): number {
 
-    const n = this.numberOfWells; //TODO not needed? Appears only in One Well screen.
-    const spacing = 0; //TODO
+    // This algorithm handles multiple wells, but we only have 1 well in the current implementation.
+    const n = 1; // number of wells
+    const spacing = 0; // because n = 1
+
     const xOffset = this.xOffset;
     const yOffset = this.yOffset;
 
@@ -56,7 +58,7 @@ export default class CoulombPotential extends QuantumPotential {
     }
 
     // Apply electric field.
-    energy += ( this.electricField * x );
+    energy += ( ELECTRIC_FIELD * x );
 
     return yOffset + energy;
   }

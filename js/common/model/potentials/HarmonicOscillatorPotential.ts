@@ -33,6 +33,8 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     } );
 
     this.electronMassesProperty = electronMassesProperty;
+
+    this.electronMassesProperty.lazyLink( () => this.propertyChangedEmitter.emit() );
   }
 
   /**

@@ -7,6 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
@@ -35,15 +36,18 @@ import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
 import Time from './Time.js';
 import { electronMassesUnit } from './units/electronMassesUnit.js';
+import { voltsPerNanometerUnit } from './units/voltsPerNanometerUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
-const DEFAULT_ELECTRON_MASSES = 1;
+const DEFAULT_ELECTRON_MASSES = 1; // me
+const DEFAULT_ELECTRIC_FIELD = 0; // V/nm
 
 type SelfOptions = {
   potential?: QuantumPotential;
   potentials: QuantumPotential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
   electronMassesProperty?: NumberProperty;
+  electricFieldProperty?: NumberProperty;
 };
 
 export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -56,6 +60,7 @@ export default class QBSModel implements TModel {
   public readonly potentialProperty: Property<QuantumPotential>;
 
   public readonly electronMassesProperty: NumberProperty;
+  public readonly electricFieldProperty: NumberProperty;
 
   // Result from NumerovSolver for the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
@@ -85,17 +90,24 @@ export default class QBSModel implements TModel {
 
   protected constructor( providedOptions: QBSModelOptions ) {
 
-    const options = optionize<QBSModelOptions, StrictOmit<SelfOptions, 'electronMassesProperty'>, PhetioObjectOptions>()( {
+    const options = optionize<QBSModelOptions, StrictOmit<SelfOptions, 'electronMassesProperty' | 'electricFieldProperty'>,
+      PhetioObjectOptions>()( {
 
       // SelfOptions
       potential: providedOptions.potentials[ 0 ],
       hasAverageProbabilityDensityOfBandGraph: false
     }, providedOptions );
 
-    // Default to electronMasses that is effectively constant.
+    // Default to electronMasses that is effectively constant and not PhET-iO instrumented.
     this.electronMassesProperty = options.electronMassesProperty || new NumberProperty( DEFAULT_ELECTRON_MASSES, {
       units: electronMassesUnit,
       range: new Range( DEFAULT_ELECTRON_MASSES, DEFAULT_ELECTRON_MASSES )
+    } );
+
+    // Default to electricField that is effectively constant and not PhET-iO instrumented.
+    this.electricFieldProperty = options.electricFieldProperty || new NumberProperty( DEFAULT_ELECTRIC_FIELD, {
+      units: voltsPerNanometerUnit,
+      range: new Range( DEFAULT_ELECTRIC_FIELD, DEFAULT_ELECTRIC_FIELD )
     } );
 
     this.time = new Time( options.tandem.createTandem( 'time' ) );
@@ -155,9 +167,11 @@ export default class QBSModel implements TModel {
       }
     } );
 
-    this.electronMassesProperty.lazyLink( electronMasses => {
-      this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
-    } );
+    //TODO previousPotential.propertyChangedEmitter already fires for these Properties. Are we doing duplicate work?
+    Multilink.multilink( [ this.electronMassesProperty, this.electricFieldProperty ],
+      ( electronMasses, electricField ) => {
+        this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
+      } );
 
     const quantumStateGraphs: QuantumStateGraph[] = [];
     const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphsTandem' );

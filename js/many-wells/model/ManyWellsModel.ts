@@ -24,8 +24,6 @@ export default class ManyWellsModel extends QBSModel {
 
   public readonly numberOfWellsProperty: NumberProperty;
 
-  public readonly electricFieldProperty: NumberProperty;
-
   public readonly yAxisZoomLevelProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
@@ -34,6 +32,13 @@ export default class ManyWellsModel extends QBSModel {
       numberType: 'Integer',
       range: NUMBER_OF_WELLS_RANGE,
       tandem: tandem.createTandem( 'numberOfWellsProperty' )
+    } );
+
+    const electricFieldProperty = new NumberProperty( QBSConstants.ELECTRIC_FIELD_RANGE.defaultValue, {
+      numberType: 'FloatingPoint',
+      range: QBSConstants.ELECTRIC_FIELD_RANGE,
+      units: voltsPerNanometerUnit,
+      tandem: tandem.createTandem( 'electricFieldProperty' )
     } );
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
@@ -46,6 +51,7 @@ export default class ManyWellsModel extends QBSModel {
         wellWidthRange: WELL_WIDTH_RANGE,
         separation: SEPARATION_RANGE.defaultValue,
         separationRange: SEPARATION_RANGE,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new AnharmonicOscillatorPotential( {
@@ -57,6 +63,7 @@ export default class ManyWellsModel extends QBSModel {
     ];
 
     super( {
+      electricFieldProperty: electricFieldProperty,
       potentials: potentials,
       hasAverageProbabilityDensityOfBandGraph: true,
       tandem: tandem
@@ -68,17 +75,6 @@ export default class ManyWellsModel extends QBSModel {
       potentials.forEach( potential => {
         potential.numberOfWellsProperty.value = numberOfWells;
       } );
-    } );
-
-    this.electricFieldProperty = new NumberProperty( QBSConstants.ELECTRIC_FIELD_RANGE.defaultValue, {
-      numberType: 'FloatingPoint',
-      range: QBSConstants.ELECTRIC_FIELD_RANGE,
-      units: voltsPerNanometerUnit,
-      tandem: tandem.createTandem( 'electricFieldProperty' )
-    } );
-
-    this.electricFieldProperty.link( electricField => {
-      //TODO update potentials
     } );
 
     this.yAxisZoomLevelProperty = new NumberProperty( 0, {
