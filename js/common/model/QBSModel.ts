@@ -210,7 +210,7 @@ function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalues: num
 }
 
 /**
- * Solve for bound states, dispatching to analytical solutions where available.
+ * Solve for bound states, dispatching to analytical solutions where necessary.
  */
 function solveBoundStates( potential: QuantumPotential, xGrid: XGrid ): BoundStateResult {
 
