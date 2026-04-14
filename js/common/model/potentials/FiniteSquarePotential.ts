@@ -13,17 +13,22 @@ import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
-import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
+const DEFAULT_NUMBER_OF_WELLS = 1;
+const DEFAULT_SEPARATION = 0.1;
+
 type SelfOptions = {
   numberOfWells?: number;
+  numberOfWellsRange?: Range;
   separation?: number;
+  separationRange?: Range;
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
@@ -42,11 +47,12 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
-    const options = optionize<FiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+    const options = optionize<FiniteSquarePotentialOptions, StrictOmit<SelfOptions, 'numberOfWellsRange' | 'separationRange'>,
+      QuantumPotentialOptions>()( {
 
       // SelfOptions
-      numberOfWells: 1,
-      separation: 0.1,
+      numberOfWells: DEFAULT_NUMBER_OF_WELLS,
+      separation: DEFAULT_SEPARATION,
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
@@ -54,11 +60,15 @@ export default class FiniteSquarePotential extends QuantumPotential {
       phetioDocumentation: 'A quantum potential composed of one or more finite square wells.'
     }, providedOptions );
 
+    // If ranges are not specified, set the range length to zero so that the Properties are effectively constants.
+    options.numberOfWellsRange = options.numberOfWellsRange || new Range( options.numberOfWells, options.numberOfWells );
+    options.separationRange = options.separationRange || new Range( options.separation, options.separation );
+
     super( options );
 
     this.numberOfWellsProperty = new NumberProperty( options.numberOfWells, {
       numberType: 'Integer',
-      range: QBSConstants.NUMBER_OF_WELLS_RANGE,
+      range: options.numberOfWellsRange,
       tandem: options.tandem.createTandem( 'numberOfWellsProperty' ),
       phetioFeatured: true,
       phetioReadOnly: true
@@ -80,7 +90,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     this.separationProperty = new NumberProperty( options.separation, {
       units: nanometersUnit,
-      range: new Range( 0.05, 0.7 ),
+      range: options.separationRange,
       tandem: options.tandem.createTandem( 'separationProperty' ),
       phetioFeatured: true
     } );

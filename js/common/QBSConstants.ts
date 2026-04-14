@@ -89,7 +89,6 @@ export default class QBSConstants {
   public static readonly EFFECTIVELY_INFINITE_ENERGY = 1E20; // eV
 
   // Value ranges
-  public static readonly NUMBER_OF_WELLS_RANGE = new RangeWithValue( 1, 10, 5 );
   public static readonly ELECTRIC_FIELD_RANGE = new RangeWithValue( -1, 1, 0 );
 
   //TODO from BSConstants.java, are these compatible with values and units in new code?

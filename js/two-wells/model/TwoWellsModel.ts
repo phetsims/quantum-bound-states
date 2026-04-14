@@ -6,10 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
+
+const NUMBER_OF_WELLS = 2;
+const SEPARATION_RANGE = new RangeWithValue( 0.05, 0.7, 0.1 );
 
 export default class TwoWellsModel extends QBSModel {
 
@@ -19,11 +23,13 @@ export default class TwoWellsModel extends QBSModel {
 
     const potentials = [
       new FiniteSquarePotential( {
-        numberOfWells: 2,
+        numberOfWells: NUMBER_OF_WELLS,
+        separation: SEPARATION_RANGE.defaultValue,
+        separationRange: SEPARATION_RANGE,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new AnharmonicOscillatorPotential( {
-        numberOfWells: 2,
+        numberOfWells: NUMBER_OF_WELLS,
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } )
     ];

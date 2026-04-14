@@ -8,12 +8,16 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
 import QBSConstants from '../../common/QBSConstants.js';
+
+const NUMBER_OF_WELLS_RANGE = new RangeWithValue( 1, 10, 5 );
+const SEPARATION_RANGE = new RangeWithValue( 0.05, 0.2, 0.1 );
 
 export default class ManyWellsModel extends QBSModel {
 
@@ -25,9 +29,9 @@ export default class ManyWellsModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
-    const numberOfWellsProperty = new NumberProperty( QBSConstants.NUMBER_OF_WELLS_RANGE.defaultValue, {
+    const numberOfWellsProperty = new NumberProperty( NUMBER_OF_WELLS_RANGE.defaultValue, {
       numberType: 'Integer',
-      range: QBSConstants.NUMBER_OF_WELLS_RANGE,
+      range: NUMBER_OF_WELLS_RANGE,
       tandem: tandem.createTandem( 'numberOfWellsProperty' )
     } );
 
@@ -36,11 +40,14 @@ export default class ManyWellsModel extends QBSModel {
     const potentials = [
       new FiniteSquarePotential( {
         numberOfWells: numberOfWellsProperty.value,
-        separation: 0.1,
+        numberOfWellsRange: numberOfWellsProperty.range,
+        separation: SEPARATION_RANGE.defaultValue,
+        separationRange: SEPARATION_RANGE,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new AnharmonicOscillatorPotential( {
         numberOfWells: numberOfWellsProperty.value,
+        numberOfWellsRange: numberOfWellsProperty.range,
         //TODO spacing?
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } )

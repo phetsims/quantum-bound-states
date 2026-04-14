@@ -8,9 +8,11 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -18,9 +20,11 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
+const DEFAULT_NUMBER_OF_WELLS = 1;
+
 type SelfOptions = {
   numberOfWells?: number;
-  spacing?: number; //TODO How to use this?
+  numberOfWellsRange?: Range;
 };
 
 export type AnharmonicOscillatorPotentialOptions = SelfOptions & PickRequired<QuantumPotentialOptions, 'tandem'>;
@@ -35,11 +39,11 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
 
   public constructor( providedOptions: AnharmonicOscillatorPotentialOptions ) {
 
-    const options = optionize<AnharmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+    const options = optionize<AnharmonicOscillatorPotentialOptions, StrictOmit<SelfOptions, 'numberOfWellsRange'>,
+      QuantumPotentialOptions>()( {
 
       // SelfOptions
-      numberOfWells: 1,
-      spacing: 0,
+      numberOfWells: DEFAULT_NUMBER_OF_WELLS,
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.anharmonicOscillatorStringProperty,
@@ -47,11 +51,14 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
       phetioDocumentation: 'A quantum potential with one anharmonic oscillator.'
     }, providedOptions );
 
+    // If ranges are not specified, set the range length to zero so that the Properties are effectively constants.
+    options.numberOfWellsRange = options.numberOfWellsRange || new Range( options.numberOfWells, options.numberOfWells );
+
     super( options );
 
     this.numberOfWellsProperty = new NumberProperty( options.numberOfWells, {
       numberType: 'Integer',
-      range: QBSConstants.NUMBER_OF_WELLS_RANGE,
+      range: options.numberOfWellsRange,
       tandem: options.tandem.createTandem( 'numberOfWellsProperty' ),
       phetioFeatured: true,
       phetioReadOnly: true
