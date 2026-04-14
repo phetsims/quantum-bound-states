@@ -9,29 +9,36 @@
 import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
-import QuantumPotential from './QuantumPotential.js';
+import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 const ENERGY_AXIS_RANGE = new Range( -15.5, 5.5 );
 
 // getPotentialEnergyAt handles an electric field, but it is not currently used in the sim.
 const ELECTRIC_FIELD = 0; // V/nm
 
+type SelfOptions = EmptySelfOptions;
+
+type CoulombPotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
+
 export default class CoulombPotential extends QuantumPotential {
 
-  public constructor( tandem: Tandem ) {
+  public constructor( providedOptions: CoulombPotentialOptions ) {
 
-    super( {
+    const options = optionize<CoulombPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+
+      // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
       tandemPrefix: 'coulombPotential',
-      tandem: tandem,
       phetioDocumentation: 'A quantum potential with one Coulomb well.'
-    } );
+    }, providedOptions );
+
+    super( options );
   }
 
   /**

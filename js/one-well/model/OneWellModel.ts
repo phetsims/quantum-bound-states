@@ -7,6 +7,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import AsymmetricTrianglePotential from '../../common/model/potentials/AsymmetricTrianglePotential.js';
@@ -23,6 +24,13 @@ export default class OneWellModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
+    const numberOfWellsProperty = new NumberProperty( 1, {
+      range: new Range( 1, 1 ),
+      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+
     const electronMassesProperty = new NumberProperty( QBSConstants.ELECTRON_MASSES_RANGE.defaultValue, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
@@ -36,16 +44,33 @@ export default class OneWellModel extends QBSModel {
 
     const potentials = [
       new FiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
-      new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),
-      new InfiniteStepPotential( potentialsTandem.createTandem( 'infiniteStepPotential' ) ),
-      new AsymmetricTrianglePotential( potentialsTandem.createTandem( 'asymmetricTrianglePotential' ) ),
-      new HarmonicOscillatorPotential( electronMassesProperty, potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
+      new InfiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
+      } ),
+      new InfiniteStepPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        tandem: potentialsTandem.createTandem( 'infiniteStepPotential' )
+      } ),
+      new AsymmetricTrianglePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        tandem: potentialsTandem.createTandem( 'asymmetricTrianglePotential' )
+      } ),
+      new HarmonicOscillatorPotential( electronMassesProperty, {
+        numberOfWellsProperty: numberOfWellsProperty,
+        tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
+      } ),
       new AnharmonicOscillatorPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } ),
-      new CoulombPotential( potentialsTandem.createTandem( 'coulombPotential' ) )
+      new CoulombPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        tandem: potentialsTandem.createTandem( 'coulombPotential' )
+      } )
     ];
 
     super( {

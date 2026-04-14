@@ -8,8 +8,6 @@
 
 import Shape from '../../../../../kite/js/Shape.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -20,8 +18,7 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 type SelfOptions = EmptySelfOptions;
 
 export type AnharmonicOscillatorPotentialOptions = SelfOptions &
-  PickOptional<QuantumPotentialOptions, 'numberOfWellsProperty'> &
-  PickRequired<QuantumPotentialOptions, 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class AnharmonicOscillatorPotential extends QuantumPotential {
 

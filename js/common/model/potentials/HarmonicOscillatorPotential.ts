@@ -9,13 +9,17 @@
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
-import QuantumPotential from './QuantumPotential.js';
+import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type HarmonicOscillatorPotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class HarmonicOscillatorPotential extends QuantumPotential {
 
@@ -24,14 +28,17 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
   private readonly electronMassesProperty: TReadOnlyProperty<number>;
 
-  public constructor( electronMassesProperty: TReadOnlyProperty<number>, tandem: Tandem ) {
+  public constructor( electronMassesProperty: TReadOnlyProperty<number>, providedOptions: HarmonicOscillatorPotentialOptions ) {
 
-    super( {
+    const options = optionize<HarmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+
+      // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.harmonicOscillatorStringProperty,
       tandemPrefix: 'harmonicOscillatorPotential',
-      tandem: tandem,
       phetioDocumentation: 'A quantum potential with one harmonic oscillator.'
-    } );
+    }, providedOptions );
+
+    super( options );
 
     this.electronMassesProperty = electronMassesProperty;
     // Do not trigger notification when electronMassesProperty changes, because it is owned by the top-level model.

@@ -28,7 +28,13 @@ export default class SuperpositionModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
-    //TODO move electronMassesProperty to QBSModel?
+    const numberOfWellsProperty = new NumberProperty( 1, {
+      range: new Range( 1, 1 ),
+      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+
     const electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
@@ -42,11 +48,19 @@ export default class SuperpositionModel extends QBSModel {
 
     const potentials = [
       new FiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
-      new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),
-      new HarmonicOscillatorPotential( electronMassesProperty, potentialsTandem.createTandem( 'harmonicOscillatorPotential' ) ),
+      new InfiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
+      } ),
+      new HarmonicOscillatorPotential( electronMassesProperty, {
+        numberOfWellsProperty: numberOfWellsProperty,
+        tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
+      } ),
       new AnharmonicOscillatorPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } ),
       new DoubleSquarePotential( potentialsTandem.createTandem( 'doubleSquarePotential' ) )

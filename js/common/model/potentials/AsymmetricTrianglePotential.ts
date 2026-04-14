@@ -10,41 +10,49 @@ import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
-import QuantumPotential from './QuantumPotential.js';
+import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type AsymmetricTrianglePotentialOptions = SelfOptions &
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class AsymmetricTrianglePotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
 
-  public constructor( tandem: Tandem ) {
+  public constructor( providedOptions: AsymmetricTrianglePotentialOptions ) {
 
-    super( {
+    const options = optionize<AsymmetricTrianglePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+
+      // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.asymmetricTriangleStringProperty,
       tandemPrefix: 'asymmetricTrianglePotential',
-      tandem: tandem,
       phetioDocumentation: 'A quantum potential with one asymmetric triangle well.'
-    } );
+    }, providedOptions );
+
+    super( options );
 
     this.wellWidthProperty = new NumberProperty( QBSConstants.WELL_WIDTH_RANGE.defaultValue, {
       units: nanometersUnit,
       range: QBSConstants.WELL_WIDTH_RANGE,
-      tandem: tandem.createTandem( 'wellWidthProperty' ),
+      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
 
     this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
       units: electronVoltsUnit,
       range: QBSConstants.WELL_DEPTH_RANGE,
-      tandem: tandem.createTandem( 'wellDepthProperty' ),
+      tandem: options.tandem.createTandem( 'wellDepthProperty' ),
       phetioFeatured: true
     } );
 

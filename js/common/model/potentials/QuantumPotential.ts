@@ -7,7 +7,6 @@
  */
 
 import Emitter from '../../../../../axon/js/Emitter.js';
-import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -18,13 +17,11 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/Phet
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
 
-const DEFAULT_NUMBER_OF_WELLS = 1;
-
 // Energy axis (y-axis) range for most potential types.
 const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 
 type SelfOptions = {
-  numberOfWellsProperty?: TReadOnlyProperty<number>;
+  numberOfWellsProperty: TReadOnlyProperty<number>;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
@@ -61,12 +58,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     super( options );
 
-    // Default is effectively constant and not PhET-iO instrumented.
-    this.numberOfWellsProperty = options.numberOfWellsProperty || new NumberProperty( DEFAULT_NUMBER_OF_WELLS, {
-      numberType: 'Integer',
-      range: new Range( DEFAULT_NUMBER_OF_WELLS, DEFAULT_NUMBER_OF_WELLS )
-    } );
-
+    this.numberOfWellsProperty = options.numberOfWellsProperty;
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
