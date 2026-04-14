@@ -6,33 +6,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import FiniteSquarePotential, { FiniteSquarePotentialOptions } from './FiniteSquarePotential.js';
-
-type SelfOptions = EmptySelfOptions;
-
-type DoubleSquarePotentialOptions = SelfOptions &
-  PickRequired<FiniteSquarePotentialOptions, 'tandem'>;
+import FiniteSquarePotential from './FiniteSquarePotential.js';
 
 export default class DoubleSquarePotential extends FiniteSquarePotential {
 
-  public constructor( providedOptions: DoubleSquarePotentialOptions ) {
+  public constructor( tandem: Tandem ) {
 
-    const options = optionize<DoubleSquarePotentialOptions, SelfOptions, FiniteSquarePotentialOptions>()( {
-
-      // FiniteSquarePotentialOptions
+    super( {
       numberOfWells: 2,
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.doubleSquareStringProperty,
       tandemPrefix: 'doubleSquarePotential',
+      tandem: tandem,
       phetioDocumentation: 'A quantum potential with two finite square wells.'
-    }, providedOptions );
-
-    super( options );
+    } );
   }
 
   /**

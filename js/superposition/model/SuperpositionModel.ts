@@ -49,9 +49,7 @@ export default class SuperpositionModel extends QBSModel {
       new AnharmonicOscillatorPotential( {
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } ),
-      new DoubleSquarePotential( {
-        tandem: potentialsTandem.createTandem( 'doubleSquarePotential' )
-      } )
+      new DoubleSquarePotential( potentialsTandem.createTandem( 'doubleSquarePotential' ) )
     ];
 
     super( {

@@ -7,8 +7,6 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Range from '../../../../dot/js/Range.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import AsymmetricTrianglePotential from '../../common/model/potentials/AsymmetricTrianglePotential.js';
@@ -19,8 +17,7 @@ import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquar
 import InfiniteStepPotential from '../../common/model/potentials/InfiniteStepPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
-
-const WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 6, 1 );
+import QBSConstants from '../../common/QBSConstants.js';
 
 export default class OneWellModel extends QBSModel {
 
@@ -29,10 +26,10 @@ export default class OneWellModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
-    const electronMassesProperty = new NumberProperty( 1, {
+    const electronMassesProperty = new NumberProperty( QBSConstants.ELECTRON_MASSES_RANGE.defaultValue, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
-      range: new Range( 0.5, 1.1 ),
+      range: QBSConstants.ELECTRON_MASSES_RANGE,
       tandem: tandem.createTandem( 'electronMassesProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'The number of electron masses.'
@@ -42,8 +39,6 @@ export default class OneWellModel extends QBSModel {
 
     const potentials = [
       new FiniteSquarePotential( {
-        wellWidth: WELL_WIDTH_RANGE.defaultValue,
-        wellWidthRange: WELL_WIDTH_RANGE,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new InfiniteSquarePotential( potentialsTandem.createTandem( 'infiniteSquarePotential' ) ),

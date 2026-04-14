@@ -22,10 +22,6 @@ import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // esli
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-const DEFAULT_NUMBER_OF_WELLS = 1;
-const DEFAULT_WELL_WIDTH = 1;
-const DEFAULT_SEPARATION = 0.1;
-
 type SelfOptions = {
   numberOfWells?: number;
   numberOfWellsRange?: Range;
@@ -52,13 +48,14 @@ export default class FiniteSquarePotential extends QuantumPotential {
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
     const options = optionize<FiniteSquarePotentialOptions,
-      StrictOmit<SelfOptions, 'numberOfWellsRange' | 'wellWidthRange' | 'separationRange'>,
+      StrictOmit<SelfOptions, 'numberOfWellsRange' | 'separationRange'>,
       QuantumPotentialOptions>()( {
 
       // SelfOptions
-      numberOfWells: DEFAULT_NUMBER_OF_WELLS,
-      wellWidth: DEFAULT_WELL_WIDTH,
-      separation: DEFAULT_SEPARATION,
+      numberOfWells: 1,
+      wellWidth: QBSConstants.WELL_WIDTH_RANGE.defaultValue,
+      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
+      separation: 0.1,
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
@@ -68,7 +65,6 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     // If ranges are not specified, set the range length to zero so that the Properties are effectively constants.
     options.numberOfWellsRange = options.numberOfWellsRange || new Range( options.numberOfWells, options.numberOfWells );
-    options.wellWidthRange = options.wellWidthRange || new Range( options.wellWidth, options.wellWidth );
     options.separationRange = options.separationRange || new Range( options.separation, options.separation );
 
     super( options );

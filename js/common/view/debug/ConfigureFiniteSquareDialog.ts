@@ -24,8 +24,8 @@ export default class ConfigureFiniteSquareDialog extends ConfigureQuantumPotenti
       new WellDepthControl( potential.wellDepthProperty )
     ];
 
-    // If there is more than one well, add a control for the separation between the walls of adjacent wells.
-    if ( potential.numberOfWellsProperty.value > 1 ) {
+    // If separation is not constant, add a control for it.
+    if ( potential.separationProperty.range.getLength() > 0 ) {
       children.push( new SeparationControl( potential.separationProperty ) );
     }
 

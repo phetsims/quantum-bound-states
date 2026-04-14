@@ -88,8 +88,11 @@ export default class QBSConstants {
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_ENERGY = 1E20; // eV
 
-  // Value ranges
+  // Default value ranges. Some of these are overridden by specific screens.
+  public static readonly WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 6, 1 );
   public static readonly WELL_DEPTH_RANGE = new RangeWithValue( 0.1, 20, 10 );
+  public static readonly STEP_HEIGHT_RANGE = new RangeWithValue( 0.1, 20, 3 );
+  public static readonly ELECTRON_MASSES_RANGE = new RangeWithValue( 0.5, 1.1, 1 );
   public static readonly ELECTRIC_FIELD_RANGE = new RangeWithValue( -1, 1, 0 );
 
   //TODO from BSConstants.java, are these compatible with values and units in new code?

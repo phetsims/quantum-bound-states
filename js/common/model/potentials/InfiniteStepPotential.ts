@@ -34,16 +34,18 @@ export default class InfiniteStepPotential extends QuantumPotential {
       phetioDocumentation: 'A quantum potential with one infinite step well.'
     } );
 
-    this.wellWidthProperty = new NumberProperty( 1, {
+    this.wellWidthProperty = new NumberProperty( QBSConstants.WELL_WIDTH_RANGE.defaultValue, {
       units: nanometersUnit,
-      range: new Range( 0.2, 6 ), //TODO Min should be 0.1, but wellWidth < 0.2 causes assertion failure, no eigenvalues
+      //TODO range.min should be 0.1, but wellWidth < 0.2 causes assertion failure, no eigenvalues
+      // range: QBSConstants.WELL_WIDTH_RANGE,
+      range: new Range( 0.2, 6 ),
       tandem: tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
 
-    this.stepHeightProperty = new NumberProperty( 3, {
+    this.stepHeightProperty = new NumberProperty( QBSConstants.STEP_HEIGHT_RANGE.defaultValue, {
       units: electronVoltsUnit,
-      range: new Range( 0.1, 20 ),
+      range: QBSConstants.STEP_HEIGHT_RANGE,
       tandem: tandem.createTandem( 'stepHeightProperty' ),
       phetioFeatured: true
     } );

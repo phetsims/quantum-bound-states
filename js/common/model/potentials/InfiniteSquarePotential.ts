@@ -30,9 +30,11 @@ export default class InfiniteSquarePotential extends QuantumPotential {
       phetioDocumentation: 'A quantum potential with one infinite square well.'
     } );
 
-    this.wellWidthProperty = new NumberProperty( 1, {
+    this.wellWidthProperty = new NumberProperty( QBSConstants.WELL_WIDTH_RANGE.defaultValue, {
       units: nanometersUnit,
-      range: new Range( 0.2, 6 ), //TODO Min should be 0.1, but wellWidth < 0.2 causes assertion failure, no eigenvalues
+      //TODO range.min should be 0.1, but wellWidth < 0.2 causes assertion failure, no eigenvalues
+      // range: QBSConstants.WELL_WIDTH_RANGE,
+      range: new Range( 0.2, 6 ),
       tandem: tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );

@@ -8,7 +8,6 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -34,9 +33,9 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
       phetioDocumentation: 'A quantum potential with one asymmetric triangle well.'
     } );
 
-    this.wellWidthProperty = new NumberProperty( 1, {
+    this.wellWidthProperty = new NumberProperty( QBSConstants.WELL_WIDTH_RANGE.defaultValue, {
       units: nanometersUnit,
-      range: new Range( 0.1, 6 ),
+      range: QBSConstants.WELL_WIDTH_RANGE,
       tandem: tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
