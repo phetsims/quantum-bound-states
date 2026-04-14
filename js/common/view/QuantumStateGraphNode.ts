@@ -194,7 +194,9 @@ export default class QuantumStateGraphNode extends Node {
     this.chartTransform.setModelYRange( yRange );
   }
 
-  //TODO Delete if this method is not used.
+  /**
+   * Sets the tick spacing for the y-axis.
+   */
   public setYTickSpacing( spacing: number ): void {
     this.yTickMarkSet.setSpacing( spacing );
     this.yTickLabelSet.setSpacing( spacing );
