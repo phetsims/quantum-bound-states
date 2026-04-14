@@ -176,6 +176,9 @@
     "harmonicOscillator": {
       "value": "Harmonic Oscillator"
     },
+    "anharmonicOscillator": {
+      "value": "Anharmonic Oscillator"
+    },
     "morse": {
       "value": "Morse"
     },

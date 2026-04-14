@@ -9,13 +9,13 @@
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import AnharmonicOscillatorPotential from '../../model/potentials/AnharmonicOscillatorPotential.js';
+import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 
-export default class ConfigureAnharmonicOscillatorDialog extends ConfigureQuantumPotentialDialog {
+export default class ConfigureMorseDialog extends ConfigureQuantumPotentialDialog {
 
-  public constructor( potential: AnharmonicOscillatorPotential ) {
+  public constructor( potential: MorsePotential ) {
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: [
@@ -25,6 +25,6 @@ export default class ConfigureAnharmonicOscillatorDialog extends ConfigureQuantu
       ]
     } ) );
 
-    super( 'Anharmonic Oscillator', content );
+    super( 'Morse', content );
   }
 }

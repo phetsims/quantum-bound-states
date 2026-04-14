@@ -10,6 +10,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import MorsePotential from '../../common/model/potentials/MorsePotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
@@ -54,11 +55,16 @@ export default class TwoWellsModel extends QBSModel {
         separationRange: SEPARATION_RANGE,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
-      new MorsePotential( {
+      new AnharmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
         electricFieldProperty: electricFieldProperty,
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
+      } ),
+      new MorsePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        //TODO Other Properties?
+        tandem: potentialsTandem.createTandem( 'morsePotential' )
       } )
     ];
 

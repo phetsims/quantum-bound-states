@@ -1,15 +1,13 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MorsePotential is a quantum potential composed of 1 anharmonic oscillator well.
+ * MorsePotential is a quantum potential based on the Morse potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -17,25 +15,15 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = {
-  electricFieldProperty: ReadOnlyProperty<number>;
-};
+type SelfOptions = EmptySelfOptions;
 
-export type AnharmonicOscillatorPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
+type MorsePotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class MorsePotential extends QuantumPotential {
 
-  //TODO Added by MV
-  private readonly wellDepth = 10; // Dissociation energy D_e in eV
-  private readonly wellWidth = 0.5; // w = 1/a in nm
+  public constructor( providedOptions: MorsePotentialOptions ) {
 
-  private readonly electricFieldProperty: ReadOnlyProperty<number>;
-
-  public constructor( providedOptions: AnharmonicOscillatorPotentialOptions ) {
-
-    const options = optionize<AnharmonicOscillatorPotentialOptions,
-      StrictOmit<SelfOptions, 'electricFieldProperty'>, QuantumPotentialOptions>()( {
+    const options = optionize<MorsePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
@@ -43,9 +31,6 @@ export default class MorsePotential extends QuantumPotential {
     }, providedOptions );
 
     super( options );
-
-    // Do not trigger notification when electricFieldProperty changes, because it is owned by the top-level model.
-    this.electricFieldProperty = options.electricFieldProperty;
   }
 
   /**

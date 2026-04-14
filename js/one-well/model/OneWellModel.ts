@@ -9,6 +9,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
 import MorsePotential from '../../common/model/potentials/MorsePotential.js';
 import AsymmetricTrianglePotential from '../../common/model/potentials/AsymmetricTrianglePotential.js';
 import CoulombPotential from '../../common/model/potentials/CoulombPotential.js';
@@ -71,10 +72,16 @@ export default class OneWellModel extends QBSModel {
         electronMassesProperty: electronMassesProperty,
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ),
-      new MorsePotential( {
+      new AnharmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
         electricFieldProperty: electricFieldProperty,
+        //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
+      } ),
+      new MorsePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        //TODO Other Properties?
+        tandem: potentialsTandem.createTandem( 'morsePotential' )
       } ),
       new CoulombPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
