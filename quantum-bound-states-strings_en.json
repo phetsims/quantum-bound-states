@@ -563,15 +563,15 @@
         "value": "TODO.waveFunctionDetailsButton.accessibleContextResponse"
       }
     },
-    "superpositionCustomizeButton": {
+    "superpositionCustomizationButton": {
       "accessibleName": {
-        "value": "Superposition Customize"
+        "value": "Superposition Customization"
       },
       "accessibleHelpText": {
-        "value": "TODO.superpositionCustomizeButton.accessibleHelpText"
+        "value": "TODO.superpositionCustomizationButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "TODO.superpositionCustomizeButton.accessibleContextResponse"
+        "value": "TODO.superpositionCustomizationButton.accessibleContextResponse"
       }
     },
     "superpositionDetailsButton": {

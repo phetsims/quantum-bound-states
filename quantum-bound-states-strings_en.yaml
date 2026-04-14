@@ -294,10 +294,10 @@ a11y:
     accessibleHelpText:        TODO.waveFunctionDetailsButton.accessibleHelpText
     accessibleContextResponse: TODO.waveFunctionDetailsButton.accessibleContextResponse
 
-  superpositionCustomizeButton:
-    accessibleName:            Superposition Customize
-    accessibleHelpText:        TODO.superpositionCustomizeButton.accessibleHelpText
-    accessibleContextResponse: TODO.superpositionCustomizeButton.accessibleContextResponse
+  superpositionCustomizationButton:
+    accessibleName:            Superposition Customization
+    accessibleHelpText:        TODO.superpositionCustomizationButton.accessibleHelpText
+    accessibleContextResponse: TODO.superpositionCustomizationButton.accessibleContextResponse
 
   superpositionDetailsButton:
     accessibleName:            Superposition Details
