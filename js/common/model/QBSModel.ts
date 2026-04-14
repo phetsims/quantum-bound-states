@@ -215,7 +215,7 @@ function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalues: num
 function solveBoundStates( potential: QuantumPotential, xGrid: XGrid ): BoundStateResult {
 
   const potentialFunction = ( x: number ) => potential.getPotentialEnergyAt( x ); // nm => eV
-  const electronMasses = 1; //TODO number of electron masses
+  const electronMasses = 1; //TODO use electronMassesProperty.value
 
   const minPotentialEnergy = potential.getMinPotentialEnergy();
   const maxPotentialEnergy = potential.getMaxPotentialEnergy();
