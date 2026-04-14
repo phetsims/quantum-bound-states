@@ -15,18 +15,17 @@ import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import FunctionDetailsButton, { DetailsButtonOptions } from './FunctionDetailsButton.js';
 
 type SelfOptions = {
 
@@ -42,8 +41,8 @@ type SelfOptions = {
   // Number of decimal places in y-axis tick labels.
   yTickLabelDecimals: number;
 
-  // Propagated to functionDetailsButton
-  functionDetailsButtonOptions: StrictOmit<DetailsButtonOptions, 'tandem'>;
+  // Creates optional functionDetailsButton
+  createFunctionDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
 };
 
 export type QuantumStateGraphNodeOptions = SelfOptions &
@@ -71,7 +70,8 @@ export default class QuantumStateGraphNode extends Node {
     const options = optionize<QuantumStateGraphNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
-      isDisposable: false
+      isDisposable: false,
+      createFunctionDetailsButton: null
     }, providedOptions );
 
     super( options );
@@ -157,20 +157,20 @@ export default class QuantumStateGraphNode extends Node {
         this.curveLayer
       ]
     } );
+    this.addChild( pickableFalseNode );
 
-    // Button to open a dialog that shows the expanded equation for the function displayed by the graph.
-    const functionDetailsButton = new FunctionDetailsButton( combineOptions<DetailsButtonOptions>( {
-      tandem: options.tandem.createTandem( 'functionDetailsButton' )
-    }, options.functionDetailsButtonOptions ) );
-    this.addChild( functionDetailsButton );
+    // Button to open a dialog that shows the expanded function displayed by the graph.
+    if ( options.createFunctionDetailsButton ) {
 
-    // Dynamically position the button in the top-right corner of the chart rectangle.
-    functionDetailsButton.boundsProperty.link( () => {
-      functionDetailsButton.right = this.chartRectangle.right - 8;
-      functionDetailsButton.top = this.chartRectangle.y + 8;
-    } );
+      const functionDetailsButton = options.createFunctionDetailsButton( options.tandem.createTandem( 'functionDetailsButton' ) );
+      this.addChild( functionDetailsButton );
 
-    this.children = [ pickableFalseNode, functionDetailsButton ];
+      // Dynamically position the button in the top-right corner of the chart rectangle.
+      functionDetailsButton.boundsProperty.link( () => {
+        functionDetailsButton.right = this.chartRectangle.right - 8;
+        functionDetailsButton.top = this.chartRectangle.y + 8;
+      } );
+    }
   }
 
   /**

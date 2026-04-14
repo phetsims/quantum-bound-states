@@ -9,20 +9,23 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import ProbabilityDensityDetailsDialog from './ProbabilityDensityDetailsDialog.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 import YLinePlot from './YLinePlot.js';
 
+type SelfOptions = EmptySelfOptions;
+
+type ProbabilityDensityGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNodeOptions, 'createFunctionDetailsButton' | 'tandem'>;
+
 export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
-  public constructor( model: QBSModel, tandem: Tandem ) {
+  public constructor( model: QBSModel, providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
-    const options: QuantumStateGraphNodeOptions = {
+    const options = optionize<ProbabilityDensityGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {
 
       // Options related to the y-axis.
       yAxisLabelStringProperty: QuantumBoundStatesFluent.probabilityDensityStringProperty,
@@ -35,18 +38,8 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty,
-
-      // Options for the button that opens a dialog that shows the expanded equation.
-      functionDetailsButtonOptions: {
-        listener: () => new ProbabilityDensityDetailsDialog().show(),
-        labelStringProperty: QuantumBoundStatesFluent.functionDetailsButton.probabilityDensityStringProperty,
-        accessibleName: QuantumBoundStatesFluent.a11y.functionDetailsButton.probabilityDensity.accessibleNameStringProperty,
-        accessibleHelpText: QuantumBoundStatesFluent.a11y.functionDetailsButton.probabilityDensity.accessibleHelpTextStringProperty,
-        accessibleContextResponse: QuantumBoundStatesFluent.a11y.functionDetailsButton.probabilityDensity.accessibleContextResponseStringProperty
-      },
-      tandem: tandem
-    };
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty
+    }, providedOptions );
 
     super( model.curvesVisibleProperty, options );
 

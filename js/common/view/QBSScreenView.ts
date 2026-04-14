@@ -15,7 +15,6 @@ import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.j
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -39,7 +38,13 @@ import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
 type SelfOptions = {
 
   // Creates optional zoom buttons for the Energy Diagram's y-axis.
-  createZoomButtonGroup?: ( tandem: Tandem ) => Node;
+  createZoomButtonGroup?: ( ( tandem: Tandem ) => Node ) | null;
+
+  // Creates optional button for showing the complete Probability Density equation.
+  createProbabilityDensityDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
+
+  // Creates optional button for showing the complete Wave Function equation.
+  createWaveFunctionDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
 };
 
 export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
@@ -48,8 +53,13 @@ export default class QBSScreenView extends ScreenView {
 
   public constructor( model: QBSModel, listboxParent: Node, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {
 
-    const options = optionize<QBSScreenViewOptions, StrictOmit<SelfOptions, 'createZoomButtonGroup'>, ScreenViewOptions>()(
-      {}, providedOptions );
+    const options = optionize<QBSScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
+
+      // SelfOptions
+      createZoomButtonGroup: null,
+      createProbabilityDensityDetailsButton: null,
+      createWaveFunctionDetailsButton: null
+    }, providedOptions );
 
     super( options );
 
@@ -64,7 +74,29 @@ export default class QBSScreenView extends ScreenView {
     }
 
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
-    const quantumStateGraphNodes = createQuantumStateGraphNodes( model, quantumStateGraphNodesTandem );
+    const quantumStateGraphNodes: QuantumStateGraphNode[] = [];
+
+    if ( model.averageProbabilityDensityOfBandGraph ) {
+      const averageProbabilityDensityOfBandGraphNode = new AverageProbabilityDensityOfBandGraphNode( model,
+        quantumStateGraphNodesTandem.createTandem( 'averageProbabilityDensityOfBandGraphNode' ) );
+      quantumStateGraphNodes.push( averageProbabilityDensityOfBandGraphNode );
+    }
+
+    if ( model.probabilityDensityGraph ) {
+      const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model, {
+        createFunctionDetailsButton: options.createProbabilityDensityDetailsButton,
+        tandem: quantumStateGraphNodesTandem.createTandem( 'probabilityDensityGraphNode' )
+      } );
+      quantumStateGraphNodes.push( probabilityDensityGraphNode );
+    }
+
+    if ( model.waveFunctionGraph ) {
+      const waveFunctionGraphNode = new WaveFunctionGraphNode( model, {
+        createFunctionDetailsButton: options.createWaveFunctionDetailsButton,
+        tandem: quantumStateGraphNodesTandem.createTandem( 'waveFunctionGraphNode' )
+      } );
+      quantumStateGraphNodes.push( waveFunctionGraphNode );
+    }
 
     // Toggle button for showing/hiding the curves displayed by the visible Quantum State Graph.
     const curvesVisibleToggleButton = new CurvesVisibleToggleButton( model.curvesVisibleProperty,
@@ -223,31 +255,4 @@ export default class QBSScreenView extends ScreenView {
     super.step( dt );
     //TODO Implement step
   }
-}
-
-/**
- * Creates a set of QuantumStateGraphNodes for the specified model.
- * Order is not important because only one graph Node is visible at a time.
- */
-function createQuantumStateGraphNodes( model: QBSModel, parentTandem: Tandem ): QuantumStateGraphNode[] {
-
-  const graphNodes: QuantumStateGraphNode[] = [];
-
-  if ( model.averageProbabilityDensityOfBandGraph ) {
-    const averageProbabilityDensityOfBandGraphNode = new AverageProbabilityDensityOfBandGraphNode( model,
-      parentTandem.createTandem( 'averageProbabilityDensityOfBandGraphNode' ) );
-    graphNodes.push( averageProbabilityDensityOfBandGraphNode );
-  }
-
-  if ( model.probabilityDensityGraph ) {
-    const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model, parentTandem.createTandem( 'probabilityDensityGraphNode' ) );
-    graphNodes.push( probabilityDensityGraphNode );
-  }
-
-  if ( model.waveFunctionGraph ) {
-    const waveFunctionGraphNode = new WaveFunctionGraphNode( model, parentTandem.createTandem( 'waveFunctionGraphNode' ) );
-    graphNodes.push( waveFunctionGraphNode );
-  }
-
-  return graphNodes;
 }

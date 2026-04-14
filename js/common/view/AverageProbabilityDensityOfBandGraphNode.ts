@@ -12,7 +12,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
-import AverageProbabilityDensityOfBandDetailsDialog from './AverageProbabilityDensityOfBandDetailsDialog.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 
 export default class AverageProbabilityDensityOfBandGraphNode extends QuantumStateGraphNode {
@@ -36,14 +35,6 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.averageProbabilityDensityOfBandGraph.accessibleParagraphStringProperty,
 
-      // Options for the button that opens a dialog that shows the expanded equation.
-      functionDetailsButtonOptions: {
-        listener: () => new AverageProbabilityDensityOfBandDetailsDialog().show(),
-        labelStringProperty: QuantumBoundStatesFluent.functionDetailsButton.averageProbabilityDensityOfBandStringProperty,
-        accessibleName: QuantumBoundStatesFluent.a11y.functionDetailsButton.averageProbabilityDensityOfBand.accessibleNameStringProperty,
-        accessibleHelpText: QuantumBoundStatesFluent.a11y.functionDetailsButton.averageProbabilityDensityOfBand.accessibleHelpTextStringProperty,
-        accessibleContextResponse: QuantumBoundStatesFluent.a11y.functionDetailsButton.averageProbabilityDensityOfBand.accessibleContextResponseStringProperty
-      },
       tandem: tandem
     };
 

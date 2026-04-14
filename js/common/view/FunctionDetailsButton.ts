@@ -19,7 +19,7 @@ type SelfOptions = {
   labelStringProperty: TReadOnlyProperty<string>;
 };
 
-export type DetailsButtonOptions = SelfOptions &
+export type FunctionDetailsButtonOptions = SelfOptions &
   PickRequired<RectangularPushButtonOptions, 'listener' | 'tandem' | 'accessibleName' | 'accessibleHelpText' | 'accessibleContextResponse'>;
 
 export default class FunctionDetailsButton extends RectangularPushButton {
@@ -27,13 +27,13 @@ export default class FunctionDetailsButton extends RectangularPushButton {
   // For making all instances of this type of button have the same size.
   private static readonly alignGroup = new AlignGroup();
 
-  public constructor( providedOptions: DetailsButtonOptions ) {
+  public constructor( providedOptions: FunctionDetailsButtonOptions ) {
 
     const labelNode = FunctionDetailsButton.alignGroup.createBox( new RichText( providedOptions.labelStringProperty, {
       font: QBSConstants.CONTROL_FONT
     } ) );
 
-    const options = optionize<DetailsButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
+    const options = optionize<FunctionDetailsButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
 
       // RectangularPushButtonOptions
       isDisposable: false,
