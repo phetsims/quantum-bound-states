@@ -47,6 +47,7 @@ export default class InfiniteSquarePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
+    // Changes to Properties instantiated by this class trigger notification.
     Multilink.multilink( [ this.wellWidthProperty ], () => this.propertyChangedEmitter.emit() );
   }
 

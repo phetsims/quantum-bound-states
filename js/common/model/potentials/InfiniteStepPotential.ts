@@ -58,6 +58,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
+    // Changes to Properties instantiated by this class trigger notification.
     Multilink.multilink( [ this.wellWidthProperty, this.stepHeightProperty ], () => this.propertyChangedEmitter.emit() );
   }
 

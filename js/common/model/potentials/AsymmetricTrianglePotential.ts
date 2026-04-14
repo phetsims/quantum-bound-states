@@ -56,6 +56,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
+    // Changes to Properties instantiated by this class trigger notification.
     Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty ], () => this.propertyChangedEmitter.emit() );
   }
 

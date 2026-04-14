@@ -83,7 +83,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    // Changes to Properties owned by FiniteSquarePotential trigger notification.
+    // Changes to Properties instantiated by this class trigger notification.
     // Do not trigger notification when electricFieldProperty changes, because it is owned by the top-level model.
     Multilink.multilink(
       [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
