@@ -70,8 +70,8 @@ export default class QBSConstants {
 
   // Quantum State Graphs
   public static readonly QUANTUM_STATE_GRAPHS_VIEW_HEIGHT = 175;
-  public static readonly QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION = 0.1;
-  public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1 ).dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
+  public static readonly QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION = 0.1; // in model coordinates
+  public static readonly AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE = new Range( 0, 1 + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
   public static readonly PROBABILITY_DENSITY_GRAPH_Y_RANGE = QBSConstants.AVERAGE_PROBABILITY_DENSITY_GRAPH_Y_RANGE;
   public static readonly WAVEFUNCTION_GRAPH_Y_RANGE = new Range( -1, 1 ).dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
 
