@@ -38,7 +38,7 @@ type ReferenceLineNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'
 
 export default class ReferenceLineNode extends Node {
 
-  public static readonly HANDLE_DIAMETER = 10;
+  public static readonly HANDLE_DIAMETER = 18;
 
   public constructor( referenceLine: ReferenceLine,
                       chartTransform: ChartTransform,
