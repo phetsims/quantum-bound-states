@@ -30,6 +30,8 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
   private readonly wellDepth = 10; // Dissociation energy D_e in eV
   private readonly wellWidth = 0.5; // w = 1/a in nm
 
+  private readonly electricFieldProperty: ReadOnlyProperty<number>;
+
   public constructor( providedOptions: AnharmonicOscillatorPotentialOptions ) {
 
     const options = optionize<AnharmonicOscillatorPotentialOptions,
@@ -42,6 +44,9 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
     }, providedOptions );
 
     super( options );
+
+    this.electricFieldProperty = options.electricFieldProperty;
+    // Do not trigger notification when electricFieldProperty changes, because it is owned by the top-level model.
   }
 
   /**

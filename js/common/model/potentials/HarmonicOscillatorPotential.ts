@@ -25,10 +25,10 @@ type HarmonicOscillatorPotentialOptions = SelfOptions & Pick<QuantumPotentialOpt
 
 export default class HarmonicOscillatorPotential extends QuantumPotential {
 
+  private readonly electronMassesProperty: ReadOnlyProperty<number>;
+
   //TODO Temporary constants, same as initial state of Java version.
   private readonly angularFrequency = 1; //TODO Java: [-5,15] fs^-1
-
-  private readonly electronMassesProperty: ReadOnlyProperty<number>;
 
   public constructor( providedOptions: HarmonicOscillatorPotentialOptions ) {
 
@@ -43,11 +43,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     super( options );
 
     this.electronMassesProperty = options.electronMassesProperty;
-    this.addLinkedElement( this.electronMassesProperty );
-
     // Do not trigger notification when electronMassesProperty changes, because it is owned by the top-level model.
-
-    this.addLinkedElement( this.electronMassesProperty );
   }
 
   /**

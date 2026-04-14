@@ -43,10 +43,7 @@ export default class OneWellModel extends QBSModel {
     // Effectively constant
     const electricFieldProperty = new NumberProperty( 0, {
       units: voltsPerNanometerUnit,
-      range: new Range( 0, 0 ),
-      tandem: tandem.createTandem( 'electricFieldProperty' ),
-      phetioFeatured: true,
-      phetioReadOnly: true
+      range: new Range( 0, 0 )
     } );
 
     const potentialsTandem = tandem.createTandem( 'potentials' );

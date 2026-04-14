@@ -35,10 +35,10 @@ export type FiniteSquarePotentialOptions = SelfOptions &
 
 export default class FiniteSquarePotential extends QuantumPotential {
 
+  public readonly electricFieldProperty: ReadOnlyProperty<number>;
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
   public readonly separationProperty: NumberProperty; // distance between walls of adjacent wells
-  public readonly electricFieldProperty: ReadOnlyProperty<number>;
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
@@ -60,6 +60,8 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     super( options );
 
+    this.electricFieldProperty = options.electricFieldProperty;
+
     this.wellWidthProperty = new NumberProperty( options.wellWidth, {
       units: nanometersUnit,
       range: options.wellWidthRange,
@@ -80,9 +82,6 @@ export default class FiniteSquarePotential extends QuantumPotential {
       tandem: options.tandem.createTandem( 'separationProperty' ),
       phetioFeatured: true
     } );
-
-    this.electricFieldProperty = options.electricFieldProperty;
-    this.addLinkedElement( this.electricFieldProperty );
 
     // Changes to Properties owned by FiniteSquarePotential trigger notification.
     // This does not include electricFieldProperty because it is owned by the top-level model.

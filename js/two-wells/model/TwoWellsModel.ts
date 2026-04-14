@@ -33,19 +33,13 @@ export default class TwoWellsModel extends QBSModel {
     const electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
-      range: new Range( 1, 1 ),
-      tandem: tandem.createTandem( 'electronMassesProperty' ),
-      phetioFeatured: true,
-      phetioDocumentation: 'The number of electron masses.'
+      range: new Range( 1, 1 )
     } );
 
     // Effectively constant
     const electricFieldProperty = new NumberProperty( 0, {
       units: voltsPerNanometerUnit,
-      range: new Range( 0, 0 ),
-      tandem: tandem.createTandem( 'electricFieldProperty' ),
-      phetioFeatured: true,
-      phetioReadOnly: true
+      range: new Range( 0, 0 )
     } );
 
     const potentialsTandem = tandem.createTandem( 'potentials' );

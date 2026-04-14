@@ -29,11 +29,9 @@ export default class SuperpositionModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
+    // Effectively constant
     const numberOfWellsProperty = new NumberProperty( 1, {
-      range: new Range( 1, 1 ),
-      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
-      phetioFeatured: true,
-      phetioReadOnly: true
+      range: new Range( 1, 1 )
     } );
 
     const electronMassesProperty = new NumberProperty( 1, {
@@ -48,10 +46,7 @@ export default class SuperpositionModel extends QBSModel {
     // Effectively constant
     const electricFieldProperty = new NumberProperty( 0, {
       units: voltsPerNanometerUnit,
-      range: new Range( 0, 0 ),
-      tandem: tandem.createTandem( 'electricFieldProperty' ),
-      phetioFeatured: true,
-      phetioReadOnly: true
+      range: new Range( 0, 0 )
     } );
 
     const potentialsTandem = tandem.createTandem( 'potentials' );

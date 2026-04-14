@@ -60,8 +60,6 @@ export default abstract class QuantumPotential extends PhetioObject {
     super( options );
 
     this.numberOfWellsProperty = options.numberOfWellsProperty;
-    this.addLinkedElement( this.numberOfWellsProperty );
-
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
