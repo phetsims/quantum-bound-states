@@ -6,6 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
@@ -25,7 +27,7 @@ export type AnharmonicOscillatorPotentialOptions = SelfOptions & PickRequired<Qu
 
 export default class AnharmonicOscillatorPotential extends QuantumPotential {
 
-  private _numberOfWells: number;
+  public readonly numberOfWellsProperty: NumberProperty;
 
   //TODO Added by MV
   private readonly wellDepth = 10; // Dissociation energy D_e in eV
@@ -47,16 +49,16 @@ export default class AnharmonicOscillatorPotential extends QuantumPotential {
 
     super( options );
 
-    this._numberOfWells = options.numberOfWells;
-  }
+    this.numberOfWellsProperty = new NumberProperty( options.numberOfWells, {
+      numberType: 'Integer',
+      range: QBSConstants.NUMBER_OF_WELLS_RANGE,
+      tandem: options.tandem.createTandem( 'numberOfWellsProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
 
-  public getNumberOfWells(): number {
-    return this._numberOfWells;
-  }
-
-  public setNumberOfWells( value: number ): void {
-    this._numberOfWells = value;
-    this.propertyChangedEmitter.emit();
+    //TODO Other Properties?
+    Multilink.multilink( [ this.numberOfWellsProperty ], () => this.propertyChangedEmitter.emit() );
   }
 
   /**

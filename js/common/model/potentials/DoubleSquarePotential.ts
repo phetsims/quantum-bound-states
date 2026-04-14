@@ -27,7 +27,6 @@ export default class DoubleSquarePotential extends FiniteSquarePotential {
 
       // FiniteSquarePotentialOptions
       numberOfWells: 2,
-      separation: 1,
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.doubleSquareStringProperty,
       tandemPrefix: 'doubleSquarePotential',
       phetioDocumentation: 'A quantum potential with two finite square wells.'

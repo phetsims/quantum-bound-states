@@ -35,9 +35,13 @@ export default class ManyWellsModel extends QBSModel {
 
     const potentials = [
       new FiniteSquarePotential( {
+        numberOfWells: numberOfWellsProperty.value,
+        separation: 0.1,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new AnharmonicOscillatorPotential( {
+        numberOfWells: numberOfWellsProperty.value,
+        //TODO spacing?
         tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
       } )
     ];
@@ -51,7 +55,9 @@ export default class ManyWellsModel extends QBSModel {
     this.numberOfWellsProperty = numberOfWellsProperty;
 
     this.numberOfWellsProperty.link( numberOfWells => {
-      potentials.forEach( potential => potential.setNumberOfWells( numberOfWells ) );
+      potentials.forEach( potential => {
+        potential.numberOfWellsProperty.value = numberOfWells;
+      } );
     } );
 
     this.electricFieldProperty = new NumberProperty( QBSConstants.ELECTRIC_FIELD_RANGE.defaultValue, {

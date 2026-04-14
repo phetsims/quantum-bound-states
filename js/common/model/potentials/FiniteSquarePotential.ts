@@ -16,6 +16,7 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
+import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
@@ -32,12 +33,12 @@ export type FiniteSquarePotentialOptions = SelfOptions &
 export default class FiniteSquarePotential extends QuantumPotential {
 
   //TODO Temporary constants, same as initial state of Java version.
-  private _numberOfWells: number;
-  private readonly separation: number; //TODO Java [0.05,0.7] nm, distance between walls of adjacent wells
   private readonly electricField = 0; //TODO Java [-1,1] V/nm
 
+  public readonly numberOfWellsProperty: NumberProperty;
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
+  public readonly separationProperty: NumberProperty; // distance between walls of adjacent wells
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
@@ -45,7 +46,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
       // SelfOptions
       numberOfWells: 1,
-      separation: 0,
+      separation: 0.1,
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
@@ -55,8 +56,13 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     super( options );
 
-    this._numberOfWells = options.numberOfWells;
-    this.separation = options.separation;
+    this.numberOfWellsProperty = new NumberProperty( options.numberOfWells, {
+      numberType: 'Integer',
+      range: QBSConstants.NUMBER_OF_WELLS_RANGE,
+      tandem: options.tandem.createTandem( 'numberOfWellsProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
 
     this.wellWidthProperty = new NumberProperty( 1, {
       units: nanometersUnit,
@@ -72,22 +78,24 @@ export default class FiniteSquarePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty ], () => this.propertyChangedEmitter.emit() );
+    this.separationProperty = new NumberProperty( options.separation, {
+      units: nanometersUnit,
+      range: new Range( 0.05, 0.7 ),
+      tandem: options.tandem.createTandem( 'separationProperty' ),
+      phetioFeatured: true
+    } );
+
+    Multilink.multilink(
+      [ this.numberOfWellsProperty, this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
+      () => this.propertyChangedEmitter.emit() );
   }
 
   public override reset(): void {
     super.reset();
+    this.numberOfWellsProperty.reset();
     this.wellWidthProperty.reset();
     this.wellDepthProperty.reset();
-  }
-
-  public getNumberOfWells(): number {
-    return this._numberOfWells;
-  }
-
-  public setNumberOfWells( value: number ): void {
-    this._numberOfWells = value;
-    this.propertyChangedEmitter.emit();
+    this.separationProperty.reset();
   }
 
   /**
@@ -95,11 +103,11 @@ export default class FiniteSquarePotential extends QuantumPotential {
    */
   public override getPotentialEnergyAt( x: number ): number {
 
-    const n = this._numberOfWells;
+    const n = this.numberOfWellsProperty.value;
     const wellWidth = this.wellWidthProperty.value;
     const xOffset = this.xOffset;
     const yOffset = this.yOffset;
-    const s = wellWidth + this.separation; // spacing between well centers
+    const s = wellWidth + this.separationProperty.value;
 
     let pe = yOffset + this.wellDepthProperty.value;
 
