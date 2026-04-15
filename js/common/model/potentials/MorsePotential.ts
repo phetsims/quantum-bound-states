@@ -6,24 +6,41 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
+import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  wellWidth?: number;
+  wellWidthRange?: Range;
+  //TODO spacing
+};
 
 type MorsePotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class MorsePotential extends QuantumPotential {
 
+  public readonly wellWidthProperty: NumberProperty;
+  public readonly wellDepthProperty: NumberProperty;
+  //TODO spacingProperty
+
   public constructor( providedOptions: MorsePotentialOptions ) {
 
     const options = optionize<MorsePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+
+      // SelfOptions
+      wellWidth: QBSConstants.WELL_WIDTH_RANGE.defaultValue,
+      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
@@ -31,13 +48,38 @@ export default class MorsePotential extends QuantumPotential {
     }, providedOptions );
 
     super( options );
+
+    this.wellWidthProperty = new NumberProperty( options.wellWidth, {
+      units: nanometersUnit,
+      range: options.wellWidthRange,
+      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
+      phetioFeatured: true
+    } );
+
+    this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
+      units: electronVoltsUnit,
+      range: QBSConstants.WELL_DEPTH_RANGE,
+      tandem: options.tandem.createTandem( 'wellDepthProperty' ),
+      phetioFeatured: true
+    } );
+
+    // Changes to Properties instantiated by this class trigger notification.
+    //TODO add spacingProperty
+    Multilink.multilink(
+      [ this.wellWidthProperty, this.wellDepthProperty ],
+      () => this.propertyChangedEmitter.emit() );
   }
 
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public getPotentialEnergyAt( x: number ): number {
-    return 0; //TODO implement getPotentialEnergyAt
+    //TODO affirm that numberOfWellsProperty.value === 1 or 2
+    //TODO Add support for numberOfWells and yOffset.
+
+    //TODO This fails with no eigenvalues found.
+    // return solveMorse( x, this.wellDepthProperty.value, this.wellWidthProperty.value, this.xOffset );
+    return 0;
   }
 
   /**
@@ -72,7 +114,7 @@ export default class MorsePotential extends QuantumPotential {
     // Create the Shape by sampling the curve, then scaling xy-coordinates to fit the desired size and coordinate frame.
     const shape = new Shape();
     for ( let x = xMin; x <= xMax; x += dx ) {
-      shape.lineTo( xScale * x, yScale * solveMorse( x ) );
+      shape.lineTo( xScale * x, yScale * solveMorse( x, 1, 1, 1 ) );
     }
 
     return new Path( shape, {
@@ -85,7 +127,7 @@ export default class MorsePotential extends QuantumPotential {
 /**
  * Use a Morse potential curve to approximate the potential shape.
  */
-function solveMorse( x: number, wellDepth = 1, wellWidth = 1, xOffset = 1 ): number {
+function solveMorse( x: number, wellDepth: number, wellWidth: number, xOffset: number ): number {
   const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
   return wellDepth * term * term - wellDepth;
 }
