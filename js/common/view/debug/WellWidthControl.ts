@@ -13,6 +13,7 @@ import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../../scenery-phet/js/NumberControl.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../QBSConstants.js';
 
 const DECIMALS = QBSConstants.WELL_WIDTH_DECIMAL_PLACES;
@@ -32,7 +33,8 @@ export default class WellWidthControl extends NumberControl {
         },
         sliderOptions: {
           majorTicks: WellWidthControl.createMinMaxTicks( wellWidthProperty.range, DECIMALS )
-        }
+        },
+        tandem: Tandem.OPT_OUT
       } ) );
   }
 
