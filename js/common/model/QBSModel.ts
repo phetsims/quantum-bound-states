@@ -41,7 +41,7 @@ type SelfOptions = {
   potentials: QuantumPotential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
 
-  // Properties that are shared by all potentials.
+  // Properties that are shared by all potentials. QBSModel is responsible for resetting these.
   numberOfWellsProperty: NumberProperty;
   electronMassesProperty: NumberProperty;
   electricFieldProperty: NumberProperty;
