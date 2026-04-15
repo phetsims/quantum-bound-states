@@ -32,7 +32,7 @@ export default class CoulombPotential extends QuantumPotential {
     const options = optionize<CoulombPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      energyAxisRange: new Range( -20.5, 0.5 ),
+      initialEnergyAxisRange: new Range( -20.5, 0.5 ),
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
@@ -75,7 +75,7 @@ export default class CoulombPotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.energyAxisRange.min; // top of the y-axis range
+    return this.energyAxisRangeProperty.value.min; // top of the y-axis range
   }
 
   public override getMaxPotentialEnergy(): number {

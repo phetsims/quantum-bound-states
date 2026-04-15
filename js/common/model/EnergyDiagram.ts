@@ -37,7 +37,7 @@ export default class EnergyDiagram {
     this.boundStateResultProperty = boundStateResultProperty;
 
     this.yRangeProperty = new DerivedProperty( [ potentialProperty ],
-      potential => potential.energyAxisRange, {
+      potential => potential.initialEnergyAxisRange, {
         tandem: tandem.createTandem( 'yRangeProperty' ),
         phetioValueType: Range.RangeIO,
         phetioFeatured: true

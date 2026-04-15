@@ -91,7 +91,7 @@ export default class MorsePotential extends QuantumPotential {
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.energyAxisRange.max; //TODO is this correct, or should it be the top of the potential?
+    return this.energyAxisRangeProperty.value.max; //TODO is this correct, or should it be the top of the potential?
   }
 
   /**

@@ -83,7 +83,7 @@ export default class InfiniteSquarePotential extends QuantumPotential {
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.energyAxisRange.max; // top of the y-axis range
+    return this.energyAxisRangeProperty.value.max; // top of the y-axis range
   }
 
   /**
