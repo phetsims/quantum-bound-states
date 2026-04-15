@@ -36,7 +36,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   private readonly springConstantProperty: TReadOnlyProperty<number>;
-  private readonly turningPointProperty: TReadOnlyProperty<Vector2>;
+  private readonly turningPointProperty: TReadOnlyProperty<Vector2>; //TODO delete if not used
 
   public constructor( providedOptions: HarmonicOscillatorPotentialOptions ) {
 
