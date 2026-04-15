@@ -63,6 +63,7 @@ export default class TwoWellsModel extends QBSModel {
       } ),
       new MorsePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'morsePotential' )
       } )

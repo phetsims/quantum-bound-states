@@ -27,7 +27,8 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 
 type SelfOptions = EmptySelfOptions;
 
-type HarmonicOscillatorPotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
+type HarmonicOscillatorPotentialOptions = SelfOptions &
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class HarmonicOscillatorPotential extends QuantumPotential {
 
@@ -116,6 +117,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
    */
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
+    affirm( this.electricFieldProperty.value === 0, 'HarmonicOscillatorPotential does not support electric field.' );
     return 0.5 * this.springConstantProperty.value * x * x;
   }
 

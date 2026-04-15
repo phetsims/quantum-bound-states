@@ -20,7 +20,8 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 
 type SelfOptions = EmptySelfOptions;
 
-type InfiniteSquarePotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
+type InfiniteSquarePotentialOptions = SelfOptions &
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class InfiniteSquarePotential extends QuantumPotential {
 
@@ -60,6 +61,7 @@ export default class InfiniteSquarePotential extends QuantumPotential {
    */
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'InfiniteSquarePotential does not support multiple wells.' );
+    affirm( this.electricFieldProperty.value === 0, 'InfiniteSquarePotential does not support electric field.' );
 
     const wellWidth = 2; //this.wellWidthProperty.value;
     const leftX = this.xOffset - wellWidth / 2;

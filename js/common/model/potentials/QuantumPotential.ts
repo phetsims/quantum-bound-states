@@ -26,6 +26,7 @@ const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 
 type SelfOptions = {
   numberOfWellsProperty: ReadOnlyProperty<number>;
+  electricFieldProperty: ReadOnlyProperty<number>;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
@@ -43,6 +44,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly propertyChangedEmitter: Emitter;
 
   protected readonly numberOfWellsProperty: ReadOnlyProperty<number>;
+  public readonly electricFieldProperty: ReadOnlyProperty<number>;
 
   public readonly yOffsetProperty: NumberProperty;
 
@@ -66,8 +68,10 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     this.propertyChangedEmitter = new Emitter(); //TODO PhET-iO?
 
-    // Do not trigger notification when numberOfWellsProperty changes, because it is owned by the top-level model.
+    // Do not trigger notification when numberOfWellsProperty or electricFieldProperty changes, because they are owned
+    // by the top-level model.
     this.numberOfWellsProperty = options.numberOfWellsProperty;
+    this.electricFieldProperty = options.electricFieldProperty;
 
     this.yOffsetProperty = new NumberProperty( 0, {
       units: electronVoltsUnit,

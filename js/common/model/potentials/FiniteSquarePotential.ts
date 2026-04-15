@@ -35,7 +35,6 @@ export type FiniteSquarePotentialOptions = SelfOptions &
 
 export default class FiniteSquarePotential extends QuantumPotential {
 
-  public readonly electricFieldProperty: ReadOnlyProperty<number>;
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
   public readonly separationProperty: NumberProperty; // distance between walls of adjacent wells
@@ -59,8 +58,6 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     super( options );
 
-    this.electricFieldProperty = options.electricFieldProperty;
-
     this.wellWidthProperty = new NumberProperty( options.wellWidth, {
       units: nanometersUnit,
       range: options.wellWidthRange,
@@ -83,7 +80,6 @@ export default class FiniteSquarePotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    // Do not trigger notification when electricFieldProperty changes, because it is owned by the top-level model.
     Multilink.multilink(
       [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
       () => this.propertyChangedEmitter.emit() );
