@@ -93,11 +93,11 @@ export default class MorsePotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.energyAxisRange.min; //TODO incorrect
+    return this.yOffsetProperty.value; // bottom of the well
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.energyAxisRange.max; //TODO incorrect
+    return this.energyAxisRange.max; //TODO is this correct, or should it be the top of the potential?
   }
 
   /**

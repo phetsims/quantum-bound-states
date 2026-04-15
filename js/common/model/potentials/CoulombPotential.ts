@@ -75,7 +75,7 @@ export default class CoulombPotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.energyAxisRange.min; //TODO incorrect
+    return this.energyAxisRange.min; // top of the y-axis range
   }
 
   public override getMaxPotentialEnergy(): number {
