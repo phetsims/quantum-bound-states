@@ -68,6 +68,7 @@ addToMapIfDefined( 'preset', 'presetStringProperty' );
 addToMapIfDefined( 'custom', 'customStringProperty' );
 addToMapIfDefined( 'units_electronMasses_symbol', 'units.electronMasses.symbolStringProperty' );
 addToMapIfDefined( 'units_electronVolts_symbol', 'units.electronVolts.symbolStringProperty' );
+addToMapIfDefined( 'units_electronVoltsPerNanometerSquared_symbol', 'units.electronVoltsPerNanometerSquared.symbolStringProperty' );
 addToMapIfDefined( 'units_femtoSeconds_symbol', 'units.femtoSeconds.symbolStringProperty' );
 addToMapIfDefined( 'units_voltsPerNanometer_symbol', 'units.voltsPerNanometer.symbolStringProperty' );
 addToMapIfDefined( 'potentialWells_finiteSquare', 'potentialWells.finiteSquareStringProperty' );
@@ -223,6 +224,7 @@ addToMapIfDefined( 'a11y_referenceLine_accessibleHelpText', 'a11y.referenceLine.
 addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse', 'a11y.referenceLine.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_units_electronMasses_accessiblePattern', 'a11y.units.electronMasses.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVolts_accessiblePattern', 'a11y.units.electronVolts.accessiblePatternStringProperty' );
+addToMapIfDefined( 'a11y_units_electronVoltsPerNanometerSquared_accessiblePattern', 'a11y.units.electronVoltsPerNanometerSquared.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_femtoseconds_accessiblePattern', 'a11y.units.femtoseconds.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_voltsPerNanometer_accessiblePattern', 'a11y.units.voltsPerNanometer.accessiblePatternStringProperty' );
 
@@ -308,18 +310,27 @@ const QuantumBoundStatesFluent = {
   _comment_17: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
   _comment_18: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
   units: {
+    _comment_0: new FluentComment( {"comment":"mass","associatedKey":"electronMasses"} ),
     electronMasses: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMasses.symbolStringProperty' ),
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronMasses.symbolPatternStringProperty' )
     },
+    _comment_1: new FluentComment( {"comment":"energy","associatedKey":"electronVolts"} ),
     electronVolts: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronVolts.symbolStringProperty' ),
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronVolts.symbolPatternStringProperty' )
     },
+    _comment_2: new FluentComment( {"comment":"spring constant","associatedKey":"electronVoltsPerNanometerSquared"} ),
+    electronVoltsPerNanometerSquared: {
+      symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronVoltsPerNanometerSquared.symbolStringProperty' ),
+      symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.electronVoltsPerNanometerSquared.symbolPatternStringProperty' )
+    },
+    _comment_3: new FluentComment( {"comment":"time","associatedKey":"femtoSeconds"} ),
     femtoSeconds: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolStringProperty' ),
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolPatternStringProperty' )
     },
+    _comment_4: new FluentComment( {"comment":"electric field","associatedKey":"voltsPerNanometer"} ),
     voltsPerNanometer: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.voltsPerNanometer.symbolStringProperty' ),
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.voltsPerNanometer.symbolPatternStringProperty' )
@@ -645,15 +656,22 @@ const QuantumBoundStatesFluent = {
     _comment_37: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
     _comment_38: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),
     units: {
+      _comment_0: new FluentComment( {"comment":"mass","associatedKey":"electronMasses"} ),
       electronMasses: {
         accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronMasses_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronMasses.accessiblePatternStringProperty' ), [{"name":"value"}] )
       },
+      _comment_1: new FluentComment( {"comment":"energy","associatedKey":"electronVolts"} ),
       electronVolts: {
         accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronVolts_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronVolts.accessiblePatternStringProperty' ), [{"name":"value"}] )
+      },
+      _comment_2: new FluentComment( {"comment":"spring constant","associatedKey":"electronVoltsPerNanometerSquared"} ),
+      electronVoltsPerNanometerSquared: {
+        accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_electronVoltsPerNanometerSquared_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.electronVoltsPerNanometerSquared.accessiblePatternStringProperty' ), [{"name":"value"}] )
       },
       femtoseconds: {
         accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_femtoseconds_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.femtoseconds.accessiblePatternStringProperty' ), [{"name":"value"}] )
       },
+      _comment_3: new FluentComment( {"comment":"electric field","associatedKey":"voltsPerNanometer"} ),
       voltsPerNanometer: {
         accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_voltsPerNanometer_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.voltsPerNanometer.accessiblePatternStringProperty' ), [{"name":"value"}] )
       }

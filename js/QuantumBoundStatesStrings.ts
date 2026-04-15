@@ -67,6 +67,10 @@ type StringsType = {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
     };
+    'electronVoltsPerNanometerSquared': {
+      'symbolStringProperty': LocalizedStringProperty;
+      'symbolPatternStringProperty': LocalizedStringProperty;
+    };
     'femtoSeconds': {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
@@ -356,6 +360,9 @@ type StringsType = {
         'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'electronVolts': {
+        'accessiblePatternStringProperty': LocalizedStringProperty;
+      };
+      'electronVoltsPerNanometerSquared': {
         'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'femtoseconds': {

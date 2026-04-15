@@ -15,6 +15,7 @@ import Image from '../../../../../scenery/js/nodes/Image.js';
 import ButtonNode from '../../../../../sun/js/buttons/ButtonNode.js';
 import RoundPushButton, { RoundPushButtonOptions } from '../../../../../sun/js/buttons/RoundPushButton.js';
 import Dialog from '../../../../../sun/js/Dialog.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
@@ -48,7 +49,8 @@ export default class ConfigurePotentialButton extends RoundPushButton {
       baseColor: 'rgb( 255, 100, 100 )',
       xMargin: 3,
       yMargin: 3,
-      listener: () => this.openDialog()
+      listener: () => this.openDialog(),
+      tandem: Tandem.OPT_OUT
     };
 
     super( options );
