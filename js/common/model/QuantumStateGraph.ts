@@ -18,6 +18,7 @@ export default class QuantumStateGraph extends PhetioObject {
     super( {
       isDisposable: false,
       tandem: tandem,
+      tandemNameSuffix: 'Graph',
       phetioState: false,
       phetioType: QuantumStateGraph.QuantumStateGraphIO
     } );

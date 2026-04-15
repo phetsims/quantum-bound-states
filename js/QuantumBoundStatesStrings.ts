@@ -82,7 +82,7 @@ type StringsType = {
     'doubleSquareStringProperty': LocalizedStringProperty;
     'asymmetricTriangleStringProperty': LocalizedStringProperty;
     'harmonicOscillatorStringProperty': LocalizedStringProperty;
-    'anharmonicOscillatorStringProperty': LocalizedStringProperty;
+    'poschlTellerStringProperty': LocalizedStringProperty;
     'morseStringProperty': LocalizedStringProperty;
     'coulombStringProperty': LocalizedStringProperty;
     'infiniteStepStringProperty': LocalizedStringProperty;

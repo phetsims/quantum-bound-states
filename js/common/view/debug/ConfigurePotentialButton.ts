@@ -10,11 +10,12 @@
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import preferencesIconOnWhite_png from '../../../../../joist/images/preferencesIconOnWhite_png.js';
+import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import ButtonNode from '../../../../../sun/js/buttons/ButtonNode.js';
 import RoundPushButton, { RoundPushButtonOptions } from '../../../../../sun/js/buttons/RoundPushButton.js';
 import Dialog from '../../../../../sun/js/Dialog.js';
-import AnharmonicOscillatorPotential from '../../model/potentials/AnharmonicOscillatorPotential.js';
+import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
@@ -23,7 +24,7 @@ import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotent
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
-import ConfigureAnharmonicOscillatorDialog from './ConfigureAnharmonicOscillatorDialog.js';
+import ConfigurePoschlTellerDialog from './ConfigurePoschlTellerDialog.js';
 import ConfigureAsymmetricTriangleDialog from './ConfigureAsymmetricTriangleDialog.js';
 import ConfigureCoulombDialog from './ConfigureCoulombDialog.js';
 import ConfigureFiniteSquareDialog from './ConfigureFiniteSquareDialog.js';
@@ -59,12 +60,11 @@ export default class ConfigurePotentialButton extends RoundPushButton {
    * Opens a dialog that is specific to the type of potential that is selected.
    */
   private openDialog(): void {
+
     const potential = this.potentialProperty.value;
+
     let dialog: Dialog | undefined;
-    if ( potential instanceof AnharmonicOscillatorPotential ) {
-      dialog = new ConfigureAnharmonicOscillatorDialog( potential );
-    }
-    else if ( potential instanceof AsymmetricTrianglePotential ) {
+    if ( potential instanceof AsymmetricTrianglePotential ) {
       dialog = new ConfigureAsymmetricTriangleDialog( potential );
     }
     else if ( potential instanceof CoulombPotential ) {
@@ -82,10 +82,14 @@ export default class ConfigurePotentialButton extends RoundPushButton {
     else if ( potential instanceof InfiniteStepPotential ) {
       dialog = new ConfigureInfiniteStepDialog( potential );
     }
+    else if ( potential instanceof PoschlTellerPotential ) {
+      dialog = new ConfigurePoschlTellerDialog( potential );
+    }
     else if ( potential instanceof MorsePotential ) {
       dialog = new ConfigureMorseDialog( potential );
     }
 
-    dialog && dialog.show();
+    affirm( dialog, 'Unsupported potential type' );
+    dialog.show();
   }
 }

@@ -11,7 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AnharmonicOscillatorPotential from '../../common/model/potentials/AnharmonicOscillatorPotential.js';
+import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import MorsePotential from '../../common/model/potentials/MorsePotential.js';
 import DoubleSquarePotential from '../../common/model/potentials/DoubleSquarePotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
@@ -67,11 +67,11 @@ export default class SuperpositionModel extends QBSModel {
         electronMassesProperty: electronMassesProperty,
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ),
-      new AnharmonicOscillatorPotential( {
+      new PoschlTellerPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
         electricFieldProperty: electricFieldProperty,
         //TODO Other Properties?
-        tandem: potentialsTandem.createTandem( 'anharmonicOscillatorPotential' )
+        tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
       } ),
       new MorsePotential( {
         numberOfWellsProperty: numberOfWellsProperty,

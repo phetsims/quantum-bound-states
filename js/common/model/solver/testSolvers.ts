@@ -536,7 +536,7 @@ function testMorsePotential(): void {
   // Get analytical solution
   const analyticalResult = MorseSolution.solve( xGrid, wellDepth, width, mass, energyMin, energyMax );
 
-  logVerbose( `\nAnharmonic Oscillator (Morse) - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
+  logVerbose( `\nMorse - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
   affirm( numericalResult.energies.length > 0, `Found ${numericalResult.energies.length} numerical states` );
   affirm( analyticalResult.energies.length > 0, `Found ${analyticalResult.energies.length} analytical states` );
@@ -568,14 +568,14 @@ function testMorsePotential(): void {
     const E_analytical = analyticalResult.energies[ v ];
     const relativeError = Math.abs( E_numerical - E_analytical ) / Math.abs( E_analytical );
     maxRelativeError = Math.max( maxRelativeError, relativeError );
-    affirmOrLog( relativeError < 0.01, `Anharmonic Oscillator: State v=${v}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
+    affirmOrLog( relativeError < 0.01, `Morse: State v=${v}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
 
     const rmsError = waveFunctionRMSError( numericalResult.waveFunctions[ v ], analyticalResult.waveFunctions[ v ], dx );
     maxWFError = Math.max( maxWFError, rmsError );
-    affirmOrLog( rmsError < 0.05, `Anharmonic Oscillator: State v=${v}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
+    affirmOrLog( rmsError < 0.05, `Morse: State v=${v}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
   }
 
-  logSummary( `Anharmonic Oscillator (Morse) - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
+  logSummary( `Morse - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
 }
 
 /**

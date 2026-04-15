@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigureAnharmonicOscillatorDialog is a dialog with controls for configuring an Anharmonic Oscillator potential.
+ * ConfigurePoschlTellerDialog is a dialog for configuring a Pöschl-Teller potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

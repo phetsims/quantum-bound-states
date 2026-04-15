@@ -171,8 +171,8 @@
     "harmonicOscillator": {
       "value": "Harmonic Oscillator"
     },
-    "anharmonicOscillator": {
-      "value": "Anharmonic Oscillator"
+    "poschlTeller": {
+      "value": "Pöschl-Teller"
     },
     "morse": {
       "value": "Morse"

@@ -1,7 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Rename to 'Anharmonic Oscillator'?
 /**
- * AnharmonicOscillatorPotential is a quantum potential based on Pöschl-Teller.
+ * PoschlTellerPotential is a Pöschl-Teller potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,21 +21,21 @@ type SelfOptions = {
   electricFieldProperty: ReadOnlyProperty<number>;
 };
 
-export type AnharmonicOscillatorPotentialOptions = SelfOptions &
+export type PoschlTellerPotentialOptions = SelfOptions &
   Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
-export default class AnharmonicOscillatorPotential extends QuantumPotential {
+export default class PoschlTellerPotential extends QuantumPotential {
 
   private readonly electricFieldProperty: ReadOnlyProperty<number>;
 
-  public constructor( providedOptions: AnharmonicOscillatorPotentialOptions ) {
+  public constructor( providedOptions: PoschlTellerPotentialOptions ) {
 
-    const options = optionize<AnharmonicOscillatorPotentialOptions,
+    const options = optionize<PoschlTellerPotentialOptions,
       StrictOmit<SelfOptions, 'electricFieldProperty'>, QuantumPotentialOptions>()( {
 
       // QuantumPotentialOptions
-      visualNameProperty: QuantumBoundStatesFluent.potentialWells.anharmonicOscillatorStringProperty,
-      tandemPrefix: 'anharmonicOscillatorPotential'
+      visualNameProperty: QuantumBoundStatesFluent.potentialWells.poschlTellerStringProperty,
+      tandemPrefix: 'poschlTellerPotential' //TODO rename to 'anharmonicOscillatorPotential'?
     }, providedOptions );
 
     super( options );

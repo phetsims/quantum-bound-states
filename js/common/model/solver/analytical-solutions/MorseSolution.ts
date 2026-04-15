@@ -2,7 +2,7 @@
 
 //TODO Add to testSolvers?
 /**
- * Analytical solution for the Morse (anharmonic oscillator) potential.
+ * Analytical solution for the Morse potential.
  *
  * The Morse potential models a diatomic-molecule-like well with a repulsive wall on
  * the left, a minimum at x = 0, and a flat asymptote at x → +∞.  It is parameterised

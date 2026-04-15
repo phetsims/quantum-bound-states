@@ -54,6 +54,7 @@ export default abstract class QuantumPotential extends PhetioObject {
       accessibleNameProperty: providedOptions.visualNameProperty,
 
       // PhetioObjectOptions
+      tandemNameSuffix: 'Potential',
       phetioState: false // because QuantumPotentialIO implements reference-type serialization.
     }, providedOptions );
 

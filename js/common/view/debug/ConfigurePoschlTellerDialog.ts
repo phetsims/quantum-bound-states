@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigureAnharmonicOscillatorDialog is a dialog with controls for configuring an Anharmonic Oscillator potential.
+ * ConfigurePoschlTellerDialog is a dialog configuring a Pöschl-Teller potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,13 +9,13 @@
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import AnharmonicOscillatorPotential from '../../model/potentials/AnharmonicOscillatorPotential.js';
+import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 
-export default class ConfigureAnharmonicOscillatorDialog extends ConfigureQuantumPotentialDialog {
+export default class ConfigurePoschlTellerDialog extends ConfigureQuantumPotentialDialog {
 
-  public constructor( potential: AnharmonicOscillatorPotential ) {
+  public constructor( potential: PoschlTellerPotential ) {
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: [
@@ -25,6 +25,6 @@ export default class ConfigureAnharmonicOscillatorDialog extends ConfigureQuantu
       ]
     } ) );
 
-    super( 'Anharmonic Oscillator', content );
+    super( 'Pöschl-Teller', content );
   }
 }
