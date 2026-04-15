@@ -29,7 +29,8 @@ type HarmonicOscillatorPotentialOptions = SelfOptions & Pick<QuantumPotentialOpt
 
 export default class HarmonicOscillatorPotential extends QuantumPotential {
 
-  public static readonly WIDTH_HANDLE_ENERGY = 4; // eV above yOffset
+  // This is the y-coordinate where well width is measured, in eV above yOffset.
+  public static readonly WIDTH_HANDLE_ENERGY = 4;
 
   public readonly wellWidthProperty: NumberProperty;
   private readonly springConstantProperty: TReadOnlyProperty<number>;
