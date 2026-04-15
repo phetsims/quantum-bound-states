@@ -17,8 +17,6 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-const ENERGY_AXIS_RANGE = new Range( -15.5, 5.5 );
-
 // getPotentialEnergyAt handles an electric field, but it is not currently used in the sim.
 const ELECTRIC_FIELD = 0; // V/nm
 
@@ -32,6 +30,9 @@ export default class CoulombPotential extends QuantumPotential {
   public constructor( providedOptions: CoulombPotentialOptions ) {
 
     const options = optionize<CoulombPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+
+      // SelfOptions
+      energyAxisRange: new Range( -20.5, 0.5 ),
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
@@ -73,19 +74,12 @@ export default class CoulombPotential extends QuantumPotential {
     return yOffset + energy;
   }
 
-  /**
-   * Gets the range of the energy axis (y-axis).
-   */
-  public override getEnergyAxisRange(): Range {
-    return ENERGY_AXIS_RANGE;
-  }
-
   public override getMinPotentialEnergy(): number {
-    return this.getEnergyAxisRange().min; //TODO incorrect
+    return this.energyAxisRange.min; //TODO incorrect
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.getEnergyAxisRange().max; //TODO incorrect
+    return this.yOffsetProperty.value; // top of the potential
   }
 
   public override createIcon(): Node {

@@ -27,6 +27,7 @@ const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 type SelfOptions = {
   numberOfWellsProperty: ReadOnlyProperty<number>;
   electricFieldProperty: ReadOnlyProperty<number>;
+  energyAxisRange?: Range;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
@@ -47,6 +48,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly electricFieldProperty: ReadOnlyProperty<number>;
 
   public readonly yOffsetProperty: NumberProperty;
+  public readonly energyAxisRange: Range;
 
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
@@ -57,6 +59,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     const options = optionize<QuantumPotentialOptions, StrictOmit<SelfOptions, 'numberOfWellsProperty'>, PhetioObjectOptions>()( {
 
       // SelfOptions
+      energyAxisRange: DEFAULT_ENERGY_AXIS_RANGE,
       accessibleNameProperty: providedOptions.visualNameProperty,
 
       // PhetioObjectOptions
@@ -81,6 +84,8 @@ export default abstract class QuantumPotential extends PhetioObject {
       phetioReadOnly: true
     } );
 
+    this.energyAxisRange = options.energyAxisRange;
+
     // Changes to Properties instantiated by this class trigger notification.
     Multilink.multilink( [ this.yOffsetProperty ], () => this.propertyChangedEmitter.emit() );
 
@@ -103,13 +108,6 @@ export default abstract class QuantumPotential extends PhetioObject {
    */
   public getGroundStateIndex(): number {
     return 1;
-  }
-
-  /**
-   * Gets the range of the energy axis (y-axis).
-   */
-  public getEnergyAxisRange(): Range {
-    return DEFAULT_ENERGY_AXIS_RANGE;
   }
 
   //TODO Combine getMinPotentialEnergy and getMaxPotentialEnergy into getPotentialEnergyLimits(): Range?
