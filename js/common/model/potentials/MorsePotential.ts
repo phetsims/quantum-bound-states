@@ -87,5 +87,5 @@ export default class MorsePotential extends QuantumPotential {
  */
 function solveMorse( x: number, wellDepth = 1, wellWidth = 1, xOffset = 1 ): number {
   const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
-  return wellDepth * ( Math.pow( term, 2 ) - 1 );
+  return wellDepth * term * term - wellDepth;
 }
