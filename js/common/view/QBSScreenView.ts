@@ -230,14 +230,12 @@ export default class QBSScreenView extends ScreenView {
     Multilink.multilink( [ model.potentialProperty ],
       () => this.interruptSubtreeInput() );
 
-    if ( phet.chipper.queryParameters.dev ) {
-
-      // Press this button to open a dialog for configuring the selected potential.
-      const configurePotentialButton = new ConfigurePotentialButton( model.potentialProperty );
-      screenViewRootNode.addChild( configurePotentialButton );
-      configurePotentialButton.right = energyDiagramRectangleBounds.right;
-      configurePotentialButton.bottom = energyDiagramRectangleBounds.top - 5;
-    }
+    // Press this button to open a dialog for configuring the selected potential.
+    //TODO Hide this button behind if ( phet.chipper.queryParameters.dev ) {
+    const configurePotentialButton = new ConfigurePotentialButton( model.potentialProperty );
+    screenViewRootNode.addChild( configurePotentialButton );
+    configurePotentialButton.right = energyDiagramRectangleBounds.right;
+    configurePotentialButton.bottom = energyDiagramRectangleBounds.top - 5;
   }
 
   /**
