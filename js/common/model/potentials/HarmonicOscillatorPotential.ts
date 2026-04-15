@@ -11,6 +11,7 @@ import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
@@ -35,6 +36,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   private readonly springConstantProperty: TReadOnlyProperty<number>;
+  private readonly turningPointProperty: TReadOnlyProperty<Vector2>;
 
   public constructor( providedOptions: HarmonicOscillatorPotentialOptions ) {
 
@@ -77,6 +79,27 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
         phetioValueType: NumberIO,
         phetioFeatured: true
       } );
+
+    /**
+     * The right classical turning point for a given spring constant.
+     *   x_tp = sqrt(2E / k)
+     * The width drag handle will be located at this point.
+     */
+    //TODO Is this properly compensated for yOffset?
+    this.turningPointProperty = new DerivedProperty( [ this.springConstantProperty ],
+      springConstant => {
+        const y = this.yOffset + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY;
+        const x = Math.sqrt( y / springConstant );
+        return new Vector2( x, y );
+      } );
+
+    //TODO Or perhaps this is simpler?
+    // this.turningPointProperty = new DerivedProperty( [ this.wellWidthProperty ],
+    //   wellWidth => {
+    //     const x = this.xOffset + wellWidth / 2;
+    //     const y = this.yOffset + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY;
+    //     return new Vector2( x, y );
+    //   } );
 
     // Changes to Properties instantiated by this class trigger notification.
     Multilink.multilink( [ this.wellWidthProperty ], () => this.propertyChangedEmitter.emit() );
