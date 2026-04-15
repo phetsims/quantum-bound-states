@@ -95,11 +95,11 @@ export default class InfiniteStepPotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.yOffsetProperty.value;
+    return this.yOffsetProperty.value; // bottom of the well
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.energyAxisRange.max;
+    return this.energyAxisRange.max; // top of the y-axis range
   }
 
   /**

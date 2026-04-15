@@ -92,7 +92,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.energyAxisRange.min; //TODO incorrect
+    return this.energyAxisRange.min; // bottom of the y-axis range
   }
 
   public override getMaxPotentialEnergy(): number {
