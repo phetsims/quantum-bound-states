@@ -10,6 +10,7 @@ import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
@@ -46,7 +47,9 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
     this.wellWidthProperty = new NumberProperty( QBSConstants.WELL_WIDTH_RANGE.defaultValue, {
       units: nanometersUnit,
-      range: QBSConstants.WELL_WIDTH_RANGE,
+      //TODO range.min should be 0.1, but wellWidth < 0.4 causes assertion failure, no eigenvalues
+      // range: QBSConstants.WELL_WIDTH_RANGE,
+      range: new Range( 0.4, 6 ),
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
