@@ -21,6 +21,7 @@ import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
+import { electronVoltsPerNanometerSquaredUnit } from '../units/electronVoltsPerNanometerSquaredUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -55,11 +56,23 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
+    /**
+     * Derive the spring constant from wellWidth at a fixed energy E = WIDTH_HANDLE_ENERGY above the well minimum.
+     *
+     *  At the turning point: (1/2) k x_tp² = E
+     *    → x_tp = sqrt(2E / k)
+     *  The full classical width w is the distance between the two turning points:
+     *    → w = 2 x_tp = 2 sqrt(2E / k)
+     *
+     *  Inverting for k:
+     *    k = 2E / x_tp² = 8E / w²
+     */
     this.springConstantProperty = new DerivedProperty( [ this.wellWidthProperty ],
       wellWidth => {
         const halfWellWidth = wellWidth / 2;
         return ( 2 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( halfWellWidth * halfWellWidth );
       }, {
+        units: electronVoltsPerNanometerSquaredUnit,
         tandem: options.tandem.createTandem( 'springConstantProperty' ),
         phetioValueType: NumberIO,
         phetioFeatured: true
@@ -76,6 +89,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
+   * For a 1D harmonic oscillator, V(x) = (1/2) k x²
    */
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );

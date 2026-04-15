@@ -65,15 +65,23 @@ custom:                                     Custom
 
 # Units
 units:
+  # mass
   electronMasses:
     symbol:        m<sub>e</sub>
     symbolPattern: '{{value}} m<sub>e</sub>'
+  # energy
   electronVolts:
     symbol:        eV
     symbolPattern: '{{value}} eV'
+  # spring constant
+  electronVoltsPerNanometerSquared:
+    symbol:        eV/nm<sup>2</sup>
+    symbolPattern: '{{value}} eV/nm<sup>2</sup>'
+  # time
   femtoSeconds:
     symbol:        fs
     symbolPattern: '{{value}} fs'
+  # electric field
   voltsPerNanometer:
     symbol:        V/nm
     symbolPattern: '{{value}} V/nm'
@@ -401,6 +409,8 @@ a11y:
       accessiblePattern: '{$value} times electron mass'
     electronVolts:
       accessiblePattern: '{$value} electron volts'
+    electronVoltsPerNanometerSquared:
+      accessiblePattern: '{$value} electron volts per nanometer squared'
     femtoseconds:
       accessiblePattern: '{$value} femtoseconds'
     voltsPerNanometer:

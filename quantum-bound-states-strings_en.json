@@ -138,6 +138,14 @@
         "value": "{{value}} eV"
       }
     },
+    "electronVoltsPerNanometerSquared": {
+      "symbol": {
+        "value": "eV/nm<sup>2</sup>"
+      },
+      "symbolPattern": {
+        "value": "{{value}} eV/nm<sup>2</sup>"
+      }
+    },
     "femtoSeconds": {
       "symbol": {
         "value": "fs"
@@ -743,6 +751,11 @@
       "electronVolts": {
         "accessiblePattern": {
           "value": "{$value} electron volts"
+        }
+      },
+      "electronVoltsPerNanometerSquared": {
+        "accessiblePattern": {
+          "value": "{$value} electron volts per nanometer squared"
         }
       },
       "femtoseconds": {
