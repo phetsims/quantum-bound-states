@@ -11,7 +11,6 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../../sun/js/Dialog.js';
 import QBSConstants from '../../QBSConstants.js';
-import QuantumStateGraphControlPanel from '../QuantumStateGraphControlPanel.js';
 
 export default class ConfigureQuantumPotentialDialog extends Dialog {
 
@@ -25,7 +24,6 @@ export default class ConfigureQuantumPotentialDialog extends Dialog {
       ySpacing: 15,
 
       // In the upper right corner of the layoutBounds, so that it's not covering the Energy Diagram.
-      maxWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
       layoutStrategy: ( dialog: Dialog, simBounds: Bounds2, screenBounds: Bounds2, scale: number ): void => {
         if ( dialog.layoutBounds ) {
           dialog.right = dialog.layoutBounds.right - QBSConstants.SCREEN_VIEW_X_MARGIN;
