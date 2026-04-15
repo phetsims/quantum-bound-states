@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigurePoschlTellerDialog is a dialog for configuring a Pöschl-Teller potential.
+ * ConfigurePoschlTellerDialog is a dialog for configuring a Morse potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

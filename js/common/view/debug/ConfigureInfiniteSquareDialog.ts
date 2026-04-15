@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigureFiniteSquareDialog is a dialog with controls for configuring an Infinite Square potential.
+ * ConfigureFiniteSquareDialog is a dialog for configuring an Infinite Square potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

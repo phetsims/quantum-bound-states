@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigureInfiniteStepDialog is a dialog with controls for configuring an Infinite Step potential.
+ * ConfigureInfiniteStepDialog is a dialog for configuring an Infinite Step potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

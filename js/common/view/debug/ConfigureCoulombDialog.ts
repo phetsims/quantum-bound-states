@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigureCoulombDialog is a dialog with controls for configuring a Coulomb potential.
+ * ConfigureCoulombDialog is a dialog for configuring a Coulomb potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
