@@ -8,7 +8,6 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -22,8 +21,8 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  electricFieldProperty: ReadOnlyProperty<number>;
   wellWidthRange?: RangeWithValue;
+  wellDepthRange?: RangeWithValue;
   separationRange?: RangeWithValue;
 };
 
@@ -42,6 +41,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
       // SelfOptions
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
+      wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
       separationRange: QBSConstants.SEPARATION_RANGE,
 
       // QuantumPotentialOptions
@@ -58,9 +58,9 @@ export default class FiniteSquarePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
+    this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
       units: electronVoltsUnit,
-      range: QBSConstants.WELL_DEPTH_RANGE,
+      range: options.wellDepthRange,
       tandem: options.tandem.createTandem( 'wellDepthProperty' ),
       phetioFeatured: true
     } );

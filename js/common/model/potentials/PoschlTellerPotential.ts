@@ -23,7 +23,8 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 
 type SelfOptions = {
   wellWidthRange?: RangeWithValue;
-  //TODO spacing - This is problematic because width and spacing are related.
+  wellDepthRange?: RangeWithValue;
+  separationRange?: RangeWithValue;
 };
 
 export type PoschlTellerPotentialOptions = SelfOptions &
@@ -33,6 +34,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
+  public readonly separationProperty: NumberProperty;
 
   //TODO spacingProperty
 
@@ -42,6 +44,8 @@ export default class PoschlTellerPotential extends QuantumPotential {
 
       // SelfOptions
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
+      wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
+      separationRange: QBSConstants.SEPARATION_RANGE,
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
@@ -59,18 +63,31 @@ export default class PoschlTellerPotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
+    this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
       units: electronVoltsUnit,
-      range: QBSConstants.WELL_DEPTH_RANGE,
+      range: options.wellDepthRange,
       tandem: options.tandem.createTandem( 'wellDepthProperty' ),
       phetioFeatured: true
     } );
 
+    this.separationProperty = new NumberProperty( options.separationRange.defaultValue, {
+      units: nanometersUnit,
+      range: options.separationRange,
+      tandem: options.tandem.createTandem( 'separationProperty' ),
+      phetioFeatured: true
+    } );
+
     // Changes to Properties instantiated by this class trigger notification.
-    //TODO add spacingProperty
     Multilink.multilink(
-      [ this.wellWidthProperty, this.wellDepthProperty ],
+      [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
       () => this.propertyChangedEmitter.emit() );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.wellWidthProperty.reset();
+    this.wellDepthProperty.reset();
+    this.separationProperty.reset();
   }
 
   /**
