@@ -125,7 +125,7 @@ export default class MorsePotential extends QuantumPotential {
 }
 
 /**
- * Use a Morse potential curve to approximate the potential shape.
+ * Solve the Morse potential.
  */
 function solveMorse( x: number, wellDepth: number, wellWidth: number, xOffset: number ): number {
   const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
