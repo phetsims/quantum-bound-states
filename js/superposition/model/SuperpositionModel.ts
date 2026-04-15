@@ -64,7 +64,6 @@ export default class SuperpositionModel extends QBSModel {
       } ),
       new HarmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
-        electronMassesProperty: electronMassesProperty,
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ),
       new PoschlTellerPotential( {

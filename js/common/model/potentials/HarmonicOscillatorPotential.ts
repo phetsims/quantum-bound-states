@@ -6,29 +6,32 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
+import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = {
-  electronMassesProperty: ReadOnlyProperty<number>;
-};
+type SelfOptions = EmptySelfOptions;
 
 type HarmonicOscillatorPotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class HarmonicOscillatorPotential extends QuantumPotential {
 
-  private readonly electronMassesProperty: ReadOnlyProperty<number>;
+  public static readonly WIDTH_HANDLE_ENERGY = 4; // eV above yOffset
 
-  //TODO Temporary constants, same as initial state of Java version.
-  private readonly angularFrequency = 1; //TODO Java: [-5,15] fs^-1
+  public readonly wellWidthProperty: NumberProperty;
+  private readonly springConstantProperty: TReadOnlyProperty<number>;
 
   public constructor( providedOptions: HarmonicOscillatorPotentialOptions ) {
 
@@ -41,8 +44,30 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
     super( options );
 
-    // Do not trigger notification when electronMassesProperty changes, because it is owned by the top-level model.
-    this.electronMassesProperty = options.electronMassesProperty;
+    this.wellWidthProperty = new NumberProperty( QBSConstants.WELL_WIDTH_RANGE.defaultValue, {
+      units: nanometersUnit,
+      range: QBSConstants.WELL_WIDTH_RANGE,
+      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
+      phetioFeatured: true
+    } );
+
+    this.springConstantProperty = new DerivedProperty( [ this.wellWidthProperty ],
+      wellWidth => {
+        const halfWellWidth = wellWidth / 2;
+        return ( 2 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( halfWellWidth * halfWellWidth );
+      }, {
+        tandem: options.tandem.createTandem( 'springConstantProperty' ),
+        phetioValueType: NumberIO,
+        phetioFeatured: true
+      } );
+
+    // Changes to Properties instantiated by this class trigger notification.
+    Multilink.multilink( [ this.wellWidthProperty ], () => this.propertyChangedEmitter.emit() );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.wellWidthProperty.reset();
   }
 
   /**
@@ -50,14 +75,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
    */
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
-
-    const xOffset = this.xOffset;
-    const yOffset = this.yOffset;
-    const mass = this.electronMassesProperty.value * QBSConstants.ELECTRON_MASS;
-    const omega = this.angularFrequency;
-
-    // From BSHarmonicOscillatorPotential.java
-    return yOffset + ( 0.5 * mass * omega * omega * ( x - xOffset ) * ( x - xOffset ) );
+    return 0.5 * this.springConstantProperty.value * x * x;
   }
 
   /**
@@ -73,16 +91,6 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
   public override getMaxPotentialEnergy(): number {
     return this.getEnergyAxisRange().max;
-  }
-
-  //TODO Used by HarmonicOscillatorSolution. This probably does not belong here.
-  /**
-   * Spring constant k = m * ω², in eV/nm².
-   */
-  public get springConstant(): number {
-    const mass = this.electronMassesProperty.value * QBSConstants.ELECTRON_MASS;
-    const omega = this.angularFrequency;
-    return mass * omega * omega;
   }
 
   public override createIcon(): Node {

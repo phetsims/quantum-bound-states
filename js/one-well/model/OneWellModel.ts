@@ -69,7 +69,6 @@ export default class OneWellModel extends QBSModel {
       } ),
       new HarmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
-        electronMassesProperty: electronMassesProperty,
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ),
       new PoschlTellerPotential( {
