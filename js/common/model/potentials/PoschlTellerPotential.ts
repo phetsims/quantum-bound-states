@@ -10,6 +10,7 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
+import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -21,8 +22,7 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  wellWidth?: number;
-  wellWidthRange?: Range;
+  wellWidthRange?: RangeWithValue;
   //TODO spacing - This is problematic because width and spacing are related.
 };
 
@@ -41,7 +41,6 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const options = optionize<PoschlTellerPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidth: QBSConstants.WELL_WIDTH_RANGE.defaultValue,
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
 
       // QuantumPotentialOptions
@@ -53,7 +52,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
 
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( options.wellWidth, {
+    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
       units: nanometersUnit,
       range: options.wellWidthRange,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),

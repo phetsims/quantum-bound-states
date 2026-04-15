@@ -56,9 +56,7 @@ export default class TwoWellsModel extends QBSModel {
 
     const potentials = [
       new FiniteSquarePotential( combineOptions<FiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
-        wellWidth: WELL_WIDTH_RANGE.defaultValue,
         wellWidthRange: WELL_WIDTH_RANGE,
-        separation: SEPARATION_RANGE.defaultValue,
         separationRange: SEPARATION_RANGE,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ) ),
