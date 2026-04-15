@@ -23,7 +23,7 @@ export default class ConfigureMorseDialog extends ConfigureQuantumPotentialDialo
       new WellDepthControl( potential.wellDepthProperty )
     ];
 
-    //TODO Add spacing control
+    //TODO Conditionally add spacing control
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: children
