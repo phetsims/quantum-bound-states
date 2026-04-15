@@ -9,10 +9,9 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
-import Range from '../../../../../dot/js/Range.js';
+import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import WithOptional from '../../../../../phet-core/js/types/WithOptional.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -24,10 +23,8 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 
 type SelfOptions = {
   electricFieldProperty: ReadOnlyProperty<number>;
-  wellWidth?: number;
-  wellWidthRange?: Range;
-  separation?: number;
-  separationRange?: Range;
+  wellWidthRange?: RangeWithValue;
+  separationRange?: RangeWithValue;
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
@@ -41,24 +38,20 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
-    const options = optionize<FiniteSquarePotentialOptions, StrictOmit<SelfOptions, 'separationRange'>, QuantumPotentialOptions>()( {
+    const options = optionize<FiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidth: QBSConstants.WELL_WIDTH_RANGE.defaultValue,
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
-      separation: 0.1,
+      separationRange: QBSConstants.SEPARATION_RANGE,
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
       tandemPrefix: 'finiteSquarePotential'
     }, providedOptions );
 
-    // If range is not specified, set the range length to zero so that the Property is effectively constant.
-    options.separationRange = options.separationRange || new Range( options.separation, options.separation );
-
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( options.wellWidth, {
+    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
       units: nanometersUnit,
       range: options.wellWidthRange,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
@@ -72,7 +65,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    this.separationProperty = new NumberProperty( options.separation, {
+    this.separationProperty = new NumberProperty( options.separationRange.defaultValue, {
       units: nanometersUnit,
       range: options.separationRange,
       tandem: options.tandem.createTandem( 'separationProperty' ),

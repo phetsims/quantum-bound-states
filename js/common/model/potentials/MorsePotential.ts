@@ -8,7 +8,7 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import Range from '../../../../../dot/js/Range.js';
+import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -22,8 +22,7 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  wellWidth?: number;
-  wellWidthRange?: Range;
+  wellWidthRange?: RangeWithValue;
   //TODO spacing - This is problematic because width and spacing are related.
 };
 
@@ -41,7 +40,6 @@ export default class MorsePotential extends QuantumPotential {
     const options = optionize<MorsePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidth: QBSConstants.WELL_WIDTH_RANGE.defaultValue,
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
 
       // QuantumPotentialOptions
@@ -52,7 +50,7 @@ export default class MorsePotential extends QuantumPotential {
 
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( options.wellWidth, {
+    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
       units: nanometersUnit,
       range: options.wellWidthRange,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
