@@ -7,6 +7,8 @@
  */
 
 import Emitter from '../../../../../axon/js/Emitter.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
@@ -17,6 +19,7 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
+import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 
 // Energy axis (y-axis) range for most potential types.
 const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
@@ -36,12 +39,13 @@ export default abstract class QuantumPotential extends PhetioObject {
   // As in the Java version, this is constant in the sim and is provided for future-proofing.
   protected readonly xOffset = 0;
 
-  protected readonly yOffset = 0; //TODO mutable
-
   // Fires when any Property instantiated by the QuantumPotential changes.
   public readonly propertyChangedEmitter: Emitter;
 
   protected readonly numberOfWellsProperty: ReadOnlyProperty<number>;
+
+  public readonly yOffsetProperty: NumberProperty;
+
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
@@ -65,13 +69,24 @@ export default abstract class QuantumPotential extends PhetioObject {
     // Do not trigger notification when numberOfWellsProperty changes, because it is owned by the top-level model.
     this.numberOfWellsProperty = options.numberOfWellsProperty;
 
+    this.yOffsetProperty = new NumberProperty( 0, {
+      units: electronVoltsUnit,
+      range: new Range( 0, 0 ), //TODO
+      tandem: options.tandem.createTandem( 'yOffsetProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+
+    // Changes to Properties instantiated by this class trigger notification.
+    Multilink.multilink( [ this.yOffsetProperty ], () => this.propertyChangedEmitter.emit() );
+
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
   }
 
   public reset(): void {
-    //TODO
+    this.yOffsetProperty.reset();
   }
 
   /**

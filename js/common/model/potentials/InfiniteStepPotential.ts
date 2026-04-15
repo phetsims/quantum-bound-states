@@ -78,11 +78,11 @@ export default class InfiniteStepPotential extends QuantumPotential {
       // inside the well
       if ( x <= leftX + wellWidth / 2 ) {
         // to the left of the step
-        pe = this.yOffset;
+        pe = this.yOffsetProperty.value;
       }
       else {
         // at the step
-        pe = this.yOffset + this.stepHeightProperty.value;
+        pe = this.yOffsetProperty.value + this.stepHeightProperty.value;
       }
     }
     else {
@@ -93,7 +93,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.yOffset;
+    return this.yOffsetProperty.value;
   }
 
   public override getMaxPotentialEnergy(): number {

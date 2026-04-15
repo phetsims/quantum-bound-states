@@ -104,7 +104,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
     const n = this.numberOfWellsProperty.value;
     const wellWidth = this.wellWidthProperty.value;
     const xOffset = this.xOffset;
-    const yOffset = this.yOffset;
+    const yOffset = this.yOffsetProperty.value;
     const s = wellWidth + this.separationProperty.value;
 
     let pe = yOffset + this.wellDepthProperty.value;
@@ -126,11 +126,11 @@ export default class FiniteSquarePotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.yOffset;
+    return this.yOffsetProperty.value;
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.yOffset + this.wellDepthProperty.value;
+    return this.yOffsetProperty.value + this.wellDepthProperty.value;
   }
 
   /**
