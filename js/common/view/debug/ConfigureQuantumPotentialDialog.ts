@@ -15,7 +15,7 @@ import QuantumStateGraphControlPanel from '../QuantumStateGraphControlPanel.js';
 
 export default class ConfigureQuantumPotentialDialog extends Dialog {
 
-  public constructor( titleString: string, content: Node ) {
+  protected constructor( titleString: string, content: Node ) {
 
     super( content, {
       title: new Text( titleString, {
