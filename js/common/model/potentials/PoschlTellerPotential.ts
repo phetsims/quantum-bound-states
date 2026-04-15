@@ -7,9 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -17,21 +15,16 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = {
-  electricFieldProperty: ReadOnlyProperty<number>;
-};
+type SelfOptions = EmptySelfOptions;
 
 export type PoschlTellerPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class PoschlTellerPotential extends QuantumPotential {
 
-  private readonly electricFieldProperty: ReadOnlyProperty<number>;
-
   public constructor( providedOptions: PoschlTellerPotentialOptions ) {
 
-    const options = optionize<PoschlTellerPotentialOptions,
-      StrictOmit<SelfOptions, 'electricFieldProperty'>, QuantumPotentialOptions>()( {
+    const options = optionize<PoschlTellerPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.poschlTellerStringProperty,
@@ -39,9 +32,6 @@ export default class PoschlTellerPotential extends QuantumPotential {
     }, providedOptions );
 
     super( options );
-
-    // Do not trigger notification when electricFieldProperty changes, because it is owned by the top-level model.
-    this.electricFieldProperty = options.electricFieldProperty;
   }
 
   /**

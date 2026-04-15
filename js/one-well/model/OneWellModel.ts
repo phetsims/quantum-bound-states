@@ -52,6 +52,7 @@ export default class OneWellModel extends QBSModel {
     const potentials = [
       new InfiniteSquarePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
       } ),
       new FiniteSquarePotential( {
@@ -61,14 +62,17 @@ export default class OneWellModel extends QBSModel {
       } ),
       new InfiniteStepPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'infiniteStepPotential' )
       } ),
       new AsymmetricTrianglePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'asymmetricTrianglePotential' )
       } ),
       new HarmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ),
       new PoschlTellerPotential( {
@@ -79,11 +83,13 @@ export default class OneWellModel extends QBSModel {
       } ),
       new MorsePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'morsePotential' )
       } ),
       new CoulombPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'coulombPotential' )
       } )
     ];

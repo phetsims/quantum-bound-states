@@ -24,7 +24,8 @@ const ELECTRIC_FIELD = 0; // V/nm
 
 type SelfOptions = EmptySelfOptions;
 
-type CoulombPotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
+type CoulombPotentialOptions = SelfOptions &
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class CoulombPotential extends QuantumPotential {
 
@@ -45,6 +46,7 @@ export default class CoulombPotential extends QuantumPotential {
    */
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'CoulombPotential does not support multiple wells.' );
+    affirm( this.electricFieldProperty.value === 0, 'CoulombPotential does not support electric field.' );
 
     // This algorithm handles multiple wells, but we only have 1 well in the current implementation.
     const n = 1; // number of wells

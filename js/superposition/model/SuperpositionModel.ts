@@ -55,6 +55,7 @@ export default class SuperpositionModel extends QBSModel {
     const potentials = [
       new InfiniteSquarePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
       } ),
       new FiniteSquarePotential( {
@@ -64,6 +65,7 @@ export default class SuperpositionModel extends QBSModel {
       } ),
       new HarmonicOscillatorPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ),
       new PoschlTellerPotential( {
@@ -74,6 +76,7 @@ export default class SuperpositionModel extends QBSModel {
       } ),
       new MorsePotential( {
         numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'morsePotential' )
       } ),
