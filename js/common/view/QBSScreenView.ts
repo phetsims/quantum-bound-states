@@ -234,8 +234,8 @@ export default class QBSScreenView extends ScreenView {
     //TODO Hide this button behind if ( phet.chipper.queryParameters.dev )
     const configurePotentialButton = new ConfigurePotentialButton( model.potentialProperty );
     screenViewRootNode.addChild( configurePotentialButton );
-    configurePotentialButton.right = energyDiagramRectangleBounds.right;
-    configurePotentialButton.bottom = energyDiagramRectangleBounds.top - 5;
+    configurePotentialButton.right = energyDiagramControlPanel.right;
+    configurePotentialButton.bottom = energyDiagramControlPanel.top - 5;
   }
 
   /**
