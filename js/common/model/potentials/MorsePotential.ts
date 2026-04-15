@@ -93,11 +93,11 @@ export default class MorsePotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.getEnergyAxisRange().min; //TODO incorrect
+    return this.energyAxisRange.min; //TODO incorrect
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.getEnergyAxisRange().max; //TODO incorrect
+    return this.energyAxisRange.max; //TODO incorrect
   }
 
   /**

@@ -133,7 +133,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.getEnergyAxisRange().max;
+    return this.energyAxisRange.max;
   }
 
   public override createIcon(): Node {

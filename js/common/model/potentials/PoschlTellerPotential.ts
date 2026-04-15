@@ -20,8 +20,6 @@ import QBSConstants from '../../QBSConstants.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-const ENERGY_AXIS_RANGE = new Range( -15.5, 5.5 );
-
 type SelfOptions = {
   wellWidth?: number;
   wellWidthRange?: Range;
@@ -47,6 +45,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
 
       // QuantumPotentialOptions
+      energyAxisRange: new Range( -20.5, 0.5 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.poschlTellerStringProperty,
       tandemPrefix: 'poschlTellerPotential' //TODO rename to 'anharmonicOscillatorPotential'?
     }, providedOptions );
@@ -92,19 +91,12 @@ export default class PoschlTellerPotential extends QuantumPotential {
     return 0;
   }
 
-  /**
-   * Gets the range of the energy axis (y-axis).
-   */
-  public override getEnergyAxisRange(): Range {
-    return ENERGY_AXIS_RANGE;
-  }
-
   public override getMinPotentialEnergy(): number {
-    return this.getEnergyAxisRange().min; //TODO incorrect
+    return this.energyAxisRange.min; //TODO incorrect
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.getEnergyAxisRange().max; //TODO incorrect
+    return this.yOffsetProperty.value; // top of the potential
   }
 
   /**
