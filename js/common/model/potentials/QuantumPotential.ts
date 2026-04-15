@@ -25,6 +25,7 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 
 type SelfOptions = {
+  groundStateIndex?: number;
   numberOfWellsProperty: ReadOnlyProperty<number>;
   electricFieldProperty: ReadOnlyProperty<number>;
   energyAxisRange?: Range;
@@ -36,6 +37,8 @@ type SelfOptions = {
 export type QuantumPotentialOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default abstract class QuantumPotential extends PhetioObject {
+
+  public readonly groundStateIndex: number;
 
   // Horizontal offset of the potential from x=0 nm.
   // As in the Java version, this is constant in the sim and is provided for future-proofing.
@@ -59,6 +62,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     const options = optionize<QuantumPotentialOptions, StrictOmit<SelfOptions, 'numberOfWellsProperty'>, PhetioObjectOptions>()( {
 
       // SelfOptions
+      groundStateIndex: 1,
       energyAxisRange: DEFAULT_ENERGY_AXIS_RANGE,
       accessibleNameProperty: providedOptions.visualNameProperty,
 
@@ -68,6 +72,8 @@ export default abstract class QuantumPotential extends PhetioObject {
     }, providedOptions );
 
     super( options );
+
+    this.groundStateIndex = options.groundStateIndex;
 
     this.propertyChangedEmitter = new Emitter(); //TODO PhET-iO?
 
@@ -102,13 +108,6 @@ export default abstract class QuantumPotential extends PhetioObject {
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public abstract getPotentialEnergyAt( x: number ): number;
-
-  /**
-   * Gets the index of the ground state, 1 for most potential types.
-   */
-  public getGroundStateIndex(): number {
-    return 1;
-  }
 
   //TODO Combine getMinPotentialEnergy and getMaxPotentialEnergy into getPotentialEnergyLimits(): Range?
   /**

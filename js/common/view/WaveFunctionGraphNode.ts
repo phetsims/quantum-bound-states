@@ -45,7 +45,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     // Computes the y-coordinates for the wave function plot.
     const computeYCoordinates = (): number[] => {
-      const groundStateIndex = model.potentialProperty.value.getGroundStateIndex();
+      const groundStateIndex = model.potentialProperty.value.groundStateIndex;
       const waveFunctionsIndex = model.energyLevelProperty.value - groundStateIndex;
       const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
       affirm( waveFunctionsIndex >= 0 && waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );

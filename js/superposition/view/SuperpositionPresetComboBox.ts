@@ -47,7 +47,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
           potentialProperty,
           QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset1StringProperty,
           QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset1StringProperty
-        ], ( potential, groundState0String, groundState1String ) => potential.getGroundStateIndex() === 0 ? groundState0String : groundState1String ),
+        ], ( potential, groundState0String, groundState1String ) => potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
         tandemName: `preset${index}Item`,
         createNode: () => alignGroup.createBox(
           new RichText( new DerivedStringProperty( [
@@ -55,7 +55,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
             QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset1StringProperty,
             QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset1StringProperty
           ], ( potential, groundState0String, groundState1String ) =>
-            potential.getGroundStateIndex() === 0 ? groundState0String : groundState1String ), richTextOptions ),
+            potential.groundStateIndex === 0 ? groundState0String : groundState1String ), richTextOptions ),
           alignBoxOptions )
       },
 
@@ -66,7 +66,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
           potentialProperty,
           QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset2StringProperty,
           QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset2StringProperty
-        ], ( potential, groundState0String, groundState1String ) => potential.getGroundStateIndex() === 0 ? groundState0String : groundState1String ),
+        ], ( potential, groundState0String, groundState1String ) => potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
         tandemName: `preset${index}Item`,
         createNode: () => alignGroup.createBox(
           new RichText( new DerivedStringProperty( [
@@ -74,7 +74,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
             QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset2StringProperty,
             QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset2StringProperty
           ], ( potential, groundState0String, groundState1String ) =>
-            potential.getGroundStateIndex() === 0 ? groundState0String : groundState1String ), richTextOptions ),
+            potential.groundStateIndex === 0 ? groundState0String : groundState1String ), richTextOptions ),
           alignBoxOptions )
       },
 
@@ -85,7 +85,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
           potentialProperty,
           QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset3StringProperty,
           QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset3StringProperty
-        ], ( potential, groundState0String, groundState1String ) => potential.getGroundStateIndex() === 0 ? groundState0String : groundState1String ),
+        ], ( potential, groundState0String, groundState1String ) => potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
         tandemName: `preset${index}Item`,
         createNode: () => alignGroup.createBox(
           new RichText( new DerivedStringProperty( [
@@ -93,7 +93,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
             QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset3StringProperty,
             QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset3StringProperty
           ], ( potential, groundState0String, groundState1String ) =>
-            potential.getGroundStateIndex() === 0 ? groundState0String : groundState1String ), richTextOptions ),
+            potential.groundStateIndex === 0 ? groundState0String : groundState1String ), richTextOptions ),
           alignBoxOptions )
       },
 
@@ -104,7 +104,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
           potentialProperty,
           QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.groundState0.accessibleNamePreset4StringProperty,
           QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset4StringProperty
-        ], ( potential, groundState0String, groundState1String ) => potential.getGroundStateIndex() === 0 ? groundState0String : groundState1String ),
+        ], ( potential, groundState0String, groundState1String ) => potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
         tandemName: `preset${index}Item`,
         createNode: () => alignGroup.createBox(
           new RichText( new DerivedStringProperty( [
@@ -112,7 +112,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
             QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset4StringProperty,
             QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset4StringProperty
           ], ( potential, groundState0String, groundState1String ) =>
-            potential.getGroundStateIndex() === 0 ? groundState0String : groundState1String ), richTextOptions ),
+            potential.groundStateIndex === 0 ? groundState0String : groundState1String ), richTextOptions ),
           alignBoxOptions )
       },
 
