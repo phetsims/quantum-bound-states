@@ -22,8 +22,8 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 
 type SelfOptions = EmptySelfOptions;
 
-type AsymmetricTrianglePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
+export type AsymmetricTrianglePotentialOptions = SelfOptions &
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class AsymmetricTrianglePotential extends QuantumPotential {
 

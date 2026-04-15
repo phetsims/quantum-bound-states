@@ -20,8 +20,8 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 
 type SelfOptions = EmptySelfOptions;
 
-type InfiniteSquarePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
+export type InfiniteSquarePotentialOptions = SelfOptions &
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class InfiniteSquarePotential extends QuantumPotential {
 

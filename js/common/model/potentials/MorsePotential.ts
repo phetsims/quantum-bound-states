@@ -27,8 +27,8 @@ type SelfOptions = {
   //TODO spacing - This is problematic because width and spacing are related.
 };
 
-type MorsePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'groundStateIndex' | 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
+export type MorsePotentialOptions = SelfOptions &
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class MorsePotential extends QuantumPotential {
 

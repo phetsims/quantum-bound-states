@@ -10,13 +10,15 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
-import MorsePotential from '../../common/model/potentials/MorsePotential.js';
+import PoschlTellerPotential, { PoschlTellerPotentialOptions } from '../../common/model/potentials/PoschlTellerPotential.js';
+import MorsePotential, { MorsePotentialOptions } from '../../common/model/potentials/MorsePotential.js';
 import DoubleSquarePotential from '../../common/model/potentials/DoubleSquarePotential.js';
-import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
-import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicOscillatorPotential.js';
-import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
+import FiniteSquarePotential, { FiniteSquarePotentialOptions } from '../../common/model/potentials/FiniteSquarePotential.js';
+import HarmonicOscillatorPotential, { HarmonicOscillatorPotentialOptions } from '../../common/model/potentials/HarmonicOscillatorPotential.js';
+import InfiniteSquarePotential, { InfiniteSquarePotentialOptions } from '../../common/model/potentials/InfiniteSquarePotential.js';
+import { QuantumPotentialOptions } from '../../common/model/potentials/QuantumPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
@@ -50,37 +52,34 @@ export default class SuperpositionModel extends QBSModel {
       range: new Range( 0, 0 )
     } );
 
+    // Shared by all quantum potentials
+    const quantumPotentialOptions: Partial<QuantumPotentialOptions> = {
+      numberOfWellsProperty: numberOfWellsProperty,
+      electricFieldProperty: electricFieldProperty
+    };
+
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
-      new InfiniteSquarePotential( {
-        numberOfWellsProperty: numberOfWellsProperty,
-        electricFieldProperty: electricFieldProperty,
+      new InfiniteSquarePotential( combineOptions<InfiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
         tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
-      } ),
-      new FiniteSquarePotential( {
-        numberOfWellsProperty: numberOfWellsProperty,
-        electricFieldProperty: electricFieldProperty,
+      } ) ),
+      new FiniteSquarePotential( combineOptions<FiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
-      } ),
-      new HarmonicOscillatorPotential( {
-        numberOfWellsProperty: numberOfWellsProperty,
-        electricFieldProperty: electricFieldProperty,
+      } ) ),
+      new HarmonicOscillatorPotential( combineOptions<HarmonicOscillatorPotentialOptions>( {}, quantumPotentialOptions, {
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
-      } ),
-      new PoschlTellerPotential( {
-        numberOfWellsProperty: numberOfWellsProperty,
-        electricFieldProperty: electricFieldProperty,
+      } ) ),
+      new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
-      } ),
-      new MorsePotential( {
-        numberOfWellsProperty: numberOfWellsProperty,
-        electricFieldProperty: electricFieldProperty,
+      } ) ),
+      new MorsePotential( combineOptions<MorsePotentialOptions>( {}, quantumPotentialOptions, {
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'morsePotential' )
-      } ),
+      } ) ),
       new DoubleSquarePotential( {
+        // This potential has its own numberOfWellsProperty.
         electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'doubleSquarePotential' )
       } )

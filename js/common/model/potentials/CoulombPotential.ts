@@ -22,8 +22,8 @@ const ELECTRIC_FIELD = 0; // V/nm
 
 type SelfOptions = EmptySelfOptions;
 
-type CoulombPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
+export type CoulombPotentialOptions = SelfOptions &
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class CoulombPotential extends QuantumPotential {
 
