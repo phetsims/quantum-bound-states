@@ -13,6 +13,7 @@ import Property from '../../../../../axon/js/Property.js';
 import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
+import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
@@ -25,11 +26,15 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 // Initial energy axis (y-axis) range for most potential types.
 const INITIAL_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 
+// Default y-offset range is effectively constant 0.
+const DEFAULT_Y_OFFSET_RANGE = new RangeWithValue( 0, 0, 0 );
+
 type SelfOptions = {
   groundStateIndex?: number;
   numberOfWellsProperty: ReadOnlyProperty<number>;
   electricFieldProperty: ReadOnlyProperty<number>;
   initialEnergyAxisRange?: Range; // initial range of the energy axis (y-axis)
+  yOffsetRange?: RangeWithValue;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
@@ -66,6 +71,7 @@ export default abstract class QuantumPotential extends PhetioObject {
       // SelfOptions
       groundStateIndex: 1,
       initialEnergyAxisRange: INITIAL_ENERGY_AXIS_RANGE,
+      yOffsetRange: DEFAULT_Y_OFFSET_RANGE,
       accessibleNameProperty: providedOptions.visualNameProperty,
 
       // PhetioObjectOptions
@@ -84,12 +90,12 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.numberOfWellsProperty = options.numberOfWellsProperty;
     this.electricFieldProperty = options.electricFieldProperty;
 
-    this.yOffsetProperty = new NumberProperty( 0, {
+    this.yOffsetProperty = new NumberProperty( DEFAULT_Y_OFFSET_RANGE.defaultValue, {
       units: electronVoltsUnit,
-      range: new Range( 0, 0 ), //TODO
+      range: DEFAULT_Y_OFFSET_RANGE,
       tandem: options.tandem.createTandem( 'yOffsetProperty' ),
-      phetioFeatured: true,
-      phetioReadOnly: true
+      phetioFeatured: true
+      //TODO should this be phetioReadOnly: true?
     } );
 
     this.initialEnergyAxisRange = options.initialEnergyAxisRange;
