@@ -40,6 +40,8 @@ type SelfOptions = {
   potential?: QuantumPotential;
   potentials: QuantumPotential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
+
+  // Properties that are shared by all potentials.
   numberOfWellsProperty: NumberProperty;
   electronMassesProperty: NumberProperty;
   electricFieldProperty: NumberProperty;
