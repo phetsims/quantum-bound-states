@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigureAsymmetricTriangleDialog is a dialog with controls for configuring an Asymmetric Triangle potential.
+ * ConfigureAsymmetricTriangleDialog is a dialog for configuring an Asymmetric Triangle potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

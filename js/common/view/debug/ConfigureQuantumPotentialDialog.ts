@@ -2,6 +2,8 @@
 
 /**
  * ConfigureQuantumPotentialDialog is the base class for all dialogs used to configure a Quantum Potential.
+ * These dialogs are for debugging purposes only and do NOT support core PhET features (localization, dynamic layout,
+ * alt input, core description, PhET-iO, etc.)
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
