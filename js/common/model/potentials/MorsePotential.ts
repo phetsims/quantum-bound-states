@@ -23,7 +23,7 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 type SelfOptions = {
   wellWidth?: number;
   wellWidthRange?: Range;
-  //TODO spacing
+  //TODO spacing - This is problematic because width and spacing are related.
 };
 
 type MorsePotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
