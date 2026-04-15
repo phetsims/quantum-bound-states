@@ -9,8 +9,9 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
+import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -18,7 +19,9 @@ import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  wellWidthRange?: RangeWithValue;
+};
 
 export type InfiniteSquarePotentialOptions = SelfOptions &
   Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
@@ -31,6 +34,9 @@ export default class InfiniteSquarePotential extends QuantumPotential {
 
     const options = optionize<InfiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
+      // SelfOptions
+      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
+
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteSquareStringProperty,
       tandemPrefix: 'infiniteSquarePotential'
@@ -38,10 +44,10 @@ export default class InfiniteSquarePotential extends QuantumPotential {
 
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( QBSConstants.WELL_WIDTH_RANGE.defaultValue, {
+    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
       units: nanometersUnit,
       //TODO range.min should be 0.1, but wellWidth < 0.2 causes assertion failure, no eigenvalues
-      // range: QBSConstants.WELL_WIDTH_RANGE,
+      // range: options.wellWidthRange,
       range: new Range( 0.2, 6 ),
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true

@@ -23,7 +23,8 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 
 type SelfOptions = {
   wellWidthRange?: RangeWithValue;
-  //TODO spacing - This is problematic because width and spacing are related.
+  wellDepthRange?: RangeWithValue;
+  separationRange?: RangeWithValue;
 };
 
 export type MorsePotentialOptions = SelfOptions &
@@ -33,7 +34,7 @@ export default class MorsePotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
-  //TODO spacingProperty
+  public readonly separationProperty: NumberProperty;
 
   public constructor( providedOptions: MorsePotentialOptions ) {
 
@@ -41,6 +42,8 @@ export default class MorsePotential extends QuantumPotential {
 
       // SelfOptions
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
+      wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
+      separationRange: QBSConstants.SEPARATION_RANGE,
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
@@ -57,18 +60,31 @@ export default class MorsePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
+    this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
       units: electronVoltsUnit,
-      range: QBSConstants.WELL_DEPTH_RANGE,
+      range: options.wellDepthRange,
       tandem: options.tandem.createTandem( 'wellDepthProperty' ),
       phetioFeatured: true
     } );
 
+    this.separationProperty = new NumberProperty( options.separationRange.defaultValue, {
+      units: nanometersUnit,
+      range: options.separationRange,
+      tandem: options.tandem.createTandem( 'separationProperty' ),
+      phetioFeatured: true
+    } );
+
     // Changes to Properties instantiated by this class trigger notification.
-    //TODO add spacingProperty
     Multilink.multilink(
-      [ this.wellWidthProperty, this.wellDepthProperty ],
+      [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
       () => this.propertyChangedEmitter.emit() );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.wellWidthProperty.reset();
+    this.wellDepthProperty.reset();
+    this.separationProperty.reset();
   }
 
   /**
@@ -77,7 +93,7 @@ export default class MorsePotential extends QuantumPotential {
   public getPotentialEnergyAt( x: number ): number {
     //TODO affirm that numberOfWellsProperty.value === 1 or 2
     affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
-    //TODO parameters: N wells, yOffset, xOffset, wellWidth, wellDepth, spacing?
+    //TODO parameters: N wells, yOffset, xOffset, wellWidth, wellDepth, separation
 
     //TODO This fails with no eigenvalues found.
     // return solveMorse( x, this.wellDepthProperty.value, this.wellWidthProperty.value, this.xOffset );

@@ -61,11 +61,13 @@ export default class TwoWellsModel extends QBSModel {
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ) ),
       new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
-        //TODO Other Properties?
+        wellWidthRange: WELL_WIDTH_RANGE,
+        separationRange: SEPARATION_RANGE,
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
       } ) ),
       new MorsePotential( combineOptions<MorsePotentialOptions>( {}, quantumPotentialOptions, {
-        //TODO Other Properties?
+        wellWidthRange: WELL_WIDTH_RANGE,
+        separationRange: SEPARATION_RANGE,
         tandem: potentialsTandem.createTandem( 'morsePotential' )
       } ) )
     ];
