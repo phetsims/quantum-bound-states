@@ -67,7 +67,7 @@ export default class InfiniteSquarePotential extends QuantumPotential {
     let pe: number;
     if ( leftX <= x && x <= rightX ) {
       // inside the well
-      pe = this.yOffset;
+      pe = this.yOffsetProperty.value;
     }
     else {
       // outside the well
@@ -77,7 +77,7 @@ export default class InfiniteSquarePotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.yOffset;
+    return this.yOffsetProperty.value;
   }
 
   public override getMaxPotentialEnergy(): number {

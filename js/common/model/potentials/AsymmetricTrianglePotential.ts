@@ -74,7 +74,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
     const wellWidth = this.wellWidthProperty.value;
     const wellDepth = this.wellDepthProperty.value;
     const xOffset = this.xOffset;
-    const yOffset = this.yOffset;
+    const yOffset = this.yOffsetProperty.value;
 
     // From BSAsymmetricPotential.java
     let pe = yOffset + wellDepth;
@@ -86,11 +86,11 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.yOffset;
+    return this.yOffsetProperty.value;
   }
 
   public override getMaxPotentialEnergy(): number {
-    return this.yOffset + this.wellDepthProperty.value;
+    return this.yOffsetProperty.value + this.wellDepthProperty.value;
   }
 
   public override createIcon(): Node {

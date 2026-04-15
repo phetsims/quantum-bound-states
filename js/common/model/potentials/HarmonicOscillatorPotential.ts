@@ -88,7 +88,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     //TODO Is this properly compensated for yOffset?
     this.turningPointProperty = new DerivedProperty( [ this.springConstantProperty ],
       springConstant => {
-        const y = this.yOffset + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY;
+        const y = this.yOffsetProperty.value + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY;
         const x = Math.sqrt( y / springConstant );
         return new Vector2( x, y );
       } );
@@ -127,7 +127,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
   }
 
   public override getMinPotentialEnergy(): number {
-    return this.yOffset;
+    return this.yOffsetProperty.value;
   }
 
   public override getMaxPotentialEnergy(): number {

@@ -51,7 +51,7 @@ export default class CoulombPotential extends QuantumPotential {
     const spacing = 0; // because n = 1
 
     const xOffset = this.xOffset;
-    const yOffset = this.yOffset;
+    const yOffset = this.yOffsetProperty.value;
 
     // From BSCoulomb1DPotential.java
     let energy = 0;
