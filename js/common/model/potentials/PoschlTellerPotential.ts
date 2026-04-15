@@ -48,7 +48,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public getPotentialEnergyAt( x: number ): number {
-    return 0; //TODO implement getPotentialEnergyAt
+    return 0; //TODO implement getPotentialEnergyAt: N wells, electricField, yOffset, xOffset, wellWidth, wellDepth, spacing?
   }
 
   /**
