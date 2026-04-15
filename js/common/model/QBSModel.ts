@@ -114,9 +114,9 @@ export default class QBSModel implements TModel {
     this.energyDiagram = new EnergyDiagram( this.potentialProperty, this.xGrid, this.boundStateResultProperty,
       options.tandem.createTandem( 'energyDiagram' ) );
 
-    this.energyLevelProperty = new NumberProperty( this.potentialProperty.value.getGroundStateIndex(), {
+    this.energyLevelProperty = new NumberProperty( this.potentialProperty.value.groundStateIndex, {
       numberType: 'Integer',
-      range: getEnergyLevelRange( this.potentialProperty.value.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length ),
+      range: getEnergyLevelRange( this.potentialProperty.value.groundStateIndex, this.boundStateResultProperty.value.energies.length ),
       tandem: options.tandem.createTandem( 'energyLevelProperty' ),
       phetioFeatured: true,
       phetioReadOnly: true
@@ -136,7 +136,7 @@ export default class QBSModel implements TModel {
         this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, this.electronMassesProperty.value );
 
         // Adjust energy level range and set to the ground state.
-        const energyLevelRange = getEnergyLevelRange( potential.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length );
+        const energyLevelRange = getEnergyLevelRange( potential.groundStateIndex, this.boundStateResultProperty.value.energies.length );
         this.energyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
       }
     } );
@@ -145,7 +145,7 @@ export default class QBSModel implements TModel {
     // set to the ground state.
     this.boundStateResultProperty.lazyLink( boundStateResult => {
       if ( !isSettingPhetioStateProperty.value ) {
-        const energyLevelRange = getEnergyLevelRange( this.potentialProperty.value.getGroundStateIndex(), boundStateResult.energies.length );
+        const energyLevelRange = getEnergyLevelRange( this.potentialProperty.value.groundStateIndex, boundStateResult.energies.length );
         if ( energyLevelRange.contains( this.energyLevelProperty.value ) ) {
           this.energyLevelProperty.rangeProperty.value = energyLevelRange;
         }

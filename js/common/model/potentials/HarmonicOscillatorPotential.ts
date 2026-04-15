@@ -28,7 +28,7 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 type SelfOptions = EmptySelfOptions;
 
 type HarmonicOscillatorPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'groundStateIndex' | 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class HarmonicOscillatorPotential extends QuantumPotential {
 
@@ -44,6 +44,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     const options = optionize<HarmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // QuantumPotentialOptions
+      groundStateIndex: 0,
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.harmonicOscillatorStringProperty,
       tandemPrefix: 'harmonicOscillatorPotential'
     }, providedOptions );
@@ -119,13 +120,6 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
     affirm( this.electricFieldProperty.value === 0, 'HarmonicOscillatorPotential does not support electric field.' );
     return 0.5 * this.springConstantProperty.value * x * x;
-  }
-
-  /**
-   * Gets the index of the ground state.
-   */
-  public override getGroundStateIndex(): number {
-    return 0;
   }
 
   public override getMinPotentialEnergy(): number {

@@ -27,7 +27,7 @@ type SelfOptions = {
 };
 
 export type PoschlTellerPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'groundStateIndex' | 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class PoschlTellerPotential extends QuantumPotential {
 
@@ -45,6 +45,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
 
       // QuantumPotentialOptions
+      groundStateIndex: 0,
       energyAxisRange: new Range( -20.5, 0.5 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.poschlTellerStringProperty,
       tandemPrefix: 'poschlTellerPotential' //TODO rename to 'anharmonicOscillatorPotential'?
@@ -82,13 +83,6 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const a = this.wellWidthProperty.value;
     const coshVal = Math.cosh( x / a );
     return -V0 / ( coshVal * coshVal );
-  }
-
-  /**
-   * Gets the index of the ground state.
-   */
-  public override getGroundStateIndex(): number {
-    return 0;
   }
 
   public override getMinPotentialEnergy(): number {

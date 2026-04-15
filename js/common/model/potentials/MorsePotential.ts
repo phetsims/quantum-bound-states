@@ -28,7 +28,7 @@ type SelfOptions = {
 };
 
 type MorsePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'groundStateIndex' | 'numberOfWellsProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class MorsePotential extends QuantumPotential {
 
@@ -45,6 +45,7 @@ export default class MorsePotential extends QuantumPotential {
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
 
       // QuantumPotentialOptions
+      groundStateIndex: 0,
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
       tandemPrefix: 'morsePotential'
     }, providedOptions );
@@ -82,13 +83,6 @@ export default class MorsePotential extends QuantumPotential {
 
     //TODO This fails with no eigenvalues found.
     // return solveMorse( x, this.wellDepthProperty.value, this.wellWidthProperty.value, this.xOffset );
-    return 0;
-  }
-
-  /**
-   * Gets the index of the ground state.
-   */
-  public override getGroundStateIndex(): number {
     return 0;
   }
 
