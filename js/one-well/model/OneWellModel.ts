@@ -29,10 +29,8 @@ export default class OneWellModel extends QBSModel {
   public constructor( tandem: Tandem ) {
 
     const numberOfWellsProperty = new NumberProperty( 1, {
-      range: new Range( 1, 1 ),
-      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
-      phetioFeatured: true,
-      phetioReadOnly: true
+      range: new Range( 1, 1 )
+      // No PhET-iO instrumentation, since it's effectively a constant.
     } );
 
     const electronMassesProperty = new NumberProperty( 1, {
@@ -44,10 +42,10 @@ export default class OneWellModel extends QBSModel {
       phetioDocumentation: 'The number of electron masses.'
     } );
 
-    // Effectively constant
     const electricFieldProperty = new NumberProperty( 0, {
       units: voltsPerNanometerUnit,
       range: new Range( 0, 0 )
+      // No PhET-iO instrumentation, since it's effectively constant.
     } );
 
     const yOffsetRange = new RangeWithValue( -10, 10, 0 );

@@ -33,11 +33,11 @@ export default class ManyWellsModel extends QBSModel {
       tandem: tandem.createTandem( 'numberOfWellsProperty' )
     } );
 
-    // Effectively constant
     const electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
       range: new Range( 1, 1 )
+      // No PhET-iO instrumentation, since it's effectively a constant.
     } );
 
     const electricFieldProperty = new NumberProperty( 0, {
