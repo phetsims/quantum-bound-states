@@ -12,6 +12,7 @@ import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../../sun/js/Dialog.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../QBSConstants.js';
 
 export default class ConfigureQuantumPotentialDialog extends Dialog {
@@ -31,7 +32,8 @@ export default class ConfigureQuantumPotentialDialog extends Dialog {
           dialog.right = dialog.layoutBounds.right - QBSConstants.SCREEN_VIEW_X_MARGIN;
           dialog.top = dialog.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
         }
-      }
+      },
+      tandem: Tandem.OPT_OUT
     } );
   }
 }
