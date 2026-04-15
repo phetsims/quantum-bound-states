@@ -9,8 +9,7 @@
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlOptions } from '../../../../../scenery-phet/js/NumberControl.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
-import { electronVoltsUnit } from '../../model/units/electronVoltsUnit.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import QBSConstants from '../../QBSConstants.js';
 import WellWidthControl from './WellWidthControl.js';
 
@@ -20,19 +19,18 @@ export default class WellDepthControl extends NumberControl {
 
   public constructor( wellDepthProperty: NumberProperty ) {
 
-    super( 'wellDepthProperty', wellDepthProperty, wellDepthProperty.range,
+    super( 'Well Depth', wellDepthProperty, wellDepthProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {
-          numberFormatter: value => electronVoltsUnit.getVisualSymbolPatternString( value, {
+          numberFormatter: value => nanometersUnit.getVisualSymbolPatternString( value, {
             decimalPlaces: DECIMALS,
             showTrailingZeros: true
           } )
         },
         sliderOptions: {
           majorTicks: WellWidthControl.createMinMaxTicks( wellDepthProperty.range, DECIMALS )
-        },
-        tandem: Tandem.OPT_OUT
+        }
       } ) );
   }
 }

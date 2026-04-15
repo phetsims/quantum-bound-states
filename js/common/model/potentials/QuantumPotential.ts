@@ -7,11 +7,9 @@
  */
 
 import Emitter from '../../../../../axon/js/Emitter.js';
-import Multilink from '../../../../../axon/js/Multilink.js';
-import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
-import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
@@ -19,23 +17,12 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
-import { BoundStateResult } from '../solver/BoundStateResult.js';
-import NumerovSolver from '../solver/NumerovSolver.js';
-import XGrid from '../solver/XGrid.js';
-import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 
 // Energy axis (y-axis) range for most potential types.
 const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 
-// Default y-offset range is effectively constant 0.
-const DEFAULT_Y_OFFSET_RANGE = new RangeWithValue( 0, 0, 0 );
-
 type SelfOptions = {
-  groundStateIndex?: number;
-  numberOfWellsProperty: TReadOnlyProperty<number>;
-  electricFieldProperty: TReadOnlyProperty<number>;
-  energyAxisRange?: Range; // range of the energy axis (y-axis) when yOffsetProperty is at its initial value
-  yOffsetRange?: RangeWithValue;
+  numberOfWellsProperty: ReadOnlyProperty<number>;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
@@ -45,35 +32,25 @@ export type QuantumPotentialOptions = SelfOptions & PickRequired<PhetioObjectOpt
 
 export default abstract class QuantumPotential extends PhetioObject {
 
-  public readonly groundStateIndex: number;
-
   // Horizontal offset of the potential from x=0 nm.
   // As in the Java version, this is constant in the sim and is provided for future-proofing.
   protected readonly xOffset = 0;
 
+  protected readonly yOffset = 0; //TODO mutable
+
   // Fires when any Property instantiated by the QuantumPotential changes.
   public readonly propertyChangedEmitter: Emitter;
 
-  public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
-  public readonly electricFieldProperty: TReadOnlyProperty<number>;
-
-  public readonly yOffsetProperty: NumberProperty;
-  public readonly energyAxisRange: Range;
-
+  protected readonly numberOfWellsProperty: ReadOnlyProperty<number>;
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
-
-  private readonly getPotentialEnergyAtBound: ( x: number ) => number;
 
   protected constructor( providedOptions: QuantumPotentialOptions ) {
 
     const options = optionize<QuantumPotentialOptions, StrictOmit<SelfOptions, 'numberOfWellsProperty'>, PhetioObjectOptions>()( {
 
       // SelfOptions
-      groundStateIndex: 1,
-      energyAxisRange: DEFAULT_ENERGY_AXIS_RANGE,
-      yOffsetRange: DEFAULT_Y_OFFSET_RANGE,
       accessibleNameProperty: providedOptions.visualNameProperty,
 
       // PhetioObjectOptions
@@ -83,45 +60,18 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     super( options );
 
-    this.groundStateIndex = options.groundStateIndex;
-
     this.propertyChangedEmitter = new Emitter(); //TODO PhET-iO?
 
-    // Do not trigger notification when numberOfWellsProperty or electricFieldProperty changes,
-    // because they are owned by the top-level model.
+    // Do not trigger notification when numberOfWellsProperty changes, because it is owned by the top-level model.
     this.numberOfWellsProperty = options.numberOfWellsProperty;
-    this.electricFieldProperty = options.electricFieldProperty;
-
-    this.yOffsetProperty = new NumberProperty( options.yOffsetRange.defaultValue, {
-      units: electronVoltsUnit,
-      range: options.yOffsetRange,
-      tandem: options.tandem.createTandem( 'yOffsetProperty' ),
-      phetioFeatured: true
-      //TODO should this be phetioReadOnly: true?
-    } );
-
-    this.energyAxisRange = options.energyAxisRange;
-
-    // Changes to Properties instantiated by this class trigger notification.
-    //TODO Does energyAxisRangeProperty need to be included here? If not, document why not.
-    Multilink.multilink( [ this.yOffsetProperty ], () => this.propertyChangedEmitter.emit() );
 
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
-
-    this.getPotentialEnergyAtBound = this.getPotentialEnergyAt.bind( this );
   }
 
   public reset(): void {
-    this.yOffsetProperty.reset();
-  }
-
-  public override toString(): string {
-    return `${this.tandemPrefix}[ ` +
-           `numberOfWells=${this.numberOfWellsProperty.value} ` +
-           `electricField=${this.electricFieldProperty.value} ` +
-           ']';
+    //TODO
   }
 
   /**
@@ -130,23 +80,29 @@ export default abstract class QuantumPotential extends PhetioObject {
   public abstract getPotentialEnergyAt( x: number ): number;
 
   /**
-   * Gets the minimum energy (eV) used to solve for the bound state.
+   * Gets the index of the ground state, 1 for most potential types.
    */
-  public abstract getMinSolverEnergy(): number;
-
-  /**
-   * Gets the maximum energy (eV) used to solve for the bound state.
-   */
-  public abstract getMaxSolverEnergy(): number;
-
-  /**
-   * Solves for the bound state. The default uses a numerical solution.
-   */
-  public solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    const minPotentialEnergy = this.getMinSolverEnergy();
-    const maxPotentialEnergy = this.getMaxSolverEnergy();
-    return NumerovSolver.solve( xGrid, this.getPotentialEnergyAtBound, electronMasses, minPotentialEnergy, maxPotentialEnergy );
+  public getGroundStateIndex(): number {
+    return 1;
   }
+
+  /**
+   * Gets the range of the energy axis (y-axis).
+   */
+  public getEnergyAxisRange(): Range {
+    return DEFAULT_ENERGY_AXIS_RANGE;
+  }
+
+  //TODO Combine getMinPotentialEnergy and getMaxPotentialEnergy into getPotentialEnergyLimits(): Range?
+  /**
+   * Gets the minimum potential energy (eV) used to compute eigenstates and wave functions.
+   */
+  public abstract getMinPotentialEnergy(): number;
+
+  /**
+   * Gets the maximum potential energy (eV) used to compute eigenstates and wave functions.
+   */
+  public abstract getMaxPotentialEnergy(): number;
 
   /**
    * Creates the icon that represents this potential. Used in the combo box for selecting a potential.

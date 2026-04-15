@@ -41,13 +41,13 @@ export default class Magnifier extends PhetioObject {
       phetioFeatured: true
     } );
 
-    //TODO probePositionProperty must be updated when energyDiagram.yRangeProperty changes.
+    //TODO probePositionProperty must be updated when y-axis range changes.
     this.probePositionProperty = new Vector2Property( Vector2.ZERO, {
       tandem: tandem.createTandem( 'probePositionProperty' ),
       phetioFeatured: true
     } );
 
-    //TODO bodyPositionProperty must be updated when energyDiagram.yRangeProperty changes.
+    //TODO bodyPositionProperty must be updated when y-axis range changes.
     this.bodyPositionProperty = new Vector2Property( new Vector2( 1.65, 15 ), {
       tandem: tandem.createTandem( 'bodyPositionProperty' ),
       phetioFeatured: true

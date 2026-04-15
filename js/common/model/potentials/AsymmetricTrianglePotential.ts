@@ -8,10 +8,9 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
@@ -21,13 +20,10 @@ import QBSConstants from '../../QBSConstants.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
-  wellDepthRange?: RangeWithValue;
-};
+type SelfOptions = EmptySelfOptions;
 
-export type AsymmetricTrianglePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+type AsymmetricTrianglePotentialOptions = SelfOptions &
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class AsymmetricTrianglePotential extends QuantumPotential {
 
@@ -38,10 +34,6 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
 
     const options = optionize<AsymmetricTrianglePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
-      // SelfOptions
-      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
-      wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
-
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.asymmetricTriangleStringProperty,
       tandemPrefix: 'asymmetricTrianglePotential'
@@ -49,16 +41,16 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
 
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
+    this.wellWidthProperty = new NumberProperty( QBSConstants.WELL_WIDTH_RANGE.defaultValue, {
       units: nanometersUnit,
-      range: options.wellWidthRange,
+      range: QBSConstants.WELL_WIDTH_RANGE,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
 
-    this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
+    this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
       units: electronVoltsUnit,
-      range: options.wellDepthRange,
+      range: QBSConstants.WELL_DEPTH_RANGE,
       tandem: options.tandem.createTandem( 'wellDepthProperty' ),
       phetioFeatured: true
     } );
@@ -73,27 +65,16 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
     this.wellDepthProperty.reset();
   }
 
-  public override toString(): string {
-    return `${this.tandemPrefix}[ ` +
-           `numberOfWells=${this.numberOfWellsProperty.value} ` +
-           `electricField=${this.electricFieldProperty.value} ` +
-           `yOffset=${this.yOffsetProperty.value} ` +
-           `wellWidth=${this.wellWidthProperty.value} ` +
-           `wellDepth=${this.wellDepthProperty.value} ` +
-           ']';
-  }
-
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'AsymmetricTrianglePotential does not support multiple wells.' );
-    affirm( this.electricFieldProperty.value === 0, 'AsymmetricTrianglePotential does not support electric field.' );
 
     const wellWidth = this.wellWidthProperty.value;
     const wellDepth = this.wellDepthProperty.value;
     const xOffset = this.xOffset;
-    const yOffset = this.yOffsetProperty.value;
+    const yOffset = this.yOffset;
 
     // From BSAsymmetricPotential.java
     let pe = yOffset + wellDepth;
@@ -101,16 +82,15 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
       pe = yOffset + ( wellDepth - ( Math.abs( xOffset + wellWidth / 2 - x ) * wellDepth / wellWidth ) );
     }
 
-    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
     return pe;
   }
 
-  public override getMinSolverEnergy(): number {
-    return this.yOffsetProperty.value; // bottom of the well
+  public override getMinPotentialEnergy(): number {
+    return this.yOffset;
   }
 
-  public override getMaxSolverEnergy(): number {
-    return this.yOffsetProperty.value + this.wellDepthProperty.value; // top of the well
+  public override getMaxPotentialEnergy(): number {
+    return this.yOffset + this.wellDepthProperty.value;
   }
 
   public override createIcon(): Node {

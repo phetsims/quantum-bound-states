@@ -206,12 +206,4 @@ export default class QBSColors {
   public static readonly equationDetailsButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'equationDetailsButtonColor', {
     default: 'rgb( 153, 206, 255 )'
   } );
-
-  public static readonly equationTermColorProperty = new ProfileColorProperty( quantumBoundStates, 'equationTermColor', {
-    default: 'black'
-  } );
-
-  public static readonly equationTermBackgroundColorProperty = new ProfileColorProperty( quantumBoundStates, 'equationTermBackgroundColor', {
-    default: 'rgba( 255, 255, 255, 0.85 )'
-  } );
 }

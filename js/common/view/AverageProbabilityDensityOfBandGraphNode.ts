@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -38,13 +37,6 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
 
       tandem: tandem
     };
-
-    // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
-    // of the chartRectangle. The term corresponds to the selected energy level.
-    if ( !options.createEquationDetailsButton ) {
-      options.termStringProperty = new DerivedStringProperty( [ model.energyLevelProperty ],
-          energyLevel => `|Ψ<sub>${energyLevel}</sub>(x,t)|<sup>2</sup>` );
-    }
 
     super( model.curvesVisibleProperty, options );
   }

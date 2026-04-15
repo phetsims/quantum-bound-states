@@ -28,11 +28,9 @@ User API
 Supporting Classes
    ├── XGrid (spatial grid)
    └── analytical-solutions/ (validation)
-         ├── FiniteSquareSolution
          ├── HarmonicOscillatorSolution
-         ├── InfiniteSquareSolution
-         ├── InfiniteStepSolution
-         └── MorseSolution
+         ├── InfiniteSquareWellSolution
+         └── FiniteSquareWellSolution
 ```
 
 ## The Numerov Method
@@ -186,7 +184,7 @@ Used to validate the Numerov solver for a symmetric, smooth potential.
 
 ---
 
-### InfiniteSquareSolution.ts
+### InfiniteSquareWellSolution.ts
 **Purpose**: Exact solutions for particle in a box
 **Key formulas**:
 - Energy eigenvalues: E_n = n²π²ℏ²/(2mL²) for n = 1, 2, 3, ...
@@ -197,7 +195,7 @@ Used to validate the solver for discontinuous potentials and hard boundaries.
 
 ---
 
-### FiniteSquareSolution.ts
+### FiniteSquareWellSolution.ts
 **Purpose**: Exact solutions for finite square well
 **Key formulas**:
 - Transcendental equations for bound states (must be solved numerically)

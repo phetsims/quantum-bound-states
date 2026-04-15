@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigurePoschlTellerDialog is a dialog for configuring a Morse potential.
+ * ConfigurePoschlTellerDialog is a dialog for configuring a Pöschl-Teller potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,7 +13,6 @@ import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import WellDepthControl from './WellDepthControl.js';
 import WellWidthControl from './WellWidthControl.js';
-import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureMorseDialog extends ConfigureQuantumPotentialDialog {
 
@@ -24,9 +23,7 @@ export default class ConfigureMorseDialog extends ConfigureQuantumPotentialDialo
       new WellDepthControl( potential.wellDepthProperty )
     ];
 
-    if ( potential.yOffsetProperty.range.getLength() > 0 ) {
-      children.push( new YOffsetControl( potential.yOffsetProperty ) );
-    }
+    //TODO Add spacing control
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: children

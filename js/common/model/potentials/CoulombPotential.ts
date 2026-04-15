@@ -17,22 +17,20 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
+const ENERGY_AXIS_RANGE = new Range( -15.5, 5.5 );
+
 // getPotentialEnergyAt handles an electric field, but it is not currently used in the sim.
 const ELECTRIC_FIELD = 0; // V/nm
 
 type SelfOptions = EmptySelfOptions;
 
-export type CoulombPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+type CoulombPotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class CoulombPotential extends QuantumPotential {
 
   public constructor( providedOptions: CoulombPotentialOptions ) {
 
     const options = optionize<CoulombPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
-
-      // SelfOptions
-      energyAxisRange: new Range( -20.5, 0.5 ),
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
@@ -47,21 +45,20 @@ export default class CoulombPotential extends QuantumPotential {
    */
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'CoulombPotential does not support multiple wells.' );
-    affirm( this.electricFieldProperty.value === 0, 'CoulombPotential does not support electric field.' );
 
     // This algorithm handles multiple wells, but we only have 1 well in the current implementation.
     const n = 1; // number of wells
     const spacing = 0; // because n = 1
 
     const xOffset = this.xOffset;
-    const yOffset = this.yOffsetProperty.value;
+    const yOffset = this.yOffset;
 
     // From BSCoulomb1DPotential.java
     let energy = 0;
     for ( let i = 1; i <= n; i++ ) {
       const xi = spacing * ( i - ( ( n + 1 ) / 2.0 ) );
       let deltaEnergy = -QBSConstants.KE2 / Math.abs( ( x - xOffset ) - xi );
-      const BIG_NEGATIVE = -Math.abs( QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
+      const BIG_NEGATIVE = -1E10; //TODO
       if ( deltaEnergy < BIG_NEGATIVE ) {
         deltaEnergy = BIG_NEGATIVE;
       }
@@ -74,20 +71,19 @@ export default class CoulombPotential extends QuantumPotential {
     return yOffset + energy;
   }
 
-  public override toString(): string {
-    return `${this.tandemPrefix}[ ` +
-           `numberOfWells=${this.numberOfWellsProperty.value} ` +
-           `electricField=${this.electricFieldProperty.value} ` +
-           `yOffset=${this.yOffsetProperty.value} ` +
-           ']';
+  /**
+   * Gets the range of the energy axis (y-axis).
+   */
+  public override getEnergyAxisRange(): Range {
+    return ENERGY_AXIS_RANGE;
   }
 
-  public override getMinSolverEnergy(): number {
-    return this.energyAxisRange.min + this.yOffsetProperty.value; // bottom of the y-axis range
+  public override getMinPotentialEnergy(): number {
+    return this.getEnergyAxisRange().min; //TODO incorrect
   }
 
-  public override getMaxSolverEnergy(): number {
-    return this.yOffsetProperty.value; // top of the potential
+  public override getMaxPotentialEnergy(): number {
+    return this.getEnergyAxisRange().max; //TODO incorrect
   }
 
   public override createIcon(): Node {

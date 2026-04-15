@@ -25,15 +25,15 @@ export default class MagnifierProbeDragListener extends SoundRichDragListener {
 
     // Synthesize a ModelViewTransform2 from the ChartTransform.
     const transform = ModelViewTransform2.createOffsetXYScaleMapping(
-      //TODO y-offset is incorrect, energyDiagram.yRangeProperty is dynamic.
+      //TODO y-offset is incorrect, y-range is dynamic.
       chartTransform.modelToViewPosition( Vector2.ZERO ), // offset of the origin in view coordinates
       chartTransform.viewWidth / chartTransform.modelXRange.getLength(), // xScale, model to view
-      //TODO y-scale is incorrect, energyDiagram.yRangeProperty is dynamic.
+      //TODO y-scale is incorrect, y-range is dynamic.
       -( chartTransform.viewHeight / chartTransform.modelYRange.getLength() ) // yScale, model to view
     );
 
     // Drag bounds in model coordinates. y values can be anything because movement is constrained to horizontal.
-    //TODO dragBoundsProperty is incorrect, energyDiagram.yRangeProperty is dynamic.
+    //TODO dragBoundsProperty is incorrect, y-range is dynamic.
     const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, chartTransform.modelYRange.min,
       chartTransform.modelXRange.max, chartTransform.modelYRange.max ) );
 

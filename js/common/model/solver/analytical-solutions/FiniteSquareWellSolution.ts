@@ -43,7 +43,7 @@ const HBAR = NumerovSolver.HBAR;
  */
 type Parity = 'even' | 'odd';
 
-export default class FiniteSquareSolution {
+export default class FiniteSquareWellSolution {
 
   private constructor() {
     // Not intended for instantiation.

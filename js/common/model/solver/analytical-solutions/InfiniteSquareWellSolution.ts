@@ -27,7 +27,7 @@ import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 
-export default class InfiniteSquareSolution {
+export default class InfiniteSquareWellSolution {
 
   private constructor() {
     // Not intended for instantiation.
@@ -125,8 +125,8 @@ export default class InfiniteSquareSolution {
     }
 
     //TODO CM added this here because we need to return a valid BoundStateResult, which include potentials.
-    // But InfiniteSquareSolution.createPotential is a different implementation than InfiniteSquarePotential.getPotentialEnergyAt.
-    const potentialFunction = InfiniteSquareSolution.createPotential( wellWidth );
+    // But InfiniteSquareWellSolution.createPotential is a different implementation than InfiniteSquarePotential.getPotentialEnergyAt.
+    const potentialFunction = InfiniteSquareWellSolution.createPotential( wellWidth );
 
     return {
       potentials: xGrid.xCoordinates.map( x => potentialFunction( x ) ),

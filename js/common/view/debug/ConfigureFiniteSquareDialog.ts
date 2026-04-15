@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigureFiniteSquareDialog is a dialog for configuring a Finite Square potential.
+ * ConfigureFiniteSquareDialog is a dialog with controls for configuring a Finite Square potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,6 @@ import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.j
 import SeparationControl from './SeparationControl.js';
 import WellDepthControl from './WellDepthControl.js';
 import WellWidthControl from './WellWidthControl.js';
-import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureFiniteSquareDialog extends ConfigureQuantumPotentialDialog {
 
@@ -25,12 +24,9 @@ export default class ConfigureFiniteSquareDialog extends ConfigureQuantumPotenti
       new WellDepthControl( potential.wellDepthProperty )
     ];
 
-    if ( potential.numberOfWellsProperty.value > 1 ) {
+    // If separation is not constant, add a control for it.
+    if ( potential.separationProperty.range.getLength() > 0 ) {
       children.push( new SeparationControl( potential.separationProperty ) );
-    }
-
-    if ( potential.yOffsetProperty.range.getLength() > 0 ) {
-      children.push( new YOffsetControl( potential.yOffsetProperty ) );
     }
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {

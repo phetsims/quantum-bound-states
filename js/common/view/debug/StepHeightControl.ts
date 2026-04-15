@@ -9,7 +9,6 @@
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlOptions } from '../../../../../scenery-phet/js/NumberControl.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import { electronVoltsUnit } from '../../model/units/electronVoltsUnit.js';
 import QBSConstants from '../../QBSConstants.js';
 import WellWidthControl from './WellWidthControl.js';
@@ -20,7 +19,7 @@ export default class StepHeightControl extends NumberControl {
 
   public constructor( stepHeightProperty: NumberProperty ) {
 
-    super( 'stepHeightProperty', stepHeightProperty, stepHeightProperty.range,
+    super( 'Step Height', stepHeightProperty, stepHeightProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {
@@ -31,8 +30,7 @@ export default class StepHeightControl extends NumberControl {
         },
         sliderOptions: {
           majorTicks: WellWidthControl.createMinMaxTicks( stepHeightProperty.range, DECIMALS )
-        },
-        tandem: Tandem.OPT_OUT
+        }
       } ) );
   }
 }

@@ -57,7 +57,6 @@ export default class QBSConstants {
   public static readonly CONTROL_FONT = new PhetFont( 14 ); // for text on checkboxes, radio buttons, push buttons, etc.
   public static readonly TITLE_FONT = new PhetFont( { size: 14, weight: 'bold' } );
   public static readonly TIME_FONT = new PhetFont( 16 );
-  public static readonly EQUATION_TERM_FONT = new PhetFont( 18 );
 
   // Energy Diagram & all Quantum State Graphs
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 700;
@@ -85,8 +84,6 @@ export default class QBSConstants {
   public static readonly WELL_DEPTH_DECIMAL_PLACES = 1;
   public static readonly STEP_HEIGHT_DECIMAL_PLACES = 1;
   public static readonly SEPARATION_DECIMAL_PLACES = 2;
-  public static readonly SPACING_DECIMAL_PLACES = 2;
-  public static readonly Y_OFFSET_DECIMAL_PLACES = 1;
 
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_ENERGY = 1E20; // eV
@@ -95,8 +92,6 @@ export default class QBSConstants {
   public static readonly WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 6, 1 );
   public static readonly WELL_DEPTH_RANGE = new RangeWithValue( 0.1, 20, 10 );
   public static readonly STEP_HEIGHT_RANGE = new RangeWithValue( 0.1, 20, 3 );
-  public static readonly SEPARATION_RANGE = new RangeWithValue( 0.05, 0.2, 0.1 );
-  public static readonly SPACING_RANGE = new RangeWithValue( 1, 3, 1 );
 
   //TODO from BSConstants.java, are these compatible with values and units in new code?
   public static readonly ELECTRON_MASS = 5.68; // eV/c^2

@@ -16,9 +16,9 @@ import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import QBSQueryParameters from '../../QBSQueryParameters.js';
 import MorseSolution from './analytical-solutions/MorseSolution.js';
-import FiniteSquareSolution from './analytical-solutions/FiniteSquareSolution.js';
+import FiniteSquareWellSolution from './analytical-solutions/FiniteSquareWellSolution.js';
 import HarmonicOscillatorSolution from './analytical-solutions/HarmonicOscillatorSolution.js';
-import InfiniteSquareSolution from './analytical-solutions/InfiniteSquareSolution.js';
+import InfiniteSquareWellSolution from './analytical-solutions/InfiniteSquareWellSolution.js';
 import InfiniteStepSolution from './analytical-solutions/InfiniteStepSolution.js';
 import NumerovSolver from './NumerovSolver.js';
 import XGrid from './XGrid.js';
@@ -288,7 +288,7 @@ function testHarmonicOscillator(): void {
 /**
  * Compare NumerovSolver to the analytical solution for an infinite square well.
  */
-function testInfiniteSquare(): void {
+function testInfiniteSquareWell(): void {
 
   const mass = ELECTRON_MASSES; // electron masses
   const L = 4;  // 4 nm
@@ -306,9 +306,9 @@ function testInfiniteSquare(): void {
   const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = InfiniteSquareSolution.solve( xGrid, L, mass, energyMin, energyMax );
+  const analyticalResult = InfiniteSquareWellSolution.solve( xGrid, L, mass, energyMin, energyMax );
 
-  logVerbose( `\nInfinite Square - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
+  logVerbose( `\nInfinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
   affirm( numericalResult.energies.length >= 5, `Found ${numericalResult.energies.length} numerical states (expected at least 5)` );
   affirm( analyticalResult.energies.length >= 5, `Found ${analyticalResult.energies.length} analytical states (expected at least 5)` );
@@ -340,20 +340,20 @@ function testInfiniteSquare(): void {
     const E_analytical = analyticalResult.energies[ i ];
     const relativeError = Math.abs( E_numerical - E_analytical ) / E_analytical;
     maxRelativeError = Math.max( maxRelativeError, relativeError );
-    affirmOrLog( relativeError < 0.01, `Infinite Square: State n=${i + 1}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
+    affirmOrLog( relativeError < 0.01, `Infinite Square Well: State n=${i + 1}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
 
     const rmsError = waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], dx );
     maxWFError = Math.max( maxWFError, rmsError );
-    affirmOrLog( rmsError < 0.05, `Infinite Square: State n=${i + 1}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
+    affirmOrLog( rmsError < 0.05, `Infinite Square Well: State n=${i + 1}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
   }
 
-  logSummary( `Infinite Square - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
+  logSummary( `Infinite Square Well - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
 }
 
 /**
  * Compare NumerovSolver to the analytical solution for a finite square well.
  */
-function testFiniteSquare(): void {
+function testFiniteSquareWell(): void {
 
   const mass = ELECTRON_MASSES; // electron masses
   const L = 2;  // 2 nm well width
@@ -371,9 +371,9 @@ function testFiniteSquare(): void {
   const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = FiniteSquareSolution.solve( xGrid, L, V0, mass, energyMin, energyMax );
+  const analyticalResult = FiniteSquareWellSolution.solve( xGrid, L, V0, mass, energyMin, energyMax );
 
-  logVerbose( `\nFinite Square - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
+  logVerbose( `\nFinite Square Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
   logVerbose( `Well parameters: L = ${L} nm, V₀ = ${V0} eV` );
 
@@ -410,14 +410,14 @@ function testFiniteSquare(): void {
     const E_analytical = analyticalResult.energies[ i ];
     const relativeError = Math.abs( E_numerical - E_analytical ) / Math.abs( E_analytical );
     maxRelativeError = Math.max( maxRelativeError, relativeError );
-    affirmOrLog( relativeError < 0.01, `Finite Square: State n=${i + 1}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
+    affirmOrLog( relativeError < 0.01, `Finite Square Well: State n=${i + 1}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
 
     const rmsError = waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], dx );
     maxWFError = Math.max( maxWFError, rmsError );
-    affirmOrLog( rmsError < 0.05, `Finite Square: State n=${i + 1}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
+    affirmOrLog( rmsError < 0.05, `Finite Square Well: State n=${i + 1}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
   }
 
-  logSummary( `Finite Square - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
+  logSummary( `Finite Square Well - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
 }
 
 /**
@@ -606,7 +606,7 @@ function testInfiniteStep(): void {
   // Get analytical solution
   const analyticalResult = InfiniteStepSolution.solve( xGrid, wellWidth, stepHeight, mass, energyMin, energyMax );
 
-  logVerbose( `\nInfinite Step - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
+  logVerbose( `\nInfinite Step Well - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
   logVerbose( `Well parameters: L = ${wellWidth} nm, V₀ = ${stepHeight} eV` );
 
   affirm( numericalResult.energies.length > 0, `Found ${numericalResult.energies.length} numerical states` );
@@ -639,14 +639,14 @@ function testInfiniteStep(): void {
     const E_analytical = analyticalResult.energies[ i ];
     const relativeError = Math.abs( E_numerical - E_analytical ) / E_analytical;
     maxRelativeError = Math.max( maxRelativeError, relativeError );
-    affirmOrLog( relativeError < 0.01, `Infinite Step: State n=${i + 1}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
+    affirmOrLog( relativeError < 0.01, `Infinite Step Well: State n=${i + 1}: Energy error=${toFixed( relativeError * 100, 4 )}%` );
 
     const rmsError = waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], dx );
     maxWFError = Math.max( maxWFError, rmsError );
-    affirmOrLog( rmsError < 0.05, `Infinite Step: State n=${i + 1}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
+    affirmOrLog( rmsError < 0.05, `Infinite Step Well: State n=${i + 1}: Wave function RMS error=${toFixed( rmsError, 5 )}` );
   }
 
-  logSummary( `Infinite Step - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
+  logSummary( `Infinite Step Well - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
 }
 
 /**
@@ -654,8 +654,8 @@ function testInfiniteStep(): void {
  */
 export function testSolvers(): void {
   testHarmonicOscillator();
-  testInfiniteSquare();
-  testFiniteSquare();
+  testInfiniteSquareWell();
+  testFiniteSquareWell();
   testMorsePotential();
   testInfiniteStep();
   testWaveFunctionNormalization();

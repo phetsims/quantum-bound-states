@@ -12,22 +12,15 @@ import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillat
 import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import WellWidthControl from './WellWidthControl.js';
-import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureHarmonicOscillatorDialog extends ConfigureQuantumPotentialDialog {
 
   public constructor( potential: HarmonicOscillatorPotential ) {
 
-    const children = [
-      new WellWidthControl( potential.wellWidthProperty )
-    ];
-
-    if ( potential.yOffsetProperty.range.getLength() > 0 ) {
-      children.push( new YOffsetControl( potential.yOffsetProperty ) );
-    }
-
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
-      children: children
+      children: [
+        new WellWidthControl( potential.wellWidthProperty )
+      ]
     } ) );
 
     super( 'Harmonic Oscillator', content );

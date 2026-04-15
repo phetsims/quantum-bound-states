@@ -44,6 +44,7 @@ type StringsType = {
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
   'superpositionStringProperty': LocalizedStringProperty;
+  'averageProbabilityDensityOfBandDialogTitleStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
   'superpositionDetailsDialogTitleStringProperty': LocalizedStringProperty;
@@ -63,10 +64,6 @@ type StringsType = {
       'symbolPatternStringProperty': LocalizedStringProperty;
     };
     'electronVolts': {
-      'symbolStringProperty': LocalizedStringProperty;
-      'symbolPatternStringProperty': LocalizedStringProperty;
-    };
-    'electronVoltsPerNanometerSquared': {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
     };
@@ -359,9 +356,6 @@ type StringsType = {
         'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'electronVolts': {
-        'accessiblePatternStringProperty': LocalizedStringProperty;
-      };
-      'electronVoltsPerNanometerSquared': {
         'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'femtoseconds': {

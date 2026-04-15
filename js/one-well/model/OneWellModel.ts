@@ -8,18 +8,15 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AsymmetricTrianglePotential, { AsymmetricTrianglePotentialOptions } from '../../common/model/potentials/AsymmetricTrianglePotential.js';
-import CoulombPotential, { CoulombPotentialOptions } from '../../common/model/potentials/CoulombPotential.js';
-import FiniteSquarePotential, { FiniteSquarePotentialOptions } from '../../common/model/potentials/FiniteSquarePotential.js';
-import HarmonicOscillatorPotential, { HarmonicOscillatorPotentialOptions } from '../../common/model/potentials/HarmonicOscillatorPotential.js';
-import InfiniteSquarePotential, { InfiniteSquarePotentialOptions } from '../../common/model/potentials/InfiniteSquarePotential.js';
-import InfiniteStepPotential, { InfiniteStepPotentialOptions } from '../../common/model/potentials/InfiniteStepPotential.js';
-import MorsePotential, { MorsePotentialOptions } from '../../common/model/potentials/MorsePotential.js';
-import PoschlTellerPotential, { PoschlTellerPotentialOptions } from '../../common/model/potentials/PoschlTellerPotential.js';
-import { QuantumPotentialOptions } from '../../common/model/potentials/QuantumPotential.js';
+import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
+import MorsePotential from '../../common/model/potentials/MorsePotential.js';
+import AsymmetricTrianglePotential from '../../common/model/potentials/AsymmetricTrianglePotential.js';
+import CoulombPotential from '../../common/model/potentials/CoulombPotential.js';
+import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
+import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicOscillatorPotential.js';
+import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
+import InfiniteStepPotential from '../../common/model/potentials/InfiniteStepPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
@@ -29,8 +26,10 @@ export default class OneWellModel extends QBSModel {
   public constructor( tandem: Tandem ) {
 
     const numberOfWellsProperty = new NumberProperty( 1, {
-      range: new Range( 1, 1 )
-      // No PhET-iO instrumentation, since it's effectively a constant.
+      range: new Range( 1, 1 ),
+      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     const electronMassesProperty = new NumberProperty( 1, {
@@ -42,49 +41,51 @@ export default class OneWellModel extends QBSModel {
       phetioDocumentation: 'The number of electron masses.'
     } );
 
+    // Effectively constant
     const electricFieldProperty = new NumberProperty( 0, {
       units: voltsPerNanometerUnit,
       range: new Range( 0, 0 )
-      // No PhET-iO instrumentation, since it's effectively constant.
     } );
-
-    // Shared by all quantum potentials
-    const quantumPotentialOptions: Partial<QuantumPotentialOptions> = {
-      numberOfWellsProperty: numberOfWellsProperty,
-      electricFieldProperty: electricFieldProperty,
-      yOffsetRange: new RangeWithValue( -10, 10, 0 ) //TODO This assumes that all potentials have energyAxisRange.getLength() === 20
-    };
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
-    // Quantum potentials, in the order that they appear in PotentialComboBox.
     const potentials = [
-      new InfiniteSquarePotential( combineOptions<InfiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
+      new InfiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
-      } ) ),
-      new FiniteSquarePotential( combineOptions<FiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new FiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
-      } ) ),
-      new InfiniteStepPotential( combineOptions<InfiniteStepPotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new InfiniteStepPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'infiniteStepPotential' )
-      } ) ),
-      new AsymmetricTrianglePotential( combineOptions<AsymmetricTrianglePotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new AsymmetricTrianglePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'asymmetricTrianglePotential' )
-      } ) ),
-      new HarmonicOscillatorPotential( combineOptions<HarmonicOscillatorPotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new HarmonicOscillatorPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
-      } ) ),
-      new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new PoschlTellerPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electricFieldProperty: electricFieldProperty,
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
-      } ) ),
-      new MorsePotential( combineOptions<MorsePotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new MorsePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'morsePotential' )
-      } ) ),
-      new CoulombPotential( combineOptions<CoulombPotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new CoulombPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
         tandem: potentialsTandem.createTandem( 'coulombPotential' )
-      } ) )
+      } )
     ];
 
     super( {
@@ -94,5 +95,10 @@ export default class OneWellModel extends QBSModel {
       potentials: potentials,
       tandem: tandem
     } );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.electronMassesProperty.reset();
   }
 }

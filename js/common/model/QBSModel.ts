@@ -17,17 +17,21 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
 import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
+import InfiniteSquarePotential from './potentials/InfiniteSquarePotential.js';
+import InfiniteStepPotential from './potentials/InfiniteStepPotential.js';
 import QuantumPotential from './potentials/QuantumPotential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
+import InfiniteSquareWellSolution from './solver/analytical-solutions/InfiniteSquareWellSolution.js';
+import InfiniteStepSolution from './solver/analytical-solutions/InfiniteStepSolution.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
+import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
 import Time from './Time.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
@@ -36,11 +40,6 @@ type SelfOptions = {
   potential?: QuantumPotential;
   potentials: QuantumPotential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
-
-  // Whether energyLevelProperty is instrumented for PhET-iO.
-  energyLevelPropertyInstrumented?: boolean;
-
-  // Properties that are shared by all potentials. QBSModel is responsible for resetting these.
   numberOfWellsProperty: NumberProperty;
   electronMassesProperty: NumberProperty;
   electricFieldProperty: NumberProperty;
@@ -60,7 +59,7 @@ export default class QBSModel implements TModel {
   public readonly electronMassesProperty: NumberProperty;
   public readonly electricFieldProperty: NumberProperty;
 
-  // Result for configuration of the selected quantum potential.
+  // Result from NumerovSolver for the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
 
   // Constant grid of x-coordinates, used for all graphs.
@@ -92,7 +91,6 @@ export default class QBSModel implements TModel {
 
       // SelfOptions
       potential: providedOptions.potentials[ 0 ],
-      energyLevelPropertyInstrumented: true,
       hasAverageProbabilityDensityOfBandGraph: false
     }, providedOptions );
 
@@ -116,10 +114,10 @@ export default class QBSModel implements TModel {
     this.energyDiagram = new EnergyDiagram( this.potentialProperty, this.xGrid, this.boundStateResultProperty,
       options.tandem.createTandem( 'energyDiagram' ) );
 
-    this.energyLevelProperty = new NumberProperty( this.potentialProperty.value.groundStateIndex, {
+    this.energyLevelProperty = new NumberProperty( this.potentialProperty.value.getGroundStateIndex(), {
       numberType: 'Integer',
-      range: getEnergyLevelRange( this.potentialProperty.value.groundStateIndex, this.boundStateResultProperty.value.energies.length ),
-      tandem: options.energyLevelPropertyInstrumented ? options.tandem.createTandem( 'energyLevelProperty' ) : Tandem.OPT_OUT,
+      range: getEnergyLevelRange( this.potentialProperty.value.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length ),
+      tandem: options.tandem.createTandem( 'energyLevelProperty' ),
       phetioFeatured: true,
       phetioReadOnly: true
     } );
@@ -138,7 +136,7 @@ export default class QBSModel implements TModel {
         this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, this.electronMassesProperty.value );
 
         // Adjust energy level range and set to the ground state.
-        const energyLevelRange = getEnergyLevelRange( potential.groundStateIndex, this.boundStateResultProperty.value.energies.length );
+        const energyLevelRange = getEnergyLevelRange( potential.getGroundStateIndex(), this.boundStateResultProperty.value.energies.length );
         this.energyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
       }
     } );
@@ -147,7 +145,7 @@ export default class QBSModel implements TModel {
     // set to the ground state.
     this.boundStateResultProperty.lazyLink( boundStateResult => {
       if ( !isSettingPhetioStateProperty.value ) {
-        const energyLevelRange = getEnergyLevelRange( this.potentialProperty.value.groundStateIndex, boundStateResult.energies.length );
+        const energyLevelRange = getEnergyLevelRange( this.potentialProperty.value.getGroundStateIndex(), boundStateResult.energies.length );
         if ( energyLevelRange.contains( this.energyLevelProperty.value ) ) {
           this.energyLevelProperty.rangeProperty.value = energyLevelRange;
         }
@@ -165,9 +163,8 @@ export default class QBSModel implements TModel {
         this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
       } );
 
-    // The order of quantumStateGraphs determines the order of radio buttons in QuatumStateGraphRadioButtonGroup.
     const quantumStateGraphs: QuantumStateGraph[] = [];
-    const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphs' );
+    const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphsTandem' );
 
     if ( options.hasAverageProbabilityDensityOfBandGraph ) {
       this.averageProbabilityDensityOfBandGraph = new AverageProbabilityDensityOfBandGraph(
@@ -181,8 +178,7 @@ export default class QBSModel implements TModel {
     this.waveFunctionGraph = new WaveFunctionGraph( quantumStateGraphsTandem.createTandem( 'waveFunctionGraph' ) );
     quantumStateGraphs.push( this.waveFunctionGraph );
 
-    //TODO Initial value should be quantumStateGraphs[ 0 ]
-    this.quantumStateGraphProperty = new Property( this.waveFunctionGraph, {
+    this.quantumStateGraphProperty = new Property( quantumStateGraphs[ 0 ], {
       validValues: quantumStateGraphs,
       tandem: options.tandem.createTandem( 'quantumStateGraphProperty' ),
       phetioValueType: QuantumStateGraph.QuantumStateGraphIO,
@@ -238,37 +234,40 @@ function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalues: num
 }
 
 /**
- * Solve for bound state and validate the result.
+ * Solve for bound state, dispatching to analytical solutions where necessary.
  */
 function solveBoundState( potential: QuantumPotential, xGrid: XGrid, electronMasses: number ): BoundStateResult {
 
-  const result = potential.solveBoundState( xGrid, electronMasses );
+  const potentialFunction = ( x: number ) => potential.getPotentialEnergyAt( x ); // nm => eV
 
-  //TODO Patch up problems so that the sim can continue to run. Eventually delete this code.
-  if ( result.potentials.length !== xGrid.xCoordinates.length ) {
-    logError( 'BoundStateResult has the wrong number of potentials: ' + potential.toString() );
-    result.potentials = new Array( xGrid.xCoordinates.length ).fill( 0 );
+  const minPotentialEnergy = potential.getMinPotentialEnergy();
+  const maxPotentialEnergy = potential.getMaxPotentialEnergy();
+
+  let result: BoundStateResult;
+
+  //TODO Analytic and numeric solutions have different methods of computing potential energy.
+  //TODO Move the decision about whether to use numerical or analytic solutions to the QuantumPotential subclass.
+  if ( potential instanceof InfiniteSquarePotential ) {
+
+    // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
+    result = InfiniteSquareWellSolution.solve( xGrid, potential.wellWidthProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
   }
-  if ( result.energies.length === 0 ) {
-    logError( 'BoundStateResult has no energies: ' + potential.toString() );
-    result.energies = [ 0 ];
-    result.waveFunctions = [ new Array( xGrid.xCoordinates.length ).fill( 0 ) ];
+  else if ( potential instanceof InfiniteStepPotential ) {
+
+    // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
+    result = InfiniteStepSolution.solve( xGrid, potential.wellWidthProperty.value, potential.stepHeightProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
   }
-  if ( result.waveFunctions.length === 0 ) {
-    logError( 'BoundStateResult has no wave functions: ' + potential.toString() );
-    result.waveFunctions = new Array( result.energies.length ).fill( 0 );
+  else {
+
+    // For all other potentials, use the numerical Numerov method.
+    result = NumerovSolver.solve( xGrid, potentialFunction, electronMasses, minPotentialEnergy, maxPotentialEnergy );
   }
 
   // Validate the result.
-  affirm( result.potentials.length > 0, 'BoundStateResult has no potentials: ' + potential.toString() );
-  affirm( result.potentials.length === xGrid.xCoordinates.length, `BoundStateResult has the wrong number of potentials, ${result.potentials.length} != ${xGrid.xCoordinates.length}: ` + potential.toString() );
-  affirm( result.energies.length > 0, 'BoundStateResult has no energies: ' + potential.toString() );
-  affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions: ' + potential.toString() );
-  affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each energy: ' + potential.toString() );
+  affirm( result.potentials.length > 0, 'BoundStateResult has no potentials.' );
+  affirm( result.energies.length > 0, 'BoundStateResult has no eigenvalues.' );
+  affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions.' );
+  affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each eigenvalue.' );
 
   return result;
-}
-
-function logError( message: string ): void {
-  console.log( `%c${message}`, 'color: red' );
 }

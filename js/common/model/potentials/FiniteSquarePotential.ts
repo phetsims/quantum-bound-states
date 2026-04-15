@@ -8,9 +8,11 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
+import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import WithOptional from '../../../../../phet-core/js/types/WithOptional.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -21,9 +23,11 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
-  wellDepthRange?: RangeWithValue;
-  separationRange?: RangeWithValue;
+  electricFieldProperty: ReadOnlyProperty<number>;
+  wellWidth?: number;
+  wellWidthRange?: Range;
+  separation?: number;
+  separationRange?: Range;
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
@@ -31,41 +35,47 @@ export type FiniteSquarePotentialOptions = SelfOptions &
 
 export default class FiniteSquarePotential extends QuantumPotential {
 
+  public readonly electricFieldProperty: ReadOnlyProperty<number>;
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
   public readonly separationProperty: NumberProperty; // distance between walls of adjacent wells
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
-    const options = optionize<FiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+    const options = optionize<FiniteSquarePotentialOptions, StrictOmit<SelfOptions, 'separationRange'>, QuantumPotentialOptions>()( {
 
       // SelfOptions
+      wellWidth: QBSConstants.WELL_WIDTH_RANGE.defaultValue,
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
-      wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
-      separationRange: QBSConstants.SEPARATION_RANGE,
+      separation: 0.1,
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
       tandemPrefix: 'finiteSquarePotential'
     }, providedOptions );
 
+    // If range is not specified, set the range length to zero so that the Property is effectively constant.
+    options.separationRange = options.separationRange || new Range( options.separation, options.separation );
+
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
+    this.electricFieldProperty = options.electricFieldProperty;
+
+    this.wellWidthProperty = new NumberProperty( options.wellWidth, {
       units: nanometersUnit,
       range: options.wellWidthRange,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
 
-    this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
+    this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
       units: electronVoltsUnit,
-      range: options.wellDepthRange,
+      range: QBSConstants.WELL_DEPTH_RANGE,
       tandem: options.tandem.createTandem( 'wellDepthProperty' ),
       phetioFeatured: true
     } );
 
-    this.separationProperty = new NumberProperty( options.separationRange.defaultValue, {
+    this.separationProperty = new NumberProperty( options.separation, {
       units: nanometersUnit,
       range: options.separationRange,
       tandem: options.tandem.createTandem( 'separationProperty' ),
@@ -73,6 +83,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
+    // Do not trigger notification when electricFieldProperty changes, because it is owned by the top-level model.
     Multilink.multilink(
       [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
       () => this.propertyChangedEmitter.emit() );
@@ -85,17 +96,6 @@ export default class FiniteSquarePotential extends QuantumPotential {
     this.separationProperty.reset();
   }
 
-  public override toString(): string {
-    return `${this.tandemPrefix}[ ` +
-           `numberOfWells=${this.numberOfWellsProperty.value} ` +
-           `electricField=${this.electricFieldProperty.value} ` +
-           `yOffset=${this.yOffsetProperty.value} ` +
-           `wellWidth=${this.wellWidthProperty.value} ` +
-           `wellDepth=${this.wellDepthProperty.value} ` +
-           `separation=${this.separationProperty.value} ` +
-           ']';
-  }
-
   /**
    * Gets the potential energy (y-value) at a specified x-coordinate.
    */
@@ -104,14 +104,14 @@ export default class FiniteSquarePotential extends QuantumPotential {
     const n = this.numberOfWellsProperty.value;
     const wellWidth = this.wellWidthProperty.value;
     const xOffset = this.xOffset;
-    const yOffset = this.yOffsetProperty.value;
-    const separation = wellWidth + this.separationProperty.value;
+    const yOffset = this.yOffset;
+    const s = wellWidth + this.separationProperty.value;
 
     let pe = yOffset + this.wellDepthProperty.value;
 
     // From BSSquarePotential.java
     for ( let i = 1; i <= n; i++ ) {
-      const xi = separation * ( i - ( ( n + 1 ) / 2 ) );
+      const xi = s * ( i - ( ( n + 1 ) / 2 ) );
       if ( ( ( x - xOffset ) >= xi - ( wellWidth / 2 ) ) && ( ( x - xOffset ) <= xi + ( wellWidth / 2 ) ) ) {
         pe = yOffset;
         break;
@@ -121,16 +121,16 @@ export default class FiniteSquarePotential extends QuantumPotential {
     // Apply electric field.
     pe += ( this.electricFieldProperty.value * x );
 
-    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
+    affirm( pe < 100000 );
     return pe;
   }
 
-  public override getMinSolverEnergy(): number {
-    return this.yOffsetProperty.value; // bottom of the well
+  public override getMinPotentialEnergy(): number {
+    return this.yOffset;
   }
 
-  public override getMaxSolverEnergy(): number {
-    return this.yOffsetProperty.value + this.wellDepthProperty.value; // top of the well
+  public override getMaxPotentialEnergy(): number {
+    return this.yOffset + this.wellDepthProperty.value;
   }
 
   /**

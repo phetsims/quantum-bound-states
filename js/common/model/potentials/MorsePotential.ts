@@ -8,9 +8,8 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
+import Range from '../../../../../dot/js/Range.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -22,85 +21,80 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
-  wellDepthRange?: RangeWithValue;
+  wellWidth?: number;
+  wellWidthRange?: Range;
+  //TODO spacing - This is problematic because width and spacing are related.
 };
 
-export type MorsePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+type MorsePotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class MorsePotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
+  //TODO spacingProperty
 
   public constructor( providedOptions: MorsePotentialOptions ) {
 
     const options = optionize<MorsePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
+      wellWidth: QBSConstants.WELL_WIDTH_RANGE.defaultValue,
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
-      wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
 
       // QuantumPotentialOptions
-      groundStateIndex: 0,
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
       tandemPrefix: 'morsePotential'
     }, providedOptions );
 
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
+    this.wellWidthProperty = new NumberProperty( options.wellWidth, {
       units: nanometersUnit,
       range: options.wellWidthRange,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
 
-    this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
+    this.wellDepthProperty = new NumberProperty( QBSConstants.WELL_DEPTH_RANGE.defaultValue, {
       units: electronVoltsUnit,
-      range: options.wellDepthRange,
+      range: QBSConstants.WELL_DEPTH_RANGE,
       tandem: options.tandem.createTandem( 'wellDepthProperty' ),
       phetioFeatured: true
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
+    //TODO add spacingProperty
     Multilink.multilink(
       [ this.wellWidthProperty, this.wellDepthProperty ],
       () => this.propertyChangedEmitter.emit() );
-  }
-
-  public override reset(): void {
-    super.reset();
-    this.wellWidthProperty.reset();
-    this.wellDepthProperty.reset();
-  }
-
-  public override toString(): string {
-    return `${this.tandemPrefix}[ ` +
-           `numberOfWells=${this.numberOfWellsProperty.value} ` +
-           `electricField=${this.electricFieldProperty.value} ` +
-           `yOffset=${this.yOffsetProperty.value} ` +
-           `wellWidth=${this.wellWidthProperty.value} ` +
-           `wellDepth=${this.wellDepthProperty.value} ` +
-           ']';
   }
 
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public getPotentialEnergyAt( x: number ): number {
-    affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
-    affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
-    return 0; //TODO solve for potential with parameters: yOffset, xOffset, wellWidth, wellDepth
+    //TODO affirm that numberOfWellsProperty.value === 1 or 2
+    //TODO Add support for numberOfWells, spacing, and yOffset.
+
+    //TODO This fails with no eigenvalues found.
+    // return solveMorse( x, this.wellDepthProperty.value, this.wellWidthProperty.value, this.xOffset );
+    return 0;
   }
 
-  public override getMinSolverEnergy(): number {
-    return this.yOffsetProperty.value; // bottom of the well
+  /**
+   * Gets the index of the ground state.
+   */
+  public override getGroundStateIndex(): number {
+    return 0;
   }
 
-  public override getMaxSolverEnergy(): number {
-    return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
+  public override getMinPotentialEnergy(): number {
+    return this.getEnergyAxisRange().min; //TODO incorrect
+  }
+
+  public override getMaxPotentialEnergy(): number {
+    return this.getEnergyAxisRange().max; //TODO incorrect
   }
 
   /**
@@ -108,29 +102,19 @@ export default class MorsePotential extends QuantumPotential {
    */
   public override createIcon(): Node {
 
-    // Sampling parameters
-    const numberOfPoints = 50;
-    const xMin = -1.4; // more negative shows more of the left edge that goes to infinity
-    const xMax = 15;
-    const dx = ( xMax - xMin ) / numberOfPoints;
-    const wellWidth = 1.7;
-    const wellDepth = 10.1;
+    // Sampling parameters.
+    const xMin = 0.2;
+    const xMax = 10;
+    const dx = 0.1;
 
-    // Create the Shape by sampling the curve.
+    // Scaling parameters to fit the sampled data to the desired size for the icon, determined empirically.
+    const xScale = 1.7;
+    const yScale = -10.1; // negative to invert the y-axis to match scenery's coordinate frame.
+
+    // Create the Shape by sampling the curve, then scaling xy-coordinates to fit the desired size and coordinate frame.
     const shape = new Shape();
     for ( let x = xMin; x <= xMax; x += dx ) {
-
-      //TODO Duplication here with getPotentialEnergyAt
-      const term = 1 - Math.exp( -x / wellWidth );
-      let y = ( wellDepth * term * term ) - wellDepth;
-
-      y *= -1; // invert the y-axis to match scenery's coordinate frame
-      if ( x === xMin ) {
-        shape.moveTo( x, y );
-      }
-      else {
-        shape.lineTo( x, y );
-      }
+      shape.lineTo( xScale * x, yScale * solveMorse( x, 1, 1, 1 ) );
     }
 
     return new Path( shape, {
@@ -138,4 +122,12 @@ export default class MorsePotential extends QuantumPotential {
       lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     } );
   }
+}
+
+/**
+ * Solve the Morse potential.
+ */
+function solveMorse( x: number, wellDepth: number, wellWidth: number, xOffset: number ): number {
+  const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
+  return wellDepth * term * term - wellDepth;
 }

@@ -10,7 +10,6 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlOptions } from '../../../../../scenery-phet/js/NumberControl.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../QBSConstants.js';
 import WellWidthControl from './WellWidthControl.js';
 
@@ -20,7 +19,7 @@ export default class SeparationControl extends NumberControl {
 
   public constructor( separationProperty: NumberProperty ) {
 
-    super( 'separationProperty', separationProperty, separationProperty.range,
+    super( 'Separation', separationProperty, separationProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {
@@ -31,8 +30,7 @@ export default class SeparationControl extends NumberControl {
         },
         sliderOptions: {
           majorTicks: WellWidthControl.createMinMaxTicks( separationProperty.range, DECIMALS )
-        },
-        tandem: Tandem.OPT_OUT
+        }
       } ) );
   }
 }

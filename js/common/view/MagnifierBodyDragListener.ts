@@ -25,7 +25,7 @@ export default class MagnifierBodyDragListener extends SoundRichDragListener {
 
     // Synthesize a ModelViewTransform2 from the ChartTransform.
     const transform = ModelViewTransform2.createOffsetXYScaleMapping(
-      //TODO y-offset is incorrect, energyDiagram.yRangeProperty is dynamic.
+      //TODO y-offset is incorrect, y-range is dynamic.
       chartTransform.modelToViewPosition( Vector2.ZERO ), // offset of the origin in view coordinates
       chartTransform.viewWidth / chartTransform.modelXRange.getLength(), // xScale, model to view
       //TODO y-scale is incorrect, y-range is dynamic.
@@ -34,7 +34,7 @@ export default class MagnifierBodyDragListener extends SoundRichDragListener {
 
     // Drag bounds in model coordinates, adjusted for the size of the body.
     // y values can be anything because movement is constrained to horizontal.
-    //TODO dragBoundsProperty is incorrect, energyDiagram.yRangeProperty is dynamic.
+    //TODO dragBoundsProperty is incorrect, y-range is dynamic.
     const bodyWidth = chartTransform.viewToModelDeltaX( magnifierBodyNode.width );
     const bodyHeight = chartTransform.viewToModelDeltaY( magnifierBodyNode.height );
     const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, chartTransform.modelYRange.min - bodyHeight,

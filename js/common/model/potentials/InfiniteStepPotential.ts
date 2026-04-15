@@ -9,27 +9,19 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
-import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import InfiniteStepSolution from '../solver/analytical-solutions/InfiniteStepSolution.js';
-import { BoundStateResult } from '../solver/BoundStateResult.js';
-import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
-  stepHeightRange?: RangeWithValue;
-};
+type SelfOptions = EmptySelfOptions;
 
-export type InfiniteStepPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+type InfiniteStepPotentialOptions = SelfOptions & Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'tandem'>;
 
 export default class InfiniteStepPotential extends QuantumPotential {
 
@@ -42,10 +34,6 @@ export default class InfiniteStepPotential extends QuantumPotential {
 
     const options = optionize<InfiniteStepPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
-      // SelfOptions
-      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
-      stepHeightRange: QBSConstants.STEP_HEIGHT_RANGE,
-
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
       tandemPrefix: 'infiniteStepPotential'
@@ -53,18 +41,18 @@ export default class InfiniteStepPotential extends QuantumPotential {
 
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
+    this.wellWidthProperty = new NumberProperty( QBSConstants.WELL_WIDTH_RANGE.defaultValue, {
       units: nanometersUnit,
       //TODO range.min should be 0.1, but wellWidth < 0.2 causes assertion failure, no eigenvalues
-      // range: options.wellWidthRange
+      // range: QBSConstants.WELL_WIDTH_RANGE,
       range: new Range( 0.2, 6 ),
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
 
-    this.stepHeightProperty = new NumberProperty( options.stepHeightRange.defaultValue, {
+    this.stepHeightProperty = new NumberProperty( QBSConstants.STEP_HEIGHT_RANGE.defaultValue, {
       units: electronVoltsUnit,
-      range: options.stepHeightRange,
+      range: QBSConstants.STEP_HEIGHT_RANGE,
       tandem: options.tandem.createTandem( 'stepHeightProperty' ),
       phetioFeatured: true
     } );
@@ -79,18 +67,8 @@ export default class InfiniteStepPotential extends QuantumPotential {
     this.stepHeightProperty.reset();
   }
 
-  public override toString(): string {
-    return `${this.tandemPrefix}[ ` +
-           `numberOfWells=${this.numberOfWellsProperty.value} ` +
-           `electricField=${this.electricFieldProperty.value} ` +
-           `yOffset=${this.yOffsetProperty.value} ` +
-           `wellWidth=${this.wellWidthProperty.value} ` +
-           ']';
-  }
-
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'InfiniteStepPotential does not support multiple wells.' );
-    affirm( this.electricFieldProperty.value === 0, 'InfiniteStepPotential does not support electric field.' );
 
     const wellWidth = this.wellWidthProperty.value;
     const leftX = this.xOffset - wellWidth / 2;
@@ -100,11 +78,11 @@ export default class InfiniteStepPotential extends QuantumPotential {
       // inside the well
       if ( x <= leftX + wellWidth / 2 ) {
         // to the left of the step
-        pe = this.yOffsetProperty.value;
+        pe = this.yOffset;
       }
       else {
         // at the step
-        pe = this.yOffsetProperty.value + this.stepHeightProperty.value;
+        pe = this.yOffset + this.stepHeightProperty.value;
       }
     }
     else {
@@ -114,23 +92,12 @@ export default class InfiniteStepPotential extends QuantumPotential {
     return pe;
   }
 
-  public override getMinSolverEnergy(): number {
-    return this.yOffsetProperty.value; // bottom of the well
+  public override getMinPotentialEnergy(): number {
+    return this.yOffset;
   }
 
-  public override getMaxSolverEnergy(): number {
-    return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
-  }
-
-  /**
-   * Solves for the bound state using an analytic solution.
-   */
-  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    const minPotentialEnergy = this.getMinSolverEnergy();
-    const maxPotentialEnergy = this.getMaxSolverEnergy();
-
-    //TODO We are displaying this.getPotentialEnergyAt. This is using InfiniteStepSolution.createPotential which does not support xOffset and yOffset.
-    return InfiniteStepSolution.solve( xGrid, this.wellWidthProperty.value, this.stepHeightProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
+  public override getMaxPotentialEnergy(): number {
+    return this.getEnergyAxisRange().max;
   }
 
   /**

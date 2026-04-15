@@ -79,6 +79,9 @@
   "superposition": {
     "value": "Superposition"
   },
+  "averageProbabilityDensityOfBandDialogTitle": {
+    "value": "Average Probability Density of Band"
+  },
   "probabilityDensityDialogTitle": {
     "value": "Probability Density"
   },
@@ -133,14 +136,6 @@
       },
       "symbolPattern": {
         "value": "{{value}} eV"
-      }
-    },
-    "electronVoltsPerNanometerSquared": {
-      "symbol": {
-        "value": "eV/nm<sup>2</sup>"
-      },
-      "symbolPattern": {
-        "value": "{{value}} eV/nm<sup>2</sup>"
       }
     },
     "femtoSeconds": {
@@ -748,11 +743,6 @@
       "electronVolts": {
         "accessiblePattern": {
           "value": "{$value} electron volts"
-        }
-      },
-      "electronVoltsPerNanometerSquared": {
-        "accessiblePattern": {
-          "value": "{$value} electron volts per nanometer squared"
         }
       },
       "femtoseconds": {
