@@ -17,6 +17,9 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
+import InfiniteStepSolution from '../solver/analytical-solutions/InfiniteStepSolution.js';
+import { BoundStateResult } from '../solver/BoundStateResult.js';
+import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
@@ -108,6 +111,17 @@ export default class InfiniteStepPotential extends QuantumPotential {
 
   public override getMaxPotentialEnergy(): number {
     return this.energyAxisRangeProperty.value.max; // top of the y-axis range
+  }
+
+  /**
+   * Solves for the bound state using an analytic solution.
+   */
+  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    const minPotentialEnergy = this.getMinPotentialEnergy();
+    const maxPotentialEnergy = this.getMaxPotentialEnergy();
+
+    //TODO We are displaying this.getPotentialEnergyAt. This is using InfiniteStepSolution.createPotential which does not support xOffset and yOffset.
+    return InfiniteStepSolution.solve( xGrid, this.wellWidthProperty.value, this.stepHeightProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
   }
 
   /**

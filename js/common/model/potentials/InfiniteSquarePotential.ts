@@ -16,7 +16,10 @@ import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersU
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
-import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
+import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js';  // eslint-disable-line phet/no-view-imported-from-model
+import InfiniteSquareWellSolution from '../solver/analytical-solutions/InfiniteSquareWellSolution.js';
+import { BoundStateResult } from '../solver/BoundStateResult.js';
+import XGrid from '../solver/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
@@ -90,6 +93,17 @@ export default class InfiniteSquarePotential extends QuantumPotential {
 
   public override getMaxPotentialEnergy(): number {
     return this.energyAxisRangeProperty.value.max; // top of the y-axis range
+  }
+
+  /**
+   * Solves for the bound state using an analytic solution.
+   */
+  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    const minPotentialEnergy = this.getMinPotentialEnergy();
+    const maxPotentialEnergy = this.getMaxPotentialEnergy();
+
+    //TODO We are displaying this.getPotentialEnergyAt. This is using InfiniteSquareWellSolution.createPotential which does not support xOffset and yOffset.
+    return InfiniteSquareWellSolution.solve( xGrid, this.wellWidthProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
   }
 
   /**
