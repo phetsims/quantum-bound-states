@@ -17,7 +17,7 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js';  // eslint-disable-line phet/no-view-imported-from-model
-import InfiniteSquareWellSolution from '../solver/analytical-solutions/InfiniteSquareWellSolution.js';
+import InfiniteSquareSolution from '../solver/analytical-solutions/InfiniteSquareSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
@@ -102,8 +102,8 @@ export default class InfiniteSquarePotential extends QuantumPotential {
     const minPotentialEnergy = this.getMinPotentialEnergy();
     const maxPotentialEnergy = this.getMaxPotentialEnergy();
 
-    //TODO We are displaying this.getPotentialEnergyAt. This is using InfiniteSquareWellSolution.createPotential which does not support xOffset and yOffset.
-    return InfiniteSquareWellSolution.solve( xGrid, this.wellWidthProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
+    //TODO We are displaying this.getPotentialEnergyAt. This is using InfiniteSquareSolution.createPotential which does not support xOffset and yOffset.
+    return InfiniteSquareSolution.solve( xGrid, this.wellWidthProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
   }
 
   /**
