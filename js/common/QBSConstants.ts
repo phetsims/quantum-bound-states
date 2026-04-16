@@ -85,6 +85,7 @@ export default class QBSConstants {
   public static readonly STEP_HEIGHT_DECIMAL_PLACES = 1;
   public static readonly SEPARATION_DECIMAL_PLACES = 2;
   public static readonly SPACING_DECIMAL_PLACES = 2;
+  public static readonly Y_OFFSET_DECIMAL_PLACES = 1;
 
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_ENERGY = 1E20; // eV

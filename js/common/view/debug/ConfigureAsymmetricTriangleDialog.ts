@@ -13,16 +13,23 @@ import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import WellDepthControl from './WellDepthControl.js';
 import WellWidthControl from './WellWidthControl.js';
+import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureAsymmetricTriangleDialog extends ConfigureQuantumPotentialDialog {
 
   public constructor( potential: AsymmetricTrianglePotential ) {
 
+    const children = [
+      new WellWidthControl( potential.wellWidthProperty ),
+      new WellDepthControl( potential.wellDepthProperty )
+    ];
+
+    if ( potential.yOffsetProperty.range.getLength() > 0 ) {
+      children.push( new YOffsetControl( potential.yOffsetProperty ) );
+    }
+
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
-      children: [
-        new WellWidthControl( potential.wellWidthProperty ),
-        new WellDepthControl( potential.wellDepthProperty )
-      ]
+      children: children
     } ) );
 
     super( 'Asymmetric Triangle', content );

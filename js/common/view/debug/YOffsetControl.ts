@@ -14,13 +14,13 @@ import { electronVoltsUnit } from '../../model/units/electronVoltsUnit.js';
 import QBSConstants from '../../QBSConstants.js';
 import WellWidthControl from './WellWidthControl.js';
 
-const DECIMALS = QBSConstants.WELL_DEPTH_DECIMAL_PLACES;
+const DECIMALS = QBSConstants.Y_OFFSET_DECIMAL_PLACES;
 
-export default class WellDepthControl extends NumberControl {
+export default class YOffsetControl extends NumberControl {
 
-  public constructor( wellDepthProperty: NumberProperty ) {
+  public constructor( yOffsetProperty: NumberProperty ) {
 
-    super( 'Well Depth', wellDepthProperty, wellDepthProperty.range,
+    super( 'Y Offset', yOffsetProperty, yOffsetProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {
@@ -30,7 +30,7 @@ export default class WellDepthControl extends NumberControl {
           } )
         },
         sliderOptions: {
-          majorTicks: WellWidthControl.createMinMaxTicks( wellDepthProperty.range, DECIMALS )
+          majorTicks: WellWidthControl.createMinMaxTicks( yOffsetProperty.range, DECIMALS )
         },
         tandem: Tandem.OPT_OUT
       } ) );

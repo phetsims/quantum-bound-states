@@ -12,17 +12,25 @@ import Text from '../../../../../scenery/js/nodes/Text.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureCoulombDialog extends ConfigureQuantumPotentialDialog {
 
   public constructor( potential: CoulombPotential ) {
 
+    const children = [];
+
+    if ( potential.yOffsetProperty.range.getLength() > 0 ) {
+      children.push( new YOffsetControl( potential.yOffsetProperty ) );
+    }
+    else {
+      children.push( new Text( 'Nothing to configure', {
+        font: QBSConstants.CONTROL_FONT
+      } ) );
+    }
+
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
-      children: [
-        new Text( 'Nothing to configure', {
-          font: QBSConstants.CONTROL_FONT
-        } )
-      ]
+      children: children
     } ) );
 
     super( 'Coulomb', content );
