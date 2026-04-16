@@ -21,6 +21,9 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
+import { BoundStateResult } from '../solver/BoundStateResult.js';
+import NumerovSolver from '../solver/NumerovSolver.js';
+import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 
 // Initial energy axis (y-axis) range for most potential types.
@@ -63,6 +66,8 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
+
+  private readonly getPotentialEnergyAtBound: ( x: number ) => number;
 
   protected constructor( providedOptions: QuantumPotentialOptions ) {
 
@@ -113,6 +118,8 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
+
+    this.getPotentialEnergyAtBound = this.getPotentialEnergyAt.bind( this );
   }
 
   public reset(): void {
@@ -125,16 +132,24 @@ export default abstract class QuantumPotential extends PhetioObject {
    */
   public abstract getPotentialEnergyAt( x: number ): number;
 
-  //TODO Combine getMinPotentialEnergy and getMaxPotentialEnergy into getPotentialEnergyLimits(): Range?
   /**
-   * Gets the minimum potential energy (eV) used to solve for eigenstates and wave functions.
+   * Gets the minimum potential energy (eV) used to solve for the bound state.
    */
   public abstract getMinPotentialEnergy(): number;
 
   /**
-   * Gets the maximum potential energy (eV) used to solve for eigenstates and wave functions.
+   * Gets the maximum potential energy (eV) used to solve for the bound state.
    */
   public abstract getMaxPotentialEnergy(): number;
+
+  /**
+   * Solves for the bound state. The default uses a numerical solution.
+   */
+  public solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    const minPotentialEnergy = this.getMinPotentialEnergy();
+    const maxPotentialEnergy = this.getMaxPotentialEnergy();
+    return NumerovSolver.solve( xGrid, this.getPotentialEnergyAtBound, electronMasses, minPotentialEnergy, maxPotentialEnergy );
+  }
 
   /**
    * Creates the icon that represents this potential. Used in the combo box for selecting a potential.

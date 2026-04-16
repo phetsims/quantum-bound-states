@@ -22,16 +22,11 @@ import QBSQueryParameters from '../QBSQueryParameters.js';
 import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
 import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
-import InfiniteSquarePotential from './potentials/InfiniteSquarePotential.js';
-import InfiniteStepPotential from './potentials/InfiniteStepPotential.js';
 import QuantumPotential from './potentials/QuantumPotential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
-import InfiniteSquareWellSolution from './solver/analytical-solutions/InfiniteSquareWellSolution.js';
-import InfiniteStepSolution from './solver/analytical-solutions/InfiniteStepSolution.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
-import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
 import Time from './Time.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
@@ -236,40 +231,17 @@ function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalues: num
 }
 
 /**
- * Solve for bound state, dispatching to analytical solutions where necessary.
+ * Solve for bound state and validate the result.
  */
 function solveBoundState( potential: QuantumPotential, xGrid: XGrid, electronMasses: number ): BoundStateResult {
 
-  const potentialFunction = ( x: number ) => potential.getPotentialEnergyAt( x ); // nm => eV
-
-  const minPotentialEnergy = potential.getMinPotentialEnergy();
-  const maxPotentialEnergy = potential.getMaxPotentialEnergy();
-
-  let result: BoundStateResult;
-
-  //TODO Analytic and numeric solutions have different methods of computing potential energy.
-  //TODO Move the decision about whether to use numerical or analytic solutions to the QuantumPotential subclass.
-  if ( potential instanceof InfiniteSquarePotential ) {
-
-    // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-    result = InfiniteSquareWellSolution.solve( xGrid, potential.wellWidthProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
-  }
-  else if ( potential instanceof InfiniteStepPotential ) {
-
-    // Use analytic solution because using Numerov would require constraining x-range to the interior of the well.
-    result = InfiniteStepSolution.solve( xGrid, potential.wellWidthProperty.value, potential.stepHeightProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
-  }
-  else {
-
-    // For all other potentials, use the numerical Numerov method.
-    result = NumerovSolver.solve( xGrid, potentialFunction, electronMasses, minPotentialEnergy, maxPotentialEnergy );
-  }
+  const result = potential.solveBoundState( xGrid, electronMasses );
 
   // Validate the result.
   affirm( result.potentials.length > 0, 'BoundStateResult has no potentials.' );
-  affirm( result.energies.length > 0, 'BoundStateResult has no eigenvalues.' );
+  affirm( result.energies.length > 0, 'BoundStateResult has no energies.' );
   affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions.' );
-  affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each eigenvalue.' );
+  affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each energy.' );
 
   return result;
 }
