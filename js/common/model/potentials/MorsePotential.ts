@@ -93,7 +93,7 @@ export default class MorsePotential extends QuantumPotential {
   public getPotentialEnergyAt( x: number ): number {
     //TODO affirm that numberOfWellsProperty.value === 1 or 2
     affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
-    //TODO parameters: N wells, yOffset, xOffset, wellWidth, wellDepth, separation
+    //TODO parameters: N wells, yOffset, xOffset, wellWidth, wellDepth, spacing
 
     //TODO This fails with no eigenvalues found.
     // return solveMorse( x, this.wellDepthProperty.value, this.wellWidthProperty.value, this.xOffset );
