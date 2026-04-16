@@ -20,7 +20,7 @@ export default class StepHeightControl extends NumberControl {
 
   public constructor( stepHeightProperty: NumberProperty ) {
 
-    super( 'Step Height', stepHeightProperty, stepHeightProperty.range,
+    super( 'stepHeightProperty', stepHeightProperty, stepHeightProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {

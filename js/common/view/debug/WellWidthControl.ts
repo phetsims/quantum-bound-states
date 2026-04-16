@@ -22,7 +22,7 @@ export default class WellWidthControl extends NumberControl {
 
   public constructor( wellWidthProperty: NumberProperty ) {
 
-    super( 'Well Width', wellWidthProperty, wellWidthProperty.range,
+    super( 'wellWidthProperty', wellWidthProperty, wellWidthProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {
