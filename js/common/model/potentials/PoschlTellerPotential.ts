@@ -98,7 +98,13 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const V0 = this.wellDepthProperty.value;
     const a = this.wellWidthProperty.value;
     const coshVal = Math.cosh( x / a );
-    return -V0 / ( coshVal * coshVal );
+    let pe = -V0 / ( coshVal * coshVal );
+
+    //TODO Taken from FiniteSquarePotential, is this correct?
+    // Apply electric field.
+    pe += ( this.electricFieldProperty.value * x );
+
+    return pe;
   }
 
   public override getMinPotentialEnergy(): number {
