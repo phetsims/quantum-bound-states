@@ -24,7 +24,6 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 type SelfOptions = {
   wellWidthRange?: RangeWithValue;
   wellDepthRange?: RangeWithValue;
-  separationRange?: RangeWithValue;
 };
 
 export type MorsePotentialOptions = SelfOptions &
@@ -34,7 +33,6 @@ export default class MorsePotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
-  public readonly separationProperty: NumberProperty;
 
   public constructor( providedOptions: MorsePotentialOptions ) {
 
@@ -43,7 +41,6 @@ export default class MorsePotential extends QuantumPotential {
       // SelfOptions
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
       wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
-      separationRange: QBSConstants.SEPARATION_RANGE,
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
@@ -67,16 +64,9 @@ export default class MorsePotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    this.separationProperty = new NumberProperty( options.separationRange.defaultValue, {
-      units: nanometersUnit,
-      range: options.separationRange,
-      tandem: options.tandem.createTandem( 'separationProperty' ),
-      phetioFeatured: true
-    } );
-
     // Changes to Properties instantiated by this class trigger notification.
     Multilink.multilink(
-      [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
+      [ this.wellWidthProperty, this.wellDepthProperty ],
       () => this.propertyChangedEmitter.emit() );
   }
 
@@ -84,16 +74,15 @@ export default class MorsePotential extends QuantumPotential {
     super.reset();
     this.wellWidthProperty.reset();
     this.wellDepthProperty.reset();
-    this.separationProperty.reset();
   }
 
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public getPotentialEnergyAt( x: number ): number {
-    //TODO affirm that numberOfWellsProperty.value === 1 or 2
+    affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
     affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
-    //TODO parameters: N wells, yOffset, xOffset, wellWidth, wellDepth, spacing
+    //TODO parameters: yOffset, xOffset, wellWidth, wellDepth
 
     //TODO This fails with no eigenvalues found.
     // return solveMorse( x, this.wellDepthProperty.value, this.wellWidthProperty.value, this.xOffset );
