@@ -53,7 +53,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   // Fires when any Property instantiated by the QuantumPotential changes.
   public readonly propertyChangedEmitter: Emitter;
 
-  protected readonly numberOfWellsProperty: ReadOnlyProperty<number>;
+  public readonly numberOfWellsProperty: ReadOnlyProperty<number>;
   public readonly electricFieldProperty: ReadOnlyProperty<number>;
 
   public readonly yOffsetProperty: NumberProperty;
