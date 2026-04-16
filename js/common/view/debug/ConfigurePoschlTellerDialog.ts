@@ -11,6 +11,7 @@ import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.j
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import SpacingControl from './SpacingControl.js';
 import WellDepthControl from './WellDepthControl.js';
 import WellWidthControl from './WellWidthControl.js';
 
@@ -23,7 +24,10 @@ export default class ConfigurePoschlTellerDialog extends ConfigureQuantumPotenti
       new WellDepthControl( potential.wellDepthProperty )
     ];
 
-    //TODO Conditionally add spacing control
+    if ( potential.numberOfWellsProperty.value > 1 ) {
+      children.push( new SpacingControl( potential.spacingProperty ) );
+    }
+
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: children
