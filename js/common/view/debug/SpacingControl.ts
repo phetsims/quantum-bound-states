@@ -20,7 +20,7 @@ export default class SpacingControl extends NumberControl {
 
   public constructor( spacingProperty: NumberProperty ) {
 
-    super( 'Spacing', spacingProperty, spacingProperty.range,
+    super( 'spacingProperty', spacingProperty, spacingProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {

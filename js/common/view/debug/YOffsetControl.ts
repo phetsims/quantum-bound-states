@@ -20,7 +20,7 @@ export default class YOffsetControl extends NumberControl {
 
   public constructor( yOffsetProperty: NumberProperty ) {
 
-    super( 'Y Offset', yOffsetProperty, yOffsetProperty.range,
+    super( 'yOffsetProperty', yOffsetProperty, yOffsetProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {

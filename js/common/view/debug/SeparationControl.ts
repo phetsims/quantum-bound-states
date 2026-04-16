@@ -20,7 +20,7 @@ export default class SeparationControl extends NumberControl {
 
   public constructor( separationProperty: NumberProperty ) {
 
-    super( 'Separation', separationProperty, separationProperty.range,
+    super( 'separationProperty', separationProperty, separationProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {

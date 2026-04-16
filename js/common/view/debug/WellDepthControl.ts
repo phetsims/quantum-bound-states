@@ -20,7 +20,7 @@ export default class WellDepthControl extends NumberControl {
 
   public constructor( wellDepthProperty: NumberProperty ) {
 
-    super( 'Well Depth', wellDepthProperty, wellDepthProperty.range,
+    super( 'wellDepthProperty', wellDepthProperty, wellDepthProperty.range,
       combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {
