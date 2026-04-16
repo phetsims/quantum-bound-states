@@ -53,7 +53,6 @@ addToMapIfDefined( 'phase', 'phaseStringProperty' );
 addToMapIfDefined( 'magnifier', 'magnifierStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'superposition', 'superpositionStringProperty' );
-addToMapIfDefined( 'averageProbabilityDensityOfBandDialogTitle', 'averageProbabilityDensityOfBandDialogTitleStringProperty' );
 addToMapIfDefined( 'probabilityDensityDialogTitle', 'probabilityDensityDialogTitleStringProperty' );
 addToMapIfDefined( 'waveFunctionDialogTitle', 'waveFunctionDialogTitleStringProperty' );
 addToMapIfDefined( 'superpositionDetailsDialogTitle', 'superpositionDetailsDialogTitleStringProperty' );
@@ -287,8 +286,7 @@ const QuantumBoundStatesFluent = {
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
   _comment_10: new FluentComment( {"comment":"ComboBoxes","associatedKey":"superposition"} ),
   superpositionStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionStringProperty' ),
-  _comment_11: new FluentComment( {"comment":"Dialogs","associatedKey":"averageProbabilityDensityOfBandDialogTitle"} ),
-  averageProbabilityDensityOfBandDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'averageProbabilityDensityOfBandDialogTitleStringProperty' ),
+  _comment_11: new FluentComment( {"comment":"Dialogs","associatedKey":"probabilityDensityDialogTitle"} ),
   probabilityDensityDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityDialogTitleStringProperty' ),
   waveFunctionDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionDialogTitleStringProperty' ),
   superpositionDetailsDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionDetailsDialogTitleStringProperty' ),

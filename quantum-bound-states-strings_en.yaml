@@ -42,7 +42,6 @@ referenceLine:                              Reference Line
 superposition:                              Superposition
 
 # Dialogs
-averageProbabilityDensityOfBandDialogTitle: Average Probability Density of Band
 probabilityDensityDialogTitle:              Probability Density
 waveFunctionDialogTitle:                    Wave Function
 superpositionDetailsDialogTitle:            Superposition Details
