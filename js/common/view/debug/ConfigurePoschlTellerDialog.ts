@@ -14,6 +14,7 @@ import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.j
 import SpacingControl from './SpacingControl.js';
 import WellDepthControl from './WellDepthControl.js';
 import WellWidthControl from './WellWidthControl.js';
+import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigurePoschlTellerDialog extends ConfigureQuantumPotentialDialog {
 
@@ -28,6 +29,9 @@ export default class ConfigurePoschlTellerDialog extends ConfigureQuantumPotenti
       children.push( new SpacingControl( potential.spacingProperty ) );
     }
 
+    if ( potential.yOffsetProperty.range.getLength() > 0 ) {
+      children.push( new YOffsetControl( potential.yOffsetProperty ) );
+    }
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: children

@@ -9,7 +9,6 @@
 import Emitter from '../../../../../axon/js/Emitter.js';
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import Property from '../../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
@@ -25,8 +24,8 @@ import NumerovSolver from '../solver/NumerovSolver.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 
-// Initial energy axis (y-axis) range for most potential types.
-const INITIAL_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
+// Energy axis (y-axis) range for most potential types.
+const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
 
 // Default y-offset range is effectively constant 0.
 const DEFAULT_Y_OFFSET_RANGE = new RangeWithValue( 0, 0, 0 );
@@ -35,7 +34,7 @@ type SelfOptions = {
   groundStateIndex?: number;
   numberOfWellsProperty: TReadOnlyProperty<number>;
   electricFieldProperty: TReadOnlyProperty<number>;
-  initialEnergyAxisRange?: Range; // initial range of the energy axis (y-axis)
+  energyAxisRange?: Range; // range of the energy axis (y-axis) when y-offset is zero
   yOffsetRange?: RangeWithValue;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
@@ -59,8 +58,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly electricFieldProperty: TReadOnlyProperty<number>;
 
   public readonly yOffsetProperty: NumberProperty;
-  public readonly initialEnergyAxisRange: Range;
-  public readonly energyAxisRangeProperty: Property<Range>;
+  public readonly energyAxisRange: Range;
 
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
@@ -74,7 +72,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
       // SelfOptions
       groundStateIndex: 1,
-      initialEnergyAxisRange: INITIAL_ENERGY_AXIS_RANGE,
+      energyAxisRange: DEFAULT_ENERGY_AXIS_RANGE,
       yOffsetRange: DEFAULT_Y_OFFSET_RANGE,
       accessibleNameProperty: providedOptions.visualNameProperty,
 
@@ -94,21 +92,15 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.numberOfWellsProperty = options.numberOfWellsProperty;
     this.electricFieldProperty = options.electricFieldProperty;
 
-    this.yOffsetProperty = new NumberProperty( DEFAULT_Y_OFFSET_RANGE.defaultValue, {
+    this.yOffsetProperty = new NumberProperty( options.yOffsetRange.defaultValue, {
       units: electronVoltsUnit,
-      range: DEFAULT_Y_OFFSET_RANGE,
+      range: options.yOffsetRange,
       tandem: options.tandem.createTandem( 'yOffsetProperty' ),
       phetioFeatured: true
       //TODO should this be phetioReadOnly: true?
     } );
 
-    this.initialEnergyAxisRange = options.initialEnergyAxisRange;
-    this.energyAxisRangeProperty = new Property( options.initialEnergyAxisRange, {
-      tandem: options.tandem.createTandem( 'energyAxisRangeProperty' ),
-      phetioValueType: Range.RangeIO,
-      phetioFeatured: true,
-      phetioReadOnly: true
-    } );
+    this.energyAxisRange = options.energyAxisRange;
 
     // Changes to Properties instantiated by this class trigger notification.
     //TODO Does energyAxisRangeProperty need to be included here? If not, document why not.
@@ -123,7 +115,6 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   public reset(): void {
     this.yOffsetProperty.reset();
-    this.energyAxisRangeProperty.reset();
   }
 
   /**

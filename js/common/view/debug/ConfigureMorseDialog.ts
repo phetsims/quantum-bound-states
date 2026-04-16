@@ -13,6 +13,7 @@ import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import WellDepthControl from './WellDepthControl.js';
 import WellWidthControl from './WellWidthControl.js';
+import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureMorseDialog extends ConfigureQuantumPotentialDialog {
 
@@ -23,7 +24,9 @@ export default class ConfigureMorseDialog extends ConfigureQuantumPotentialDialo
       new WellDepthControl( potential.wellDepthProperty )
     ];
 
-    //TODO Conditionally add spacing control
+    if ( potential.yOffsetProperty.range.getLength() > 0 ) {
+      children.push( new YOffsetControl( potential.yOffsetProperty ) );
+    }
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: children

@@ -48,13 +48,11 @@ export default class OneWellModel extends QBSModel {
       // No PhET-iO instrumentation, since it's effectively constant.
     } );
 
-    const yOffsetRange = new RangeWithValue( -10, 10, 0 );
-
     // Shared by all quantum potentials
     const quantumPotentialOptions: Partial<QuantumPotentialOptions> = {
       numberOfWellsProperty: numberOfWellsProperty,
       electricFieldProperty: electricFieldProperty,
-      yOffsetRange: yOffsetRange
+      yOffsetRange: new RangeWithValue( -5, 5, 0 )
     };
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
