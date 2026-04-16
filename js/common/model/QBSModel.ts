@@ -56,7 +56,7 @@ export default class QBSModel implements TModel {
   public readonly electronMassesProperty: NumberProperty;
   public readonly electricFieldProperty: NumberProperty;
 
-  // Result from NumerovSolver for the selected quantum potential.
+  // Result for configuration of the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
 
   // Constant grid of x-coordinates, used for all graphs.
