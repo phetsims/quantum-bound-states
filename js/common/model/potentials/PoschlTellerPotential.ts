@@ -100,6 +100,9 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const coshVal = Math.cosh( x / a );
     let pe = -V0 / ( coshVal * coshVal );
 
+    // Adjust for y-offset.
+    pe += this.yOffsetProperty.value;
+
     //TODO Taken from FiniteSquarePotential, is this correct?
     // Apply electric field.
     pe += ( this.electricFieldProperty.value * x );
