@@ -10,7 +10,6 @@ import Emitter from '../../../../../axon/js/Emitter.js';
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Property from '../../../../../axon/js/Property.js';
-import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
@@ -34,8 +33,8 @@ const DEFAULT_Y_OFFSET_RANGE = new RangeWithValue( 0, 0, 0 );
 
 type SelfOptions = {
   groundStateIndex?: number;
-  numberOfWellsProperty: ReadOnlyProperty<number>;
-  electricFieldProperty: ReadOnlyProperty<number>;
+  numberOfWellsProperty: TReadOnlyProperty<number>;
+  electricFieldProperty: TReadOnlyProperty<number>;
   initialEnergyAxisRange?: Range; // initial range of the energy axis (y-axis)
   yOffsetRange?: RangeWithValue;
   visualNameProperty: TReadOnlyProperty<string>;
@@ -56,8 +55,8 @@ export default abstract class QuantumPotential extends PhetioObject {
   // Fires when any Property instantiated by the QuantumPotential changes.
   public readonly propertyChangedEmitter: Emitter;
 
-  public readonly numberOfWellsProperty: ReadOnlyProperty<number>;
-  public readonly electricFieldProperty: ReadOnlyProperty<number>;
+  public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
+  public readonly electricFieldProperty: TReadOnlyProperty<number>;
 
   public readonly yOffsetProperty: NumberProperty;
   public readonly initialEnergyAxisRange: Range;
@@ -90,8 +89,8 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     this.propertyChangedEmitter = new Emitter(); //TODO PhET-iO?
 
-    // Do not trigger notification when numberOfWellsProperty or electricFieldProperty changes, because they are owned
-    // by the top-level model.
+    // Do not trigger notification when numberOfWellsProperty or electricFieldProperty changes,
+    // because they are owned by the top-level model.
     this.numberOfWellsProperty = options.numberOfWellsProperty;
     this.electricFieldProperty = options.electricFieldProperty;
 
