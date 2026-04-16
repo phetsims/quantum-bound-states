@@ -120,7 +120,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
    */
   public override createIcon(): Node {
     //TODO icon for Poschl-Teller potential
-    return new Text( '?', {
+    return new Text( 'icon?', {
       fill: QBSColors.potentialEnergyColorProperty,
       font: QBSConstants.CONTROL_FONT
     } );
