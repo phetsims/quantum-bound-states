@@ -24,7 +24,7 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 type SelfOptions = {
   wellWidthRange?: RangeWithValue;
   wellDepthRange?: RangeWithValue;
-  separationRange?: RangeWithValue;
+  spacingRange?: RangeWithValue;
 };
 
 export type PoschlTellerPotentialOptions = SelfOptions &
@@ -34,7 +34,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
-  public readonly separationProperty: NumberProperty;
+  public readonly spacingProperty: NumberProperty;
 
   //TODO spacingProperty
 
@@ -45,7 +45,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
       // SelfOptions
       wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
       wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
-      separationRange: QBSConstants.SEPARATION_RANGE,
+      spacingRange: QBSConstants.SEPARATION_RANGE,
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
@@ -70,16 +70,16 @@ export default class PoschlTellerPotential extends QuantumPotential {
       phetioFeatured: true
     } );
 
-    this.separationProperty = new NumberProperty( options.separationRange.defaultValue, {
+    this.spacingProperty = new NumberProperty( options.spacingRange.defaultValue, {
       units: nanometersUnit,
-      range: options.separationRange,
-      tandem: options.tandem.createTandem( 'separationProperty' ),
+      range: options.spacingRange,
+      tandem: options.tandem.createTandem( 'spacingProperty' ),
       phetioFeatured: true
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
     Multilink.multilink(
-      [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
+      [ this.wellWidthProperty, this.wellDepthProperty, this.spacingProperty ],
       () => this.propertyChangedEmitter.emit() );
   }
 
@@ -87,7 +87,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     super.reset();
     this.wellWidthProperty.reset();
     this.wellDepthProperty.reset();
-    this.separationProperty.reset();
+    this.spacingProperty.reset();
   }
 
   /**

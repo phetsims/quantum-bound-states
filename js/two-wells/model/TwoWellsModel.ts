@@ -12,7 +12,6 @@ import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential, { FiniteSquarePotentialOptions } from '../../common/model/potentials/FiniteSquarePotential.js';
-import MorsePotential, { MorsePotentialOptions } from '../../common/model/potentials/MorsePotential.js';
 import PoschlTellerPotential, { PoschlTellerPotentialOptions } from '../../common/model/potentials/PoschlTellerPotential.js';
 import { QuantumPotentialOptions } from '../../common/model/potentials/QuantumPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
@@ -21,6 +20,7 @@ import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanomete
 
 const WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 3, 1 );
 const SEPARATION_RANGE = new RangeWithValue( 0.05, 0.7, 0.1 );
+const SPACING_RANGE = new RangeWithValue( 1, 3, 1 );
 
 export default class TwoWellsModel extends QBSModel {
 
@@ -62,13 +62,8 @@ export default class TwoWellsModel extends QBSModel {
       } ) ),
       new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
         wellWidthRange: WELL_WIDTH_RANGE,
-        separationRange: SEPARATION_RANGE,
+        spacingRange: SPACING_RANGE,
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
-      } ) ),
-      new MorsePotential( combineOptions<MorsePotentialOptions>( {}, quantumPotentialOptions, {
-        wellWidthRange: WELL_WIDTH_RANGE,
-        separationRange: SEPARATION_RANGE,
-        tandem: potentialsTandem.createTandem( 'morsePotential' )
       } ) )
     ];
 
