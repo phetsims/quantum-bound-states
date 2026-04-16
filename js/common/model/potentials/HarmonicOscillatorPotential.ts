@@ -125,7 +125,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
     affirm( this.electricFieldProperty.value === 0, 'HarmonicOscillatorPotential does not support electric field.' );
-    return 0.5 * this.springConstantProperty.value * x * x;
+    return this.yOffsetProperty.value + ( 0.5 * this.springConstantProperty.value * x * x );
   }
 
   public override getMinPotentialEnergy(): number {
