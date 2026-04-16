@@ -52,7 +52,7 @@ export default class OneWellModel extends QBSModel {
     const quantumPotentialOptions: Partial<QuantumPotentialOptions> = {
       numberOfWellsProperty: numberOfWellsProperty,
       electricFieldProperty: electricFieldProperty,
-      yOffsetRange: new RangeWithValue( -5, 5, 0 )
+      yOffsetRange: new RangeWithValue( -10, 10, 0 ) //TODO This assumes that all potentials have energyAxisRange.getLength() === 20
     };
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
