@@ -95,11 +95,11 @@ export default class MorsePotential extends QuantumPotential {
     return 0; //TODO solve for potential with parameters: yOffset, xOffset, wellWidth, wellDepth
   }
 
-  public override getMinPotentialEnergy(): number {
+  public override getMinSolverEnergy(): number {
     return this.yOffsetProperty.value; // bottom of the well
   }
 
-  public override getMaxPotentialEnergy(): number {
+  public override getMaxSolverEnergy(): number {
     return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
   }
 
