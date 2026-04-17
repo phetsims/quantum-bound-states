@@ -101,6 +101,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
       pe = yOffset + ( wellDepth - ( Math.abs( xOffset + wellWidth / 2 - x ) * wellDepth / wellWidth ) );
     }
 
+    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
     return pe;
   }
 

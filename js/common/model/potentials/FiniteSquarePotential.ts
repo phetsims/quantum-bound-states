@@ -105,13 +105,13 @@ export default class FiniteSquarePotential extends QuantumPotential {
     const wellWidth = this.wellWidthProperty.value;
     const xOffset = this.xOffset;
     const yOffset = this.yOffsetProperty.value;
-    const s = wellWidth + this.separationProperty.value;
+    const separation = wellWidth + this.separationProperty.value;
 
     let pe = yOffset + this.wellDepthProperty.value;
 
     // From BSSquarePotential.java
     for ( let i = 1; i <= n; i++ ) {
-      const xi = s * ( i - ( ( n + 1 ) / 2 ) );
+      const xi = separation * ( i - ( ( n + 1 ) / 2 ) );
       if ( ( ( x - xOffset ) >= xi - ( wellWidth / 2 ) ) && ( ( x - xOffset ) <= xi + ( wellWidth / 2 ) ) ) {
         pe = yOffset;
         break;
@@ -121,7 +121,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
     // Apply electric field.
     pe += ( this.electricFieldProperty.value * x );
 
-    affirm( pe < 100000 );
+    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
     return pe;
   }
 
