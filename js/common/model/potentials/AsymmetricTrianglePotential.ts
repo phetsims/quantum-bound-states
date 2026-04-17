@@ -73,6 +73,16 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
     this.wellDepthProperty.reset();
   }
 
+  public override toString(): string {
+    return `${this.tandemPrefix}[ ` +
+           `numberOfWells=${this.numberOfWellsProperty.value} ` +
+           `electricField=${this.electricFieldProperty.value} ` +
+           `yOffset=${this.yOffsetProperty.value} ` +
+           `wellWidth=${this.wellWidthProperty.value} ` +
+           `wellDepth=${this.wellDepthProperty.value} ` +
+           ']';
+  }
+
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */

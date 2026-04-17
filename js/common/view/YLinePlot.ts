@@ -54,7 +54,7 @@ export default class YLinePlot extends Path {
    * Sets the y-coordinates and redraws the plot.
    */
   public setYCoordinates( yCoordinates: number[] ): void {
-    affirm( this.xCoordinates.length === yCoordinates.length, 'xCoordinates and yCoordinates must be the same length' );
+    affirm( this.xCoordinates.length === yCoordinates.length, `xCoordinates and yCoordinates must be the same length, ${this.xCoordinates.length} !== ${yCoordinates.length}` );
     this.yCoordinates = yCoordinates;
     this.update();
   }

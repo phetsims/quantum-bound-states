@@ -85,6 +85,17 @@ export default class FiniteSquarePotential extends QuantumPotential {
     this.separationProperty.reset();
   }
 
+  public override toString(): string {
+    return `${this.tandemPrefix}[ ` +
+           `numberOfWells=${this.numberOfWellsProperty.value} ` +
+           `electricField=${this.electricFieldProperty.value} ` +
+           `yOffset=${this.yOffsetProperty.value} ` +
+           `wellWidth=${this.wellWidthProperty.value} ` +
+           `wellDepth=${this.wellDepthProperty.value} ` +
+           `separation=${this.separationProperty.value} ` +
+           ']';
+  }
+
   /**
    * Gets the potential energy (y-value) at a specified x-coordinate.
    */

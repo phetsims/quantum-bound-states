@@ -118,6 +118,15 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     this.wellWidthProperty.reset();
   }
 
+  public override toString(): string {
+    return `${this.tandemPrefix}[ ` +
+           `numberOfWells=${this.numberOfWellsProperty.value} ` +
+           `electricField=${this.electricFieldProperty.value} ` +
+           `yOffset=${this.yOffsetProperty.value} ` +
+           `wellWidth=${this.wellWidthProperty.value} ` +
+           ']';
+  }
+
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    * For a 1D harmonic oscillator, V(x) = (1/2) k x²

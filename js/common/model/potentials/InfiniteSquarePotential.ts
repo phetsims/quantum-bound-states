@@ -65,6 +65,15 @@ export default class InfiniteSquarePotential extends QuantumPotential {
     this.wellWidthProperty.reset();
   }
 
+  public override toString(): string {
+    return `${this.tandemPrefix}[ ` +
+           `numberOfWells=${this.numberOfWellsProperty.value} ` +
+           `electricField=${this.electricFieldProperty.value} ` +
+           `yOffset=${this.yOffsetProperty.value} ` +
+           `wellWidth=${this.wellWidthProperty.value} ` +
+           ']';
+  }
+
   /**
    * Gets the potential energy (y-value) at a specified x-coordinate.
    */

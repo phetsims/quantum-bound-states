@@ -74,6 +74,14 @@ export default class CoulombPotential extends QuantumPotential {
     return yOffset + energy;
   }
 
+  public override toString(): string {
+    return `${this.tandemPrefix}[ ` +
+           `numberOfWells=${this.numberOfWellsProperty.value} ` +
+           `electricField=${this.electricFieldProperty.value} ` +
+           `yOffset=${this.yOffsetProperty.value} ` +
+           ']';
+  }
+
   public override getMinPotentialEnergy(): number {
     return this.energyAxisRange.min + this.yOffsetProperty.value; // bottom of the y-axis range
   }

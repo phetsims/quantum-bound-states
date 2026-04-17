@@ -90,6 +90,17 @@ export default class PoschlTellerPotential extends QuantumPotential {
     this.spacingProperty.reset();
   }
 
+  public override toString(): string {
+    return `${this.tandemPrefix}[ ` +
+           `numberOfWells=${this.numberOfWellsProperty.value} ` +
+           `electricField=${this.electricFieldProperty.value} ` +
+           `yOffset=${this.yOffsetProperty.value} ` +
+           `wellWidth=${this.wellWidthProperty.value} ` +
+           `wellDepth=${this.wellDepthProperty.value} ` +
+           `spacing=${this.spacingProperty.value} ` +
+           ']';
+  }
+
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */

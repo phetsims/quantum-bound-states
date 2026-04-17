@@ -79,6 +79,15 @@ export default class InfiniteStepPotential extends QuantumPotential {
     this.stepHeightProperty.reset();
   }
 
+  public override toString(): string {
+    return `${this.tandemPrefix}[ ` +
+           `numberOfWells=${this.numberOfWellsProperty.value} ` +
+           `electricField=${this.electricFieldProperty.value} ` +
+           `yOffset=${this.yOffsetProperty.value} ` +
+           `wellWidth=${this.wellWidthProperty.value} ` +
+           ']';
+  }
+
   public override getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'InfiniteStepPotential does not support multiple wells.' );
     affirm( this.electricFieldProperty.value === 0, 'InfiniteStepPotential does not support electric field.' );
