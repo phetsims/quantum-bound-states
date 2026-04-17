@@ -237,18 +237,16 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid, electronMas
 
   const result = potential.solveBoundState( xGrid, electronMasses );
 
+  //TODO Patch up problems so that the sim can continue to run. Eventually delete this code.
   if ( result.potentials.length !== xGrid.xCoordinates.length ) {
     logError( 'BoundStateResult has the wrong number of potentials: ' + potential.toString() );
     result.potentials = new Array( xGrid.xCoordinates.length ).fill( 0 );
   }
-
-  //TODO Patch up model problems so that we can continue to run. Eventually delete this code and replace with affirm.
   if ( result.energies.length === 0 ) {
     logError( 'BoundStateResult has no energies: ' + potential.toString() );
     result.energies = [ 0 ];
     result.waveFunctions = [ new Array( xGrid.xCoordinates.length ).fill( 0 ) ];
   }
-
   if ( result.waveFunctions.length === 0 ) {
     logError( 'BoundStateResult has no wave functions: ' + potential.toString() );
     result.waveFunctions = new Array( result.energies.length ).fill( 0 );
