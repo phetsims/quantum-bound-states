@@ -17,6 +17,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
@@ -35,6 +36,9 @@ type SelfOptions = {
   potential?: QuantumPotential;
   potentials: QuantumPotential[];
   hasAverageProbabilityDensityOfBandGraph?: boolean;
+
+  // Whether energyLevelProperty is instrumented for PhET-iO.
+  energyLevelPropertyInstrumented?: boolean;
 
   // Properties that are shared by all potentials. QBSModel is responsible for resetting these.
   numberOfWellsProperty: NumberProperty;
@@ -88,6 +92,7 @@ export default class QBSModel implements TModel {
 
       // SelfOptions
       potential: providedOptions.potentials[ 0 ],
+      energyLevelPropertyInstrumented: true,
       hasAverageProbabilityDensityOfBandGraph: false
     }, providedOptions );
 
@@ -114,7 +119,7 @@ export default class QBSModel implements TModel {
     this.energyLevelProperty = new NumberProperty( this.potentialProperty.value.groundStateIndex, {
       numberType: 'Integer',
       range: getEnergyLevelRange( this.potentialProperty.value.groundStateIndex, this.boundStateResultProperty.value.energies.length ),
-      tandem: options.tandem.createTandem( 'energyLevelProperty' ),
+      tandem: options.energyLevelPropertyInstrumented ? options.tandem.createTandem( 'energyLevelProperty' ) : Tandem.OPT_OUT,
       phetioFeatured: true,
       phetioReadOnly: true
     } );

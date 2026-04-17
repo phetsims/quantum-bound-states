@@ -87,6 +87,7 @@ export default class SuperpositionModel extends QBSModel {
       numberOfWellsProperty: numberOfWellsProperty,
       electronMassesProperty: electronMassesProperty,
       electricFieldProperty: electricFieldProperty,
+      energyLevelPropertyInstrumented: false,
       potentials: potentials,
       tandem: tandem
     } );
