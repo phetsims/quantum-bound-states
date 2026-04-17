@@ -105,11 +105,11 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
     return pe;
   }
 
-  public override getMinPotentialEnergy(): number {
+  public override getMinSolverEnergy(): number {
     return this.yOffsetProperty.value; // bottom of the well
   }
 
-  public override getMaxPotentialEnergy(): number {
+  public override getMaxSolverEnergy(): number {
     return this.yOffsetProperty.value + this.wellDepthProperty.value; // top of the well
   }
 

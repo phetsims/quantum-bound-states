@@ -132,19 +132,19 @@ export default abstract class QuantumPotential extends PhetioObject {
   /**
    * Gets the minimum potential energy (eV) used to solve for the bound state.
    */
-  public abstract getMinPotentialEnergy(): number;
+  public abstract getMinSolverEnergy(): number;
 
   /**
    * Gets the maximum potential energy (eV) used to solve for the bound state.
    */
-  public abstract getMaxPotentialEnergy(): number;
+  public abstract getMaxSolverEnergy(): number;
 
   /**
    * Solves for the bound state. The default uses a numerical solution.
    */
   public solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    const minPotentialEnergy = this.getMinPotentialEnergy();
-    const maxPotentialEnergy = this.getMaxPotentialEnergy();
+    const minPotentialEnergy = this.getMinSolverEnergy();
+    const maxPotentialEnergy = this.getMaxSolverEnergy();
     return NumerovSolver.solve( xGrid, this.getPotentialEnergyAtBound, electronMasses, minPotentialEnergy, maxPotentialEnergy );
   }
 

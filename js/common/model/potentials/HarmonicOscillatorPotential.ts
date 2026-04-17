@@ -137,11 +137,11 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     return this.yOffsetProperty.value + ( 0.5 * this.springConstantProperty.value * x * x );
   }
 
-  public override getMinPotentialEnergy(): number {
+  public override getMinSolverEnergy(): number {
     return this.yOffsetProperty.value; // bottom of the well
   }
 
-  public override getMaxPotentialEnergy(): number {
+  public override getMaxSolverEnergy(): number {
     return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
   }
 

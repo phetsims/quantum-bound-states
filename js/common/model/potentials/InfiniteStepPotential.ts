@@ -114,11 +114,11 @@ export default class InfiniteStepPotential extends QuantumPotential {
     return pe;
   }
 
-  public override getMinPotentialEnergy(): number {
+  public override getMinSolverEnergy(): number {
     return this.yOffsetProperty.value; // bottom of the well
   }
 
-  public override getMaxPotentialEnergy(): number {
+  public override getMaxSolverEnergy(): number {
     return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
   }
 
@@ -126,8 +126,8 @@ export default class InfiniteStepPotential extends QuantumPotential {
    * Solves for the bound state using an analytic solution.
    */
   public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    const minPotentialEnergy = this.getMinPotentialEnergy();
-    const maxPotentialEnergy = this.getMaxPotentialEnergy();
+    const minPotentialEnergy = this.getMinSolverEnergy();
+    const maxPotentialEnergy = this.getMaxSolverEnergy();
 
     //TODO We are displaying this.getPotentialEnergyAt. This is using InfiniteStepSolution.createPotential which does not support xOffset and yOffset.
     return InfiniteStepSolution.solve( xGrid, this.wellWidthProperty.value, this.stepHeightProperty.value, electronMasses, minPotentialEnergy, maxPotentialEnergy );
