@@ -15,6 +15,7 @@ import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -26,6 +27,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import RichTextOnBackgroundNode from './RichTextOnBackgroundNode.js';
 
 type SelfOptions = {
 
@@ -43,6 +45,10 @@ type SelfOptions = {
 
   // Creates optional equationDetailsButton
   createEquationDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
+
+  // If provided, this mathematical term will be display in the top-right corner of the chartRectangle.
+  // The term corresponds to the selected energy level.
+  termStringProperty?: TReadOnlyProperty<string> | null;
 };
 
 export type QuantumStateGraphNodeOptions = SelfOptions &
@@ -69,10 +75,15 @@ export default class QuantumStateGraphNode extends Node {
 
     const options = optionize<QuantumStateGraphNodeOptions, SelfOptions, NodeOptions>()( {
 
+      // SelfOptions
+      createEquationDetailsButton: null,
+      termStringProperty: null,
+
       // NodeOptions
-      isDisposable: false,
-      createEquationDetailsButton: null
+      isDisposable: false
     }, providedOptions );
+
+    affirm( !( options.createEquationDetailsButton && options.termStringProperty ), 'options are mutually exclusive' );
 
     super( options );
 
@@ -158,6 +169,22 @@ export default class QuantumStateGraphNode extends Node {
       ]
     } );
     this.addChild( pickableFalseNode );
+
+    // Show a mathematical term in the top-right corner of the chartRectangle.
+    if ( options.termStringProperty ) {
+
+      const termNode = new RichTextOnBackgroundNode( options.termStringProperty, {
+        tandem: options.tandem.createTandem( 'termNode' )
+      } );
+      this.addChild( termNode );
+
+      // Dynamically position the button in the top-right corner of the chart rectangle.
+      termNode.boundsProperty.link( bounds => {
+        const chartRectangleLocalBounds = this.globalToLocalBounds( this.getChartRectangleGlobalBounds() );
+        termNode.right = chartRectangleLocalBounds.right - 8;
+        termNode.top = chartRectangleLocalBounds.top + 8;
+      } );
+    }
 
     // Button to open a dialog that shows the expanded equation displayed by the graph.
     if ( options.createEquationDetailsButton ) {
