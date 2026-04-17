@@ -42,7 +42,8 @@ export default class RichTextOnBackgroundNode extends BackgroundNode {
         fill: QBSColors.equationTermBackgroundColorProperty,
         opacity: 1 // use alpha in fill
       },
-      phetioVisiblePropertyInstrumented: true
+      phetioVisiblePropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
     }, providedOptions );
 
     super( richText, options );
