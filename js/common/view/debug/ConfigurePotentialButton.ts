@@ -91,7 +91,7 @@ export default class ConfigurePotentialButton extends RoundPushButton {
       dialog = new ConfigureMorseDialog( potential );
     }
 
-    affirm( dialog, 'Unsupported potential type' );
+    affirm( dialog, `Unsupported potential type: ${potential.tandemPrefix}` );
     dialog.show();
   }
 }
