@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -40,6 +41,13 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.probabilityDensityGraph.accessibleParagraphStringProperty
     }, providedOptions );
+
+    // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
+    // of the chartRectangle. The term corresponds to the selected energy level.
+    if ( !options.createEquationDetailsButton ) {
+      options.termStringProperty = new DerivedStringProperty( [ model.energyLevelProperty ],
+        energyLevel => `|Ψ<sub>${energyLevel}</sub>(x,t)|<sup>2</sup>` );
+    }
 
     super( model.curvesVisibleProperty, options );
 
