@@ -135,21 +135,23 @@ export default class PoschlTellerPotential extends QuantumPotential {
    */
   public override createIcon(): Node {
 
+    // Sampling parameters
     const numberOfPoints = 100;
-    const minX = -12;
-    const maxX = 12;
-    const dx = ( maxX - minX ) / numberOfPoints;
+    const xMin = -12;
+    const xMax = 12;
+    const dx = ( xMax - xMin ) / numberOfPoints;
     const wellWidth = 3;
     const wellDepth = 15;
 
+    // Create the Shape by sampling the curve.
     const shape = new Shape();
-    for ( let x = minX; x <= maxX; x += dx ) {
+    for ( let x = xMin; x <= xMax; x += dx ) {
 
       //TODO Duplication here with getPotentialEnergyAt
       const coshValue = Math.cosh( x / wellWidth );
       let y = -wellDepth / ( coshValue * coshValue );
       y *= -1; // invert the y-axis to match scenery's coordinate frame
-      if ( x === minX ) {
+      if ( x === xMin ) {
         shape.moveTo( x, y );
       }
       else {
