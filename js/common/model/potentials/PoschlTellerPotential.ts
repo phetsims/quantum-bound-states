@@ -38,8 +38,6 @@ export default class PoschlTellerPotential extends QuantumPotential {
   public readonly wellDepthProperty: NumberProperty;
   public readonly spacingProperty: NumberProperty;
 
-  //TODO spacingProperty
-
   public constructor( providedOptions: PoschlTellerPotentialOptions ) {
 
     const options = optionize<PoschlTellerPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
@@ -107,7 +105,8 @@ export default class PoschlTellerPotential extends QuantumPotential {
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public getPotentialEnergyAt( x: number ): number {
-    //TODO add support for numberOfWells, electricField, yOffset, xOffset, spacing
+
+    //TODO add support for numberOfWells and spacing
     const wellWidth = this.wellWidthProperty.value;
     const wellDepth = this.wellDepthProperty.value;
     const coshValue = Math.cosh( x / wellWidth );
