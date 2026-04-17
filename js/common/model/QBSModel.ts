@@ -175,7 +175,8 @@ export default class QBSModel implements TModel {
     this.waveFunctionGraph = new WaveFunctionGraph( quantumStateGraphsTandem.createTandem( 'waveFunctionGraph' ) );
     quantumStateGraphs.push( this.waveFunctionGraph );
 
-    this.quantumStateGraphProperty = new Property( quantumStateGraphs[ 0 ], {
+    //TODO Initial value should be quantumStateGraphs[ 0 ]
+    this.quantumStateGraphProperty = new Property( this.waveFunctionGraph, {
       validValues: quantumStateGraphs,
       tandem: options.tandem.createTandem( 'quantumStateGraphProperty' ),
       phetioValueType: QuantumStateGraph.QuantumStateGraphIO,
