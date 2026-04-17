@@ -167,7 +167,7 @@ export default class QBSModel implements TModel {
 
     // The order of quantumStateGraphs determines the order of radio buttons in QuatumStateGraphRadioButtonGroup.
     const quantumStateGraphs: QuantumStateGraph[] = [];
-    const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphsTandem' );
+    const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphs' );
 
     if ( options.hasAverageProbabilityDensityOfBandGraph ) {
       this.averageProbabilityDensityOfBandGraph = new AverageProbabilityDensityOfBandGraph(
