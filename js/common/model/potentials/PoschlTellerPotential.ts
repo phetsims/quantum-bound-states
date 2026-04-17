@@ -150,6 +150,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
       //TODO Duplication here with getPotentialEnergyAt
       const coshValue = Math.cosh( x / wellWidth );
       let y = -wellDepth / ( coshValue * coshValue );
+
       y *= -1; // invert the y-axis to match scenery's coordinate frame
       if ( x === xMin ) {
         shape.moveTo( x, y );

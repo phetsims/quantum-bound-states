@@ -109,26 +109,28 @@ export default class MorsePotential extends QuantumPotential {
   public override createIcon(): Node {
 
     // Sampling parameters
-    const numberOfPoints = 100;
-    const xMin = 0.2;
-    const xMax = 10;
+    const numberOfPoints = 50;
+    const xMin = -1.4; // more negative shows more of the left edge that goes to infinity
+    const xMax = 15;
     const dx = ( xMax - xMin ) / numberOfPoints;
-    const wellWidth = 1;
-    const wellDepth = 1;
-    const xOffset = 1;
+    const wellWidth = 1.7;
+    const wellDepth = 10.1;
 
-    // Scaling parameters to fit the sampled data to the desired size for the icon, determined empirically.
-    const xScale = 1.7;
-    const yScale = -10.1; // negative to invert the y-axis to match scenery's coordinate frame.
-
-    // Create the Shape by sampling the curve, scaling xy-coordinates to fit the desired size and coordinate frame.
+    // Create the Shape by sampling the curve.
     const shape = new Shape();
     for ( let x = xMin; x <= xMax; x += dx ) {
 
       //TODO Duplication here with getPotentialEnergyAt
-      const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
-      const y = wellDepth * term * term - wellDepth;
-      shape.lineTo( xScale * x, yScale * y );
+      const term = 1 - Math.exp( -x / wellWidth );
+      let y = ( wellDepth * term * term ) - wellDepth;
+
+      y *= -1; // invert the y-axis to match scenery's coordinate frame
+      if ( x === xMin ) {
+        shape.moveTo( x, y );
+      }
+      else {
+        shape.lineTo( x, y );
+      }
     }
 
     return new Path( shape, {
