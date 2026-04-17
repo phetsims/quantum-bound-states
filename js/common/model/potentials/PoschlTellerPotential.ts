@@ -107,10 +107,10 @@ export default class PoschlTellerPotential extends QuantumPotential {
    */
   public getPotentialEnergyAt( x: number ): number {
     //TODO add support for numberOfWells, electricField, yOffset, xOffset, spacing
-    const V0 = this.wellDepthProperty.value;
-    const a = this.wellWidthProperty.value;
-    const coshVal = Math.cosh( x / a );
-    let pe = -V0 / ( coshVal * coshVal );
+    const wellWidth = this.wellWidthProperty.value;
+    const wellDepth = this.wellDepthProperty.value;
+    const coshValue = Math.cosh( x / wellWidth );
+    let pe = -wellDepth / ( coshValue * coshValue );
 
     // Adjust for y-offset.
     pe += this.yOffsetProperty.value;
@@ -139,15 +139,15 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const minX = -12;
     const maxX = 12;
     const dx = ( maxX - minX ) / numberOfPoints;
-    const w = 3;
-    const d = 15;
+    const wellWidth = 3;
+    const wellDepth = 15;
 
     const shape = new Shape();
     for ( let x = minX; x <= maxX; x += dx ) {
 
       //TODO Duplication here with getPotentialEnergyAt
-      const coshVal = Math.cosh( x / w );
-      let y = -d / ( coshVal * coshVal );
+      const coshValue = Math.cosh( x / wellWidth );
+      let y = -wellDepth / ( coshValue * coshValue );
       y *= -1; // invert the y-axis to match scenery's coordinate frame
       if ( x === minX ) {
         shape.moveTo( x, y );
