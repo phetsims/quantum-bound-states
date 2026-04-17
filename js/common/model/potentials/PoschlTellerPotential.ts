@@ -12,6 +12,7 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
+import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -119,6 +120,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     // Apply electric field.
     pe += ( this.electricFieldProperty.value * x );
 
+    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
     return pe;
   }
 
