@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * WellWidthControl is a control for setting the well depth.
+ * WellWidthControl is a control for setting the y-offset.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
