@@ -92,11 +92,7 @@ export default class MorsePotential extends QuantumPotential {
   public getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
     affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
-    //TODO parameters: yOffset, xOffset, wellWidth, wellDepth
-
-    //TODO This fails with no eigenvalues found.
-    // return solveMorse( x, this.wellDepthProperty.value, this.wellWidthProperty.value, this.xOffset );
-    return 0;
+    return 0; //TODO solve for potential with parameters: yOffset, xOffset, wellWidth, wellDepth
   }
 
   public override getMinPotentialEnergy(): number {
@@ -117,6 +113,9 @@ export default class MorsePotential extends QuantumPotential {
     const xMin = 0.2;
     const xMax = 10;
     const dx = ( xMax - xMin ) / numberOfPoints;
+    const wellWidth = 1;
+    const wellDepth = 1;
+    const xOffset = 1;
 
     // Scaling parameters to fit the sampled data to the desired size for the icon, determined empirically.
     const xScale = 1.7;
@@ -125,7 +124,10 @@ export default class MorsePotential extends QuantumPotential {
     // Create the Shape by sampling the curve, scaling xy-coordinates to fit the desired size and coordinate frame.
     const shape = new Shape();
     for ( let x = xMin; x <= xMax; x += dx ) {
-      const y = solveMorse( x, 1, 1, 1 );
+
+      //TODO Duplication here with getPotentialEnergyAt
+      const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
+      const y = wellDepth * term * term - wellDepth;
       shape.lineTo( xScale * x, yScale * y );
     }
 
@@ -134,12 +136,4 @@ export default class MorsePotential extends QuantumPotential {
       lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     } );
   }
-}
-
-/**
- * Solve the Morse potential.
- */
-function solveMorse( x: number, wellDepth: number, wellWidth: number, xOffset: number ): number {
-  const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
-  return wellDepth * term * term - wellDepth;
 }
