@@ -34,7 +34,7 @@ type SelfOptions = {
   groundStateIndex?: number;
   numberOfWellsProperty: TReadOnlyProperty<number>;
   electricFieldProperty: TReadOnlyProperty<number>;
-  energyAxisRange?: Range; // range of the energy axis (y-axis) when y-offset is zero
+  energyAxisRange?: Range; // range of the energy axis (y-axis) when yOffsetProperty is at its initial value
   yOffsetRange?: RangeWithValue;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
