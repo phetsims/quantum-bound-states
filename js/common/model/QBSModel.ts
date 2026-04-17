@@ -160,6 +160,7 @@ export default class QBSModel implements TModel {
         this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
       } );
 
+    // The order of quantumStateGraphs determines the order of radio buttons in QuatumStateGraphRadioButtonGroup.
     const quantumStateGraphs: QuantumStateGraph[] = [];
     const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphsTandem' );
 
