@@ -130,12 +130,12 @@ export default abstract class QuantumPotential extends PhetioObject {
   public abstract getPotentialEnergyAt( x: number ): number;
 
   /**
-   * Gets the minimum potential energy (eV) used to solve for the bound state.
+   * Gets the minimum energy (eV) used to solve for the bound state.
    */
   public abstract getMinSolverEnergy(): number;
 
   /**
-   * Gets the maximum potential energy (eV) used to solve for the bound state.
+   * Gets the maximum energy (eV) used to solve for the bound state.
    */
   public abstract getMaxSolverEnergy(): number;
 
