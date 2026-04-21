@@ -292,21 +292,23 @@ function testInfiniteSquare(): void {
 
   const mass = ELECTRON_MASSES; // electron masses
   const L = 4;  // 4 nm
-  const V0 = 50;  // 50 eV barrier
-  const potential = ( x: number ) => Math.abs( x ) < L / 2 ? 0 : V0;
+  const barrierHeight = 50;  // eV, finite approximation of infinite walls
+  const xOffset = 0;  // nm, well centred at origin
+  const yOffset = 0;  // eV, well bottom at zero
+  const potential = InfiniteSquareSolution.createPotential( L, barrierHeight, xOffset, yOffset );
 
-  // Use grid that matches the infinite square well, as a result V0 is irrelevant
-  const xGrid = new XGrid( -L / 2, L / 2, 1001 );
+  // Use grid that matches the infinite square well, as a result barrierHeight is irrelevant
+  const xGrid = new XGrid( xOffset - L / 2, xOffset + L / 2, 1001 );
 
   const E1_analytical = ( Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * L * L );
-  const energyMin = 0.5 * E1_analytical;
-  const energyMax = 21 * 21 * E1_analytical;
+  const energyMin = yOffset + 0.5 * E1_analytical;
+  const energyMax = yOffset + 21 * 21 * E1_analytical;
 
   // Get numerical solution
   const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = InfiniteSquareSolution.solve( xGrid, L, mass, energyMin, energyMax );
+  const analyticalResult = InfiniteSquareSolution.solve( xGrid, L, mass, energyMin, energyMax, xOffset, yOffset );
 
   logVerbose( `\nInfinite Square - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
@@ -586,25 +588,27 @@ function testInfiniteStep(): void {
   const mass = ELECTRON_MASSES; // electron masses
   const wellWidth = 2;  // L = 2 nm
   const stepHeight = 3;  // V₀ = 3 eV
+  const xOffset = 0;  // nm, well centred at origin
+  const yOffset = 0;  // eV, well bottom at zero
 
   // Potential: 0 in left half [-L/2, 0), V₀ in right half [0, L/2], infinite walls at boundaries.
   // Use a large but finite barrier to represent the infinite walls for NumerovSolver.
   const barrierHeight = 1000;  // eV
-  const potential = InfiniteStepSolution.createPotential( wellWidth, stepHeight, barrierHeight );
+  const potential = InfiniteStepSolution.createPotential( wellWidth, stepHeight, barrierHeight, xOffset, yOffset );
 
   // Grid spans exactly the well: [-L/2, L/2]
-  const xGrid = new XGrid( -wellWidth / 2, wellWidth / 2, 1001 );
+  const xGrid = new XGrid( xOffset - wellWidth / 2, xOffset + wellWidth / 2, 1001 );
 
   // First infinite-square-well energy (upper bound on ground state): E₁ = π²ℏ²/(2mL²)
   const E1_ISW = ( Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * wellWidth * wellWidth );
-  const energyMin = 0.1 * E1_ISW;
-  const energyMax = 100 * E1_ISW;  // covers ~10 states comfortably
+  const energyMin = yOffset + 0.1 * E1_ISW;
+  const energyMax = yOffset + 100 * E1_ISW;  // covers ~10 states comfortably
 
   // Get numerical solution
   const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = InfiniteStepSolution.solve( xGrid, wellWidth, stepHeight, mass, energyMin, energyMax );
+  const analyticalResult = InfiniteStepSolution.solve( xGrid, wellWidth, stepHeight, mass, energyMin, energyMax, xOffset, yOffset );
 
   logVerbose( `\nInfinite Step - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
   logVerbose( `Well parameters: L = ${wellWidth} nm, V₀ = ${stepHeight} eV` );

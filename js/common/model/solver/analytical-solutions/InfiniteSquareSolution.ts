@@ -6,16 +6,16 @@
  * The infinite square well is the simplest quantum mechanical system where a particle
  * is confined to a region with impenetrable walls.
  *
- * POTENTIAL:
- *   V(x) = 0     for -L/2 < x < L/2
+ * POTENTIAL (well centred at x = x₀):
+ *   V(x) = 0     for x₀ - L/2 < x < x₀ + L/2
  *   V(x) = ∞     otherwise
  *
- * ENERGY EIGENVALUES:
+ * ENERGY EIGENVALUES (independent of x₀):
  *   E_n = (n² π² ℏ²) / (2mL²)    for n = 1, 2, 3, ...
  *
  * WAVEFUNCTIONS:
- *   ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L),  -L/2 ≤ x ≤ L/2
- *   ψ_n(x) = 0,  |x| > L/2
+ *   ψ_n(x) = √(2/L) sin(nπ((x - x₀) + L/2)/L),  x₀ - L/2 ≤ x ≤ x₀ + L/2
+ *   ψ_n(x) = 0,  |x - x₀| > L/2
  *
  * @author Martin Veillette
  */
@@ -33,26 +33,20 @@ export default class InfiniteSquareSolution {
     // Not intended for instantiation.
   }
 
-  //TODO If we use this analytic solution in production, it needs to be generalized to support centerX and yOffset.
   /**
-   * Creates the potential function for an infinite square well.
-   * V(x) = 0 for -L/2 < x < L/2, V(x) = ∞ otherwise
+   * Creates the potential function for an infinite square well in the lab frame.
    *
    * @param wellWidth - Width of the well L in nm
-   * @param barrierHeight - Height to use for "infinite" barrier in eV (default: 1000 eV)
+   * @param barrierHeight - Absolute energy value used for the infinite walls in eV (default: 1000 eV)
+   * @param xOffset - Horizontal centre of the well in nm (default 0)
+   * @param yOffset - Energy of the well bottom in eV (default 0)
    * @returns Potential function V(x) in eV
    */
-  public static createPotential( wellWidth: number, barrierHeight = 1000 ): PotentialFunction {
+  public static createPotential( wellWidth: number, barrierHeight = 1000, xOffset = 0, yOffset = 0 ): PotentialFunction {
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
-      // Inside well: V = 0
-      // Outside well: V = very large (representing infinity)
-      if ( x >= -halfWidth && x <= halfWidth ) {
-        return 0;
-      }
-      else {
-        return barrierHeight;
-      }
+      const xLocal = x - xOffset;
+      return ( xLocal >= -halfWidth && xLocal <= halfWidth ) ? yOffset : barrierHeight;
     };
   }
 
@@ -62,46 +56,60 @@ export default class InfiniteSquareSolution {
    * This function returns a BoundStateResult compatible with NumerovSolver output.
    * The API matches NumerovSolver.solve() by taking energy bounds.
    *
+   * Energies are accepted and returned in the lab frame. yOffset is the energy of the well
+   * bottom; the solver converts to the well frame internally and shifts eigenvalues back before
+   * returning, so callers never need to manage the frame conversion themselves.
+   *
    * @param xGrid - uniformly spaced x-coordinates in nm
    * @param wellWidth - Width of the well L in nm
    * @param mass - Particle mass in electron masses
-   * @param energyMin - Minimum energy to search (eV)
-   * @param energyMax - Maximum energy to search (eV)
-   * @returns Bound state results with exact energies and wave functions
+   * @param energyMin - Minimum energy to search in the lab frame (eV)
+   * @param energyMax - Maximum energy to search in the lab frame (eV)
+   * @param xOffset - Horizontal centre of the well in nm (default 0)
+   * @param yOffset - Energy of the well bottom in the lab frame in eV (default 0)
+   * @returns Bound state results with energies in the lab frame and wave functions
    */
   public static solve(
     xGrid: XGrid,
     wellWidth: number,
     mass: number,
     energyMin: number,
-    energyMax: number
+    energyMax: number,
+    xOffset = 0,
+    yOffset = 0
   ): BoundStateResult {
 
+    // Work in the well frame where the well bottom is at E = 0.
+    const wellEnergyMin = energyMin - yOffset;
+    const wellEnergyMax = energyMax - yOffset;
+
     // Calculate energies: E_n = (n² π² ℏ²) / (2mL²) for n = 1, 2, 3, ...
-    // Find all n where energyMin <= E_n <= energyMax
+    // Find all n where wellEnergyMin <= E_n <= wellEnergyMax
 
     // Solve for n from E_n = (n² π² ℏ²) / (2mL²)
     // n = √(2mL² E_n / (π² ℏ²))
     const factor = 2 * mass * wellWidth * wellWidth / ( Math.PI * Math.PI * HBAR * HBAR );
 
-    // Find minimum n: n >= √(2mL² energyMin / (π² ℏ²))
+    // Find minimum n: n >= √(2mL² wellEnergyMin / (π² ℏ²))
     // Important: n starts at 1, not 0!
-    const nMin = Math.max( 1, Math.ceil( Math.sqrt( factor * energyMin ) ) );
+    const nMin = Math.max( 1, Math.ceil( Math.sqrt( factor * wellEnergyMin ) ) );
 
-    // Find maximum n: n <= √(2mL² energyMax / (π² ℏ²))
-    const nMax = Math.floor( Math.sqrt( factor * energyMax ) );
+    // Find maximum n: n <= √(2mL² wellEnergyMax / (π² ℏ²))
+    const nMax = Math.floor( Math.sqrt( factor * wellEnergyMax ) );
 
     // Collect all quantum numbers within the energy range
     const quantumNumbers: number[] = [];
     const energies: number[] = [];
     for ( let n = nMin; n <= nMax; n++ ) {
-      const energy = ( n * n * Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * wellWidth * wellWidth );
+
+      // Well-frame eigenvalue shifted back to the lab frame.
+      const energy = ( n * n * Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * wellWidth * wellWidth ) + yOffset;
       quantumNumbers.push( n );
       energies.push( energy );
     }
 
-    // Calculate wave functions: ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L)
-    // This is the shifted sine function for a centered well [-L/2, L/2]
+    // Calculate wave functions: ψ_n(x) = √(2/L) sin(nπ((x - x₀) + L/2)/L)
+    // The well is centred at x₀ = xOffset; (x - xOffset) maps to the well frame.
     const waveFunctions: number[][] = [];
     const normalization = Math.sqrt( 2 / wellWidth );
     const halfWidth = wellWidth / 2;
@@ -110,23 +118,22 @@ export default class InfiniteSquareSolution {
       const waveFunction: number[] = [];
 
       for ( const x of xGrid.xCoordinates ) {
-        // Wave function is zero outside the well [-L/2, L/2]
-        if ( x <= -halfWidth || x >= halfWidth ) {
+        const xLocal = x - xOffset;
+
+        // Wave function is zero outside the well [x₀ - L/2, x₀ + L/2]
+        if ( xLocal <= -halfWidth || xLocal >= halfWidth ) {
           waveFunction.push( 0 );
         }
         else {
-          // Inside the well: ψ_n(x) = √(2/L) sin(nπ(x + L/2)/L)
-          // This shifts the [0,L] solution to be centered at x=0
-          const value = normalization * Math.sin( n * Math.PI * ( x + halfWidth ) / wellWidth );
+          // Inside the well: ψ_n(x) = √(2/L) sin(nπ((x - x₀) + L/2)/L)
+          const value = normalization * Math.sin( n * Math.PI * ( xLocal + halfWidth ) / wellWidth );
           waveFunction.push( value );
         }
       }
       waveFunctions.push( waveFunction );
     }
 
-    //TODO CM added this here because we need to return a valid BoundStateResult, which include potentials.
-    // But InfiniteSquareSolution.createPotential is a different implementation than InfiniteSquarePotential.getPotentialEnergyAt.
-    const potentialFunction = InfiniteSquareSolution.createPotential( wellWidth );
+    const potentialFunction = InfiniteSquareSolution.createPotential( wellWidth, yOffset + 1000, xOffset, yOffset );
 
     return {
       potentials: xGrid.xCoordinates.map( x => potentialFunction( x ) ),

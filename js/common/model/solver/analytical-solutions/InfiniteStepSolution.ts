@@ -7,23 +7,23 @@
  * potential V₀ than the left half.  A particle in the left half "sees" a step barrier of height
  * V₀ at the centre; a particle with enough energy can classically enter the right half as well.
  *
- * POTENTIAL:
- *   V(x) = ∞       for x ≤ -L/2
- *   V(x) = 0       for -L/2 < x < 0      (left half)
- *   V(x) = V₀      for  0   < x < L/2    (right half, step)
- *   V(x) = ∞       for x ≥  L/2
+ * POTENTIAL (well centred at x₀):
+ *   V(x) = ∞       for x ≤ x₀ - L/2
+ *   V(x) = 0       for x₀ - L/2 < x < x₀      (left half)
+ *   V(x) = V₀      for x₀       < x < x₀ + L/2 (right half, step)
+ *   V(x) = ∞       for x ≥ x₀ + L/2
  *
- * SOLUTIONS IN EACH REGION:
- *   Left  ( -L/2 < x < 0 ):
- *     ψ₁(x) = A sin( k₁(x + L/2) ),   k₁ = √(2mE/ℏ²)
+ * SOLUTIONS IN EACH REGION (using local coordinate ξ = x - x₀):
+ *   Left  ( -L/2 < ξ < 0 ):
+ *     ψ₁(ξ) = A sin( k₁(ξ + L/2) ),   k₁ = √(2mE/ℏ²)
  *     [automatically satisfies ψ(-L/2) = 0]
  *
- *   Right ( 0 < x < L/2 ) – two sub-cases:
- *     E > V₀:  ψ₂(x) = B sin( k₂(L/2 - x) ),   k₂ = √(2m(E-V₀)/ℏ²)
- *     E < V₀:  ψ₂(x) = C sinh( κ₂(L/2 - x) ),  κ₂ = √(2m(V₀-E)/ℏ²)
+ *   Right ( 0 < ξ < L/2 ) – two sub-cases:
+ *     E > V₀:  ψ₂(ξ) = B sin( k₂(L/2 - ξ) ),   k₂ = √(2m(E-V₀)/ℏ²)
+ *     E < V₀:  ψ₂(ξ) = C sinh( κ₂(L/2 - ξ) ),  κ₂ = √(2m(V₀-E)/ℏ²)
  *     [both automatically satisfy ψ(+L/2) = 0]
  *
- * MATCHING AT x = 0 (continuity of ψ and ψ′):
+ * MATCHING AT ξ = 0 (continuity of ψ and ψ′):
  *   E > V₀:  k₁ cot(k₁ L/2) + k₂ cot(k₂ L/2) = 0
  *   E < V₀:  k₁ cot(k₁ L/2) + κ₂ coth(κ₂ L/2) = 0
  *
@@ -46,24 +46,27 @@ export default class InfiniteStepSolution {
   }
 
   /**
-   * Creates the potential function for an infinite step potential.
+   * Creates the potential function for an infinite step potential in the lab frame.
    *
-   * @param wellWidth - Total width of the well L in nm (centred at x = 0)
-   * @param stepHeight - Height of the potential step V₀ in eV (right half)
-   * @param barrierHeight - Value used to represent the infinite walls in eV (default 1000 eV)
+   * @param wellWidth - Total width of the well L in nm
+   * @param stepHeight - Height of the potential step V₀ in eV (relative to well bottom)
+   * @param barrierHeight - Absolute energy value used for the infinite walls in eV (default 1000 eV)
+   * @param xOffset - Horizontal centre of the well in nm (default 0)
+   * @param yOffset - Energy of the well bottom in eV (default 0)
    * @returns Potential function V(x) in eV
    */
-  public static createPotential( wellWidth: number, stepHeight: number, barrierHeight = 1000 ): PotentialFunction {
+  public static createPotential( wellWidth: number, stepHeight: number, barrierHeight = 1000, xOffset = 0, yOffset = 0 ): PotentialFunction {
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
-      if ( x <= -halfWidth || x >= halfWidth ) {
+      const xLocal = x - xOffset;
+      if ( xLocal <= -halfWidth || xLocal >= halfWidth ) {
         return barrierHeight;
       }
-      else if ( x >= 0 ) {
-        return stepHeight;
+      else if ( xLocal >= 0 ) {
+        return yOffset + stepHeight;
       }
       else {
-        return 0;
+        return yOffset;
       }
     };
   }
@@ -73,13 +76,19 @@ export default class InfiniteStepSolution {
    *
    * Returns a BoundStateResult compatible with NumerovSolver output.
    *
+   * Energies are accepted and returned in the lab frame. yOffset is the energy of the well
+   * bottom; the solver converts to the well frame internally and shifts eigenvalues back before
+   * returning, so callers never need to manage the frame conversion themselves.
+   *
    * @param xGrid - Uniformly spaced x-coordinates in nm
    * @param wellWidth - Total width of the well L in nm
-   * @param stepHeight - Height of the potential step V₀ in eV
+   * @param stepHeight - Height of the potential step V₀ in eV (relative to well bottom)
    * @param mass - Particle mass in electron masses
-   * @param energyMin - Minimum energy to search (eV)
-   * @param energyMax - Maximum energy to search (eV)
-   * @returns Bound state results with energies (eV) and wave functions
+   * @param energyMin - Minimum energy to search in the lab frame (eV)
+   * @param energyMax - Maximum energy to search in the lab frame (eV)
+   * @param xOffset - Horizontal centre of the well in nm (default 0)
+   * @param yOffset - Energy of the well bottom in the lab frame in eV (default 0)
+   * @returns Bound state results with energies in the lab frame and wave functions
    */
   public static solve(
     xGrid: XGrid,
@@ -87,20 +96,27 @@ export default class InfiniteStepSolution {
     stepHeight: number,
     mass: number,
     energyMin: number,
-    energyMax: number
+    energyMax: number,
+    xOffset = 0,
+    yOffset = 0
   ): BoundStateResult {
 
-    const energies = findBoundStateEnergies( wellWidth, stepHeight, mass, energyMin, energyMax );
+    // Work in the well frame where the well bottom is at E = 0.
+    const wellEnergyMin = energyMin - yOffset;
+    const wellEnergyMax = energyMax - yOffset;
+
+    const wellFrameEnergies = findBoundStateEnergies( wellWidth, stepHeight, mass, wellEnergyMin, wellEnergyMax );
+
+    // Shift eigenvalues back to the lab frame.
+    const energies = wellFrameEnergies.map( e => e + yOffset );
 
     const waveFunctions: number[][] = [];
-    for ( const energy of energies ) {
-      const waveFunction = calculateWaveFunction( energy, wellWidth, stepHeight, mass, xGrid.xCoordinates );
+    for ( const wellEnergy of wellFrameEnergies ) {
+      const waveFunction = calculateWaveFunction( wellEnergy, wellWidth, stepHeight, mass, xGrid.xCoordinates, xOffset );
       waveFunctions.push( waveFunction );
     }
 
-    //TODO CM added this here because we need to return a valid BoundStateResult, which include potentials.
-    // But InfiniteStepSolution.createPotential is a different implementation than InfiniteStepPotential.getPotentialEnergyAt.
-    const potentialFunction = InfiniteStepSolution.createPotential( wellWidth, stepHeight );
+    const potentialFunction = InfiniteStepSolution.createPotential( wellWidth, stepHeight, yOffset + 1000, xOffset, yOffset );
 
     return {
       potentials: xGrid.xCoordinates.map( x => potentialFunction( x ) ),
@@ -317,11 +333,12 @@ function findRootInInterval(
 /**
  * Compute the normalised wave function for a single eigenstate.
  *
- * @param energy - Eigenvalue in eV
+ * @param energy - Eigenvalue in eV (well frame, well bottom = 0)
  * @param wellWidth - Total width of the well L in nm
  * @param stepHeight - Step height V₀ in eV
  * @param mass - Particle mass in electron masses
- * @param xArray - Array of x positions in nm
+ * @param xArray - Array of x positions in nm (lab frame)
+ * @param xOffset - Horizontal centre of the well in nm
  * @returns Normalised wave function values
  */
 function calculateWaveFunction(
@@ -329,13 +346,14 @@ function calculateWaveFunction(
   wellWidth: number,
   stepHeight: number,
   mass: number,
-  xArray: number[]
+  xArray: number[],
+  xOffset: number
 ): number[] {
 
   const halfWidth = wellWidth / 2;
   const k1 = Math.sqrt( 2 * mass * energy / ( HBAR * HBAR ) );
 
-  // Amplitude ratio B/A (or C/A) from continuity of ψ at x = 0.
+  // Amplitude ratio B/A (or C/A) from continuity of ψ at the step (ξ = 0).
   // ψ₁(0) = A sin(k₁ L/2),  so we set A = 1 and derive B or C.
   const psi1AtZero = Math.sin( k1 * halfWidth );
 
@@ -343,15 +361,18 @@ function calculateWaveFunction(
   const waveFunction: number[] = [];
 
   for ( const x of xArray ) {
+    // Work in the local coordinate ξ = x - x₀, where the well occupies [-L/2, L/2]
+    // and the step sits at ξ = 0.
+    const xi = x - xOffset;
     let value: number;
 
-    if ( x <= -halfWidth || x >= halfWidth ) {
+    if ( xi <= -halfWidth || xi >= halfWidth ) {
       // Outside the well – infinite walls force ψ = 0
       value = 0;
     }
-    else if ( x < 0 ) {
-      // Left region: ψ₁(x) = sin( k₁(x + L/2) )
-      value = Math.sin( k1 * ( x + halfWidth ) );
+    else if ( xi < 0 ) {
+      // Left region: ψ₁(ξ) = sin( k₁(ξ + L/2) )
+      value = Math.sin( k1 * ( xi + halfWidth ) );
     }
     else {
       // Right region
@@ -360,14 +381,14 @@ function calculateWaveFunction(
         const psi2AtZero = Math.sin( k2 * halfWidth );
         // Amplitude ratio from ψ₁(0) = B ψ₂_unit(0):  B = psi1AtZero / psi2AtZero
         const B = psi2AtZero !== 0 ? psi1AtZero / psi2AtZero : 0;
-        value = B * Math.sin( k2 * ( halfWidth - x ) );
+        value = B * Math.sin( k2 * ( halfWidth - xi ) );
       }
       else {
         // Evanescent right region
         const kappa2 = Math.sqrt( 2 * mass * ( stepHeight - energy ) / ( HBAR * HBAR ) );
         const psi2AtZero = Math.sinh( kappa2 * halfWidth );
         const C = psi2AtZero !== 0 ? psi1AtZero / psi2AtZero : 0;
-        value = C * Math.sinh( kappa2 * ( halfWidth - x ) );
+        value = C * Math.sinh( kappa2 * ( halfWidth - xi ) );
       }
     }
 
