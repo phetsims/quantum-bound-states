@@ -8,6 +8,7 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
@@ -44,6 +45,7 @@ export default class MorsePotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
+      energyAxisRange: new Range( -15, 5 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
       tandemPrefix: 'morsePotential'
     }, providedOptions );
@@ -92,15 +94,18 @@ export default class MorsePotential extends QuantumPotential {
   public getPotentialEnergyAt( x: number ): number {
     affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
     affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
-    return 0; //TODO solve for potential with parameters: yOffset, xOffset, wellWidth, wellDepth
+    const wellDepth = this.wellDepthProperty.value;
+    const wellWidth = this.wellWidthProperty.value;
+    const term = 1 - Math.exp( -( x - this.xOffset ) / wellWidth );
+    return wellDepth * term * term - wellDepth + this.yOffsetProperty.value;
   }
 
   public override getMinSolverEnergy(): number {
-    return this.yOffsetProperty.value; // bottom of the well
+    return this.yOffsetProperty.value - this.wellDepthProperty.value; // bottom of the well
   }
 
   public override getMaxSolverEnergy(): number {
-    return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
+    return this.yOffsetProperty.value; // dissociation limit; no bound states above this
   }
 
   /**

@@ -21,7 +21,7 @@ import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js
 import NumerovSolver from './NumerovSolver.js';
 import XGrid from './XGrid.js';
 
-const VERY_LARGE_VALUE = 1e300;
+const VERY_LARGE_VALUE = 1e100;
 
 export default class NumerovIntegrator {
 
@@ -83,7 +83,6 @@ export default class NumerovIntegrator {
   ): void {
     const L = N * dx;
     const psiScale = 1 / ( N * Math.sqrt( L ) );
-    const decayLength = L / 2;
 
     if ( end === 'left' ) {
       psi[ 0 ] = 0;
@@ -92,8 +91,10 @@ export default class NumerovIntegrator {
         psi[ i ] = psiScale * Math.sin( Math.sqrt( k2[ i ] ) * dx );
       }
       else {
+        // Use one grid step as the decay length so psi[1] never underflows to zero.
+        // Potentials like Morse diverge steeply near the left boundary, making kappa·(L/2) huge.
         const kappa = Math.sqrt( Math.abs( k2[ i ] ) );
-        psi[ i ] = psiScale * Math.exp( -kappa * decayLength );
+        psi[ i ] = psiScale * Math.exp( -kappa * dx );
       }
     }
     else {
@@ -104,7 +105,7 @@ export default class NumerovIntegrator {
       }
       else {
         const kappa = Math.sqrt( Math.abs( k2[ i ] ) );
-        psi[ i ] = psiScale * Math.exp( -kappa * decayLength );
+        psi[ i ] = psiScale * Math.exp( -kappa * dx );
       }
     }
   }
