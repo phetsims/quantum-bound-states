@@ -18,6 +18,7 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
+import NumerovSolver from '../solver/NumerovSolver.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
@@ -131,6 +132,48 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
   public override getMaxSolverEnergy(): number {
     return this.yOffsetProperty.value + this.wellDepthProperty.value; // top of the well
+  }
+
+  /**
+   * Returns a non-uniform energy scan grid based on the infinite square well (ISW) eigenvalues.
+   *
+   * Physics: By Sturm-Liouville theory, each ISW interval (E_{n-1}^ISW, E_n^ISW) contains
+   * exactly numberOfWells finite-well eigenvalues. Using ISW energies as bracket boundaries
+   * and adding stepsPerInterval sub-steps within each interval guarantees that every eigenvalue
+   * is detected, even for wide or deep wells where the uniform scan step would be too coarse.
+   *
+   * ISW energy for a single well of width L:  E_n = n²π²ħ²/(2mL²)
+   */
+  public override getEnergyScanPoints( mass: number ): number[] {
+    const n_wells = this.numberOfWellsProperty.value;
+    const L = this.wellWidthProperty.value;     // single-well width, nm
+    const V0 = this.wellDepthProperty.value;    // eV
+    const yOffset = this.yOffsetProperty.value; // eV
+    const HBAR = NumerovSolver.HBAR;
+
+    // 5 sub-steps per expected eigenvalue within each ISW interval.
+    // For N wells there are N eigenvalues per ISW interval (band splitting).
+    const STEPS_PER_EIGENVALUE = 5;
+    const stepsPerInterval = STEPS_PER_EIGENVALUE * n_wells;
+
+    const scanPoints: number[] = [ yOffset ];
+
+    // ISW energies use the single-well width — valid upper bounds for all well counts.
+    let n = 1;
+    while ( true ) {
+      const E_isw = yOffset + ( n * n * Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * L * L );
+      const prevE = scanPoints[ scanPoints.length - 1 ];
+      const upperBound = Math.min( E_isw, yOffset + V0 );
+
+      for ( let k = 1; k <= stepsPerInterval; k++ ) {
+        scanPoints.push( prevE + ( upperBound - prevE ) * k / stepsPerInterval );
+      }
+
+      if ( E_isw >= yOffset + V0 ) { break; }
+      n++;
+    }
+
+    return scanPoints;
   }
 
   /**

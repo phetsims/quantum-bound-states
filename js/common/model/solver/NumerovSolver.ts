@@ -32,6 +32,11 @@ export type NumerovSolverOptions = {
 
   // Method for normalization (default: 'trapezoidal')
   normalizationMethod?: NormalizationMethod;
+
+  // Optional pre-computed energy scan grid (eV). When provided, replaces the default uniform scan.
+  // Points outside [energyMin, energyMax] are ignored. Useful for non-uniform potentials where
+  // eigenvalues cluster (e.g. finite square well near the well bottom).
+  energyScanPoints?: number[];
 };
 
 export default class NumerovSolver {
@@ -51,6 +56,7 @@ export default class NumerovSolver {
    * @param mass - Particle mass in electron masses
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
+   * @param options - Optional solver configuration, including energyScanPoints
    * @returns Bound state results
    */
   public static solve(
@@ -58,10 +64,11 @@ export default class NumerovSolver {
     potential: PotentialFunction,
     mass: number,
     energyMin: number,
-    energyMax: number
+    energyMax: number,
+    options?: NumerovSolverOptions
   ): BoundStateResult {
-    const solver = new NumerovSolver( mass );
-    return solver.getBoundStateResult( potential, xGrid, energyMin, energyMax );
+    const solver = new NumerovSolver( mass, options );
+    return solver.getBoundStateResult( potential, xGrid, energyMin, energyMax, options?.energyScanPoints );
   }
 
   // Number of energy steps for scanning in the shooting method.
@@ -127,7 +134,8 @@ export default class NumerovSolver {
     potential: PotentialFunction,
     xGrid: XGrid,
     energyMin: number,
-    energyMax: number
+    energyMax: number,
+    energyScanPoints?: number[]
   ): BoundStateResult {
 
     const V = this.evaluatePotential( potential, xGrid.xCoordinates );
@@ -137,7 +145,8 @@ export default class NumerovSolver {
       V,
       xGrid,
       energyMin,
-      energyMax
+      energyMax,
+      energyScanPoints
     );
 
     return {
@@ -164,7 +173,8 @@ export default class NumerovSolver {
     V: number[],
     xGrid: XGrid,
     energyMin: number,
-    energyMax: number
+    energyMax: number,
+    energyScanPoints?: number[]
   ): { energies: number[]; waveFunctions: number[][] } {
 
     const meetingPointIndex = this.getMeetingPointIndex( xGrid );
@@ -180,12 +190,15 @@ export default class NumerovSolver {
     const energies: number[] = [];
     const waveFunctions: number[][] = [];
 
-    const energyStep = ( energyMax - energyMin ) / NumerovSolver.ENERGY_SCAN_STEPS;
+    const scanGrid = energyScanPoints
+      ? this.buildCustomScanGrid( energyMin, energyMax, energyScanPoints )
+      : this.buildUniformScanGrid( energyMin, energyMax );
 
-    let prevSign = Math.sign( wronskian( energyMin ) );
-    let prevEnergy = energyMin;
+    let prevSign = Math.sign( wronskian( scanGrid[ 0 ] ) );
+    let prevEnergy = scanGrid[ 0 ];
 
-    for ( let E = energyMin + energyStep; E <= energyMax; E += energyStep ) {
+    for ( let i = 1; i < scanGrid.length; i++ ) {
+      const E = scanGrid[ i ];
       const currentSign = Math.sign( wronskian( E ) );
 
       if ( currentSign !== 0 && prevSign !== 0 && currentSign !== prevSign ) {
@@ -211,6 +224,28 @@ export default class NumerovSolver {
       energies: energies,
       waveFunctions: waveFunctions
     };
+  }
+
+  /**
+   * Builds a uniform scan grid with ENERGY_SCAN_STEPS steps over [energyMin, energyMax].
+   */
+  private buildUniformScanGrid( energyMin: number, energyMax: number ): number[] {
+    const energyStep = ( energyMax - energyMin ) / NumerovSolver.ENERGY_SCAN_STEPS;
+    const grid: number[] = [];
+    for ( let energy = energyMin; energy <= energyMax + 1e-12; energy += energyStep ) {
+      grid.push( energy );
+    }
+    return grid;
+  }
+
+  /**
+   * Builds a scan grid from caller-provided points, clamped to [energyMin, energyMax] and sorted.
+   */
+  private buildCustomScanGrid( energyMin: number, energyMax: number, energyScanPoints: number[] ): number[] {
+    const interior = energyScanPoints
+      .filter( energy => energy > energyMin && energy < energyMax )
+      .sort( ( a, b ) => a - b );
+    return [ energyMin, ...interior, energyMax ];
   }
 
   /**
