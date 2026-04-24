@@ -185,7 +185,7 @@ export default class NumerovSolver {
     energyScanPoints?: number[]
   ): { energies: number[]; waveFunctions: number[][] } {
 
-    const meetingPointIndex = this.getMeetingPointIndex( xGrid );
+    const meetingPointIndex = this.getMeetingPointIndex( V );
 
     // Wronskian at the meeting point: zero when log-derivatives agree (eigenvalue condition).
     const wronskian = ( E: number ): number => {
@@ -260,11 +260,34 @@ export default class NumerovSolver {
    * Grid index m where the left (forward) and right (backward) solutions meet for matching.
    * ψ_L is used for indices i ≤ m; ψ_R is scaled for i > m. The Wronskian is formed using m and m+1.
    *
-   * Currently fixed to the geometric midpoint of the grid: floor(N/2), i.e. the meeting point
-   * in x is near the center of [x_min, x_max] for uniform spacing.
+   * Picked at the deepest point of V (argmin), with the geometric center used to break ties for
+   * flat-bottomed wells (e.g. infinite/finite square). Anchoring to the deepest point keeps the
+   * match in the classically allowed region across the bound-state spectrum, which avoids the
+   * visible stitching kink that appears when the geometric midpoint of the grid lands in a
+   * forbidden region — most pronounced in asymmetric wells (e.g. asymmetric triangle).
    */
-  private getMeetingPointIndex( xGrid: XGrid ): number {
-    return Math.floor( xGrid.numberOfPoints / 2 );
+  private getMeetingPointIndex( V: number[] ): number {
+    const N = V.length;
+
+    let vMin = V[ 0 ];
+    for ( let i = 1; i < N; i++ ) {
+      if ( V[ i ] < vMin ) {
+        vMin = V[ i ];
+      }
+    }
+
+    let firstMinIndex = -1;
+    let lastMinIndex = -1;
+    for ( let i = 0; i < N; i++ ) {
+      if ( V[ i ] === vMin ) {
+        if ( firstMinIndex === -1 ) {
+          firstMinIndex = i;
+        }
+        lastMinIndex = i;
+      }
+    }
+
+    return Math.floor( ( firstMinIndex + lastMinIndex ) / 2 );
   }
 
   /**
