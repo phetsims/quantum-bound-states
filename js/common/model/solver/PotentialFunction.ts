@@ -39,7 +39,8 @@
  *   const V0 = 10; // Depth of each well in eV
  *   const leftWell = Math.abs( x + d / 2 ) < w / 2 ? -V0 : 0; 
  *   const rightWell = Math.abs( x - d / 2 ) < w / 2 ? -V0 : 0;
- *   return leftWell + rightWell;
+ *   return leftWell + rightWell
+ * };
  * 
  * @example
  * // Poschl-Teller potential: V(x) = -V₀ / cosh²( (x - x₀) / w )
