@@ -44,6 +44,10 @@ export default class NumerovSolver {
   // Reduced Planck constant (hbar) in natural units: √(eV⋅mₑ)⋅nm
   // Computed as: 1.054571817e-34 / (1e-9 * sqrt(9.1093837015e-31 * 1.602176634e-19))
   public static readonly HBAR = 0.2760428268035944;
+
+  // Positive barriers above this are effectively infinite for the energy ranges in this sim, but
+  // keeping them finite avoids Numerov overflow in steep potentials such as Morse.
+  private static readonly MAX_SOLVER_POTENTIAL_ENERGY = 1000;
   
   // Relative threshold for detecting a node of psiR at the matching point.
   // If |psiR[m]| / max(|psiR[m-1]|, |psiR[m+1]|) is below this value, psiR is treated as having
@@ -313,6 +317,11 @@ export default class NumerovSolver {
    * Evaluates potential on grid.
    */
   private evaluatePotential( potential: PotentialFunction, xGridArray: number[] ): number[] {
-    return xGridArray.map( potential );
+    return xGridArray.map( x => {
+      const potentialEnergy = potential( x );
+      return Number.isFinite( potentialEnergy ) ?
+             Math.min( potentialEnergy, NumerovSolver.MAX_SOLVER_POTENTIAL_ENERGY ) :
+             NumerovSolver.MAX_SOLVER_POTENTIAL_ENERGY;
+    } );
   }
 }

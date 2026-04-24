@@ -21,7 +21,9 @@ import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js
 import NumerovSolver from './NumerovSolver.js';
 import XGrid from './XGrid.js';
 
-const VERY_LARGE_VALUE = 1e100;
+const RESCALE_TRIGGER = 1e100;
+const RESCALE_TARGET = 1e50;
+const MAX_FORBIDDEN_SEED_EXPONENT = 50;
 
 export default class NumerovIntegrator {
 
@@ -91,10 +93,9 @@ export default class NumerovIntegrator {
         psi[ i ] = psiScale * Math.sin( Math.sqrt( k2[ i ] ) * dx );
       }
       else {
-        // Use one grid step as the decay length so psi[1] never underflows to zero.
-        // Potentials like Morse diverge steeply near the left boundary, making kappa·(L/2) huge.
+        // Clamp the exponent so steep repulsive walls like Morse do not underflow the seed to zero.
         const kappa = Math.sqrt( Math.abs( k2[ i ] ) );
-        psi[ i ] = psiScale * Math.exp( -kappa * dx );
+        psi[ i ] = psiScale * Math.exp( -Math.min( kappa * dx, MAX_FORBIDDEN_SEED_EXPONENT ) );
       }
     }
     else {
@@ -105,7 +106,7 @@ export default class NumerovIntegrator {
       }
       else {
         const kappa = Math.sqrt( Math.abs( k2[ i ] ) );
-        psi[ i ] = psiScale * Math.exp( -kappa * dx );
+        psi[ i ] = psiScale * Math.exp( -Math.min( kappa * dx, MAX_FORBIDDEN_SEED_EXPONENT ) );
       }
     }
   }
@@ -164,9 +165,8 @@ export default class NumerovIntegrator {
     for ( let j = 1; j < N - 1; j++ ) {
       psi[ j + 1 ] = this.numerovStepForward( psi[ j ], psi[ j - 1 ], f[ j ], f[ j - 1 ], f[ j + 1 ] );
 
-      if ( Math.abs( psi[ j + 1 ] ) > VERY_LARGE_VALUE ) {
-        this.fillDivergent( psi, j + 1, psi[ j + 1 ] );
-        break;
+      if ( Math.abs( psi[ j + 1 ] ) > RESCALE_TRIGGER ) {
+        this.rescaleWaveFunction( psi, 0, j + 1, RESCALE_TARGET / Math.abs( psi[ j + 1 ] ) );
       }
     }
   }
@@ -181,11 +181,8 @@ export default class NumerovIntegrator {
     for ( let j = N - 2; j > 0; j-- ) {
       psi[ j - 1 ] = this.numerovStepBackward( psi[ j ], psi[ j + 1 ], f[ j - 1 ], f[ j ], f[ j + 1 ] );
 
-      if ( Math.abs( psi[ j - 1 ] ) > VERY_LARGE_VALUE ) {
-        for ( let k = j - 1; k >= 0; k-- ) {
-          psi[ k ] = psi[ j - 1 ];
-        }
-        break;
+      if ( Math.abs( psi[ j - 1 ] ) > RESCALE_TRIGGER ) {
+        this.rescaleWaveFunction( psi, j - 1, N - 1, RESCALE_TARGET / Math.abs( psi[ j - 1 ] ) );
       }
     }
   }
@@ -237,16 +234,13 @@ export default class NumerovIntegrator {
   }
 
   /**
-   * Fill array with divergent value from given index onwards.
-   * Used to mark non-bound states that diverge.
-   *
-   * @param psi - Wave function array to fill
-   * @param startIndex - Index to start filling from
-   * @param value - Value to fill with (defaults to 1e300)
+   * Rescale part of the wave function in place.
+   * Multiplying a left or right integration by a positive constant preserves Wronskian sign and
+   * stitched wave-function shape, while preventing intermediate overflow.
    */
-  private fillDivergent( psi: number[], startIndex: number, value = VERY_LARGE_VALUE ): void {
-    for ( let k = startIndex; k < psi.length; k++ ) {
-      psi[ k ] = value;
+  private rescaleWaveFunction( psi: number[], startIndex: number, endIndex: number, scale: number ): void {
+    for ( let k = startIndex; k <= endIndex; k++ ) {
+      psi[ k ] *= scale;
     }
   }
 }
