@@ -19,6 +19,8 @@ import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
 
 const WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 0.5, 0.5 );
+const POSCHL_TELLER_WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 1.5, 0.2 );
+const POSCHL_TELLER_SPACING_RANGE = new RangeWithValue( 0.05, 0.7, 0.7 );
 
 export default class ManyWellsModel extends QBSModel {
 
@@ -60,7 +62,8 @@ export default class ManyWellsModel extends QBSModel {
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ) ),
       new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
-        wellWidthRange: WELL_WIDTH_RANGE,
+        wellWidthRange: POSCHL_TELLER_WELL_WIDTH_RANGE,
+        spacingRange: POSCHL_TELLER_SPACING_RANGE,
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
       } ) )
     ];

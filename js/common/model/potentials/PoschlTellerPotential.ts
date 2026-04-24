@@ -11,10 +11,10 @@ import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
-import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
+import Shape from '../../../../../kite/js/Shape.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -43,9 +43,9 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const options = optionize<PoschlTellerPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
+      wellWidthRange: new RangeWithValue( 0.1, 1.5, 1 ),
       wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
-      spacingRange: QBSConstants.SEPARATION_RANGE,
+      spacingRange: QBSConstants.SPACING_RANGE,
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
@@ -105,34 +105,72 @@ export default class PoschlTellerPotential extends QuantumPotential {
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public getPotentialEnergyAt( x: number ): number {
-
-    //TODO add support for numberOfWells and spacing
+    const n = this.numberOfWellsProperty.value;
     const wellWidth = this.wellWidthProperty.value;
     const wellDepth = this.wellDepthProperty.value;
-    const coshValue = Math.cosh( x / wellWidth );
-    let pe = -wellDepth / ( coshValue * coshValue );
+    const spacing = this.spacingProperty.value;
+    const xOffset = this.xOffset;
+
+    // Sum contributions from all N wells symmetrically centered around xOffset.
+    let potentialEnergy = 0;
+    for ( let i = 1; i <= n; i++ ) {
+      const xi = xOffset + spacing * ( i - ( n + 1 ) / 2 );
+      const coshValue = Math.cosh( ( x - xi ) / wellWidth );
+      potentialEnergy += -wellDepth / ( coshValue * coshValue );
+    }
 
     // Adjust for y-offset.
-    pe += this.yOffsetProperty.value;
+    potentialEnergy += this.yOffsetProperty.value;
 
-    //TODO Taken from FiniteSquarePotential, is this correct?
     // Apply electric field.
-    pe += ( this.electricFieldProperty.value * x );
+    potentialEnergy += ( this.electricFieldProperty.value * x );
 
-    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
-    return pe;
+    affirm( potentialEnergy < QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
+    return potentialEnergy;
   }
 
   public override getMinSolverEnergy(): number {
-    return this.energyAxisRange.min + this.yOffsetProperty.value; // bottom of the y-axis range
+    const n = this.numberOfWellsProperty.value;
+    const wellWidth = this.wellWidthProperty.value;
+    const spacing = this.spacingProperty.value;
+    const xOffset = this.xOffset;
+
+    // Estimate the minimum by sampling the field-free multi-well landscape. This is much tighter than
+    // the old fully-overlapped bound and works well for partial overlap in multi-well configurations.
+    const firstCenter = xOffset + spacing * ( 1 - ( n + 1 ) / 2 );
+    const lastCenter = xOffset + spacing * ( n - ( n + 1 ) / 2 );
+    const margin = 4 * wellWidth;
+    const xMin = firstCenter - margin;
+    const xMax = lastCenter + margin;
+    const sampleCount = 600;
+    const dx = ( xMax - xMin ) / ( sampleCount - 1 );
+
+    let minimumPotential = Number.POSITIVE_INFINITY;
+    for ( let i = 0; i < sampleCount; i++ ) {
+      const x = xMin + i * dx;
+      minimumPotential = Math.min( minimumPotential, this.getPotentialEnergyAt( x ) );
+    }
+
+    return minimumPotential;
   }
 
   public override getMaxSolverEnergy(): number {
-    return this.yOffsetProperty.value; // top of the potential
+    const electricField = this.electricFieldProperty.value;
+    const yOffset = this.yOffsetProperty.value;
+
+    // Without an electric field the potential asymptotes to yOffset on both sides, so no bound
+    // states exist above yOffset.
+    // With a non-zero electric field the Stark effect creates a finite tunneling barrier on the
+    // downhill side of the well: to the left of the leftmost well for E > 0, to the right for E < 0.
+    // let's be conservative and find the value of the potential at the left most or right most position of our grid
+    const xStar = QBSConstants.ALL_GRAPHS_X_RANGE.min;
+    
+    // Return the field-free maximum (yOffset) adjusted downward by the electric field at x*.
+    return yOffset - Math.abs( electricField * xStar );
   }
 
   /**
-   * Creates the icon for this potential.
+   * Creates the icon for this potential. Always shows a single well regardless of numberOfWellsProperty.
    */
   public override createIcon(): Node {
 
@@ -160,7 +198,6 @@ export default class PoschlTellerPotential extends QuantumPotential {
         shape.lineTo( x, y );
       }
     }
-
     return new Path( shape, {
       stroke: QBSColors.potentialEnergyColorProperty,
       lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH

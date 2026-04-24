@@ -45,8 +45,12 @@ export default class NumerovSolver {
   // Computed as: 1.054571817e-34 / (1e-9 * sqrt(9.1093837015e-31 * 1.602176634e-19))
   public static readonly HBAR = 0.2760428268035944;
   
-  // Tolerance for detecting nodes in the wave function at the matching point.
-  private static readonly TOLERANCE = 1e-6;
+  // Relative threshold for detecting a node of psiR at the matching point.
+  // If |psiR[m]| / max(|psiR[m-1]|, |psiR[m+1]|) is below this value, psiR is treated as having
+  // a node at m and the sign-flip branch is used instead of the scale-ratio branch.
+  // A relative threshold is essential: the absolute amplitude of psiR varies with the seed value,
+  // so an absolute tolerance would misclassify the node when the seed changes.
+  private static readonly RELATIVE_NODE_TOLERANCE = 1e-3;
 
   /**
    * Main entry point for solving with default NumerovSolverOptions.
@@ -277,7 +281,14 @@ export default class NumerovSolver {
     }
 
     const psiRatMatch = psiR[ meetingPointIndex ];
-    if ( Math.abs( psiRatMatch ) > NumerovSolver.TOLERANCE ) {
+
+    // Detect a node of psiR at the meeting point using a relative threshold so the check is
+    // robust to amplitude changes in psiR (e.g. from a different boundary seed).
+    const psiRNeighborMax = Math.max( Math.abs( psiR[ meetingPointIndex - 1 ] ), Math.abs( psiR[ meetingPointIndex + 1 ] ) );
+    const psiRHasNodeAtMatch = psiRNeighborMax === 0 ||
+                               Math.abs( psiRatMatch ) < NumerovSolver.RELATIVE_NODE_TOLERANCE * psiRNeighborMax;
+
+    if ( !psiRHasNodeAtMatch ) {
 
       // scale may be negative, flipping psiR's sign to match psiL at the junction.
       const scale = psiL[ meetingPointIndex ] / psiRatMatch;
