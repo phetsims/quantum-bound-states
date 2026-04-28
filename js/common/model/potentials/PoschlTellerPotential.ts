@@ -109,7 +109,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const wellWidth = this.wellWidthProperty.value;
     const wellDepth = this.wellDepthProperty.value;
     const spacing = this.spacingProperty.value;
-    const xOffset = this.xOffset;
+    const xOffset = this.xOffsetProperty.value;
 
     // Sum contributions from all N wells symmetrically centered around xOffset.
     let potentialEnergy = 0;
@@ -133,7 +133,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const n = this.numberOfWellsProperty.value;
     const wellWidth = this.wellWidthProperty.value;
     const spacing = this.spacingProperty.value;
-    const xOffset = this.xOffset;
+    const xOffset = this.xOffsetProperty.value;
 
     // Estimate the minimum by sampling the field-free multi-well landscape. This is much tighter than
     // the old fully-overlapped bound and works well for partial overlap in multi-well configurations.

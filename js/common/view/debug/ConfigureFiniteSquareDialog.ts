@@ -14,6 +14,7 @@ import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.j
 import SeparationControl from './SeparationControl.js';
 import WellDepthControl from './WellDepthControl.js';
 import WellWidthControl from './WellWidthControl.js';
+import XOffsetControl from './XOffsetControl.js';
 import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureFiniteSquareDialog extends ConfigureQuantumPotentialDialog {
@@ -27,6 +28,10 @@ export default class ConfigureFiniteSquareDialog extends ConfigureQuantumPotenti
 
     if ( potential.numberOfWellsProperty.value > 1 ) {
       children.push( new SeparationControl( potential.separationProperty ) );
+    }
+
+    if ( potential.xOffsetProperty.range.getLength() > 0 ) {
+      children.push( new XOffsetControl( potential.xOffsetProperty ) );
     }
 
     if ( potential.yOffsetProperty.range.getLength() > 0 ) {

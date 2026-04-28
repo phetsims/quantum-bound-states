@@ -104,7 +104,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
     const n = this.numberOfWellsProperty.value;
     const wellWidth = this.wellWidthProperty.value;
-    const xOffset = this.xOffset;
+    const xOffset = this.xOffsetProperty.value;
     const yOffset = this.yOffsetProperty.value;
     const separation = wellWidth + this.separationProperty.value;
 

@@ -15,6 +15,7 @@ import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
@@ -28,8 +29,9 @@ type SelfOptions = {
   groundStateIndex?: number;
   numberOfWellsProperty: TReadOnlyProperty<number>;
   electricFieldProperty: TReadOnlyProperty<number>;
-  energyAxisRange?: Range; // range of the energy axis (y-axis) when yOffsetProperty is at its initial value
+  xOffsetRange?: RangeWithValue;
   yOffsetRange?: RangeWithValue;
+  energyAxisRange?: Range; // range of the energy axis (y-axis) when yOffsetProperty is at its initial value
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
@@ -42,8 +44,10 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly groundStateIndex: number;
 
   // Horizontal offset of the potential from x=0 nm.
-  // As in the Java version, this is constant in the sim and is provided for future-proofing.
-  protected readonly xOffset = 0;
+  public readonly xOffsetProperty: NumberProperty;
+
+  // Vertical offset of the potential from y=0 eV.
+  public readonly yOffsetProperty: NumberProperty;
 
   // Fires when any Property instantiated by the QuantumPotential changes.
   public readonly propertyChangedEmitter: Emitter;
@@ -51,7 +55,6 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
   public readonly electricFieldProperty: TReadOnlyProperty<number>;
 
-  public readonly yOffsetProperty: NumberProperty;
   public readonly energyAxisRange: Range;
 
   public readonly visualNameProperty: TReadOnlyProperty<string>;
@@ -66,8 +69,9 @@ export default abstract class QuantumPotential extends PhetioObject {
 
       // SelfOptions
       groundStateIndex: 1,
-      energyAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
+      xOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant 0
       yOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant 0
+      energyAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
       accessibleNameProperty: providedOptions.visualNameProperty,
 
       // PhetioObjectOptions
@@ -86,6 +90,12 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.numberOfWellsProperty = options.numberOfWellsProperty;
     this.electricFieldProperty = options.electricFieldProperty;
 
+    this.xOffsetProperty = new NumberProperty( 0, {
+      units: nanometersUnit,
+      range: options.xOffsetRange
+      // Do not instrument for PhET-iO.
+    } );
+
     this.yOffsetProperty = new NumberProperty( options.yOffsetRange.defaultValue, {
       units: electronVoltsUnit,
       range: options.yOffsetRange,
@@ -98,7 +108,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     // Changes to Properties instantiated by this class trigger notification.
     //TODO Does energyAxisRangeProperty need to be included here? If not, document why not.
-    Multilink.multilink( [ this.yOffsetProperty ], () => this.propertyChangedEmitter.emit() );
+    Multilink.multilink( [ this.xOffsetProperty, this.yOffsetProperty ], () => this.propertyChangedEmitter.emit() );
 
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;

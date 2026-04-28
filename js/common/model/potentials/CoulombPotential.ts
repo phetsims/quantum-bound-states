@@ -53,7 +53,7 @@ export default class CoulombPotential extends QuantumPotential {
     const n = 1; // number of wells
     const spacing = 0; // because n = 1
 
-    const xOffset = this.xOffset;
+    const xOffset = this.xOffsetProperty.value;
     const yOffset = this.yOffsetProperty.value;
 
     // From BSCoulomb1DPotential.java

@@ -14,6 +14,7 @@ import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.j
 import SpacingControl from './SpacingControl.js';
 import WellDepthControl from './WellDepthControl.js';
 import WellWidthControl from './WellWidthControl.js';
+import XOffsetControl from './XOffsetControl.js';
 import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigurePoschlTellerDialog extends ConfigureQuantumPotentialDialog {
@@ -27,6 +28,10 @@ export default class ConfigurePoschlTellerDialog extends ConfigureQuantumPotenti
 
     if ( potential.numberOfWellsProperty.value > 1 ) {
       children.push( new SpacingControl( potential.spacingProperty ) );
+    }
+
+    if ( potential.xOffsetProperty.range.getLength() > 0 ) {
+      children.push( new XOffsetControl( potential.xOffsetProperty ) );
     }
 
     if ( potential.yOffsetProperty.range.getLength() > 0 ) {

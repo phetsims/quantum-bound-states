@@ -96,7 +96,7 @@ export default class MorsePotential extends QuantumPotential {
     affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
     const wellDepth = this.wellDepthProperty.value;
     const wellWidth = this.wellWidthProperty.value;
-    const term = 1 - Math.exp( -( x - this.xOffset ) / wellWidth );
+    const term = 1 - Math.exp( -( x - this.xOffsetProperty.value ) / wellWidth );
     return wellDepth * term * term - wellDepth + this.yOffsetProperty.value;
   }
 

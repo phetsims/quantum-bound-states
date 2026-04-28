@@ -82,8 +82,9 @@ export default class InfiniteSquarePotential extends QuantumPotential {
     affirm( this.electricFieldProperty.value === 0, 'InfiniteSquarePotential does not support electric field.' );
 
     const wellWidth = 2; //this.wellWidthProperty.value;
-    const leftX = this.xOffset - wellWidth / 2;
-    const rightX = this.xOffset + wellWidth / 2;
+    const xOffset = this.xOffsetProperty.value;
+    const leftX = xOffset - wellWidth / 2;
+    const rightX = xOffset + wellWidth / 2;
     let pe: number;
     if ( leftX <= x && x <= rightX ) {
       // inside the well
@@ -111,7 +112,7 @@ export default class InfiniteSquarePotential extends QuantumPotential {
     return InfiniteSquareSolution.solve(
       xGrid, this.wellWidthProperty.value, electronMasses,
       this.getMinSolverEnergy(), this.getMaxSolverEnergy(),
-      this.xOffset, this.yOffsetProperty.value
+      this.xOffsetProperty.value, this.yOffsetProperty.value
     );
   }
 

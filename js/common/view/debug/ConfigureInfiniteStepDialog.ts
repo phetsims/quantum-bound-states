@@ -13,6 +13,7 @@ import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import StepHeightControl from './StepHeightControl.js';
 import WellWidthControl from './WellWidthControl.js';
+import XOffsetControl from './XOffsetControl.js';
 import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureInfiniteStepDialog extends ConfigureQuantumPotentialDialog {
@@ -23,6 +24,10 @@ export default class ConfigureInfiniteStepDialog extends ConfigureQuantumPotenti
       new WellWidthControl( potential.wellWidthProperty ),
       new StepHeightControl( potential.stepHeightProperty )
     ];
+
+    if ( potential.xOffsetProperty.range.getLength() > 0 ) {
+      children.push( new XOffsetControl( potential.xOffsetProperty ) );
+    }
 
     if ( potential.yOffsetProperty.range.getLength() > 0 ) {
       children.push( new YOffsetControl( potential.yOffsetProperty ) );

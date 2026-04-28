@@ -93,8 +93,9 @@ export default class InfiniteStepPotential extends QuantumPotential {
     affirm( this.electricFieldProperty.value === 0, 'InfiniteStepPotential does not support electric field.' );
 
     const wellWidth = this.wellWidthProperty.value;
-    const leftX = this.xOffset - wellWidth / 2;
-    const rightX = this.xOffset + wellWidth / 2;
+    const xOffset = this.xOffsetProperty.value;
+    const leftX = xOffset - wellWidth / 2;
+    const rightX = xOffset + wellWidth / 2;
     let pe: number;
     if ( leftX <= x && x <= rightX ) {
       // inside the well
@@ -129,7 +130,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
     return InfiniteStepSolution.solve(
       xGrid, this.wellWidthProperty.value, this.stepHeightProperty.value, electronMasses,
       this.getMinSolverEnergy(), this.getMaxSolverEnergy(),
-      this.xOffset, this.yOffsetProperty.value
+      this.xOffsetProperty.value, this.yOffsetProperty.value
     );
   }
 

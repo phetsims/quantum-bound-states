@@ -92,7 +92,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
 
     const wellWidth = this.wellWidthProperty.value;
     const wellDepth = this.wellDepthProperty.value;
-    const xOffset = this.xOffset;
+    const xOffset = this.xOffsetProperty.value;
     const yOffset = this.yOffsetProperty.value;
 
     // From BSAsymmetricPotential.java

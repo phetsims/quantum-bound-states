@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SeparationControl is a control for setting the separation between the walls of adjacent wells.
+ * SeparationControl is a control for setting the separation between the centers of adjacent wells.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

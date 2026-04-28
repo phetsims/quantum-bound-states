@@ -12,6 +12,7 @@ import Text from '../../../../../scenery/js/nodes/Text.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import XOffsetControl from './XOffsetControl.js';
 import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureCoulombDialog extends ConfigureQuantumPotentialDialog {
@@ -20,10 +21,15 @@ export default class ConfigureCoulombDialog extends ConfigureQuantumPotentialDia
 
     const children = [];
 
+    if ( potential.xOffsetProperty.range.getLength() > 0 ) {
+      children.push( new XOffsetControl( potential.xOffsetProperty ) );
+    }
+
     if ( potential.yOffsetProperty.range.getLength() > 0 ) {
       children.push( new YOffsetControl( potential.yOffsetProperty ) );
     }
-    else {
+
+    if ( children.length === 0 ) {
       children.push( new Text( 'Nothing to configure', {
         font: QBSConstants.CONTROL_FONT
       } ) );
