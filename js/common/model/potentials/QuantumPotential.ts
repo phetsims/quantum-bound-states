@@ -24,12 +24,6 @@ import NumerovSolver from '../solver/NumerovSolver.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 
-// Energy axis (y-axis) range for most potential types.
-const DEFAULT_ENERGY_AXIS_RANGE = new Range( 0, 20 ).dilated( 0.5 );
-
-// Default y-offset range is effectively constant 0.
-const DEFAULT_Y_OFFSET_RANGE = new RangeWithValue( 0, 0, 0 );
-
 type SelfOptions = {
   groundStateIndex?: number;
   numberOfWellsProperty: TReadOnlyProperty<number>;
@@ -72,8 +66,8 @@ export default abstract class QuantumPotential extends PhetioObject {
 
       // SelfOptions
       groundStateIndex: 1,
-      energyAxisRange: DEFAULT_ENERGY_AXIS_RANGE,
-      yOffsetRange: DEFAULT_Y_OFFSET_RANGE,
+      energyAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
+      yOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant 0
       accessibleNameProperty: providedOptions.visualNameProperty,
 
       // PhetioObjectOptions

@@ -45,7 +45,7 @@ export default class MorsePotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
-      energyAxisRange: new Range( -15, 5 ),
+      energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
       tandemPrefix: 'morsePotential'
     }, providedOptions );
