@@ -118,6 +118,7 @@ export default class NumerovSolver {
    * @param xGrid - uniformly spaced x-coordinates in nm
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
+   * @param energyScanPoints - Optional custom grid of energies to scan (eV).
    * @returns Bound state results containing energies, wave functions, and grid
    *
    * @example
