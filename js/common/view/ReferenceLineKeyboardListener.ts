@@ -79,7 +79,7 @@ export class ReferenceLineKeyboardListener extends KeyboardListener<OneKeyStroke
     xProperty.value = xProperty.range.min;
     positionProperty.value = new Vector2( xProperty.range.min, positionProperty.value.y );
     MIN_SOUND_PLAYER.play();
-    this.referenceLineHandleNode.doAccessibleObjectResponse();
+    this.referenceLineHandleNode.addMovedResponse();
   }
 
   /**
@@ -91,7 +91,7 @@ export class ReferenceLineKeyboardListener extends KeyboardListener<OneKeyStroke
     xProperty.value = xProperty.range.max;
     positionProperty.value = new Vector2( xProperty.range.max, positionProperty.value.y );
     MAX_SOUND_PLAYER.play();
-    this.referenceLineHandleNode.doAccessibleObjectResponse();
+    this.referenceLineHandleNode.addMovedResponse();
   }
 
   /**
@@ -99,6 +99,6 @@ export class ReferenceLineKeyboardListener extends KeyboardListener<OneKeyStroke
    * the same as when the reference line gets focus.
    */
   private checkValues(): void {
-    this.referenceLineHandleNode.doAccessibleObjectResponse();
+    this.referenceLineHandleNode.addFocusedResponse();
   }
 }

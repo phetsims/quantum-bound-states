@@ -121,7 +121,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     } );
 
     this.focusedProperty.lazyLink( focused => {
-      focused && this.doAccessibleObjectResponse();
+      focused && this.addFocusedResponse();
     } );
 
     this.mouseArea = this.localBounds.dilatedXY( 3, 3 );
@@ -129,9 +129,19 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
   }
 
   /**
-   * Accessible response when the handle is moved or gets focus.
+   * Accessible response when the handle gets focus.
    */
-  public doAccessibleObjectResponse(): void {
+  public addFocusedResponse(): void {
+    const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleFocusObjectResponse.format( {
+      x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
+    } );
+    this.addAccessibleFocusObjectResponse( response );
+  }
+
+  /**
+   * Accessible response when the handle is moved.
+   */
+  public addMovedResponse(): void {
     const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
       x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
     } );

@@ -352,6 +352,7 @@ type StringsType = {
       'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleFocusObjectResponseStringProperty': LocalizedStringProperty;
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'units': {

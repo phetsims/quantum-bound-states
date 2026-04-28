@@ -58,9 +58,7 @@ export default class ReferenceLineDragListener extends SoundRichDragListener {
         xProperty.value = positionProperty.value.x;
       },
 
-      end: () => {
-        referenceLineHandleNode.doAccessibleObjectResponse();
-      },
+      end: () => referenceLineHandleNode.addMovedResponse(),
 
       tandem: parentTandem
     } );
