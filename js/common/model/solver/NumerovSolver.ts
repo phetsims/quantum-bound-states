@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * NumerovSolver orchestrates the solution of the 1D time-independent Schrödinger equation
+ * NumerovSolver orchestrates the solution of the 1D Time-Independent Schrödinger Equation (TISE)
  * using the Numerov method. This is the main solver class that coordinates the integration,
  * energy refinement, and normalization components.
  *
