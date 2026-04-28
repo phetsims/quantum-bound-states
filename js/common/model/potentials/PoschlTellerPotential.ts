@@ -164,7 +164,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     // downhill side of the well: to the left of the leftmost well for E > 0, to the right for E < 0.
     // let's be conservative and find the value of the potential at the left most or right most position of our grid
     const xStar = QBSConstants.ALL_GRAPHS_X_RANGE.min;
-    
+
     // Return the field-free maximum (yOffset) adjusted downward by the electric field at x*.
     return yOffset - Math.abs( electricField * xStar );
   }

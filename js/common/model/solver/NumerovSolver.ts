@@ -48,7 +48,7 @@ export default class NumerovSolver {
   // Positive barriers above this are effectively infinite for the energy ranges in this sim, but
   // keeping them finite avoids Numerov overflow in steep potentials such as Morse.
   private static readonly MAX_SOLVER_POTENTIAL_ENERGY = 1000; // in eV
-  
+
   // Relative threshold for detecting a node of psiR at the matching point.
   // If |psiR[m]| / max(|psiR[m-1]|, |psiR[m+1]|) is below this value, psiR is treated as having
   // a node at m and the sign-flip branch is used instead of the scale-ratio branch.
@@ -199,8 +199,8 @@ export default class NumerovSolver {
     const waveFunctions: number[][] = [];
 
     const scanGrid = energyScanPoints
-      ? this.buildCustomScanGrid( energyMin, energyMax, energyScanPoints )
-      : this.buildUniformScanGrid( energyMin, energyMax );
+                     ? this.buildCustomScanGrid( energyMin, energyMax, energyScanPoints )
+                     : this.buildUniformScanGrid( energyMin, energyMax );
 
     let prevSign = Math.sign( wronskian( scanGrid[ 0 ] ) );
     let prevEnergy = scanGrid[ 0 ];
