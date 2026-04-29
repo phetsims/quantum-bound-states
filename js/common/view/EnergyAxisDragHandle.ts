@@ -22,9 +22,9 @@ import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNo
 import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import EnergyDiagram from '../../common/model/EnergyDiagram.js';
-import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
-import QBSConstants from '../../common/QBSConstants.js';
+import EnergyDiagram from '../model/EnergyDiagram.js';
+import QuantumPotential from '../model/potentials/QuantumPotential.js';
+import QBSConstants from '../QBSConstants.js';
 
 const ARROW_LENGTH = 35; //TODO move to QBSConstants and use for all drag handles?
 

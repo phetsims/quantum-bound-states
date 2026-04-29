@@ -12,7 +12,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
-import EnergyAxisDragHandle from './EnergyAxisDragHandle.js';
+import EnergyAxisDragHandle from '../../common/view/EnergyAxisDragHandle.js';
 import { OneWellControlPanel } from './OneWellControlPanel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
 
