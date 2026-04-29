@@ -50,8 +50,9 @@ export default class EnergyAxisDragHandle extends InteractiveHighlighting( Arrow
 
     this.centerX = energyDiagramRectangleBounds.left;
 
-    this.mouseArea = this.localBounds.dilatedXY( 5, 5 );
-    this.touchArea = this.localBounds.dilatedXY( 5, 5 );
+    const pointerArea = this.localBounds.dilatedXY( 5, 5 );
+    this.mouseArea = pointerArea;
+    this.touchArea = pointerArea;
 
     this.centerYProperty = new NumberProperty( 0 );
 
