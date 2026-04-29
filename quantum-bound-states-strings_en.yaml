@@ -267,19 +267,17 @@ a11y:
     accessibleHeading:   Energy Diagram
     accessibleParagraph: TODO.energyDiagram.accessibleParagraph
 
-  quantumStateGraphs:
+  averageProbabilityDensityOfBandGraph:
+    accessibleHeading:   Average Probability Density of Band Graph
+    accessibleParagraph: TODO.averageProbabilityDensityOfBandGraph.accessibleParagraph
 
-    averageProbabilityDensityOfBandGraph:
-      accessibleHeading:   Average Probability Density of Band Graph
-      accessibleParagraph: TODO.averageProbabilityDensityOfBandGraph.accessibleParagraph
+  probabilityDensityGraph:
+    accessibleHeading:   Probability Density Graph
+    accessibleParagraph: TODO.probabilityDensityGraph.accessibleParagraph
 
-    probabilityDensityGraph:
-      accessibleHeading:   Probability Density Graph
-      accessibleParagraph: TODO.probabilityDensityGraph.accessibleParagraph
-
-    waveFunctionGraph:
-      accessibleHeading:   Wave Function Graph
-      accessibleParagraph: TODO.waveFunctionGraph.accessibleParagraph
+  waveFunctionGraph:
+    accessibleHeading:   Wave Function Graph
+    accessibleParagraph: TODO.waveFunctionGraph.accessibleParagraph
 
   #=======================================================================================================
   # Push Buttons

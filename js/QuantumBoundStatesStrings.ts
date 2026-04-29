@@ -239,19 +239,17 @@ type StringsType = {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
-    'quantumStateGraphs': {
-      'averageProbabilityDensityOfBandGraph': {
-        'accessibleHeadingStringProperty': LocalizedStringProperty;
-        'accessibleParagraphStringProperty': LocalizedStringProperty;
-      };
-      'probabilityDensityGraph': {
-        'accessibleHeadingStringProperty': LocalizedStringProperty;
-        'accessibleParagraphStringProperty': LocalizedStringProperty;
-      };
-      'waveFunctionGraph': {
-        'accessibleHeadingStringProperty': LocalizedStringProperty;
-        'accessibleParagraphStringProperty': LocalizedStringProperty;
-      }
+    'averageProbabilityDensityOfBandGraph': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
+    'probabilityDensityGraph': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
+    'waveFunctionGraph': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
     'timeButtonGroup': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;

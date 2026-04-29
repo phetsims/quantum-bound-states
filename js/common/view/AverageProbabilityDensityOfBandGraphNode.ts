@@ -33,8 +33,8 @@ export default class AverageProbabilityDensityOfBandGraphNode extends QuantumSta
       visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.averageProbabilityDensityOfBandGraph ),
 
       // Core-description options for this graph.
-      accessibleHeading: QuantumBoundStatesFluent.a11y.quantumStateGraphs.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.quantumStateGraphs.averageProbabilityDensityOfBandGraph.accessibleParagraphStringProperty,
+      accessibleHeading: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandGraph.accessibleParagraphStringProperty,
 
       tandem: tandem
     };

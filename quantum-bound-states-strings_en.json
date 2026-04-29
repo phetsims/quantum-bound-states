@@ -502,30 +502,28 @@
         "value": "TODO.energyDiagram.accessibleParagraph"
       }
     },
-    "quantumStateGraphs": {
-      "averageProbabilityDensityOfBandGraph": {
-        "accessibleHeading": {
-          "value": "Average Probability Density of Band Graph"
-        },
-        "accessibleParagraph": {
-          "value": "TODO.averageProbabilityDensityOfBandGraph.accessibleParagraph"
-        }
+    "averageProbabilityDensityOfBandGraph": {
+      "accessibleHeading": {
+        "value": "Average Probability Density of Band Graph"
       },
-      "probabilityDensityGraph": {
-        "accessibleHeading": {
-          "value": "Probability Density Graph"
-        },
-        "accessibleParagraph": {
-          "value": "TODO.probabilityDensityGraph.accessibleParagraph"
-        }
+      "accessibleParagraph": {
+        "value": "TODO.averageProbabilityDensityOfBandGraph.accessibleParagraph"
+      }
+    },
+    "probabilityDensityGraph": {
+      "accessibleHeading": {
+        "value": "Probability Density Graph"
       },
-      "waveFunctionGraph": {
-        "accessibleHeading": {
-          "value": "Wave Function Graph"
-        },
-        "accessibleParagraph": {
-          "value": "TODO.waveFunctionGraph.accessibleParagraph"
-        }
+      "accessibleParagraph": {
+        "value": "TODO.probabilityDensityGraph.accessibleParagraph"
+      }
+    },
+    "waveFunctionGraph": {
+      "accessibleHeading": {
+        "value": "Wave Function Graph"
+      },
+      "accessibleParagraph": {
+        "value": "TODO.waveFunctionGraph.accessibleParagraph"
       }
     },
     "timeButtonGroup": {
