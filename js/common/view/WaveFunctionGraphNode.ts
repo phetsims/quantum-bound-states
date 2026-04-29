@@ -38,8 +38,8 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.waveFunctionGraph ),
 
       // Core-description options for this graph.
-      accessibleHeading: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.graphs.waveFunctionGraph.accessibleParagraphStringProperty
+      accessibleHeading: QuantumBoundStatesFluent.a11y.quantumStateGraphs.waveFunctionGraph.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.quantumStateGraphs.waveFunctionGraph.accessibleParagraphStringProperty
     }, providedOptions );
 
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner

@@ -239,7 +239,7 @@ type StringsType = {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
-    'graphs': {
+    'quantumStateGraphs': {
       'averageProbabilityDensityOfBandGraph': {
         'accessibleHeadingStringProperty': LocalizedStringProperty;
         'accessibleParagraphStringProperty': LocalizedStringProperty;

@@ -267,7 +267,7 @@ a11y:
     accessibleHeading:   Energy Diagram
     accessibleParagraph: TODO.energyDiagram.accessibleParagraph
 
-  graphs:
+  quantumStateGraphs:
 
     averageProbabilityDensityOfBandGraph:
       accessibleHeading:   Average Probability Density of Band Graph
