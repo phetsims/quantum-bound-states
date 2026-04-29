@@ -22,6 +22,7 @@ import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNo
 import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import EnergyDiagram from '../model/EnergyDiagram.js';
 import QuantumPotential from '../model/potentials/QuantumPotential.js';
 import QBSConstants from '../QBSConstants.js';
@@ -39,6 +40,9 @@ export default class EnergyAxisDragHandle extends InteractiveHighlighting( Arrow
                       tandem: Tandem ) {
 
     const options = combineOptions<ArrowNodeOptions>( {}, AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, {
+      accessibleName: QuantumBoundStatesFluent.a11y.energyAxisDragHandle.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.energyAxisDragHandle.accessibleHelpTextStringProperty,
+      accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.energyAxisDragHandle.accessibleFocusObjectResponseStringProperty,
       tandem: tandem
     } );
 
@@ -57,16 +61,24 @@ export default class EnergyAxisDragHandle extends InteractiveHighlighting( Arrow
 
     potentialProperty.lazyLink( potential => this.interruptSubtreeInput() );
 
-    this.addInputListener( new EnergyAxisDragListener( potentialProperty, energyDiagramRectangleBounds, energyDiagramChartTransform, tandem ) );
+    this.addInputListener( new EnergyAxisDragListener( this, potentialProperty, energyDiagramRectangleBounds, energyDiagramChartTransform, tandem ) );
 
     this.centerYProperty.link( centerY => {
       this.centerY = centerY;
     } );
   }
+
+  /**
+   * Describes the drag handle when it is moved.
+   */
+  public describeMoved(): void {
+    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.energyAxisDragHandle.accessibleObjectResponseStringProperty.value );
+  }
 }
 
 class EnergyAxisDragListener extends SoundRichDragListener {
-  public constructor( potentialProperty: TReadOnlyProperty<QuantumPotential>,
+  public constructor( energyAxisDragHandle: EnergyAxisDragHandle,
+                      potentialProperty: TReadOnlyProperty<QuantumPotential>,
                       energyDiagramRectangleBounds: Bounds2,
                       energyDiagramChartTransform: ChartTransform,
                       tandem: Tandem ) {
@@ -91,6 +103,7 @@ class EnergyAxisDragListener extends SoundRichDragListener {
         yOffset = clamp( yOffset, potentialProperty.value.yOffsetProperty.range.min, potentialProperty.value.yOffsetProperty.range.max );
         potentialProperty.value.yOffsetProperty.value = yOffset;
       },
+      end: ( event, listener ) => energyAxisDragHandle.describeMoved(),
       keyboardDragListenerOptions: {
         dragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.5 ),
         shiftDragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.1 ),

@@ -229,6 +229,12 @@ type StringsType = {
         'accessibleNamePreset4StringProperty': LocalizedStringProperty;
       }
     };
+    'energyAxisDragHandle': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleFocusObjectResponseStringProperty': LocalizedStringProperty;
+      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+    };
     'energyDiagram': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleParagraphStringProperty': LocalizedStringProperty;

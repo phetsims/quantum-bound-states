@@ -480,6 +480,20 @@
         }
       }
     },
+    "energyAxisDragHandle": {
+      "accessibleName": {
+        "value": "TODO.energyAxisDragHandle.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.energyAxisDragHandle.accessibleHelpText"
+      },
+      "accessibleFocusObjectResponse": {
+        "value": "TODO.energyAxisDragHandle.accessibleFocusObjectResponse"
+      },
+      "accessibleObjectResponse": {
+        "value": "TODO.energyAxisDragHandle.accessibleObjectResponse"
+      }
+    },
     "energyDiagram": {
       "accessibleHeading": {
         "value": "Energy Diagram"

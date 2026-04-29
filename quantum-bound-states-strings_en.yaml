@@ -250,6 +250,16 @@ a11y:
       accessibleNamePreset4: c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3
 
   #=======================================================================================================
+  # Drag Handles
+  #=======================================================================================================
+
+  energyAxisDragHandle:
+    accessibleName:                TODO.energyAxisDragHandle.accessibleName
+    accessibleHelpText:            TODO.energyAxisDragHandle.accessibleHelpText
+    accessibleFocusObjectResponse: TODO.energyAxisDragHandle.accessibleFocusObjectResponse
+    accessibleObjectResponse:      TODO.energyAxisDragHandle.accessibleObjectResponse
+
+  #=======================================================================================================
   # Graphs
   #=======================================================================================================
 
