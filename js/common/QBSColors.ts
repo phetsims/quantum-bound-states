@@ -214,4 +214,12 @@ export default class QBSColors {
   public static readonly equationTermBackgroundColorProperty = new ProfileColorProperty( quantumBoundStates, 'equationTermBackgroundColor', {
     default: 'rgba( 255, 255, 255, 0.85 )'
   } );
+
+  public static readonly dragArrowsFillProperty = new ProfileColorProperty( quantumBoundStates, 'dragArrowsFill', {
+    default: 'yellow'
+  } );
+
+  public static readonly dragArrowsStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'dragArrowsStroke', {
+    default: 'black'
+  } );
 }
