@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Make this a child of EnergyDiagramNode and sort of coordinate transform problems.
 /**
  * EnergyAxisDragHandle is the drag handle used to change the y-offset of the selected potential and (as a side effect)
  * change the range of the y-axis for the Energy Diagram,
