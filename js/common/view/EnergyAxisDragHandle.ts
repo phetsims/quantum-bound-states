@@ -50,6 +50,9 @@ export default class EnergyAxisDragHandle extends InteractiveHighlighting( Arrow
 
     this.centerX = energyDiagramRectangleBounds.left;
 
+    this.mouseArea = this.localBounds.dilatedXY( 5, 5 );
+    this.touchArea = this.localBounds.dilatedXY( 5, 5 );
+
     this.centerYProperty = new NumberProperty( 0 );
 
     // Keep the handle connected to the center of the y-range for the selected potential.
