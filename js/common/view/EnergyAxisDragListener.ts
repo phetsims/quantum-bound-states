@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * EnergyAxisDragListener is the drag listener for the drag handle that appears on the y-axis of the Energy Diagram.
+ * EnergyAxisDragListener is the listener for the drag handle that appears on the y-axis of the Energy Diagram.
  * If supports dragging with pointer and keyboard.
  *
  * @author Chris Malley (PixelZoom, Inc.)
