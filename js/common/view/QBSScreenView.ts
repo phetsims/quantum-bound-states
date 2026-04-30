@@ -193,6 +193,7 @@ export default class QBSScreenView extends ScreenView {
     } );
 
     // Layer for drag handles used to configure potentials.
+    //TODO Make this a child of EnergyDiagramNode and resolve coordinate-transform problems.
     const handlesLayer = new Node( {
       tandem: options.tandem.createTandem( 'handlesLayer' ),
       phetioVisiblePropertyInstrumented: true,
