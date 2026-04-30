@@ -106,8 +106,8 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
 
     // Keyboard listener for shortcuts.
     this.addInputListener( new HomeEndKeyboardListener( referenceLine.xProperty, {
-      homeCallback: () => this.addMovedResponse(),
-      endCallback: () => this.addMovedResponse(),
+      homeCallback: () => this.describeMoved(),
+      endCallback: () => this.describeMoved(),
       tandem: tandem.createTandem( 'keyboardListener' )
     } ) );
 
@@ -118,7 +118,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     } );
 
     this.focusedProperty.lazyLink( focused => {
-      focused && this.addFocusedResponse();
+      focused && this.describeFocused();
     } );
 
     this.mouseArea = this.localBounds.dilatedXY( 3, 3 );
@@ -126,9 +126,9 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
   }
 
   /**
-   * Accessible response when the handle gets focus.
+   * Adds an accessible response when the handle gets focus.
    */
-  public addFocusedResponse(): void {
+  private describeFocused(): void {
     const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleFocusObjectResponse.format( {
       x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
     } );
@@ -136,9 +136,9 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
   }
 
   /**
-   * Accessible response when the handle is moved.
+   * Adds an accessible response when the handle is moved.
    */
-  public addMovedResponse(): void {
+  public describeMoved(): void {
     const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
       x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
     } );

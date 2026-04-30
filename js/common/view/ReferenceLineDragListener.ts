@@ -67,7 +67,7 @@ export default class ReferenceLineDragListener extends RichDragListener {
         soundPlayer.playSoundForValueChange( xProperty.value, previousX );
       },
 
-      end: () => referenceLineHandleNode.addMovedResponse(),
+      end: () => referenceLineHandleNode.describeMoved(),
 
       tandem: parentTandem
     } );
