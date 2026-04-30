@@ -117,6 +117,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
       positionProperty.value = new Vector2( x, 0 );
     } );
 
+    //TODO replace with accessibleFocusObjectResponse option?
     this.focusedProperty.lazyLink( focused => {
       focused && this.describeFocused();
     } );
