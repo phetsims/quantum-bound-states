@@ -54,6 +54,7 @@ export default class QBSModel implements TModel {
 
   // The quantum potential that is currently selected.
   public readonly potentialProperty: Property<QuantumPotential>;
+  private readonly potentials: QuantumPotential[];
 
   // Properties that are shared by all potentials.
   public readonly numberOfWellsProperty: NumberProperty;
@@ -110,6 +111,7 @@ export default class QBSModel implements TModel {
       tandem: options.tandem.createTandem( 'potentialProperty' ),
       phetioFeatured: true
     } );
+    this.potentials = options.potentials;
 
     this.boundStateResultProperty = new Property( solveBoundState( options.potential, this.xGrid, this.electronMassesProperty.value ) );
 
@@ -208,6 +210,7 @@ export default class QBSModel implements TModel {
     this.electronMassesProperty.reset();
     this.electricFieldProperty.reset();
     this.potentialProperty.reset();
+    this.potentials.forEach( potential => potential.reset() );
     this.energyLevelProperty.reset();
     this.energyDiagram.reset();
     this.averageProbabilityDensityOfBandGraph && this.averageProbabilityDensityOfBandGraph.reset();
