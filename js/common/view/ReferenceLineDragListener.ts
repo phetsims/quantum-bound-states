@@ -62,11 +62,8 @@ export default class ReferenceLineDragListener extends RichDragListener {
       },
 
       drag: ( event, listener ) => {
-
         const previousX = xProperty.value;
         xProperty.value = positionProperty.value.x;
-
-        // Play sound to communicate how x-coordinate has changed.
         soundPlayer.playSoundForValueChange( xProperty.value, previousX );
       },
 
