@@ -1,0 +1,58 @@
+// Copyright 2026, University of Colorado Boulder
+
+/**
+ * EnergyAxisDragListener is the drag listener for the drag handle that appears on the y-axis of the Energy Diagram.
+ * If supports dragging with pointer and keyboard.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import { clamp } from '../../../../dot/js/util/clamp.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import QuantumPotential from '../model/potentials/QuantumPotential.js';
+import EnergyAxisDragHandle from './EnergyAxisDragHandle.js';
+
+export default class EnergyAxisDragListener extends SoundRichDragListener {
+
+  public constructor( energyAxisDragHandle: EnergyAxisDragHandle,
+                      potentialProperty: TReadOnlyProperty<QuantumPotential>,
+                      energyDiagramRectangleBounds: Bounds2,
+                      energyDiagramChartTransform: ChartTransform,
+                      tandem: Tandem ) {
+
+    // Create a positionProperty so that we can get listener.modelDelta.y.
+    const positionProperty = new Vector2Property( new Vector2( 0, 0 ) );
+
+    // Constrain the drag bounds to the y dimension of the Energy Diagram rectangle.
+    const dragBoundsProperty = new Property( new Bounds2(
+      energyDiagramRectangleBounds.minX,
+      energyDiagramRectangleBounds.minY,
+      energyDiagramRectangleBounds.minX,
+      energyDiagramRectangleBounds.maxY ) );
+
+    super( {
+      tandem: tandem,
+      positionProperty: positionProperty,
+      dragBoundsProperty: dragBoundsProperty,
+      drag: ( event, listener ) => {
+        const dy = energyDiagramChartTransform.viewToModelDeltaY( listener.modelDelta.y );
+        let yOffset = potentialProperty.value.yOffsetProperty.value - dy;
+        yOffset = clamp( yOffset, potentialProperty.value.yOffsetProperty.range.min, potentialProperty.value.yOffsetProperty.range.max );
+        potentialProperty.value.yOffsetProperty.value = yOffset;
+      },
+      end: ( event, listener ) => energyAxisDragHandle.describeMoved(),
+      keyboardDragListenerOptions: {
+        dragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.5 ),
+        shiftDragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.1 ),
+        moveOnHoldInterval: 20
+      }
+    } );
+  }
+}
