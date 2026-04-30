@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
@@ -39,11 +40,10 @@ export default class EnergyAxisDragListener extends RichDragListener {
       energyDiagramRectangleBounds.maxY ) );
 
     // Use the range of yOffsetProperty for the selected potential to determine the sound range.
-    let soundPlayer: ValueChangeSoundPlayer;
-    potentialProperty.link( potential => {
-      soundPlayer = new ValueChangeSoundPlayer( potential.yOffsetProperty.range, {
-        minimumInterMiddleSoundTime: 0.01 // time between sounds, in seconds
-      } );
+    const yOffsetRangeProperty = new DerivedProperty( [ potentialProperty ], potential => potential.yOffsetProperty.range );
+
+    const soundPlayer = new ValueChangeSoundPlayer( yOffsetRangeProperty, {
+      minimumInterMiddleSoundTime: 0.1 // time between sounds, in seconds
     } );
 
     super( {
