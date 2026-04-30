@@ -63,6 +63,8 @@ export default class EnergyOffsetHandle extends InteractiveHighlighting( ArrowNo
 
     this.addInputListener( new EnergyOffsetHandleDragListener( this, potentialProperty, chartRectangleBounds, chartTransform, tandem ) );
 
+    //TODO Add HomeEndKeyboardListener
+
     this.centerYProperty.link( centerY => {
       this.centerY = centerY;
     } );
