@@ -39,7 +39,7 @@ export default class EnergyAxisDragListener extends RichDragListener {
       energyDiagramRectangleBounds.minX,
       energyDiagramRectangleBounds.maxY ) );
 
-    // Use the range of yOffsetProperty for the selected potential to determine the sound range.
+    // Sound behavior is determined by the range of yOffsetProperty for the selected potential.
     const yOffsetRangeProperty = new DerivedProperty( [ potentialProperty ], potential => potential.yOffsetProperty.range );
     const soundPlayer = new ValueChangeSoundPlayer( yOffsetRangeProperty );
 
