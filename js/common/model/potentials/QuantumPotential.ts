@@ -121,6 +121,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   }
 
   public reset(): void {
+    this.xOffsetProperty.reset();
     this.yOffsetProperty.reset();
   }
 

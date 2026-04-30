@@ -192,14 +192,22 @@ export default class QBSScreenView extends ScreenView {
       y: quantumStateGraphRectangleBounds.y + QBSConstants.QUANTUM_STATE_GRAPHS_VIEW_HEIGHT
     } );
 
-    let energyOffsetHandleNode: Node | undefined;
+    // Layer for drag handles used to configure potentials.
+    const handlesLayer = new Node( {
+      tandem: options.tandem.createTandem( 'handlesLayer' ),
+      phetioVisiblePropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
+    } );
+
+    // Add an optional handle for each potential's energy offset.
     if ( options.hasEnergyOffsetHandle ) {
-      energyOffsetHandleNode = new EnergyOffsetHandleNode(
-        model.energyDiagram,
-        model.potentialProperty,
-        energyDiagramRectangleBounds,
-        energyDiagramNode.chartTransform,
-        energyDiagramNode.tandem.createTandem( 'energyOffsetHandleNode' ) );
+      const potentials = model.potentialProperty.validValues;
+      affirm( potentials && potentials.length > 0, 'At least one potential is required.' );
+      potentials.forEach( potential => {
+        handlesLayer.addChild( new EnergyOffsetHandleNode( potential, model.potentialProperty, model.energyDiagram,
+          energyDiagramRectangleBounds, energyDiagramNode.chartTransform,
+          energyDiagramNode.tandem.createTandem( `${potential.tandemPrefix}EnergyOffsetHandleNode` ) ) );
+      } );
     }
 
     // Rendering order, from back to front
@@ -209,7 +217,7 @@ export default class QBSScreenView extends ScreenView {
         energyDiagramNode,
         ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
         ...quantumStateGraphNodes,
-        ...( energyOffsetHandleNode ? [ energyOffsetHandleNode ] : [] ), // optional component
+        handlesLayer,
         curvesVisibleToggleButton,
         energyDiagramControlPanel,
         quantumStateGraphControlPanel,
@@ -227,7 +235,7 @@ export default class QBSScreenView extends ScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
       energyDiagramControlPanel,
       energyDiagramNode,
-      ...( energyOffsetHandleNode ? [ energyOffsetHandleNode ] : [] ), // optional component
+      handlesLayer,
       ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
       magnifierNode,
       ...quantumStateGraphNodes,

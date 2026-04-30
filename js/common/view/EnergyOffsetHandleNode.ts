@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -24,6 +25,7 @@ import EnergyDiagram from '../model/EnergyDiagram.js';
 import QuantumPotential from '../model/potentials/QuantumPotential.js';
 import QBSConstants from '../QBSConstants.js';
 import EnergyOffsetHandleDragListener from './EnergyOffsetHandleDragListener.js';
+import { HomeEndKeyboardListener } from './HomeEndKeyboardListener.js';
 
 const ARROW_LENGTH = 35; //TODO move to QBSConstants and use for all drag handles?
 
@@ -31,13 +33,17 @@ export default class EnergyOffsetHandleNode extends InteractiveHighlighting( Arr
 
   private readonly centerYProperty: Property<number>;
 
-  public constructor( energyDiagram: EnergyDiagram,
+  public constructor( potential: QuantumPotential,
                       potentialProperty: TReadOnlyProperty<QuantumPotential>,
+                      energyDiagram: EnergyDiagram,
                       chartRectangleBounds: Bounds2,
                       chartTransform: ChartTransform,
                       tandem: Tandem ) {
 
     const options = combineOptions<ArrowNodeOptions>( {}, AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, {
+
+      // ArrowNodeOptions
+      visibleProperty: new DerivedProperty( [ potentialProperty ], selectedPotential => selectedPotential === potential ),
       accessibleName: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleHelpTextStringProperty,
       accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleFocusObjectResponseStringProperty,
@@ -54,16 +60,21 @@ export default class EnergyOffsetHandleNode extends InteractiveHighlighting( Arr
 
     this.centerYProperty = new NumberProperty( 0 );
 
-    // Keep the handle connected to the center of the y-range for the selected potential.
+    // Keep the handle connected to the center of the y-range for the potential.
     Multilink.multilink(
-      [ potentialProperty, energyDiagram.yRangeProperty ],
-      ( potential, yRange ) => {
+      [ potential.yOffsetProperty, energyDiagram.yRangeProperty ],
+      ( yOffset, yRange ) => {
         this.centerYProperty.value = chartRectangleBounds.top + chartTransform.modelToViewY( potential.energyAxisRange.getCenter() );
       } );
 
-    this.addInputListener( new EnergyOffsetHandleDragListener( this, potentialProperty, chartRectangleBounds, chartTransform, tandem ) );
+    this.addInputListener( new EnergyOffsetHandleDragListener( this, potential.yOffsetProperty, chartRectangleBounds,
+      chartTransform, tandem ) );
 
-    //TODO Add HomeEndKeyboardListener
+    this.addInputListener( new HomeEndKeyboardListener( potential.yOffsetProperty, {
+      homeCallback: () => this.describeMoved(),
+      endCallback: () => this.describeMoved(),
+      tandem: tandem.createTandem( 'keyboardListener' )
+    } ) );
 
     this.centerYProperty.link( centerY => {
       this.centerY = centerY;

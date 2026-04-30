@@ -7,9 +7,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { clamp } from '../../../../dot/js/util/clamp.js';
@@ -18,13 +17,12 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import RichDragListener from '../../../../scenery/js/listeners/RichDragListener.js';
 import ValueChangeSoundPlayer from '../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import QuantumPotential from '../model/potentials/QuantumPotential.js';
 import EnergyOffsetHandleNode from './EnergyOffsetHandleNode.js';
 
 export default class EnergyOffsetHandleDragListener extends RichDragListener {
 
   public constructor( energyOffsetHandleNode: EnergyOffsetHandleNode,
-                      potentialProperty: TReadOnlyProperty<QuantumPotential>,
+                      yOffsetProperty: NumberProperty,
                       energyDiagramRectangleBounds: Bounds2,
                       energyDiagramChartTransform: ChartTransform,
                       tandem: Tandem ) {
@@ -40,8 +38,7 @@ export default class EnergyOffsetHandleDragListener extends RichDragListener {
       energyDiagramRectangleBounds.maxY ) );
 
     // Sound behavior is determined by the range of yOffsetProperty for the selected potential.
-    const yOffsetRangeProperty = new DerivedProperty( [ potentialProperty ], potential => potential.yOffsetProperty.range );
-    const soundPlayer = new ValueChangeSoundPlayer( yOffsetRangeProperty, {
+    const soundPlayer = new ValueChangeSoundPlayer( yOffsetProperty.rangeProperty, {
       minimumInterMiddleSoundTime: 0.1 // seconds
     } );
 
@@ -59,13 +56,13 @@ export default class EnergyOffsetHandleDragListener extends RichDragListener {
 
       drag: ( event, listener ) => {
 
-        const previousYOffset = potentialProperty.value.yOffsetProperty.value;
+        const previousYOffset = yOffsetProperty.value;
 
         // Compute the new yOffset value.
         const dy = energyDiagramChartTransform.viewToModelDeltaY( listener.modelDelta.y );
-        let yOffset = potentialProperty.value.yOffsetProperty.value - dy;
-        yOffset = clamp( yOffset, potentialProperty.value.yOffsetProperty.range.min, potentialProperty.value.yOffsetProperty.range.max );
-        potentialProperty.value.yOffsetProperty.value = yOffset;
+        let yOffset = yOffsetProperty.value - dy;
+        yOffset = clamp( yOffset, yOffsetProperty.range.min, yOffsetProperty.range.max );
+        yOffsetProperty.value = yOffset;
 
         // Play sound to communicate how yOffset changed.
         soundPlayer.playSoundForValueChange( yOffset, previousYOffset );
