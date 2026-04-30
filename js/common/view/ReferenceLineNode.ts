@@ -103,7 +103,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
 
     // Drag listeners for all forms of input.
     this.addInputListener( new ReferenceLineDragListener( this, referenceLine.xProperty,
-      positionProperty, chartTransform, tandem ) );
+      positionProperty, referenceLine.xProperty.range, chartTransform, tandem ) );
 
     // Keyboard listener for shortcuts.
     this.addInputListener( new ReferenceLineKeyboardListener( this, referenceLine.xProperty,
