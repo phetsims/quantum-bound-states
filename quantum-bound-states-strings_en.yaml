@@ -253,11 +253,11 @@ a11y:
   # Drag Handles
   #=======================================================================================================
 
-  energyAxisDragHandle:
-    accessibleName:                TODO.energyAxisDragHandle.accessibleName
-    accessibleHelpText:            TODO.energyAxisDragHandle.accessibleHelpText
-    accessibleFocusObjectResponse: TODO.energyAxisDragHandle.accessibleFocusObjectResponse
-    accessibleObjectResponse:      TODO.energyAxisDragHandle.accessibleObjectResponse
+  energyOffsetHandle:
+    accessibleName:                TODO.energyOffsetHandle.accessibleName
+    accessibleHelpText:            TODO.energyOffsetHandle.accessibleHelpText
+    accessibleFocusObjectResponse: TODO.energyOffsetHandle.accessibleFocusObjectResponse
+    accessibleObjectResponse:      TODO.energyOffsetHandle.accessibleObjectResponse
 
   #=======================================================================================================
   # Graphs

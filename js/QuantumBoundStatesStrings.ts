@@ -229,7 +229,7 @@ type StringsType = {
         'accessibleNamePreset4StringProperty': LocalizedStringProperty;
       }
     };
-    'energyAxisDragHandle': {
+    'energyOffsetHandle': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleFocusObjectResponseStringProperty': LocalizedStringProperty;

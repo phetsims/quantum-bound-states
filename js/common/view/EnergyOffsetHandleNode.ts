@@ -2,7 +2,7 @@
 
 //TODO Make this a child of EnergyDiagramNode and sort of coordinate transform problems.
 /**
- * EnergyOffsetHandle is the drag handle used to change the y-offset of the selected potential and (as a side effect)
+ * EnergyOffsetHandleNode is the drag handle used to change the y-offset of the selected potential and (as a side effect)
  * change the range of the y-axis for the Energy Diagram,
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -27,7 +27,7 @@ import EnergyOffsetHandleDragListener from './EnergyOffsetHandleDragListener.js'
 
 const ARROW_LENGTH = 35; //TODO move to QBSConstants and use for all drag handles?
 
-export default class EnergyOffsetHandle extends InteractiveHighlighting( ArrowNode ) {
+export default class EnergyOffsetHandleNode extends InteractiveHighlighting( ArrowNode ) {
 
   private readonly centerYProperty: Property<number>;
 
@@ -38,9 +38,9 @@ export default class EnergyOffsetHandle extends InteractiveHighlighting( ArrowNo
                       tandem: Tandem ) {
 
     const options = combineOptions<ArrowNodeOptions>( {}, AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, {
-      accessibleName: QuantumBoundStatesFluent.a11y.energyAxisDragHandle.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.energyAxisDragHandle.accessibleHelpTextStringProperty,
-      accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.energyAxisDragHandle.accessibleFocusObjectResponseStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleHelpTextStringProperty,
+      accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleFocusObjectResponseStringProperty,
       tandem: tandem
     } );
 
@@ -74,6 +74,6 @@ export default class EnergyOffsetHandle extends InteractiveHighlighting( ArrowNo
    * Describes the drag handle when it is moved.
    */
   public describeMoved(): void {
-    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.energyAxisDragHandle.accessibleObjectResponseStringProperty.value );
+    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleObjectResponseStringProperty.value );
   }
 }

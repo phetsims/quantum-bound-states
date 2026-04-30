@@ -154,10 +154,10 @@ addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleName
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset2', 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset2StringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset3', 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset3StringProperty' );
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset4', 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset4StringProperty' );
-addToMapIfDefined( 'a11y_energyAxisDragHandle_accessibleName', 'a11y.energyAxisDragHandle.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_energyAxisDragHandle_accessibleHelpText', 'a11y.energyAxisDragHandle.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_energyAxisDragHandle_accessibleFocusObjectResponse', 'a11y.energyAxisDragHandle.accessibleFocusObjectResponseStringProperty' );
-addToMapIfDefined( 'a11y_energyAxisDragHandle_accessibleObjectResponse', 'a11y.energyAxisDragHandle.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_energyOffsetHandle_accessibleName', 'a11y.energyOffsetHandle.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_energyOffsetHandle_accessibleHelpText', 'a11y.energyOffsetHandle.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_energyOffsetHandle_accessibleFocusObjectResponse', 'a11y.energyOffsetHandle.accessibleFocusObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_energyOffsetHandle_accessibleObjectResponse', 'a11y.energyOffsetHandle.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleParagraph', 'a11y.energyDiagram.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_averageProbabilityDensityOfBandGraph_accessibleHeading', 'a11y.averageProbabilityDensityOfBandGraph.accessibleHeadingStringProperty' );
@@ -506,14 +506,14 @@ const QuantumBoundStatesFluent = {
         accessibleNamePreset4StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset4', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset4StringProperty' ) )
       }
     },
-    _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyAxisDragHandle"} ),
-    _comment_13: new FluentComment( {"comment":"Drag Handles","associatedKey":"energyAxisDragHandle"} ),
-    _comment_14: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyAxisDragHandle"} ),
-    energyAxisDragHandle: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyAxisDragHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyAxisDragHandle.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyAxisDragHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyAxisDragHandle.accessibleHelpTextStringProperty' ) ),
-      accessibleFocusObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyAxisDragHandle_accessibleFocusObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.energyAxisDragHandle.accessibleFocusObjectResponseStringProperty' ) ),
-      accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyAxisDragHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.energyAxisDragHandle.accessibleObjectResponseStringProperty' ) )
+    _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyOffsetHandle"} ),
+    _comment_13: new FluentComment( {"comment":"Drag Handles","associatedKey":"energyOffsetHandle"} ),
+    _comment_14: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyOffsetHandle"} ),
+    energyOffsetHandle: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetHandle.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetHandle.accessibleHelpTextStringProperty' ) ),
+      accessibleFocusObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetHandle_accessibleFocusObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetHandle.accessibleFocusObjectResponseStringProperty' ) ),
+      accessibleObjectResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetHandle.accessibleObjectResponseStringProperty' ) )
     },
     _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
     _comment_16: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),
