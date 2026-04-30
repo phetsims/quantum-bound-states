@@ -66,7 +66,7 @@ export default class EnergyAxisDragListener extends RichDragListener {
         yOffset = clamp( yOffset, potentialProperty.value.yOffsetProperty.range.min, potentialProperty.value.yOffsetProperty.range.max );
         potentialProperty.value.yOffsetProperty.value = yOffset;
 
-        // Play sound to communicate how yOffset changed, similar to Slider behavior.
+        // Play sound to communicate how yOffset changed.
         soundPlayer.playSoundForValueChange( yOffset, previousYOffset );
       },
 
