@@ -41,18 +41,22 @@ export default class EnergyAxisDragListener extends SoundRichDragListener {
       tandem: tandem,
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
+
+      keyboardDragListenerOptions: {
+        keyboardDragDirection: 'upDown',
+        dragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.5 ),
+        shiftDragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.1 ),
+        moveOnHoldInterval: 20
+      },
+
       drag: ( event, listener ) => {
         const dy = energyDiagramChartTransform.viewToModelDeltaY( listener.modelDelta.y );
         let yOffset = potentialProperty.value.yOffsetProperty.value - dy;
         yOffset = clamp( yOffset, potentialProperty.value.yOffsetProperty.range.min, potentialProperty.value.yOffsetProperty.range.max );
         potentialProperty.value.yOffsetProperty.value = yOffset;
       },
-      end: ( event, listener ) => energyAxisDragHandle.describeMoved(),
-      keyboardDragListenerOptions: {
-        dragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.5 ),
-        shiftDragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.1 ),
-        moveOnHoldInterval: 20
-      }
+
+      end: ( event, listener ) => energyAxisDragHandle.describeMoved()
     } );
   }
 }
