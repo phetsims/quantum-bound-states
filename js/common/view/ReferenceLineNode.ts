@@ -15,7 +15,6 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AccessibleInteractiveOptions from '../../../../scenery-phet/js/accessibility/AccessibleInteractiveOptions.js';
-import isResettingAllProperty from '../../../../scenery-phet/js/isResettingAllProperty.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -25,8 +24,8 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ReferenceLine from '../model/ReferenceLine.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import { HomeEndKeyboardListener } from './HomeEndKeyboardListener.js';
 import ReferenceLineDragListener from './ReferenceLineDragListener.js';
-import { ReferenceLineKeyboardListener } from './ReferenceLineKeyboardListener.js';
 
 type SelfOptions = {
 
@@ -106,18 +105,16 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
       positionProperty, referenceLine.xProperty.range, chartTransform, tandem ) );
 
     // Keyboard listener for shortcuts.
-    this.addInputListener( new ReferenceLineKeyboardListener( this, referenceLine.xProperty,
-      positionProperty, tandem.createTandem( 'keyboardListener' ) ) );
+    this.addInputListener( new HomeEndKeyboardListener( referenceLine.xProperty, {
+      homeCallback: () => this.addMovedResponse(),
+      endCallback: () => this.addMovedResponse(),
+      tandem: tandem.createTandem( 'keyboardListener' )
+    } ) );
 
     // Center the handle on the x-coordinate of the reference line.
     referenceLine.xProperty.link( x => {
       this.centerX = chartTransform.modelToViewX( x );
-
-      // If xProperty changed due to resetAll, we also need to keep positionProperty.value.x in sync.
-      // y-value can be anything because movement is constrained to horizontal.
-      if ( isResettingAllProperty.value ) {
-        positionProperty.value = new Vector2( x, 0 );
-      }
+      positionProperty.value = new Vector2( x, 0 );
     } );
 
     this.focusedProperty.lazyLink( focused => {

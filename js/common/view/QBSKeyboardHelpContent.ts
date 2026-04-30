@@ -8,8 +8,8 @@
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
+import MoveDraggableItemsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/MoveDraggableItemsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import ReferenceLineKeyboardHelpSection from './ReferenceLineKeyboardHelpSection.js';
 
 export default class QBSKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -18,8 +18,8 @@ export default class QBSKeyboardHelpContent extends TwoColumnKeyboardHelpContent
     // Sections in the left column.
     const leftSections: KeyboardHelpSection[] = [
 
-      // Reference Line
-      new ReferenceLineKeyboardHelpSection()
+      // Move Draggable Items
+      new MoveDraggableItemsKeyboardHelpSection()
     ];
 
     // Sections in the right column.
