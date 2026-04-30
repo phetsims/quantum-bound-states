@@ -41,10 +41,7 @@ export default class EnergyAxisDragListener extends RichDragListener {
 
     // Use the range of yOffsetProperty for the selected potential to determine the sound range.
     const yOffsetRangeProperty = new DerivedProperty( [ potentialProperty ], potential => potential.yOffsetProperty.range );
-
-    const soundPlayer = new ValueChangeSoundPlayer( yOffsetRangeProperty, {
-      minimumInterMiddleSoundTime: 0.1 // time between sounds, in seconds
-    } );
+    const soundPlayer = new ValueChangeSoundPlayer( yOffsetRangeProperty );
 
     super( {
       tandem: tandem,
