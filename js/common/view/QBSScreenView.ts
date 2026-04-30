@@ -11,8 +11,6 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
-import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -33,6 +31,7 @@ import QBSModel from '../model/QBSModel.js';
 import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
+import EnergyOffsetHandleNode from './EnergyOffsetHandleNode.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
@@ -48,8 +47,8 @@ type SelfOptions = {
   // Creates optional button for showing the complete Wave Function equation.
   createWaveFunctionDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
 
-  // Creates optional drag handle that controls the potential's yOffset by moving the y-range of the Energy Diagram.
-  createEnergyOffsetHandleNode?: ( ( chartRectangleBounds: Bounds2, chartTransform: ChartTransform, tandem: Tandem ) => Node ) | null;
+  // Whether to create optional drag handles that control potential yOffset.
+  hasEnergyOffsetHandle?: boolean;
 };
 
 export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
@@ -64,7 +63,7 @@ export default class QBSScreenView extends ScreenView {
       createZoomButtonGroup: null,
       createProbabilityDensityDetailsButton: null,
       createWaveFunctionDetailsButton: null,
-      createEnergyOffsetHandleNode: null
+      hasEnergyOffsetHandle: false
     }, providedOptions );
 
     super( options );
@@ -194,9 +193,13 @@ export default class QBSScreenView extends ScreenView {
     } );
 
     let energyOffsetHandleNode: Node | undefined;
-    if ( options.createEnergyOffsetHandleNode ) {
-      energyOffsetHandleNode = options.createEnergyOffsetHandleNode( energyDiagramRectangleBounds,
-        energyDiagramNode.chartTransform, energyDiagramNode.tandem.createTandem( 'energyOffsetHandleNode' ) );
+    if ( options.hasEnergyOffsetHandle ) {
+      energyOffsetHandleNode = new EnergyOffsetHandleNode(
+        model.energyDiagram,
+        model.potentialProperty,
+        energyDiagramRectangleBounds,
+        energyDiagramNode.chartTransform,
+        energyDiagramNode.tandem.createTandem( 'energyOffsetHandleNode' ) );
     }
 
     // Rendering order, from back to front

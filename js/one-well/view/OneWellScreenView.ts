@@ -6,13 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
-import EnergyOffsetHandleNode from '../../common/view/EnergyOffsetHandleNode.js';
 import { OneWellControlPanel } from './OneWellControlPanel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
 
@@ -27,15 +24,7 @@ export default class OneWellScreenView extends QBSScreenView {
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, listboxParent, energyDiagramControlPanel, {
-
-      // Creates the drag handle for the y-axis in the Energy Diagram.
-      createEnergyOffsetHandleNode: ( chartRectangleBounds: Bounds2, chartTransform: ChartTransform, tandem: Tandem ) =>
-        new EnergyOffsetHandleNode(
-          model.energyDiagram,
-          model.potentialProperty,
-          chartRectangleBounds,
-          chartTransform,
-          tandem ),
+      hasEnergyOffsetHandle: true,
       screenSummaryContent: new OneWellScreenSummaryContent(),
       tandem: tandem
     } );
