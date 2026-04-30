@@ -49,6 +49,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly xOffsetProperty: NumberProperty;
 
   // Vertical offset of the potential from y=0 eV.
+  //TODO Should this be named energyOffsetProperty to correspond to EnergyOffsetHandleNode?
   public readonly yOffsetProperty: NumberProperty;
 
   // Fires when any Property instantiated by the QuantumPotential changes.
