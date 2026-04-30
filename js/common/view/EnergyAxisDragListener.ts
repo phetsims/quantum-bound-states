@@ -19,11 +19,11 @@ import RichDragListener from '../../../../scenery/js/listeners/RichDragListener.
 import ValueChangeSoundPlayer from '../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumPotential from '../model/potentials/QuantumPotential.js';
-import EnergyAxisDragHandle from './EnergyAxisDragHandle.js';
+import EnergyOffsetHandle from './EnergyOffsetHandle.js';
 
 export default class EnergyAxisDragListener extends RichDragListener {
 
-  public constructor( energyAxisDragHandle: EnergyAxisDragHandle,
+  public constructor( energyAxisDragHandle: EnergyOffsetHandle,
                       potentialProperty: TReadOnlyProperty<QuantumPotential>,
                       energyDiagramRectangleBounds: Bounds2,
                       energyDiagramChartTransform: ChartTransform,

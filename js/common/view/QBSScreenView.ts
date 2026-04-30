@@ -48,8 +48,8 @@ type SelfOptions = {
   // Creates optional button for showing the complete Wave Function equation.
   createWaveFunctionDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
 
-  // Creates optional drag handle for the y-range of the Energy Diagram.
-  createEnergyAxisDragHandle?: ( ( energyDiagramRectangleBounds: Bounds2, energyDiagramChartTransform: ChartTransform, tandem: Tandem ) => Node ) | null;
+  // Creates optional drag handle that controls the potential's yOffset by moving the y-range of the Energy Diagram.
+  createEnergyOffsetHandle?: ( ( chartRectangleBounds: Bounds2, chartTransform: ChartTransform, tandem: Tandem ) => Node ) | null;
 };
 
 export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
@@ -64,7 +64,7 @@ export default class QBSScreenView extends ScreenView {
       createZoomButtonGroup: null,
       createProbabilityDensityDetailsButton: null,
       createWaveFunctionDetailsButton: null,
-      createEnergyAxisDragHandle: null
+      createEnergyOffsetHandle: null
     }, providedOptions );
 
     super( options );
@@ -193,10 +193,10 @@ export default class QBSScreenView extends ScreenView {
       y: quantumStateGraphRectangleBounds.y + QBSConstants.QUANTUM_STATE_GRAPHS_VIEW_HEIGHT
     } );
 
-    let energyAxisDragHandle: Node | undefined;
-    if ( options.createEnergyAxisDragHandle ) {
-      energyAxisDragHandle = options.createEnergyAxisDragHandle( energyDiagramRectangleBounds,
-        energyDiagramNode.chartTransform, energyDiagramNode.tandem.createTandem( 'energyAxisDragHandle' ) );
+    let energyOffsetHandle: Node | undefined;
+    if ( options.createEnergyOffsetHandle ) {
+      energyOffsetHandle = options.createEnergyOffsetHandle( energyDiagramRectangleBounds,
+        energyDiagramNode.chartTransform, energyDiagramNode.tandem.createTandem( 'energyOffsetHandle' ) );
     }
 
     // Rendering order, from back to front
@@ -206,7 +206,7 @@ export default class QBSScreenView extends ScreenView {
         energyDiagramNode,
         ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
         ...quantumStateGraphNodes,
-        ...( energyAxisDragHandle ? [ energyAxisDragHandle ] : [] ), // optional component
+        ...( energyOffsetHandle ? [ energyOffsetHandle ] : [] ), // optional component
         curvesVisibleToggleButton,
         energyDiagramControlPanel,
         quantumStateGraphControlPanel,
@@ -224,7 +224,7 @@ export default class QBSScreenView extends ScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
       energyDiagramControlPanel,
       energyDiagramNode,
-      ...( energyAxisDragHandle ? [ energyAxisDragHandle ] : [] ), // optional component
+      ...( energyOffsetHandle ? [ energyOffsetHandle ] : [] ), // optional component
       ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
       magnifierNode,
       ...quantumStateGraphNodes,

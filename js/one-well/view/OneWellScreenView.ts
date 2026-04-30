@@ -12,7 +12,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
-import EnergyAxisDragHandle from '../../common/view/EnergyAxisDragHandle.js';
+import EnergyOffsetHandle from '../../common/view/EnergyOffsetHandle.js';
 import { OneWellControlPanel } from './OneWellControlPanel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
 
@@ -29,12 +29,12 @@ export default class OneWellScreenView extends QBSScreenView {
     super( model, listboxParent, energyDiagramControlPanel, {
 
       // Creates the drag handle for the y-axis in the Energy Diagram.
-      createEnergyAxisDragHandle: ( energyDiagramRectangleBounds: Bounds2, energyDiagramChartTransform: ChartTransform, tandem: Tandem ) =>
-        new EnergyAxisDragHandle(
+      createEnergyOffsetHandle: ( chartRectangleBounds: Bounds2, chartTransform: ChartTransform, tandem: Tandem ) =>
+        new EnergyOffsetHandle(
           model.energyDiagram,
           model.potentialProperty,
-          energyDiagramRectangleBounds,
-          energyDiagramChartTransform,
+          chartRectangleBounds,
+          chartTransform,
           tandem ),
       screenSummaryContent: new OneWellScreenSummaryContent(),
       tandem: tandem

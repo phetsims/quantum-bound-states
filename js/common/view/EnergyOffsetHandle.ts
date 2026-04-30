@@ -2,7 +2,7 @@
 
 //TODO Make this a child of EnergyDiagramNode and sort of coordinate transform problems.
 /**
- * EnergyAxisDragHandle is the drag handle used to change the y-offset of the selected potential and (as a side effect)
+ * EnergyOffsetHandle is the drag handle used to change the y-offset of the selected potential and (as a side effect)
  * change the range of the y-axis for the Energy Diagram,
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -27,14 +27,14 @@ import EnergyAxisDragListener from './EnergyAxisDragListener.js';
 
 const ARROW_LENGTH = 35; //TODO move to QBSConstants and use for all drag handles?
 
-export default class EnergyAxisDragHandle extends InteractiveHighlighting( ArrowNode ) {
+export default class EnergyOffsetHandle extends InteractiveHighlighting( ArrowNode ) {
 
   private readonly centerYProperty: Property<number>;
 
   public constructor( energyDiagram: EnergyDiagram,
                       potentialProperty: TReadOnlyProperty<QuantumPotential>,
-                      energyDiagramRectangleBounds: Bounds2,
-                      energyDiagramChartTransform: ChartTransform,
+                      chartRectangleBounds: Bounds2,
+                      chartTransform: ChartTransform,
                       tandem: Tandem ) {
 
     const options = combineOptions<ArrowNodeOptions>( {}, AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, {
@@ -46,7 +46,7 @@ export default class EnergyAxisDragHandle extends InteractiveHighlighting( Arrow
 
     super( 0, -ARROW_LENGTH / 2, 0, ARROW_LENGTH / 2, options );
 
-    this.centerX = energyDiagramRectangleBounds.left;
+    this.centerX = chartRectangleBounds.left;
 
     const pointerArea = this.localBounds.dilatedXY( 5, 5 );
     this.mouseArea = pointerArea;
@@ -58,12 +58,10 @@ export default class EnergyAxisDragHandle extends InteractiveHighlighting( Arrow
     Multilink.multilink(
       [ potentialProperty, energyDiagram.yRangeProperty ],
       ( potential, yRange ) => {
-        this.centerYProperty.value = energyDiagramRectangleBounds.top + energyDiagramChartTransform.modelToViewY( potential.energyAxisRange.getCenter() );
+        this.centerYProperty.value = chartRectangleBounds.top + chartTransform.modelToViewY( potential.energyAxisRange.getCenter() );
       } );
 
-    potentialProperty.lazyLink( potential => this.interruptSubtreeInput() );
-
-    this.addInputListener( new EnergyAxisDragListener( this, potentialProperty, energyDiagramRectangleBounds, energyDiagramChartTransform, tandem ) );
+    this.addInputListener( new EnergyAxisDragListener( this, potentialProperty, chartRectangleBounds, chartTransform, tandem ) );
 
     this.centerYProperty.link( centerY => {
       this.centerY = centerY;
