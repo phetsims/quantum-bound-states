@@ -23,7 +23,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import EnergyDiagram from '../model/EnergyDiagram.js';
 import QuantumPotential from '../model/potentials/QuantumPotential.js';
 import QBSConstants from '../QBSConstants.js';
-import EnergyAxisDragListener from './EnergyAxisDragListener.js';
+import EnergyOffsetHandleDragListener from './EnergyOffsetHandleDragListener.js';
 
 const ARROW_LENGTH = 35; //TODO move to QBSConstants and use for all drag handles?
 
@@ -61,7 +61,7 @@ export default class EnergyOffsetHandle extends InteractiveHighlighting( ArrowNo
         this.centerYProperty.value = chartRectangleBounds.top + chartTransform.modelToViewY( potential.energyAxisRange.getCenter() );
       } );
 
-    this.addInputListener( new EnergyAxisDragListener( this, potentialProperty, chartRectangleBounds, chartTransform, tandem ) );
+    this.addInputListener( new EnergyOffsetHandleDragListener( this, potentialProperty, chartRectangleBounds, chartTransform, tandem ) );
 
     this.centerYProperty.link( centerY => {
       this.centerY = centerY;

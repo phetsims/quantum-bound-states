@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * EnergyAxisDragListener is the listener for the drag handle that appears on the y-axis of the Energy Diagram.
+ * EnergyOffsetHandleDragListener is the listener for the drag handle that appears on the y-axis of the Energy Diagram.
  * If supports dragging with pointer and keyboard.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -21,7 +21,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumPotential from '../model/potentials/QuantumPotential.js';
 import EnergyOffsetHandle from './EnergyOffsetHandle.js';
 
-export default class EnergyAxisDragListener extends RichDragListener {
+export default class EnergyOffsetHandleDragListener extends RichDragListener {
 
   public constructor( energyAxisDragHandle: EnergyOffsetHandle,
                       potentialProperty: TReadOnlyProperty<QuantumPotential>,
