@@ -31,7 +31,8 @@ export default class ManyWellsModel extends QBSModel {
     const numberOfWellsProperty = new NumberProperty( 5, {
       numberType: 'Integer',
       range: new Range( 1, 10 ),
-      tandem: tandem.createTandem( 'numberOfWellsProperty' )
+      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
+      phetioFeatured: true
     } );
 
     const electronMassesProperty = new NumberProperty( 1, {
@@ -45,7 +46,8 @@ export default class ManyWellsModel extends QBSModel {
       numberType: 'FloatingPoint',
       range: new Range( -1, 1 ),
       units: voltsPerNanometerUnit,
-      tandem: tandem.createTandem( 'electricFieldProperty' )
+      tandem: tandem.createTandem( 'electricFieldProperty' ),
+      phetioFeatured: true
     } );
 
     // Shared by all quantum potentials
@@ -79,7 +81,8 @@ export default class ManyWellsModel extends QBSModel {
 
     this.yAxisZoomLevelProperty = new NumberProperty( 0, {
       numberType: 'Integer',
-      range: new Range( 0, 2 ) //TODO How many zoom levels are needed?
+      range: new Range( 0, 2 ), //TODO How many zoom levels are needed?
+      phetioFeatured: true
     } );
     //TODO Derive yAxisScaleProperty from yAxisZoomLevelProperty
   }
