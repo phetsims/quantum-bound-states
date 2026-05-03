@@ -3,7 +3,7 @@
 //TODO This needs a better name, 'grid' implies 2D. XSamples? PositionSamples?
 /**
  * XGrid is a uniformly spaced 1D spatial grid for quantum mechanics calculations.
- * This class eliminates redundancy by computing derived properties (dx, width, x-coordinates)
+ * This class eliminates redundancy by computing derived properties (dx, x-coordinates)
  * from the fundamental grid parameters (xMin, xMax, numberOfPoints).
  *
  * @author Martin Veillette
@@ -34,8 +34,7 @@ export default class XGrid extends PhetioObject {
   public readonly xMax: number;
   public readonly numberOfPoints: number;
 
-  // Derived values.
-  public readonly width: number;
+  // Uniform spacing between x-coordinates
   public readonly dx: number;
 
   // Uniformly spaced x-coordinates, in ascending order. These x-coordinates never change and are used for all graphs.
@@ -58,7 +57,6 @@ export default class XGrid extends PhetioObject {
     this.xMin = options.xMin;
     this.xMax = options.xMax;
     this.numberOfPoints = options.numberOfPoints;
-    this.width = this.xMax - this.xMin;
     this.dx = ( this.xMax - this.xMin ) / ( this.numberOfPoints - 1 );
 
     const xCoordinates = [];
