@@ -38,7 +38,8 @@ export default class XGrid extends PhetioObject {
   public readonly width: number;
   public readonly dx: number;
 
-  // x-coordinates never change. This is a Property so that the x-coordinates are available via PhET-iO.
+  // Uniformly spaced x-coordinates, in ascending order. These x-coordinates never change and are used for all graphs.
+  // This is a Property so that the x-coordinates are available via PhET-iO.
   private readonly xCoordinatesProperty: TReadOnlyProperty<number[]>;
 
   public constructor( providedOptions: XGridOptions ) {
