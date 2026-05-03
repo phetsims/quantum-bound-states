@@ -26,8 +26,6 @@ import QBSConstants from '../QBSConstants.js';
 import EnergyOffsetHandleDragListener from './EnergyOffsetHandleDragListener.js';
 import { HomeEndKeyboardListener } from './HomeEndKeyboardListener.js';
 
-const ARROW_LENGTH = 35; //TODO move to QBSConstants and use for all drag handles?
-
 export default class EnergyOffsetHandleNode extends InteractiveHighlighting( ArrowNode ) {
 
   private readonly centerYProperty: Property<number>;
@@ -49,7 +47,7 @@ export default class EnergyOffsetHandleNode extends InteractiveHighlighting( Arr
       tandem: tandem
     } );
 
-    super( 0, -ARROW_LENGTH / 2, 0, ARROW_LENGTH / 2, options );
+    super( 0, -QBSConstants.HANDLE_LENGTH / 2, 0, QBSConstants.HANDLE_LENGTH / 2, options );
 
     this.centerX = chartRectangleBounds.left;
 

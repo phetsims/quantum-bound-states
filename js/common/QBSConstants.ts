@@ -106,6 +106,9 @@ export default class QBSConstants {
 
   public static readonly POTENTIAL_ICON_LINE_WIDTH = 2;
 
+  // Drag handles for configuring potentials
+  public static readonly HANDLE_LENGTH = 35;
+
   public static readonly CHECKBOX_OPTIONS: CheckboxOptions = {
     boxWidth: new Text( 'A', { font: QBSConstants.CONTROL_FONT } ).height,
     touchAreaXDilation: 6,
