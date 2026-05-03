@@ -52,10 +52,11 @@ export default class EnergyOffsetHandleNode extends InteractiveHighlighting( Arr
     this.touchArea = pointerArea;
 
     // Keep the handle connected to the center of the y-range for the potential.
-    //TODO This is a little odd, because energyDiagram.yRangeProperty is set based on the selected potential.
-    Multilink.multilink( [ potential.yOffsetProperty, energyDiagram.yRangeProperty ],
-      ( yOffset, yRange ) => {
-        this.centerY = chartRectangleBounds.top + chartTransform.modelToViewY( potential.energyAxisRange.getCenter() );
+    Multilink.multilink( [ potentialProperty, potential.yOffsetProperty, energyDiagram.yRangeProperty ],
+      ( selectedPotential, yOffset, yRange ) => {
+        if ( selectedPotential === potential ) {
+          this.centerY = chartRectangleBounds.top + chartTransform.modelToViewY( potential.energyAxisRange.getCenter() );
+        }
       } );
 
     this.addInputListener( new EnergyOffsetHandleDragListener( this, potential.yOffsetProperty, chartRectangleBounds,
