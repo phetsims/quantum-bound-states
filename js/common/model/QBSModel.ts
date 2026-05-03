@@ -197,7 +197,7 @@ export default class QBSModel implements TModel {
     } );
 
     this.curvesVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'curvesVisibleProperty' ),
+      tandem: quantumStateGraphsTandem.createTandem( 'curvesVisibleProperty' ),
       phetioFeatured: true
     } );
 
