@@ -14,6 +14,7 @@
 
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../../QBSQueryParameters.js';
 import MorseSolution from './analytical-solutions/MorseSolution.js';
 import FiniteSquareSolution from './analytical-solutions/FiniteSquareSolution.js';
@@ -228,7 +229,12 @@ function testHarmonicOscillator(): void {
   const E0 = 0.5 * HBAR * omega;  // eV
 
   // Use standard grid from -4nm to 4nm
-  const xGrid = new XGrid( -4, 4, 1001 );
+  const xGrid = new XGrid( {
+    xMin: -4,
+    xMax: 4,
+    numberOfPoints: 1001,
+    tandem: Tandem.OPT_OUT
+  } );
 
   const energyMin = 0.1 * E0;
   const energyMax = 20.5 * HBAR * omega;
@@ -298,7 +304,12 @@ function testInfiniteSquare(): void {
   const potential = InfiniteSquareSolution.createPotential( L, barrierHeight, xOffset, yOffset );
 
   // Use grid that matches the infinite square well, as a result barrierHeight is irrelevant
-  const xGrid = new XGrid( xOffset - L / 2, xOffset + L / 2, 1001 );
+  const xGrid = new XGrid( {
+    xMin: xOffset - L / 2,
+    xMax: xOffset + L / 2,
+    numberOfPoints: 1001,
+    tandem: Tandem.OPT_OUT
+  } );
 
   const E1_analytical = ( Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * L * L );
   const energyMin = yOffset + 0.5 * E1_analytical;
@@ -363,7 +374,12 @@ function testFiniteSquare(): void {
   const potential = ( x: number ) => Math.abs( x ) < L / 2 ? -V0 : 0;
 
   // Grid extends beyond the well to capture evanescent tails
-  const xGrid = new XGrid( -3, 3, 1001 );
+  const xGrid = new XGrid( {
+    xMin: -3,
+    xMax: 3,
+    numberOfPoints: 1001,
+    tandem: Tandem.OPT_OUT
+  } );
 
   // Bound states have energies between -V0 and 0
   const energyMin = -V0;
@@ -434,7 +450,12 @@ function testWaveFunctionNormalization(): void {
 
   // Use standard grid from -4nm to 4nm
   const E0 = 0.5 * HBAR * omega;
-  const xGrid = new XGrid( -4, 4, 1001 );
+  const xGrid = new XGrid( {
+    xMin: -4,
+    xMax: 4,
+    numberOfPoints: 1001,
+    tandem: Tandem.OPT_OUT
+  } );
 
   const result = NumerovSolver.solve( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
 
@@ -470,7 +491,12 @@ function testNodeCounting(): void {
 
   // Use standard grid from -4nm to 4nm
   const E0 = 0.5 * HBAR * omega;
-  const xGrid = new XGrid( -4, 4, 1001 );
+  const xGrid = new XGrid( {
+    xMin: -4,
+    xMax: 4,
+    numberOfPoints: 1001,
+    tandem: Tandem.OPT_OUT
+  } );
   {
     const result = NumerovSolver.solve( xGrid, potential, mass, 0.1 * E0, 20.5 * HBAR * omega );
 
@@ -526,7 +552,12 @@ function testMorsePotential(): void {
   const potential = MorseSolution.createPotential( wellDepth, width );
 
   // Grid: from -0.5 nm (high repulsive wall ~20 eV above all bound states) to 5 nm (V ≈ 0)
-  const xGrid = new XGrid( -0.5, 5, 1001 );
+  const xGrid = new XGrid( {
+    xMin: -0.5,
+    xMax: 5,
+    numberOfPoints: 1001,
+    tandem: Tandem.OPT_OUT
+  } );
 
   // All bound-state energies lie between -D_e and 0
   const energyMin = -wellDepth;
@@ -597,7 +628,12 @@ function testInfiniteStep(): void {
   const potential = InfiniteStepSolution.createPotential( wellWidth, stepHeight, barrierHeight, xOffset, yOffset );
 
   // Grid spans exactly the well: [-L/2, L/2]
-  const xGrid = new XGrid( xOffset - wellWidth / 2, xOffset + wellWidth / 2, 1001 );
+  const xGrid = new XGrid( {
+    xMin: xOffset - wellWidth / 2,
+    xMax: xOffset + wellWidth / 2,
+    numberOfPoints: 1001,
+    tandem: Tandem.OPT_OUT
+  } );
 
   // First infinite-square-well energy (upper bound on ground state): E₁ = π²ℏ²/(2mL²)
   const E1_ISW = ( Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * wellWidth * wellWidth );

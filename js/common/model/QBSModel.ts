@@ -103,7 +103,12 @@ export default class QBSModel implements TModel {
 
     this.time = new Time( options.tandem.createTandem( 'time' ) );
 
-    this.xGrid = new XGrid( QBSConstants.ALL_GRAPHS_X_RANGE.min, QBSConstants.ALL_GRAPHS_X_RANGE.max, QBSQueryParameters.numberOfPoints );
+    this.xGrid = new XGrid( {
+      xMin: QBSConstants.ALL_GRAPHS_X_RANGE.min,
+      xMax: QBSConstants.ALL_GRAPHS_X_RANGE.max,
+      numberOfPoints: QBSQueryParameters.numberOfPoints,
+      tandem: options.tandem.createTandem( 'xGrid' )
+    } );
 
     this.potentialProperty = new Property( options.potential, {
       validValues: options.potentials,

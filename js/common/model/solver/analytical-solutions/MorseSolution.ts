@@ -174,7 +174,7 @@ function calculateWaveFunction(
   wellDepth: number,
   width: number,
   mass: number,
-  xArray: number[]
+  xArray: readonly number[]
 ): number[] {
 
   const lambda = width * Math.sqrt( 2 * mass * wellDepth ) / HBAR;

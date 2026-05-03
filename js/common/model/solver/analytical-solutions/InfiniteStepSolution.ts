@@ -346,7 +346,7 @@ function calculateWaveFunction(
   wellWidth: number,
   stepHeight: number,
   mass: number,
-  xArray: number[],
+  xArray: readonly number[],
   xOffset: number
 ): number[] {
 

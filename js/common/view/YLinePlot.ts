@@ -19,12 +19,12 @@ export type YLinePlotOptions = SelfOptions & PathOptions;
 export default class YLinePlot extends Path {
 
   private readonly chartTransform: ChartTransform;
-  private readonly xCoordinates: number[];
-  private yCoordinates: number[];
+  private readonly xCoordinates: readonly number[];
+  private yCoordinates: readonly number[];
 
   public constructor( chartTransform: ChartTransform,
-                      xCoordinates: number[],
-                      yCoordinates: number[],
+                      xCoordinates: readonly number[],
+                      yCoordinates: readonly number[],
                       providedOptions?: YLinePlotOptions ) {
     affirm( xCoordinates.length > 1, 'xCoordinates must contain at least two values' );
     affirm( xCoordinates.length === yCoordinates.length, 'xCoordinates and yCoordinates must be the same length' );
@@ -53,7 +53,7 @@ export default class YLinePlot extends Path {
   /**
    * Sets the y-coordinates and redraws the plot.
    */
-  public setYCoordinates( yCoordinates: number[] ): void {
+  public setYCoordinates( yCoordinates: readonly number[] ): void {
     affirm( this.xCoordinates.length === yCoordinates.length, `xCoordinates and yCoordinates must be the same length, ${this.xCoordinates.length} !== ${yCoordinates.length}` );
     this.yCoordinates = yCoordinates;
     this.update();

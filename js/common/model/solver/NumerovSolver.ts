@@ -341,7 +341,7 @@ export default class NumerovSolver {
    * Evaluates potential on grid.
    * Clamps the potential energy to MAX_SOLVER_POTENTIAL_ENERGY to avoid overflow in steep potentials.
    */
-  private evaluatePotential( potential: PotentialFunction, xGridArray: number[] ): number[] {
+  private evaluatePotential( potential: PotentialFunction, xGridArray: readonly number[] ): number[] {
     return xGridArray.map( x => {
       const potentialEnergy = potential( x );
       return Number.isFinite( potentialEnergy ) ?

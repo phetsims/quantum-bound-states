@@ -10,9 +10,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
+import ArrayIO from '../../../../../tandem/js/types/ArrayIO.js';
+import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
 
-export default class XGrid {
+type SelfOptions = {
+ xMin: number; // Minimum x value (nm)
+ xMax: number; // Maximum x value (nm)
+ numberOfPoints: number; // Number of x coordinates.
+};
+
+type XGridOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+
+export default class XGrid extends PhetioObject {
 
   // Provided values.
   public readonly xMin: number;
@@ -22,36 +37,51 @@ export default class XGrid {
   // Derived values.
   public readonly width: number;
   public readonly dx: number;
-  public readonly xCoordinates: number[];
 
-  /**
-   * @param xMin - Minimum x value (nm)
-   * @param xMax - Maximum x value (nm)
-   * @param numberOfPoints - Number of grid points
-   */
-  public constructor( xMin: number, xMax: number, numberOfPoints: number ) {
-    affirm( numberOfPoints >= 2, 'Grid must have at least 2 points' );
-    affirm( xMax > xMin, 'xMax must be greater than xMin' );
+  // x-coordinates never change. This is a Property so that the x-coordinates are available via PhET-iO.
+  private readonly xCoordinatesProperty: TReadOnlyProperty<number[]>;
 
-    this.xMin = xMin;
-    this.xMax = xMax;
-    this.numberOfPoints = numberOfPoints;
+  public constructor( providedOptions: XGridOptions ) {
+
+    const options = optionize<XGridOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // PhetioObjectOptions
+      phetioState: false
+    }, providedOptions );
+
+    affirm( options.xMax > options.xMin, 'xMax must be greater than xMin' );
+    affirm( options.numberOfPoints >= 2, 'Grid must have at least 2 points' );
+
+    super( options );
+
+    this.xMin = options.xMin;
+    this.xMax = options.xMax;
+    this.numberOfPoints = options.numberOfPoints;
     this.width = this.xMax - this.xMin;
     this.dx = ( this.xMax - this.xMin ) / ( this.numberOfPoints - 1 );
 
-    this.xCoordinates = [];
+    const xCoordinates = [];
     for ( let i = 0; i < this.numberOfPoints; i++ ) {
       if ( i < this.numberOfPoints - 1 ) {
-        this.xCoordinates.push( this.xMin + i * this.dx );
+        xCoordinates.push( this.xMin + i * this.dx );
       }
       else {
         // Ensure that xMax is included in the grid.
-        this.xCoordinates.push( this.xMax );
+        xCoordinates.push( this.xMax );
       }
     }
-    affirm( this.xCoordinates.length === this.numberOfPoints, 'xCoordinates.length should be equal to numberOfPoints' );
+    affirm( xCoordinates.length === this.numberOfPoints, 'xCoordinates.length should be equal to numberOfPoints' );
 
-    // Prevent further modifications to the array.
-    Object.freeze( this.xCoordinates ); //TODO Is this OK?
+    this.xCoordinatesProperty = new Property( xCoordinates, {
+      validValues: [ xCoordinates ], // effectively constant
+      tandem: options.tandem.createTandem( 'xCoordinatesProperty' ),
+      phetioValueType: ArrayIO( NumberIO ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+  }
+
+  public get xCoordinates(): readonly number[] {
+    return this.xCoordinatesProperty.value;
   }
 }

@@ -334,7 +334,7 @@ function calculateWaveFunction(
   wellWidth: number,
   wellDepth: number,
   mass: number,
-  xGridArray: number[]
+  xGridArray: readonly number[]
 ): number[] {
 
   // Calculate wave numbers
