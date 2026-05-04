@@ -34,6 +34,7 @@ type StringsType = {
   'waveFunctionStringProperty': LocalizedStringProperty;
   'quantumStateGraphStringProperty': LocalizedStringProperty;
   'energyDiagramStringProperty': LocalizedStringProperty;
+  'averageProbabilityDensityOfBandDetailsButtonStringProperty': LocalizedStringProperty;
   'probabilityDensityDetailsButtonStringProperty': LocalizedStringProperty;
   'waveFunctionDetailsButtonStringProperty': LocalizedStringProperty;
   'valuesStringProperty': LocalizedStringProperty;
@@ -44,6 +45,7 @@ type StringsType = {
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
   'superpositionStringProperty': LocalizedStringProperty;
+  'averageProbabilityDensityOfBandDialogTitleStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
   'superpositionDetailsDialogTitleStringProperty': LocalizedStringProperty;
@@ -264,6 +266,11 @@ type StringsType = {
       'accessibleHelpTextPausedStringProperty': LocalizedStringProperty;
     };
     'stepForwardButton': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
+    'averageProbabilityDensityOfBandDetailsButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };

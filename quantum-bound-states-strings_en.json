@@ -49,6 +49,9 @@
   "energyDiagram": {
     "value": "Energy Diagram"
   },
+  "averageProbabilityDensityOfBandDetailsButton": {
+    "value": "?"
+  },
   "probabilityDensityDetailsButton": {
     "value": "|Ψ(x,t)|<sup>2</sup> = ..."
   },
@@ -78,6 +81,9 @@
   },
   "superposition": {
     "value": "Superposition"
+  },
+  "averageProbabilityDensityOfBandDialogTitle": {
+    "value": "Average Probability Density of Band"
   },
   "probabilityDensityDialogTitle": {
     "value": "Probability Density"
@@ -556,6 +562,17 @@
       },
       "accessibleContextResponse": {
         "value": "TODO.stepForwardButton.accessibleContextResponse"
+      }
+    },
+    "averageProbabilityDensityOfBandDetailsButton": {
+      "accessibleName": {
+        "value": "Probability Density Details"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleContextResponse"
       }
     },
     "probabilityDensityDetailsButton": {
