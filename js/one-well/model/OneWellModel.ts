@@ -29,8 +29,11 @@ export default class OneWellModel extends QBSModel {
   public constructor( tandem: Tandem ) {
 
     const numberOfWellsProperty = new NumberProperty( 1, {
-      range: new Range( 1, 1 )
-      // No PhET-iO instrumentation, since it's effectively a constant.
+      numberType: 'Integer',
+      range: new Range( 1, 1 ), // effectively constant
+      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     const electronMassesProperty = new NumberProperty( 1, {
@@ -38,15 +41,15 @@ export default class OneWellModel extends QBSModel {
       units: electronMassesUnit,
       range: new Range( 0.5, 1.1 ),
       tandem: tandem.createTandem( 'electronMassesProperty' ),
-      phetioFeatured: true,
-      phetioDocumentation: 'The number of electron masses.'
+      phetioFeatured: true
     } );
 
     const electricFieldProperty = new NumberProperty( 0, {
       units: voltsPerNanometerUnit,
-      range: new Range( 0, 0 ),
-      phetioFeatured: true
-      // No PhET-iO instrumentation, since it's effectively constant.
+      range: new Range( 0, 0 ), // effectively constant
+      tandem: tandem.createTandem( 'electricFieldProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     // Shared by all quantum potentials

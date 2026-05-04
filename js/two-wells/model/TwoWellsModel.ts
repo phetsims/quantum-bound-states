@@ -29,22 +29,28 @@ export default class TwoWellsModel extends QBSModel {
 
     const numberOfWellsProperty = new NumberProperty( 2, {
       numberType: 'Integer',
-      range: new Range( 2, 2 )
-      // No PhET-iO instrumentation, since it's effectively a constant.
+      range: new Range( 2, 2 ), // effectively constant
+      tandem: tandem.createTandem( 'numberOfWellsProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     const electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
-      range: new Range( 1, 1 )
-      // No PhET-iO instrumentation, since it's effectively a constant.
+      range: new Range( 1, 1 ), // effectively constant
+      tandem: tandem.createTandem( 'electronMassesProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     // Effectively constant
     const electricFieldProperty = new NumberProperty( 0, {
       units: voltsPerNanometerUnit,
-      range: new Range( 0, 0 )
-      // No PhET-iO instrumentation, since it's effectively a constant.
+      range: new Range( 0, 0 ), // effectively constant
+      tandem: tandem.createTandem( 'electricFieldProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     // Shared by all quantum potentials

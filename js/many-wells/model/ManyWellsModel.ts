@@ -38,8 +38,10 @@ export default class ManyWellsModel extends QBSModel {
     const electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
-      range: new Range( 1, 1 )
-      // No PhET-iO instrumentation, since it's effectively a constant.
+      range: new Range( 1, 1 ), // effectively constant
+      tandem: tandem.createTandem( 'electronMassesProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     const electricFieldProperty = new NumberProperty( 0, {

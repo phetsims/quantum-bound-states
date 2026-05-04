@@ -33,21 +33,27 @@ export default class SuperpositionModel extends QBSModel {
   public constructor( tandem: Tandem ) {
 
     const numberOfWellsProperty = new NumberProperty( 1, {
-      range: new Range( 1, 1 )
-      // No PhET-iO instrumentation, since it's effectively a constant.
+      numberType: 'Integer',
+      range: new Range( 1, 1 ), // effectively constant
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     const electronMassesProperty = new NumberProperty( 1, {
       numberType: 'FloatingPoint',
       units: electronMassesUnit,
-      range: new Range( 1, 1 )
-      // No PhET-iO instrumentation, since it's effectively a constant.
+      range: new Range( 1, 1 ), // effectively constant
+      tandem: tandem.createTandem( 'electronMassesProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     const electricFieldProperty = new NumberProperty( 0, {
       units: voltsPerNanometerUnit,
-      range: new Range( 0, 0 )
-      // No PhET-iO instrumentation, since it's effectively a constant.
+      range: new Range( 0, 0 ), // effectively constant
+      tandem: tandem.createTandem( 'electricFieldProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     // Shared by all quantum potentials
