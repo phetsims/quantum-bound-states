@@ -15,6 +15,7 @@ import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import ArrayIO from '../../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
@@ -72,6 +73,7 @@ export default class XGrid extends PhetioObject {
     affirm( xCoordinates.length === this.numberOfPoints, 'xCoordinates.length should be equal to numberOfPoints' );
 
     this.xCoordinatesProperty = new Property( xCoordinates, {
+      units: nanometersUnit,
       validValues: [ xCoordinates ], // effectively constant
       tandem: options.tandem.createTandem( 'xCoordinatesProperty' ),
       phetioValueType: ArrayIO( NumberIO ),
