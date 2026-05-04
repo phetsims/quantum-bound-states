@@ -14,4 +14,17 @@ export default class AverageProbabilityDensityOfBandGraph extends QuantumStateGr
   public constructor( tandem: Tandem ) {
     super( tandem );
   }
+
+  //TODO Compute values using this algorithm from BSAverageProbabilityDensityPlotter.java updateProbabilityDensitySeries
+  /**
+   * Updates the probability density series to display
+   * the average probability density of all selected eigenstates
+   * (those eigenstates with non-zero superposition coefficients).
+   * <p>
+   * If eigenstates E1, E2, E3 are selected, then average probability density
+   * is computed as:
+   * <code>
+   * ( |Psi1(x,t)|^2 + |Psi2(x,t)|^2 + |Psi3(x,t)|^2 ) / 3
+   * </code>
+   */
 }
