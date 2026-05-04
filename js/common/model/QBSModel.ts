@@ -68,7 +68,7 @@ export default class QBSModel implements TModel {
   private readonly potentials: QuantumPotential[];
 
   //TODO This is a temporary implementation of superposition coefficients that does not address phase.
-  public readonly superpositionCoefficients: SuperpositionCoefficients;
+  public readonly superpositionCoefficientsProperty: Property<SuperpositionCoefficients>;
 
   // Properties that are shared by all potentials.
   public readonly numberOfWellsProperty: NumberProperty;
@@ -147,13 +147,15 @@ export default class QBSModel implements TModel {
       phetioReadOnly: true
     } );
 
-    this.superpositionCoefficients = new SuperpositionCoefficients();
+    this.superpositionCoefficientsProperty = new Property( new SuperpositionCoefficients() );
 
     //TODO This is not appropriate for the Superposition screen, which has no concept of 'selected energy level'.
     if ( options.energyLevelPropertyInstrumented ) {
       Multilink.multilink( [ this.energyLevelProperty, this.boundStateResultProperty ],
         ( energyLevel, boundStateResult ) => {
-          this.superpositionCoefficients.setOneCoefficient( energyLevel, boundStateResult.energies.length );
+          const superpositionCoefficients = new SuperpositionCoefficients();
+          superpositionCoefficients.setOneCoefficient( energyLevel, boundStateResult.energies.length );
+          this.superpositionCoefficientsProperty.value = superpositionCoefficients;
         } );
     }
 
