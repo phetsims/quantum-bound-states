@@ -72,8 +72,8 @@ export default abstract class QuantumPotential extends PhetioObject {
 
       // SelfOptions
       groundStateIndex: 1,
-      xOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant 0
-      yOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant 0
+      xOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant
+      yOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant
       energyAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
       accessibleNameProperty: providedOptions.visualNameProperty,
 
