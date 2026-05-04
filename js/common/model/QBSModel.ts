@@ -31,6 +31,7 @@ import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import XGrid from './solver/XGrid.js';
+import SuperpositionCoefficients from './SuperpositionCoefficients.js';
 import Time from './Time.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
@@ -65,6 +66,9 @@ export default class QBSModel implements TModel {
   // The quantum potential that is currently selected.
   public readonly potentialProperty: Property<QuantumPotential>;
   private readonly potentials: QuantumPotential[];
+
+  //TODO This is a temporary implementation of superposition coefficients that does not address phase.
+  public readonly superpositionCoefficients: SuperpositionCoefficients;
 
   // Properties that are shared by all potentials.
   public readonly numberOfWellsProperty: NumberProperty;
@@ -142,6 +146,16 @@ export default class QBSModel implements TModel {
       phetioFeatured: true,
       phetioReadOnly: true
     } );
+
+    this.superpositionCoefficients = new SuperpositionCoefficients();
+
+    //TODO This is not appropriate for the Superposition screen, which has no concept of 'selected energy level'.
+    if ( options.energyLevelPropertyInstrumented ) {
+      Multilink.multilink( [ this.energyLevelProperty, this.boundStateResultProperty ],
+        ( energyLevel, boundStateResult ) => {
+          this.superpositionCoefficients.setOneCoefficient( energyLevel, boundStateResult.energies.length );
+        } );
+    }
 
     const potentialChangedListener = () => {
       this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, this.electronMassesProperty.value );
