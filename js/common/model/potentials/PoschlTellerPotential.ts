@@ -158,14 +158,13 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const electricField = this.electricFieldProperty.value;
     const yOffset = this.yOffsetProperty.value;
 
-    // Without an electric field the potential asymptotes to yOffset on both sides, so no bound
-    // states exist above yOffset.
-    // With a non-zero electric field the Stark effect creates a finite tunneling barrier on the
-    // downhill side of the well: to the left of the leftmost well for E > 0, to the right for E < 0.
-    // let's be conservative and find the value of the potential at the left most or right most position of our grid
+    // Without an electric field the potential asymptotes to yOffset on both sides, so no bound states exist above yOffset.
+    // With a non-zero electric field the Stark effect creates a finite tunneling barrier on the downhill side of the
+    // well: to the left of the leftmost well for E > 0, to the right for E < 0. let's be conservative and find the
+    // value of the potential at the left most or right most position of our grid
     const xStar = QBSConstants.ALL_GRAPHS_X_RANGE.min;
 
-    // Return the field-free maximum (yOffset) adjusted downward by the electric field at x*.
+    // Return the field-free maximum (yOffset) adjusted downward by the electric field at xStar.
     return yOffset - Math.abs( electricField * xStar );
   }
 
