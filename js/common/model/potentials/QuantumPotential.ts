@@ -125,12 +125,10 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.yOffsetProperty.reset();
   }
 
-  public override toString(): string {
-    return `${this.tandemPrefix}[ ` +
-           `numberOfWells=${this.numberOfWellsProperty.value} ` +
-           `electricField=${this.electricFieldProperty.value} ` +
-           ']';
-  }
+  /**
+   * Require all subclasses to implement toString for debugging.
+   */
+  public abstract override toString(): string;
 
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
