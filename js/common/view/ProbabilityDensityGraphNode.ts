@@ -9,7 +9,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
@@ -51,33 +50,21 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
-    // Computes the y-coordinates for the probability density plot.
-    const computeYCoordinates = (): number[] => {
-      const groundStateIndex = model.potentialProperty.value.groundStateIndex;
-      const waveFunctionsIndex = model.energyLevelProperty.value - groundStateIndex;
-      const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
-      affirm( waveFunctionsIndex >= 0 && waveFunctions.length, `waveFunctionsIndex out of range: ${waveFunctionsIndex}` );
-      return waveFunctions[ waveFunctionsIndex ].map( x => x * x );
-    };
-
-    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.energyDiagram.xGrid.xCoordinates, computeYCoordinates(), {
+    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates,
+      model.probabilityDensityGraph.probabilityDensityValuesProperty.value, {
       stroke: QBSColors.probabilityDensityStrokeProperty,
       lineWidth: 2
     } );
 
-    // Update the plot when the selected energy level or the bound-state result changes.
-    const updateProbabilityDensityPlot = () => {
-      const yCoordinates = computeYCoordinates();
-      probabilityDensityPlot.setYCoordinates( yCoordinates );
+    this.curveLayer.addChild( probabilityDensityPlot );
+
+    model.probabilityDensityGraph.probabilityDensityValuesProperty.lazyLink( probabilityDensityValues => {
+      probabilityDensityPlot.setYCoordinates( probabilityDensityValues );
 
       // Change y-axis range and tick marks to fit the entire curve.
-      const maxY = Math.max( ...yCoordinates );
+      const maxY = Math.max( ...probabilityDensityValues );
       this.setYRange( new Range( 0, maxY + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( maxY );
-    };
-    model.energyLevelProperty.link( updateProbabilityDensityPlot );
-    model.boundStateResultProperty.link( updateProbabilityDensityPlot );
-
-    this.curveLayer.addChild( probabilityDensityPlot );
+    } );
   }
 }

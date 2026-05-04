@@ -182,7 +182,7 @@ export default class QBSModel implements TModel {
       quantumStateGraphs.push( this.averageProbabilityDensityOfBandGraph );
     }
 
-    this.probabilityDensityGraph = new ProbabilityDensityGraph( quantumStateGraphsTandem.createTandem( 'probabilityDensityGraph' ) );
+    this.probabilityDensityGraph = new ProbabilityDensityGraph( this, quantumStateGraphsTandem.createTandem( 'probabilityDensityGraph' ) );
     quantumStateGraphs.push( this.probabilityDensityGraph );
 
     this.waveFunctionGraph = new WaveFunctionGraph( quantumStateGraphsTandem.createTandem( 'waveFunctionGraph' ) );
