@@ -18,6 +18,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
 
   public readonly probabilityDensityValuesProperty: TReadOnlyProperty<number[]>;
 
+  //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
 
     super( tandem );

@@ -120,8 +120,7 @@ export default class QBSModel implements TModel {
 
     this.boundStateResultProperty = new Property( solveBoundState( options.potential, this.xGrid, this.electronMassesProperty.value ) );
 
-    this.energyDiagram = new EnergyDiagram( this.potentialProperty, this.xGrid, this.boundStateResultProperty,
-      options.tandem.createTandem( 'energyDiagram' ) );
+    this.energyDiagram = new EnergyDiagram( this, options.tandem.createTandem( 'energyDiagram' ) );
 
     this.energyLevelProperty = new NumberProperty( this.potentialProperty.value.groundStateIndex, {
       numberType: 'Integer',
@@ -185,7 +184,7 @@ export default class QBSModel implements TModel {
     this.probabilityDensityGraph = new ProbabilityDensityGraph( this, quantumStateGraphsTandem.createTandem( 'probabilityDensityGraph' ) );
     quantumStateGraphs.push( this.probabilityDensityGraph );
 
-    this.waveFunctionGraph = new WaveFunctionGraph( quantumStateGraphsTandem.createTandem( 'waveFunctionGraph' ) );
+    this.waveFunctionGraph = new WaveFunctionGraph( this, quantumStateGraphsTandem.createTandem( 'waveFunctionGraph' ) );
     quantumStateGraphs.push( this.waveFunctionGraph );
 
     //TODO Initial value should be quantumStateGraphs[ 0 ]

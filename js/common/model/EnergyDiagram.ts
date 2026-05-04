@@ -13,14 +13,9 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
-import QuantumPotential from './potentials/QuantumPotential.js';
-import { BoundStateResult } from './solver/BoundStateResult.js';
-import XGrid from './solver/XGrid.js';
+import QBSModel from './QBSModel.js';
 
 export default class EnergyDiagram {
-
-  public readonly xGrid: XGrid;
-  public readonly boundStateResultProperty: TReadOnlyProperty<BoundStateResult>;
 
   public readonly yRangeProperty: TReadOnlyProperty<Range>;
   private readonly _yRangeProperty: Property<Range>;
@@ -28,15 +23,10 @@ export default class EnergyDiagram {
   // Visibility of values on drag handles and energy lines.
   public readonly valuesVisibleProperty: Property<boolean>;
 
-  public constructor( potentialProperty: TReadOnlyProperty<QuantumPotential>,
-                      xGrid: XGrid,
-                      boundStateResultProperty: TReadOnlyProperty<BoundStateResult>,
-                      tandem: Tandem ) {
+  //TODO Reduce coupling with QBSModel
+  public constructor( model: QBSModel, tandem: Tandem ) {
 
-    this.xGrid = xGrid;
-    this.boundStateResultProperty = boundStateResultProperty;
-
-    this._yRangeProperty = new Property( potentialProperty.value.energyAxisRange, {
+    this._yRangeProperty = new Property( model.potentialProperty.value.energyAxisRange, {
       tandem: tandem.createTandem( 'yRangeProperty' ),
       phetioValueType: Range.RangeIO,
       phetioFeatured: true,
@@ -50,9 +40,9 @@ export default class EnergyDiagram {
     } );
 
     const yOffsetListener = ( yOffset: number ) => {
-      this._yRangeProperty.value = potentialProperty.value.energyAxisRange.shifted( yOffset );
+      this._yRangeProperty.value = model.potentialProperty.value.energyAxisRange.shifted( yOffset );
     };
-    potentialProperty.link( ( potential, oldPotential ) => {
+    model.potentialProperty.link( ( potential, oldPotential ) => {
       oldPotential && oldPotential.yOffsetProperty.unlink( yOffsetListener );
       potential && potential.yOffsetProperty.link( yOffsetListener );
     } );

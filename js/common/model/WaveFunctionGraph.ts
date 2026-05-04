@@ -11,6 +11,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
+import QBSModel from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 
 export default class WaveFunctionGraph extends QuantumStateGraph {
@@ -21,7 +22,8 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   public readonly magnitudeVisibleProperty: Property<boolean>;
   public readonly phaseVisibleProperty: Property<boolean>;
 
-  public constructor( tandem: Tandem ) {
+  //TODO Reduce coupling with QBSModel
+  public constructor( model: QBSModel, tandem: Tandem ) {
 
     super( tandem );
 

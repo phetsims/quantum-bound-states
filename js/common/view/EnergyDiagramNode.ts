@@ -21,7 +21,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import EnergyDiagram from '../model/EnergyDiagram.js';
+import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EigenvaluesPlot from './EigenvaluesPlot.js';
@@ -40,7 +40,8 @@ export default class EnergyDiagramNode extends Node {
   private readonly yTickLabelSet: TickLabelSet;
   private readonly horizontalGridLines: GridLineSet;
 
-  public constructor( energyDiagram: EnergyDiagram, tandem: Tandem ) {
+  //TODO Reduce coupling with QBSModel
+  public constructor( model: QBSModel, tandem: Tandem ) {
 
     super( {
       accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleHeadingStringProperty,
@@ -52,7 +53,7 @@ export default class EnergyDiagramNode extends Node {
       viewWidth: QBSConstants.ALL_GRAPHS_VIEW_WIDTH,
       viewHeight: QBSConstants.ENERGY_DIAGRAM_VIEW_HEIGHT,
       modelXRange: QBSConstants.ALL_GRAPHS_X_RANGE,
-      modelYRange: energyDiagram.yRangeProperty.value
+      modelYRange: model.energyDiagram.yRangeProperty.value
     } );
 
     this.chartRectangle = new ChartRectangle( this.chartTransform, {
@@ -101,19 +102,18 @@ export default class EnergyDiagramNode extends Node {
     } );
 
     // Plots the shape of the selected potential.
-    const potentialPlot = new YLinePlot( this.chartTransform, energyDiagram.xGrid.xCoordinates,
-      energyDiagram.boundStateResultProperty.value.potentials, {
-        stroke: QBSColors.potentialEnergyColorProperty,
-        lineWidth: 3
-      } );
+    const potentialPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, model.boundStateResultProperty.value.potentials, {
+      stroke: QBSColors.potentialEnergyColorProperty,
+      lineWidth: 3
+    } );
 
     // Plots the eigenvalues of the selected potential.
-    const eigenvaluesPlot = new EigenvaluesPlot( this.chartTransform, energyDiagram.boundStateResultProperty.value.energies, {
+    const eigenvaluesPlot = new EigenvaluesPlot( this.chartTransform, model.boundStateResultProperty.value.energies, {
       stroke: QBSColors.totalEnergyColorProperty,
       lineWidth: 2
     } );
 
-    energyDiagram.boundStateResultProperty.lazyLink( boundStateResult => {
+    model.boundStateResultProperty.lazyLink( boundStateResult => {
       potentialPlot.setYCoordinates( boundStateResult.potentials );
       eigenvaluesPlot.setEigenvalues( boundStateResult.energies );
     } );
@@ -125,7 +125,7 @@ export default class EnergyDiagramNode extends Node {
 
     this.children = [ pickableFalseNode, curveLayer ];
 
-    energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
+    model.energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
   }
 
   private setYRange( yRange: Range ): void {

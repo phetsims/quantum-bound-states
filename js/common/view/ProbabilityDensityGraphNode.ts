@@ -23,6 +23,7 @@ type ProbabilityDensityGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNo
 
 export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
+  //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
     const options = optionize<ProbabilityDensityGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {

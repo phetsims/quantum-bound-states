@@ -24,6 +24,7 @@ type WaveFunctionGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNodeOpti
 
 export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
+  //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, providedOptions: WaveFunctionGraphNodeOptions ) {
 
     const options = optionize<WaveFunctionGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {
