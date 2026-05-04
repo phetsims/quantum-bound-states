@@ -252,6 +252,19 @@ a11y:
       accessibleNamePreset4: c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3
 
   #=======================================================================================================
+  # Dialogs
+  #=======================================================================================================
+
+  averageProbabilityDensityOfBandDetailsDialog:
+    accessibleParagraph:     TODO.averageProbabilityDensityOfBandDetailsDialog.accessibleParagraph
+
+  probabilityDensityDetailsDialog:
+    accessibleParagraph: TODO.probabilityDensityDetailsDialog.accessibleParagraph
+
+  waveFunctionDetailsDialog:
+    accessibleParagraph: TODO.waveFunctionDetailsDialog.accessibleParagraph
+
+  #=======================================================================================================
   # Drag Handles
   #=======================================================================================================
 

@@ -486,6 +486,21 @@
         }
       }
     },
+    "averageProbabilityDensityOfBandDetailsDialog": {
+      "accessibleParagraph": {
+        "value": "TODO.averageProbabilityDensityOfBandDetailsDialog.accessibleParagraph"
+      }
+    },
+    "probabilityDensityDetailsDialog": {
+      "accessibleParagraph": {
+        "value": "TODO.probabilityDensityDetailsDialog.accessibleParagraph"
+      }
+    },
+    "waveFunctionDetailsDialog": {
+      "accessibleParagraph": {
+        "value": "TODO.waveFunctionDetailsDialog.accessibleParagraph"
+      }
+    },
     "energyOffsetHandle": {
       "accessibleName": {
         "value": "TODO.energyOffsetHandle.accessibleName"

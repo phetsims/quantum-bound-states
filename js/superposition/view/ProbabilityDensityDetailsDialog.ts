@@ -23,7 +23,8 @@ export default class ProbabilityDensityDetailsDialog extends Dialog {
 
     //TODO Create dialog content.
     const content = new RichText( 'Under Construction', {
-      font: QBSConstants.CONTROL_FONT
+      font: QBSConstants.CONTROL_FONT,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.probabilityDensityDetailsDialog.accessibleParagraphStringProperty
     } );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {

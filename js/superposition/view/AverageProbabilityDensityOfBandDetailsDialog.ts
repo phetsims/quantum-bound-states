@@ -24,7 +24,8 @@ export default class AverageProbabilityDensityOfBandDetailsDialog extends Dialog
 
     //TODO Create dialog content.
     const content = new RichText( 'Under Construction', {
-      font: QBSConstants.CONTROL_FONT
+      font: QBSConstants.CONTROL_FONT,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.averageProbabilityDensityOfBandDetailsDialog.accessibleParagraphStringProperty
     } );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {

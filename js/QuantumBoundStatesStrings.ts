@@ -231,6 +231,15 @@ type StringsType = {
         'accessibleNamePreset4StringProperty': LocalizedStringProperty;
       }
     };
+    'averageProbabilityDensityOfBandDetailsDialog': {
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
+    'probabilityDensityDetailsDialog': {
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
+    'waveFunctionDetailsDialog': {
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
     'energyOffsetHandle': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

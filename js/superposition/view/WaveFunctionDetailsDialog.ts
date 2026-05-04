@@ -10,8 +10,8 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
-import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class WaveFunctionDetailsDialog extends Dialog {
 
@@ -23,7 +23,8 @@ export default class WaveFunctionDetailsDialog extends Dialog {
 
     //TODO Create dialog content.
     const content = new RichText( 'Under Construction', {
-      font: QBSConstants.CONTROL_FONT
+      font: QBSConstants.CONTROL_FONT,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.waveFunctionDetailsDialog.accessibleParagraphStringProperty
     } );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
