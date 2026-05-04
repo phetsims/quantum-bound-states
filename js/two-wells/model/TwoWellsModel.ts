@@ -44,7 +44,6 @@ export default class TwoWellsModel extends QBSModel {
       phetioReadOnly: true
     } );
 
-    // Effectively constant
     const electricFieldProperty = new NumberProperty( 0, {
       units: voltsPerNanometerUnit,
       range: new Range( 0, 0 ), // effectively constant
