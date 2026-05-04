@@ -56,16 +56,15 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       stroke: QBSColors.probabilityDensityStrokeProperty,
       lineWidth: 2
     } );
-
     this.curveLayer.addChild( probabilityDensityPlot );
 
     model.probabilityDensityGraph.probabilityDensityValuesProperty.lazyLink( probabilityDensityValues => {
       probabilityDensityPlot.setYCoordinates( probabilityDensityValues );
+    } );
 
-      // Change y-axis range and tick marks to fit the entire curve.
-      const maxY = Math.max( ...probabilityDensityValues );
-      this.setYRange( new Range( 0, maxY + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
-      this.setYTickSpacing( maxY );
+    model.probabilityDensityGraph.yAxisRangeProperty.link( yAxisRange => {
+      this.setYRange( new Range( yAxisRange.min, yAxisRange.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
+      this.setYTickSpacing( yAxisRange.max );
     } );
   }
 }

@@ -7,9 +7,11 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
@@ -63,6 +65,9 @@ export default class QBSModel implements TModel {
 
   // Result for configuration of the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
+
+  // Time-independent wave function values for the selected potential and selected energy level.
+  public readonly selectedWaveFunctionValuesProperty: TReadOnlyProperty<number[]>;
 
   // Constant grid of x-coordinates, used for all graphs.
   public readonly xGrid: XGrid;
@@ -162,6 +167,16 @@ export default class QBSModel implements TModel {
         }
       }
     } );
+
+    this.selectedWaveFunctionValuesProperty = new DerivedProperty(
+      [ this.boundStateResultProperty, this.energyLevelProperty ],
+      ( boundStateResult, energyLevel ) => {
+        const groundStateIndex = this.potentialProperty.value.groundStateIndex;
+        const waveFunctionsIndex = energyLevel - groundStateIndex;
+        const waveFunctions = boundStateResult.waveFunctions;
+        affirm( waveFunctionsIndex >= 0 && waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
+        return waveFunctions[ waveFunctionsIndex ];
+      } );
 
     // These Properties are owned by the top-level model - QBSModel and its subclasses. They are shared by all potentials,
     // so we do not get notification from the potentials when they change. Instead, we must listen for changes and

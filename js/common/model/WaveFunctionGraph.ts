@@ -8,8 +8,13 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
@@ -21,6 +26,12 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   public readonly imaginaryPartVisibleProperty: Property<boolean>;
   public readonly magnitudeVisibleProperty: Property<boolean>;
   public readonly phaseVisibleProperty: Property<boolean>;
+
+  // Values for wave function components
+  public readonly realPartValuesProperty: TReadOnlyProperty<number[]>;
+
+  // Range for the y-axis
+  public readonly yAxisRangeProperty: TReadOnlyProperty<Range>;
 
   //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
@@ -46,6 +57,23 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
       tandem: tandem.createTandem( 'phaseVisibleProperty' ),
       phetioFeatured: true
     } );
+
+    this.realPartValuesProperty = new DerivedProperty(
+      [ model.selectedWaveFunctionValuesProperty ],
+      selectedWaveFunctionValues => selectedWaveFunctionValues, {
+        tandem: tandem.createTandem( 'realPartValuesProperty' ),
+        phetioValueType: ArrayIO( NumberIO ),
+        phetioFeatured: true
+      } );
+
+    this.yAxisRangeProperty = new DerivedProperty( [ model.selectedWaveFunctionValuesProperty ],
+      selectedWaveFunctionValues => {
+        //TODO It may be more performant to return maxAbsY as part of BoundStateResult
+        const minY = Math.min( ...selectedWaveFunctionValues );
+        const maxY = Math.max( ...selectedWaveFunctionValues );
+        const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
+        return new Range( -maxAbsY, maxAbsY );
+      } );
   }
 
   public override reset(): void {

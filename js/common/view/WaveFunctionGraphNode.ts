@@ -8,8 +8,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import Range from '../../../../dot/js/Range.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
@@ -52,34 +50,17 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
-    // Computes the y-coordinates for the wave function plot.
-    const computeYCoordinates = (): number[] => {
-      const groundStateIndex = model.potentialProperty.value.groundStateIndex;
-      const waveFunctionsIndex = model.energyLevelProperty.value - groundStateIndex;
-      const waveFunctions = model.boundStateResultProperty.value.waveFunctions;
-      affirm( waveFunctionsIndex >= 0 && waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
-      return waveFunctions[ waveFunctionsIndex ];
-    };
-
-    const waveFunctionPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, computeYCoordinates(), {
+    const waveFunctionPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, model.waveFunctionGraph.realPartValuesProperty.value, {
       stroke: QBSColors.realPartStrokeProperty,
       lineWidth: 2
     } );
     this.curveLayer.addChild( waveFunctionPlot );
 
-    // Update the plot when the selected energy level or the bound-state result changes.
-    const updateWaveFunctionPlot = () => {
-      const yCoordinates = computeYCoordinates();
-      waveFunctionPlot.setYCoordinates( yCoordinates );
+    model.waveFunctionGraph.realPartValuesProperty.lazyLink( realPartValues => waveFunctionPlot.setYCoordinates( realPartValues ) );
 
-      // Change the y-axis range and tick marks to fit the entire curve.
-      const minY = Math.min( ...yCoordinates );
-      const maxY = Math.max( ...yCoordinates );
-      const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
-      this.setYRange( new Range( -maxAbsY, maxAbsY ).dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
-      this.setYTickSpacing( maxY );
-    };
-    model.energyLevelProperty.link( updateWaveFunctionPlot );
-    model.boundStateResultProperty.link( updateWaveFunctionPlot );
+    model.waveFunctionGraph.yAxisRangeProperty.link( yAxisRange => {
+      this.setYRange( yAxisRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
+      this.setYTickSpacing( yAxisRange.max );
+    } );
   }
 }
