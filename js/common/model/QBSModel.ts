@@ -35,11 +35,19 @@ import Time from './Time.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
-  potential?: QuantumPotential;
+
+  // Set of quantum potential instances supported by the model.
   potentials: QuantumPotential[];
+
+  // Quantum potential instance that is initially selected.
+  potential?: QuantumPotential;
+
+  // Whether this model has the 'Average Probability Density of Band' graph
   hasAverageProbabilityDensityOfBandGraph?: boolean;
 
-  // Whether energyLevelProperty is instrumented for PhET-iO.
+  // Whether energyLevelProperty is instrumented for PhET-iO. In the Superposition screen, there is no concept of
+  // a selected energy level, and any energy level with a non-zero superposition coefficient contributes to the
+  // wave function computation.
   energyLevelPropertyInstrumented?: boolean;
 
   // Properties that are shared by all potentials. QBSModel is responsible for resetting these.
