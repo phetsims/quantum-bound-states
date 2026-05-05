@@ -50,7 +50,7 @@
     "value": "Energy Diagram"
   },
   "averageProbabilityDensityOfBandDetailsButton": {
-    "value": "?"
+    "value": "|Ψ(x,t)|<sup>2</sup> = ..."
   },
   "probabilityDensityDetailsButton": {
     "value": "|Ψ(x,t)|<sup>2</sup> = ..."
