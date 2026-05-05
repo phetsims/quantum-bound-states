@@ -9,6 +9,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
+import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential, { AsymmetricTrianglePotentialOptions } from '../../common/model/potentials/AsymmetricTrianglePotential.js';
@@ -22,9 +23,14 @@ import PoschlTellerPotential, { PoschlTellerPotentialOptions } from '../../commo
 import { QuantumPotentialOptions } from '../../common/model/potentials/QuantumPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
+import { electronVoltsUnit } from '../../common/model/units/electronVoltsUnit.js';
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
+import QBSConstants from '../../common/QBSConstants.js';
 
 export default class OneWellModel extends QBSModel {
+
+  // Energy offset (y-offset) of the selected potential.
+  public readonly energyOffsetProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
 
@@ -98,6 +104,22 @@ export default class OneWellModel extends QBSModel {
       electricFieldProperty: electricFieldProperty,
       potentials: potentials,
       tandem: tandem
+    } );
+
+    this.energyOffsetProperty = new NumberProperty( this.potentialProperty.value.yOffsetProperty.value, {
+      units: electronVoltsUnit,
+      range: this.potentialProperty.value.yOffsetProperty.range
+      // PhET-iO instrumentation is not necessary.
+    } );
+
+    // Update the energy offset of the selected potential.
+    this.energyOffsetProperty.lazyLink( energyOffset => {
+      this.potentialProperty.value.yOffsetProperty.value = roundToInterval( energyOffset, QBSConstants.Y_OFFSET_INTERVAL );
+    } );
+
+    // Adjust energy offset to match the selected potential.
+    this.potentialProperty.link( potential => {
+      this.energyOffsetProperty.setValueAndRange( potential.yOffsetProperty.value, potential.yOffsetProperty.range );
     } );
   }
 }

@@ -31,15 +31,14 @@ import QBSModel from '../model/QBSModel.js';
 import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
-import EnergyOffsetSpinner from './EnergyOffsetSpinner.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
 
 type SelfOptions = {
 
-  // Whether to create a spinner to control the selected potential's energy offset.
-  hasEnergyOffsetSpinner?: boolean;
+  // Creates a spinner to control the selected potential's energy offset.
+  createEnergyOffsetSpinner?: ( ( tandem: Tandem ) => Node ) | null;
 
   // Creates zoom buttons for the Energy Diagram's y-axis.
   createZoomButtonGroup?: ( ( tandem: Tandem ) => Node ) | null;
@@ -60,14 +59,14 @@ export default class QBSScreenView extends ScreenView {
     const options = optionize<QBSScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
       // SelfOptions
-      hasEnergyOffsetSpinner: false,
+      createEnergyOffsetSpinner: null,
       createZoomButtonGroup: null,
       createProbabilityDensityDetailsButton: null,
       createWaveFunctionDetailsButton: null
     }, providedOptions );
 
-    affirm( !( options.hasEnergyOffsetSpinner && options.createZoomButtonGroup ),
-      'hasEnergyOffsetSpinner and createZoomButtonGroup are mutually exclusive because these UI components occupy the same location.' );
+    affirm( !( options.createEnergyOffsetSpinner && options.createZoomButtonGroup ),
+      'createEnergyOffsetSpinner and createZoomButtonGroup are mutually exclusive because these UI components occupy the same location.' );
 
     super( options );
 
@@ -77,9 +76,8 @@ export default class QBSScreenView extends ScreenView {
 
     // Add a spinner to control the selected potential's energy offset, which changes the y-range of the Energy Diagram.
     let energyOffsetSpinner: Node | undefined;
-    if ( options.hasEnergyOffsetSpinner ) {
-      energyOffsetSpinner = new EnergyOffsetSpinner( model.energyOffsetProperty, model.energyOffsetProperty.rangeProperty,
-        energyDiagramNode.tandem.createTandem( 'energyOffsetSpinner' ) );
+    if ( options.createEnergyOffsetSpinner ) {
+      energyOffsetSpinner = options.createEnergyOffsetSpinner( energyDiagramNode.tandem.createTandem( 'energyOffsetSpinner' ) );
     }
 
     // Add zoom buttons for the y-axis of the Energy Diagram.

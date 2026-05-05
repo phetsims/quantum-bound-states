@@ -7,9 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Range from '../../../../dot/js/Range.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -18,11 +16,9 @@ import QBSConstants from '../QBSConstants.js';
 
 export default class EnergyOffsetSpinner extends NumberSpinner {
 
-  public constructor( energyOffsetPProperty: Property<number>,
-                      rangeProperty: TReadOnlyProperty<Range>,
-                      tandem: Tandem ) {
+  public constructor( energyOffsetProperty: NumberProperty, tandem: Tandem ) {
 
-    super( energyOffsetPProperty, rangeProperty, {
+    super( energyOffsetProperty, energyOffsetProperty.rangeProperty, {
       arrowsScale: 1.5,
       deltaValue: QBSConstants.Y_OFFSET_INTERVAL, // eV
       constrainValue: value => roundToInterval( value, QBSConstants.Y_OFFSET_INTERVAL ),
