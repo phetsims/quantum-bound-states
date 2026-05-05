@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Delete when certain that we will not revert to this approach
 /**
  * EnergyOffsetHandleDragListener is the listener for the drag handle that appears on the y-axis of the Energy Diagram.
  * If supports dragging with pointer and keyboard.

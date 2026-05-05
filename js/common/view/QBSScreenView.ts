@@ -31,24 +31,23 @@ import QBSModel from '../model/QBSModel.js';
 import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
-import EnergyOffsetHandleNode from './EnergyOffsetHandleNode.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
 
 type SelfOptions = {
 
-  // Creates optional zoom buttons for the Energy Diagram's y-axis.
+  // Whether to create a spinner to control the selected potential's energy offset.
+  hasEnergyOffsetSpinner?: boolean;
+
+  // Creates zoom buttons for the Energy Diagram's y-axis.
   createZoomButtonGroup?: ( ( tandem: Tandem ) => Node ) | null;
 
-  // Creates optional button for showing the complete Probability Density equation.
+  // Creates a button for showing the complete Probability Density equation.
   createProbabilityDensityDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
 
-  // Creates optional button for showing the complete Wave Function equation.
+  // Creates a button for showing the complete Wave Function equation.
   createWaveFunctionDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
-
-  // Whether to create optional drag handles that control potential yOffset.
-  hasEnergyOffsetHandle?: boolean;
 };
 
 export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
@@ -60,11 +59,14 @@ export default class QBSScreenView extends ScreenView {
     const options = optionize<QBSScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
       // SelfOptions
+      hasEnergyOffsetSpinner: false,
       createZoomButtonGroup: null,
       createProbabilityDensityDetailsButton: null,
-      createWaveFunctionDetailsButton: null,
-      hasEnergyOffsetHandle: false
+      createWaveFunctionDetailsButton: null
     }, providedOptions );
+
+    affirm( !( options.hasEnergyOffsetSpinner && options.createZoomButtonGroup ),
+      'hasEnergyOffsetSpinner and createZoomButtonGroup are mutually exclusive because these UI components occupy the same location.' );
 
     super( options );
 
@@ -76,6 +78,12 @@ export default class QBSScreenView extends ScreenView {
     let yAxisZoomButtonGroup: Node | undefined;
     if ( options.createZoomButtonGroup ) {
       yAxisZoomButtonGroup = options.createZoomButtonGroup( energyDiagramNode.tandem.createTandem( 'yAxisZoomButtonGroup' ) );
+    }
+
+    // Add a spinner to control the selected potential's energy offset.
+    let energyOffsetSpinner: Node | undefined;
+    if ( options.hasEnergyOffsetSpinner ) {
+      //TODO
     }
 
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
@@ -192,33 +200,14 @@ export default class QBSScreenView extends ScreenView {
       y: quantumStateGraphRectangleBounds.y + QBSConstants.QUANTUM_STATE_GRAPHS_VIEW_HEIGHT
     } );
 
-    // Layer for drag handles used to configure potentials.
-    //TODO Make this a child of EnergyDiagramNode and resolve coordinate-transform problems.
-    const handlesLayer = new Node( {
-      tandem: options.tandem.createTandem( 'handlesLayer' ),
-      phetioVisiblePropertyInstrumented: true,
-      visiblePropertyOptions: { phetioFeatured: true }
-    } );
-
-    // Add an optional handle for each potential's energy offset.
-    if ( options.hasEnergyOffsetHandle ) {
-      const potentials = model.potentialProperty.validValues;
-      affirm( potentials && potentials.length > 0, 'At least one potential is required.' );
-      potentials.forEach( potential => {
-        handlesLayer.addChild( new EnergyOffsetHandleNode( potential, model.potentialProperty, model.energyDiagram,
-          energyDiagramRectangleBounds, energyDiagramNode.chartTransform,
-          energyDiagramNode.tandem.createTandem( `${potential.tandemPrefix}EnergyOffsetHandleNode` ) ) );
-      } );
-    }
-
     // Rendering order, from back to front
     const screenViewRootNode = new Node( {
       children: [
         legendPanel,
         energyDiagramNode,
+        ...( energyOffsetSpinner ? [ energyOffsetSpinner ] : [] ), // optional component
         ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
         ...quantumStateGraphNodes,
-        handlesLayer,
         curvesVisibleToggleButton,
         energyDiagramControlPanel,
         quantumStateGraphControlPanel,
@@ -236,7 +225,7 @@ export default class QBSScreenView extends ScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
       energyDiagramControlPanel,
       energyDiagramNode,
-      handlesLayer,
+      ...( energyOffsetSpinner ? [ energyOffsetSpinner ] : [] ), // optional component
       ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
       magnifierNode,
       ...quantumStateGraphNodes,
