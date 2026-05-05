@@ -38,7 +38,7 @@ export default class ManyWellsScreenView extends QBSScreenView {
       this.energyDiagramNode.tandem.createTandem( 'yAxisZoomButtonGroup' ) );
     this.screenViewRootNode.addChild( yAxisZoomButtonGroup );
     yAxisZoomButtonGroup.right = this.energyDiagramRectangleBounds.left - 26;
-    yAxisZoomButtonGroup.bottom = this.energyDiagramRectangleBounds.bottom;
+    yAxisZoomButtonGroup.bottom = this.energyDiagramRectangleBounds.bottom - 7;
     this.pdomOrderInsertAfter( this.pdomPlayAreaNode, this.energyDiagramNode, yAxisZoomButtonGroup );
   }
 }

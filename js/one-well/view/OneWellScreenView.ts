@@ -34,7 +34,7 @@ export default class OneWellScreenView extends QBSScreenView {
       this.energyDiagramNode.tandem.createTandem( 'energyRangeShiftSpinner' ) );
     this.screenViewRootNode.addChild( energyRangeShiftSpinner );
     energyRangeShiftSpinner.right = this.energyDiagramRectangleBounds.left - 26;
-    energyRangeShiftSpinner.bottom = this.energyDiagramRectangleBounds.bottom;
+    energyRangeShiftSpinner.bottom = this.energyDiagramRectangleBounds.bottom - 7;
     this.pdomOrderInsertAfter( this.pdomPlayAreaNode, this.energyDiagramNode, energyRangeShiftSpinner );
   }
 }
