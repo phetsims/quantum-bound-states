@@ -247,10 +247,10 @@ export default class QBSScreenView extends ScreenView {
   }
 
   /**
-   * Adds node1 before node2 in the PDOM order of a specific PDOM section.
+   * Inserts node1 before node2 in the PDOM order of a specific PDOM section.
    * Example: this.pdomAddBefore( this.pdomPlayAreaNode, someNewNode, this.someExistingNode );
    */
-  protected pdomAddBefore( pdomSection: PDOMSectionNode, node1: Node, node2: Node ): void {
+  protected pdomOrderInsertBefore( pdomSection: PDOMSectionNode, node1: Node, node2: Node ): void {
     const pdomOrder = pdomSection.getPDOMOrder();
     affirm( pdomOrder, 'expected pdomOrder to be defined' );
     const index = pdomOrder.indexOf( node2 );
@@ -260,10 +260,10 @@ export default class QBSScreenView extends ScreenView {
   }
 
   /**
-   * Adds node2 after node1 in the PDOM order of a specific PDOM section.
+   * Inserts node2 after node1 in the PDOM order of a specific PDOM section.
    * Example: this.pdomAddAfter( this.pdomPlayAreaNode, this.someExistingNode, someNewNode );
    */
-  protected pdomAddAfter( pdomSection: PDOMSectionNode, node1: Node, node2: Node ): void {
+  protected pdomOrderInsertAfter( pdomSection: PDOMSectionNode, node1: Node, node2: Node ): void {
     const pdomOrder = pdomSection.getPDOMOrder();
     affirm( pdomOrder, 'expected pdomOrder to be defined' );
     const index = pdomOrder.indexOf( node1 );

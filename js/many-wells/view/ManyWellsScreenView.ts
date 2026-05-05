@@ -39,6 +39,6 @@ export default class ManyWellsScreenView extends QBSScreenView {
     this.screenViewRootNode.addChild( yAxisZoomButtonGroup );
     yAxisZoomButtonGroup.right = this.energyDiagramRectangleBounds.left - 26;
     yAxisZoomButtonGroup.bottom = this.energyDiagramRectangleBounds.bottom;
-    this.pdomAddAfter( this.pdomPlayAreaNode, this.energyDiagramNode, yAxisZoomButtonGroup );
+    this.pdomOrderInsertAfter( this.pdomPlayAreaNode, this.energyDiagramNode, yAxisZoomButtonGroup );
   }
 }
