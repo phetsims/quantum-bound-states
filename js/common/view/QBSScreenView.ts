@@ -11,10 +11,12 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PDOMSectionNode from '../../../../scenery-phet/js/accessibility/PDOMSectionNode.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -37,12 +39,6 @@ import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
 
 type SelfOptions = {
 
-  // Creates a spinner to shift the range of the Energy Diagram's y-axis for the selected potential.
-  createEnergyRangeShiftSpinner?: ( ( tandem: Tandem ) => Node ) | null;
-
-  // Creates zoom buttons for the Energy Diagram's y-axis.
-  createZoomButtonGroup?: ( ( tandem: Tandem ) => Node ) | null;
-
   // Creates a button for showing the complete Probability Density equation.
   createProbabilityDensityDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
 
@@ -54,37 +50,25 @@ export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions,
 
 export default class QBSScreenView extends ScreenView {
 
+  protected readonly screenViewRootNode: Node;
+  protected readonly energyDiagramNode: Node;
+  protected readonly energyDiagramRectangleBounds: Bounds2;
+
   public constructor( model: QBSModel, listboxParent: Node, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {
 
     const options = optionize<QBSScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
       // SelfOptions
-      createEnergyRangeShiftSpinner: null,
-      createZoomButtonGroup: null,
       createProbabilityDensityDetailsButton: null,
       createWaveFunctionDetailsButton: null
     }, providedOptions );
-
-    affirm( !( options.createEnergyRangeShiftSpinner && options.createZoomButtonGroup ),
-      'createEnergyOffsetSpinner and createZoomButtonGroup are mutually exclusive because these UI components occupy the same location.' );
 
     super( options );
 
     const legendPanel = new LegendPanel( options.tandem.createTandem( 'legendPanel' ) );
 
-    const energyDiagramNode = new EnergyDiagramNode( model, options.tandem.createTandem( 'energyDiagramNode' ) );
-
-    // Add a spinner to shift the y-axis range of the Energy Diagram for the selected potential.
-    let energyRangeShiftSpinner: Node | undefined;
-    if ( options.createEnergyRangeShiftSpinner ) {
-      energyRangeShiftSpinner = options.createEnergyRangeShiftSpinner( energyDiagramNode.tandem.createTandem( 'energyRangeShiftSpinner' ) );
-    }
-
-    // Add zoom buttons for the y-axis of the Energy Diagram.
-    let yAxisZoomButtonGroup: Node | undefined;
-    if ( options.createZoomButtonGroup ) {
-      yAxisZoomButtonGroup = options.createZoomButtonGroup( energyDiagramNode.tandem.createTandem( 'yAxisZoomButtonGroup' ) );
-    }
+    const energyDiagramNode = new EnergyDiagramNode( model, options.tandem.createTandem( 'energyDiagram' ) );
+    this.energyDiagramNode = energyDiagramNode;
 
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
     const quantumStateGraphNodes: QuantumStateGraphNode[] = [];
@@ -136,6 +120,7 @@ export default class QBSScreenView extends ScreenView {
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
     energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + legendPanel.height + 3;
     const energyDiagramRectangleBounds = this.globalToParentBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
+    this.energyDiagramRectangleBounds = energyDiagramRectangleBounds;
 
     // Constrain the Energy Diagram control panel to the height of the Energy diagram.
     energyDiagramControlPanel.maxHeight = energyDiagramRectangleBounds.height;
@@ -152,14 +137,6 @@ export default class QBSScreenView extends ScreenView {
     // Static layout
     energyDiagramControlPanel.left = energyDiagramRectangleBounds.right + 10;
     energyDiagramControlPanel.top = energyDiagramRectangleBounds.top;
-    if ( energyRangeShiftSpinner ) {
-      energyRangeShiftSpinner.right = energyDiagramRectangleBounds.left - 26;
-      energyRangeShiftSpinner.bottom = energyDiagramRectangleBounds.bottom;
-    }
-    if ( yAxisZoomButtonGroup ) {
-      yAxisZoomButtonGroup.right = energyDiagramRectangleBounds.left - 26;
-      yAxisZoomButtonGroup.bottom = energyDiagramRectangleBounds.bottom;
-    }
     quantumStateGraphControlPanel.left = quantumStateGraphRectangleBounds.right + 10;
     quantumStateGraphControlPanel.top = quantumStateGraphRectangleBounds.top;
     curvesVisibleToggleButton.left = quantumStateGraphRectangleBounds.left + 8;
@@ -205,12 +182,10 @@ export default class QBSScreenView extends ScreenView {
     } );
 
     // Rendering order, from back to front
-    const screenViewRootNode = new Node( {
+    this.screenViewRootNode = new Node( {
       children: [
         legendPanel,
         energyDiagramNode,
-        ...( energyRangeShiftSpinner ? [ energyRangeShiftSpinner ] : [] ), // optional component
-        ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
         ...quantumStateGraphNodes,
         curvesVisibleToggleButton,
         energyDiagramControlPanel,
@@ -223,14 +198,12 @@ export default class QBSScreenView extends ScreenView {
         listboxParent // on top of everything else
       ]
     } );
-    this.addChild( screenViewRootNode );
+    this.addChild( this.screenViewRootNode );
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
       energyDiagramControlPanel,
       energyDiagramNode,
-      ...( energyRangeShiftSpinner ? [ energyRangeShiftSpinner ] : [] ), // optional component
-      ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
       magnifierNode,
       ...quantumStateGraphNodes,
       curvesVisibleToggleButton,
@@ -252,7 +225,7 @@ export default class QBSScreenView extends ScreenView {
     // Press this button to open a dialog for configuring the selected potential.
     //TODO Hide this button behind phet.chipper.queryParameters.dev
     const configurePotentialButton = new ConfigurePotentialButton( model.potentialProperty );
-    screenViewRootNode.addChild( configurePotentialButton );
+    this.screenViewRootNode.addChild( configurePotentialButton );
     configurePotentialButton.right = energyDiagramControlPanel.right;
     configurePotentialButton.bottom = energyDiagramControlPanel.top - 5;
   }
@@ -271,5 +244,31 @@ export default class QBSScreenView extends ScreenView {
   public override step( dt: number ): void {
     super.step( dt );
     //TODO Implement step
+  }
+
+  /**
+   * Adds node1 before node2 in the PDOM order for a specific PDOM section.
+   * Example: this.pdomAddBefore( this.pdomPlayAreaNode, someNewNode, this.someExistingNode );
+   */
+  protected pdomAddBefore( pdomSection: PDOMSectionNode, node1: Node, node2: Node ): void {
+     const pdomOrder = pdomSection.getPDOMOrder();
+     affirm( pdomOrder, 'expected pdomOrder to be defined' );
+     const index = pdomOrder.indexOf( node2 );
+     affirm( index !== -1, 'expected node2 to be in pdomOrder' );
+     pdomOrder.splice( index + 1, 0, node1 );
+    pdomSection.setPDOMOrder( pdomOrder );
+  }
+
+  /**
+   * Adds node2 after node1 in the PDOM order for a specific PDOM section.
+   * Example: this.pdomAddAfter( this.pdomPlayAreaNode, this.someExistingNode, someNewNode );
+   */
+  protected pdomAddAfter( pdomSection: PDOMSectionNode, node1: Node, node2: Node ): void {
+     const pdomOrder = pdomSection.getPDOMOrder();
+     affirm( pdomOrder, 'expected pdomOrder to be defined' );
+     const index = pdomOrder.indexOf( node1 );
+     affirm( index !== -1, 'expected node1 to be in pdomOrder' );
+     pdomOrder.splice( index + 1, 0, node2 );
+    pdomSection.setPDOMOrder( pdomOrder );
   }
 }

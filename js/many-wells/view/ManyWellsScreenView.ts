@@ -30,8 +30,15 @@ export default class ManyWellsScreenView extends QBSScreenView {
 
     super( model, listboxParent, energyDiagramControlPanel, {
       screenSummaryContent: new ManyWellsScreenSummaryContent(),
-      createZoomButtonGroup: tandem => new ManyWellsZoomButtonGroup( model.yAxisZoomLevelProperty, tandem ),
       tandem: tandem
     } );
+
+    // Add a zoom button group for the Energy Diagram's y-axis.
+    const yAxisZoomButtonGroup = new ManyWellsZoomButtonGroup( model.yAxisZoomLevelProperty,
+      this.energyDiagramNode.tandem.createTandem( 'yAxisZoomButtonGroup' ) );
+    this.screenViewRootNode.addChild( yAxisZoomButtonGroup );
+    yAxisZoomButtonGroup.right = this.energyDiagramRectangleBounds.left - 26;
+    yAxisZoomButtonGroup.bottom = this.energyDiagramRectangleBounds.bottom;
+    this.pdomAddAfter( this.pdomPlayAreaNode, this.energyDiagramNode, yAxisZoomButtonGroup );
   }
 }

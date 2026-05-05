@@ -25,9 +25,16 @@ export default class OneWellScreenView extends QBSScreenView {
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, listboxParent, energyDiagramControlPanel, {
-      createEnergyRangeShiftSpinner: tandem => new EnergyRangeShiftSpinner( model.energyRangeShiftProperty, tandem ),
       screenSummaryContent: new OneWellScreenSummaryContent(),
       tandem: tandem
     } );
+
+    // Add a spinner to shift the y-axis range of the Energy Diagram for the selected potential.
+    const energyRangeShiftSpinner = new EnergyRangeShiftSpinner( model.energyRangeShiftProperty,
+      this.energyDiagramNode.tandem.createTandem( 'energyRangeShiftSpinner' ) );
+    this.screenViewRootNode.addChild( energyRangeShiftSpinner );
+    energyRangeShiftSpinner.right = this.energyDiagramRectangleBounds.left - 26;
+    energyRangeShiftSpinner.bottom = this.energyDiagramRectangleBounds.bottom;
+    this.pdomAddAfter( this.pdomPlayAreaNode, this.energyDiagramNode, energyRangeShiftSpinner );
   }
 }
