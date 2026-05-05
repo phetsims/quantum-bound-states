@@ -100,6 +100,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     } );
 
     this.yOffsetProperty = new NumberProperty( options.yOffsetRange.defaultValue, {
+      reentrant: true, // see energyRangeShiftProperty
       units: electronVoltsUnit,
       range: options.yOffsetRange,
       tandem: options.tandem.createTandem( 'yOffsetProperty' ),

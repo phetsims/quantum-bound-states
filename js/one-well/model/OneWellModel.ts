@@ -107,18 +107,20 @@ export default class OneWellModel extends QBSModel {
     } );
 
     this.energyRangeShiftProperty = new NumberProperty( this.potentialProperty.value.yOffsetProperty.value, {
+      reentrant: true, // see QuantumPotential yOffsetProperty
       units: electronVoltsUnit,
       range: this.potentialProperty.value.yOffsetProperty.range
       // PhET-iO instrumentation is not necessary.
     } );
 
     // Update y-offset of the selected potential so that the potential does not appear to move on the Energy Diagram.
-    this.energyRangeShiftProperty.lazyLink( energyAxisShift => {
-      this.potentialProperty.value.yOffsetProperty.value = roundToInterval( -energyAxisShift, QBSConstants.Y_OFFSET_INTERVAL );
-      console.log( 'energyAxisShift = ' + energyAxisShift );
+    // y-offset changes in the opposite direction, so we need to negate the value.
+    this.energyRangeShiftProperty.lazyLink( energyRangeShift => {
+      this.potentialProperty.value.yOffsetProperty.value = roundToInterval( -energyRangeShift, QBSConstants.Y_OFFSET_INTERVAL );
     } );
 
     // Synchronize energy range shift with the y-offset of the selected potential.
+    // Range shifts in the opposite direction, so we need to negate the value.
     const yOffsetListener = ( yOffset: number ) => {
       this.energyRangeShiftProperty.value = roundToInterval( -yOffset, QBSConstants.Y_OFFSET_INTERVAL );
     };

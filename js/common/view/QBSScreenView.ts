@@ -37,8 +37,8 @@ import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
 
 type SelfOptions = {
 
-  // Creates a spinner to control the selected potential's energy offset.
-  createEnergyOffsetSpinner?: ( ( tandem: Tandem ) => Node ) | null;
+  // Creates a spinner to shift the range of the Energy Diagram's y-axis for the selected potential.
+  createEnergyRangeShiftSpinner?: ( ( tandem: Tandem ) => Node ) | null;
 
   // Creates zoom buttons for the Energy Diagram's y-axis.
   createZoomButtonGroup?: ( ( tandem: Tandem ) => Node ) | null;
@@ -59,13 +59,13 @@ export default class QBSScreenView extends ScreenView {
     const options = optionize<QBSScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
       // SelfOptions
-      createEnergyOffsetSpinner: null,
+      createEnergyRangeShiftSpinner: null,
       createZoomButtonGroup: null,
       createProbabilityDensityDetailsButton: null,
       createWaveFunctionDetailsButton: null
     }, providedOptions );
 
-    affirm( !( options.createEnergyOffsetSpinner && options.createZoomButtonGroup ),
+    affirm( !( options.createEnergyRangeShiftSpinner && options.createZoomButtonGroup ),
       'createEnergyOffsetSpinner and createZoomButtonGroup are mutually exclusive because these UI components occupy the same location.' );
 
     super( options );
@@ -74,10 +74,10 @@ export default class QBSScreenView extends ScreenView {
 
     const energyDiagramNode = new EnergyDiagramNode( model, options.tandem.createTandem( 'energyDiagramNode' ) );
 
-    // Add a spinner to control the selected potential's energy offset, which changes the y-range of the Energy Diagram.
-    let energyOffsetSpinner: Node | undefined;
-    if ( options.createEnergyOffsetSpinner ) {
-      energyOffsetSpinner = options.createEnergyOffsetSpinner( energyDiagramNode.tandem.createTandem( 'energyOffsetSpinner' ) );
+    // Add a spinner to shift the y-axis range of the Energy Diagram for the selected potential.
+    let energyRangeShiftSpinner: Node | undefined;
+    if ( options.createEnergyRangeShiftSpinner ) {
+      energyRangeShiftSpinner = options.createEnergyRangeShiftSpinner( energyDiagramNode.tandem.createTandem( 'energyRangeShiftSpinner' ) );
     }
 
     // Add zoom buttons for the y-axis of the Energy Diagram.
@@ -152,9 +152,9 @@ export default class QBSScreenView extends ScreenView {
     // Static layout
     energyDiagramControlPanel.left = energyDiagramRectangleBounds.right + 10;
     energyDiagramControlPanel.top = energyDiagramRectangleBounds.top;
-    if ( energyOffsetSpinner ) {
-      energyOffsetSpinner.right = energyDiagramRectangleBounds.left - 26;
-      energyOffsetSpinner.bottom = energyDiagramRectangleBounds.bottom;
+    if ( energyRangeShiftSpinner ) {
+      energyRangeShiftSpinner.right = energyDiagramRectangleBounds.left - 26;
+      energyRangeShiftSpinner.bottom = energyDiagramRectangleBounds.bottom;
     }
     if ( yAxisZoomButtonGroup ) {
       yAxisZoomButtonGroup.right = energyDiagramRectangleBounds.left - 26;
@@ -209,7 +209,7 @@ export default class QBSScreenView extends ScreenView {
       children: [
         legendPanel,
         energyDiagramNode,
-        ...( energyOffsetSpinner ? [ energyOffsetSpinner ] : [] ), // optional component
+        ...( energyRangeShiftSpinner ? [ energyRangeShiftSpinner ] : [] ), // optional component
         ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
         ...quantumStateGraphNodes,
         curvesVisibleToggleButton,
@@ -229,7 +229,7 @@ export default class QBSScreenView extends ScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
       energyDiagramControlPanel,
       energyDiagramNode,
-      ...( energyOffsetSpinner ? [ energyOffsetSpinner ] : [] ), // optional component
+      ...( energyRangeShiftSpinner ? [ energyRangeShiftSpinner ] : [] ), // optional component
       ...( yAxisZoomButtonGroup ? [ yAxisZoomButtonGroup ] : [] ), // optional component
       magnifierNode,
       ...quantumStateGraphNodes,

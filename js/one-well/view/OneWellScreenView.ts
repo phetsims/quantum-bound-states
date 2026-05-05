@@ -25,7 +25,7 @@ export default class OneWellScreenView extends QBSScreenView {
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, listboxParent, energyDiagramControlPanel, {
-      createEnergyOffsetSpinner: tandem => new EnergyRangeShiftSpinner( model.energyRangeShiftProperty, tandem ),
+      createEnergyRangeShiftSpinner: tandem => new EnergyRangeShiftSpinner( model.energyRangeShiftProperty, tandem ),
       screenSummaryContent: new OneWellScreenSummaryContent(),
       tandem: tandem
     } );
