@@ -246,9 +246,10 @@ export default class QBSScreenView extends ScreenView {
     //TODO Implement step
   }
 
+  //TODO https://github.com/phetsims/scenery-phet/issues/979 Consider moving these methods to PDOMSectionNode.
   /**
-   * Inserts node1 before node2 in the PDOM order of a specific PDOM section.
-   * Example: this.pdomAddBefore( this.pdomPlayAreaNode, someNewNode, this.someExistingNode );
+   * Inserts node1 before node2 in the pdomOrder of a specific PDOM section.
+   * Example: this.pdomOrderInsertBefore( this.pdomPlayAreaNode, someNewNode, this.someExistingNode );
    */
   protected pdomOrderInsertBefore( pdomSection: PDOMSectionNode, node1: Node, node2: Node ): void {
     const pdomOrder = pdomSection.getPDOMOrder();
@@ -260,8 +261,8 @@ export default class QBSScreenView extends ScreenView {
   }
 
   /**
-   * Inserts node2 after node1 in the PDOM order of a specific PDOM section.
-   * Example: this.pdomAddAfter( this.pdomPlayAreaNode, this.someExistingNode, someNewNode );
+   * Inserts node2 after node1 in the pdomOrder of a specific PDOM section.
+   * Example: this.pdomOrderInsertAfter( this.pdomPlayAreaNode, this.someExistingNode, someNewNode );
    */
   protected pdomOrderInsertAfter( pdomSection: PDOMSectionNode, node1: Node, node2: Node ): void {
     const pdomOrder = pdomSection.getPDOMOrder();
