@@ -13,6 +13,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import TModel from '../../../../joist/js/TModel.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -31,8 +32,8 @@ import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import XGrid from './solver/XGrid.js';
-import SuperpositionCoefficients from './SuperpositionCoefficients.js';
 import Time from './Time.js';
+import { electronVoltsUnit } from './units/electronVoltsUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
@@ -67,9 +68,6 @@ export default class QBSModel implements TModel {
   public readonly potentialProperty: Property<QuantumPotential>;
   private readonly potentials: QuantumPotential[];
 
-  //TODO This is a temporary implementation of superposition coefficients that does not address phase.
-  public readonly superpositionCoefficientsProperty: Property<SuperpositionCoefficients>;
-
   // Properties that are shared by all potentials.
   public readonly numberOfWellsProperty: NumberProperty;
   public readonly electronMassesProperty: NumberProperty;
@@ -86,6 +84,9 @@ export default class QBSModel implements TModel {
 
   // The selected energy level.
   public readonly energyLevelProperty: NumberProperty;
+
+  // Energy offset (y-offset) of the selected potential.
+  public readonly energyOffsetProperty: NumberProperty;
 
   // Energy diagram
   public readonly energyDiagram: EnergyDiagram;
@@ -147,17 +148,15 @@ export default class QBSModel implements TModel {
       phetioReadOnly: true
     } );
 
-    this.superpositionCoefficientsProperty = new Property( new SuperpositionCoefficients() );
+    this.energyOffsetProperty = new NumberProperty( this.potentialProperty.value.yOffsetProperty.value, {
+      units: electronVoltsUnit,
+      range: this.potentialProperty.value.yOffsetProperty.range
+      //TODO conditionally instrumented for PhET-iO?
+    } );
 
-    //TODO This is not appropriate for the Superposition screen, which has no concept of 'selected energy level'.
-    if ( options.energyLevelPropertyInstrumented ) {
-      Multilink.multilink( [ this.energyLevelProperty, this.boundStateResultProperty ],
-        ( energyLevel, boundStateResult ) => {
-          const superpositionCoefficients = new SuperpositionCoefficients();
-          superpositionCoefficients.setOneCoefficient( energyLevel, boundStateResult.energies.length );
-          this.superpositionCoefficientsProperty.value = superpositionCoefficients;
-        } );
-    }
+    this.energyOffsetProperty.lazyLink( energyOffset => {
+      this.potentialProperty.value.yOffsetProperty.value = roundToInterval( energyOffset, QBSConstants.Y_OFFSET_INTERVAL );
+    } );
 
     const potentialChangedListener = () => {
       this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, this.electronMassesProperty.value );
@@ -175,6 +174,9 @@ export default class QBSModel implements TModel {
         // Adjust energy level range and set to the ground state.
         const energyLevelRange = getEnergyLevelRange( potential.groundStateIndex, this.boundStateResultProperty.value.energies.length );
         this.energyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
+
+        // Adjust energy offset to match the selected potential.
+        this.energyOffsetProperty.setValueAndRange( potential.yOffsetProperty.value, potential.yOffsetProperty.range );
       }
     } );
 

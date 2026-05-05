@@ -336,6 +336,10 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
+    'energyOffsetSpinner': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
     'timeDisplayToggleButton': {
       'accessibleNameOnStringProperty': LocalizedStringProperty;
       'accessibleNameOffStringProperty': LocalizedStringProperty;

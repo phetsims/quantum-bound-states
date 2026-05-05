@@ -31,6 +31,7 @@ import QBSModel from '../model/QBSModel.js';
 import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
+import EnergyOffsetSpinner from './EnergyOffsetSpinner.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
@@ -74,16 +75,17 @@ export default class QBSScreenView extends ScreenView {
 
     const energyDiagramNode = new EnergyDiagramNode( model, options.tandem.createTandem( 'energyDiagramNode' ) );
 
-    // Create yAxisZoomButtonGroup for the Energy Diagram and make it look like a child of the Energy Diagram for PhET-iO.
+    // Add a spinner to control the selected potential's energy offset, which changes the y-range of the Energy Diagram.
+    let energyOffsetSpinner: Node | undefined;
+    if ( options.hasEnergyOffsetSpinner ) {
+      energyOffsetSpinner = new EnergyOffsetSpinner( model.energyOffsetProperty, model.energyOffsetProperty.rangeProperty,
+        energyDiagramNode.tandem.createTandem( 'energyOffsetSpinner' ) );
+    }
+
+    // Add zoom buttons for the y-axis of the Energy Diagram.
     let yAxisZoomButtonGroup: Node | undefined;
     if ( options.createZoomButtonGroup ) {
       yAxisZoomButtonGroup = options.createZoomButtonGroup( energyDiagramNode.tandem.createTandem( 'yAxisZoomButtonGroup' ) );
-    }
-
-    // Add a spinner to control the selected potential's energy offset.
-    let energyOffsetSpinner: Node | undefined;
-    if ( options.hasEnergyOffsetSpinner ) {
-      //TODO
     }
 
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
@@ -152,8 +154,12 @@ export default class QBSScreenView extends ScreenView {
     // Static layout
     energyDiagramControlPanel.left = energyDiagramRectangleBounds.right + 10;
     energyDiagramControlPanel.top = energyDiagramRectangleBounds.top;
+    if ( energyOffsetSpinner ) {
+      energyOffsetSpinner.right = energyDiagramRectangleBounds.left - 26;
+      energyOffsetSpinner.bottom = energyDiagramRectangleBounds.bottom;
+    }
     if ( yAxisZoomButtonGroup ) {
-      yAxisZoomButtonGroup.right = energyDiagramRectangleBounds.left - 20;
+      yAxisZoomButtonGroup.right = energyDiagramRectangleBounds.left - 26;
       yAxisZoomButtonGroup.bottom = energyDiagramRectangleBounds.bottom;
     }
     quantumStateGraphControlPanel.left = quantumStateGraphRectangleBounds.right + 10;

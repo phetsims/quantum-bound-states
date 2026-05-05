@@ -102,7 +102,7 @@ export default class QuantumStateGraphNode extends Node {
 
     const xAxisLabelNode = new RichText( QuantumBoundStatesFluent.position_nmStringProperty, {
       font: QBSConstants.AXIS_LABEL_FONT,
-      maxWidth: 0.5 * this.chartRectangle.width
+      maxWidth: 0.4 * this.chartRectangle.width
     } );
     xAxisLabelNode.boundsProperty.link( () => {
       xAxisLabelNode.centerTop = this.chartRectangle.centerBottom.addXY( 0, 28 );

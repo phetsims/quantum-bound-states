@@ -383,6 +383,10 @@ a11y:
     accessibleName:     Energy Level
     accessibleHelpText: TODO.energyLevelSpinner.accessibleHelpText
 
+  energyOffsetSpinner:
+    accessibleName:                TODO.energyOffsetSpinner.accessibleName
+    accessibleHelpText:            TODO.energyOffsetSpinner.accessibleHelpText
+
   #=======================================================================================================
   # Toggle Buttons and Switches
   #=======================================================================================================

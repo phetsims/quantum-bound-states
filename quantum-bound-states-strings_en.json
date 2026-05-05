@@ -697,6 +697,14 @@
         "value": "TODO.energyLevelSpinner.accessibleHelpText"
       }
     },
+    "energyOffsetSpinner": {
+      "accessibleName": {
+        "value": "TODO.energyOffsetSpinner.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.energyOffsetSpinner.accessibleHelpText"
+      }
+    },
     "timeDisplayToggleButton": {
       "accessibleNameOn": {
         "value": "Hide Time Display"

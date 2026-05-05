@@ -90,6 +90,9 @@ export default class QBSConstants {
   public static readonly X_OFFSET_DECIMAL_PLACES = 1;
   public static readonly Y_OFFSET_DECIMAL_PLACES = 1;
 
+  // Intervals
+  public static readonly Y_OFFSET_INTERVAL = Math.pow( 10, -QBSConstants.Y_OFFSET_DECIMAL_PLACES ); // eV
+
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_ENERGY = 1E20; // eV
 

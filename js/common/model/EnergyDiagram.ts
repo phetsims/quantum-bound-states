@@ -11,7 +11,9 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
 
@@ -40,7 +42,9 @@ export default class EnergyDiagram {
     } );
 
     const yOffsetListener = ( yOffset: number ) => {
-      this._yRangeProperty.value = model.potentialProperty.value.energyAxisRange.shifted( yOffset );
+      const min = roundToInterval( model.potentialProperty.value.energyAxisRange.min + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
+      const max = roundToInterval( model.potentialProperty.value.energyAxisRange.max + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
+      this._yRangeProperty.value = new Range( min, max );
     };
     model.potentialProperty.link( ( potential, oldPotential ) => {
       oldPotential && oldPotential.yOffsetProperty.unlink( yOffsetListener );
