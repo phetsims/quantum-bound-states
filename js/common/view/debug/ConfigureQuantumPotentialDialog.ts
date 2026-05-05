@@ -9,6 +9,7 @@
  */
 
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import VBox from '../../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../../sun/js/Dialog.js';
@@ -19,11 +20,23 @@ export default class ConfigureQuantumPotentialDialog extends Dialog {
 
   protected constructor( titleString: string, content: Node ) {
 
+    const titleNode = new VBox( {
+      children: [
+        new Text( 'For development use only', {
+          font: QBSConstants.TITLE_FONT,
+          fill: 'red'
+        } ),
+        new Text( titleString, {
+          font: QBSConstants.TITLE_FONT,
+          maxWidth: 300
+        } )
+      ],
+      align: 'center',
+      spacing: 4
+    } );
+
     super( content, {
-      title: new Text( titleString, {
-        font: QBSConstants.TITLE_FONT,
-        maxWidth: 300
-      } ),
+      title: titleNode,
       ySpacing: 15,
 
       // In the upper right corner of the layoutBounds, so that it's not covering the Energy Diagram.
