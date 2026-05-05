@@ -28,6 +28,9 @@ export default class EnergyRangeShiftSpinner extends NumberSpinner {
         numberFormatter: value => '',
         tandem: Tandem.OPT_OUT
       },
+      arrowButtonOptions: {
+        fireOnHoldInterval: 25
+      },
       accessibleName: QuantumBoundStatesFluent.a11y.energyRangeShiftSpinner.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyRangeShiftSpinner.accessibleHelpTextStringProperty,
       tandem: tandem
