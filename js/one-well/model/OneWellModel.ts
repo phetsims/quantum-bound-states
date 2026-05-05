@@ -29,8 +29,8 @@ import QBSConstants from '../../common/QBSConstants.js';
 
 export default class OneWellModel extends QBSModel {
 
-  // Energy offset (y-offset) of the selected potential.
-  public readonly energyOffsetProperty: NumberProperty;
+  // How much the y-axis range of the Energy Diagram should shift from its baseline range (when the selected potential's y-offset is zero).
+  public readonly energyRangeShiftProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
 
@@ -106,20 +106,31 @@ export default class OneWellModel extends QBSModel {
       tandem: tandem
     } );
 
-    this.energyOffsetProperty = new NumberProperty( this.potentialProperty.value.yOffsetProperty.value, {
+    this.energyRangeShiftProperty = new NumberProperty( this.potentialProperty.value.yOffsetProperty.value, {
       units: electronVoltsUnit,
       range: this.potentialProperty.value.yOffsetProperty.range
       // PhET-iO instrumentation is not necessary.
     } );
 
-    // Update the energy offset of the selected potential.
-    this.energyOffsetProperty.lazyLink( energyOffset => {
-      this.potentialProperty.value.yOffsetProperty.value = roundToInterval( energyOffset, QBSConstants.Y_OFFSET_INTERVAL );
+    // Update y-offset of the selected potential so that the potential does not appear to move on the Energy Diagram.
+    this.energyRangeShiftProperty.lazyLink( energyAxisShift => {
+      this.potentialProperty.value.yOffsetProperty.value = roundToInterval( -energyAxisShift, QBSConstants.Y_OFFSET_INTERVAL );
+      console.log( 'energyAxisShift = ' + energyAxisShift );
     } );
 
-    // Adjust energy offset to match the selected potential.
-    this.potentialProperty.link( potential => {
-      this.energyOffsetProperty.setValueAndRange( potential.yOffsetProperty.value, potential.yOffsetProperty.range );
+    // Synchronize energy range shift with the y-offset of the selected potential.
+    const yOffsetListener = ( yOffset: number ) => {
+      this.energyRangeShiftProperty.value = roundToInterval( -yOffset, QBSConstants.Y_OFFSET_INTERVAL );
+    };
+    this.potentialProperty.link( ( potential, previousPotential ) => {
+
+      const energyRangeShift = roundToInterval( -potential.yOffsetProperty.value, QBSConstants.Y_OFFSET_INTERVAL );
+      this.energyRangeShiftProperty.setValueAndRange( energyRangeShift, potential.yOffsetProperty.range );
+      
+      if ( previousPotential && previousPotential.yOffsetProperty.hasListener( yOffsetListener ) ) {
+        previousPotential.yOffsetProperty.unlink( yOffsetListener );
+      }
+      potential.yOffsetProperty.lazyLink( yOffsetListener );
     } );
   }
 }

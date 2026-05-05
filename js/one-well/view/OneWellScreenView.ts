@@ -8,7 +8,7 @@
 
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import EnergyOffsetSpinner from '../../common/view/EnergyOffsetSpinner.js';
+import EnergyRangeShiftSpinner from '../../common/view/EnergyRangeShiftSpinner.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
 import { OneWellControlPanel } from './OneWellControlPanel.js';
@@ -25,7 +25,7 @@ export default class OneWellScreenView extends QBSScreenView {
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, listboxParent, energyDiagramControlPanel, {
-      createEnergyOffsetSpinner: tandem => new EnergyOffsetSpinner( model.energyOffsetProperty, tandem ),
+      createEnergyOffsetSpinner: tandem => new EnergyRangeShiftSpinner( model.energyRangeShiftProperty, tandem ),
       screenSummaryContent: new OneWellScreenSummaryContent(),
       tandem: tandem
     } );

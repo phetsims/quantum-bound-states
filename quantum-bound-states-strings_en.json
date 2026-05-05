@@ -697,12 +697,12 @@
         "value": "TODO.energyLevelSpinner.accessibleHelpText"
       }
     },
-    "energyOffsetSpinner": {
+    "energyRangeShiftSpinner": {
       "accessibleName": {
-        "value": "TODO.energyOffsetSpinner.accessibleName"
+        "value": "TODO.energyRangeShiftSpinner.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO.energyOffsetSpinner.accessibleHelpText"
+        "value": "TODO.energyRangeShiftSpinner.accessibleHelpText"
       }
     },
     "timeDisplayToggleButton": {

@@ -209,8 +209,8 @@ addToMapIfDefined( 'a11y_numberOfWellsControl_accessibleHelpText', 'a11y.numberO
 addToMapIfDefined( 'a11y_electricFieldControl_accessibleHelpText', 'a11y.electricFieldControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_energyLevelSpinner_accessibleName', 'a11y.energyLevelSpinner.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_energyLevelSpinner_accessibleHelpText', 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_energyOffsetSpinner_accessibleName', 'a11y.energyOffsetSpinner.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_energyOffsetSpinner_accessibleHelpText', 'a11y.energyOffsetSpinner.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_energyRangeShiftSpinner_accessibleName', 'a11y.energyRangeShiftSpinner.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_energyRangeShiftSpinner_accessibleHelpText', 'a11y.energyRangeShiftSpinner.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleNameOn', 'a11y.timeDisplayToggleButton.accessibleNameOnStringProperty' );
 addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleNameOff', 'a11y.timeDisplayToggleButton.accessibleNameOffStringProperty' );
 addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleHelpText', 'a11y.timeDisplayToggleButton.accessibleHelpTextStringProperty' );
@@ -646,9 +646,9 @@ const QuantumBoundStatesFluent = {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' ) )
     },
-    energyOffsetSpinner: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetSpinner_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetSpinner.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetSpinner_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetSpinner.accessibleHelpTextStringProperty' ) )
+    energyRangeShiftSpinner: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyRangeShiftSpinner_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyRangeShiftSpinner.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyRangeShiftSpinner_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyRangeShiftSpinner.accessibleHelpTextStringProperty' ) )
     },
     _comment_35: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeDisplayToggleButton"} ),
     _comment_36: new FluentComment( {"comment":"Toggle Buttons and Switches","associatedKey":"timeDisplayToggleButton"} ),
