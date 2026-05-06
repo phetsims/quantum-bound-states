@@ -13,6 +13,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../QBSConstants.js';
 
+const FIRE_ON_HOLD_INTERVAL = 25; // ms
+
 export default class EnergyRangeShiftSpinner extends NumberSpinner {
 
   public constructor( energyRangeShiftProperty: NumberProperty, tandem: Tandem ) {
@@ -28,8 +30,9 @@ export default class EnergyRangeShiftSpinner extends NumberSpinner {
         numberFormatter: value => '',
         tandem: Tandem.OPT_OUT
       },
+      pdomTimerInterval: FIRE_ON_HOLD_INTERVAL, // for keyboard input
       arrowButtonOptions: {
-        fireOnHoldInterval: 25,
+        fireOnHoldInterval: FIRE_ON_HOLD_INTERVAL,
         phetioVisiblePropertyInstrumented: false
       },
       accessibleName: QuantumBoundStatesFluent.a11y.energyRangeShiftSpinner.accessibleNameStringProperty,
