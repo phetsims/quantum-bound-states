@@ -127,7 +127,8 @@ export default class OneWellModel extends QBSModel {
     this.potentialProperty.link( ( potential, previousPotential ) => {
 
       const energyRangeShift = roundToInterval( -potential.yOffsetProperty.value, QBSConstants.Y_OFFSET_INTERVAL );
-      this.energyRangeShiftProperty.setValueAndRange( energyRangeShift, potential.yOffsetProperty.range );
+      const range = new Range( -potential.yOffsetProperty.range.max, -potential.yOffsetProperty.range.min );
+      this.energyRangeShiftProperty.setValueAndRange( energyRangeShift, range );
       
       if ( previousPotential && previousPotential.yOffsetProperty.hasListener( yOffsetListener ) ) {
         previousPotential.yOffsetProperty.unlink( yOffsetListener );
