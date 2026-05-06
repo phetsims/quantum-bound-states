@@ -47,6 +47,9 @@ class EnergyLevelSpinner extends NumberSpinner {
 
     super( energyLevelProperty, rangeProperty, {
       arrowsScale: 2,
+      arrowButtonOptions: {
+        phetioVisiblePropertyInstrumented: false
+      },
       numberDisplayOptions: {
         minBackgroundWidth: 45, // to handle large E subscripts, e.g. 'E<sub>100</sub>'
         align: 'center',
@@ -63,7 +66,8 @@ class EnergyLevelSpinner extends NumberSpinner {
       },
       accessibleName: QuantumBoundStatesFluent.a11y.energyLevelSpinner.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyLevelSpinner.accessibleHelpTextStringProperty,
-      tandem: tandem
+      tandem: tandem,
+      phetioVisiblePropertyInstrumented: false
     } );
   }
 }
