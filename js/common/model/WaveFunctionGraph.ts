@@ -59,6 +59,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
 
     this.realPartValuesProperty = new DerivedProperty(
       [ model.selectedWaveFunctionValuesProperty ],
+      //TODO needs to be time-dependent
       selectedWaveFunctionValues => selectedWaveFunctionValues, {
         tandem: tandem.createTandem( 'realPartValuesProperty' ),
         phetioValueType: ArrayIO( NumberIO ),
