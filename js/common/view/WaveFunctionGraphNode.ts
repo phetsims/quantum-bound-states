@@ -50,13 +50,39 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
-    const waveFunctionPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, model.waveFunctionGraph.realPartValuesProperty.value, {
-      stroke: QBSColors.realPartStrokeProperty,
-      lineWidth: 2
-    } );
-    this.curveLayer.addChild( waveFunctionPlot );
+    const initialYValues = new Array( model.xGrid.xCoordinates.length ).fill( 0 );
 
-    model.waveFunctionGraph.realPartValuesProperty.lazyLink( realPartValues => waveFunctionPlot.setYCoordinates( realPartValues ) );
+    // Real Part
+    const realPartPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, initialYValues, {
+      stroke: QBSColors.realPartStrokeProperty,
+      lineWidth: 2,
+      visibleProperty: model.waveFunctionGraph.realPartVisibleProperty
+    } );
+    model.waveFunctionGraph.realPartValuesProperty.link( values => realPartPlot.setYCoordinates( values ) );
+
+    // Imaginary Part
+    const imaginaryPartPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, initialYValues, {
+      stroke: QBSColors.imaginaryPartStrokeProperty,
+      lineWidth: 2,
+      visibleProperty: model.waveFunctionGraph.imaginaryPartVisibleProperty
+    } );
+    model.waveFunctionGraph.imaginaryPartValuesProperty.link( values => imaginaryPartPlot.setYCoordinates( values ) );
+
+    //TODO const phasePlot = ...
+
+    // Magnitude
+    const magnitudePlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, initialYValues, {
+      stroke: QBSColors.magnitudeStrokeProperty,
+      lineWidth: 2,
+      visibleProperty: model.waveFunctionGraph.magnitudeVisibleProperty
+    } );
+    model.waveFunctionGraph.magnitudeValuesProperty.link( values => magnitudePlot.setYCoordinates( values ) );
+
+    // Rendering order
+    //TODO this.curveLayer.addChild( phasePlot );
+    this.curveLayer.addChild( imaginaryPartPlot );
+    this.curveLayer.addChild( magnitudePlot );
+    this.curveLayer.addChild( realPartPlot );
 
     model.waveFunctionGraph.yAxisRangeProperty.link( yAxisRange => {
       this.setYRange( yAxisRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );

@@ -75,6 +75,7 @@ export default class QBSModel implements TModel {
   public readonly boundStateResultProperty: Property<BoundStateResult>;
 
   // Time-independent wave function values for the selected potential and selected energy level.
+  //TODO Get rid of selectedWaveFunctionValuesProperty
   public readonly selectedWaveFunctionValuesProperty: TReadOnlyProperty<number[]>;
 
   // Constant grid of x-coordinates, used for all graphs.

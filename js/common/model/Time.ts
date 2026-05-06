@@ -38,7 +38,7 @@ export default class Time {
 
   public constructor( tandem: Tandem ) {
 
-    this.isPlayingProperty = new BooleanProperty( false, {  //TODO default should be true
+    this.isPlayingProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'isPlayingProperty' ),
       phetioFeatured: true
     } );
