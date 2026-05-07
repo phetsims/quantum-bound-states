@@ -67,7 +67,7 @@ export default class QBSScreenView extends ScreenView {
 
     const legendPanel = new LegendPanel( options.tandem.createTandem( 'legendPanel' ) );
 
-    const energyDiagramNode = new EnergyDiagramNode( model, options.tandem.createTandem( 'energyDiagram' ) );
+    const energyDiagramNode = new EnergyDiagramNode( model, options.tandem.createTandem( 'energyDiagramNode' ) );
     this.energyDiagramNode = energyDiagramNode;
 
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
