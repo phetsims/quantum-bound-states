@@ -16,11 +16,13 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import QBSTime from '../model/QBSTime.js';
 import QBSConstants from '../QBSConstants.js';
+import { addPauseListeners } from './addPauseListeners.js';
 
 export default class EnergyLevelControl extends HBox {
 
-  public constructor( energyLevelProperty: NumberProperty, tandem: Tandem ) {
+  public constructor( energyLevelProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
 
     const energyLevelText = new Text( QuantumBoundStatesFluent.energyLevelStringProperty, {
       font: QBSConstants.CONTROL_FONT,
@@ -28,7 +30,7 @@ export default class EnergyLevelControl extends HBox {
     } );
 
     const energyLevelSpinner = new EnergyLevelSpinner( energyLevelProperty, energyLevelProperty.rangeProperty,
-      tandem.createTandem( 'energyLevelSpinner' ) );
+      time, tandem.createTandem( 'energyLevelSpinner' ) );
 
     super( {
       isDisposable: false,
@@ -43,6 +45,7 @@ class EnergyLevelSpinner extends NumberSpinner {
 
   public constructor( energyLevelProperty: Property<number>,
                       rangeProperty: TReadOnlyProperty<Range>,
+                      time: QBSTime,
                       tandem: Tandem ) {
 
     super( energyLevelProperty, rangeProperty, {
@@ -68,6 +71,15 @@ class EnergyLevelSpinner extends NumberSpinner {
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyLevelSpinner.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: false
+    } );
+
+    addPauseListeners( this, time, {
+      //TODO keys relies on internal knowledge of NumberSpinner
+      keys: [
+        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
+        'shift+arrowLeft', 'shift+arrowRight', 'shift+arrowUp', 'shift+arrowDown',
+        'home', 'end'
+      ]
     } );
   }
 }

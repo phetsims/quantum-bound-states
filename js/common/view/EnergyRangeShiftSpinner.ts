@@ -13,14 +13,16 @@ import nullSoundPlayer from '../../../../tambo/js/nullSoundPlayer.js';
 import ValueChangeSoundPlayer from '../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import QBSTime from '../model/QBSTime.js';
 import QBSConstants from '../QBSConstants.js';
+import { addPauseListeners } from './addPauseListeners.js';
 
 const DELTA_VALUE = QBSConstants.Y_OFFSET_INTERVAL;
 const FIRE_ON_HOLD_INTERVAL = 25; // ms
 
 export default class EnergyRangeShiftSpinner extends NumberSpinner {
 
-  public constructor( energyRangeShiftProperty: NumberProperty, tandem: Tandem ) {
+  public constructor( energyRangeShiftProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
 
     // NumberSpinner unfortunately plays a sound every time the value is changed, which is too often with our
     // relatively short value for FIRE_ON_HOLD_INTERVAL. Use a ValueChangeSoundPlayer so that we have control
@@ -64,6 +66,15 @@ export default class EnergyRangeShiftSpinner extends NumberSpinner {
       accessibleName: QuantumBoundStatesFluent.a11y.energyRangeShiftSpinner.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyRangeShiftSpinner.accessibleHelpTextStringProperty,
       tandem: tandem
+    } );
+
+    addPauseListeners( this, time, {
+      //TODO keys relies on internal knowledge of NumberSpinner
+      keys: [
+        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
+        'shift+arrowLeft', 'shift+arrowRight', 'shift+arrowUp', 'shift+arrowDown',
+        'home', 'end'
+      ]
     } );
   }
 }

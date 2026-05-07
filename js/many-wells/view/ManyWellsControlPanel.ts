@@ -16,6 +16,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
+import QBSTime from '../../common/model/QBSTime.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
@@ -31,6 +32,7 @@ export class ManyWellsControlPanel extends Panel {
                       numberOfWellsProperty: NumberProperty,
                       electricFieldProperty: NumberProperty,
                       potentialProperty: Property<QuantumPotential>,
+                      time: QBSTime,
                       tandem: Tandem ) {
 
     const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
@@ -45,9 +47,9 @@ export class ManyWellsControlPanel extends Panel {
       children: [
         titleText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
-        new NumberOfWellsControl( numberOfWellsProperty, tandem.createTandem( 'numberOfWellsControl' ) ),
-        new ElectricFieldControl( electricFieldProperty, tandem.createTandem( 'electricFieldControl' ) ),
-        new EnergyLevelControl( energyLevelProperty, tandem.createTandem( 'energyLevelControl' ) )
+        new NumberOfWellsControl( numberOfWellsProperty, time, tandem.createTandem( 'numberOfWellsControl' ) ),
+        new ElectricFieldControl( electricFieldProperty, time, tandem.createTandem( 'electricFieldControl' ) ),
+        new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );
 

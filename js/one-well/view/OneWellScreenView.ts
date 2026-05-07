@@ -21,7 +21,7 @@ export default class OneWellScreenView extends QBSScreenView {
     const listboxParent = new Node();
 
     const energyDiagramControlPanel = new OneWellControlPanel( listboxParent, model.energyLevelProperty,
-      model.electronMassesProperty, model.potentialProperty,
+      model.electronMassesProperty, model.potentialProperty, model.time,
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, listboxParent, energyDiagramControlPanel, {
@@ -31,7 +31,7 @@ export default class OneWellScreenView extends QBSScreenView {
 
     // Add a spinner to shift the y-axis range of the Energy Diagram for the selected potential.
     const energyRangeShiftSpinner = new EnergyRangeShiftSpinner( model.energyRangeShiftProperty,
-      this.energyDiagramNode.tandem.createTandem( 'energyRangeShiftSpinner' ) );
+      model.time, this.energyDiagramNode.tandem.createTandem( 'energyRangeShiftSpinner' ) );
     this.screenViewRootNode.addChild( energyRangeShiftSpinner );
     energyRangeShiftSpinner.right = this.energyDiagramRectangleBounds.left - 26;
     energyRangeShiftSpinner.bottom = this.energyDiagramRectangleBounds.bottom - 7;

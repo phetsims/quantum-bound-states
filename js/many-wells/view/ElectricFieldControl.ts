@@ -13,8 +13,10 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSTime from '../../common/model/QBSTime.js';
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import { addPauseListeners } from '../../common/view/addPauseListeners.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 // These values are all related. Designers tend to request specific values and frequent changes.
@@ -26,7 +28,7 @@ const PAGE_KEYBOARD_STEP = 0.5;
 
 export default class ElectricFieldControl extends NumberControl {
 
-  public constructor( electricFieldProperty: NumberProperty, tandem: Tandem ) {
+  public constructor( electricFieldProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
 
     const options = combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
       isDisposable: false,
@@ -66,6 +68,16 @@ export default class ElectricFieldControl extends NumberControl {
     } );
 
     super( titleText, electricFieldProperty, electricFieldProperty.range, options );
+
+    addPauseListeners( this, time, {
+      //TODO keys relies on internal knowledge of NumberControl
+      keys: [
+        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
+        'shift+arrowLeft', 'shift+arrowRight', 'shift+arrowUp', 'shift+arrowDown',
+        'pageUp', 'pageDown',
+        'home', 'end'
+      ]
+    } );
   }
 }
 
