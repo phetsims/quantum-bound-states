@@ -7,12 +7,16 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import { femtosecondsUnit } from './units/femtosecondsUnit.js';
+
+const TIME_SCALE_VALUES = [ 0.01, 0.1, 1, 10 ];
 
 export default class Time {
 
@@ -25,7 +29,8 @@ export default class Time {
 
   // Scale factor that is applied to time while the simulation is playing.
   // Values > 1 make the sim run faster, values < 1 make it run slower.
-  public readonly timeScaleProperty: NumberProperty;
+  public readonly timeScaleProperty: TReadOnlyProperty<number>;
+  public readonly timeScaleIndexProperty: NumberProperty;
 
   // Whether time is visible.
   public readonly timeVisibleProperty: Property<boolean>;
@@ -53,17 +58,21 @@ export default class Time {
     } );
     this.currentTimeProperty = this._currentTimeProperty;
 
-    //TODO Java used constant dts of [ 0.01, 0.1, 1, 10 ], which is problematic with a linear slider.
-    const validValues = _.sortBy( [ 1, 2, 3, 4 ] );
-    this.timeScaleProperty = new NumberProperty( 1, {
-      validValues: validValues,
-      range: new Range( validValues[ 0 ], validValues[ validValues.length - 1 ] ),
-      isValidValue: timeScale => timeScale > 0,
-      numberType: 'FloatingPoint',
-      tandem: tandem.createTandem( 'timeScaleProperty' ),
-      phetioFeatured: true,
-      phetioDocumentation: 'The factor by which time is sped up (> 1) or slowed down (< 1).'
+    this.timeScaleIndexProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      range: new Range( 0, TIME_SCALE_VALUES.length - 1 ),
+      validValues: [ ...TIME_SCALE_VALUES.keys() ],
+      tandem: tandem.createTandem( 'timeScaleIndexProperty' ),
+      phetioFeatured: true
     } );
+
+    this.timeScaleProperty = new DerivedProperty( [ this.timeScaleIndexProperty ],
+      timeScaleIndex => TIME_SCALE_VALUES[ timeScaleIndex ], {
+        validValues: TIME_SCALE_VALUES,
+        tandem: tandem.createTandem( 'timeScaleProperty' ),
+        phetioValueType: NumberIO,
+        phetioFeatured: true
+      } );
 
     this.timeVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'timeVisibleProperty' )
@@ -73,7 +82,7 @@ export default class Time {
   public reset(): void {
     this._currentTimeProperty.reset();
     this.isPlayingProperty.reset();
-    this.timeScaleProperty.reset();
+    this.timeScaleIndexProperty.reset();
     this.timeVisibleProperty.reset();
   }
 

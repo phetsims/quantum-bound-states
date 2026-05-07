@@ -8,7 +8,7 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Range from '../../../../dot/js/Range.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -17,14 +17,14 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 
+const TICK_TEXT_OPTIONS = {
+  font: new PhetFont( 12 ),
+  maxWidth: 50
+};
+
 export default class TimeSpeedSlider extends HSlider {
 
-  public constructor( timeScaleProperty: NumberProperty, tandem: Tandem ) {
-
-    affirm( timeScaleProperty.validValues, 'timeScaleProperty must have validValues.' );
-    const validValues = _.sortBy( timeScaleProperty.validValues );
-
-    const range = new Range( validValues[ 0 ], validValues[ validValues.length - 1 ] );
+  public constructor( timeScaleIndexProperty: NumberProperty, tandem: Tandem ) {
 
     const options: HSliderOptions = {
       trackSize: new Dimension2( 75, 2 ),
@@ -32,41 +32,29 @@ export default class TimeSpeedSlider extends HSlider {
       thumbFill: QBSColors.timeSpeedSliderThumbFillProperty,
       thumbFillHighlighted: QBSColors.timeSpeedSliderThumbFillHighlightedProperty,
       majorTickLength: 15,
-      constrainValue: value => findClosestValue( value, validValues ),
+      constrainValue: value => toFixedNumber( value, 0 ),
       accessibleName: QuantumBoundStatesFluent.a11y.timeSpeedSlider.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.timeSpeedSlider.accessibleHelpTextStringProperty,
       tandem: tandem
     };
 
-    super( timeScaleProperty, range, options );
+    const range = timeScaleIndexProperty.range;
 
-    const tickTextOptions = {
-      font: new PhetFont( 12 ),
-      maxWidth: 50
-    };
+    super( timeScaleIndexProperty, range, options );
 
-    // Add tick marks at each valid value, with the min and max ticks labeled.
-    validValues.forEach( ( value, index ) => {
-      if ( index === 0 ) {
-        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.slowStringProperty, tickTextOptions ) );
+    // Add tick marks at each valid value, with the min and max ticks labeled 'Slow' and 'Fast' respectively.
+    const validValues = timeScaleIndexProperty.validValues;
+    affirm( validValues, 'timeScaleIndexProperty must have validValues.' );
+    validValues.forEach( value => {
+      if ( value === range.min ) {
+        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.slowStringProperty, TICK_TEXT_OPTIONS ) );
       }
-      else if ( index === validValues.length - 1 ) {
-        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.fastStringProperty, tickTextOptions ) );
+      else if ( value === range.max ) {
+        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.fastStringProperty, TICK_TEXT_OPTIONS ) );
       }
       else {
         this.addMajorTick( value );
       }
     } );
   }
-}
-
-function findClosestValue( targetValue: number, validValues: number[] ): number {
-  let closestValue = validValues[ 0 ];
-  for ( let i = 1; i < validValues.length; i++ ) {
-    const currentValue = validValues[ i ];
-    if ( Math.abs( currentValue - targetValue ) <= Math.abs( closestValue - targetValue ) ) {
-      closestValue = currentValue;
-    }
-  }
-  return closestValue;
 }
