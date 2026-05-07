@@ -85,6 +85,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     } );
 
     this._realPartValuesProperty = new Property<number[]>( [], {
+      //TODO units
       tandem: tandem.createTandem( 'realPartValuesProperty' ),
       phetioValueType: ArrayIO( NumberIO ),
       phetioFeatured: true,
@@ -93,6 +94,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     this.realPartValuesProperty = this._realPartValuesProperty;
 
     this._imaginaryPartValuesProperty = new Property<number[]>( [], {
+      //TODO units
       tandem: tandem.createTandem( 'imaginaryPartValuesProperty' ),
       phetioValueType: ArrayIO( NumberIO ),
       phetioFeatured: true,
@@ -101,6 +103,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     this.imaginaryPartValuesProperty = this._imaginaryPartValuesProperty;
 
     this._magnitudeValuesProperty = new Property<number[]>( [], {
+      //TODO units
       tandem: tandem.createTandem( 'magnitudeValuesProperty' ),
       phetioValueType: ArrayIO( NumberIO ),
       phetioFeatured: true,
