@@ -9,12 +9,12 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
+import { NumberControlMajorTick } from '../../../../scenery-phet/js/NumberControl.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSTime from '../../common/model/QBSTime.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import { addPauseListeners } from '../../common/view/addPauseListeners.js';
+import QBSNumberControl, { QBSNumberControlOptions } from '../../common/view/QBSNumberControl.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 // These values are all related. Designers tend to request specific values and frequent changes.
@@ -24,12 +24,11 @@ const KEYBOARD_STEP = 1;
 const SHIFT_KEYBOARD_STEP = 1;
 const PAGE_KEYBOARD_STEP = 1;
 
-export default class NumberOfWellsControl extends NumberControl {
+export default class NumberOfWellsControl extends QBSNumberControl {
 
   public constructor( numberOfWellsProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
 
-    const options = combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
-      isDisposable: false,
+    const options = combineOptions<QBSNumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
       delta: DELTA,
       sliderOptions: {
         majorTicks: createMajorTicks( numberOfWellsProperty.range ),
@@ -47,17 +46,7 @@ export default class NumberOfWellsControl extends NumberControl {
       maxWidth: 150
     } );
 
-    super( titleText, numberOfWellsProperty, numberOfWellsProperty.range, options );
-
-    addPauseListeners( this, time, {
-      //TODO keys relies on internal knowledge of NumberControl
-      keys: [
-        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
-        'shift+arrowLeft', 'shift+arrowRight', 'shift+arrowUp', 'shift+arrowDown',
-        'pageUp', 'pageDown',
-        'home', 'end'
-      ]
-    } );
+    super( titleText, numberOfWellsProperty, time, options );
   }
 }
 

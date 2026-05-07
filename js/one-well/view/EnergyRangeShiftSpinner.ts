@@ -8,19 +8,18 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
-import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import nullSoundPlayer from '../../../../tambo/js/nullSoundPlayer.js';
 import ValueChangeSoundPlayer from '../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSTime from '../../common/model/QBSTime.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import { addPauseListeners } from '../../common/view/addPauseListeners.js';
+import QBSNumberSpinner from '../../common/view/QBSNumberSpinner.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 const DELTA_VALUE = QBSConstants.Y_OFFSET_INTERVAL;
 const FIRE_ON_HOLD_INTERVAL = 25; // ms
 
-export default class EnergyRangeShiftSpinner extends NumberSpinner {
+export default class EnergyRangeShiftSpinner extends QBSNumberSpinner {
 
   public constructor( energyRangeShiftProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
 
@@ -31,7 +30,7 @@ export default class EnergyRangeShiftSpinner extends NumberSpinner {
       minimumInterMiddleSoundTime: 0.1 // seconds
     } );
 
-    super( energyRangeShiftProperty, energyRangeShiftProperty.rangeProperty, {
+    super( energyRangeShiftProperty, time, {
       arrowsScale: 1.5,
       deltaValue: DELTA_VALUE, // eV
       constrainValue: value => roundToInterval( value, DELTA_VALUE ),
@@ -66,15 +65,6 @@ export default class EnergyRangeShiftSpinner extends NumberSpinner {
       accessibleName: QuantumBoundStatesFluent.a11y.energyRangeShiftSpinner.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyRangeShiftSpinner.accessibleHelpTextStringProperty,
       tandem: tandem
-    } );
-
-    addPauseListeners( this, time, {
-      //TODO keys relies on internal knowledge of NumberSpinner
-      keys: [
-        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
-        'shift+arrowLeft', 'shift+arrowRight', 'shift+arrowUp', 'shift+arrowDown',
-        'home', 'end'
-      ]
     } );
   }
 }

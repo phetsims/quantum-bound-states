@@ -8,20 +8,21 @@
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
-import NumberControl, { NumberControlOptions } from '../../../../../scenery-phet/js/NumberControl.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
+import QBSTime from '../../model/QBSTime.js';
 import { electronVoltsUnit } from '../../model/units/electronVoltsUnit.js';
 import QBSConstants from '../../QBSConstants.js';
+import QBSNumberControl, { QBSNumberControlOptions } from '../QBSNumberControl.js';
 import WellWidthControl from './WellWidthControl.js';
 
 const DECIMALS = QBSConstants.WELL_DEPTH_DECIMAL_PLACES;
 
-export default class WellDepthControl extends NumberControl {
+export default class WellDepthControl extends QBSNumberControl {
 
-  public constructor( wellDepthProperty: NumberProperty ) {
+  public constructor( wellDepthProperty: NumberProperty, time: QBSTime ) {
 
-    super( 'wellDepthProperty', wellDepthProperty, wellDepthProperty.range,
-      combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
+    super( 'wellDepthProperty', wellDepthProperty, time,
+      combineOptions<QBSNumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {
           numberFormatter: value => electronVoltsUnit.getVisualSymbolPatternString( value, {

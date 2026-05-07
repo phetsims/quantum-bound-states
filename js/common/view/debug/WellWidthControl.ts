@@ -10,20 +10,22 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import { toFixedNumber } from '../../../../../dot/js/util/toFixedNumber.js';
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
-import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../../scenery-phet/js/NumberControl.js';
+import { NumberControlMajorTick } from '../../../../../scenery-phet/js/NumberControl.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
+import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
+import QBSNumberControl, { QBSNumberControlOptions } from '../QBSNumberControl.js';
 
 const DECIMALS = QBSConstants.WELL_WIDTH_DECIMAL_PLACES;
 
-export default class WellWidthControl extends NumberControl {
+export default class WellWidthControl extends QBSNumberControl {
 
-  public constructor( wellWidthProperty: NumberProperty ) {
+  public constructor( wellWidthProperty: NumberProperty, time: QBSTime ) {
 
-    super( 'wellWidthProperty', wellWidthProperty, wellWidthProperty.range,
-      combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
+    super( 'wellWidthProperty', wellWidthProperty, time,
+      combineOptions<QBSNumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
         delta: Math.pow( 10, -DECIMALS ),
         numberDisplayOptions: {
           numberFormatter: value => nanometersUnit.getVisualSymbolPatternString( value, {

@@ -7,18 +7,14 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Range from '../../../../dot/js/Range.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSTime from '../model/QBSTime.js';
 import QBSConstants from '../QBSConstants.js';
-import { addPauseListeners } from './addPauseListeners.js';
+import QBSNumberSpinner from './QBSNumberSpinner.js';
 
 export default class EnergyLevelControl extends HBox {
 
@@ -29,8 +25,7 @@ export default class EnergyLevelControl extends HBox {
       maxWidth: 100
     } );
 
-    const energyLevelSpinner = new EnergyLevelSpinner( energyLevelProperty, energyLevelProperty.rangeProperty,
-      time, tandem.createTandem( 'energyLevelSpinner' ) );
+    const energyLevelSpinner = new EnergyLevelSpinner( energyLevelProperty, time, tandem.createTandem( 'energyLevelSpinner' ) );
 
     super( {
       isDisposable: false,
@@ -41,14 +36,13 @@ export default class EnergyLevelControl extends HBox {
   }
 }
 
-class EnergyLevelSpinner extends NumberSpinner {
+class EnergyLevelSpinner extends QBSNumberSpinner {
 
-  public constructor( energyLevelProperty: Property<number>,
-                      rangeProperty: TReadOnlyProperty<Range>,
+  public constructor( energyLevelProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( energyLevelProperty, rangeProperty, {
+    super( energyLevelProperty, time, {
       arrowsScale: 2,
       arrowButtonOptions: {
         phetioVisiblePropertyInstrumented: false
@@ -71,15 +65,6 @@ class EnergyLevelSpinner extends NumberSpinner {
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyLevelSpinner.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: false
-    } );
-
-    addPauseListeners( this, time, {
-      //TODO keys relies on internal knowledge of NumberSpinner
-      keys: [
-        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
-        'shift+arrowLeft', 'shift+arrowRight', 'shift+arrowUp', 'shift+arrowDown',
-        'home', 'end'
-      ]
     } );
   }
 }

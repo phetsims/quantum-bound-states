@@ -9,6 +9,7 @@
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
+import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import StepHeightControl from './StepHeightControl.js';
@@ -18,19 +19,19 @@ import YOffsetControl from './YOffsetControl.js';
 
 export default class ConfigureInfiniteStepDialog extends ConfigureQuantumPotentialDialog {
 
-  public constructor( potential: InfiniteStepPotential ) {
+  public constructor( potential: InfiniteStepPotential, time: QBSTime ) {
 
     const children = [
-      new WellWidthControl( potential.wellWidthProperty ),
-      new StepHeightControl( potential.stepHeightProperty )
+      new WellWidthControl( potential.wellWidthProperty, time ),
+      new StepHeightControl( potential.stepHeightProperty, time )
     ];
 
     if ( potential.xOffsetProperty.range.getLength() > 0 ) {
-      children.push( new XOffsetControl( potential.xOffsetProperty ) );
+      children.push( new XOffsetControl( potential.xOffsetProperty, time ) );
     }
 
     if ( potential.yOffsetProperty.range.getLength() > 0 ) {
-      children.push( new YOffsetControl( potential.yOffsetProperty ) );
+      children.push( new YOffsetControl( potential.yOffsetProperty, time ) );
     }
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {

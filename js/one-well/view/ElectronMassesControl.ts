@@ -10,7 +10,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
+import { NumberControlMajorTick } from '../../../../scenery-phet/js/NumberControl.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -18,7 +18,7 @@ import QBSTime from '../../common/model/QBSTime.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import { addPauseListeners } from '../../common/view/addPauseListeners.js';
+import QBSNumberControl, { QBSNumberControlOptions } from '../../common/view/QBSNumberControl.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 // These values are all related. Designers tend to request specific values and frequent changes.
@@ -28,12 +28,11 @@ const KEYBOARD_STEP = 0.1;
 const SHIFT_KEYBOARD_STEP = 0.01;
 const PAGE_KEYBOARD_STEP = 0.1;
 
-export default class ElectronMassesControl extends NumberControl {
+export default class ElectronMassesControl extends QBSNumberControl {
 
   public constructor( electronMassesProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
 
-    const options = combineOptions<NumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
-      isDisposable: false,
+    const options = combineOptions<QBSNumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
       delta: DELTA,
       numberDisplayOptions: {
 
@@ -75,17 +74,7 @@ export default class ElectronMassesControl extends NumberControl {
       maxWidth: 100
     } );
 
-    super( titleText, electronMassesProperty, electronMassesProperty.range, options );
-
-    addPauseListeners( this, time, {
-      //TODO keys relies on internal knowledge of NumberControl
-      keys: [
-        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
-        'shift+arrowLeft', 'shift+arrowRight', 'shift+arrowUp', 'shift+arrowDown',
-        'pageUp', 'pageDown',
-        'home', 'end'
-      ]
-    } );
+    super( titleText, electronMassesProperty, time, options );
   }
 }
 
