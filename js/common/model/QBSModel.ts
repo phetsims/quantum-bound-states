@@ -227,6 +227,11 @@ export default class QBSModel implements TModel {
     this.magnifier = new Magnifier( options.tandem.createTandem( 'magnifier' ) );
 
     this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
+
+    // Changing any of these Properties restarts the simulation time.
+    Multilink.multilink( [ this.potentialProperty, this.energyLevelProperty, this.electronMassesProperty,
+        this.electricFieldProperty, this.numberOfWellsProperty ],
+      () => this.time.restart() );
   }
 
   /**
