@@ -186,7 +186,8 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     }
 
     // Calculate magnitude and probability density.
-    //TODO Do we need probabilityDensityValues and maxMagnitude?
+    //TODO Do we need time-dependent probabilityDensityValues?
+    //TODO Do we need maxMagnitude?
     //TODO Can this be done in the same loop as above?
     let maxMagnitude = 0;
     for ( let i = 0; i < numberOfPoints; i++ ) {
