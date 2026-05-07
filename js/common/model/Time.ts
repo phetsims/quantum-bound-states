@@ -22,6 +22,10 @@ const TIME_DECIMAL_PLACES = [ 2, 1, 0, 0 ];
 affirm( _.every( TIME_DECIMAL_PLACES, value => Number.isInteger( value ) && value >= 0 ), 'TIME_DECIMAL_PLACES must be integers >= 0' );
 affirm( TIME_DECIMAL_PLACES.length === TIME_STEP_VALUES.length, 'TIME_DECIMAL_PLACES and TIME_STEP_VALUES must have the same length' );
 
+// Conversion of real time (seconds) to simulation time (femtoseconds).
+// Larger values make the simulation time increase faster.
+// In the Java version, this was the number of frames per second, and each frame incremented time by a constant dt.
+const FEMTOSECONDS_PER_SECOND = 24;
 
 export default class Time {
 
@@ -37,13 +41,6 @@ export default class Time {
 
   // Whether time is visible.
   public readonly timeVisibleProperty: Property<boolean>;
-
-  // Conversion of real time (seconds) to simulation time (femtoseconds).
-  // Larger values make the simulation time increase faster.
-  public static readonly FEMTOSECONDS_PER_SECOND = 25;
-
-  // How much to step time forward (in femtoseconds) when the user presses the 'Step Forward' button.
-  public static readonly STEP_FORWARD_DELTA = 1;
 
   public constructor( tandem: Tandem ) {
 
@@ -98,7 +95,7 @@ export default class Time {
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
-    this._currentTimeProperty.value += ( Time.FEMTOSECONDS_PER_SECOND * dt * this.getTimeStep() );
+    this._currentTimeProperty.value += ( FEMTOSECONDS_PER_SECOND * dt * this.getTimeStep() );
   }
 
   /**
