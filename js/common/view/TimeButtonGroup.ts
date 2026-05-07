@@ -14,7 +14,7 @@ import StepForwardButton from '../../../../scenery-phet/js/buttons/StepForwardBu
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import Time from '../model/Time.js';
+import QBSTime from '../model/QBSTime.js';
 import QBSColors from '../QBSColors.js';
 
 const RESTART_BUTTON_RADIUS = 15;
@@ -25,7 +25,7 @@ const BUTTON_TOUCH_AREA_DILATION = 5;
 
 export default class TimeButtonGroup extends HBox {
 
-  public constructor( time: Time, tandem: Tandem ) {
+  public constructor( time: QBSTime, tandem: Tandem ) {
 
     const restartButton = new RestartButton( {
       listener: () => time.restart(),

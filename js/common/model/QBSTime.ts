@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Time is the model of simulation time. Real time (seconds) is transformed to simulation time (femtoseconds).
+ * QBSTime is the model of simulation time. Real time (seconds) is transformed to simulation time (femtoseconds).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -29,7 +29,7 @@ affirm( TIME_DECIMAL_PLACES.length === TIME_STEP_VALUES.length, 'TIME_DECIMAL_PL
 // In the Java version, this was the number of frames per second, and each frame incremented time by a constant dt.
 const FEMTOSECONDS_PER_SECOND = 24;
 
-export default class Time {
+export default class QBSTime {
 
   // Whether the simulation is currently playing.
   public readonly isPlayingProperty: Property<boolean>;

@@ -11,7 +11,7 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import Time from '../model/Time.js';
+import QBSTime from '../model/QBSTime.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import TimeButtonGroup from './TimeButtonGroup.js';
@@ -21,7 +21,7 @@ import TimeToggleButton from './TimeToggleButton.js';
 
 export default class TimePanel extends Panel {
 
-  public constructor( time: Time, tandem: Tandem ) {
+  public constructor( time: QBSTime, tandem: Tandem ) {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       yMargin: 3,

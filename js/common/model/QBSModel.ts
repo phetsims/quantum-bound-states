@@ -31,7 +31,7 @@ import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import XGrid from './solver/XGrid.js';
-import Time from './Time.js';
+import QBSTime from './QBSTime.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
@@ -60,7 +60,7 @@ export type QBSModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 't
 
 export default class QBSModel implements TModel {
 
-  public readonly time: Time;
+  public readonly time: QBSTime;
 
   // The quantum potential that is currently selected.
   public readonly potentialProperty: Property<QuantumPotential>;
@@ -115,7 +115,7 @@ export default class QBSModel implements TModel {
     this.electronMassesProperty = options.electronMassesProperty;
     this.electricFieldProperty = options.electricFieldProperty;
 
-    this.time = new Time( options.tandem.createTandem( 'time' ) );
+    this.time = new QBSTime( options.tandem.createTandem( 'time' ) );
 
     this.xGrid = new XGrid( {
       xMin: QBSConstants.ALL_GRAPHS_X_RANGE.min,

@@ -10,14 +10,14 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Time from '../model/Time.js';
+import QBSTime from '../model/QBSTime.js';
 import { femtosecondsUnit } from '../model/units/femtosecondsUnit.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
 export default class TimeDisplay extends NumberDisplay {
 
-  public constructor( time: Time, tandem: Tandem ) {
+  public constructor( time: QBSTime, tandem: Tandem ) {
 
     super( time.currentTimeProperty, new Range( 0, 10000 ), {
         textOptions: {
