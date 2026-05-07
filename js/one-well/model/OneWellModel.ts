@@ -6,11 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential, { AsymmetricTrianglePotentialOptions } from '../../common/model/potentials/AsymmetricTrianglePotential.js';
 import CoulombPotential, { CoulombPotentialOptions } from '../../common/model/potentials/CoulombPotential.js';
@@ -129,11 +131,20 @@ export default class OneWellModel extends QBSModel {
       const energyRangeShift = roundToInterval( -potential.yOffsetProperty.value, QBSConstants.Y_OFFSET_INTERVAL );
       const range = new Range( -potential.yOffsetProperty.range.max, -potential.yOffsetProperty.range.min );
       this.energyRangeShiftProperty.setValueAndRange( energyRangeShift, range );
-      
+
       if ( previousPotential && previousPotential.yOffsetProperty.hasListener( yOffsetListener ) ) {
         previousPotential.yOffsetProperty.unlink( yOffsetListener );
       }
       potential.yOffsetProperty.lazyLink( yOffsetListener );
     } );
+
+    // Changing any of these Properties restarts the simulation time.
+    Multilink.multilink( [ this.energyRangeShiftProperty ],
+      () => {
+        if ( !isSettingPhetioStateProperty.value ) {
+          this.time.restart();
+        }
+      } );
+
   }
 }
