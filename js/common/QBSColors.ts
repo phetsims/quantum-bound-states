@@ -222,4 +222,8 @@ export default class QBSColors {
   public static readonly dragArrowsStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'dragArrowsStroke', {
     default: 'black'
   } );
+
+  public static readonly eyeClosedFillProperty = new ProfileColorProperty( quantumBoundStates, 'eyeClosedFill', {
+    default: Color.grayColor( 210 )
+  } );
 }

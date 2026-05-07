@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
@@ -21,8 +22,10 @@ import Orientation from '../../../../phet-core/js/Orientation.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import eyeSlashSolidShape from '../../../../sun/js/shapes/eyeSlashSolidShape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
@@ -152,6 +155,13 @@ export default class QuantumStateGraphNode extends Node {
       visibleProperty: curvesVisibleProperty
     } );
 
+    const eyeClosedNode = new Path( eyeSlashSolidShape, {
+      visibleProperty: DerivedProperty.not( curvesVisibleProperty ),
+      fill: QBSColors.eyeClosedFillProperty,
+      scale: 1.25,
+      center: this.chartRectangle.center
+    } );
+
     // Parents for all non-interactive elements.
     const pickableFalseNode = new Node( {
       pickable: false, // optimization
@@ -165,6 +175,7 @@ export default class QuantumStateGraphNode extends Node {
         this.chartRectangle,
         this.horizontalGridLines,
         verticalGridLines,
+        eyeClosedNode,
         this.curveLayer
       ]
     } );
