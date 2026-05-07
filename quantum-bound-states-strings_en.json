@@ -167,10 +167,10 @@
     },
     "inverseSquareRootNanometers": {
       "symbol": {
-        "value": "nm<sup>-½</sup>"
+        "value": "nm<sup>-1/2</sup>"
       },
       "symbolPattern": {
-        "value": "{{value}} nm<sup>-½</sup>"
+        "value": "{{value}} nm<sup>-1/2</sup>"
       }
     },
     "voltsPerNanometer": {

@@ -88,8 +88,8 @@ units:
     symbolPattern: '{{value}} nm<sup>-1</sup>'
   # wave function y-values
   inverseSquareRootNanometers:
-    symbol:        nm<sup>-½</sup>
-    symbolPattern: '{{value}} nm<sup>-½</sup>'
+    symbol:        nm<sup>-1/2</sup>
+    symbolPattern: '{{value}} nm<sup>-1/2</sup>'
   # electric field
   voltsPerNanometer:
     symbol:        V/nm
