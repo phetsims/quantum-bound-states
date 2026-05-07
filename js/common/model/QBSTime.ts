@@ -12,6 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { femtosecondsUnit } from './units/femtosecondsUnit.js';
 
@@ -70,7 +71,11 @@ export default class QBSTime {
     } );
 
     // When the time step is changed, reset the current time to zero.
-    this.timeStepIndexProperty.link( () => this._currentTimeProperty.reset() );
+    this.timeStepIndexProperty.link( () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this._currentTimeProperty.reset();
+      }
+    } );
 
     this.timeVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'timeVisibleProperty' )
