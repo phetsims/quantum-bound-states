@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Should this be promoted to a class that also handles time-dependent propagation?
 /**
  * Result from a bound state calculation.
  *
