@@ -74,6 +74,9 @@ export default class Time {
         phetioFeatured: true
       } );
 
+    // When the time scale is changed, reset the current time to zero.
+    this.timeScaleProperty.link( () => this._currentTimeProperty.reset() );
+
     this.timeVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'timeVisibleProperty' )
     } );
