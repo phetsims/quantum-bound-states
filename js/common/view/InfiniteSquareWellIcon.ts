@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Can this be replaced with using InfiniteSquarePotential and InfiniteStepPotential directly?
 /**
  * InfiniteSquareWellIcon draws the icon for a potential that consists of one infinite square well, with or without a step.
  *
