@@ -167,7 +167,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
         const energy = boundStateResult.energies[ n ];
 
         // Time evolution phase for this eigenstate: -E_n*t/ℏ
-        const timePhase = -( energy * t ) / NumerovSolver.HBAR;
+        const timePhase = -( energy * t ) / NumerovSolver.HBAR; //TODO HBAR was a different value in QPPW, adjusted for nm?
 
         // Total phase: initial phase + time evolution phase
         const totalPhase = initialPhase + timePhase;
