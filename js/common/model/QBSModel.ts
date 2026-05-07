@@ -229,8 +229,7 @@ export default class QBSModel implements TModel {
     this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
 
     // Changing any of these Properties restarts the simulation time.
-    Multilink.multilink( [ this.potentialProperty, this.energyLevelProperty, this.electronMassesProperty,
-        this.electricFieldProperty, this.numberOfWellsProperty ],
+    Multilink.multilink( [ this.boundStateResultProperty ],
       () => {
         if ( !isSettingPhetioStateProperty.value ) {
           this.time.restart();
