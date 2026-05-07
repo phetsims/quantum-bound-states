@@ -41,6 +41,7 @@ export default class EnergyDiagram {
       phetioFeatured: true
     } );
 
+    // Set the Energy Diagram's y-axis range based on the y-offset of the selected potential.
     const yOffsetListener = ( yOffset: number ) => {
       const min = roundToInterval( model.potentialProperty.value.energyAxisRange.min + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
       const max = roundToInterval( model.potentialProperty.value.energyAxisRange.max + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
