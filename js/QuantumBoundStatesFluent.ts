@@ -71,6 +71,8 @@ addToMapIfDefined( 'units_electronMasses_symbol', 'units.electronMasses.symbolSt
 addToMapIfDefined( 'units_electronVolts_symbol', 'units.electronVolts.symbolStringProperty' );
 addToMapIfDefined( 'units_electronVoltsPerNanometerSquared_symbol', 'units.electronVoltsPerNanometerSquared.symbolStringProperty' );
 addToMapIfDefined( 'units_femtoSeconds_symbol', 'units.femtoSeconds.symbolStringProperty' );
+addToMapIfDefined( 'units_inverseNanometers_symbol', 'units.inverseNanometers.symbolStringProperty' );
+addToMapIfDefined( 'units_inverseSquareRootNanometers_symbol', 'units.inverseSquareRootNanometers.symbolStringProperty' );
 addToMapIfDefined( 'units_voltsPerNanometer_symbol', 'units.voltsPerNanometer.symbolStringProperty' );
 addToMapIfDefined( 'potentialWells_finiteSquare', 'potentialWells.finiteSquareStringProperty' );
 addToMapIfDefined( 'potentialWells_infiniteSquare', 'potentialWells.infiniteSquareStringProperty' );
@@ -240,6 +242,8 @@ addToMapIfDefined( 'a11y_units_electronMasses_accessiblePattern', 'a11y.units.el
 addToMapIfDefined( 'a11y_units_electronVolts_accessiblePattern', 'a11y.units.electronVolts.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVoltsPerNanometerSquared_accessiblePattern', 'a11y.units.electronVoltsPerNanometerSquared.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_femtoseconds_accessiblePattern', 'a11y.units.femtoseconds.accessiblePatternStringProperty' );
+addToMapIfDefined( 'a11y_units_inverseNanometers_accessiblePattern', 'a11y.units.inverseNanometers.accessiblePatternStringProperty' );
+addToMapIfDefined( 'a11y_units_inverseSquareRootNanometers_accessiblePattern', 'a11y.units.inverseSquareRootNanometers.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_voltsPerNanometer_accessiblePattern', 'a11y.units.voltsPerNanometer.accessiblePatternStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
@@ -345,7 +349,17 @@ const QuantumBoundStatesFluent = {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolStringProperty' ),
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.femtoSeconds.symbolPatternStringProperty' )
     },
-    _comment_4: new FluentComment( {"comment":"electric field","associatedKey":"voltsPerNanometer"} ),
+    _comment_4: new FluentComment( {"comment":"probability density y-values","associatedKey":"inverseNanometers"} ),
+    inverseNanometers: {
+      symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.inverseNanometers.symbolStringProperty' ),
+      symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.inverseNanometers.symbolPatternStringProperty' )
+    },
+    _comment_5: new FluentComment( {"comment":"wave function y-values","associatedKey":"inverseSquareRootNanometers"} ),
+    inverseSquareRootNanometers: {
+      symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.inverseSquareRootNanometers.symbolStringProperty' ),
+      symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.inverseSquareRootNanometers.symbolPatternStringProperty' )
+    },
+    _comment_6: new FluentComment( {"comment":"electric field","associatedKey":"voltsPerNanometer"} ),
     voltsPerNanometer: {
       symbolStringProperty: _.get( QuantumBoundStatesStrings, 'units.voltsPerNanometer.symbolStringProperty' ),
       symbolPatternStringProperty: _.get( QuantumBoundStatesStrings, 'units.voltsPerNanometer.symbolPatternStringProperty' )
@@ -715,7 +729,15 @@ const QuantumBoundStatesFluent = {
       femtoseconds: {
         accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_femtoseconds_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.femtoseconds.accessiblePatternStringProperty' ), [{"name":"value"}] )
       },
-      _comment_3: new FluentComment( {"comment":"electric field","associatedKey":"voltsPerNanometer"} ),
+      _comment_3: new FluentComment( {"comment":"probability density y-values","associatedKey":"inverseNanometers"} ),
+      inverseNanometers: {
+        accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_inverseNanometers_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.inverseNanometers.accessiblePatternStringProperty' ), [{"name":"value"}] )
+      },
+      _comment_4: new FluentComment( {"comment":"wave function y-values","associatedKey":"inverseSquareRootNanometers"} ),
+      inverseSquareRootNanometers: {
+        accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_inverseSquareRootNanometers_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.inverseSquareRootNanometers.accessiblePatternStringProperty' ), [{"name":"value"}] )
+      },
+      _comment_5: new FluentComment( {"comment":"electric field","associatedKey":"voltsPerNanometer"} ),
       voltsPerNanometer: {
         accessiblePattern: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_units_voltsPerNanometer_accessiblePattern', _.get( QuantumBoundStatesStrings, 'a11y.units.voltsPerNanometer.accessiblePatternStringProperty' ), [{"name":"value"}] )
       }

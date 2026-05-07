@@ -21,6 +21,7 @@ import QuantumStateGraph from './QuantumStateGraph.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
+import { inverseSquareRootNanometersUnit } from './units/inverseSquareRootNanometersUnit.js';
 
 //TODO If we don't need probabilityDensityValues, rename this to TimeEvolvedWaveFunction.
 type TimeEvolvedSuperposition = {
@@ -85,7 +86,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     } );
 
     this._realPartValuesProperty = new Property<number[]>( [], {
-      //TODO units
+      units: inverseSquareRootNanometersUnit,
       tandem: tandem.createTandem( 'realPartValuesProperty' ),
       phetioValueType: ArrayIO( NumberIO ),
       phetioFeatured: true,
@@ -94,7 +95,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     this.realPartValuesProperty = this._realPartValuesProperty;
 
     this._imaginaryPartValuesProperty = new Property<number[]>( [], {
-      //TODO units
+      units: inverseSquareRootNanometersUnit,
       tandem: tandem.createTandem( 'imaginaryPartValuesProperty' ),
       phetioValueType: ArrayIO( NumberIO ),
       phetioFeatured: true,
@@ -103,7 +104,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     this.imaginaryPartValuesProperty = this._imaginaryPartValuesProperty;
 
     this._magnitudeValuesProperty = new Property<number[]>( [], {
-      //TODO units
+      units: inverseSquareRootNanometersUnit,
       tandem: tandem.createTandem( 'magnitudeValuesProperty' ),
       phetioValueType: ArrayIO( NumberIO ),
       phetioFeatured: true,

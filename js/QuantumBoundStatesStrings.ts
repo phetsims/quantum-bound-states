@@ -76,6 +76,14 @@ type StringsType = {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
     };
+    'inverseNanometers': {
+      'symbolStringProperty': LocalizedStringProperty;
+      'symbolPatternStringProperty': LocalizedStringProperty;
+    };
+    'inverseSquareRootNanometers': {
+      'symbolStringProperty': LocalizedStringProperty;
+      'symbolPatternStringProperty': LocalizedStringProperty;
+    };
     'voltsPerNanometer': {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
@@ -390,6 +398,12 @@ type StringsType = {
         'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'femtoseconds': {
+        'accessiblePatternStringProperty': LocalizedStringProperty;
+      };
+      'inverseNanometers': {
+        'accessiblePatternStringProperty': LocalizedStringProperty;
+      };
+      'inverseSquareRootNanometers': {
         'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'voltsPerNanometer': {

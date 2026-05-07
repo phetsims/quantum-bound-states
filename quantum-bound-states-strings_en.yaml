@@ -82,6 +82,14 @@ units:
   femtoSeconds:
     symbol:        fs
     symbolPattern: '{{value}} fs'
+  # probability density y-values
+  inverseNanometers:
+    symbol:        nm<sup>-1</sup>
+    symbolPattern: '{{value}} nm<sup>-1</sup>'
+  # wave function y-values
+  inverseSquareRootNanometers:
+    symbol:        nm<sup>-½</sup>
+    symbolPattern: '{{value}} nm<sup>-½</sup>'
   # electric field
   voltsPerNanometer:
     symbol:        V/nm
@@ -445,5 +453,9 @@ a11y:
       accessiblePattern: '{$value} electron volts per nanometer squared'
     femtoseconds:
       accessiblePattern: '{$value} femtoseconds'
+    inverseNanometers:
+      accessiblePattern: '{$value} inverse nanometers'
+    inverseSquareRootNanometers:
+      accessiblePattern: '{$value} inverse square root nanometers'
     voltsPerNanometer:
       accessiblePattern: '{$value} volts per nanometer'

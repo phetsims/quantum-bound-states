@@ -14,6 +14,7 @@ import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import QBSModel from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
+import { inverseNanometersUnit } from './units/inverseNanometersUnit.js';
 
 export default class ProbabilityDensityGraph extends QuantumStateGraph {
 
@@ -30,7 +31,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
     this.probabilityDensityValuesProperty = new DerivedProperty(
       [ model.selectedWaveFunctionValuesProperty ],
       selectedWaveFunctionValues => selectedWaveFunctionValues.map( x => x * x ), {
-        //TODO units
+        units: inverseNanometersUnit,
         tandem: tandem.createTandem( 'probabilityDensityValuesProperty' ),
         phetioValueType: ArrayIO( NumberIO ),
         phetioFeatured: true

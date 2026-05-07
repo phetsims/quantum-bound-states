@@ -157,6 +157,22 @@
         "value": "{{value}} fs"
       }
     },
+    "inverseNanometers": {
+      "symbol": {
+        "value": "nm<sup>-1</sup>"
+      },
+      "symbolPattern": {
+        "value": "{{value}} nm<sup>-1</sup>"
+      }
+    },
+    "inverseSquareRootNanometers": {
+      "symbol": {
+        "value": "nm<sup>-½</sup>"
+      },
+      "symbolPattern": {
+        "value": "{{value}} nm<sup>-½</sup>"
+      }
+    },
     "voltsPerNanometer": {
       "symbol": {
         "value": "V/nm"
@@ -813,6 +829,16 @@
       "femtoseconds": {
         "accessiblePattern": {
           "value": "{$value} femtoseconds"
+        }
+      },
+      "inverseNanometers": {
+        "accessiblePattern": {
+          "value": "{$value} inverse nanometers"
+        }
+      },
+      "inverseSquareRootNanometers": {
+        "accessiblePattern": {
+          "value": "{$value} inverse square root nanometers"
         }
       },
       "voltsPerNanometer": {
