@@ -231,7 +231,11 @@ export default class QBSModel implements TModel {
     // Changing any of these Properties restarts the simulation time.
     Multilink.multilink( [ this.potentialProperty, this.energyLevelProperty, this.electronMassesProperty,
         this.electricFieldProperty, this.numberOfWellsProperty ],
-      () => this.time.restart() );
+      () => {
+        if ( !isSettingPhetioStateProperty.value ) {
+          this.time.restart();
+        }
+      } );
   }
 
   /**
