@@ -137,6 +137,7 @@ export default class QBSConstants {
   };
 
   public static readonly GRID_LINE_SET_OPTIONS: GridLineSetOptions = {
+    pickable: false, // optimization
     lineWidth: 1,
     lineDash: [ 4, 4 ],
     stroke: QBSColors.gridLinesStrokeProperty

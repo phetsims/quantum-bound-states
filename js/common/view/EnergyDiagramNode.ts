@@ -25,6 +25,7 @@ import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EigenvaluesPlot from './EigenvaluesPlot.js';
+import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import YLinePlot from './YLinePlot.js';
 
 export default class EnergyDiagramNode extends Node {
@@ -57,9 +58,9 @@ export default class EnergyDiagramNode extends Node {
     } );
 
     this.chartRectangle = new ChartRectangle( this.chartTransform, {
+      cursor: 'pointer',
       fill: QBSColors.chartRectangleFillProperty,
-      stroke: QBSColors.chartRectangleStrokeProperty,
-      pickable: false // optimization
+      stroke: QBSColors.chartRectangleStrokeProperty
     } );
 
     this.yTickMarkSet = new TickMarkSet( this.chartTransform, Orientation.VERTICAL, QBSConstants.ENERGY_DIAGRAM_Y_TICK_SPACING, {
@@ -88,19 +89,6 @@ export default class EnergyDiagramNode extends Node {
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
       QBSConstants.ALL_GRAPHS_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
-    // Parents for all non-interactive elements.
-    const pickableFalseNode = new Node( {
-      pickable: false, // optimization
-      children: [
-        this.yTickMarkSet,
-        this.yTickLabelSet,
-        yAxisLabelNode,
-        this.chartRectangle,
-        this.horizontalGridLines,
-        verticalGridLines
-      ]
-    } );
-
     // Plots the shape of the selected potential.
     const potentialPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, model.boundStateResultProperty.value.potentials, {
       stroke: QBSColors.potentialEnergyColorProperty,
@@ -123,9 +111,21 @@ export default class EnergyDiagramNode extends Node {
       children: [ eigenvaluesPlot, potentialPlot ]
     } );
 
-    this.children = [ pickableFalseNode, curveLayer ];
+    this.children = [
+      this.yTickMarkSet,
+      this.yTickLabelSet,
+      yAxisLabelNode,
+      this.chartRectangle,
+      this.horizontalGridLines,
+      verticalGridLines,
+      curveLayer
+    ];
 
     model.energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
+
+    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model.energyLevelProperty,
+      model.potentialProperty, this, this.chartTransform, model.boundStateResultProperty,
+      tandem.createTandem( 'energyLevelSelectionListener' ) ) );
   }
 
   private setYRange( yRange: Range ): void {
