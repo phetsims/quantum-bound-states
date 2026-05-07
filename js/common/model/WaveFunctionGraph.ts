@@ -144,11 +144,11 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
                                        selectedEnergyLevel: number,
                                        groundStateIndex: number ): TimeEvolvedSuperposition {
 
-    //TODO Temporary: All superpositionCoefficient amplitudes are zero except for the selected energy level.
-    const superpositionCoefficients = new Array( boundStateResult.waveFunctions.length ).fill( 0 );
-    superpositionCoefficients[ selectedEnergyLevel - groundStateIndex ] = 1;
-
     const numberOfPoints = xGrid.numberOfPoints;
+
+    //TODO Temporary: All superpositionCoefficient amplitudes are zero except for the selected energy level.
+    const superpositionCoefficients = new Array( numberOfPoints ).fill( 0 );
+    superpositionCoefficients[ selectedEnergyLevel - groundStateIndex ] = 1;
 
     // Initialize arrays
     const realPartValues = new Array( numberOfPoints ).fill( 0 );
@@ -157,7 +157,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     const probabilityDensityValues = new Array( numberOfPoints );
 
     // Compute time-evolved superposition: ψ(x,t) = Σ c_n * e^(iφ_n) * ψ_n(x) * e^(-iE_n*t/ℏ)
-    for ( let n = 0; n < superpositionCoefficients.length; n++ ) {
+    for ( let n = 0; n < numberOfPoints; n++ ) {
       const amplitude = superpositionCoefficients[ n ];
       if ( amplitude !== 0 ) {
 
@@ -176,6 +176,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
         const imaginaryCoefficient = amplitude * Math.sin( totalPhase );
 
         // Add contribution to superposition
+        //TODO Why is there another loop here?
         for ( let i = 0; i < numberOfPoints; i++ ) {
           realPartValues[ i ] += realCoefficient * eigenfunction[ i ];
           imaginaryPartValues[ i ] += imaginaryCoefficient * eigenfunction[ i ];
@@ -184,7 +185,8 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     }
 
     // Calculate magnitude and probability density.
-    //TODO Do we need these?
+    //TODO Do we need probabilityDensityValues and maxMagnitude?
+    //TODO Can this be done in the same loop as above?
     let maxMagnitude = 0;
     for ( let i = 0; i < numberOfPoints; i++ ) {
       magnitudeValues[ i ] = Math.sqrt( realPartValues[ i ] * realPartValues[ i ] + imaginaryPartValues[ i ] * imaginaryPartValues[ i ] );
