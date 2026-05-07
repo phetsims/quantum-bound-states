@@ -19,6 +19,7 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
+import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
@@ -110,7 +111,11 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     //   } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty ], () => this.propertyChangedEmitter.emit() );
+    Multilink.multilink( [ this.wellWidthProperty ], () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.propertyChangedEmitter.emit();
+      }
+    } );
   }
 
   public override reset(): void {

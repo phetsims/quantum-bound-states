@@ -139,12 +139,11 @@ export default class OneWellModel extends QBSModel {
     } );
 
     // Changing any of these Properties restarts the simulation time.
-    Multilink.multilink( [ this.energyRangeShiftProperty ],
-      () => {
-        if ( !isSettingPhetioStateProperty.value ) {
-          this.time.restart();
-        }
-      } );
+    Multilink.multilink( [ this.energyRangeShiftProperty ], () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.time.restart();
+      }
+    } );
 
   }
 }

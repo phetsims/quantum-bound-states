@@ -219,8 +219,7 @@ export default class QBSScreenView extends ScreenView {
     ];
 
     // Changes to these Properties will interrupt all interactions.
-    Multilink.multilink( [ model.potentialProperty ],
-      () => this.interruptSubtreeInput() );
+    Multilink.multilink( [ model.potentialProperty ], () => this.interruptSubtreeInput() );
 
     // Press this button to open a dialog for configuring the selected potential.
     //TODO Hide this button behind phet.chipper.queryParameters.dev

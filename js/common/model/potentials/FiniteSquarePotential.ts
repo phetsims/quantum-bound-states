@@ -14,6 +14,7 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import WithOptional from '../../../../../phet-core/js/types/WithOptional.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
+import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
@@ -74,9 +75,11 @@ export default class FiniteSquarePotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink(
-      [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ],
-      () => this.propertyChangedEmitter.emit() );
+    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ], () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.propertyChangedEmitter.emit();
+      }
+    } );
   }
 
   public override reset(): void {

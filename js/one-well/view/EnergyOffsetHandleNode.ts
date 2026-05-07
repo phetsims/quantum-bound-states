@@ -18,12 +18,12 @@ import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibilit
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import EnergyDiagram from '../../common/model/EnergyDiagram.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import EnergyOffsetHandleDragListener from './EnergyOffsetHandleDragListener.js';
 import { HomeEndKeyboardListener } from '../../common/view/HomeEndKeyboardListener.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import EnergyOffsetHandleDragListener from './EnergyOffsetHandleDragListener.js';
 
 export default class EnergyOffsetHandleNode extends InteractiveHighlighting( ArrowNode ) {
 

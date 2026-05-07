@@ -192,7 +192,9 @@ export default class QBSModel implements TModel {
     // recompute the bound state.
     Multilink.multilink( [ this.numberOfWellsProperty, this.electronMassesProperty, this.electricFieldProperty ],
       ( numberOfWells, electronMasses, electricField ) => {
-        this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
+        if ( !isSettingPhetioStateProperty.value ) {
+          this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
+        }
       } );
 
     // The order of quantumStateGraphs determines the order of radio buttons in QuatumStateGraphRadioButtonGroup.
@@ -229,12 +231,11 @@ export default class QBSModel implements TModel {
     this.referenceLine = new ReferenceLine( options.tandem.createTandem( 'referenceLine' ) );
 
     // Changing any of these Properties restarts the simulation time.
-    Multilink.multilink( [ this.boundStateResultProperty ],
-      () => {
-        if ( !isSettingPhetioStateProperty.value ) {
-          this.time.restart();
-        }
-      } );
+    Multilink.multilink( [ this.boundStateResultProperty ], () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.time.restart();
+      }
+    } );
   }
 
   /**

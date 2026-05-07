@@ -12,6 +12,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
@@ -121,13 +122,15 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
         return new Range( -maxAbsY, maxAbsY );
       } );
 
-    Multilink.multilink(
-      [ model.time.currentTimeProperty, model.boundStateResultProperty, model.energyLevelProperty ],
+    Multilink.multilink( [ model.time.currentTimeProperty, model.boundStateResultProperty, model.energyLevelProperty ],
       ( t, boundStateResult, energyLevel ) => {
-        const timeEvolvedSuperposition = this.getTimeEvolvedSuperposition( t, model.xGrid, boundStateResult, energyLevel, model.potentialProperty.value.groundStateIndex );
-        this._realPartValuesProperty.value = timeEvolvedSuperposition.realPartValues;
-        this._imaginaryPartValuesProperty.value = timeEvolvedSuperposition.imaginaryPartValues;
-        this._magnitudeValuesProperty.value = timeEvolvedSuperposition.magnitudeValues;
+        if ( !isSettingPhetioStateProperty.value ) {
+          const timeEvolvedSuperposition = this.getTimeEvolvedSuperposition( t, model.xGrid, boundStateResult, energyLevel, model.potentialProperty.value.groundStateIndex );
+          this._realPartValuesProperty.value = timeEvolvedSuperposition.realPartValues;
+          this._imaginaryPartValuesProperty.value = timeEvolvedSuperposition.imaginaryPartValues;
+          this._magnitudeValuesProperty.value = timeEvolvedSuperposition.magnitudeValues;
+          //TODO this._phaseValuesProperty.value = ...
+        }
       } );
   }
 
