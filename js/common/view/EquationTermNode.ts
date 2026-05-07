@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO delete if not used
 /**
  * EquationTermNode displays one term from an equation, corresponding to a selected energy level.
  *
