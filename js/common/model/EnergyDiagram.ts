@@ -47,8 +47,10 @@ export default class EnergyDiagram {
       this._yRangeProperty.value = new Range( min, max );
     };
     model.potentialProperty.link( ( potential, oldPotential ) => {
-      oldPotential && oldPotential.yOffsetProperty.unlink( yOffsetListener );
-      potential && potential.yOffsetProperty.link( yOffsetListener );
+      if ( oldPotential && oldPotential.yOffsetProperty.hasListener( yOffsetListener ) ) {
+        oldPotential.yOffsetProperty.unlink( yOffsetListener );
+      }
+      potential.yOffsetProperty.link( yOffsetListener );
     } );
   }
 
