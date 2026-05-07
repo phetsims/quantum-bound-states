@@ -34,7 +34,7 @@ export default class EnergyLevelSelectionListener extends PressListener {
         const globalPoint = event.pointer.point;
         const localPoint = energyDiagram.globalToLocalPoint( globalPoint );
         const pressedEnergy = chartTransform.viewToModelY( localPoint.y );
-        console.log( 'EnergyLevelSelectionListener: pressedEnergy = ' + pressedEnergy );
+        phet.log && phet.log( 'EnergyLevelSelectionListener: pressedEnergy = ' + pressedEnergy );
 
         // Find the closest energy level.
         //TODO Investigate how the Java version handled this.
@@ -44,7 +44,6 @@ export default class EnergyLevelSelectionListener extends PressListener {
           const energy = energies[ i ];
           if ( Math.abs( energy - pressedEnergy ) <= ENERGY_THRESHOLD ) {
             closestEnergyLevelIndex = i;
-            console.log( 'EnergyLevelSelectionListener: closestEnergyLevelIndex = ' + closestEnergyLevelIndex );
             break;
           }
         }
@@ -52,6 +51,7 @@ export default class EnergyLevelSelectionListener extends PressListener {
         // If there is a closest energy level, set the energy level, adjusting for the ground state index.
         if ( closestEnergyLevelIndex !== null ) {
           energyLevelProperty.value = closestEnergyLevelIndex + potentialProperty.value.groundStateIndex;
+          phet.log && phet.log( 'EnergyLevelSelectionListener: selected energy level = E' + energyLevelProperty.value );
         }
       }
     } );
