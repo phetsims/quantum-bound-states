@@ -68,7 +68,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     } );
     model.waveFunctionGraph.imaginaryPartValuesProperty.link( values => imaginaryPartPlot.setYCoordinates( values ) );
 
-    //TODO const phasePlot = ...
+    //TODO const phasePlot = ...  See PhaseRenderer.java
 
     // Magnitude
     const magnitudePlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, initialYValues, {
