@@ -27,9 +27,9 @@ type TimeEvolvedSuperposition = {
   realPartValues: number[];
   imaginaryPartValues: number[];
   magnitudeValues: number[];
-  maxMagnitude: number;
+  maxMagnitude: number; //TODO Do we need this?
   //TODO phaseValues: number[];
-  probabilityDensityValues: number[];
+  probabilityDensityValues: number[]; //TODO Do we need this?
 };
 
 export default class WaveFunctionGraph extends QuantumStateGraph {
@@ -147,6 +147,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     const numberOfPoints = xGrid.numberOfPoints;
 
     //TODO Temporary: All superpositionCoefficient amplitudes are zero except for the selected energy level.
+    //TODO In QPPW this was superpositionConfigProperty: Property<SuperpositionConfig>
     const superpositionCoefficients = new Array( numberOfPoints ).fill( 0 );
     superpositionCoefficients[ selectedEnergyLevel - groundStateIndex ] = 1;
 
