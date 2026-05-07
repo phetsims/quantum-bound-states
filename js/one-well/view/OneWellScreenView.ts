@@ -8,7 +8,7 @@
 
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import EnergyRangeShiftSpinner from '../../common/view/EnergyRangeShiftSpinner.js';
+import EnergyRangeShiftSpinner from './EnergyRangeShiftSpinner.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
 import { OneWellControlPanel } from './OneWellControlPanel.js';
