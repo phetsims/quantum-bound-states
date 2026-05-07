@@ -7,16 +7,21 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import { femtosecondsUnit } from './units/femtosecondsUnit.js';
 
-const TIME_SCALE_VALUES = [ 0.01, 0.1, 1, 10 ];
+const TIME_STEP_VALUES = [ 0.01, 0.1, 1, 10 ];
+affirm( _.every( TIME_STEP_VALUES, value => value > 0 ), 'TIME_STEP_VALUES must be > 0' );
+
+const TIME_DECIMAL_PLACES = [ 2, 1, 0, 0 ];
+affirm( _.every( TIME_DECIMAL_PLACES, value => Number.isInteger( value ) && value >= 0 ), 'TIME_DECIMAL_PLACES must be integers >= 0' );
+affirm( TIME_DECIMAL_PLACES.length === TIME_STEP_VALUES.length, 'TIME_DECIMAL_PLACES and TIME_STEP_VALUES must have the same length' );
+
 
 export default class Time {
 
@@ -27,16 +32,15 @@ export default class Time {
   private readonly _currentTimeProperty: Property<number>;
   public readonly currentTimeProperty: TReadOnlyProperty<number>;
 
-  // Scale factor that is applied to time while the simulation is playing.
-  // Values > 1 make the sim run faster, values < 1 make it run slower.
-  public readonly timeScaleProperty: TReadOnlyProperty<number>;
-  public readonly timeScaleIndexProperty: NumberProperty;
+  // Selects the time step from TIME_STEP_VALUES.
+  public readonly timeStepIndexProperty: NumberProperty;
 
   // Whether time is visible.
   public readonly timeVisibleProperty: Property<boolean>;
 
   // Conversion of real time (seconds) to simulation time (femtoseconds).
-  public static readonly FEMTOSECONDS_PER_SECOND = 1;
+  // Larger values make the simulation time increase faster.
+  public static readonly FEMTOSECONDS_PER_SECOND = 25;
 
   // How much to step time forward (in femtoseconds) when the user presses the 'Step Forward' button.
   public static readonly STEP_FORWARD_DELTA = 1;
@@ -58,34 +62,34 @@ export default class Time {
     } );
     this.currentTimeProperty = this._currentTimeProperty;
 
-    this.timeScaleIndexProperty = new NumberProperty( 0, {
+    this.timeStepIndexProperty = new NumberProperty( 0, {
       numberType: 'Integer',
-      range: new Range( 0, TIME_SCALE_VALUES.length - 1 ),
-      validValues: [ ...TIME_SCALE_VALUES.keys() ],
-      tandem: tandem.createTandem( 'timeScaleIndexProperty' ),
+      range: new Range( 0, TIME_STEP_VALUES.length - 1 ),
+      validValues: [ ...TIME_STEP_VALUES.keys() ],
+      tandem: tandem.createTandem( 'timeStepIndexProperty' ),
       phetioFeatured: true
     } );
 
-    this.timeScaleProperty = new DerivedProperty( [ this.timeScaleIndexProperty ],
-      timeScaleIndex => TIME_SCALE_VALUES[ timeScaleIndex ], {
-        validValues: TIME_SCALE_VALUES,
-        tandem: tandem.createTandem( 'timeScaleProperty' ),
-        phetioValueType: NumberIO,
-        phetioFeatured: true
-      } );
-
-    // When the time scale is changed, reset the current time to zero.
-    this.timeScaleProperty.link( () => this._currentTimeProperty.reset() );
+    // When the time step is changed, reset the current time to zero.
+    this.timeStepIndexProperty.link( () => this._currentTimeProperty.reset() );
 
     this.timeVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'timeVisibleProperty' )
     } );
   }
 
+  public getDecimalPlaces(): number {
+    return TIME_DECIMAL_PLACES[ this.timeStepIndexProperty.value ];
+  }
+
+  private getTimeStep(): number {
+    return TIME_STEP_VALUES[ this.timeStepIndexProperty.value ];
+  }
+
   public reset(): void {
     this._currentTimeProperty.reset();
     this.isPlayingProperty.reset();
-    this.timeScaleIndexProperty.reset();
+    this.timeStepIndexProperty.reset();
     this.timeVisibleProperty.reset();
   }
 
@@ -94,14 +98,14 @@ export default class Time {
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
-    this._currentTimeProperty.value += Time.FEMTOSECONDS_PER_SECOND * dt * this.timeScaleProperty.value;
+    this._currentTimeProperty.value += ( Time.FEMTOSECONDS_PER_SECOND * dt * this.getTimeStep() );
   }
 
   /**
    * Steps time forward by one step, called when the user presses the 'Step Forward' button.
    */
   public stepForward(): void {
-    this._currentTimeProperty.value += Time.STEP_FORWARD_DELTA;
+    this._currentTimeProperty.value += this.getTimeStep();
   }
 
   /**

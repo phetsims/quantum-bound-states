@@ -79,7 +79,6 @@ export default class QBSConstants {
 
   // Decimal places in displayed values
   public static readonly ELECTRON_MASSES_DECIMAL_PLACES = 2;
-  public static readonly TIME_DECIMAL_PLACES = 2;
   public static readonly X_DECIMAL_PLACES = 2;
   public static readonly ELECTRIC_FIELD_DECIMAL_PLACES = 1;
   public static readonly WELL_WIDTH_DECIMAL_PLACES = 1;

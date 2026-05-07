@@ -34,11 +34,11 @@ export default class TimePanel extends Panel {
 
     const toggleButton = new TimeToggleButton( time.timeVisibleProperty, tandem.createTandem( 'toggleButton' ) );
 
-    const timeDisplay = new TimeDisplay( time.currentTimeProperty, time.timeVisibleProperty, tandem.createTandem( 'timeDisplay' ) );
+    const timeDisplay = new TimeDisplay( time, tandem.createTandem( 'timeDisplay' ) );
 
     const buttonGroup = new TimeButtonGroup( time, tandem.createTandem( 'buttonGroup' ) );
 
-    const timeSpeedSlider = new TimeSpeedSlider( time.timeScaleIndexProperty, tandem.createTandem( 'timeSpeedSlider' ) );
+    const timeSpeedSlider = new TimeSpeedSlider( time.timeStepIndexProperty, tandem.createTandem( 'timeSpeedSlider' ) );
 
     const content = new HBox( {
       spacing: 20,

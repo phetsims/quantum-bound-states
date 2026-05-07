@@ -138,7 +138,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   /**
    * TODO Taken almost verbatim from https://github.com/veillette/QPPW, BaseModel.getTimeEvolvedSuperposition. Lots of questions for MV about this.
    */
-  private getTimeEvolvedSuperposition( timeInSeconds: number,
+  private getTimeEvolvedSuperposition( t: number,
                                        xGrid: XGrid,
                                        boundStateResult: BoundStateResult,
                                        selectedEnergyLevel: number,
@@ -159,29 +159,27 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     // Compute time-evolved superposition: ψ(x,t) = Σ c_n * e^(iφ_n) * ψ_n(x) * e^(-iE_n*t/ℏ)
     for ( let n = 0; n < superpositionCoefficients.length; n++ ) {
       const amplitude = superpositionCoefficients[ n ];
-      const initialPhase = 0; //TODO config.phases[ n ];
+      if ( amplitude !== 0 ) {
 
-      if ( amplitude === 0 || n >= boundStateResult.waveFunctions.length ) {
-        continue;
-      }
+        const initialPhase = 0; //TODO config.phases[ n ];
+        const eigenfunction = boundStateResult.waveFunctions[ n ];
+        const energy = boundStateResult.energies[ n ];
 
-      const eigenfunction = boundStateResult.waveFunctions[ n ];
-      const energy = boundStateResult.energies[ n ];
+        // Time evolution phase for this eigenstate: -E_n*t/ℏ
+        const timePhase = -( energy * t ) / NumerovSolver.HBAR;
 
-      // Time evolution phase for this eigenstate: -E_n*t/ℏ
-      const timePhase = -( energy * timeInSeconds ) / NumerovSolver.HBAR;
+        // Total phase: initial phase + time evolution phase
+        const totalPhase = initialPhase + timePhase;
 
-      // Total phase: initial phase + time evolution phase
-      const totalPhase = initialPhase + timePhase;
+        // Complex coefficient: c_n * e^(i*totalPhase) = c_n * (cos(totalPhase) + i*sin(totalPhase))
+        const realCoefficient = amplitude * Math.cos( totalPhase );
+        const imaginaryCoefficient = amplitude * Math.sin( totalPhase );
 
-      // Complex coefficient: c_n * e^(i*totalPhase) = c_n * (cos(totalPhase) + i*sin(totalPhase))
-      const realCoefficient = amplitude * Math.cos( totalPhase );
-      const imaginaryCoefficient = amplitude * Math.sin( totalPhase );
-
-      // Add contribution to superposition
-      for ( let i = 0; i < numberOfPoints; i++ ) {
-        realPartValues[ i ] += realCoefficient * eigenfunction[ i ];
-        imaginaryPartValues[ i ] += imaginaryCoefficient * eigenfunction[ i ];
+        // Add contribution to superposition
+        for ( let i = 0; i < numberOfPoints; i++ ) {
+          realPartValues[ i ] += realCoefficient * eigenfunction[ i ];
+          imaginaryPartValues[ i ] += imaginaryCoefficient * eigenfunction[ i ];
+        }
       }
     }
 

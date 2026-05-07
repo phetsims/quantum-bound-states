@@ -7,30 +7,28 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Time from '../model/Time.js';
 import { femtosecondsUnit } from '../model/units/femtosecondsUnit.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
 export default class TimeDisplay extends NumberDisplay {
 
-  public constructor( currentTimeProperty: TReadOnlyProperty<number>,
-                      timeVisibleProperty: TReadOnlyProperty<boolean>,
-                      tandem: Tandem ) {
+  public constructor( time: Time, tandem: Tandem ) {
 
-    super( currentTimeProperty, new Range( 0, 10000 ), {
+    super( time.currentTimeProperty, new Range( 0, 10000 ), {
         textOptions: {
           font: QBSConstants.TIME_FONT,
           // Hide the value by making it transparent.
-          fill: new DerivedProperty( [ timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
+          fill: new DerivedProperty( [ time.timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
         },
-        backgroundFill: new DerivedProperty( [ timeVisibleProperty ],
+        backgroundFill: new DerivedProperty( [ time.timeVisibleProperty ],
           timeVisible => timeVisible ? QBSColors.timeDisplayEnabledProperty.value : QBSColors.timeDisplayDisabledProperty.value ),
         numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString( value, {
-          decimalPlaces: QBSConstants.TIME_DECIMAL_PLACES,
+          decimalPlaces: time.getDecimalPlaces(),
           showTrailingZeros: true
         } ),
         tandem: tandem.createTandem( 'valueDisplay' )

@@ -24,7 +24,7 @@ const TICK_TEXT_OPTIONS = {
 
 export default class TimeSpeedSlider extends HSlider {
 
-  public constructor( timeScaleIndexProperty: NumberProperty, tandem: Tandem ) {
+  public constructor( timeStepIndexProperty: NumberProperty, tandem: Tandem ) {
 
     const options: HSliderOptions = {
       trackSize: new Dimension2( 75, 2 ),
@@ -38,13 +38,13 @@ export default class TimeSpeedSlider extends HSlider {
       tandem: tandem
     };
 
-    const range = timeScaleIndexProperty.range;
+    const range = timeStepIndexProperty.range;
 
-    super( timeScaleIndexProperty, range, options );
+    super( timeStepIndexProperty, range, options );
 
     // Add tick marks at each valid value, with the min and max ticks labeled 'Slow' and 'Fast' respectively.
-    const validValues = timeScaleIndexProperty.validValues;
-    affirm( validValues, 'timeScaleIndexProperty must have validValues.' );
+    const validValues = timeStepIndexProperty.validValues;
+    affirm( validValues, 'timeStepIndexProperty must have validValues' );
     validValues.forEach( value => {
       if ( value === range.min ) {
         this.addMajorTick( value, new Text( QuantumBoundStatesFluent.slowStringProperty, TICK_TEXT_OPTIONS ) );
