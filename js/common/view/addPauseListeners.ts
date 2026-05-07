@@ -12,6 +12,7 @@ import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSTime from '../model/QBSTime.js';
 
 type SelfOptions = {
@@ -46,12 +47,14 @@ export function addPauseListeners( node: Node, time: QBSTime, providedOptions: A
   node.addInputListener( new PressListener( {
     attach: false,
     press: press,
-    release: release
+    release: release,
+    tandem: Tandem.OPT_OUT //TODO PhET-iO instrumentation required?
   } ) );
 
   node.addInputListener( new KeyboardListener( {
     keys: options.keys,
     press: press,
-    release: release
+    release: release,
+    tandem: Tandem.OPT_OUT //TODO PhET-iO instrumentation required?
   } ) );
 }
