@@ -56,7 +56,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       stroke: QBSColors.probabilityDensityStrokeProperty,
       lineWidth: 2
     } );
-    this.curveLayer.addChild( probabilityDensityPlot );
+    this.addPlot( probabilityDensityPlot );
 
     model.probabilityDensityGraph.probabilityDensityValuesProperty.lazyLink( probabilityDensityValues => {
       probabilityDensityPlot.setYCoordinates( probabilityDensityValues );

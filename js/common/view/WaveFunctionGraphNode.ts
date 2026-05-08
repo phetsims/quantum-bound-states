@@ -79,10 +79,10 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     model.waveFunctionGraph.magnitudeValuesProperty.link( values => magnitudePlot.setYCoordinates( values ) );
 
     // Rendering order
-    //TODO this.curveLayer.addChild( phasePlot );
-    this.curveLayer.addChild( magnitudePlot );
-    this.curveLayer.addChild( imaginaryPartPlot );
-    this.curveLayer.addChild( realPartPlot );
+    //TODO this.addPlot( phasePlot );
+    this.addPlot( magnitudePlot );
+    this.addPlot( imaginaryPartPlot );
+    this.addPlot( realPartPlot );
 
     model.waveFunctionGraph.yAxisRangeProperty.link( yAxisRange => {
       this.setYRange( yAxisRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );

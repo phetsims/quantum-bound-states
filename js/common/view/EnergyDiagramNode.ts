@@ -82,10 +82,12 @@ export default class EnergyDiagramNode extends Node {
     yAxisLabelNode.boundsProperty.link( () => {
       yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_X_OFFSET, 0 );
     } );
-
+    
     this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL,
       QBSConstants.ENERGY_DIAGRAM_Y_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
+    model.energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
+    
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
       QBSConstants.ALL_GRAPHS_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
@@ -96,39 +98,58 @@ export default class EnergyDiagramNode extends Node {
     } );
     model.boundStateResultProperty.lazyLink( boundStateResult => potentialPlot.setYCoordinates( boundStateResult.potentials ) );
 
-    // Plots the eigenvalues of the selected potential.
-    const eigenvaluesPlot = new EigenvaluesPlot( this.chartTransform, model.boundStateResultProperty.value.energies, {
+    // Plots the energy levels of the selected potential.
+    const energyLevelsPlot = new EigenvaluesPlot( this.chartTransform, model.boundStateResultProperty.value.energies, {
       stroke: QBSColors.totalEnergyColorProperty,
       lineWidth: 2
     } );
-    model.boundStateResultProperty.lazyLink( boundStateResult => eigenvaluesPlot.setEigenvalues( boundStateResult.energies ) );
+    model.boundStateResultProperty.lazyLink( boundStateResult => energyLevelsPlot.setEigenvalues( boundStateResult.energies ) );
 
-    // Plots the selected eigenvalue.
-    const selectedEigenvaluePlot = new EigenvaluesPlot( this.chartTransform, [ model.selectedEnergyProperty.value ], {
+    // Plots the selected energy level.
+    const selectedEnergyLevelPlot = new EigenvaluesPlot( this.chartTransform, [ model.selectedEnergyProperty.value ], {
       stroke: QBSColors.selectedEigenvalueColorProperty,
       lineWidth: 3
     } );
-    model.selectedEnergyProperty.lazyLink( selectedEnergy => selectedEigenvaluePlot.setEigenvalues( [ selectedEnergy ] ) );
+    model.selectedEnergyProperty.lazyLink( selectedEnergy => selectedEnergyLevelPlot.setEigenvalues( [ selectedEnergy ] ) );
 
-    // Plots the highlighted eigenvalue.
-    const highlightedEnergyLevelProperty = new Property<number | null>( null ); //TODO
-    const highlightedEigenvaluePlot = new EigenvaluesPlot( this.chartTransform, [], {
+    // The highlighted energy level, null if no energy level is highlighted.
+    //TODO Move to QBSModel
+    const highlightedEnergyLevelProperty = new Property<number | null>( null, {
+      // No PhET-iO instrumentation, highlighting is not stateful.
+    } );
+
+    // Plots the highlighted energy level.
+    const highlightedEnergyLevelPlot = new EigenvaluesPlot( this.chartTransform, [], {
       stroke: QBSColors.highlightedEigenvalueColorProperty,
       lineWidth: 3
     } );
+
+    highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel => {
+
+      // Change the cursor to a pointer when an energy level is highlighted.
+      this.chartRectangle.cursor = ( highlightedEnergyLevel === null ) ? 'default' : 'pointer';
+
+      // Update the plot to display the highlighted energy level.
+      highlightedEnergyLevelPlot.setEigenvalues( ( highlightedEnergyLevel === null ) ? [] :
+        [ model.getEnergyAtEnergyLevel( highlightedEnergyLevel ) ] );
+    } );
+
+    // When the bound state changes, clear the highlighted energy level.
     model.boundStateResultProperty.lazyLink( () => {
       highlightedEnergyLevelProperty.value = null;
     } );
-    highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel =>
-      highlightedEigenvaluePlot.setEigenvalues( ( highlightedEnergyLevel === null ) ? [] :
-        [ model.getEnergyAtEnergyLevel( highlightedEnergyLevel ) ] ) );
 
-    const curveLayer = new Node( {
+    // Highlighting and selection of energy levels.
+    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this.chartRectangle,
+      this.chartTransform, highlightedEnergyLevelProperty, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
+
+    // Parent for elements that are clipped to the chartRectangle.
+    const clippedLayer = new Node( {
       clipArea: this.chartRectangle.getShape(),
       children: [
-        eigenvaluesPlot,
-        highlightedEigenvaluePlot,
-        selectedEigenvaluePlot,
+        energyLevelsPlot,
+        highlightedEnergyLevelPlot,
+        selectedEnergyLevelPlot,
         potentialPlot
       ]
     } );
@@ -140,17 +161,8 @@ export default class EnergyDiagramNode extends Node {
       this.chartRectangle,
       this.horizontalGridLines,
       verticalGridLines,
-      curveLayer
+      clippedLayer
     ];
-
-    model.energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
-
-    highlightedEnergyLevelProperty.link( highlightedEnergyLevel => {
-      this.chartRectangle.cursor = ( highlightedEnergyLevel === null ) ? 'default' : 'pointer';
-    } );
-
-    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this.chartRectangle,
-      this.chartTransform, highlightedEnergyLevelProperty, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
   }
 
   private setYRange( yRange: Range ): void {

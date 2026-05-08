@@ -66,8 +66,8 @@ export default class QuantumStateGraphNode extends Node {
   // Outer rectangle of the chart
   private readonly chartRectangle: ChartRectangle;
 
-  // Parent node for curves, clipped to chartRectangle.
-  protected readonly curveLayer: Node;
+  // Parent for elements that are clipped to the chartRectangle.
+  private readonly clippedLayer: Node;
 
   // y-axis decorations that are mutable
   private readonly yTickMarkSet: TickMarkSet;
@@ -150,7 +150,7 @@ export default class QuantumStateGraphNode extends Node {
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
       QBSConstants.ALL_GRAPHS_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
-    this.curveLayer = new Node( {
+    this.clippedLayer = new Node( {
       clipArea: this.chartRectangle.getShape(),
       visibleProperty: curvesVisibleProperty
     } );
@@ -176,7 +176,7 @@ export default class QuantumStateGraphNode extends Node {
         this.horizontalGridLines,
         verticalGridLines,
         eyeClosedNode,
-        this.curveLayer
+        this.clippedLayer
       ]
     } );
     this.addChild( pickableFalseNode );
@@ -239,5 +239,12 @@ export default class QuantumStateGraphNode extends Node {
     this.yTickMarkSet.setSpacing( spacing );
     this.yTickLabelSet.setSpacing( spacing );
     this.horizontalGridLines.setSpacing( spacing );
+  }
+
+  /**
+   * Adds a plot to the graph. It will be clipped to the chart rectangle.
+   */
+  protected addPlot( plot: Node ): void {
+    this.clippedLayer.addChild( plot );
   }
 }
