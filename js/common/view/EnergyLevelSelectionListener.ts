@@ -7,9 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
 
@@ -19,14 +19,17 @@ const ENERGY_CLOSENESS_THRESHOLD = 1; // eV
 export default class EnergyLevelSelectionListener extends PressListener {
 
   //TODO Reduce coupling to QBSModel
-  public constructor( model: QBSModel, energyDiagram: Node, chartTransform: ChartTransform, tandem: Tandem ) {
+  public constructor( model: QBSModel,
+                      chartRectangle: ChartRectangle,
+                      chartTransform: ChartTransform,
+                      tandem: Tandem ) {
     super( {
       tandem: tandem,
       press: event => {
 
         // Compute the energy value at the point where the press occurred.
         const globalPoint = event.pointer.point;
-        const localPoint = energyDiagram.globalToLocalPoint( globalPoint );
+        const localPoint = chartRectangle.globalToLocalPoint( globalPoint );
         const pressedEnergy = chartTransform.viewToModelY( localPoint.y );
         phet.log && phet.log( 'EnergyLevelSelectionListener: pressedEnergy = ' + pressedEnergy );
 

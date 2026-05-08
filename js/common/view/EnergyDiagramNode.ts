@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -25,6 +26,7 @@ import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EigenvaluesPlot from './EigenvaluesPlot.js';
+import EnergyHighlightListener from './EnergyHighlightListener.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import YLinePlot from './YLinePlot.js';
 
@@ -58,7 +60,6 @@ export default class EnergyDiagramNode extends Node {
     } );
 
     this.chartRectangle = new ChartRectangle( this.chartTransform, {
-      cursor: 'pointer',
       fill: QBSColors.chartRectangleFillProperty,
       stroke: QBSColors.chartRectangleStrokeProperty
     } );
@@ -110,10 +111,19 @@ export default class EnergyDiagramNode extends Node {
     } );
     model.selectedEnergyProperty.lazyLink( selectedEnergy => selectedEigenvaluePlot.setEigenvalues( [ selectedEnergy ] ) );
 
+    // Plots the highlighted eigenvalue.
+    const highlightedEigenvalueProperty = new Property<number | null>( null ); //TODO
+    const highlightedEigenvaluePlot = new EigenvaluesPlot( this.chartTransform, [], {
+      stroke: QBSColors.highlightedEigenvalueColorProperty,
+      lineWidth: 2
+    } );
+    highlightedEigenvalueProperty.lazyLink( selectedEnergy => highlightedEigenvaluePlot.setEigenvalues( selectedEnergy ? [ selectedEnergy ] : [] ) );
+
     const curveLayer = new Node( {
       clipArea: this.chartRectangle.getShape(),
       children: [
         eigenvaluesPlot,
+        highlightedEigenvaluePlot,
         selectedEigenvaluePlot,
         potentialPlot
       ]
@@ -131,8 +141,15 @@ export default class EnergyDiagramNode extends Node {
 
     model.energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
 
-    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this, this.chartTransform,
-      tandem.createTandem( 'energyLevelSelectionListener' ) ) );
+    highlightedEigenvalueProperty.link( highlightedEnergy => {
+      this.chartRectangle.cursor = highlightedEnergy ? 'pointer' : 'default';
+    } );
+
+    this.chartRectangle.addInputListener( new EnergyHighlightListener( model, highlightedEigenvalueProperty,
+      this.chartRectangle, this.chartTransform, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
+
+    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this.chartRectangle,
+      this.chartTransform, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
   }
 
   private setYRange( yRange: Range ): void {
