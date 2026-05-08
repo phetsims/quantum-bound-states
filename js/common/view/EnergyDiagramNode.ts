@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -106,25 +105,19 @@ export default class EnergyDiagramNode extends Node {
     model.boundStateResultProperty.lazyLink( boundStateResult => energyLevelsPlot.setEigenvalues( boundStateResult.energies ) );
 
     // Plots the selected energy level.
-    const selectedEnergyLevelPlot = new EigenvaluesPlot( this.chartTransform, [ model.selectedEnergyProperty.value ], {
+    const selectedEnergyLevelPlot = new EigenvaluesPlot( this.chartTransform, [ model.getEnergyAtEnergyLevel( model.energyLevelProperty.value ) ], {
       stroke: QBSColors.selectedEigenvalueColorProperty,
       lineWidth: 3
     } );
-    model.selectedEnergyProperty.lazyLink( selectedEnergy => selectedEnergyLevelPlot.setEigenvalues( [ selectedEnergy ] ) );
-
-    // The highlighted energy level, null if no energy level is highlighted.
-    //TODO Move to QBSModel
-    const highlightedEnergyLevelProperty = new Property<number | null>( null, {
-      // No PhET-iO instrumentation, highlighting is not stateful.
-    } );
+    model.energyLevelProperty.lazyLink( energyLevel =>
+      selectedEnergyLevelPlot.setEigenvalues( [ model.getEnergyAtEnergyLevel( energyLevel ) ] ) );
 
     // Plots the highlighted energy level.
     const highlightedEnergyLevelPlot = new EigenvaluesPlot( this.chartTransform, [], {
       stroke: QBSColors.highlightedEigenvalueColorProperty,
       lineWidth: 3
     } );
-
-    highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel => {
+    model.highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel => {
 
       // Change the cursor to a pointer when an energy level is highlighted.
       this.chartRectangle.cursor = ( highlightedEnergyLevel === null ) ? 'default' : 'pointer';
@@ -134,14 +127,9 @@ export default class EnergyDiagramNode extends Node {
         [ model.getEnergyAtEnergyLevel( highlightedEnergyLevel ) ] );
     } );
 
-    // When the bound state changes, clear the highlighted energy level.
-    model.boundStateResultProperty.lazyLink( () => {
-      highlightedEnergyLevelProperty.value = null;
-    } );
-
     // Highlighting and selection of energy levels.
     this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this.chartRectangle,
-      this.chartTransform, highlightedEnergyLevelProperty, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
+      this.chartTransform, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
 
     // Parent for elements that are clipped to the chartRectangle.
     const clippedLayer = new Node( {

@@ -20,6 +20,8 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
@@ -83,7 +85,9 @@ export default class QBSModel implements TModel {
 
   // The selected energy level.
   public readonly energyLevelProperty: NumberProperty;
-  public readonly selectedEnergyProperty: TReadOnlyProperty<number>;
+
+  // The highlighted energy level. null if there is no energy level highlighted.
+  public readonly highlightedEnergyLevelProperty: Property<number | null>;
 
   // Energy diagram
   public readonly energyDiagram: EnergyDiagram;
@@ -145,14 +149,33 @@ export default class QBSModel implements TModel {
       phetioReadOnly: true
     } );
 
+    this.highlightedEnergyLevelProperty = new Property<number | null>( null, {
+      tandem: options.tandem.createTandem( 'highlightedEnergyLevelProperty' ),
+      phetioValueType: NullableIO( NumberIO ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+
+    // When the bound state changes, clear the highlighted energy level.
+    this.boundStateResultProperty.lazyLink( () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.highlightedEnergyLevelProperty.value = null;
+      }
+    } );
+
     const potentialChangedListener = () => {
       this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, this.electronMassesProperty.value );
     };
     this.potentialProperty.value.propertyChangedEmitter.addListener( potentialChangedListener );
 
     this.potentialProperty.lazyLink( ( potential, previousPotential ) => {
-      previousPotential.propertyChangedEmitter.removeListener( potentialChangedListener );
+
+      // Move potentialChangedListener to the new potential.
+      if ( previousPotential.propertyChangedEmitter.hasListener( potentialChangedListener ) ) {
+        previousPotential.propertyChangedEmitter.removeListener( potentialChangedListener );
+      }
       potential.propertyChangedEmitter.addListener( potentialChangedListener );
+
       if ( !isSettingPhetioStateProperty.value ) {
 
         // Recompute the bound state.
@@ -187,10 +210,6 @@ export default class QBSModel implements TModel {
         affirm( waveFunctionsIndex >= 0 && waveFunctionsIndex < waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
         return waveFunctions[ waveFunctionsIndex ];
       } );
-
-    this.selectedEnergyProperty = new DerivedProperty(
-      [ this.boundStateResultProperty, this.energyLevelProperty ],
-      ( boundStateResult, energyLevel ) => this.getEnergyAtEnergyLevel( energyLevel ) );
 
     // These Properties are owned by the top-level model - QBSModel and its subclasses. They are shared by all potentials,
     // so we do not get notification from the potentials when they change. Instead, we must listen for changes and
@@ -254,6 +273,7 @@ export default class QBSModel implements TModel {
     this.potentialProperty.reset();
     this.potentials.forEach( potential => potential.reset() );
     this.energyLevelProperty.reset();
+    this.highlightedEnergyLevelProperty.reset();
     this.energyDiagram.reset();
     this.averageProbabilityDensityOfBandGraph && this.averageProbabilityDensityOfBandGraph.reset();
     this.probabilityDensityGraph.reset();
@@ -276,7 +296,7 @@ export default class QBSModel implements TModel {
 
   /**
    * Gets the energy level that is closest to some energy value, within some threshold.  If there is no energy level
-   * is within the threshold, then null is returned. This implementation was adapted from BSModel.java.
+   * within the threshold, then null is returned. This implementation was adapted from BSModel.java.
    */
   public getClosestEnergyLevel( energy: number, threshold: number ): number | null {
     let index = -1;
@@ -313,12 +333,15 @@ export default class QBSModel implements TModel {
     return ( index === -1 ) ? null : index + this.potentialProperty.value.groundStateIndex;
   }
 
+  /**
+   * Gets the energy (in eV) at a given energy level.
+   */
   public getEnergyAtEnergyLevel( energyLevel: number ): number {
     const groundStateIndex = this.potentialProperty.value.groundStateIndex;
-    const energyIndex = energyLevel - groundStateIndex;
+    const energiesIndex = energyLevel - groundStateIndex;
     const energies = this.boundStateResultProperty.value.energies;
-    affirm( energyIndex >= 0 && energyIndex < energies.length, `energies out of range: ${energyIndex}` );
-    return energies[ energyIndex ];
+    affirm( energiesIndex >= 0 && energiesIndex < energies.length, `energiesIndex out of range: ${energiesIndex}` );
+    return energies[ energiesIndex ];
   }
 }
 

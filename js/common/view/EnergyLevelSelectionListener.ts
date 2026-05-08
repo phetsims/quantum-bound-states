@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import TInputListener from '../../../../scenery/js/input/TInputListener.js';
@@ -23,21 +22,19 @@ export default class EnergyLevelSelectionListener extends PressListener implemen
   private readonly model: QBSModel;
   private readonly chartRectangle: ChartRectangle;
   private readonly chartTransform: ChartTransform;
-  private readonly highlightedEnergyLevelProperty: Property<number | null>;
 
   //TODO Reduce coupling to QBSModel
   public constructor( model: QBSModel,
                       chartRectangle: ChartRectangle,
                       chartTransform: ChartTransform,
-                      highlightedEnergyLevelProperty: Property<number | null>,
                       tandem: Tandem ) {
     super( {
       tandem: tandem,
       press: event => {
 
         // Select the highlighted energy level.
-        if ( highlightedEnergyLevelProperty.value !== null ) {
-          model.energyLevelProperty.value = highlightedEnergyLevelProperty.value;
+        if ( model.highlightedEnergyLevelProperty.value !== null ) {
+          model.energyLevelProperty.value = model.highlightedEnergyLevelProperty.value;
         }
       }
     } );
@@ -45,7 +42,6 @@ export default class EnergyLevelSelectionListener extends PressListener implemen
     this.model = model;
     this.chartRectangle = chartRectangle;
     this.chartTransform = chartTransform;
-    this.highlightedEnergyLevelProperty = highlightedEnergyLevelProperty;
   }
 
   /**
@@ -55,7 +51,7 @@ export default class EnergyLevelSelectionListener extends PressListener implemen
     super.move( event );
 
     // Highlight the energy level that is closest to where the pointer is.
-    this.highlightedEnergyLevelProperty.value = this.eventToEnergyLevel( event );
+    this.model.highlightedEnergyLevelProperty.value = this.eventToEnergyLevel( event );
   }
 
   /**
