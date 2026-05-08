@@ -7,25 +7,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import QuantumPotential from '../model/potentials/QuantumPotential.js';
-import { BoundStateResult } from '../model/solver/BoundStateResult.js';
+import QBSModel from '../model/QBSModel.js';
 
-const ENERGY_THRESHOLD = 0.1; // eV
+const ENERGY_CLOSENESS_THRESHOLD = 1; // eV
 
 export default class EnergyLevelSelectionListener extends PressListener {
 
-  public constructor( energyLevelProperty: Property<number>,
-                      potentialProperty: TReadOnlyProperty<QuantumPotential>,
-                      energyDiagram: Node,
-                      chartTransform: ChartTransform,
-                      boundStateResultProperty: TReadOnlyProperty<BoundStateResult>,
-                      tandem: Tandem ) {
+  //TODO Reduce coupling to QBSModel
+  public constructor( model: QBSModel, energyDiagram: Node, chartTransform: ChartTransform, tandem: Tandem ) {
     super( {
       tandem: tandem,
       press: event => {
@@ -37,21 +30,12 @@ export default class EnergyLevelSelectionListener extends PressListener {
         phet.log && phet.log( 'EnergyLevelSelectionListener: pressedEnergy = ' + pressedEnergy );
 
         // Find the closest energy level.
-        //TODO Investigate how the Java version handled this.
-        const energies = boundStateResultProperty.value.energies;
-        let closestEnergyLevelIndex: number | null = null;
-        for ( let i = 0; i < energies.length; i++ ) {
-          const energy = energies[ i ];
-          if ( Math.abs( energy - pressedEnergy ) <= ENERGY_THRESHOLD ) {
-            closestEnergyLevelIndex = i;
-            break;
-          }
-        }
+        const closestEnergyLevelIndex = model.getClosestEigenstateIndex( pressedEnergy, ENERGY_CLOSENESS_THRESHOLD );
 
         // If there is a closest energy level, set the energy level, adjusting for the ground state index.
-        if ( closestEnergyLevelIndex !== null ) {
-          energyLevelProperty.value = closestEnergyLevelIndex + potentialProperty.value.groundStateIndex;
-          phet.log && phet.log( 'EnergyLevelSelectionListener: selected energy level = E' + energyLevelProperty.value );
+        if ( closestEnergyLevelIndex !== -1 ) {
+          model.energyLevelProperty.value = closestEnergyLevelIndex + model.potentialProperty.value.groundStateIndex;
+          phet.log && phet.log( 'EnergyLevelSelectionListener: selected energy level = E' + model.energyLevelProperty.value );
         }
       }
     } );

@@ -123,8 +123,7 @@ export default class EnergyDiagramNode extends Node {
 
     model.energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
 
-    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model.energyLevelProperty,
-      model.potentialProperty, this, this.chartTransform, model.boundStateResultProperty,
+    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this, this.chartTransform,
       tandem.createTandem( 'energyLevelSelectionListener' ) ) );
   }
 

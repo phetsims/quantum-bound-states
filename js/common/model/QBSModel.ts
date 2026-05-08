@@ -27,11 +27,11 @@ import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
 import QuantumPotential from './potentials/QuantumPotential.js';
 import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
+import QBSTime from './QBSTime.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import XGrid from './solver/XGrid.js';
-import QBSTime from './QBSTime.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
@@ -267,6 +267,43 @@ export default class QBSModel implements TModel {
     if ( this.time.isPlayingProperty.value ) {
       this.time.step( dt );
     }
+  }
+
+  /**
+   * Gets the eigenstate that is closest to some energy value, within some threshold.  If there is no eigenstate within
+   * the threshold, then -1 is returned. This implementation was ported directly from BSModel.java.
+   */
+  public getClosestEigenstateIndex( energy: number, threshold: number ): number {
+    let index = -1;
+    const eigenstates = this.boundStateResultProperty.value.energies;
+    if ( eigenstates.length === 1 ) {
+      if ( Math.abs( eigenstates[ 0 ] - energy ) <= threshold ) {
+        index = 0;
+      }
+    }
+    else {
+      for ( let i = 1; i < eigenstates.length; i++ ) {
+        const currentEnergy = eigenstates[ i ];
+        if ( energy === currentEnergy ) {
+          index = i;
+          break;
+        }
+        else if ( energy < currentEnergy ) {
+          const lowerEnergy = eigenstates[ i - 1 ];
+          const currentEnergyDifference = Math.abs( currentEnergy - energy );
+          const lowerEnergyDifference = Math.abs( energy - lowerEnergy );
+          if ( currentEnergyDifference <= lowerEnergyDifference && currentEnergyDifference <= threshold ) {
+            index = i;
+            break;
+          }
+          else if ( currentEnergyDifference > lowerEnergyDifference && lowerEnergyDifference <= threshold ) {
+            index = i - 1;
+            break;
+          }
+        }
+      }
+    }
+    return index;
   }
 }
 
