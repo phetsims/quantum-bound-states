@@ -40,7 +40,7 @@ export default class QBSColors {
   } );
 
   public static readonly highlightedEnergyLevelColorProperty = new ProfileColorProperty( quantumBoundStates, 'highlightedEnergyLevelColor', {
-    default: Color.grayColor( 170 )
+    default: 'rgb( 40, 255, 40 )'
   } );
 
   public static readonly chartRectangleFillProperty = new ProfileColorProperty( quantumBoundStates, 'chartRectangleFill', {
