@@ -15,7 +15,7 @@ type SelfOptions = EmptySelfOptions;
 
 export type EigenvaluesPlotOptions = SelfOptions & PathOptions;
 
-export default class EigenvaluesPlot extends Path {
+export default class EnergyLevelsPlot extends Path {
 
   private readonly chartTransform: ChartTransform;
   private eigenvalues: number[];

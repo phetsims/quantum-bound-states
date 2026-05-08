@@ -24,7 +24,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import EigenvaluesPlot from './EigenvaluesPlot.js';
+import EnergyLevelsPlot from './EnergyLevelsPlot.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import YLinePlot from './YLinePlot.js';
 
@@ -98,14 +98,14 @@ export default class EnergyDiagramNode extends Node {
     model.boundStateResultProperty.lazyLink( boundStateResult => potentialPlot.setYCoordinates( boundStateResult.potentials ) );
 
     // Plots the energy levels of the selected potential.
-    const energyLevelsPlot = new EigenvaluesPlot( this.chartTransform, model.boundStateResultProperty.value.energies, {
+    const energyLevelsPlot = new EnergyLevelsPlot( this.chartTransform, model.boundStateResultProperty.value.energies, {
       stroke: QBSColors.totalEnergyColorProperty,
       lineWidth: 2
     } );
     model.boundStateResultProperty.lazyLink( boundStateResult => energyLevelsPlot.setEigenvalues( boundStateResult.energies ) );
 
     // Plots the selected energy level.
-    const selectedEnergyLevelPlot = new EigenvaluesPlot( this.chartTransform, [ model.getEnergyAtEnergyLevel( model.energyLevelProperty.value ) ], {
+    const selectedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [ model.getEnergyAtEnergyLevel( model.energyLevelProperty.value ) ], {
       stroke: QBSColors.selectedEnergyLevelColorProperty,
       lineWidth: 3
     } );
@@ -113,7 +113,7 @@ export default class EnergyDiagramNode extends Node {
       selectedEnergyLevelPlot.setEigenvalues( [ model.getEnergyAtEnergyLevel( energyLevel ) ] ) );
 
     // Plots the highlighted energy level.
-    const highlightedEnergyLevelPlot = new EigenvaluesPlot( this.chartTransform, [], {
+    const highlightedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [], {
       stroke: QBSColors.highlightedEnergyLevelColorProperty,
       lineWidth: 3
     } );
