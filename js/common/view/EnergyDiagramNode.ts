@@ -116,7 +116,11 @@ export default class EnergyDiagramNode extends Node {
 
     const curveLayer = new Node( {
       clipArea: this.chartRectangle.getShape(),
-      children: [ eigenvaluesPlot, selectedEigenvaluePlot, potentialPlot ]
+      children: [
+        eigenvaluesPlot,
+        selectedEigenvaluePlot,
+        potentialPlot
+      ]
     } );
 
     this.children = [
