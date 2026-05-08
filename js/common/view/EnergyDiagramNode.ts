@@ -47,7 +47,8 @@ export default class EnergyDiagramNode extends Node {
     super( {
       accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleParagraphStringProperty,
-      tandem: tandem
+      tandem: tandem,
+      phetioInputEnabledPropertyInstrumented: true
     } );
 
     this.chartTransform = new ChartTransform( {
