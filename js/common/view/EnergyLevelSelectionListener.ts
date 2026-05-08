@@ -13,6 +13,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
 
+// The pointer must be this close to an energy level to select it.
 const ENERGY_CLOSENESS_THRESHOLD = 1; // eV
 
 export default class EnergyLevelSelectionListener extends PressListener {
