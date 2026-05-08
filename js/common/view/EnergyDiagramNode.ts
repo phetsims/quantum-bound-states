@@ -13,7 +13,6 @@ import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -24,8 +23,8 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import EnergyLevelsPlot from './EnergyLevelsPlot.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
+import EnergyLevelsPlot from './EnergyLevelsPlot.js';
 import YLinePlot from './YLinePlot.js';
 
 export default class EnergyDiagramNode extends Node {
@@ -85,7 +84,7 @@ export default class EnergyDiagramNode extends Node {
     this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL,
       QBSConstants.ENERGY_DIAGRAM_Y_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
-    model.energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
+    model.energyDiagram.yRangeProperty.lazyLink( yRange => this.chartTransform.setModelYRange( yRange ) );
     
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
       QBSConstants.ALL_GRAPHS_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
@@ -151,10 +150,6 @@ export default class EnergyDiagramNode extends Node {
       verticalGridLines,
       clippedLayer
     ];
-  }
-
-  private setYRange( yRange: Range ): void {
-    this.chartTransform.setModelYRange( yRange );
   }
 
   //TODO Delete if this method is not used.
