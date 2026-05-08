@@ -64,7 +64,7 @@ export default class OneWellModel extends QBSModel {
     const quantumPotentialOptions: Partial<QuantumPotentialOptions> = {
       numberOfWellsProperty: numberOfWellsProperty,
       electricFieldProperty: electricFieldProperty,
-      xOffsetRange: new RangeWithValue( -3, 3, 0 ),
+      xOffsetRange: new RangeWithValue( -3, 3, 0 ), //TODO For development experimentation
       yOffsetRange: new RangeWithValue( -10, 10, 0 ) //TODO This assumes that all potentials have energyAxisRange.getLength() === 20
     };
 
@@ -88,11 +88,10 @@ export default class OneWellModel extends QBSModel {
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ) ),
       new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
-        //TODO Other Properties?
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
       } ) ),
       new MorsePotential( combineOptions<MorsePotentialOptions>( {}, quantumPotentialOptions, {
-        //TODO Other Properties?
+        xOffsetRange: new RangeWithValue( -3, 3, -2 ),
         tandem: potentialsTandem.createTandem( 'morsePotential' )
       } ) ),
       new CoulombPotential( combineOptions<CoulombPotentialOptions>( {}, quantumPotentialOptions, {
