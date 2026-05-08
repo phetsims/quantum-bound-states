@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * EigenvaluesPlot plots a set of eigenvalues as horizontal lines.
+ * EnergyLevelsPlot plots a set of energy levels as horizontal lines.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,7 +13,7 @@ import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type EigenvaluesPlotOptions = SelfOptions & PathOptions;
+export type EnergyLevelsPlotOptions = SelfOptions & PathOptions;
 
 export default class EnergyLevelsPlot extends Path {
 
@@ -22,9 +22,9 @@ export default class EnergyLevelsPlot extends Path {
 
   public constructor( chartTransform: ChartTransform,
                       energies: number[],
-                      providedOptions?: EigenvaluesPlotOptions ) {
+                      providedOptions?: EnergyLevelsPlotOptions ) {
 
-    const options = optionize<EigenvaluesPlotOptions, SelfOptions, PathOptions>()( {
+    const options = optionize<EnergyLevelsPlotOptions, SelfOptions, PathOptions>()( {
 
       // Path options
       stroke: 'black'

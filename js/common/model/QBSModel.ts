@@ -346,10 +346,10 @@ export default class QBSModel implements TModel {
 }
 
 /**
- * Gets the energy level range for the given ground state index and number of eigenvalues.
+ * Gets the energy level range for the given ground state index and number of energy levels.
  */
-function getEnergyLevelRange( groundStateIndex: number, numberOfEigenvalues: number ): Range {
-  return new Range( groundStateIndex, groundStateIndex + numberOfEigenvalues - 1 );
+function getEnergyLevelRange( groundStateIndex: number, numberOfEnergyLevels: number ): Range {
+  return new Range( groundStateIndex, groundStateIndex + numberOfEnergyLevels - 1 );
 }
 
 /**

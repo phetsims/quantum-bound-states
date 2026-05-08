@@ -7,7 +7,7 @@
  * @author Martin Martin Veillette
  *
  * Contains all information about the computed quantum states including
- * energy eigenvalues, normalized wave functions, and the spatial grid.
+ * eigenvalues (energy levels), normalized wave functions, and the spatial grid.
  *
  * @example
  *
@@ -18,7 +18,7 @@
  * const result: BoundStateResult = NumerovSolver.solve( ... );
  *
  * // Get ground state energy
- * const E0 = result.eigenvalues[ 0 ];
+ * const E0 = result.energies[ 0 ];
  *
  * // Get ground state wave function
  * const psi0 = result.waveFunctions[ 0 ];
@@ -36,7 +36,7 @@ type NumericMethod = 'numerov' | 'analytical';
 
 export type BoundStateResult = {
   potentials: number[];      // Potential energy values in eV, from left to right
-  energies: number[];        // Energy eigenvalues in eV (sorted from lowest to highest)
+  energies: number[];        // Eigenvalues (energy levels) in eV (sorted from lowest to highest)
   waveFunctions: number[][]; // Normalized wave functions (each row is one state)
   method: NumericMethod;     // Name of the numerical method used
 };
