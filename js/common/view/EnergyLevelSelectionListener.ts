@@ -15,7 +15,7 @@ import PressListener, { PressListenerEvent } from '../../../../scenery/js/listen
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
 
-// The pointer must be this close to an energy level to select it.
+// The pointer must be this close to an energy level to highlight it or select it.
 const ENERGY_CLOSENESS_THRESHOLD = 1; // eV
 
 export default class EnergyLevelSelectionListener extends PressListener implements TInputListener {
@@ -35,12 +35,9 @@ export default class EnergyLevelSelectionListener extends PressListener implemen
       tandem: tandem,
       press: event => {
 
-        // Find the energy level that is closest to where the press occurred.
-        const closestEnergyLevel = this.eventToEnergyLevel( event );
-
-        // If there is a closest energy level, set the energy level
-        if ( closestEnergyLevel !== null ) {
-          model.energyLevelProperty.value = closestEnergyLevel;
+        // Select the highlighted energy level.
+        if ( highlightedEnergyLevelProperty.value !== null ) {
+          model.energyLevelProperty.value = highlightedEnergyLevelProperty.value;
         }
       }
     } );
@@ -73,12 +70,6 @@ export default class EnergyLevelSelectionListener extends PressListener implemen
     const energy = this.chartTransform.viewToModelY( localPoint.y );
 
     // Find the closest energy level.
-    const index = this.model.getClosestEigenstateIndex( energy, ENERGY_CLOSENESS_THRESHOLD );
-
-    // Adjust for the ground state index.
-    const energyLevel = ( index === -1 ) ? null : index + this.model.potentialProperty.value.groundStateIndex;
-    phet.log && phet.log( `EnergyLevelSelectionListener.eventToEnergyLevel: energy=${energyLevel}, index=${index}, energyLevel=${energyLevel}` );
-
-    return energyLevel;
+    return this.model.getClosestEnergyLevel( energy, ENERGY_CLOSENESS_THRESHOLD );
   }
 }

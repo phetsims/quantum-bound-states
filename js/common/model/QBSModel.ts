@@ -275,10 +275,10 @@ export default class QBSModel implements TModel {
   }
 
   /**
-   * Gets the eigenstate that is closest to some energy value, within some threshold.  If there is no eigenstate within
-   * the threshold, then -1 is returned. This implementation was ported directly from BSModel.java.
+   * Gets the energy level that is closest to some energy value, within some threshold.  If there is no energy level
+   * is within the threshold, then null is returned. This implementation was adapted from BSModel.java.
    */
-  public getClosestEigenstateIndex( energy: number, threshold: number ): number {
+  public getClosestEnergyLevel( energy: number, threshold: number ): number | null {
     let index = -1;
     const eigenstates = this.boundStateResultProperty.value.energies;
     if ( eigenstates.length === 1 ) {
@@ -308,7 +308,9 @@ export default class QBSModel implements TModel {
         }
       }
     }
-    return index;
+
+    // Adjust for the ground state index.
+    return ( index === -1 ) ? null : index + this.potentialProperty.value.groundStateIndex;
   }
 
   public getEnergyAtEnergyLevel( energyLevel: number ): number {
