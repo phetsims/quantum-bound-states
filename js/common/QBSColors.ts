@@ -35,11 +35,11 @@ export default class QBSColors {
     default: 'rgb( 92, 184, 79 )'
   } );
 
-  public static readonly selectedEigenvalueColorProperty = new ProfileColorProperty( quantumBoundStates, 'selectedEigenvalueColor', {
+  public static readonly selectedEnergyLevelColorProperty = new ProfileColorProperty( quantumBoundStates, 'selectedEnergyLevelColor', {
     default: PhetColorScheme.RED_COLORBLIND
   } );
 
-  public static readonly highlightedEigenvalueColorProperty = new ProfileColorProperty( quantumBoundStates, 'highlightedEigenvalueColor', {
+  public static readonly highlightedEnergyLevelColorProperty = new ProfileColorProperty( quantumBoundStates, 'highlightedEnergyLevelColor', {
     default: Color.grayColor( 170 )
   } );
 

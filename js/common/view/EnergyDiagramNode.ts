@@ -106,7 +106,7 @@ export default class EnergyDiagramNode extends Node {
 
     // Plots the selected energy level.
     const selectedEnergyLevelPlot = new EigenvaluesPlot( this.chartTransform, [ model.getEnergyAtEnergyLevel( model.energyLevelProperty.value ) ], {
-      stroke: QBSColors.selectedEigenvalueColorProperty,
+      stroke: QBSColors.selectedEnergyLevelColorProperty,
       lineWidth: 3
     } );
     model.energyLevelProperty.lazyLink( energyLevel =>
@@ -114,7 +114,7 @@ export default class EnergyDiagramNode extends Node {
 
     // Plots the highlighted energy level.
     const highlightedEnergyLevelPlot = new EigenvaluesPlot( this.chartTransform, [], {
-      stroke: QBSColors.highlightedEigenvalueColorProperty,
+      stroke: QBSColors.highlightedEnergyLevelColorProperty,
       lineWidth: 3
     } );
     model.highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel => {
