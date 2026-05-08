@@ -300,21 +300,21 @@ export default class QBSModel implements TModel {
    */
   public getClosestEnergyLevel( energy: number, threshold: number ): number | null {
     let index = -1;
-    const eigenstates = this.boundStateResultProperty.value.energies;
-    if ( eigenstates.length === 1 ) {
-      if ( Math.abs( eigenstates[ 0 ] - energy ) <= threshold ) {
+    const energies = this.boundStateResultProperty.value.energies;
+    if ( energies.length === 1 ) {
+      if ( Math.abs( energies[ 0 ] - energy ) <= threshold ) {
         index = 0;
       }
     }
     else {
-      for ( let i = 1; i < eigenstates.length; i++ ) {
-        const currentEnergy = eigenstates[ i ];
+      for ( let i = 1; i < energies.length; i++ ) {
+        const currentEnergy = energies[ i ];
         if ( energy === currentEnergy ) {
           index = i;
           break;
         }
         else if ( energy < currentEnergy ) {
-          const lowerEnergy = eigenstates[ i - 1 ];
+          const lowerEnergy = energies[ i - 1 ];
           const currentEnergyDifference = Math.abs( currentEnergy - energy );
           const lowerEnergyDifference = Math.abs( energy - lowerEnergy );
           if ( currentEnergyDifference <= lowerEnergyDifference && currentEnergyDifference <= threshold ) {
