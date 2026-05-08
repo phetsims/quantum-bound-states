@@ -35,6 +35,10 @@ export default class QBSColors {
     default: 'rgb( 92, 184, 79 )'
   } );
 
+  public static readonly selectedEigenvalueColorProperty = new ProfileColorProperty( quantumBoundStates, 'selectedEigenvalueColor', {
+    default: PhetColorScheme.RED_COLORBLIND
+  } );
+
   public static readonly chartRectangleFillProperty = new ProfileColorProperty( quantumBoundStates, 'chartRectangleFill', {
     default: 'white'
   } );

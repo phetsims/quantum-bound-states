@@ -101,6 +101,14 @@ export default class EnergyDiagramNode extends Node {
       lineWidth: 2
     } );
 
+    // Plots the selected eigenvalue.
+    const selectedEigenvaluePlot = new EigenvaluesPlot( this.chartTransform, [ model.selectedEnergyProperty.value ], {
+      stroke: QBSColors.selectedEigenvalueColorProperty,
+      lineWidth: 2
+    } );
+    model.selectedEnergyProperty.lazyLink( selectedEnergy =>
+      selectedEigenvaluePlot.setEigenvalues( [ selectedEnergy ] ) );
+
     model.boundStateResultProperty.lazyLink( boundStateResult => {
       potentialPlot.setYCoordinates( boundStateResult.potentials );
       eigenvaluesPlot.setEigenvalues( boundStateResult.energies );
@@ -108,7 +116,7 @@ export default class EnergyDiagramNode extends Node {
 
     const curveLayer = new Node( {
       clipArea: this.chartRectangle.getShape(),
-      children: [ eigenvaluesPlot, potentialPlot ]
+      children: [ eigenvaluesPlot, selectedEigenvaluePlot, potentialPlot ]
     } );
 
     this.children = [

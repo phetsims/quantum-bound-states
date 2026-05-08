@@ -83,6 +83,7 @@ export default class QBSModel implements TModel {
 
   // The selected energy level.
   public readonly energyLevelProperty: NumberProperty;
+  public readonly selectedEnergyProperty: TReadOnlyProperty<number>;
 
   // Energy diagram
   public readonly energyDiagram: EnergyDiagram;
@@ -183,8 +184,18 @@ export default class QBSModel implements TModel {
         const groundStateIndex = this.potentialProperty.value.groundStateIndex;
         const waveFunctionsIndex = energyLevel - groundStateIndex;
         const waveFunctions = boundStateResult.waveFunctions;
-        affirm( waveFunctionsIndex >= 0 && waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
+        affirm( waveFunctionsIndex >= 0 && waveFunctionsIndex < waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
         return waveFunctions[ waveFunctionsIndex ];
+      } );
+
+    this.selectedEnergyProperty = new DerivedProperty(
+      [ this.boundStateResultProperty, this.energyLevelProperty ],
+      ( boundStateResult, energyLevel ) => {
+        const groundStateIndex = this.potentialProperty.value.groundStateIndex;
+        const energyIndex = energyLevel - groundStateIndex;
+        const energies = boundStateResult.energies;
+        affirm( energyIndex >= 0 && energyIndex < energies.length, `energies out of range: ${energyIndex}` );
+        return energies[ energyIndex ];
       } );
 
     // These Properties are owned by the top-level model - QBSModel and its subclasses. They are shared by all potentials,
