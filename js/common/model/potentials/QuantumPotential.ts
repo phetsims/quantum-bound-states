@@ -94,7 +94,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.numberOfWellsProperty = options.numberOfWellsProperty;
     this.electricFieldProperty = options.electricFieldProperty;
 
-    this.xOffsetProperty = new NumberProperty( 0, {
+    this.xOffsetProperty = new NumberProperty( options.xOffsetRange.defaultValue, {
       units: nanometersUnit,
       range: options.xOffsetRange
       // Do not instrument for PhET-iO.
