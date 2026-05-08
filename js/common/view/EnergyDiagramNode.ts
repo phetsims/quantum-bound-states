@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -101,15 +102,15 @@ export default class EnergyDiagramNode extends Node {
       stroke: QBSColors.totalEnergyColorProperty,
       lineWidth: 2
     } );
-    model.boundStateResultProperty.lazyLink( boundStateResult => energyLevelsPlot.setEigenvalues( boundStateResult.energies ) );
+    model.boundStateResultProperty.lazyLink( boundStateResult => energyLevelsPlot.setEnergies( boundStateResult.energies ) );
 
     // Plots the selected energy level.
     const selectedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [ model.getEnergyAtEnergyLevel( model.energyLevelProperty.value ) ], {
       stroke: QBSColors.selectedEnergyLevelColorProperty,
       lineWidth: 3
     } );
-    model.energyLevelProperty.lazyLink( energyLevel =>
-      selectedEnergyLevelPlot.setEigenvalues( [ model.getEnergyAtEnergyLevel( energyLevel ) ] ) );
+    Multilink.multilink( [ model.energyLevelProperty, model.boundStateResultProperty ],
+      ( energyLevel, boundStateResult ) => selectedEnergyLevelPlot.setEnergies( [ model.getEnergyAtEnergyLevel( energyLevel ) ] ) );
 
     // Plots the highlighted energy level.
     const highlightedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [], {
@@ -122,7 +123,7 @@ export default class EnergyDiagramNode extends Node {
       this.chartRectangle.cursor = ( highlightedEnergyLevel === null ) ? 'default' : 'pointer';
 
       // Update the plot to display the highlighted energy level.
-      highlightedEnergyLevelPlot.setEigenvalues( ( highlightedEnergyLevel === null ) ? [] :
+      highlightedEnergyLevelPlot.setEnergies( ( highlightedEnergyLevel === null ) ? [] :
         [ model.getEnergyAtEnergyLevel( highlightedEnergyLevel ) ] );
     } );
 

@@ -18,10 +18,10 @@ export type EigenvaluesPlotOptions = SelfOptions & PathOptions;
 export default class EnergyLevelsPlot extends Path {
 
   private readonly chartTransform: ChartTransform;
-  private eigenvalues: number[];
+  private energies: number[];
 
   public constructor( chartTransform: ChartTransform,
-                      eigenvalues: number[],
+                      energies: number[],
                       providedOptions?: EigenvaluesPlotOptions ) {
 
     const options = optionize<EigenvaluesPlotOptions, SelfOptions, PathOptions>()( {
@@ -33,7 +33,7 @@ export default class EnergyLevelsPlot extends Path {
     super( null, options );
 
     this.chartTransform = chartTransform;
-    this.eigenvalues = eigenvalues;
+    this.energies = energies;
 
     // Initialize
     this.update();
@@ -45,10 +45,10 @@ export default class EnergyLevelsPlot extends Path {
   }
 
   /**
-   * Sets the eigenvalues and redraws the plot.
+   * Sets the energy values and redraws the plot.
    */
-  public setEigenvalues( eigenvalues: number[] ): void {
-    this.eigenvalues = eigenvalues;
+  public setEnergies( energies: number[] ): void {
+    this.energies = energies;
     this.update();
   }
 
@@ -59,8 +59,8 @@ export default class EnergyLevelsPlot extends Path {
     const xMin = this.chartTransform.modelToViewX( this.chartTransform.modelXRange.min );
     const xMax = this.chartTransform.modelToViewX( this.chartTransform.modelXRange.max );
     const shape = new Shape();
-    this.eigenvalues.forEach( eigenvalue => {
-      const y = this.chartTransform.modelToViewY( eigenvalue );
+    this.energies.forEach( energy => {
+      const y = this.chartTransform.modelToViewY( energy );
       shape.moveTo( xMin, y );
       shape.lineTo( xMax, y );
     } );
