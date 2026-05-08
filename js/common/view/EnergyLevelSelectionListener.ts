@@ -55,6 +55,14 @@ export default class EnergyLevelSelectionListener extends PressListener implemen
   }
 
   /**
+   * Override exit to clear the highlighted energy level when the pointer exits the chart.
+   */
+  public override exit( event: PressListenerEvent ): void {
+    super.exit( event );
+    this.model.highlightedEnergyLevelProperty.value = null;
+  }
+
+  /**
    * Finds the energy level that is closest to the position of the provided scenery event.
    * Returns null if no energy level is found.
    */
