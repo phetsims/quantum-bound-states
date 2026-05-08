@@ -190,13 +190,7 @@ export default class QBSModel implements TModel {
 
     this.selectedEnergyProperty = new DerivedProperty(
       [ this.boundStateResultProperty, this.energyLevelProperty ],
-      ( boundStateResult, energyLevel ) => {
-        const groundStateIndex = this.potentialProperty.value.groundStateIndex;
-        const energyIndex = energyLevel - groundStateIndex;
-        const energies = boundStateResult.energies;
-        affirm( energyIndex >= 0 && energyIndex < energies.length, `energies out of range: ${energyIndex}` );
-        return energies[ energyIndex ];
-      } );
+      ( boundStateResult, energyLevel ) => this.getEnergyAtEnergyLevel( energyLevel ) );
 
     // These Properties are owned by the top-level model - QBSModel and its subclasses. They are shared by all potentials,
     // so we do not get notification from the potentials when they change. Instead, we must listen for changes and
@@ -315,6 +309,14 @@ export default class QBSModel implements TModel {
       }
     }
     return index;
+  }
+
+  public getEnergyAtEnergyLevel( energyLevel: number ): number {
+    const groundStateIndex = this.potentialProperty.value.groundStateIndex;
+    const energyIndex = energyLevel - groundStateIndex;
+    const energies = this.boundStateResultProperty.value.energies;
+    affirm( energyIndex >= 0 && energyIndex < energies.length, `energies out of range: ${energyIndex}` );
+    return energies[ energyIndex ];
   }
 }
 

@@ -26,7 +26,6 @@ import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EigenvaluesPlot from './EigenvaluesPlot.js';
-import EnergyHighlightListener from './EnergyHighlightListener.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import YLinePlot from './YLinePlot.js';
 
@@ -112,12 +111,17 @@ export default class EnergyDiagramNode extends Node {
     model.selectedEnergyProperty.lazyLink( selectedEnergy => selectedEigenvaluePlot.setEigenvalues( [ selectedEnergy ] ) );
 
     // Plots the highlighted eigenvalue.
-    const highlightedEigenvalueProperty = new Property<number | null>( null ); //TODO
+    const highlightedEnergyLevelProperty = new Property<number | null>( null ); //TODO
     const highlightedEigenvaluePlot = new EigenvaluesPlot( this.chartTransform, [], {
       stroke: QBSColors.highlightedEigenvalueColorProperty,
       lineWidth: 2
     } );
-    highlightedEigenvalueProperty.lazyLink( selectedEnergy => highlightedEigenvaluePlot.setEigenvalues( selectedEnergy ? [ selectedEnergy ] : [] ) );
+    model.boundStateResultProperty.lazyLink( () => {
+      highlightedEnergyLevelProperty.value = null;
+    } );
+    highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel =>
+      highlightedEigenvaluePlot.setEigenvalues( ( highlightedEnergyLevel === null ) ? [] :
+        [ model.getEnergyAtEnergyLevel( highlightedEnergyLevel ) ] ) );
 
     const curveLayer = new Node( {
       clipArea: this.chartRectangle.getShape(),
@@ -141,15 +145,12 @@ export default class EnergyDiagramNode extends Node {
 
     model.energyDiagram.yRangeProperty.lazyLink( yRange => this.setYRange( yRange ) );
 
-    highlightedEigenvalueProperty.link( highlightedEnergy => {
-      this.chartRectangle.cursor = highlightedEnergy ? 'pointer' : 'default';
+    highlightedEnergyLevelProperty.link( highlightedEnergyLevel => {
+      this.chartRectangle.cursor = ( highlightedEnergyLevel === null ) ? 'default' : 'pointer';
     } );
 
-    this.chartRectangle.addInputListener( new EnergyHighlightListener( model, highlightedEigenvalueProperty,
-      this.chartRectangle, this.chartTransform, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
-
     this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this.chartRectangle,
-      this.chartTransform, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
+      this.chartTransform, highlightedEnergyLevelProperty, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
   }
 
   private setYRange( yRange: Range ): void {
