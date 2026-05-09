@@ -48,8 +48,8 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     }, providedOptions );
 
     const stringProperty = new DerivedStringProperty(
-      [ energyLevelProperty, model.energyDiagram.valuesVisibleProperty ],
-      ( energyLevel, valuesVisible ) => {
+      [ energyLevelProperty, model.energyDiagram.valuesVisibleProperty, model.boundStateResultProperty ],
+      ( energyLevel, valuesVisible, boundStateResult ) => {
         if ( energyLevel === null ) {
           return '';
         }
@@ -69,8 +69,8 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     super( content, options );
 
     Multilink.multilink(
-      [ energyLevelProperty, model.boundStateResultProperty ],
-      ( energyLevel, boundStateResult ) => {
+      [ energyLevelProperty, model.boundStateResultProperty, model.energyDiagram.yRangeProperty ],
+      ( energyLevel, boundStateResult, yRange ) => {
         if ( energyLevel !== null ) {
           const energy = model.getEnergyAtEnergyLevel( energyLevel );
           this.bottom = chartTransform.modelToViewY( energy ) - 3;
