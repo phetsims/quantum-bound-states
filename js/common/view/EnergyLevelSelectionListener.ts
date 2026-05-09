@@ -10,6 +10,7 @@
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import PressListener, { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
 
@@ -41,6 +42,15 @@ export default class EnergyLevelSelectionListener extends PressListener {
     this.model = model;
     this.chartRectangle = chartRectangle;
     this.chartTransform = chartTransform;
+
+    // If the highlighted energy level becomes selected, clear the highlighted energy level.
+    model.energyLevelProperty.link( energyLevel => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        if ( energyLevel === model.highlightedEnergyLevelProperty.value ) {
+          model.highlightedEnergyLevelProperty.value = null;
+        }
+      }
+    } );
   }
 
   /**
@@ -49,8 +59,14 @@ export default class EnergyLevelSelectionListener extends PressListener {
   public override move( event: PressListenerEvent ): void {
     super.move( event );
 
-    // Highlight the energy level that is closest to where the pointer is.
-    this.model.highlightedEnergyLevelProperty.value = this.eventToEnergyLevel( event );
+    // Highlight the energy level that is closest to where the pointer is. Do not highlight the selected energy level.
+    const energyLevel = this.eventToEnergyLevel( event );
+    if ( energyLevel !== this.model.energyLevelProperty.value ) {
+      this.model.highlightedEnergyLevelProperty.value = energyLevel;
+    }
+    else {
+      this.model.highlightedEnergyLevelProperty.value = null;
+    }
   }
 
   /**
