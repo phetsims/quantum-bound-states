@@ -34,4 +34,6 @@ export default class AverageProbabilityDensityOfBandDetailsDialog extends Dialog
 
     super( content, options );
   }
+
+  //TODO dispose
 }

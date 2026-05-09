@@ -20,19 +20,19 @@ export default class TimeDisplay extends NumberDisplay {
   public constructor( time: QBSTime, tandem: Tandem ) {
 
     super( time.currentTimeProperty, new Range( 0, 10000 ), {
-        textOptions: {
-          font: QBSConstants.TIME_FONT,
-          // Hide the value by making it transparent.
-          fill: new DerivedProperty( [ time.timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
-        },
-        backgroundFill: new DerivedProperty( [ time.timeVisibleProperty ],
-          timeVisible => timeVisible ? QBSColors.timeDisplayEnabledProperty.value : QBSColors.timeDisplayDisabledProperty.value ),
-        numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString( value, {
-          decimalPlaces: time.getDecimalPlaces(),
-          showTrailingZeros: true
-        } ),
-        tandem: tandem.createTandem( 'valueDisplay' )
-      }
-    );
+      isDisposable: false,
+      textOptions: {
+        font: QBSConstants.TIME_FONT,
+        // Hide the value by making it transparent.
+        fill: new DerivedProperty( [ time.timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
+      },
+      backgroundFill: new DerivedProperty( [ time.timeVisibleProperty ],
+        timeVisible => timeVisible ? QBSColors.timeDisplayEnabledProperty.value : QBSColors.timeDisplayDisabledProperty.value ),
+      numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString( value, {
+        decimalPlaces: time.getDecimalPlaces(),
+        showTrailingZeros: true
+      } ),
+      tandem: tandem.createTandem( 'valueDisplay' )
+    } );
   }
 }

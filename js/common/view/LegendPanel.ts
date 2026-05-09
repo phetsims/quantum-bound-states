@@ -23,6 +23,7 @@ export default class LegendPanel extends Panel {
   public constructor( tandem: Tandem ) {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
+      isDisposable: false,
       cornerRadius: 3,
       xMargin: 10,
       yMargin: 5,

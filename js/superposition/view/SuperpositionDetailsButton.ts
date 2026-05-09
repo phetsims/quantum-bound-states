@@ -24,6 +24,7 @@ export default class SuperpositionDetailsButton extends InfoButton {
     const options = optionize<SuperpositionInfoButtonOptions, SelfOptions, InfoButtonOptions>()( {
 
       // InfoButtonOptions
+      isDisposable: false,
       iconScale: 0.7,
       xMargin: 5,
       yMargin: 5,

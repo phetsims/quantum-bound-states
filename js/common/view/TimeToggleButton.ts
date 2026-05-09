@@ -18,6 +18,7 @@ export default class TimeToggleButton extends EyeToggleButton {
   public constructor( timeVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
     super( timeVisibleProperty, {
+      isDisposable: false,
 
       // Change the base color to emphasize when time is hidden.
       baseColor: new DerivedProperty(

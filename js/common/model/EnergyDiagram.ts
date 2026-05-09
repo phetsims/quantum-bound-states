@@ -12,12 +12,13 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
 
-export default class EnergyDiagram {
+export default class EnergyDiagram extends PhetioObject {
 
   public readonly yRangeProperty: TReadOnlyProperty<Range>;
   private readonly _yRangeProperty: Property<Range>;
@@ -27,6 +28,12 @@ export default class EnergyDiagram {
 
   //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
+
+    super( {
+      isDisposable: false,
+      tandem: tandem,
+      phetioState: false
+    } );
 
     this._yRangeProperty = new Property( model.potentialProperty.value.energyAxisRange, {
       tandem: tandem.createTandem( 'yRangeProperty' ),

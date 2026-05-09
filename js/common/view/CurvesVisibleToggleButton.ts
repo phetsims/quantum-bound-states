@@ -19,6 +19,8 @@ export default class CurvesVisibleToggleButton extends EyeToggleButton {
 
     super( curvesVisibleProperty, {
 
+      isDisposable: false,
+
       // Change the base color to emphasize when curves are hidden.
       baseColor: new DerivedProperty(
         [ curvesVisibleProperty, QBSColors.curvesVisibleToggleButtonShownColorProperty, QBSColors.curvesVisibleToggleButtonHiddenColorProperty ],

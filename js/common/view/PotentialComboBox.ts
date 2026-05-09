@@ -41,6 +41,7 @@ export default class PotentialComboBox extends ComboBox<QuantumPotential> {
     } );
 
     super( potentialProperty, items, listboxParent, {
+      isDisposable: false,
       xMargin: 10,
       yMargin: 6,
       accessibleName: QuantumBoundStatesFluent.a11y.potentialComboBox.accessibleNameStringProperty,

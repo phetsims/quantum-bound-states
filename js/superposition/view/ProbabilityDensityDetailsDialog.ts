@@ -33,4 +33,6 @@ export default class ProbabilityDensityDetailsDialog extends Dialog {
 
     super( content, options );
   }
+
+  //TODO dispose
 }

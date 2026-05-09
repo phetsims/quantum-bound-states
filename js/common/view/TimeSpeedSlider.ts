@@ -27,6 +27,7 @@ export default class TimeSpeedSlider extends HSlider {
   public constructor( timeStepIndexProperty: NumberProperty, tandem: Tandem ) {
 
     const options: HSliderOptions = {
+      isDisposable: false,
       trackSize: new Dimension2( 75, 2 ),
       thumbSize: new Dimension2( 15, 25 ),
       thumbFill: QBSColors.timeSpeedSliderThumbFillProperty,

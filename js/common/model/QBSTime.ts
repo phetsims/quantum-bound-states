@@ -13,6 +13,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { femtosecondsUnit } from './units/femtosecondsUnit.js';
 
@@ -30,7 +31,7 @@ affirm( TIME_DECIMAL_PLACES.length === TIME_STEP_VALUES.length, 'TIME_DECIMAL_PL
 // In the Java version, this was the number of frames per second, and each frame incremented time by a constant dt.
 const FEMTOSECONDS_PER_SECOND = 24;
 
-export default class QBSTime {
+export default class QBSTime extends PhetioObject {
 
   // Whether the simulation is currently playing.
   public readonly isPlayingProperty: Property<boolean>;
@@ -46,6 +47,12 @@ export default class QBSTime {
   public readonly timeVisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
+
+    super( {
+      isDisposable: false,
+      tandem: tandem,
+      phetioState: false
+    } );
 
     this.isPlayingProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'isPlayingProperty' ),

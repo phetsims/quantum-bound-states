@@ -71,6 +71,7 @@ export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGr
     affirm( items.length > 1, 'At least 2 radio buttons are required.' );
 
     super( selectedGraphProperty, items, {
+      isDisposable: false,
       spacing: 10,
       accessibleName: QuantumBoundStatesFluent.a11y.quantumStateGraphRadioButtonGroup.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.quantumStateGraphRadioButtonGroup.accessibleHelpTextStringProperty,

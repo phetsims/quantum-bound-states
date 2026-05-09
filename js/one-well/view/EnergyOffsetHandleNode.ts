@@ -37,6 +37,7 @@ export default class EnergyOffsetHandleNode extends InteractiveHighlighting( Arr
     const options = combineOptions<ArrowNodeOptions>( {}, AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, {
 
       // ArrowNodeOptions
+      isDisposable: false,
       visibleProperty: new DerivedProperty( [ potentialProperty ], selectedPotential => selectedPotential === potential ),
       accessibleName: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleHelpTextStringProperty,

@@ -45,6 +45,7 @@ export default class EnergyDiagramNode extends Node {
   public constructor( model: QBSModel, tandem: Tandem ) {
 
     super( {
+      isDisposable: false,
       accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleParagraphStringProperty,
       tandem: tandem,

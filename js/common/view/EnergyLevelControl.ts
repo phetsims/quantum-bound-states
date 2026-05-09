@@ -43,6 +43,7 @@ class EnergyLevelSpinner extends QBSNumberSpinner {
                       tandem: Tandem ) {
 
     super( energyLevelProperty, time, {
+      isDisposable: false,
       arrowsScale: 2,
       arrowButtonOptions: {
         phetioVisiblePropertyInstrumented: false

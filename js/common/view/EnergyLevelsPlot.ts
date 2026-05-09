@@ -27,6 +27,7 @@ export default class EnergyLevelsPlot extends Path {
     const options = optionize<EnergyLevelsPlotOptions, SelfOptions, PathOptions>()( {
 
       // Path options
+      isDisposable: false,
       stroke: 'black'
     }, providedOptions );
 

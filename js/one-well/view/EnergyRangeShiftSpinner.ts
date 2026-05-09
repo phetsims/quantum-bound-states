@@ -31,6 +31,7 @@ export default class EnergyRangeShiftSpinner extends QBSNumberSpinner {
     } );
 
     super( energyRangeShiftProperty, time, {
+      isDisposable: false,
       arrowsScale: 1.5,
       deltaValue: DELTA_VALUE, // eV
       constrainValue: value => roundToInterval( value, DELTA_VALUE ),

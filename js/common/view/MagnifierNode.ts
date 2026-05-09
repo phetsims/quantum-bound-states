@@ -49,6 +49,7 @@ export default class MagnifierNode extends Node {
     const wireNode = new MagnifierWireNode( bodyNode, probeNode );
 
     super( {
+      isDisposable: false,
       children: [ bodyNode, wireNode, probeNode ],
       visibleProperty: magnifier.visibleProperty,
       accessibleHeading: QuantumBoundStatesFluent.a11y.magnifier.accessibleHeadingStringProperty,

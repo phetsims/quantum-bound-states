@@ -33,4 +33,6 @@ export default class WaveFunctionDetailsDialog extends Dialog {
 
     super( content, options );
   }
+
+  //TODO dispose
 }

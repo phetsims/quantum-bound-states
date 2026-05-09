@@ -77,6 +77,7 @@ export default class SuperpositionCustomComboBox extends ComboBox<number> {
     ];
 
     super( superpositionCustomProperty, items, listboxParent, {
+      isDisposable: false,
       xMargin: 10,
       yMargin: 6,
       accessibleName: QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.accessibleNameStringProperty,

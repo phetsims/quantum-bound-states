@@ -24,6 +24,7 @@ export default class TimePanel extends Panel {
   public constructor( time: QBSTime, tandem: Tandem ) {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
+      isDisposable: false,
       yMargin: 3,
       fill: QBSColors.timePanelFillProperty,
       stroke: QBSColors.timePanelStrokeProperty,

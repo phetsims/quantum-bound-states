@@ -25,6 +25,7 @@ export default class SuperpositionCustomizationButton extends RectangularPushBut
     const options = optionize<SuperpositionEditButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
 
       // RectangularPushButtonOptions
+      isDisposable: false,
       content: new Path( editRegularShape, {
         scale: 0.03,
         fill: QBSColors.superpositionCustomizationButtonIconColorProperty

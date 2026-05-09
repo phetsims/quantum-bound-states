@@ -32,6 +32,7 @@ export default class YLinePlot extends Path {
     const options = optionize<YLinePlotOptions, SelfOptions, PathOptions>()( {
 
       // Path options
+      isDisposable: false,
       stroke: 'black'
     }, providedOptions );
 

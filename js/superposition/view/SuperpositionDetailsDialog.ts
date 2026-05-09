@@ -32,4 +32,6 @@ export default class SuperpositionDetailsDialog extends Dialog {
 
     super( content, options );
   }
+
+  //TODO dispose?
 }
