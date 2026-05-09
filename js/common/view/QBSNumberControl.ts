@@ -9,7 +9,7 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import QBSTime from '../../common/model/QBSTime.js';
@@ -26,13 +26,7 @@ export default class QBSNumberControl extends NumberControl {
                       time: QBSTime,
                       providedOptions: QBSNumberControlOptions ) {
 
-    const options = optionize<QBSNumberControlOptions, SelfOptions, NumberControlOptions>()( {
-
-      // NumberControlOptions
-      isDisposable: false
-    }, providedOptions );
-
-    super( title, numberProperty, numberProperty.range, options );
+    super( title, numberProperty, numberProperty.range, providedOptions );
 
     addPauseListeners( this, time, {
       //TODO keys relies on internal knowledge of NumberControl

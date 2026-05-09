@@ -33,6 +33,7 @@ export default class ElectronMassesControl extends QBSNumberControl {
   public constructor( electronMassesProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
 
     const options = combineOptions<QBSNumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
+      isDisposable: false,
       delta: DELTA,
       numberDisplayOptions: {
 

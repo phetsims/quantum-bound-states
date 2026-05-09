@@ -9,7 +9,8 @@
  */
 
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import VBox from '../../../../../scenery/js/layout/nodes/VBox.js';
+import { combineOptions } from '../../../../../phet-core/js/optionize.js';
+import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../../sun/js/Dialog.js';
@@ -18,7 +19,11 @@ import QBSConstants from '../../QBSConstants.js';
 
 export default class ConfigureQuantumPotentialDialog extends Dialog {
 
-  protected constructor( titleString: string, content: Node ) {
+  protected constructor( titleString: string, controls: Node[] ) {
+
+    const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
+      children: controls
+    } ) );
 
     const titleNode = new VBox( {
       children: [
@@ -46,7 +51,12 @@ export default class ConfigureQuantumPotentialDialog extends Dialog {
           dialog.top = dialog.layoutBounds.top + QBSConstants.SCREEN_VIEW_Y_MARGIN;
         }
       },
+      hideCallback: () => this.dispose(),
       tandem: Tandem.OPT_OUT
+    } );
+
+    this.disposeEmitter.addListener( () => {
+      controls.forEach( control => control.dispose() );
     } );
   }
 }

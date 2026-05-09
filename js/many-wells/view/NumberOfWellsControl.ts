@@ -29,6 +29,7 @@ export default class NumberOfWellsControl extends QBSNumberControl {
   public constructor( numberOfWellsProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
 
     const options = combineOptions<QBSNumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
+      isDisposable: false,
       delta: DELTA,
       sliderOptions: {
         majorTicks: createMajorTicks( numberOfWellsProperty.range ),

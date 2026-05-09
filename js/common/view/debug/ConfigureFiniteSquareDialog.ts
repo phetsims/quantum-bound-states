@@ -6,11 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { combineOptions } from '../../../../../phet-core/js/optionize.js';
-import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import SeparationControl from './SeparationControl.js';
 import WellDepthControl from './WellDepthControl.js';
@@ -22,27 +20,23 @@ export default class ConfigureFiniteSquareDialog extends ConfigureQuantumPotenti
 
   public constructor( potential: FiniteSquarePotential, time: QBSTime ) {
 
-    const children = [
+    const controls: Node[] = [
       new WellWidthControl( potential.wellWidthProperty, time ),
       new WellDepthControl( potential.wellDepthProperty, time )
     ];
 
     if ( potential.numberOfWellsProperty.value > 1 ) {
-      children.push( new SeparationControl( potential.separationProperty, time ) );
+      controls.push( new SeparationControl( potential.separationProperty, time ) );
     }
 
     if ( potential.xOffsetProperty.range.getLength() > 0 ) {
-      children.push( new XOffsetControl( potential.xOffsetProperty, time ) );
+      controls.push( new XOffsetControl( potential.xOffsetProperty, time ) );
     }
 
     if ( potential.yOffsetProperty.range.getLength() > 0 ) {
-      children.push( new YOffsetControl( potential.yOffsetProperty, time ) );
+      controls.push( new YOffsetControl( potential.yOffsetProperty, time ) );
     }
 
-    const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
-      children: children
-    } ) );
-
-    super( 'Finite Square', content );
+    super( 'Finite Square', controls );
   }
 }

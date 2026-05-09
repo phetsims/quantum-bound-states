@@ -6,11 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { combineOptions } from '../../../../../phet-core/js/optionize.js';
-import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import SpacingControl from './SpacingControl.js';
 import WellDepthControl from './WellDepthControl.js';
@@ -22,27 +19,23 @@ export default class ConfigurePoschlTellerDialog extends ConfigureQuantumPotenti
 
   public constructor( potential: PoschlTellerPotential, time: QBSTime ) {
 
-    const children = [
+    const controls = [
       new WellWidthControl( potential.wellWidthProperty, time ),
       new WellDepthControl( potential.wellDepthProperty, time )
     ];
 
     if ( potential.numberOfWellsProperty.value > 1 ) {
-      children.push( new SpacingControl( potential.spacingProperty, time ) );
+      controls.push( new SpacingControl( potential.spacingProperty, time ) );
     }
 
     if ( potential.xOffsetProperty.range.getLength() > 0 ) {
-      children.push( new XOffsetControl( potential.xOffsetProperty, time ) );
+      controls.push( new XOffsetControl( potential.xOffsetProperty, time ) );
     }
 
     if ( potential.yOffsetProperty.range.getLength() > 0 ) {
-      children.push( new YOffsetControl( potential.yOffsetProperty, time ) );
+      controls.push( new YOffsetControl( potential.yOffsetProperty, time ) );
     }
 
-    const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
-      children: children
-    } ) );
-
-    super( 'Pöschl-Teller', content );
+    super( 'Pöschl-Teller', controls );
   }
 }

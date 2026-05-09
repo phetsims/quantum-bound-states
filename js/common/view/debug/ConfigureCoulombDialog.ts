@@ -6,8 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { combineOptions } from '../../../../../phet-core/js/optionize.js';
-import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -20,26 +19,22 @@ export default class ConfigureCoulombDialog extends ConfigureQuantumPotentialDia
 
   public constructor( potential: CoulombPotential, time: QBSTime ) {
 
-    const children = [];
+    const controls: Node[] = [];
 
     if ( potential.xOffsetProperty.range.getLength() > 0 ) {
-      children.push( new XOffsetControl( potential.xOffsetProperty, time ) );
+      controls.push( new XOffsetControl( potential.xOffsetProperty, time ) );
     }
 
     if ( potential.yOffsetProperty.range.getLength() > 0 ) {
-      children.push( new YOffsetControl( potential.yOffsetProperty, time ) );
+      controls.push( new YOffsetControl( potential.yOffsetProperty, time ) );
     }
 
-    if ( children.length === 0 ) {
-      children.push( new Text( 'Nothing to configure', {
+    if ( controls.length === 0 ) {
+      controls.push( new Text( 'Nothing to configure', {
         font: QBSConstants.CONTROL_FONT
       } ) );
     }
 
-    const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
-      children: children
-    } ) );
-
-    super( 'Coulomb', content );
+    super( 'Coulomb', controls );
   }
 }
