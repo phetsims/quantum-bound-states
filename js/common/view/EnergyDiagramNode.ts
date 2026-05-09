@@ -146,9 +146,11 @@ export default class EnergyDiagramNode extends Node {
       ]
     } );
 
+    // Displays the selected energy level and its corresponding energy value.
     const selectedEnergyLevelDisplay = new SelectedEnergyLevelDisplay( model, model.energyLevelProperty,
       this.chartTransform, this.chartRectangle, tandem.createTandem( 'selectedEnergyLevelDisplay' ) );
 
+    // Displays the highlighted energy level and its corresponding energy value.
     const highlightedEnergyLevelDisplay = new HighlightedEnergyLevelDisplay( model, model.highlightedEnergyLevelProperty,
       this.chartTransform, this.chartRectangle, tandem.createTandem( 'highlightedEnergyLevelDisplay' ) );
 
