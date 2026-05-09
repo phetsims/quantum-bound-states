@@ -40,8 +40,9 @@ export default class EquationTermNode extends BackgroundNode {
       xMargin: 4,
       yMargin: 2,
       rectangleOptions: {
-        cornerRadius: 5,
+        cornerRadius: 3,
         fill: QBSColors.equationTermBackgroundColorProperty,
+        stroke: null,
         opacity: 1 // use alpha in fill
       },
       tandem: tandem,
