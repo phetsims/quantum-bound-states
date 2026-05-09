@@ -234,4 +234,12 @@ export default class QBSColors {
   public static readonly eyeClosedFillProperty = new ProfileColorProperty( quantumBoundStates, 'eyeClosedFill', {
     default: Color.grayColor( 210 )
   } );
+
+  public static readonly energyLevelDisplayBackgroundFillProperty = new ProfileColorProperty( quantumBoundStates, 'energyLevelDisplayBackgroundFill', {
+    default: 'white'
+  } );
+
+  public static readonly energyLevelDisplayBackgroundStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'energyLevelDisplayBackgroundStroke', {
+    default: Color.grayColor( 200 )
+  } );
 }

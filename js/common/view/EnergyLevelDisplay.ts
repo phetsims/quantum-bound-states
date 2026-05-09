@@ -1,0 +1,78 @@
+// Copyright 2026, University of Colorado Boulder
+
+/**
+ * EnergyLevelDisplay displays an energy level identifier (E1, E2, etc.) and the corresponding energy value in eV.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSModel from '../model/QBSModel.js';
+import QBSColors from '../QBSColors.js';
+
+const ENERGY_LEVEL_DECIMALS = 2; //TODO move to QBSConstants
+
+export default class EnergyLevelDisplay extends BackgroundNode {
+
+  //TODO Reduce coupling to QBSModel
+  public constructor( model: QBSModel,
+                      energyLevelProperty: TReadOnlyProperty<number | null>,
+                      chartRectangle: ChartRectangle,
+                      chartTransform: ChartTransform,
+                      tandem: Tandem ) {
+
+    const stringProperty = new DerivedStringProperty(
+      [ energyLevelProperty, model.energyDiagram.valuesVisibleProperty ],
+      ( energyLevel, valuesVisible ) => {
+        if ( energyLevel === null ) {
+          return '';
+        }
+        else if ( valuesVisible ) {
+          const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevel ), ENERGY_LEVEL_DECIMALS );
+          return `E<sub>${energyLevel}</sub> = ${energy} eV`;
+        }
+        else {
+          return `E<sub>${energyLevel}</sub>`;
+        }
+      } );
+
+    const content = new RichText( stringProperty, {
+      font: new PhetFont( 16 ) //TODO
+    } );
+
+    super( content, {
+      isDisposable: false,
+      pickable: true, // So that we cannot pick through this to elements behind it.
+      xMargin: 4,
+      yMargin: 2,
+      rectangleOptions: {
+        cornerRadius: 3,
+        fill: QBSColors.energyLevelDisplayBackgroundFillProperty,
+        stroke: QBSColors.energyLevelDisplayBackgroundStrokeProperty,
+        opacity: 1 // use alpha in fill
+      },
+      visibleProperty: new DerivedProperty( [ energyLevelProperty ], energyLevel => energyLevel !== null ),
+      tandem: tandem
+    } );
+
+    Multilink.multilink(
+      [ energyLevelProperty, model.boundStateResultProperty ],
+      ( energyLevel, boundStateResult ) => {
+        if ( energyLevel !== null ) {
+          const energy = model.getEnergyAtEnergyLevel( energyLevel );
+          this.left = chartRectangle.left + 10;
+          this.bottom = chartTransform.modelToViewY( energy ) - 3;
+        }
+      } );
+  }
+}

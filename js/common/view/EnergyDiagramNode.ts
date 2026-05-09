@@ -24,6 +24,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import EnergyLevelDisplay from './EnergyLevelDisplay.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
 import YLinePlot from './YLinePlot.js';
@@ -83,12 +84,12 @@ export default class EnergyDiagramNode extends Node {
     yAxisLabelNode.boundsProperty.link( () => {
       yAxisLabelNode.rightCenter = this.chartRectangle.leftCenter.addXY( QBSConstants.ALL_GRAPHS_Y_AXIS_LABEL_X_OFFSET, 0 );
     } );
-    
+
     this.horizontalGridLines = new GridLineSet( this.chartTransform, Orientation.VERTICAL,
       QBSConstants.ENERGY_DIAGRAM_Y_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
     model.energyDiagram.yRangeProperty.lazyLink( yRange => this.chartTransform.setModelYRange( yRange ) );
-    
+
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
       QBSConstants.ALL_GRAPHS_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
@@ -144,6 +145,12 @@ export default class EnergyDiagramNode extends Node {
       ]
     } );
 
+    const selectedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.energyLevelProperty,
+      this.chartRectangle, this.chartTransform, tandem.createTandem( 'selectedEnergyLevelDisplay' ) );
+
+    const highlightedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.highlightedEnergyLevelProperty,
+      this.chartRectangle, this.chartTransform, tandem.createTandem( 'highlightedEnergyLevelDisplay' ) );
+
     this.children = [
       this.yTickMarkSet,
       this.yTickLabelSet,
@@ -151,7 +158,9 @@ export default class EnergyDiagramNode extends Node {
       this.chartRectangle,
       this.horizontalGridLines,
       verticalGridLines,
-      clippedLayer
+      clippedLayer,
+      selectedEnergyLevelDisplay,
+      highlightedEnergyLevelDisplay
     ];
   }
 
