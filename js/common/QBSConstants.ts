@@ -59,6 +59,7 @@ export default class QBSConstants {
   public static readonly TITLE_FONT = new PhetFont( { size: 14, weight: 'bold' } );
   public static readonly TIME_FONT = new PhetFont( { size: 15, family: 'monospace' } );
   public static readonly EQUATION_TERM_FONT = new PhetFont( 18 );
+  public static readonly ENERGY_LEVEL_DISPLAY_FONT = new PhetFont( 14 );
 
   // Energy Diagram & all Quantum State Graphs
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 700;

@@ -15,7 +15,6 @@ import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import BackgroundNode, { BackgroundNodeOptions } from '../../../../scenery-phet/js/BackgroundNode.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import QBSModel from '../model/QBSModel.js';
@@ -64,7 +63,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
       } );
 
     const content = new RichText( stringProperty, {
-      font: new PhetFont( 16 ) //TODO
+      font: QBSConstants.ENERGY_LEVEL_DISPLAY_FONT
     } );
 
     super( content, options );
