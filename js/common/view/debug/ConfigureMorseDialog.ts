@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
@@ -18,7 +19,7 @@ export default class ConfigureMorseDialog extends ConfigureQuantumPotentialDialo
 
   public constructor( potential: MorsePotential, time: QBSTime ) {
 
-    const controls = [
+    const controls: Node[] = [
       new WellWidthControl( potential.wellWidthProperty, time ),
       new WellDepthControl( potential.wellDepthProperty, time )
     ];

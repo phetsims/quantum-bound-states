@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
@@ -17,7 +18,7 @@ export default class ConfigureHarmonicOscillatorDialog extends ConfigureQuantumP
 
   public constructor( potential: HarmonicOscillatorPotential, time: QBSTime ) {
 
-    const controls = [
+    const controls: Node[] = [
       new WellWidthControl( potential.wellWidthProperty, time )
     ];
 

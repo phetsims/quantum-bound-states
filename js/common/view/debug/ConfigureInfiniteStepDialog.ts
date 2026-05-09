@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
@@ -18,7 +19,7 @@ export default class ConfigureInfiniteStepDialog extends ConfigureQuantumPotenti
 
   public constructor( potential: InfiniteStepPotential, time: QBSTime ) {
 
-    const controls = [
+    const controls: Node[] = [
       new WellWidthControl( potential.wellWidthProperty, time ),
       new StepHeightControl( potential.stepHeightProperty, time )
     ];

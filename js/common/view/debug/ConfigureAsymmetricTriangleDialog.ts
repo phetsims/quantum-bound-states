@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
@@ -18,7 +19,7 @@ export default class ConfigureAsymmetricTriangleDialog extends ConfigureQuantumP
 
   public constructor( potential: AsymmetricTrianglePotential, time: QBSTime ) {
 
-    const controls = [
+    const controls: Node[] = [
       new WellWidthControl( potential.wellWidthProperty, time ),
       new WellDepthControl( potential.wellDepthProperty, time )
     ];

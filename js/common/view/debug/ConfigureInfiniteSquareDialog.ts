@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
@@ -17,7 +18,7 @@ export default class ConfigureInfiniteSquareDialog extends ConfigureQuantumPoten
 
   public constructor( potential: InfiniteSquarePotential, time: QBSTime ) {
 
-    const controls = [
+    const controls: Node[] = [
       new WellWidthControl( potential.wellWidthProperty, time )
     ];
 
