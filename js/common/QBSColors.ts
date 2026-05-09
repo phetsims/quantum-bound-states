@@ -88,11 +88,11 @@ export default class QBSColors {
   } );
 
   public static readonly referenceLineStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'referenceLineStroke', {
-    default: PhetColorScheme.RED_COLORBLIND
+    default: 'black'
   } );
 
   public static readonly referenceLineHandleColorProperty = new ProfileColorProperty( quantumBoundStates, 'referenceLineHandleColor', {
-    default: PhetColorScheme.RED_COLORBLIND
+    default: 'black'
   } );
 
   public static readonly probabilityDensityStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'probabilityDensityStroke', {
