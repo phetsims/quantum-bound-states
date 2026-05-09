@@ -1,26 +1,53 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO delete if not used
 /**
- * EquationTermNode displays one term from an equation, corresponding to a selected energy level.
+ * EquationTermNode displays one term from an equation in the Quantum State Graph.
+ * For example, if energy level E3 is selected, the Wave Function graph shows 'Ψ<sub>3</sub>(x,t)'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
+import BackgroundNode, { BackgroundNodeOptions } from '../../../../scenery-phet/js/BackgroundNode.js';
+import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class EquationTermNode extends RichText {
+type SelfOptions = {
+  richTextOptions?: RichTextOptions | null;
+};
 
-  public constructor( stringProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
+type RichTextOnBackgroundNodeOptions = SelfOptions & WithRequired<BackgroundNodeOptions, 'tandem'>;
 
-    super( stringProperty, {
+export default class EquationTermNode extends BackgroundNode {
+
+  public constructor( stringProperty: TReadOnlyProperty<string>, providedOptions: RichTextOnBackgroundNodeOptions ) {
+
+    const richText = new RichText( stringProperty, {
       font: QBSConstants.EQUATION_TERM_FONT,
-      fill: QBSColors.equationTermColorProperty,
-      tandem: tandem
+      fill: QBSColors.equationTermColorProperty
     } );
+
+    const options = optionize<RichTextOnBackgroundNodeOptions, SelfOptions, BackgroundNodeOptions>()( {
+
+      // SelfOptions
+      richTextOptions: null,
+
+      // BackgroundNodeOptions
+      isDisposable: false,
+      xMargin: 4,
+      yMargin: 2,
+      rectangleOptions: {
+        cornerRadius: 5,
+        fill: QBSColors.equationTermBackgroundColorProperty,
+        opacity: 1 // use alpha in fill
+      },
+      phetioVisiblePropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
+    }, providedOptions );
+
+    super( richText, options );
   }
 }

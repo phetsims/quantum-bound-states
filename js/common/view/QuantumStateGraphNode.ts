@@ -30,7 +30,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import RichTextOnBackgroundNode from './RichTextOnBackgroundNode.js';
+import EquationTermNode from './EquationTermNode.js';
 
 type SelfOptions = {
 
@@ -46,12 +46,12 @@ type SelfOptions = {
   // Number of decimal places in y-axis tick labels.
   yTickLabelDecimals: number;
 
-  // Creates optional equationDetailsButton
-  createEquationDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
-
   // If provided, this mathematical term will be display in the top-right corner of the chartRectangle.
   // The term corresponds to the selected energy level.
-  termStringProperty?: TReadOnlyProperty<string> | null;
+  equationTermStringProperty?: TReadOnlyProperty<string> | null;
+
+  // If provided, create a button that opens a dialog that shows the expanded equation displayed by the graph.
+  createEquationDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
 };
 
 export type QuantumStateGraphNodeOptions = SelfOptions &
@@ -79,14 +79,15 @@ export default class QuantumStateGraphNode extends Node {
     const options = optionize<QuantumStateGraphNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
+      equationTermStringProperty: null,
       createEquationDetailsButton: null,
-      termStringProperty: null,
 
       // NodeOptions
       isDisposable: false
     }, providedOptions );
 
-    affirm( !( options.createEquationDetailsButton && options.termStringProperty ), 'options are mutually exclusive' );
+    affirm( options.equationTermStringProperty || options.createEquationDetailsButton, 'One of these options must be provided.' );
+    affirm( !( options.equationTermStringProperty && options.createEquationDetailsButton ), 'These options are mutually exclusive.' );
 
     super( options );
 
@@ -182,18 +183,17 @@ export default class QuantumStateGraphNode extends Node {
     this.addChild( pickableFalseNode );
 
     // Show a mathematical term in the top-right corner of the chartRectangle.
-    if ( options.termStringProperty ) {
+    if ( options.equationTermStringProperty ) {
 
-      const termNode = new RichTextOnBackgroundNode( options.termStringProperty, {
-        tandem: options.tandem.createTandem( 'termNode' )
+      const equationTermNode = new EquationTermNode( options.equationTermStringProperty, {
+        tandem: options.tandem.createTandem( 'equationTermNode' )
       } );
-      this.addChild( termNode );
+      this.addChild( equationTermNode );
 
-      // Dynamically position the button in the top-right corner of the chart rectangle.
-      termNode.boundsProperty.link( bounds => {
-        const chartRectangleLocalBounds = this.globalToLocalBounds( this.getChartRectangleGlobalBounds() );
-        termNode.right = chartRectangleLocalBounds.right - 8;
-        termNode.top = chartRectangleLocalBounds.top + 8;
+      // Dynamically position the term in the top-right corner of the chart rectangle.
+      equationTermNode.boundsProperty.link( bounds => {
+        equationTermNode.right = this.chartRectangle.right - 8;
+        equationTermNode.top = this.chartRectangle.top + 8;
       } );
     }
 

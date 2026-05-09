@@ -45,7 +45,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
     // of the chartRectangle. The term corresponds to the selected energy level.
     if ( !options.createEquationDetailsButton ) {
-      options.termStringProperty = new DerivedStringProperty( [ model.energyLevelProperty ],
+      options.equationTermStringProperty = new DerivedStringProperty( [ model.energyLevelProperty ],
         energyLevel => `|Ψ<sub>${energyLevel}</sub>(x,t)|<sup>2</sup>` );
     }
 
