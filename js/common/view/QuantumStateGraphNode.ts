@@ -30,7 +30,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import EquationTermNode from './EquationTermNode.js';
 
 type SelfOptions = {
 
@@ -46,11 +45,11 @@ type SelfOptions = {
   // Number of decimal places in y-axis tick labels.
   yTickLabelDecimals: number;
 
-  // If provided, this mathematical term will be display in the top-right corner of the chartRectangle.
+  // If provided, creates a mathematical term that will be display in the top-right corner of the chartRectangle.
   // The term corresponds to the selected energy level.
-  equationTermStringProperty?: TReadOnlyProperty<string> | null;
+  createEquationTermNode?: ( ( tandem: Tandem ) => Node ) | null;
 
-  // If provided, create a button that opens a dialog that shows the expanded equation displayed by the graph.
+  // If provided, creates a button that opens a dialog that shows the expanded equation displayed by the graph.
   createEquationDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
 };
 
@@ -79,15 +78,15 @@ export default class QuantumStateGraphNode extends Node {
     const options = optionize<QuantumStateGraphNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      equationTermStringProperty: null,
+      createEquationTermNode: null,
       createEquationDetailsButton: null,
 
       // NodeOptions
       isDisposable: false
     }, providedOptions );
 
-    affirm( options.equationTermStringProperty || options.createEquationDetailsButton, 'One of these options must be provided.' );
-    affirm( !( options.equationTermStringProperty && options.createEquationDetailsButton ), 'These options are mutually exclusive.' );
+    affirm( options.createEquationTermNode || options.createEquationDetailsButton, 'One of these options must be provided.' );
+    affirm( !( options.createEquationTermNode && options.createEquationDetailsButton ), 'These options are mutually exclusive.' );
 
     super( options );
 
@@ -182,12 +181,10 @@ export default class QuantumStateGraphNode extends Node {
     } );
     this.addChild( pickableFalseNode );
 
-    // Show a mathematical term in the top-right corner of the chartRectangle.
-    if ( options.equationTermStringProperty ) {
+    // Mathematical term in the top-right corner of the chartRectangle.
+    if ( options.createEquationTermNode ) {
 
-      const equationTermNode = new EquationTermNode( options.equationTermStringProperty, {
-        tandem: options.tandem.createTandem( 'equationTermNode' )
-      } );
+      const equationTermNode = options.createEquationTermNode( options.tandem.createTandem( 'equationTermNode' ) );
       this.addChild( equationTermNode );
 
       // Dynamically position the term in the top-right corner of the chart rectangle.

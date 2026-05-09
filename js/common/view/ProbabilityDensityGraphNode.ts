@@ -7,13 +7,13 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import EquationTermNode from './EquationTermNode.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 import YLinePlot from './YLinePlot.js';
 
@@ -45,8 +45,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
     // of the chartRectangle. The term corresponds to the selected energy level.
     if ( !options.createEquationDetailsButton ) {
-      options.equationTermStringProperty = new DerivedStringProperty( [ model.energyLevelProperty ],
-        energyLevel => `|Ψ<sub>${energyLevel}</sub>(x,t)|<sup>2</sup>` );
+      options.createEquationTermNode = tandem => EquationTermNode.probabilityDensityTerm( model.energyLevelProperty, tandem );
     }
 
     super( model.curvesVisibleProperty, options );

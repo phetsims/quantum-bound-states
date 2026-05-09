@@ -1,39 +1,39 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * EquationTermNode displays one term from an equation in the Quantum State Graph.
- * For example, if energy level E3 is selected, the Wave Function graph shows 'Ψ<sub>3</sub>(x,t)'.
+ * EquationTermNode displays a term from an equation in the Quantum State Graph. The term corresponds to the selected
+ * energy level. For example, if energy level E3 is selected, the Wave Function graph shows 'Ψ<sub>3</sub>(x,t)'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
-import BackgroundNode, { BackgroundNodeOptions } from '../../../../scenery-phet/js/BackgroundNode.js';
-import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
-type SelfOptions = {
-  richTextOptions?: RichTextOptions | null;
-};
-
-type RichTextOnBackgroundNodeOptions = SelfOptions & WithRequired<BackgroundNodeOptions, 'tandem'>;
-
 export default class EquationTermNode extends BackgroundNode {
 
-  public constructor( stringProperty: TReadOnlyProperty<string>, providedOptions: RichTextOnBackgroundNodeOptions ) {
+  private constructor( energyLevelProperty: TReadOnlyProperty<number>, patternString: string, tandem: Tandem ) {
+
+    affirm( patternString.includes( '{{energyLevel}}' ), 'invalid pattern string: ' + patternString );
+
+    const stringProperty = new DerivedStringProperty( [ energyLevelProperty ],
+      energyLevel => StringUtils.fillIn( patternString, {
+        energyLevel: energyLevel
+      } ) );
 
     const richText = new RichText( stringProperty, {
       font: QBSConstants.EQUATION_TERM_FONT,
       fill: QBSColors.equationTermColorProperty
     } );
 
-    const options = optionize<RichTextOnBackgroundNodeOptions, SelfOptions, BackgroundNodeOptions>()( {
-
-      // SelfOptions
-      richTextOptions: null,
+    super( richText, {
 
       // BackgroundNodeOptions
       isDisposable: false,
@@ -44,10 +44,23 @@ export default class EquationTermNode extends BackgroundNode {
         fill: QBSColors.equationTermBackgroundColorProperty,
         opacity: 1 // use alpha in fill
       },
+      tandem: tandem,
       phetioVisiblePropertyInstrumented: true,
       visiblePropertyOptions: { phetioFeatured: true }
-    }, providedOptions );
+    } );
+  }
 
-    super( richText, options );
+  /**
+   * Creates a term for the probability density equation.
+   */
+  public static probabilityDensityTerm( energyLevelProperty: TReadOnlyProperty<number>, tandem: Tandem ): EquationTermNode {
+    return new EquationTermNode( energyLevelProperty, '|Ψ<sub>{{energyLevel}}</sub>(x,t)|<sup>2</sup>', tandem );
+  }
+
+  /**
+   * Creates a term for the wave function equation.
+   */
+  public static waveFunctionTerm( energyLevelProperty: TReadOnlyProperty<number>, tandem: Tandem ): EquationTermNode {
+    return new EquationTermNode( energyLevelProperty, 'Ψ<sub><sub>{{energyLevel}}</sub></sub>(x,t)', tandem );
   }
 }
