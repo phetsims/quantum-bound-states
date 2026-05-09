@@ -56,7 +56,8 @@ export default class ReferenceLineCheckbox extends Checkbox {
 function createIcon(): Node {
 
   const verticalLine = new Line( 0, 0, 0, 6, {
-    stroke: QBSColors.referenceLineStrokeProperty
+    stroke: QBSColors.referenceLineStrokeProperty,
+    lineWidth: QBSConstants.REFERENCE_LINE_LINE_WIDTH
   } );
 
   const handleNode = new ShadedSphereNode( ReferenceLineNode.HANDLE_DIAMETER, {

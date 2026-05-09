@@ -51,7 +51,7 @@ export default class ReferenceLineNode extends Node {
     // Vertical line that passes through all graphs.
     const verticalLine = new Line( 0, -providedOptions.lineLength, 0, 0, {
       stroke: QBSColors.referenceLineStrokeProperty,
-      lineWidth: 1,
+      lineWidth: QBSConstants.REFERENCE_LINE_LINE_WIDTH,
       pickable: false // optimization
     } );
 
