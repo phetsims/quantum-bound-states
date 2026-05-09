@@ -27,9 +27,9 @@ import ElectronMassesControl from './ElectronMassesControl.js';
 export class OneWellControlPanel extends Panel {
 
   public constructor( listboxParent: Node,
-                      energyLevelProperty: NumberProperty,
-                      electronMassesProperty: NumberProperty,
                       potentialProperty: Property<QuantumPotential>,
+                      electronMassesProperty: NumberProperty,
+                      energyLevelProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
 

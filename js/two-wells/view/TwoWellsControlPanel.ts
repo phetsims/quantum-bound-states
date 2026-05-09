@@ -26,8 +26,8 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 export class TwoWellsControlPanel extends Panel {
 
   public constructor( listboxParent: Node,
-                      energyLevelProperty: NumberProperty,
                       potentialProperty: Property<QuantumPotential>,
+                      energyLevelProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
 

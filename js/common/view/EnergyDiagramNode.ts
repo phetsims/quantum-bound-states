@@ -108,12 +108,12 @@ export default class EnergyDiagramNode extends Node {
     model.boundStateResultProperty.lazyLink( boundStateResult => energyLevelsPlot.setEnergies( boundStateResult.energies ) );
 
     // Plots the selected energy level.
-    const selectedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [ model.getEnergyAtEnergyLevel( model.energyLevelProperty.value ) ], {
+    const selectedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [ model.getEnergyAtEnergyLevel( model.selectedEnergyLevelProperty.value ) ], {
       stroke: QBSColors.selectedEnergyLevelColorProperty,
       lineWidth: 3
     } );
-    Multilink.multilink( [ model.energyLevelProperty, model.boundStateResultProperty ],
-      ( energyLevel, boundStateResult ) => selectedEnergyLevelPlot.setEnergies( [ model.getEnergyAtEnergyLevel( energyLevel ) ] ) );
+    Multilink.multilink( [ model.selectedEnergyLevelProperty, model.boundStateResultProperty ],
+      ( selectedEnergyLevel, boundStateResult ) => selectedEnergyLevelPlot.setEnergies( [ model.getEnergyAtEnergyLevel( selectedEnergyLevel ) ] ) );
 
     // Plots the highlighted energy level.
     const highlightedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [], {
@@ -146,7 +146,7 @@ export default class EnergyDiagramNode extends Node {
     } );
 
     // Displays the selected energy level and its corresponding energy value.
-    const selectedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.energyLevelProperty, this.chartTransform, {
+    const selectedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.selectedEnergyLevelProperty, this.chartTransform, {
       left: this.chartRectangle.left + 10,
       tandem: tandem.createTandem( 'selectedEnergyLevelDisplay' )
     } );

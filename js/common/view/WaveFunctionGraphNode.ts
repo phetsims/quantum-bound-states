@@ -44,7 +44,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
     // of the chartRectangle. The term corresponds to the selected energy level.
     if ( !options.createEquationDetailsButton ) {
-      options.createEquationTermNode = tandem => EquationTermNode.waveFunctionTerm( model.energyLevelProperty, tandem );
+      options.createEquationTermNode = tandem => EquationTermNode.waveFunctionTerm( model.selectedEnergyLevelProperty, tandem );
     }
 
     super( model.curvesVisibleProperty, options );

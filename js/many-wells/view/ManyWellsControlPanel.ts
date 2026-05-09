@@ -28,10 +28,10 @@ import NumberOfWellsControl from './NumberOfWellsControl.js';
 export class ManyWellsControlPanel extends Panel {
 
   public constructor( listboxParent: Node,
-                      energyLevelProperty: NumberProperty,
+                      potentialProperty: Property<QuantumPotential>,
                       numberOfWellsProperty: NumberProperty,
                       electricFieldProperty: NumberProperty,
-                      potentialProperty: Property<QuantumPotential>,
+                      energyLevelProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
 

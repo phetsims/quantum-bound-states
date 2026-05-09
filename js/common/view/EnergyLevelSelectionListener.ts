@@ -34,7 +34,7 @@ export default class EnergyLevelSelectionListener extends PressListener {
 
         // Select the highlighted energy level.
         if ( model.highlightedEnergyLevelProperty.value !== null ) {
-          model.energyLevelProperty.value = model.highlightedEnergyLevelProperty.value;
+          model.selectedEnergyLevelProperty.value = model.highlightedEnergyLevelProperty.value;
         }
       }
     } );
@@ -44,9 +44,9 @@ export default class EnergyLevelSelectionListener extends PressListener {
     this.chartTransform = chartTransform;
 
     // If the highlighted energy level becomes selected, clear the highlighted energy level.
-    model.energyLevelProperty.link( energyLevel => {
+    model.selectedEnergyLevelProperty.link( selectedEnergyLevel => {
       if ( !isSettingPhetioStateProperty.value ) {
-        if ( energyLevel === model.highlightedEnergyLevelProperty.value ) {
+        if ( model.highlightedEnergyLevelProperty.value === selectedEnergyLevel ) {
           model.highlightedEnergyLevelProperty.value = null;
         }
       }
@@ -61,7 +61,7 @@ export default class EnergyLevelSelectionListener extends PressListener {
 
     // Highlight the energy level that is closest to where the pointer is. Do not highlight the selected energy level.
     const energyLevel = this.eventToEnergyLevel( event );
-    if ( energyLevel !== this.model.energyLevelProperty.value ) {
+    if ( energyLevel !== this.model.selectedEnergyLevelProperty.value ) {
       this.model.highlightedEnergyLevelProperty.value = energyLevel;
     }
     else {

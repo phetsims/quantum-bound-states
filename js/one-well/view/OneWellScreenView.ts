@@ -20,8 +20,8 @@ export default class OneWellScreenView extends QBSScreenView {
 
     const listboxParent = new Node();
 
-    const energyDiagramControlPanel = new OneWellControlPanel( listboxParent, model.energyLevelProperty,
-      model.electronMassesProperty, model.potentialProperty, model.time,
+    const energyDiagramControlPanel = new OneWellControlPanel( listboxParent, model.potentialProperty,
+      model.electronMassesProperty, model.selectedEnergyLevelProperty, model.time,
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, listboxParent, energyDiagramControlPanel, {

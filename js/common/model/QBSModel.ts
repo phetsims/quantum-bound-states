@@ -84,7 +84,7 @@ export default class QBSModel implements TModel {
   public readonly xGrid: XGrid;
 
   // The selected energy level.
-  public readonly energyLevelProperty: NumberProperty;
+  public readonly selectedEnergyLevelProperty: NumberProperty;
 
   // The highlighted energy level. null if there is no energy level highlighted.
   public readonly highlightedEnergyLevelProperty: Property<number | null>;
@@ -141,10 +141,10 @@ export default class QBSModel implements TModel {
 
     this.energyDiagram = new EnergyDiagram( this, options.tandem.createTandem( 'energyDiagram' ) );
 
-    this.energyLevelProperty = new NumberProperty( this.potentialProperty.value.groundStateIndex, {
+    this.selectedEnergyLevelProperty = new NumberProperty( this.potentialProperty.value.groundStateIndex, {
       numberType: 'Integer',
       range: getEnergyLevelRange( this.potentialProperty.value.groundStateIndex, this.boundStateResultProperty.value.energies.length ),
-      tandem: options.energyLevelPropertyInstrumented ? options.tandem.createTandem( 'energyLevelProperty' ) : Tandem.OPT_OUT,
+      tandem: options.energyLevelPropertyInstrumented ? options.tandem.createTandem( 'selectedEnergyLevelProperty' ) : Tandem.OPT_OUT,
       phetioFeatured: true,
       phetioReadOnly: true
     } );
@@ -183,7 +183,7 @@ export default class QBSModel implements TModel {
 
         // Adjust energy level range and set to the ground state.
         const energyLevelRange = getEnergyLevelRange( potential.groundStateIndex, this.boundStateResultProperty.value.energies.length );
-        this.energyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
+        this.selectedEnergyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
       }
     } );
 
@@ -192,20 +192,20 @@ export default class QBSModel implements TModel {
     this.boundStateResultProperty.lazyLink( boundStateResult => {
       if ( !isSettingPhetioStateProperty.value ) {
         const energyLevelRange = getEnergyLevelRange( this.potentialProperty.value.groundStateIndex, boundStateResult.energies.length );
-        if ( energyLevelRange.contains( this.energyLevelProperty.value ) ) {
-          this.energyLevelProperty.rangeProperty.value = energyLevelRange;
+        if ( energyLevelRange.contains( this.selectedEnergyLevelProperty.value ) ) {
+          this.selectedEnergyLevelProperty.rangeProperty.value = energyLevelRange;
         }
         else {
-          this.energyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
+          this.selectedEnergyLevelProperty.setValueAndRange( energyLevelRange.min, energyLevelRange );
         }
       }
     } );
 
     this.selectedWaveFunctionValuesProperty = new DerivedProperty(
-      [ this.boundStateResultProperty, this.energyLevelProperty ],
-      ( boundStateResult, energyLevel ) => {
+      [ this.boundStateResultProperty, this.selectedEnergyLevelProperty ],
+      ( boundStateResult, selectedEnergyLevel ) => {
         const groundStateIndex = this.potentialProperty.value.groundStateIndex;
-        const waveFunctionsIndex = energyLevel - groundStateIndex;
+        const waveFunctionsIndex = selectedEnergyLevel - groundStateIndex;
         const waveFunctions = boundStateResult.waveFunctions;
         affirm( waveFunctionsIndex >= 0 && waveFunctionsIndex < waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
         return waveFunctions[ waveFunctionsIndex ];
@@ -272,7 +272,7 @@ export default class QBSModel implements TModel {
     this.electricFieldProperty.reset();
     this.potentialProperty.reset();
     this.potentials.forEach( potential => potential.reset() );
-    this.energyLevelProperty.reset();
+    this.selectedEnergyLevelProperty.reset();
     this.highlightedEnergyLevelProperty.reset();
     this.energyDiagram.reset();
     this.averageProbabilityDensityOfBandGraph && this.averageProbabilityDensityOfBandGraph.reset();

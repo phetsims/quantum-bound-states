@@ -122,10 +122,10 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
         return new Range( -maxAbsY, maxAbsY );
       } );
 
-    Multilink.multilink( [ model.time.currentTimeProperty, model.boundStateResultProperty, model.energyLevelProperty ],
-      ( t, boundStateResult, energyLevel ) => {
+    Multilink.multilink( [ model.time.currentTimeProperty, model.boundStateResultProperty, model.selectedEnergyLevelProperty ],
+      ( t, boundStateResult, selectedEnergyLevel ) => {
         if ( !isSettingPhetioStateProperty.value ) {
-          const timeEvolvedSuperposition = this.getTimeEvolvedSuperposition( t, model.xGrid, boundStateResult, energyLevel, model.potentialProperty.value.groundStateIndex );
+          const timeEvolvedSuperposition = this.getTimeEvolvedSuperposition( t, model.xGrid, boundStateResult, selectedEnergyLevel, model.potentialProperty.value.groundStateIndex );
           this._realPartValuesProperty.value = timeEvolvedSuperposition.realPartValues;
           this._imaginaryPartValuesProperty.value = timeEvolvedSuperposition.imaginaryPartValues;
           this._magnitudeValuesProperty.value = timeEvolvedSuperposition.magnitudeValues;
