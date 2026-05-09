@@ -88,6 +88,7 @@ export default class QBSConstants {
   public static readonly SPACING_DECIMAL_PLACES = 2;
   public static readonly X_OFFSET_DECIMAL_PLACES = 1;
   public static readonly Y_OFFSET_DECIMAL_PLACES = 1;
+  public static readonly ENERGY_LEVEL_DECIMALS = 2;
 
   // Intervals
   public static readonly Y_OFFSET_INTERVAL = Math.pow( 10, -QBSConstants.Y_OFFSET_DECIMAL_PLACES ); // eV
