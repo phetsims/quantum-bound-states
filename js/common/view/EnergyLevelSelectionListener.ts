@@ -9,7 +9,6 @@
 
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import TInputListener from '../../../../scenery/js/input/TInputListener.js';
 import PressListener, { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
@@ -17,7 +16,7 @@ import QBSModel from '../model/QBSModel.js';
 // The pointer must be this close to an energy level to highlight it or select it.
 const ENERGY_CLOSENESS_THRESHOLD = 1; // eV
 
-export default class EnergyLevelSelectionListener extends PressListener implements TInputListener {
+export default class EnergyLevelSelectionListener extends PressListener {
 
   private readonly model: QBSModel;
   private readonly chartRectangle: ChartRectangle;
