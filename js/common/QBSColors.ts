@@ -236,7 +236,7 @@ export default class QBSColors {
   } );
 
   public static readonly energyLevelDisplayBackgroundFillProperty = new ProfileColorProperty( quantumBoundStates, 'energyLevelDisplayBackgroundFill', {
-    default: 'white'
+    default: 'rgba( 255, 255, 255, 0.75 )'
   } );
 
   public static readonly energyLevelDisplayBackgroundStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'energyLevelDisplayBackgroundStroke', {
