@@ -28,10 +28,10 @@ export type EnergyLevelDisplayOptions = SelfOptions & NodeTranslationOptions & P
 export default class EnergyLevelDisplay extends BackgroundNode {
 
   //TODO Reduce coupling to QBSModel
-  protected constructor( model: QBSModel,
-                         energyLevelProperty: TReadOnlyProperty<number | null>,
-                         chartTransform: ChartTransform,
-                         providedOptions: EnergyLevelDisplayOptions ) {
+  public constructor( model: QBSModel,
+                      energyLevelProperty: TReadOnlyProperty<number | null>,
+                      chartTransform: ChartTransform,
+                      providedOptions: EnergyLevelDisplayOptions ) {
 
     const options = optionize<EnergyLevelDisplayOptions, SelfOptions, BackgroundNodeOptions>()( {
       isDisposable: false,

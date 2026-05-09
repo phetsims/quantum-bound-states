@@ -24,10 +24,9 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import EnergyLevelDisplay from './EnergyLevelDisplay.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
-import HighlightedEnergyLevelDisplay from './HighlightedEnergyLevelDisplay.js';
-import SelectedEnergyLevelDisplay from './SelectedEnergyLevelDisplay.js';
 import YLinePlot from './YLinePlot.js';
 
 export default class EnergyDiagramNode extends Node {
@@ -147,12 +146,16 @@ export default class EnergyDiagramNode extends Node {
     } );
 
     // Displays the selected energy level and its corresponding energy value.
-    const selectedEnergyLevelDisplay = new SelectedEnergyLevelDisplay( model, model.energyLevelProperty,
-      this.chartTransform, this.chartRectangle, tandem.createTandem( 'selectedEnergyLevelDisplay' ) );
+    const selectedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.energyLevelProperty, this.chartTransform, {
+      left: this.chartRectangle.left + 10,
+      tandem: tandem.createTandem( 'selectedEnergyLevelDisplay' )
+    } );
 
     // Displays the highlighted energy level and its corresponding energy value.
-    const highlightedEnergyLevelDisplay = new HighlightedEnergyLevelDisplay( model, model.highlightedEnergyLevelProperty,
-      this.chartTransform, this.chartRectangle, tandem.createTandem( 'highlightedEnergyLevelDisplay' ) );
+    const highlightedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.highlightedEnergyLevelProperty, this.chartTransform, {
+      left: selectedEnergyLevelDisplay.left,
+      tandem: tandem.createTandem( 'highlightedEnergyLevelDisplay' )
+    } );
 
     this.children = [
       this.yTickMarkSet,
