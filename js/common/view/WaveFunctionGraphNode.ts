@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -15,6 +16,7 @@ import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EquationTermNode from './EquationTermNode.js';
+import PhasePlot from './PhasePlot.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 import YLinePlot from './YLinePlot.js';
 
@@ -81,10 +83,20 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     } );
     waveFunctionGraph.magnitudeValuesProperty.link( values => magnitudePlot.setYCoordinates( values ) );
 
-    //TODO Phase
+    // Phase
+    const phasePlot = new PhasePlot( this.chartTransform, xCoordinates, initialYValues, initialYValues, {
+      visibleProperty: waveFunctionGraph.phaseVisibleProperty
+    } );
+    //TODO This assumes that waveFunctionGraph.magnitudeValuesProperty has been updated, which is an order dependency.
+    Multilink.multilink( [ waveFunctionGraph.phaseVisibleProperty, waveFunctionGraph.phaseValuesProperty ],
+      ( phaseVisible, phaseValues ) => {
+        if ( phaseVisible ) {
+          phasePlot.setDataSet( waveFunctionGraph.magnitudeValuesProperty.value, phaseValues );
+        }
+      } );
 
     // Rendering order
-    //TODO this.addPlot( phasePlot );
+    this.addPlot( phasePlot );
     this.addPlot( magnitudePlot );
     this.addPlot( imaginaryPartPlot );
     this.addPlot( realPartPlot );

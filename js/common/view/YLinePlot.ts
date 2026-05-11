@@ -55,7 +55,7 @@ export default class YLinePlot extends Path {
    * Sets the y-coordinates and redraws the plot.
    */
   public setYCoordinates( yCoordinates: readonly number[] ): void {
-    affirm( this.xCoordinates.length === yCoordinates.length, `xCoordinates and yCoordinates must be the same length, ${this.xCoordinates.length} !== ${yCoordinates.length}` );
+    affirm( yCoordinates.length === this.xCoordinates.length, 'yCoordinates must be the same length as xCoordinates' );
     this.yCoordinates = yCoordinates;
     this.update();
   }
@@ -75,6 +75,6 @@ export default class YLinePlot extends Path {
         shape.lineTo( x, y );
       }
     }
-    this.shape = shape.makeImmutable();
+    this.shape = shape.makeImmutable(); //TODO This is typically done in bamboo plots. Is it necessary?
   }
 }

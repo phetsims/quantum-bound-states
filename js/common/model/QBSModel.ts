@@ -453,7 +453,7 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid, electronMas
 }
 
 /**
- * TODO Move to QBSModel because we need TimeEvolvedSuperposition.probabilityDensityValues in ProbabiltyDensityGraph.
+ * TODO document
  */
 function getTimeEvolvedSuperposition( t: number,
                                       xGrid: XGrid,
@@ -484,7 +484,7 @@ function getTimeEvolvedSuperposition( t: number,
     if ( amplitude !== 0 ) {
 
       const initialPhase = superpositionPhaseValues[ n ];
-      const eigenfunction = boundStateResult.waveFunctions[ n ];
+      const waveFunction = boundStateResult.waveFunctions[ n ];
       const energy = boundStateResult.energies[ n ];
 
       // Time evolution phase for this eigenstate: -E_n*t/ℏ
@@ -499,19 +499,17 @@ function getTimeEvolvedSuperposition( t: number,
 
       // Accumulate the contribution of superposition to each y value.
       for ( let i = 0; i < numberOfPoints; i++ ) {
-        realPartValues[ i ] += realCoefficient * eigenfunction[ i ];
-        imaginaryPartValues[ i ] += imaginaryCoefficient * eigenfunction[ i ];
+        realPartValues[ i ] += realCoefficient * waveFunction[ i ];
+        imaginaryPartValues[ i ] += imaginaryCoefficient * waveFunction[ i ];
       }
     }
   }
 
   // Calculate magnitude, phase, and probability density.
-  let maxMagnitude = 0;
   for ( let i = 0; i < numberOfPoints; i++ ) {
     magnitudeValues[ i ] = Math.sqrt( realPartValues[ i ] * realPartValues[ i ] + imaginaryPartValues[ i ] * imaginaryPartValues[ i ] );
     phaseValues[ i ] = Math.atan2( imaginaryPartValues[ i ], realPartValues[ i ] );
     probabilityDensityValues[ i ] = realPartValues[ i ] * realPartValues[ i ] + imaginaryPartValues[ i ] * imaginaryPartValues[ i ];
-    maxMagnitude = Math.max( maxMagnitude, magnitudeValues[ i ] );
   }
 
   return {
