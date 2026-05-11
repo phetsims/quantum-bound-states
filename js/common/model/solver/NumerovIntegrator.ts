@@ -25,6 +25,11 @@ const RESCALE_TRIGGER = 1e100;
 const RESCALE_TARGET = 1e50;
 const MAX_FORBIDDEN_SEED_EXPONENT = 50;
 
+// A sign change is counted only when |psi| is at least this fraction of the running maximum
+// amplitude seen so far. This suppresses boundary-seed artifacts and deep-forbidden-region
+// numerical noise whose amplitude is negligible compared to the oscillation amplitude.
+const NODE_RELATIVE_TOLERANCE = 1e-3;
+
 export default class NumerovIntegrator {
 
   private readonly mass: number;
@@ -40,12 +45,18 @@ export default class NumerovIntegrator {
    * Integrate the Schrödinger equation using Numerov, sweeping **forward in x** (left → right):
    * grid indices j = 0,1,…,N-1 correspond to increasing x, and ψ is stepped from x_min toward x_max.
    *
+   * Node counting is performed inline during the sweep: sign changes of ψ are tallied only at
+   * classically allowed grid points (k²[i] ≥ 0). Restricting to the allowed region prevents
+   * forbidden-region exponential growth from distorting the sign-change count — the amplitude
+   * there can be orders of magnitude larger than the oscillation amplitude in the well, causing
+   * a global-amplitude threshold to incorrectly exclude real nodes.
+   *
    * @param E - Energy eigenvalue to test (eV)
    * @param V - Potential energy array (eV) corresponding to xGrid points
    * @param xGrid - grid of x-coordinates with uniform spacing (nm)
-   * @returns Wave function array
+   * @returns psi - wave function array; nodeCount - number of interior nodes counted during integration
    */
-  public integrate( E: number, V: number[], xGrid: XGrid ): number[] {
+  public integrate( E: number, V: number[], xGrid: XGrid ): { psi: number[]; nodeCount: number } {
     const N = xGrid.numberOfPoints;
     const dx = xGrid.dx;
 
@@ -61,9 +72,9 @@ export default class NumerovIntegrator {
 
     // ψ = 0 at x_min; seed ψ₁, then Numerov sweep with increasing index (x_min → x_max).
     this.setBoundaryConditions( psi, k2, dx, N, 'left' );
-    this.integrateForwardOnGrid( psi, f );
+    const nodeCount = this.integrateForwardOnGrid( psi, f );
 
-    return psi;
+    return { psi: psi, nodeCount: nodeCount };
   }
 
   /**
@@ -158,17 +169,63 @@ export default class NumerovIntegrator {
   /**
    * Apply the Numerov recurrence **forward in x**: for j = 1,…,N-2 compute ψ_(j+1) from ψ_j and ψ_(j-1).
    * Requires left-end boundary already set (ψ₀, ψ₁) via setBoundaryConditions(…, 'left').
+   *
+   * Node counting is performed inline during the sweep. Sign changes are tallied across ALL
+   * interior points — not restricted to the classically allowed region — because the
+   * Sturm–Liouville zero that appears when E crosses an eigenvalue typically occurs in the
+   * classically forbidden region just past the right turning point ("overshooting" zero).
+   * Excluding forbidden-region points from the count would therefore undercount nodes.
+   *
+   * A running-maximum threshold prevents rescaling artifacts from causing false sign changes:
+   *   - The rescaling multiplies all psi[0..j+1] by a positive factor, so signs are preserved.
+   *   - After each rescaling psi[j+1] = RESCALE_TARGET, so runningMaxAbs = RESCALE_TARGET.
+   *   - Genuine sign changes in the allowed and near-turning-point forbidden regions happen at
+   *     amplitudes comparable to RESCALE_TARGET, well above the 1e-3 threshold.
+   *   - Boundary noise (psi[0] = 0 seed artifacts) is tiny relative to the running max and
+   *     below the threshold, so it is silently skipped.
+   *
+   * The key advantage over post-processing: the right-forbidden-region rescaling (which
+   * scales all prior psi values down) has NOT yet occurred when interior sign changes are
+   * recorded, so the oscillation amplitudes are still at their natural scale.
+   *
+   * @returns number of interior nodes counted during the sweep
    */
-  private integrateForwardOnGrid( psi: number[], f: number[] ): void {
+  private integrateForwardOnGrid( psi: number[], f: number[] ): number {
     const N = psi.length;
+    let nodeCount = 0;
+    let prevSign = Math.sign( psi[ 1 ] );
+    let runningMaxAbs = Math.abs( psi[ 1 ] );
 
     for ( let j = 1; j < N - 1; j++ ) {
       psi[ j + 1 ] = this.numerovStepForward( psi[ j ], psi[ j - 1 ], f[ j ], f[ j - 1 ], f[ j + 1 ] );
 
       if ( Math.abs( psi[ j + 1 ] ) > RESCALE_TRIGGER ) {
+
+        // Rescaling multiplies all psi[0..j+1] by a positive scale factor, so signs are preserved
+        // and no correction to nodeCount or prevSign is needed. After rescaling the new point is
+        // RESCALE_TARGET, which becomes the updated running maximum.
         this.rescaleWaveFunction( psi, 0, j + 1, RESCALE_TARGET / Math.abs( psi[ j + 1 ] ) );
+        runningMaxAbs = RESCALE_TARGET;
+      }
+      else {
+        runningMaxAbs = Math.max( runningMaxAbs, Math.abs( psi[ j + 1 ] ) );
+      }
+
+      // Count nodes in all interior points (j+1 in [1, N-2]).
+      // Skip values that are too small relative to the running max — these are boundary/seed
+      // artifacts or numerical noise deep in a classically forbidden region, not genuine zeros.
+      if ( j + 1 <= N - 2 ) {
+        const currentSign = Math.sign( psi[ j + 1 ] );
+        if ( currentSign !== 0 && Math.abs( psi[ j + 1 ] ) >= NODE_RELATIVE_TOLERANCE * runningMaxAbs ) {
+          if ( prevSign !== 0 && currentSign !== prevSign ) {
+            nodeCount++;
+          }
+          prevSign = currentSign;
+        }
       }
     }
+
+    return nodeCount;
   }
 
   /**

@@ -1,21 +1,26 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * EnergyRefiner refines energy eigenvalues using the bisection method.
- * Used to find the precise energy where the wave function satisfies boundary conditions.
+ * EnergyRefiner refines energy eigenvalues using false-position (regula falsi) with a bisection
+ * fallback. Used to find the precise energy where the wave function satisfies boundary conditions.
  *
  * The caller supplies a mismatch function f(E) that returns a signed value whose zero
  * corresponds to an eigenvalue (e.g. ψ(x_max), a Wronskian, or a log-derivative difference).
- * Bisection is applied between two energies where f changes sign.
+ * The bracket [E1, E2] must straddle the root (f(E1) and f(E2) have opposite signs).
  *
- * This is a very robust method in root finding, but it generates a lot of iterations, so it is not the most efficient.
- * This approach could be refined if performance is needed.
+ * False-position converges much faster than bisection for smooth mismatch functions by linearly
+ * interpolating the root position each step. Bisection is used as a fallback when the bracket is
+ * numerically flat.
  *
  * @author Martin Veillette
  */
 
 // Default relative precision of 10^-4 gives absolute tolerance = 10^-4 × (bracket width)
 const DEFAULT_RELATIVE_TOLERANCE = 1e-4;
+
+// Minimum |fHi - fLo| to attempt a false-position step; below this the function is numerically
+// flat across the bracket and bisection is safer.
+const SMALL = 1e-10;
 
 /**
  * Configuration options for EnergyRefiner.
@@ -53,7 +58,7 @@ export default class EnergyRefiner {
   }
 
   /**
-   * Refine energy eigenvalue using bisection method.
+   * Refine energy eigenvalue using false-position with bisection fallback.
    *
    * @param E1 - Lower energy bound (eV); mismatch(E1) and mismatch(E2) must have opposite signs
    * @param E2 - Upper energy bound (eV)
@@ -68,23 +73,65 @@ export default class EnergyRefiner {
     let energyLow = E1;
     let energyHigh = E2;
 
-    // Convert tolerance to absolute value if it's relative
     const absoluteTolerance = this.isRelative ?
-      this.tolerance * Math.abs( E2 - E1 ) :
+      this.tolerance * Math.abs( energyHigh - energyLow ) :
       this.tolerance;
 
-    const signLow = Math.sign( mismatch( energyLow ) );
+    let mismatchLow = mismatch( energyLow );
+    let mismatchHigh = mismatch( energyHigh );
 
-    // Bisection loop
+    // Illinois false-position with bisection fallback.
+    // Plain regula falsi can stagnate when the mismatch function is curved: one endpoint
+    // stays fixed indefinitely, the bracket width converges to a non-zero value, and the
+    // while-loop never exits. The Illinois fix detects this by counting consecutive
+    // same-side replacements; after two in a row it halves the stagnant endpoint's mismatch
+    // value, biasing the next interpolated point toward the stagnant side and restoring
+    // superlinear convergence. Falls back to the bisection midpoint when the bracket is
+    // numerically flat (|mismatchHigh − mismatchLow| < SMALL) or the interpolated point
+    // lands outside the bracket due to floating-point rounding.
+    let consecutiveSameSide = 0;
+    let lastReplacedLow: boolean | null = null;
+
     while ( energyHigh - energyLow > absoluteTolerance ) {
-      const energyMid = ( energyLow + energyHigh ) / 2;
-      const signMid = Math.sign( mismatch( energyMid ) );
+      let energyMid: number;
+      if ( Math.abs( mismatchHigh - mismatchLow ) > SMALL ) {
+        energyMid = energyLow + ( energyHigh - energyLow ) * ( -mismatchLow ) / ( mismatchHigh - mismatchLow );
+      }
+      else {
+        energyMid = ( energyLow + energyHigh ) / 2;
+      }
 
-      if ( signMid === signLow ) {
+      // Guard: floating-point can place energyMid exactly at an endpoint
+      if ( energyMid <= energyLow || energyMid >= energyHigh ) {
+        energyMid = ( energyLow + energyHigh ) / 2;
+      }
+
+      const mismatchMid = mismatch( energyMid );
+      if ( mismatchMid === 0 ) { return energyMid; }
+
+      const replaceLow = Math.sign( mismatchMid ) === Math.sign( mismatchLow );
+
+      // Illinois correction: after two consecutive same-side replacements, halve the
+      // stagnant endpoint's mismatch value to push the next step toward that side.
+      if ( lastReplacedLow !== null && replaceLow === lastReplacedLow ) {
+        consecutiveSameSide++;
+        if ( consecutiveSameSide >= 2 ) {
+          if ( replaceLow ) { mismatchHigh /= 2; }
+          else { mismatchLow /= 2; }
+        }
+      }
+      else {
+        consecutiveSameSide = 1;
+      }
+      lastReplacedLow = replaceLow;
+
+      if ( replaceLow ) {
         energyLow = energyMid;
+        mismatchLow = mismatchMid;
       }
       else {
         energyHigh = energyMid;
+        mismatchHigh = mismatchMid;
       }
     }
 
