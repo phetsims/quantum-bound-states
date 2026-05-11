@@ -1,7 +1,12 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Cache colors?
 /**
  * PhasePlot plots the phase of the time-dependent wave function.
+ *
+ * The dataSet consists of a fixed set of x-coordinates and arrays of magnitude and phase values that correspond to
+ * each x-coordinate. When drawing a magnitude/phase pair (M1,P1), we look ahead at the next pair (M2,P2). M1 and M2
+ * are used to construct a 4-sided polygon. The fill color for the polygon is derived from P1. (P2 is ignored.)
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,7 +31,8 @@ export default class PhasePlot extends Node {
   private readonly xCoordinates: readonly number[];
   private magnitudeValues: readonly number[];
   private phaseValues: readonly number[];
-  private readonly polygons: Path[];
+  private readonly mutableColor: Color; // One instance of Color is reused for phase to Color conversion.
+  private readonly polygons: Path[]; // Polygons are reused to draw the phase.
 
   public constructor( chartTransform: ChartTransform,
                       xCoordinates: readonly number[],
@@ -46,10 +52,13 @@ export default class PhasePlot extends Node {
     this.magnitudeValues = magnitudeValues;
     this.phaseValues = phaseValues;
 
+    this.mutableColor = new Color( 0, 0, 0 );
+
     this.polygons = [];
     for ( let i = 0; i < xCoordinates.length; i++ ) {
       this.polygons.push( new Path( null ) );
     }
+    this.children = this.polygons;
 
     // Initialize
     this.update();
@@ -71,6 +80,9 @@ export default class PhasePlot extends Node {
     this.update();
   }
 
+  /**
+   * Updates the plot.
+   */
   private update(): void {
 
     const dxView = this.chartTransform.modelToViewDeltaX( this.xCoordinates[ 1 ] - this.xCoordinates[ 0 ] );
@@ -95,16 +107,15 @@ export default class PhasePlot extends Node {
         shape.makeImmutable(); //TODO This is typically done in bamboo plots. Is it necessary?
 
         polygon.shape = shape;
-        polygon.fill = phaseToColor( this.phaseValues[ i ] );
+        polygon.fill = this.phaseToColor( this.phaseValues[ i ] );
       }
     }
-    this.children = [ ...this.polygons ]; //TODO Is there a different way?
   }
-}
 
-/**
- * Converts phase (in radians) to a Color.
- */
-function phaseToColor( phase: number ): Color {
-  return new Color( 0, 0, 0 ).setHSLA( toDegrees( phase ), 100, 50, 1 ); //TODO Java version was HSV colorspace
+  /**
+   * Converts phase (in radians) to a CSS color string.
+   */
+  private phaseToColor( phase: number ): string {
+    return this.mutableColor.setHSLA( toDegrees( phase ), 100, 50, 1 ).toCSS(); //TODO Java version used HSV colorspace
+  }
 }
