@@ -103,7 +103,12 @@ export default class PhasePlot extends Node {
         const yView = this.chartTransform.modelToViewY( yModel );
         const yNextView = this.chartTransform.modelToViewY( yNextModel );
 
-        const shape = new Shape().moveTo( xView, yZeroView ).lineTo( xView, yView ).lineTo( xNextView, yNextView ).lineTo( xNextView, yZeroView ).close();
+        const shape = new Shape()
+          .moveTo( xView, yZeroView )
+          .lineTo( xView, yView )
+          .lineTo( xNextView, yNextView )
+          .lineTo( xNextView, yZeroView )
+          .close();
         shape.makeImmutable(); //TODO This is typically done in bamboo plots. Is it necessary?
 
         polygon.shape = shape;
