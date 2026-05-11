@@ -71,7 +71,8 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     Multilink.multilink(
       [ energyLevelProperty, model.boundStateResultProperty, model.energyDiagram.yRangeProperty ],
       ( energyLevel, boundStateResult, yRange ) => {
-        if ( energyLevel !== null ) {
+        //TODO https://github.com/phetsims/quantum-bound-states/issues/40 Temporary patch
+        if ( energyLevel !== null && model.selectedEnergyLevelProperty.range.min === model.potentialProperty.value.groundStateIndex ) {
           const energy = model.getEnergyAtEnergyLevel( energyLevel );
           this.bottom = chartTransform.modelToViewY( energy ) - 3;
         }
