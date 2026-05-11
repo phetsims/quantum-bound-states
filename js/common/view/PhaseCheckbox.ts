@@ -62,6 +62,7 @@ function createContent( stringProperty: TReadOnlyProperty<string>, strokePropert
     font: QBSConstants.CONTROL_FONT
   } );
 
+  //TODO Change icon to match the color mapping that is eventually chosen.
   const spectrumNode = new SpectrumNode( {
     size: new Dimension2( 40, 0.75 * zeroNode.height ),
     minValue: VisibleColor.MIN_WAVELENGTH,
