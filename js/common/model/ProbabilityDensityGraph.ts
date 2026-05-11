@@ -28,6 +28,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
 
     super( tandem );
 
+    //TODO Should be time-dependent, get from TimeEvolvedSuperposition.probabilityDensityValues
     this.probabilityDensityValuesProperty = new DerivedProperty(
       [ model.selectedWaveFunctionValuesProperty ],
       selectedWaveFunctionValues => selectedWaveFunctionValues.map( x => x * x ), {
@@ -37,6 +38,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
         phetioFeatured: true
       } );
 
+    //TODO Change this to use the square of time-independent wave function values.
     this.yAxisRangeProperty = new DerivedProperty( [ this.probabilityDensityValuesProperty ],
       probabilityDensityValues => {
         //TODO It may be more performant to return maxAbsY as part of BoundStateResult, then use maxAbsY * maxAbsY here.
