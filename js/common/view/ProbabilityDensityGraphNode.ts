@@ -7,10 +7,12 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import QBSModel from '../model/QBSModel.js';
+import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
+import QuantumStateGraph from '../model/QuantumStateGraph.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EquationTermNode from './EquationTermNode.js';
@@ -23,8 +25,11 @@ type ProbabilityDensityGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNo
 
 export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
-  //TODO Reduce coupling with QBSModel
-  public constructor( model: QBSModel, providedOptions: ProbabilityDensityGraphNodeOptions ) {
+  public constructor( probabilityDensityGraph: ProbabilityDensityGraph,
+                      quantumStateGraphProperty: TReadOnlyProperty<QuantumStateGraph>,
+                      selectedEnergyLevelProperty: TReadOnlyProperty<number>,
+                      curvesVisibleProperty: TReadOnlyProperty<boolean>,
+                      providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
     const options = optionize<ProbabilityDensityGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {
 
@@ -35,7 +40,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       yTickLabelDecimals: 1,
 
       // Visible when this graph is selected.
-      visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.probabilityDensityGraph ),
+      visibleProperty: new DerivedProperty( [ quantumStateGraphProperty ], graph => graph === probabilityDensityGraph ),
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.probabilityDensityGraph.accessibleHeadingStringProperty,
@@ -45,22 +50,23 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
     // of the chartRectangle. The term corresponds to the selected energy level.
     if ( !options.createEquationDetailsButton ) {
-      options.createEquationTermNode = tandem => EquationTermNode.probabilityDensityTerm( model.selectedEnergyLevelProperty, tandem );
+      options.createEquationTermNode = tandem => EquationTermNode.probabilityDensityTerm( selectedEnergyLevelProperty, tandem );
     }
 
-    super( model.curvesVisibleProperty, options );
+    super( curvesVisibleProperty, options );
 
-    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, model.probabilityDensityValuesProperty.value, {
+    const probabilityDensityPlot = new YLinePlot( this.chartTransform, probabilityDensityGraph.xGrid.xCoordinates,
+      probabilityDensityGraph.probabilityDensityValuesProperty.value, {
       stroke: QBSColors.probabilityDensityStrokeProperty,
       lineWidth: 2
     } );
     this.addPlot( probabilityDensityPlot );
 
-    model.probabilityDensityValuesProperty.lazyLink( probabilityDensityValues => {
+    probabilityDensityGraph.probabilityDensityValuesProperty.lazyLink( probabilityDensityValues => {
       probabilityDensityPlot.setYCoordinates( probabilityDensityValues );
     } );
 
-    model.probabilityDensityGraph.yAxisRangeProperty.link( yAxisRange => {
+    probabilityDensityGraph.yAxisRangeProperty.link( yAxisRange => {
       this.setYRange( new Range( yAxisRange.min, yAxisRange.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( yAxisRange.max );
     } );

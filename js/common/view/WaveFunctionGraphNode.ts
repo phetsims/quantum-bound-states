@@ -7,9 +7,11 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import QBSModel from '../model/QBSModel.js';
+import QuantumStateGraph from '../model/QuantumStateGraph.js';
+import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EquationTermNode from './EquationTermNode.js';
@@ -22,8 +24,11 @@ type WaveFunctionGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNodeOpti
 
 export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
-  //TODO Reduce coupling with QBSModel
-  public constructor( model: QBSModel, providedOptions: WaveFunctionGraphNodeOptions ) {
+  public constructor( waveFunctionGraph: WaveFunctionGraph,
+                      quantumStateGraphProperty: TReadOnlyProperty<QuantumStateGraph>,
+                      selectedEnergyLevelProperty: TReadOnlyProperty<number>,
+                      curvesVisibleProperty: TReadOnlyProperty<boolean>,
+                      providedOptions: WaveFunctionGraphNodeOptions ) {
 
     const options = optionize<WaveFunctionGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {
 
@@ -34,7 +39,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       yTickLabelDecimals: 1,
 
       // Visible when this graph is selected.
-      visibleProperty: new DerivedProperty( [ model.quantumStateGraphProperty ], graph => graph === model.waveFunctionGraph ),
+      visibleProperty: new DerivedProperty( [ quantumStateGraphProperty ], graph => graph === waveFunctionGraph ),
 
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleHeadingStringProperty,
@@ -44,36 +49,37 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
     // of the chartRectangle. The term corresponds to the selected energy level.
     if ( !options.createEquationDetailsButton ) {
-      options.createEquationTermNode = tandem => EquationTermNode.waveFunctionTerm( model.selectedEnergyLevelProperty, tandem );
+      options.createEquationTermNode = tandem => EquationTermNode.waveFunctionTerm( selectedEnergyLevelProperty, tandem );
     }
 
-    super( model.curvesVisibleProperty, options );
+    super( curvesVisibleProperty, options );
 
-    const initialYValues = new Array( model.xGrid.xCoordinates.length ).fill( 0 );
+    const initialYValues = new Array( waveFunctionGraph.xGrid.xCoordinates.length ).fill( 0 );
+    const xCoordinates = waveFunctionGraph.xGrid.xCoordinates;
 
     // Real Part
-    const realPartPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, initialYValues, {
+    const realPartPlot = new YLinePlot( this.chartTransform, xCoordinates, initialYValues, {
       stroke: QBSColors.realPartStrokeProperty,
       lineWidth: 2,
-      visibleProperty: model.waveFunctionGraph.realPartVisibleProperty
+      visibleProperty: waveFunctionGraph.realPartVisibleProperty
     } );
-    model.realPartValuesProperty.link( values => realPartPlot.setYCoordinates( values ) );
+    waveFunctionGraph.realPartValuesProperty.link( values => realPartPlot.setYCoordinates( values ) );
 
     // Imaginary Part
-    const imaginaryPartPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, initialYValues, {
+    const imaginaryPartPlot = new YLinePlot( this.chartTransform, xCoordinates, initialYValues, {
       stroke: QBSColors.imaginaryPartStrokeProperty,
       lineWidth: 2,
-      visibleProperty: model.waveFunctionGraph.imaginaryPartVisibleProperty
+      visibleProperty: waveFunctionGraph.imaginaryPartVisibleProperty
     } );
-    model.imaginaryPartValuesProperty.link( values => imaginaryPartPlot.setYCoordinates( values ) );
+    waveFunctionGraph.imaginaryPartValuesProperty.link( values => imaginaryPartPlot.setYCoordinates( values ) );
 
     // Magnitude
-    const magnitudePlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, initialYValues, {
+    const magnitudePlot = new YLinePlot( this.chartTransform, xCoordinates, initialYValues, {
       stroke: QBSColors.magnitudeStrokeProperty,
       lineWidth: 2,
-      visibleProperty: model.waveFunctionGraph.magnitudeVisibleProperty
+      visibleProperty: waveFunctionGraph.magnitudeVisibleProperty
     } );
-    model.magnitudeValuesProperty.link( values => magnitudePlot.setYCoordinates( values ) );
+    waveFunctionGraph.magnitudeValuesProperty.link( values => magnitudePlot.setYCoordinates( values ) );
 
     //TODO Phase
 
@@ -83,7 +89,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     this.addPlot( imaginaryPartPlot );
     this.addPlot( realPartPlot );
 
-    model.waveFunctionGraph.yAxisRangeProperty.link( yAxisRange => {
+    waveFunctionGraph.yAxisRangeProperty.link( yAxisRange => {
       this.setYRange( yAxisRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( yAxisRange.max );
     } );

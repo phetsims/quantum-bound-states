@@ -80,7 +80,8 @@ export default class QBSScreenView extends ScreenView {
     }
 
     if ( model.probabilityDensityGraph ) {
-      const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model, {
+      const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model.probabilityDensityGraph,
+        model.quantumStateGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createProbabilityDensityDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'probabilityDensityGraphNode' )
       } );
@@ -88,7 +89,8 @@ export default class QBSScreenView extends ScreenView {
     }
 
     if ( model.waveFunctionGraph ) {
-      const waveFunctionGraphNode = new WaveFunctionGraphNode( model, {
+      const waveFunctionGraphNode = new WaveFunctionGraphNode( model.waveFunctionGraph,
+        model.quantumStateGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createWaveFunctionDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'waveFunctionGraphNode' )
       } );
