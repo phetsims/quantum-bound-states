@@ -18,7 +18,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { femtosecondsUnit } from './units/femtosecondsUnit.js';
 
 // Time steps for each time speed.
-const TIME_STEP_VALUES = [ 0.01, 0.1, 1, 10 ];
+const TIME_STEP_VALUES = [ 0.1, 1, 10, 100 ];
 affirm( _.every( TIME_STEP_VALUES, value => value > 0 ), 'TIME_STEP_VALUES must be > 0' );
 
 // Number of decimal places to display for each time speed.
@@ -27,9 +27,10 @@ affirm( _.every( TIME_DECIMAL_PLACES, value => Number.isInteger( value ) && valu
 affirm( TIME_DECIMAL_PLACES.length === TIME_STEP_VALUES.length, 'TIME_DECIMAL_PLACES and TIME_STEP_VALUES must have the same length' );
 
 // Conversion of real time (seconds) to simulation time (femtoseconds).
-// Larger values make the simulation time increase faster.
-// In the Java version, this was the number of frames per second, and each frame incremented time by a constant dt.
-const FEMTOSECONDS_PER_SECOND = 24;
+// With the three base units for length, mass and energy (nm, m_e, eV), using L = 10^-9, m_e = 9.1093837015e-31, and
+// eV = 1.602176634e-19 the time unit is:
+// t =L * sqrt( m/eV ) = 1 nm * sqrt( 9.1093837015e-31 / 1.602176634e-19 ) = 2.385 x10^-15 sec = 2.385 fs
+const FEMTOSECONDS_PER_SECOND = 2.385;
 
 export default class QBSTime extends PhetioObject {
 
