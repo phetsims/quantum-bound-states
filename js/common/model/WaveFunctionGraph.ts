@@ -8,29 +8,13 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
-import { BoundStateResult } from './solver/BoundStateResult.js';
-import NumerovSolver from './solver/NumerovSolver.js';
-import XGrid from './solver/XGrid.js';
-import { inverseSquareRootNanometersUnit } from './units/inverseSquareRootNanometersUnit.js';
-
-type TimeEvolvedSuperposition = {
-  realPartValues: number[];
-  imaginaryPartValues: number[];
-  magnitudeValues: number[];
-  phaseValues: number[];
-  probabilityDensityValues: number[];
-};
 
 export default class WaveFunctionGraph extends QuantumStateGraph {
 
@@ -39,22 +23,6 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   public readonly imaginaryPartVisibleProperty: Property<boolean>;
   public readonly magnitudeVisibleProperty: Property<boolean>;
   public readonly phaseVisibleProperty: Property<boolean>;
-
-  // y-axis values for plotting wave function real part
-  public readonly realPartValuesProperty: TReadOnlyProperty<number[]>;
-  private readonly _realPartValuesProperty: Property<number[]>;
-
-  // y-axis values for plotting wave function imaginary part
-  public readonly imaginaryPartValuesProperty: TReadOnlyProperty<number[]>;
-  private readonly _imaginaryPartValuesProperty: Property<number[]>;
-
-  // y-axis values for plotting wave function magnitude
-  public readonly magnitudeValuesProperty: TReadOnlyProperty<number[]>;
-  private readonly _magnitudeValuesProperty: Property<number[]>;
-
-  // y-axis values for plotting wave function phase
-  //TODO public readonly phaseValuesProperty: TReadOnlyProperty<number[]>;
-  //TODO private readonly _phaseValuesProperty: TReadOnlyProperty<number[]>;
 
   // Range for the y-axis
   public readonly yAxisRangeProperty: TReadOnlyProperty<Range>;
@@ -84,33 +52,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
       phetioFeatured: true
     } );
 
-    this._realPartValuesProperty = new Property<number[]>( [], {
-      units: inverseSquareRootNanometersUnit,
-      tandem: tandem.createTandem( 'realPartValuesProperty' ),
-      phetioValueType: ArrayIO( NumberIO ),
-      phetioFeatured: true,
-      phetioReadOnly: true
-    } );
-    this.realPartValuesProperty = this._realPartValuesProperty;
-
-    this._imaginaryPartValuesProperty = new Property<number[]>( [], {
-      units: inverseSquareRootNanometersUnit,
-      tandem: tandem.createTandem( 'imaginaryPartValuesProperty' ),
-      phetioValueType: ArrayIO( NumberIO ),
-      phetioFeatured: true,
-      phetioReadOnly: true
-    } );
-    this.imaginaryPartValuesProperty = this._imaginaryPartValuesProperty;
-
-    this._magnitudeValuesProperty = new Property<number[]>( [], {
-      units: inverseSquareRootNanometersUnit,
-      tandem: tandem.createTandem( 'magnitudeValuesProperty' ),
-      phetioValueType: ArrayIO( NumberIO ),
-      phetioFeatured: true,
-      phetioReadOnly: true
-    } );
-    this.magnitudeValuesProperty = this._magnitudeValuesProperty;
-
+    // Use the maximum time-independent wave function value to set the y-axis range.
     this.yAxisRangeProperty = new DerivedProperty( [ model.selectedWaveFunctionValuesProperty ],
       selectedWaveFunctionValues => {
         //TODO It may be more performant to return maxAbsY as part of BoundStateResult
@@ -118,17 +60,6 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
         const maxY = Math.max( ...selectedWaveFunctionValues );
         const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
         return new Range( -maxAbsY, maxAbsY );
-      } );
-
-    Multilink.multilink( [ model.time.currentTimeProperty, model.boundStateResultProperty, model.selectedEnergyLevelProperty ],
-      ( t, boundStateResult, selectedEnergyLevel ) => {
-        if ( !isSettingPhetioStateProperty.value ) {
-          const timeEvolvedSuperposition = this.getTimeEvolvedSuperposition( t, model.xGrid, boundStateResult, selectedEnergyLevel, model.potentialProperty.value.groundStateIndex );
-          this._realPartValuesProperty.value = timeEvolvedSuperposition.realPartValues;
-          this._imaginaryPartValuesProperty.value = timeEvolvedSuperposition.imaginaryPartValues;
-          this._magnitudeValuesProperty.value = timeEvolvedSuperposition.magnitudeValues;
-          //TODO this._phaseValuesProperty.value = ...
-        }
       } );
   }
 
@@ -138,76 +69,5 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     this.imaginaryPartVisibleProperty.reset();
     this.magnitudeVisibleProperty.reset();
     this.phaseVisibleProperty.reset();
-  }
-
-  /**
-   * TODO Move to QBSModel because we need TimeEvolvedSuperposition.probabilityDensityValues in ProbabiltyDensityGraph.
-   */
-  private getTimeEvolvedSuperposition( t: number,
-                                       xGrid: XGrid,
-                                       boundStateResult: BoundStateResult,
-                                       selectedEnergyLevel: number,
-                                       groundStateIndex: number ): TimeEvolvedSuperposition {
-
-    const numberOfEnergyLevels = boundStateResult.energies.length;
-    const numberOfPoints = xGrid.numberOfPoints;
-
-    //TODO Temporary: All superpositionCoefficient amplitudes are zero except for the selected energy level.
-    //TODO In QPPW this was superpositionConfigProperty: Property<SuperpositionConfig>
-    const superpositionMagnitudeValues = new Array( numberOfEnergyLevels ).fill( 0 );
-    superpositionMagnitudeValues[ selectedEnergyLevel - groundStateIndex ] = 1;
-    const superpositionPhaseValues = new Array( numberOfEnergyLevels ).fill( 0 ); //TODO
-
-    // Initialize arrays
-    const realPartValues = new Array( numberOfPoints ).fill( 0 );
-    const imaginaryPartValues = new Array( numberOfPoints ).fill( 0 );
-    const magnitudeValues = new Array( numberOfPoints );
-    const phaseValues = new Array( numberOfPoints );
-    const probabilityDensityValues = new Array( numberOfPoints );
-
-    // Compute time-evolved superposition: ψ(x,t) = Σ c_n * e^(iφ_n) * ψ_n(x) * e^(-iE_n*t/ℏ)
-
-    for ( let n = 0; n < numberOfEnergyLevels; n++ ) {
-      const amplitude = superpositionMagnitudeValues[ n ];
-      if ( amplitude !== 0 ) {
-
-        const initialPhase = superpositionPhaseValues[ n ];
-        const eigenfunction = boundStateResult.waveFunctions[ n ];
-        const energy = boundStateResult.energies[ n ];
-
-        // Time evolution phase for this eigenstate: -E_n*t/ℏ
-        const timePhase = -( energy * t ) / NumerovSolver.HBAR;
-
-        // Total phase: initial phase + time evolution phase
-        const totalPhase = initialPhase + timePhase;
-
-        // Complex coefficient: c_n * e^(i*totalPhase) = c_n * (cos(totalPhase) + i*sin(totalPhase))
-        const realCoefficient = amplitude * Math.cos( totalPhase );
-        const imaginaryCoefficient = amplitude * Math.sin( totalPhase );
-
-        // Accumulate the contribution of superposition to each y value.
-        for ( let i = 0; i < numberOfPoints; i++ ) {
-          realPartValues[ i ] += realCoefficient * eigenfunction[ i ];
-          imaginaryPartValues[ i ] += imaginaryCoefficient * eigenfunction[ i ];
-        }
-      }
-    }
-
-    // Calculate magnitude, phase, and probability density.
-    let maxMagnitude = 0;
-    for ( let i = 0; i < numberOfPoints; i++ ) {
-      magnitudeValues[ i ] = Math.sqrt( realPartValues[ i ] * realPartValues[ i ] + imaginaryPartValues[ i ] * imaginaryPartValues[ i ] );
-      phaseValues[ i ] = Math.atan2( imaginaryPartValues[ i ], realPartValues[ i ] );
-      probabilityDensityValues[ i ] = realPartValues[ i ] * realPartValues[ i ] + imaginaryPartValues[ i ] * imaginaryPartValues[ i ];
-      maxMagnitude = Math.max( maxMagnitude, magnitudeValues[ i ] );
-    }
-
-    return {
-      realPartValues: realPartValues,
-      imaginaryPartValues: imaginaryPartValues,
-      magnitudeValues: magnitudeValues,
-      phaseValues: phaseValues,
-      probabilityDensityValues: probabilityDensityValues
-    };
   }
 }

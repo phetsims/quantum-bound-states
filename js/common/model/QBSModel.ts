@@ -17,9 +17,11 @@ import TModel from '../../../../joist/js/TModel.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { radiansUnit } from '../../../../scenery-phet/js/units/radiansUnit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import QBSConstants from '../QBSConstants.js';
@@ -33,8 +35,19 @@ import QBSTime from './QBSTime.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
+import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
+import { inverseNanometersUnit } from './units/inverseNanometersUnit.js';
+import { inverseSquareRootNanometersUnit } from './units/inverseSquareRootNanometersUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
+
+export type TimeEvolvedSuperposition = {
+  realPartValues: number[];
+  imaginaryPartValues: number[];
+  magnitudeValues: number[];
+  phaseValues: number[];
+  probabilityDensityValues: number[];
+};
 
 type SelfOptions = {
 
@@ -102,6 +115,15 @@ export default class QBSModel implements TModel {
 
   // Whether curves are visible on the QuantumStateGraphs. Applies to all graphs.
   public readonly curvesVisibleProperty: Property<boolean>;
+
+  // y-axis values for plotting components of the time-dependent wave function
+  public readonly realPartValuesProperty: TReadOnlyProperty<number[]>;
+  public readonly imaginaryPartValuesProperty: TReadOnlyProperty<number[]>;
+  public readonly magnitudeValuesProperty: TReadOnlyProperty<number[]>;
+  public readonly phaseValuesProperty: TReadOnlyProperty<number[]>;
+
+  // y-axis values for plotting the time-dependent probability density
+  public readonly probabilityDensityValuesProperty: TReadOnlyProperty<number[]>;
 
   public readonly magnifier: Magnifier;
   public readonly referenceLine: ReferenceLine;
@@ -219,6 +241,52 @@ export default class QBSModel implements TModel {
         if ( !isSettingPhetioStateProperty.value ) {
           this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
         }
+      } );
+
+    const timeEvolvedSuperpositionProperty = new DerivedProperty(
+      [ this.time.currentTimeProperty, this.boundStateResultProperty, this.selectedEnergyLevelProperty ],
+      ( t, boundStateResult, selectedEnergyLevel ) =>
+        getTimeEvolvedSuperposition( t, this.xGrid, boundStateResult, selectedEnergyLevel, this.potentialProperty.value.groundStateIndex )
+    );
+
+    this.realPartValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
+      timeEvolvedSuperposition => timeEvolvedSuperposition.realPartValues, {
+        units: inverseSquareRootNanometersUnit,
+        tandem: options.tandem.createTandem( 'realPartValuesProperty' ),
+        phetioValueType: ArrayIO( NumberIO ),
+        phetioFeatured: true
+      } );
+
+    this.imaginaryPartValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
+      timeEvolvedSuperposition => timeEvolvedSuperposition.imaginaryPartValues, {
+        units: inverseSquareRootNanometersUnit,
+        tandem: options.tandem.createTandem( 'imaginaryPartValuesProperty' ),
+        phetioValueType: ArrayIO( NumberIO ),
+        phetioFeatured: true
+      } );
+
+    this.magnitudeValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
+      timeEvolvedSuperposition => timeEvolvedSuperposition.magnitudeValues, {
+        //TODO what are the units for magnitude?
+        tandem: options.tandem.createTandem( 'magnitudeValuesProperty' ),
+        phetioValueType: ArrayIO( NumberIO ),
+        phetioFeatured: true
+      } );
+
+    this.phaseValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
+      timeEvolvedSuperposition => timeEvolvedSuperposition.phaseValues, {
+        units: radiansUnit, //TODO is this correct?
+        tandem: options.tandem.createTandem( 'phaseValuesProperty' ),
+        phetioValueType: ArrayIO( NumberIO ),
+        phetioFeatured: true
+      } );
+
+    this.probabilityDensityValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
+      timeEvolvedSuperposition => timeEvolvedSuperposition.probabilityDensityValues, {
+        units: inverseNanometersUnit,
+        tandem: options.tandem.createTandem( 'probabilityDensityValuesProperty' ),
+        phetioValueType: ArrayIO( NumberIO ),
+        phetioFeatured: true
       } );
 
     // The order of quantumStateGraphs determines the order of radio buttons in QuatumStateGraphRadioButtonGroup.
@@ -382,6 +450,77 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid, electronMas
   affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each energy: ' + potential.toString() );
 
   return result;
+}
+
+/**
+ * TODO Move to QBSModel because we need TimeEvolvedSuperposition.probabilityDensityValues in ProbabiltyDensityGraph.
+ */
+function getTimeEvolvedSuperposition( t: number,
+                                      xGrid: XGrid,
+                                      boundStateResult: BoundStateResult,
+                                      selectedEnergyLevel: number,
+                                      groundStateIndex: number ): TimeEvolvedSuperposition {
+
+  const numberOfEnergyLevels = boundStateResult.energies.length;
+  const numberOfPoints = xGrid.numberOfPoints;
+
+  //TODO Temporary: All superpositionCoefficient amplitudes are zero except for the selected energy level.
+  //TODO In QPPW this was superpositionConfigProperty: Property<SuperpositionConfig>
+  const superpositionMagnitudeValues = new Array( numberOfEnergyLevels ).fill( 0 );
+  superpositionMagnitudeValues[ selectedEnergyLevel - groundStateIndex ] = 1;
+  const superpositionPhaseValues = new Array( numberOfEnergyLevels ).fill( 0 ); //TODO
+
+  // Initialize arrays
+  const realPartValues = new Array( numberOfPoints ).fill( 0 );
+  const imaginaryPartValues = new Array( numberOfPoints ).fill( 0 );
+  const magnitudeValues = new Array( numberOfPoints );
+  const phaseValues = new Array( numberOfPoints );
+  const probabilityDensityValues = new Array( numberOfPoints );
+
+  // Compute time-evolved superposition: ψ(x,t) = Σ c_n * e^(iφ_n) * ψ_n(x) * e^(-iE_n*t/ℏ)
+
+  for ( let n = 0; n < numberOfEnergyLevels; n++ ) {
+    const amplitude = superpositionMagnitudeValues[ n ];
+    if ( amplitude !== 0 ) {
+
+      const initialPhase = superpositionPhaseValues[ n ];
+      const eigenfunction = boundStateResult.waveFunctions[ n ];
+      const energy = boundStateResult.energies[ n ];
+
+      // Time evolution phase for this eigenstate: -E_n*t/ℏ
+      const timePhase = -( energy * t ) / NumerovSolver.HBAR;
+
+      // Total phase: initial phase + time evolution phase
+      const totalPhase = initialPhase + timePhase;
+
+      // Complex coefficient: c_n * e^(i*totalPhase) = c_n * (cos(totalPhase) + i*sin(totalPhase))
+      const realCoefficient = amplitude * Math.cos( totalPhase );
+      const imaginaryCoefficient = amplitude * Math.sin( totalPhase );
+
+      // Accumulate the contribution of superposition to each y value.
+      for ( let i = 0; i < numberOfPoints; i++ ) {
+        realPartValues[ i ] += realCoefficient * eigenfunction[ i ];
+        imaginaryPartValues[ i ] += imaginaryCoefficient * eigenfunction[ i ];
+      }
+    }
+  }
+
+  // Calculate magnitude, phase, and probability density.
+  let maxMagnitude = 0;
+  for ( let i = 0; i < numberOfPoints; i++ ) {
+    magnitudeValues[ i ] = Math.sqrt( realPartValues[ i ] * realPartValues[ i ] + imaginaryPartValues[ i ] * imaginaryPartValues[ i ] );
+    phaseValues[ i ] = Math.atan2( imaginaryPartValues[ i ], realPartValues[ i ] );
+    probabilityDensityValues[ i ] = realPartValues[ i ] * realPartValues[ i ] + imaginaryPartValues[ i ] * imaginaryPartValues[ i ];
+    maxMagnitude = Math.max( maxMagnitude, magnitudeValues[ i ] );
+  }
+
+  return {
+    realPartValues: realPartValues,
+    imaginaryPartValues: imaginaryPartValues,
+    magnitudeValues: magnitudeValues,
+    phaseValues: phaseValues,
+    probabilityDensityValues: probabilityDensityValues
+  };
 }
 
 function logError( message: string ): void {

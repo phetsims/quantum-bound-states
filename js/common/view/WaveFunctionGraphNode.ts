@@ -57,7 +57,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       lineWidth: 2,
       visibleProperty: model.waveFunctionGraph.realPartVisibleProperty
     } );
-    model.waveFunctionGraph.realPartValuesProperty.link( values => realPartPlot.setYCoordinates( values ) );
+    model.realPartValuesProperty.link( values => realPartPlot.setYCoordinates( values ) );
 
     // Imaginary Part
     const imaginaryPartPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, initialYValues, {
@@ -65,9 +65,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       lineWidth: 2,
       visibleProperty: model.waveFunctionGraph.imaginaryPartVisibleProperty
     } );
-    model.waveFunctionGraph.imaginaryPartValuesProperty.link( values => imaginaryPartPlot.setYCoordinates( values ) );
-
-    //TODO const phasePlot = ...  See PhaseRenderer.java
+    model.imaginaryPartValuesProperty.link( values => imaginaryPartPlot.setYCoordinates( values ) );
 
     // Magnitude
     const magnitudePlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, initialYValues, {
@@ -75,7 +73,9 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       lineWidth: 2,
       visibleProperty: model.waveFunctionGraph.magnitudeVisibleProperty
     } );
-    model.waveFunctionGraph.magnitudeValuesProperty.link( values => magnitudePlot.setYCoordinates( values ) );
+    model.magnitudeValuesProperty.link( values => magnitudePlot.setYCoordinates( values ) );
+
+    //TODO Phase
 
     // Rendering order
     //TODO this.addPlot( phasePlot );

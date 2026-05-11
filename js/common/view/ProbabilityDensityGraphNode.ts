@@ -50,14 +50,13 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
     super( model.curvesVisibleProperty, options );
 
-    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates,
-      model.probabilityDensityGraph.probabilityDensityValuesProperty.value, {
+    const probabilityDensityPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, model.probabilityDensityValuesProperty.value, {
       stroke: QBSColors.probabilityDensityStrokeProperty,
       lineWidth: 2
     } );
     this.addPlot( probabilityDensityPlot );
 
-    model.probabilityDensityGraph.probabilityDensityValuesProperty.lazyLink( probabilityDensityValues => {
+    model.probabilityDensityValuesProperty.lazyLink( probabilityDensityValues => {
       probabilityDensityPlot.setYCoordinates( probabilityDensityValues );
     } );
 
