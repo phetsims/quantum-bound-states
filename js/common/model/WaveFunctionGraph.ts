@@ -24,14 +24,12 @@ import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
 import { inverseSquareRootNanometersUnit } from './units/inverseSquareRootNanometersUnit.js';
 
-//TODO If we don't need probabilityDensityValues, rename this to TimeEvolvedWaveFunction.
 type TimeEvolvedSuperposition = {
   realPartValues: number[];
   imaginaryPartValues: number[];
   magnitudeValues: number[];
-  maxMagnitude: number; //TODO Do we need this?
-  //TODO phaseValues: number[];
-  probabilityDensityValues: number[]; //TODO Do we need this?
+  phaseValues: number[];
+  probabilityDensityValues: number[];
 };
 
 export default class WaveFunctionGraph extends QuantumStateGraph {
@@ -143,7 +141,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   }
 
   /**
-   * TODO Taken almost verbatim from https://github.com/veillette/QPPW, BaseModel.getTimeEvolvedSuperposition. Lots of questions for MV about this.
+   * TODO Move to QBSModel because we need TimeEvolvedSuperposition.probabilityDensityValues in ProbabiltyDensityGraph.
    */
   private getTimeEvolvedSuperposition( t: number,
                                        xGrid: XGrid,
@@ -151,30 +149,34 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
                                        selectedEnergyLevel: number,
                                        groundStateIndex: number ): TimeEvolvedSuperposition {
 
+    const numberOfEnergyLevels = boundStateResult.energies.length;
     const numberOfPoints = xGrid.numberOfPoints;
 
     //TODO Temporary: All superpositionCoefficient amplitudes are zero except for the selected energy level.
     //TODO In QPPW this was superpositionConfigProperty: Property<SuperpositionConfig>
-    const superpositionCoefficients = new Array( numberOfPoints ).fill( 0 );
-    superpositionCoefficients[ selectedEnergyLevel - groundStateIndex ] = 1;
+    const superpositionMagnitudeValues = new Array( numberOfEnergyLevels ).fill( 0 );
+    superpositionMagnitudeValues[ selectedEnergyLevel - groundStateIndex ] = 1;
+    const superpositionPhaseValues = new Array( numberOfEnergyLevels ).fill( 0 ); //TODO
 
     // Initialize arrays
     const realPartValues = new Array( numberOfPoints ).fill( 0 );
     const imaginaryPartValues = new Array( numberOfPoints ).fill( 0 );
     const magnitudeValues = new Array( numberOfPoints );
+    const phaseValues = new Array( numberOfPoints );
     const probabilityDensityValues = new Array( numberOfPoints );
 
     // Compute time-evolved superposition: ψ(x,t) = Σ c_n * e^(iφ_n) * ψ_n(x) * e^(-iE_n*t/ℏ)
-    for ( let n = 0; n < numberOfPoints; n++ ) {
-      const amplitude = superpositionCoefficients[ n ];
+
+    for ( let n = 0; n < numberOfEnergyLevels; n++ ) {
+      const amplitude = superpositionMagnitudeValues[ n ];
       if ( amplitude !== 0 ) {
 
-        const initialPhase = 0; //TODO config.phases[ n ];
+        const initialPhase = superpositionPhaseValues[ n ];
         const eigenfunction = boundStateResult.waveFunctions[ n ];
         const energy = boundStateResult.energies[ n ];
 
         // Time evolution phase for this eigenstate: -E_n*t/ℏ
-        const timePhase = -( energy * t ) / NumerovSolver.HBAR; //TODO HBAR was a different value in QPPW, adjusted for nm?
+        const timePhase = -( energy * t ) / NumerovSolver.HBAR;
 
         // Total phase: initial phase + time evolution phase
         const totalPhase = initialPhase + timePhase;
@@ -183,8 +185,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
         const realCoefficient = amplitude * Math.cos( totalPhase );
         const imaginaryCoefficient = amplitude * Math.sin( totalPhase );
 
-        // Add contribution to superposition
-        //TODO Why is there another loop here?
+        // Accumulate the contribution of superposition to each y value.
         for ( let i = 0; i < numberOfPoints; i++ ) {
           realPartValues[ i ] += realCoefficient * eigenfunction[ i ];
           imaginaryPartValues[ i ] += imaginaryCoefficient * eigenfunction[ i ];
@@ -192,13 +193,11 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
       }
     }
 
-    // Calculate magnitude and probability density.
-    //TODO Do we need time-dependent probabilityDensityValues?
-    //TODO Do we need maxMagnitude?
-    //TODO Can this be done in the same loop as above?
+    // Calculate magnitude, phase, and probability density.
     let maxMagnitude = 0;
     for ( let i = 0; i < numberOfPoints; i++ ) {
       magnitudeValues[ i ] = Math.sqrt( realPartValues[ i ] * realPartValues[ i ] + imaginaryPartValues[ i ] * imaginaryPartValues[ i ] );
+      phaseValues[ i ] = Math.atan2( imaginaryPartValues[ i ], realPartValues[ i ] );
       probabilityDensityValues[ i ] = realPartValues[ i ] * realPartValues[ i ] + imaginaryPartValues[ i ] * imaginaryPartValues[ i ];
       maxMagnitude = Math.max( maxMagnitude, magnitudeValues[ i ] );
     }
@@ -207,7 +206,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
       realPartValues: realPartValues,
       imaginaryPartValues: imaginaryPartValues,
       magnitudeValues: magnitudeValues,
-      maxMagnitude: maxMagnitude,
+      phaseValues: phaseValues,
       probabilityDensityValues: probabilityDensityValues
     };
   }
