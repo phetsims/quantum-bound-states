@@ -95,7 +95,7 @@ export default class PhasePlot extends Node {
         shape.makeImmutable(); //TODO This is typically done in bamboo plots. Is it necessary?
 
         polygon.shape = shape;
-        polygon.fill = phaseToRGB( this.phaseValues[ i ] );
+        polygon.fill = phaseToColor( this.phaseValues[ i ] );
       }
     }
     this.children = [ ...this.polygons ]; //TODO Is there a different way?
@@ -105,6 +105,6 @@ export default class PhasePlot extends Node {
 /**
  * Converts phase (in radians) to a Color.
  */
-function phaseToRGB( phase: number ): Color {
+function phaseToColor( phase: number ): Color {
   return new Color( 0, 0, 0 ).setHSLA( toDegrees( phase ), 100, 50, 1 ); //TODO Java version was HSV colorspace
 }
