@@ -85,6 +85,12 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
   phaseVisible: {
     type: 'boolean',
     defaultValue: false
+  },
+
+  // Shows the spectrum for various mappings of phase to color.
+  //TODO Delete when a phase mapping has been chosen.
+  showPhaseSpectra: {
+    type: 'flag'
   }
 } );
 

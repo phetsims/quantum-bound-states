@@ -12,6 +12,7 @@
  */
 
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
+import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Shape from '../../../../kite/js/Shape.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
@@ -96,7 +97,6 @@ export function phaseToColorLookupTable( radians: number ): string {
  *
  * @author Martin Viellette
  */
-
 export function phaseToColorLinearRegression( radians: number ): string {
   const r = 0.544 + 0.412 * Math.cos( radians );
   const g = 0.471 + 0.449 * Math.cos( radians );
@@ -105,16 +105,17 @@ export function phaseToColorLinearRegression( radians: number ): string {
 }
 
 /**
+ * Implements a mapping using HSL colorspace. The Java version used HSV colorspace, which is not supported by scenery.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+export function phaseToColorHSV( radians: number ): string {
+  return new Color( 0, 0, 0 ).setHSLA( toDegrees( radians ), 100, 50, 1 ).toCSS();
+}
+
+/**
  * PhaseColormapNode displays the complete spectrum of a phase colormap.
- * To test, add something like this to a ScreenView:
- *
- *     const node1 = new PhaseColormapNode( phaseToColorLookupTable );
- *     node1.center = new Vector2( this.layoutBounds.centerX, this.layoutBounds.top + 100 );
- *     this.addChild( node1 );
- *
- *     const node2 = new PhaseColormapNode( phaseToColorLinearRegression );
- *     node2.center = new Vector2( this.layoutBounds.centerX, this.layoutBounds.bottom - 100 );
- *     this.addChild( node2 );
+ * To display in the One Well screen, run with ?showPhaseSpectra
  */
 export class PhaseColormapNode extends Node {
 

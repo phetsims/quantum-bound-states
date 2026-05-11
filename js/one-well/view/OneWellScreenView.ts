@@ -6,11 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import EnergyRangeShiftSpinner from './EnergyRangeShiftSpinner.js';
+import QBSQueryParameters from '../../common/QBSQueryParameters.js';
+import { PhaseColormapNode, phaseToColorHSV, phaseToColorLinearRegression, phaseToColorLookupTable } from '../../common/view/PhaseColormapNode.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
+import EnergyRangeShiftSpinner from './EnergyRangeShiftSpinner.js';
 import { OneWellControlPanel } from './OneWellControlPanel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
 
@@ -36,5 +39,20 @@ export default class OneWellScreenView extends QBSScreenView {
     energyRangeShiftSpinner.right = this.energyDiagramRectangleBounds.left - 26;
     energyRangeShiftSpinner.bottom = this.energyDiagramRectangleBounds.bottom - 7;
     this.pdomOrderInsertAfter( this.pdomPlayAreaNode, this.energyDiagramNode, energyRangeShiftSpinner );
+
+    //TODO Delete when a phase mapping has been chosen.
+    if ( QBSQueryParameters.showPhaseSpectra ) {
+      this.addChild( new VBox( {
+        children: [
+          new PhaseColormapNode( phaseToColorLookupTable ),
+          new PhaseColormapNode( phaseToColorLinearRegression ),
+          new PhaseColormapNode( phaseToColorHSV )
+        ],
+        spacing: 20,
+        align: 'center',
+        centerX: this.layoutBounds.centerX,
+        top: this.layoutBounds.top + 50
+      } ) );
+    }
   }
 }
