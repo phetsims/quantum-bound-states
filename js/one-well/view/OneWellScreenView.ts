@@ -12,7 +12,9 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import SpectrumNode, { SpectrumNodeOptions } from '../../../../scenery-phet/js/SpectrumNode.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSColors from '../../common/QBSColors.js';
 import QBSQueryParameters from '../../common/QBSQueryParameters.js';
 import PhaseColormap from '../../common/view/PhaseColormap.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
@@ -53,6 +55,18 @@ export default class OneWellScreenView extends QBSScreenView {
         this.energyDiagramRectangleBounds, this.energyDiagramNode.chartTransform, model.energyOffsetDragHandleVisibleProperty, model.time,
         handlesLayer.tandem.createTandem( `${potential.tandemPrefix}EnergyOffsetHandleNode` ) ) );
     } );
+
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/39 Does energyAxisBackgroundRectangle belong somewhere else?
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/39 Compute width of energyAxisBackgroundRectangle.
+    const energyAxisBackgroundRectangle = new Rectangle( 0, 0, 22, this.energyDiagramNode.chartTransform.viewHeight, {
+      fill: QBSColors.energyAxisBackgroundFillProperty,
+      stroke: QBSColors.energyAxisBackgroundStrokeProperty,
+      visibleProperty: model.energyOffsetDragHandleVisibleProperty,
+      top: this.energyDiagramRectangleBounds.top,
+      right: this.energyDiagramRectangleBounds.left
+    } );
+    this.screenViewRootNode.addChild( energyAxisBackgroundRectangle );
+    energyAxisBackgroundRectangle.moveToBack();
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/41 Delete when a phase mapping has been chosen.
     if ( QBSQueryParameters.showPhaseSpectra ) {

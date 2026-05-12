@@ -64,7 +64,8 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     this.addPlot( new ImaginaryPartPlot( waveFunctionGraph, this.chartTransform ) );
     this.addPlot( new RealPartPlot( waveFunctionGraph, this.chartTransform ) );
 
-    waveFunctionGraph.yAxisRangeProperty.lazyLink( yAxisRange => {
+    //TODO This should be lazyLink, but then the graph does not initially have correct y-range dilation.
+    waveFunctionGraph.yAxisRangeProperty.link( yAxisRange => {
       this.setYRange( yAxisRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( yAxisRange.max );
     } );

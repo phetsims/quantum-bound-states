@@ -60,7 +60,8 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
     const probabilityDensityPlot = new ProbabilityDensityPlot( probabilityDensityGraph, this.chartTransform );
     this.addPlot( probabilityDensityPlot );
 
-    probabilityDensityGraph.yAxisRangeProperty.lazyLink( yAxisRange => {
+    //TODO This should be lazyLink, but then the graph does not initially have correct y-range dilation.
+    probabilityDensityGraph.yAxisRangeProperty.link( yAxisRange => {
       this.setYRange( new Range( yAxisRange.min, yAxisRange.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( yAxisRange.max );
     } );

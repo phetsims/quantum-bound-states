@@ -242,4 +242,12 @@ export default class QBSColors {
   public static readonly energyLevelDisplayBackgroundStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'energyLevelDisplayBackgroundStrokeProperty', {
     default: Color.grayColor( 200 )
   } );
+
+  public static readonly energyAxisBackgroundFillProperty = new ProfileColorProperty( quantumBoundStates, 'energyAxisBackgroundFillProperty', {
+    default: 'rgba( 255, 255, 255, 0.75 )'
+  } );
+
+  public static readonly energyAxisBackgroundStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'energyAxisBackgroundStrokeProperty', {
+    default: Color.grayColor( 230 )
+  } );
 }
