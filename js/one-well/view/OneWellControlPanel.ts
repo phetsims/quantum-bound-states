@@ -53,7 +53,6 @@ export class OneWellControlPanel extends Panel {
         new ElectronMassesControl( electronMassesProperty, time, tandem.createTandem( 'electronMassesControl' ) ),
         new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) ),
         new HBox( {
-          stretch: true,
           spacing: 12,
           children: [
             new AdjustEnergyOffsetCheckbox( energyOffsetDragHandleVisibleProperty, tandem.createTandem( 'adjustEnergyOffsetCheckbox' ) ),
