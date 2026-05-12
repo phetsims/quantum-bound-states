@@ -14,6 +14,7 @@
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
+import ColorConstants from '../../../sun/js/ColorConstants.js';
 import quantumBoundStates from '../quantumBoundStates.js';
 
 export default class QBSColors {
@@ -249,5 +250,9 @@ export default class QBSColors {
 
   public static readonly energyAxisBackgroundStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'energyAxisBackgroundStrokeProperty', {
     default: Color.grayColor( 230 )
+  } );
+
+  public static readonly resetEnergyOffsetButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'resetEnergyOffsetButtonColorProperty', {
+    default: ColorConstants.LIGHT_BLUE
   } );
 }

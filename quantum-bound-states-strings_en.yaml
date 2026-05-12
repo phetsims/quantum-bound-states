@@ -352,6 +352,11 @@ a11y:
       accessibleHelpText:        Zoom out y axis for Energy Diagram.
       accessibleContextResponse: 'zoomed out, y range {$min} to {$max}'
 
+  resetEnergyOffsetButton:
+    accessibleName:            Reset Energy Offset
+    accessibleHelpText:        TODO.resetEnergyOffsetButton.accessibleHelpText
+    accessibleContextResponse: TODO.resetEnergyOffsetButton.accessibleContextResponse
+
   #=======================================================================================================
   # Radio Buttons
   #=======================================================================================================

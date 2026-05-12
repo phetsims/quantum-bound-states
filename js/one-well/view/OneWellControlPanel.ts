@@ -10,6 +10,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -24,6 +25,7 @@ import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphCo
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import AdjustEnergyOffsetCheckbox from './AdjustEnergyOffsetCheckbox.js';
 import ElectronMassesControl from './ElectronMassesControl.js';
+import ResetEnergyOffsetButton from './ResetEnergyOffsetButton.js';
 
 export class OneWellControlPanel extends Panel {
 
@@ -50,7 +52,14 @@ export class OneWellControlPanel extends Panel {
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new ElectronMassesControl( electronMassesProperty, time, tandem.createTandem( 'electronMassesControl' ) ),
         new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) ),
-        new AdjustEnergyOffsetCheckbox( energyOffsetDragHandleVisibleProperty, tandem.createTandem( 'adjustEnergyOffsetCheckbox' ) )
+        new HBox( {
+          stretch: true,
+          spacing: 12,
+          children: [
+            new AdjustEnergyOffsetCheckbox( energyOffsetDragHandleVisibleProperty, tandem.createTandem( 'adjustEnergyOffsetCheckbox' ) ),
+            new ResetEnergyOffsetButton( potentialProperty, tandem.createTandem( 'resetEnergyOffsetButton' ) )
+          ]
+        } )
       ]
     } ) );
 

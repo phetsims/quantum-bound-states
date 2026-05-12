@@ -27,15 +27,15 @@ type SelfOptions = {
   checkboxesEnabledProperty: TReadOnlyProperty<boolean>;
 };
 
-type WaveFunctionComponentsCheckboxGroupOptions = SelfOptions &
+type WaveFunctionPartsCheckboxGroupOptions = SelfOptions &
   PickOptional<VBoxOptions, 'layoutOptions'> & PickRequired<VBoxOptions, 'tandem'>;
 
 export default class WaveFunctionPartsCheckboxGroup extends VBox {
 
   public constructor( waveFunctionGraph: WaveFunctionGraph,
-                      providedOptions: WaveFunctionComponentsCheckboxGroupOptions ) {
+                      providedOptions: WaveFunctionPartsCheckboxGroupOptions ) {
 
-    const options = optionize<WaveFunctionComponentsCheckboxGroupOptions, SelfOptions, VBoxOptions>()( {
+    const options = optionize<WaveFunctionPartsCheckboxGroupOptions, SelfOptions, VBoxOptions>()( {
 
       // VBoxOptions
       isDisposable: false,

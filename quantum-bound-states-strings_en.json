@@ -663,6 +663,17 @@
         }
       }
     },
+    "resetEnergyOffsetButton": {
+      "accessibleName": {
+        "value": "Reset Energy Offset"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.resetEnergyOffsetButton.accessibleHelpText"
+      },
+      "accessibleContextResponse": {
+        "value": "TODO.resetEnergyOffsetButton.accessibleContextResponse"
+      }
+    },
     "quantumStateGraphRadioButtonGroup": {
       "accessibleName": {
         "value": "Quantum State Graph"

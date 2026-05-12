@@ -318,6 +318,11 @@ type StringsType = {
         'accessibleContextResponseStringProperty': LocalizedStringProperty;
       }
     };
+    'resetEnergyOffsetButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
+    };
     'quantumStateGraphRadioButtonGroup': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
