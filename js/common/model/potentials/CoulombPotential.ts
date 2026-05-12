@@ -15,10 +15,16 @@ import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
+import CoulombSolution from '../solver/analytical-solutions/CoulombSolution.js';
+import { BoundStateResult } from '../solver/BoundStateResult.js';
+import XGrid from '../solver/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 // getPotentialEnergyAt handles an electric field, but it is not currently used in the sim.
 const ELECTRIC_FIELD = 0; // V/nm
+
+// Coulomb coupling K = ke² in eV·nm (positive), see CoulombPotential.solve
+const COUPLING = 1.44;
 
 type SelfOptions = EmptySelfOptions;
 
@@ -41,6 +47,17 @@ export default class CoulombPotential extends QuantumPotential {
 
     super( options );
   }
+
+  /**
+   * Solves for the bound state using an analytic solution.
+   */
+  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    return CoulombSolution.solve( xGrid, COUPLING, electronMasses,
+      this.getMinSolverEnergy(), this.getMaxSolverEnergy(),
+      this.xOffsetProperty.value, this.yOffsetProperty.value
+    );
+  }
+
 
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
