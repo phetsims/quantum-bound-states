@@ -31,7 +31,7 @@ export default class TimeSpeedSlider extends HSlider {
       trackSize: new Dimension2( 75, 2 ),
       thumbSize: new Dimension2( 15, 25 ),
       thumbFill: QBSColors.timeSpeedSliderThumbFillProperty,
-      thumbFillHighlighted: QBSColors.timeSpeedSliderThumbFillHighlightedProperty,
+      thumbFillHighlighted: QBSColors.timeSpeedSliderThumbHighlightFillProperty,
       majorTickLength: 15,
       constrainValue: value => toFixedNumber( value, 0 ),
       accessibleName: QuantumBoundStatesFluent.a11y.timeSpeedSlider.accessibleNameStringProperty,

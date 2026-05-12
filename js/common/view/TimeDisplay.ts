@@ -27,7 +27,7 @@ export default class TimeDisplay extends NumberDisplay {
         fill: new DerivedProperty( [ time.timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
       },
       backgroundFill: new DerivedProperty( [ time.timeVisibleProperty ],
-        timeVisible => timeVisible ? QBSColors.timeDisplayEnabledProperty.value : QBSColors.timeDisplayDisabledProperty.value ),
+        timeVisible => timeVisible ? QBSColors.timeDisplayEnabledFillProperty.value : QBSColors.timeDisplayDisabledFillProperty.value ),
       numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString( value, {
         decimalPlaces: time.getDecimalPlaces(),
         showTrailingZeros: true

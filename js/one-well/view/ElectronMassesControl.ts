@@ -57,7 +57,7 @@ export default class ElectronMassesControl extends QBSNumberControl {
         majorTicks: createMajorTicks( electronMassesProperty.range ),
         minorTickSpacing: 0.1,
         thumbFill: QBSColors.massSliderThumbFillProperty,
-        thumbFillHighlighted: QBSColors.massSliderThumbFillHighlightedProperty,
+        thumbFillHighlighted: QBSColors.massSliderThumbHighlightFillProperty,
         createAriaValueText: value => electronMassesUnit.getAccessibleString( value, {
           decimalPlaces: QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES,
           showTrailingZeros: false
