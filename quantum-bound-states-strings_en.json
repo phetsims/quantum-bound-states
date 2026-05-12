@@ -34,9 +34,6 @@
   "energy_eV": {
     "value": "Energy (eV)"
   },
-  "averageProbabilityDensityOfBand": {
-    "value": "Average Probability<br>Density of Band"
-  },
   "probabilityDensity": {
     "value": "Probability Density"
   },
@@ -48,9 +45,6 @@
   },
   "energyDiagram": {
     "value": "Energy Diagram"
-  },
-  "averageProbabilityDensityOfBandDetailsButton": {
-    "value": "|Ψ(x,t)|<sup>2</sup> = ..."
   },
   "probabilityDensityDetailsButton": {
     "value": "|Ψ(x,t)|<sup>2</sup> = ..."
@@ -81,9 +75,6 @@
   },
   "superposition": {
     "value": "Superposition"
-  },
-  "averageProbabilityDensityOfBandDialogTitle": {
-    "value": "Average Probability Density of Band"
   },
   "probabilityDensityDialogTitle": {
     "value": "Probability Density"
@@ -502,11 +493,6 @@
         }
       }
     },
-    "averageProbabilityDensityOfBandDetailsDialog": {
-      "accessibleParagraph": {
-        "value": "TODO.averageProbabilityDensityOfBandDetailsDialog.accessibleParagraph"
-      }
-    },
     "probabilityDensityDetailsDialog": {
       "accessibleParagraph": {
         "value": "TODO.probabilityDensityDetailsDialog.accessibleParagraph"
@@ -537,14 +523,6 @@
       },
       "accessibleParagraph": {
         "value": "TODO.energyDiagram.accessibleParagraph"
-      }
-    },
-    "averageProbabilityDensityOfBandGraph": {
-      "accessibleHeading": {
-        "value": "Average Probability Density of Band Graph"
-      },
-      "accessibleParagraph": {
-        "value": "TODO.averageProbabilityDensityOfBandGraph.accessibleParagraph"
       }
     },
     "probabilityDensityGraph": {
@@ -593,17 +571,6 @@
       },
       "accessibleContextResponse": {
         "value": "TODO.stepForwardButton.accessibleContextResponse"
-      }
-    },
-    "averageProbabilityDensityOfBandDetailsButton": {
-      "accessibleName": {
-        "value": "Probability Density Details"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.averageProbabilityDensityOfBandDetailsButton.accessibleContextResponse"
       }
     },
     "probabilityDensityDetailsButton": {

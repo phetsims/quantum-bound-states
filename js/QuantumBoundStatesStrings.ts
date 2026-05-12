@@ -29,12 +29,10 @@ type StringsType = {
   'totalEnergyStringProperty': LocalizedStringProperty;
   'position_nmStringProperty': LocalizedStringProperty;
   'energy_eVStringProperty': LocalizedStringProperty;
-  'averageProbabilityDensityOfBandStringProperty': LocalizedStringProperty;
   'probabilityDensityStringProperty': LocalizedStringProperty;
   'waveFunctionStringProperty': LocalizedStringProperty;
   'quantumStateGraphStringProperty': LocalizedStringProperty;
   'energyDiagramStringProperty': LocalizedStringProperty;
-  'averageProbabilityDensityOfBandDetailsButtonStringProperty': LocalizedStringProperty;
   'probabilityDensityDetailsButtonStringProperty': LocalizedStringProperty;
   'waveFunctionDetailsButtonStringProperty': LocalizedStringProperty;
   'valuesStringProperty': LocalizedStringProperty;
@@ -45,7 +43,6 @@ type StringsType = {
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
   'superpositionStringProperty': LocalizedStringProperty;
-  'averageProbabilityDensityOfBandDialogTitleStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
   'superpositionDetailsDialogTitleStringProperty': LocalizedStringProperty;
@@ -239,9 +236,6 @@ type StringsType = {
         'accessibleNamePreset4StringProperty': LocalizedStringProperty;
       }
     };
-    'averageProbabilityDensityOfBandDetailsDialog': {
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
-    };
     'probabilityDensityDetailsDialog': {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
@@ -255,10 +249,6 @@ type StringsType = {
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'energyDiagram': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
-    };
-    'averageProbabilityDensityOfBandGraph': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
@@ -283,11 +273,6 @@ type StringsType = {
       'accessibleHelpTextPausedStringProperty': LocalizedStringProperty;
     };
     'stepForwardButton': {
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
-    'averageProbabilityDensityOfBandDetailsButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
