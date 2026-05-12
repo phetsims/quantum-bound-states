@@ -60,7 +60,7 @@ function createItemNode( potential: QuantumPotential, textAlignGroup: AlignGroup
 
   const text = textAlignGroup.createBox( new Text( potential.visualNameProperty, {
     font: QBSConstants.CONTROL_FONT,
-    maxWidth: 250
+    maxWidth: 150
   } ), {
     xAlign: 'left'
   } );

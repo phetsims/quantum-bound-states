@@ -22,7 +22,7 @@ export default class EnergyLevelControl extends HBox {
 
     const energyLevelText = new Text( QuantumBoundStatesFluent.energyLevelStringProperty, {
       font: QBSConstants.CONTROL_FONT,
-      maxWidth: 100
+      maxWidth: 150
     } );
 
     const energyLevelSpinner = new EnergyLevelSpinner( energyLevelProperty, time, tandem.createTandem( 'energyLevelSpinner' ) );
