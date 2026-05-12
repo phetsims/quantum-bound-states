@@ -7,18 +7,18 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QuantumStateGraph from '../model/QuantumStateGraph.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
-import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EquationTermNode from './EquationTermNode.js';
+import ImaginaryPartPlot from './ImaginaryPartPlot.js';
+import MagnitudePlot from './MagnitudePlot.js';
 import PhasePlot from './PhasePlot.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
-import YLinePlot from './YLinePlot.js';
+import RealPartPlot from './RealPartPlot.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -58,48 +58,11 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     super( curvesVisibleProperty, options );
 
-    // Real Part
-    const realPartPlot = new YLinePlot( this.chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.realPartValuesProperty.value, {
-      stroke: QBSColors.realPartStrokeProperty,
-      lineWidth: 2,
-      visibleProperty: waveFunctionGraph.realPartVisibleProperty
-    } );
-    waveFunctionGraph.realPartValuesProperty.lazyLink( values => realPartPlot.setYCoordinates( values ) );
-
-    // Imaginary Part
-    const imaginaryPartPlot = new YLinePlot( this.chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.imaginaryPartValuesProperty.value, {
-      stroke: QBSColors.imaginaryPartStrokeProperty,
-      lineWidth: 2,
-      visibleProperty: waveFunctionGraph.imaginaryPartVisibleProperty
-    } );
-    waveFunctionGraph.imaginaryPartValuesProperty.lazyLink( values => imaginaryPartPlot.setYCoordinates( values ) );
-
-    // Magnitude
-    const magnitudePlot = new YLinePlot( this.chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.magnitudeValuesProperty.value, {
-      stroke: QBSColors.magnitudeStrokeProperty,
-      lineWidth: 2,
-      visibleProperty: waveFunctionGraph.magnitudeVisibleProperty
-    } );
-    waveFunctionGraph.magnitudeValuesProperty.lazyLink( values => magnitudePlot.setYCoordinates( values ) );
-
-    // Phase
-    const phasePlot = new PhasePlot( this.chartTransform, waveFunctionGraph.xGrid.xCoordinates,
-      waveFunctionGraph.magnitudeValuesProperty.value, waveFunctionGraph.phaseValuesProperty.value, {
-      visibleProperty: waveFunctionGraph.phaseVisibleProperty
-    } );
-    //TODO This assumes that waveFunctionGraph.magnitudeValuesProperty has been updated, which is an order dependency.
-    Multilink.multilink( [ waveFunctionGraph.phaseVisibleProperty, waveFunctionGraph.phaseValuesProperty ],
-      ( phaseVisible, phaseValues ) => {
-        if ( phaseVisible ) {
-          phasePlot.setDataSet( waveFunctionGraph.magnitudeValuesProperty.value, phaseValues );
-        }
-      } );
-
-    // Rendering order
-    this.addPlot( phasePlot );
-    this.addPlot( magnitudePlot );
-    this.addPlot( imaginaryPartPlot );
-    this.addPlot( realPartPlot );
+    // Plots
+    this.addPlot( new PhasePlot( waveFunctionGraph, this.chartTransform ) );
+    this.addPlot( new MagnitudePlot( waveFunctionGraph, this.chartTransform ) );
+    this.addPlot( new ImaginaryPartPlot( waveFunctionGraph, this.chartTransform ) );
+    this.addPlot( new RealPartPlot( waveFunctionGraph, this.chartTransform ) );
 
     waveFunctionGraph.yAxisRangeProperty.lazyLink( yAxisRange => {
       this.setYRange( yAxisRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );

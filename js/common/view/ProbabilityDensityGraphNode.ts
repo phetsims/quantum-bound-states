@@ -13,11 +13,10 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
 import QuantumStateGraph from '../model/QuantumStateGraph.js';
-import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EquationTermNode from './EquationTermNode.js';
+import ProbabilityDensityPlot from './ProbabilityDensityPlot.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
-import YLinePlot from './YLinePlot.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -58,16 +57,8 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
     super( curvesVisibleProperty, options );
 
-    const probabilityDensityPlot = new YLinePlot( this.chartTransform, probabilityDensityGraph.xGrid.xCoordinates,
-      probabilityDensityGraph.probabilityDensityValuesProperty.value, {
-      stroke: QBSColors.probabilityDensityStrokeProperty,
-      lineWidth: 2
-    } );
+    const probabilityDensityPlot = new ProbabilityDensityPlot( probabilityDensityGraph, this.chartTransform );
     this.addPlot( probabilityDensityPlot );
-
-    probabilityDensityGraph.probabilityDensityValuesProperty.lazyLink( probabilityDensityValues => {
-      probabilityDensityPlot.setYCoordinates( probabilityDensityValues );
-    } );
 
     probabilityDensityGraph.yAxisRangeProperty.lazyLink( yAxisRange => {
       this.setYRange( new Range( yAxisRange.min, yAxisRange.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
