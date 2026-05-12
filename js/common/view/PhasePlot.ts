@@ -50,7 +50,8 @@ export default class PhasePlot extends Node {
     // Initialize
     this.update();
 
-    //TODO This assumes that waveFunctionGraph.magnitudeValuesProperty has been updated, which is an order dependency.
+    //TODO This assumes that magnitudeValuesProperty is updated before phaseValuesProperty, which is an order dependency.
+    //TODO Adding magnitudeValuesProperty as a dependency here would result in twice as much work being done.
     Multilink.multilink( [ waveFunctionGraph.phaseVisibleProperty, waveFunctionGraph.phaseValuesProperty ],
       () => this.update() );
 
