@@ -10,9 +10,10 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import QBSModel, { TimeEvolvedSuperposition } from './QBSModel.js';
+import QBSModel from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import XGrid from './solver/XGrid.js';
+import { TimeEvolvedSuperposition } from './TimeEvolvedSuperposition.js';
 
 export default class ProbabilityDensityGraph extends QuantumStateGraph {
 

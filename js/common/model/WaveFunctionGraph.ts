@@ -13,9 +13,10 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
-import QBSModel, { TimeEvolvedSuperposition } from './QBSModel.js';
+import QBSModel from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import XGrid from './solver/XGrid.js';
+import { TimeEvolvedSuperposition } from './TimeEvolvedSuperposition.js';
 
 export default class WaveFunctionGraph extends QuantumStateGraph {
 

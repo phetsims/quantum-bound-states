@@ -20,11 +20,8 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import SchemaOrientedIOType from '../../../../tandem/js/types/SchemaOrientedIOType.js';
-import type { CoreRecord } from '../../../../tandem/js/types/StateSchema.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import EnergyDiagram from './EnergyDiagram.js';
@@ -37,23 +34,8 @@ import ReferenceLine from './ReferenceLine.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
+import { TimeEvolvedSuperposition, TimeEvolvedSuperpositionIO } from './TimeEvolvedSuperposition.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
-
-const SCHEMA = {
-  realPartValues: ArrayIO( NumberIO ),
-  imaginaryPartValues: ArrayIO( NumberIO ),
-  magnitudeValues: ArrayIO( NumberIO ),
-  phaseValues: ArrayIO( NumberIO ),
-  probabilityDensityValues: ArrayIO( NumberIO )
-};
-
-export type TimeEvolvedSuperposition = CoreRecord<typeof SCHEMA>;
-
-export const TimeEvolvedSuperpositionIO = new SchemaOrientedIOType<TimeEvolvedSuperposition, typeof SCHEMA>( 'TimeEvolvedSuperpositionIO', {
-  documentation: 'Serialization for the time-evolved superposition of a wave function at a given energy level.',
-  stateSchema: SCHEMA
-} );
-
 
 type SelfOptions = {
 
