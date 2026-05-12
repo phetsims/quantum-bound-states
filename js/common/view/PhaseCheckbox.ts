@@ -12,6 +12,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import SpectrumNode from '../../../../scenery-phet/js/SpectrumNode.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -19,7 +20,7 @@ import TColor from '../../../../scenery/js/util/TColor.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSConstants from '../QBSConstants.js';
-import { PhaseColormapNode, phaseToTwilight } from './PhaseColormapNode.js';
+import { phaseToTwilight } from './PhaseColormapNode.js';
 import WaveFunctionPartsCheckbox, { WaveFunctionPartsCheckboxOptions } from './WaveFunctionPartsCheckbox.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -61,8 +62,10 @@ function createContent( stringProperty: TReadOnlyProperty<string>, strokePropert
     font: QBSConstants.CONTROL_FONT
   } );
 
-  const spectrumNode = new PhaseColormapNode( {
-    phaseToColor: phaseToTwilight,
+  const spectrumNode = new SpectrumNode( {
+    minValue: 0,
+    maxValue: 2 * Math.PI,
+    valueToColor: value => phaseToTwilight( value ),
     size: new Dimension2( 40, 0.75 * zeroNode.height )
   } );
 

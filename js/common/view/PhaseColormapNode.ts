@@ -11,15 +11,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
-import { toRadians } from '../../../../dot/js/util/toRadians.js';
-import Shape from '../../../../kite/js/Shape.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 
 /**
@@ -53,11 +47,11 @@ const TWILIGHT_PALETTE: RGB[] = [
 
 // Precompute a 360-entry lookup table of CSS color strings by interpolating through TWILIGHT_PALETTE.
 // The table can be indexed by integer degrees in the range [0,359].
-const TWILIGHT_COLORS_360: string[] = Array.from( { length: 360 }, ( _, degrees ) => {
+const TWILIGHT_COLORS_360: Color[] = Array.from( { length: 360 }, ( _, degrees ) => {
   return sampleTwilightColor( degrees );
 } );
 
-function sampleTwilightColor( degrees: number ): string {
+function sampleTwilightColor( degrees: number ): Color {
   affirm( degrees >= 0 && degrees <= 360, `invalid degrees: ${degrees}` );
 
   const scaled = ( degrees / 360 ) * ( TWILIGHT_PALETTE.length - 1 );
@@ -67,11 +61,11 @@ function sampleTwilightColor( degrees: number ): string {
   const color0 = TWILIGHT_PALETTE[ index ];
   const color1 = TWILIGHT_PALETTE[ Math.min( index + 1, TWILIGHT_PALETTE.length - 1 ) ];
 
-  const r = interpolate( color0[ 0 ], color1[ 0 ], fraction );
-  const g = interpolate( color0[ 1 ], color1[ 1 ], fraction );
-  const b = interpolate( color0[ 2 ], color1[ 2 ], fraction );
+  const r = toByte( interpolate( color0[ 0 ], color1[ 0 ], fraction ) );
+  const g = toByte( interpolate( color0[ 1 ], color1[ 1 ], fraction ) );
+  const b = toByte( interpolate( color0[ 2 ], color1[ 2 ], fraction ) );
 
-  return `rgb(${toByte( r )}, ${toByte( g )}, ${toByte( b )})`;
+  return new Color( r, g, b );
 }
 
 function interpolate( a: number, b: number, fraction: number ): number {
@@ -85,9 +79,8 @@ function toByte( value: number ): number {
 /**
  * Maps an angle in radians to one of 360 twilight colors.
  * Each integer degree in the range [0,359] maps to a distinct color entry.
- * Returns a CSS color string.
  */
-export function phaseToTwilight( radians: number ): string {
+export function phaseToTwilight( radians: number ): Color {
   const twoPi = 2 * Math.PI;
   const normalizedRadians = ( ( radians % twoPi ) + twoPi ) % twoPi;
   const normalizedDegrees = Math.floor( normalizedRadians / twoPi * 360 );
@@ -100,54 +93,6 @@ export function phaseToTwilight( radians: number ): string {
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-export function phaseToRainbow( radians: number ): string {
-  return new Color( 0, 0, 0 ).setHSLA( toDegrees( radians ), 100, 50, 1 ).toCSS();
-}
-
-type SelfOptions = {
-  phaseToColor: ( phase: number ) => string;
-  size?: Dimension2;
-};
-
-type PhaseColormapNodeOptions = SelfOptions;
-
-/**
- * PhaseColormapNode displays the complete spectrum of a phase colormap.
- * To display in the One Well screen, run with ?showPhaseSpectra
- */
-export class PhaseColormapNode extends Node {
-
-  public constructor( providedOptions: PhaseColormapNodeOptions ) {
-
-    const options = optionize<PhaseColormapNodeOptions, SelfOptions>()( {
-      size: new Dimension2( 800, 100 )
-    }, providedOptions );
-
-    const polygons: Node[] = [];
-    const width = options.size.width / 360;
-    const height = options.size.height;
-    const overlap = 0.1 * width;
-
-    let x = 0;
-    for ( let degrees = 0; degrees < 360; degrees++ ) {
-
-      const shape = new Shape()
-        .moveTo( x, 0 )
-        .lineTo( x + width + overlap, 0 )
-        .lineTo( x + width + overlap, height )
-        .lineTo( x, height )
-        .close();
-
-      const polygon = new Path( shape, {
-        fill: options.phaseToColor( toRadians( degrees ) )
-      } );
-      polygons.push( polygon );
-
-      x += width;
-    }
-
-    super( {
-      children: polygons
-    } );
-  }
+export function phaseToRainbow( radians: number ): Color {
+  return new Color( 0, 0, 0 ).setHSLA( toDegrees( radians ), 100, 50, 1 );
 }
