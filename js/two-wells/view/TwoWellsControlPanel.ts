@@ -40,6 +40,7 @@ export class TwoWellsControlPanel extends Panel {
     } );
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
+      spacing: 12, // Add more spacing for this screen.
       children: [
         titleText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
