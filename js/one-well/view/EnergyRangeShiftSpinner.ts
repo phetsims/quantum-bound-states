@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/quantum-bound-states/issues/39 Delete when certain that we will not revert to this approach
 /**
  * EnergyRangeShiftSpinner shifts the range of the energy axis (y-axis) for the Energy Diagram.
  *

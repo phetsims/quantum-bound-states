@@ -36,6 +36,7 @@ magnitude:                                    Magnitude
 phase:                                        Phase
 magnifier:                                    Magnifier
 referenceLine:                                Reference Line
+adjustEnergyOffset:                           Adjust Energy Offset
 
 # ComboBoxes
 superposition:                                Superposition
@@ -233,6 +234,11 @@ a11y:
     accessibleHelpText:                 Show or hide vertical Reference Line across Energy Diagram and Quantum State Graph.
     accessibleContextResponseChecked:   Reference Line shown.
     accessibleContextResponseUnchecked: Reference Line hidden.
+
+  adjustEnergyOffsetCheckbox:
+    accessibleHelpText:                 Show or hide drag handle for adjusting energy offset on Energy Diagram.
+    accessibleContextResponseChecked:   Energy Offset drag handle shown.
+    accessibleContextResponseUnchecked: Energy Offset drag handle hidden.
 
   #=======================================================================================================
   # ComboBoxes

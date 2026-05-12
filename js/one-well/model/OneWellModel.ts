@@ -6,8 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
@@ -30,6 +32,9 @@ import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanomete
 import QBSConstants from '../../common/QBSConstants.js';
 
 export default class OneWellModel extends QBSModel {
+
+  // Whether the drag handle for adjusting energy offset is visible.
+  public readonly energyOffsetDragHandleVisibleProperty: Property<boolean>;
 
   // How much the y-axis range of the Energy Diagram should shift from its baseline range (when the selected potential's y-offset is zero).
   public readonly energyRangeShiftProperty: NumberProperty;
@@ -107,6 +112,11 @@ export default class OneWellModel extends QBSModel {
       tandem: tandem
     } );
 
+    this.energyOffsetDragHandleVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'energyOffsetDragHandleVisibleProperty' ),
+      phetioFeatured: true
+    } );
+
     this.energyRangeShiftProperty = new NumberProperty( this.potentialProperty.value.yOffsetProperty.value, {
       reentrant: true, // see QuantumPotential yOffsetProperty
       units: electronVoltsUnit,
@@ -143,6 +153,11 @@ export default class OneWellModel extends QBSModel {
         this.time.restart();
       }
     } );
+  }
 
+  public override reset(): void {
+    super.reset();
+    this.energyOffsetDragHandleVisibleProperty.reset();
+    // Do not reset energyRangeShiftProperty.
   }
 }

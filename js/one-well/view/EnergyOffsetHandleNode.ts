@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Delete when certain that we will not revert to this approach
 /**
  * EnergyOffsetHandleNode is the drag handle used to change the y-offset of the selected potential and (as a side effect)
  * change the range of the y-axis for the Energy Diagram,
@@ -33,6 +32,7 @@ export default class EnergyOffsetHandleNode extends InteractiveHighlighting( Arr
                       energyDiagram: EnergyDiagram,
                       chartRectangleBounds: Bounds2,
                       chartTransform: ChartTransform,
+                      energyOffsetDragHandleVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -40,7 +40,8 @@ export default class EnergyOffsetHandleNode extends InteractiveHighlighting( Arr
 
       // ArrowNodeOptions
       isDisposable: false,
-      visibleProperty: new DerivedProperty( [ potentialProperty ], selectedPotential => selectedPotential === potential ),
+      visibleProperty: new DerivedProperty( [ energyOffsetDragHandleVisibleProperty, potentialProperty ],
+        ( energyOffsetDragHandleVisible, selectedPotential ) => energyOffsetDragHandleVisible && ( selectedPotential === potential ) ),
       accessibleName: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleHelpTextStringProperty,
       accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.energyOffsetHandle.accessibleFocusObjectResponseStringProperty,

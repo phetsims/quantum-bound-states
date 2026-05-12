@@ -42,6 +42,7 @@ type StringsType = {
   'phaseStringProperty': LocalizedStringProperty;
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
+  'adjustEnergyOffsetStringProperty': LocalizedStringProperty;
   'superpositionStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
@@ -212,6 +213,11 @@ type StringsType = {
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     };
     'referenceLineCheckbox': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+    };
+    'adjustEnergyOffsetCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;

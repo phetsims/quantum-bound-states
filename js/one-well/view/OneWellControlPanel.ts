@@ -22,6 +22,7 @@ import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import AdjustEnergyOffsetCheckbox from './AdjustEnergyOffsetCheckbox.js';
 import ElectronMassesControl from './ElectronMassesControl.js';
 
 export class OneWellControlPanel extends Panel {
@@ -30,6 +31,7 @@ export class OneWellControlPanel extends Panel {
                       potentialProperty: Property<QuantumPotential>,
                       electronMassesProperty: NumberProperty,
                       energyLevelProperty: NumberProperty,
+                      energyOffsetDragHandleVisibleProperty: Property<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -46,7 +48,8 @@ export class OneWellControlPanel extends Panel {
         titleText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new ElectronMassesControl( electronMassesProperty, time, tandem.createTandem( 'electronMassesControl' ) ),
-        new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) )
+        new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) ),
+        new AdjustEnergyOffsetCheckbox( energyOffsetDragHandleVisibleProperty, tandem.createTandem( 'adjustEnergyOffsetCheckbox' ) )
       ]
     } ) );
 

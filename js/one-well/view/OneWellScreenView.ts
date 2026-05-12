@@ -28,8 +28,8 @@ export default class OneWellScreenView extends QBSScreenView {
     const listboxParent = new Node();
 
     const energyDiagramControlPanel = new OneWellControlPanel( listboxParent, model.potentialProperty,
-      model.electronMassesProperty, model.selectedEnergyLevelProperty, model.time,
-      tandem.createTandem( 'energyDiagramControlPanel' ) );
+      model.electronMassesProperty, model.selectedEnergyLevelProperty, model.energyOffsetDragHandleVisibleProperty,
+      model.time, tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, listboxParent, energyDiagramControlPanel, {
       screenSummaryContent: new OneWellScreenSummaryContent(),
@@ -37,7 +37,7 @@ export default class OneWellScreenView extends QBSScreenView {
     } );
 
     // Layer for drag handles used to configure potentials.
-    //TODO Make this a child of EnergyDiagramNode and resolve coordinate-transform problems.
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/39 Make this a child of EnergyDiagramNode and resolve coordinate-transform problems.
     const handlesLayer = new Node( {
       tandem: tandem.createTandem( 'handlesLayer' ),
       phetioVisiblePropertyInstrumented: true,
@@ -50,11 +50,11 @@ export default class OneWellScreenView extends QBSScreenView {
     affirm( potentials && potentials.length > 0, 'At least one potential is required.' );
     potentials.forEach( potential => {
       handlesLayer.addChild( new EnergyOffsetHandleNode( potential, model.potentialProperty, model.energyDiagram,
-        this.energyDiagramRectangleBounds, this.energyDiagramNode.chartTransform, model.time,
+        this.energyDiagramRectangleBounds, this.energyDiagramNode.chartTransform, model.energyOffsetDragHandleVisibleProperty, model.time,
         handlesLayer.tandem.createTandem( `${potential.tandemPrefix}EnergyOffsetHandleNode` ) ) );
     } );
 
-    //TODO Delete when a phase mapping has been chosen.
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/41 Delete when a phase mapping has been chosen.
     if ( QBSQueryParameters.showPhaseSpectra ) {
       const spectrumNodeOptions = {
         size: new Dimension2( 600, 100 ),

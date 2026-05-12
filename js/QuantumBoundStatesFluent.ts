@@ -51,6 +51,7 @@ addToMapIfDefined( 'magnitude', 'magnitudeStringProperty' );
 addToMapIfDefined( 'phase', 'phaseStringProperty' );
 addToMapIfDefined( 'magnifier', 'magnifierStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
+addToMapIfDefined( 'adjustEnergyOffset', 'adjustEnergyOffsetStringProperty' );
 addToMapIfDefined( 'superposition', 'superpositionStringProperty' );
 addToMapIfDefined( 'probabilityDensityDialogTitle', 'probabilityDensityDialogTitleStringProperty' );
 addToMapIfDefined( 'waveFunctionDialogTitle', 'waveFunctionDialogTitleStringProperty' );
@@ -142,6 +143,9 @@ addToMapIfDefined( 'a11y_magnifierCheckbox_accessibleContextResponseUnchecked', 
 addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleHelpText', 'a11y.referenceLineCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseChecked', 'a11y.referenceLineCheckbox.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_referenceLineCheckbox_accessibleContextResponseUnchecked', 'a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_adjustEnergyOffsetCheckbox_accessibleHelpText', 'a11y.adjustEnergyOffsetCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_adjustEnergyOffsetCheckbox_accessibleContextResponseChecked', 'a11y.adjustEnergyOffsetCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_adjustEnergyOffsetCheckbox_accessibleContextResponseUnchecked', 'a11y.adjustEnergyOffsetCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_potentialComboBox_accessibleName', 'a11y.potentialComboBox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_potentialComboBox_accessibleHelpText', 'a11y.potentialComboBox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_superpositionPresetComboBox_accessibleName', 'a11y.superpositionPresetComboBox.accessibleNameStringProperty' );
@@ -295,6 +299,7 @@ const QuantumBoundStatesFluent = {
   _comment_9: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
   magnifierStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierStringProperty' ),
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
+  adjustEnergyOffsetStringProperty: _.get( QuantumBoundStatesStrings, 'adjustEnergyOffsetStringProperty' ),
   _comment_10: new FluentComment( {"comment":"ComboBoxes","associatedKey":"superposition"} ),
   superpositionStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionStringProperty' ),
   _comment_11: new FluentComment( {"comment":"Dialogs","associatedKey":"probabilityDensityDialogTitle"} ),
@@ -499,6 +504,11 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
       accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLineCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.referenceLineCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
+    },
+    adjustEnergyOffsetCheckbox: {
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_adjustEnergyOffsetCheckbox_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.adjustEnergyOffsetCheckbox.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_adjustEnergyOffsetCheckbox_accessibleContextResponseChecked', _.get( QuantumBoundStatesStrings, 'a11y.adjustEnergyOffsetCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+      accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_adjustEnergyOffsetCheckbox_accessibleContextResponseUnchecked', _.get( QuantumBoundStatesStrings, 'a11y.adjustEnergyOffsetCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
     },
     _comment_9: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"potentialComboBox"} ),
     _comment_10: new FluentComment( {"comment":"ComboBoxes","associatedKey":"potentialComboBox"} ),
