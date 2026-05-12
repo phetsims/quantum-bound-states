@@ -58,35 +58,33 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     super( curvesVisibleProperty, options );
 
-    const initialYValues = new Array( waveFunctionGraph.xGrid.xCoordinates.length ).fill( 0 );
-    const xCoordinates = waveFunctionGraph.xGrid.xCoordinates;
-
     // Real Part
-    const realPartPlot = new YLinePlot( this.chartTransform, xCoordinates, initialYValues, {
+    const realPartPlot = new YLinePlot( this.chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.realPartValuesProperty.value, {
       stroke: QBSColors.realPartStrokeProperty,
       lineWidth: 2,
       visibleProperty: waveFunctionGraph.realPartVisibleProperty
     } );
-    waveFunctionGraph.realPartValuesProperty.link( values => realPartPlot.setYCoordinates( values ) );
+    waveFunctionGraph.realPartValuesProperty.lazyLink( values => realPartPlot.setYCoordinates( values ) );
 
     // Imaginary Part
-    const imaginaryPartPlot = new YLinePlot( this.chartTransform, xCoordinates, initialYValues, {
+    const imaginaryPartPlot = new YLinePlot( this.chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.imaginaryPartValuesProperty.value, {
       stroke: QBSColors.imaginaryPartStrokeProperty,
       lineWidth: 2,
       visibleProperty: waveFunctionGraph.imaginaryPartVisibleProperty
     } );
-    waveFunctionGraph.imaginaryPartValuesProperty.link( values => imaginaryPartPlot.setYCoordinates( values ) );
+    waveFunctionGraph.imaginaryPartValuesProperty.lazyLink( values => imaginaryPartPlot.setYCoordinates( values ) );
 
     // Magnitude
-    const magnitudePlot = new YLinePlot( this.chartTransform, xCoordinates, initialYValues, {
+    const magnitudePlot = new YLinePlot( this.chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.magnitudeValuesProperty.value, {
       stroke: QBSColors.magnitudeStrokeProperty,
       lineWidth: 2,
       visibleProperty: waveFunctionGraph.magnitudeVisibleProperty
     } );
-    waveFunctionGraph.magnitudeValuesProperty.link( values => magnitudePlot.setYCoordinates( values ) );
+    waveFunctionGraph.magnitudeValuesProperty.lazyLink( values => magnitudePlot.setYCoordinates( values ) );
 
     // Phase
-    const phasePlot = new PhasePlot( this.chartTransform, xCoordinates, initialYValues, initialYValues, {
+    const phasePlot = new PhasePlot( this.chartTransform, waveFunctionGraph.xGrid.xCoordinates,
+      waveFunctionGraph.magnitudeValuesProperty.value, waveFunctionGraph.phaseValuesProperty.value, {
       visibleProperty: waveFunctionGraph.phaseVisibleProperty
     } );
     //TODO This assumes that waveFunctionGraph.magnitudeValuesProperty has been updated, which is an order dependency.
