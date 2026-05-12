@@ -18,7 +18,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
-import { phaseToTwilight } from './PhaseColormapNode.js';
+import PhaseColormap from './PhaseColormap.js';
 
 export default class PhasePlot extends Node {
 
@@ -94,7 +94,7 @@ export default class PhasePlot extends Node {
         shape.makeImmutable(); //TODO This is typically done in bamboo plots. Is it necessary?
 
         polygon.shape = shape;
-        polygon.fill = phaseToTwilight( phaseValues[ i ] );
+        polygon.fill = PhaseColormap.phaseToTwilight( phaseValues[ i ] );
       }
     }
   }

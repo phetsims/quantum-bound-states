@@ -11,10 +11,9 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import SpectrumNode, { SpectrumNodeOptions } from '../../../../scenery-phet/js/SpectrumNode.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../../common/QBSQueryParameters.js';
-import { phaseToRainbow, phaseToTwilight } from '../../common/view/PhaseColormapNode.js';
+import PhaseColormap from '../../common/view/PhaseColormap.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
 import EnergyRangeShiftSpinner from './EnergyRangeShiftSpinner.js';
@@ -54,10 +53,10 @@ export default class OneWellScreenView extends QBSScreenView {
       this.addChild( new VBox( {
         children: [
           new SpectrumNode( combineOptions<SpectrumNodeOptions>( {}, spectrumNodeOptions, {
-            valueToColor: value => phaseToRainbow( value )
+            valueToColor: value => PhaseColormap.phaseToRainbow( value )
           } ) ),
           new SpectrumNode( combineOptions<SpectrumNodeOptions>( {}, spectrumNodeOptions, {
-            valueToColor: value => new Color( phaseToTwilight( value ) )
+            valueToColor: value => PhaseColormap.phaseToTwilight( value )
           } ) )
         ],
         spacing: 20,

@@ -20,7 +20,7 @@ import TColor from '../../../../scenery/js/util/TColor.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSConstants from '../QBSConstants.js';
-import { phaseToTwilight } from './PhaseColormapNode.js';
+import PhaseColormap from './PhaseColormap.js';
 import WaveFunctionPartsCheckbox, { WaveFunctionPartsCheckboxOptions } from './WaveFunctionPartsCheckbox.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -65,7 +65,7 @@ function createContent( stringProperty: TReadOnlyProperty<string>, strokePropert
   const spectrumNode = new SpectrumNode( {
     minValue: 0,
     maxValue: 2 * Math.PI,
-    valueToColor: value => phaseToTwilight( value ),
+    valueToColor: value => PhaseColormap.phaseToTwilight( value ),
     size: new Dimension2( 40, 0.75 * zeroNode.height )
   } );
 

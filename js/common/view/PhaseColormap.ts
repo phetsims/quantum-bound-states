@@ -1,14 +1,10 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Experiments with the twilight colormap, a popular colormap for visualizing phase space that is included with matplotlib.
- * See https://matplotlib.org/stable/gallery/color/colormap_reference.html.
- *
- * Advantages of the Twilight colorspace (according to Google AI Overview): Perceptual lightness contrast and color
- * contrast are uniform over the whole value range. So it prints nicely in white-black-white, and works well for
- * color blindness.
+ * PhaseColormap provides methods for mapping phase to colors.
  *
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author WebStorm AI Assistant
  */
 
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
@@ -16,11 +12,33 @@ import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Color from '../../../../scenery/js/util/Color.js';
 
-/**
- * Implements the twilight colormap using an interpolated lookup table.
- *
- * @author WebStorm AI Assistant
- */
+export default class PhaseColormap {
+
+  private constructor() {
+    //TODO Not intended for instantiation
+  }
+
+  /**
+   * phaseToRainbow implements a mapping to 'rainbow' colors using HSL colorspace. The Java version used HSV colorspace,
+   * which scenery does not support.
+   */
+  public static phaseToRainbow( radians: number ): Color {
+    return new Color( 0, 0, 0 ).setHSLA( toDegrees( radians ), 100, 50, 1 );
+  }
+
+  /**
+   * phaseToTwilight implements the twilight colormap using an interpolated lookup table. Twilight is a popular colormap
+   * for visualizing phase space, included with matplotlib. Perceptual lightness contrast and color contrast are uniform
+   * over the entire value range. So it prints nicely in white-black-white, and works well for color blindness.
+   * See https://matplotlib.org/stable/gallery/color/colormap_reference.html.
+   */
+  public static phaseToTwilight( radians: number ): Color {
+    const twoPi = 2 * Math.PI;
+    const normalizedRadians = ( ( radians % twoPi ) + twoPi ) % twoPi;
+    const normalizedDegrees = Math.floor( normalizedRadians / twoPi * 360 );
+    return TWILIGHT_COLORS_360[ normalizedDegrees ];
+  }
+}
 
 // Data structure for RBG color components
 type RGB = readonly [ number, number, number ];
@@ -74,25 +92,4 @@ function interpolate( a: number, b: number, fraction: number ): number {
 
 function toByte( value: number ): number {
   return roundSymmetric( Math.max( 0, Math.min( 1, value ) ) * 255 );
-}
-
-/**
- * Maps an angle in radians to one of 360 twilight colors.
- * Each integer degree in the range [0,359] maps to a distinct color entry.
- */
-export function phaseToTwilight( radians: number ): Color {
-  const twoPi = 2 * Math.PI;
-  const normalizedRadians = ( ( radians % twoPi ) + twoPi ) % twoPi;
-  const normalizedDegrees = Math.floor( normalizedRadians / twoPi * 360 );
-  return TWILIGHT_COLORS_360[ normalizedDegrees ];
-}
-
-/**
- * Implements a mapping to 'rainbow' colors using HSL colorspace. The Java version used HSV colorspace, which
- * is not supported by scenery.
- *
- * @author Chris Malley (PixelZoom, Inc.)
- */
-export function phaseToRainbow( radians: number ): Color {
-  return new Color( 0, 0, 0 ).setHSLA( toDegrees( radians ), 100, 50, 1 );
 }
