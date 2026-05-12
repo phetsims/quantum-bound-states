@@ -30,7 +30,6 @@ import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import TimePanel from '../../common/view/TimePanel.js';
 import ToolsPanel from '../../common/view/ToolsPanel.js';
 import QBSModel from '../model/QBSModel.js';
-import AverageProbabilityDensityOfBandGraphNode from './AverageProbabilityDensityOfBandGraphNode.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
@@ -73,29 +72,19 @@ export default class QBSScreenView extends ScreenView {
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
     const quantumStateGraphNodes: QuantumStateGraphNode[] = [];
 
-    if ( model.averageProbabilityDensityOfBandGraph ) {
-      const averageProbabilityDensityOfBandGraphNode = new AverageProbabilityDensityOfBandGraphNode( model,
-        quantumStateGraphNodesTandem.createTandem( 'averageProbabilityDensityOfBandGraphNode' ) );
-      quantumStateGraphNodes.push( averageProbabilityDensityOfBandGraphNode );
-    }
-
-    if ( model.probabilityDensityGraph ) {
-      const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model.probabilityDensityGraph,
-        model.quantumStateGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
+    const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model.probabilityDensityGraph,
+      model.selectedGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createProbabilityDensityDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'probabilityDensityGraphNode' )
       } );
-      quantumStateGraphNodes.push( probabilityDensityGraphNode );
-    }
+    quantumStateGraphNodes.push( probabilityDensityGraphNode );
 
-    if ( model.waveFunctionGraph ) {
-      const waveFunctionGraphNode = new WaveFunctionGraphNode( model.waveFunctionGraph,
-        model.quantumStateGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
+    const waveFunctionGraphNode = new WaveFunctionGraphNode( model.waveFunctionGraph,
+      model.selectedGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createWaveFunctionDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'waveFunctionGraphNode' )
       } );
-      quantumStateGraphNodes.push( waveFunctionGraphNode );
-    }
+    quantumStateGraphNodes.push( waveFunctionGraphNode );
 
     // Toggle button for showing/hiding the curves displayed by the visible Quantum State Graph.
     const curvesVisibleToggleButton = new CurvesVisibleToggleButton( model.curvesVisibleProperty,
@@ -105,8 +94,8 @@ export default class QBSScreenView extends ScreenView {
     const toolsPanel = new ToolsPanel( model.energyDiagram.valuesVisibleProperty, model.magnifier.visibleProperty,
       model.referenceLine.visibleProperty, options.tandem.createTandem( 'toolsPanel' ) );
 
-    const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.quantumStateGraphProperty,
-      model.waveFunctionGraph, options.tandem.createTandem( 'quantumStateGraphControlPanel' ) );
+    const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.selectedGraphProperty,
+      model.probabilityDensityGraph, model.waveFunctionGraph, options.tandem.createTandem( 'quantumStateGraphControlPanel' ) );
 
     const timePanel = new TimePanel( model.time, options.tandem.createTandem( 'timePanel' ) );
 
@@ -188,7 +177,8 @@ export default class QBSScreenView extends ScreenView {
       children: [
         legendPanel,
         energyDiagramNode,
-        ...quantumStateGraphNodes,
+        probabilityDensityGraphNode,
+        waveFunctionGraphNode,
         curvesVisibleToggleButton,
         energyDiagramControlPanel,
         quantumStateGraphControlPanel,
@@ -207,7 +197,8 @@ export default class QBSScreenView extends ScreenView {
       energyDiagramControlPanel,
       energyDiagramNode,
       magnifierNode,
-      ...quantumStateGraphNodes,
+      probabilityDensityGraphNode,
+      waveFunctionGraphNode,
       curvesVisibleToggleButton,
       quantumStateGraphControlPanel,
       referenceLineNode

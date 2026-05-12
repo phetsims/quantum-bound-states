@@ -19,14 +19,12 @@ potentialEnergy:                              Potential Energy
 totalEnergy:                                  Total Energy
 position_nm:                                  Position (nm)
 energy_eV:                                    Energy (eV)
-averageProbabilityDensityOfBand:              Average Probability<br>Density of Band
 probabilityDensity:                           Probability Density
 waveFunction:                                 Wave Function
 quantumStateGraph:                            Quantum State Graph
 energyDiagram:                                Energy Diagram
 
 # Buttons
-averageProbabilityDensityOfBandDetailsButton: '|Ψ(x,t)|<sup>2</sup> = ...'
 probabilityDensityDetailsButton:              '|Ψ(x,t)|<sup>2</sup> = ...'
 waveFunctionDetailsButton:                    'Ψ(x,t) = ...'
 
@@ -43,7 +41,6 @@ referenceLine:                                Reference Line
 superposition:                                Superposition
 
 # Dialogs
-averageProbabilityDensityOfBandDialogTitle:   Average Probability Density of Band
 probabilityDensityDialogTitle:                Probability Density
 waveFunctionDialogTitle:                      Wave Function
 superpositionDetailsDialogTitle:              Superposition Details
@@ -263,9 +260,6 @@ a11y:
   # Dialogs
   #=======================================================================================================
 
-  averageProbabilityDensityOfBandDetailsDialog:
-    accessibleParagraph:     TODO.averageProbabilityDensityOfBandDetailsDialog.accessibleParagraph
-
   probabilityDensityDetailsDialog:
     accessibleParagraph: TODO.probabilityDensityDetailsDialog.accessibleParagraph
 
@@ -289,10 +283,6 @@ a11y:
   energyDiagram:
     accessibleHeading:   Energy Diagram
     accessibleParagraph: TODO.energyDiagram.accessibleParagraph
-
-  averageProbabilityDensityOfBandGraph:
-    accessibleHeading:   Average Probability Density of Band Graph
-    accessibleParagraph: TODO.averageProbabilityDensityOfBandGraph.accessibleParagraph
 
   probabilityDensityGraph:
     accessibleHeading:   Probability Density Graph
@@ -321,11 +311,6 @@ a11y:
   stepForwardButton:
     accessibleHelpText:        TODO.stepForwardButton.accessibleHelpText
     accessibleContextResponse: TODO.stepForwardButton.accessibleContextResponse
-
-  averageProbabilityDensityOfBandDetailsButton:
-    accessibleName:            Probability Density Details
-    accessibleHelpText:        TODO.averageProbabilityDensityOfBandDetailsButton.accessibleHelpText
-    accessibleContextResponse: TODO.averageProbabilityDensityOfBandDetailsButton.accessibleContextResponse
 
   probabilityDensityDetailsButton:
     accessibleName:            Probability Density Details

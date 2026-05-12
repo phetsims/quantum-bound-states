@@ -8,12 +8,10 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import AverageProbabilityDensityOfBandGraph from '../model/AverageProbabilityDensityOfBandGraph.js';
 import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
 import QuantumStateGraph from '../model/QuantumStateGraph.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
@@ -23,52 +21,33 @@ const TEXT_MAX_WIDTH = 165;
 
 export default class QuantumStateGraphRadioButtonGroup extends AquaRadioButtonGroup<QuantumStateGraph> {
 
-  public constructor( selectedGraphProperty: Property<QuantumStateGraph>, tandem: Tandem ) {
+  public constructor( selectedGraphProperty: Property<QuantumStateGraph>,
+                      probabilityDensityGraph: ProbabilityDensityGraph,
+                      waveFunctionGraph: WaveFunctionGraph,
+                      tandem: Tandem ) {
 
-    const graphs = selectedGraphProperty.validValues;
+    const items: AquaRadioButtonGroupItem<QuantumStateGraph>[] = [
 
-    const items: AquaRadioButtonGroupItem<QuantumStateGraph>[] = [];
-
-    // Average Probability Density of Band
-    const averageProbabilityDensityOfBandGraph = _.find( graphs, graph => graph instanceof AverageProbabilityDensityOfBandGraph );
-    if ( averageProbabilityDensityOfBandGraph ) {
-      items.push( {
-        value: averageProbabilityDensityOfBandGraph,
-        createNode: tandem => new RichText( QuantumBoundStatesFluent.averageProbabilityDensityOfBandStringProperty, {
-          font: QBSConstants.CONTROL_FONT,
-          maxWidth: TEXT_MAX_WIDTH
-        } ),
-        tandemName: 'averageProbabilityDensityOfBandRadioButton'
-      } );
-    }
-
-    // Probability Density
-    const probabilityDensityGraph = _.find( graphs, graph => graph instanceof ProbabilityDensityGraph );
-    if ( probabilityDensityGraph ) {
-      items.push( {
+      // Probability Density
+      {
         value: probabilityDensityGraph,
         createNode: tandem => new RichText( QuantumBoundStatesFluent.probabilityDensityStringProperty, {
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
         } ),
         tandemName: 'probabilityDensityRadioButton'
-      } );
-    }
+      },
 
-    // Wave Function
-    const waveFunctionGraph = _.find( graphs, graph => graph instanceof WaveFunctionGraph );
-    if ( waveFunctionGraph ) {
-      items.push( {
+      // Wave Function
+      {
         value: waveFunctionGraph,
         createNode: tandem => new RichText( QuantumBoundStatesFluent.waveFunctionStringProperty, {
           font: QBSConstants.CONTROL_FONT,
           maxWidth: TEXT_MAX_WIDTH
         } ),
         tandemName: 'waveFunctionRadioButton'
-      } );
-    }
-
-    affirm( items.length > 1, 'At least 2 radio buttons are required.' );
+      }
+    ];
 
     super( selectedGraphProperty, items, {
       isDisposable: false,

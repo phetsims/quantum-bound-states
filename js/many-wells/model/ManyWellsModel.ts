@@ -77,7 +77,6 @@ export default class ManyWellsModel extends QBSModel {
       electronMassesProperty: electronMassesProperty,
       electricFieldProperty: electricFieldProperty,
       potentials: potentials,
-      hasAverageProbabilityDensityOfBandGraph: true,
       tandem: tandem
     } );
 

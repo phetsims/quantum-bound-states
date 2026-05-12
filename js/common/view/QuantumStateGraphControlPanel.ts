@@ -15,6 +15,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
 import QuantumStateGraph from '../model/QuantumStateGraph.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import QBSConstants from '../QBSConstants.js';
@@ -26,6 +27,7 @@ export default class QuantumStateGraphControlPanel extends Panel {
   public static readonly FIXED_WIDTH = 235;
 
   public constructor( selectedGraphProperty: Property<QuantumStateGraph>,
+                      probabilityDensityGraph: ProbabilityDensityGraph,
                       waveFunctionGraph: WaveFunctionGraph,
                       tandem: Tandem ) {
 
@@ -38,7 +40,7 @@ export default class QuantumStateGraphControlPanel extends Panel {
     } );
 
     const quantumStateGraphRadioButtonGroup = new QuantumStateGraphRadioButtonGroup( selectedGraphProperty,
-      tandem.createTandem( 'quantumStateGraphRadioButtonGroup' ) );
+      probabilityDensityGraph, waveFunctionGraph, tandem.createTandem( 'quantumStateGraphRadioButtonGroup' ) );
 
     const waveFunctionPartsCheckboxGroup = new WaveFunctionPartsCheckboxGroup( waveFunctionGraph, {
       layoutOptions: {

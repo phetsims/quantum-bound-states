@@ -26,7 +26,6 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
-import AverageProbabilityDensityOfBandGraph from './AverageProbabilityDensityOfBandGraph.js';
 import EnergyDiagram from './EnergyDiagram.js';
 import Magnifier from './Magnifier.js';
 import QuantumPotential from './potentials/QuantumPotential.js';
@@ -56,9 +55,6 @@ type SelfOptions = {
 
   // Quantum potential instance that is initially selected.
   potential?: QuantumPotential;
-
-  // Whether this model has the 'Average Probability Density of Band' graph
-  hasAverageProbabilityDensityOfBandGraph?: boolean;
 
   // Whether energyLevelProperty is instrumented for PhET-iO. In the Superposition screen, there is no concept of
   // a selected energy level, and any energy level with a non-zero superposition coefficient contributes to the
@@ -106,12 +102,11 @@ export default class QBSModel implements TModel {
   public readonly energyDiagram: EnergyDiagram;
 
   // The possible QuantumStateGraphs.
-  public readonly averageProbabilityDensityOfBandGraph?: AverageProbabilityDensityOfBandGraph;
   public readonly probabilityDensityGraph: ProbabilityDensityGraph;
   public readonly waveFunctionGraph: WaveFunctionGraph;
 
   // The QuantumStateGraph that is currently selected and displayed.
-  public readonly quantumStateGraphProperty: Property<QuantumStateGraph>;
+  public readonly selectedGraphProperty: Property<QuantumStateGraph>;
 
   // Whether curves are visible on the QuantumStateGraphs. Applies to all graphs.
   public readonly curvesVisibleProperty: Property<boolean>;
@@ -134,8 +129,7 @@ export default class QBSModel implements TModel {
 
       // SelfOptions
       potential: providedOptions.potentials[ 0 ],
-      energyLevelPropertyInstrumented: true,
-      hasAverageProbabilityDensityOfBandGraph: false
+      energyLevelPropertyInstrumented: true
     }, providedOptions );
 
     this.numberOfWellsProperty = options.numberOfWellsProperty;
@@ -293,12 +287,6 @@ export default class QBSModel implements TModel {
     const quantumStateGraphs: QuantumStateGraph[] = [];
     const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphs' );
 
-    if ( options.hasAverageProbabilityDensityOfBandGraph ) {
-      this.averageProbabilityDensityOfBandGraph = new AverageProbabilityDensityOfBandGraph(
-        quantumStateGraphsTandem.createTandem( 'averageProbabilityDensityOfBandGraph' ) );
-      quantumStateGraphs.push( this.averageProbabilityDensityOfBandGraph );
-    }
-
     this.probabilityDensityGraph = new ProbabilityDensityGraph( this, quantumStateGraphsTandem.createTandem( 'probabilityDensityGraph' ) );
     quantumStateGraphs.push( this.probabilityDensityGraph );
 
@@ -306,9 +294,9 @@ export default class QBSModel implements TModel {
     quantumStateGraphs.push( this.waveFunctionGraph );
 
     //TODO Initial value should be quantumStateGraphs[ 0 ]
-    this.quantumStateGraphProperty = new Property( this.waveFunctionGraph, {
+    this.selectedGraphProperty = new Property( this.waveFunctionGraph, {
       validValues: quantumStateGraphs,
-      tandem: options.tandem.createTandem( 'quantumStateGraphProperty' ),
+      tandem: options.tandem.createTandem( 'selectedGraphProperty' ),
       phetioValueType: QuantumStateGraph.QuantumStateGraphIO,
       phetioFeatured: true
     } );
@@ -343,10 +331,9 @@ export default class QBSModel implements TModel {
     this.selectedEnergyLevelProperty.reset();
     this.highlightedEnergyLevelProperty.reset();
     this.energyDiagram.reset();
-    this.averageProbabilityDensityOfBandGraph && this.averageProbabilityDensityOfBandGraph.reset();
     this.probabilityDensityGraph.reset();
     this.waveFunctionGraph.reset();
-    this.quantumStateGraphProperty.reset();
+    this.selectedGraphProperty.reset();
     this.magnifier.reset();
     this.referenceLine.reset();
     this.curvesVisibleProperty.reset();
