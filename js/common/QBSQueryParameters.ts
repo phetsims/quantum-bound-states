@@ -87,6 +87,13 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
     defaultValue: false
   },
 
+  // Chooses the mapping of phase to color.
+  phaseToColor: {
+    type: 'string',
+    validValues: [ 'twilight', 'rainbow' ],
+    defaultValue: 'twilight'
+  },
+
   // Shows the spectrum for various mappings of phase to color.
   //TODO https://github.com/phetsims/quantum-bound-states/issues/41 Delete when a phase mapping has been chosen.
   showPhaseSpectra: {
