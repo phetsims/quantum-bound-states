@@ -7,6 +7,7 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import SpectrumNode, { SpectrumNodeOptions } from '../../../../scenery-phet/js/SpectrumNode.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
@@ -16,7 +17,7 @@ import QBSQueryParameters from '../../common/QBSQueryParameters.js';
 import PhaseColormap from '../../common/view/PhaseColormap.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
-import EnergyRangeShiftSpinner from './EnergyRangeShiftSpinner.js';
+import EnergyOffsetHandleNode from './EnergyOffsetHandleNode.js';
 import { OneWellControlPanel } from './OneWellControlPanel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
 
@@ -35,13 +36,23 @@ export default class OneWellScreenView extends QBSScreenView {
       tandem: tandem
     } );
 
-    // Add a spinner to shift the y-axis range of the Energy Diagram for the selected potential.
-    const energyRangeShiftSpinner = new EnergyRangeShiftSpinner( model.energyRangeShiftProperty,
-      model.time, this.energyDiagramNode.tandem.createTandem( 'energyRangeShiftSpinner' ) );
-    this.screenViewRootNode.addChild( energyRangeShiftSpinner );
-    energyRangeShiftSpinner.right = this.energyDiagramRectangleBounds.left - 26;
-    energyRangeShiftSpinner.bottom = this.energyDiagramRectangleBounds.bottom - 7;
-    this.pdomOrderInsertAfter( this.pdomPlayAreaNode, this.energyDiagramNode, energyRangeShiftSpinner );
+    // Layer for drag handles used to configure potentials.
+    //TODO Make this a child of EnergyDiagramNode and resolve coordinate-transform problems.
+    const handlesLayer = new Node( {
+      tandem: tandem.createTandem( 'handlesLayer' ),
+      phetioVisiblePropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
+    } );
+    this.screenViewRootNode.addChild( handlesLayer );
+    this.pdomOrderInsertAfter( this.pdomPlayAreaNode, this.energyDiagramNode, handlesLayer );
+
+    const potentials = model.potentialProperty.validValues;
+    affirm( potentials && potentials.length > 0, 'At least one potential is required.' );
+    potentials.forEach( potential => {
+      handlesLayer.addChild( new EnergyOffsetHandleNode( potential, model.potentialProperty, model.energyDiagram,
+        this.energyDiagramRectangleBounds, this.energyDiagramNode.chartTransform, model.time,
+        handlesLayer.tandem.createTandem( `${potential.tandemPrefix}EnergyOffsetHandleNode` ) ) );
+    } );
 
     //TODO Delete when a phase mapping has been chosen.
     if ( QBSQueryParameters.showPhaseSpectra ) {

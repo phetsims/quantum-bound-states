@@ -18,6 +18,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import RichDragListener from '../../../../scenery/js/listeners/RichDragListener.js';
 import ValueChangeSoundPlayer from '../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSTime from '../../common/model/QBSTime.js';
 import EnergyOffsetHandleNode from './EnergyOffsetHandleNode.js';
 
 export default class EnergyOffsetHandleDragListener extends RichDragListener {
@@ -26,6 +27,7 @@ export default class EnergyOffsetHandleDragListener extends RichDragListener {
                       yOffsetProperty: NumberProperty,
                       energyDiagramRectangleBounds: Bounds2,
                       energyDiagramChartTransform: ChartTransform,
+                      time: QBSTime,
                       tandem: Tandem ) {
 
     // Create a positionProperty so that we can get listener.modelDelta.y.
@@ -43,6 +45,8 @@ export default class EnergyOffsetHandleDragListener extends RichDragListener {
       minimumInterMiddleSoundTime: 0.1 // seconds
     } );
 
+    let wasPlaying = time.isPlayingProperty.value;
+
     super( {
       tandem: tandem,
       positionProperty: positionProperty,
@@ -53,6 +57,12 @@ export default class EnergyOffsetHandleDragListener extends RichDragListener {
         dragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.5 ),
         shiftDragDelta: -energyDiagramChartTransform.modelToViewDeltaY( 0.1 ),
         moveOnHoldInterval: 20
+      },
+
+      start: ( event, listener ) => {
+        wasPlaying = time.isPlayingProperty.value;
+        time.isPlayingProperty.value = false;
+        time.restart();
       },
 
       drag: ( event, listener ) => {
@@ -69,7 +79,10 @@ export default class EnergyOffsetHandleDragListener extends RichDragListener {
         soundPlayer.playSoundForValueChange( yOffset, previousYOffset );
       },
 
-      end: ( event, listener ) => energyOffsetHandleNode.describeMoved()
+      end: ( event, listener ) => {
+        energyOffsetHandleNode.describeMoved();
+        time.isPlayingProperty.value = wasPlaying;
+      }
     } );
   }
 }

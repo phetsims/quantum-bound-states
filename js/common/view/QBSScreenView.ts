@@ -50,7 +50,7 @@ export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions,
 export default class QBSScreenView extends ScreenView {
 
   protected readonly screenViewRootNode: Node;
-  protected readonly energyDiagramNode: Node;
+  protected readonly energyDiagramNode: EnergyDiagramNode;
   protected readonly energyDiagramRectangleBounds: Bounds2;
 
   public constructor( model: QBSModel, listboxParent: Node, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {

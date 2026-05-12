@@ -20,6 +20,7 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import Tandem from '../../../../tandem/js/Tandem.js';
 import EnergyDiagram from '../../common/model/EnergyDiagram.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
+import QBSTime from '../../common/model/QBSTime.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import { HomeEndKeyboardListener } from '../../common/view/HomeEndKeyboardListener.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -32,6 +33,7 @@ export default class EnergyOffsetHandleNode extends InteractiveHighlighting( Arr
                       energyDiagram: EnergyDiagram,
                       chartRectangleBounds: Bounds2,
                       chartTransform: ChartTransform,
+                      time: QBSTime,
                       tandem: Tandem ) {
 
     const options = combineOptions<ArrowNodeOptions>( {}, AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, {
@@ -62,7 +64,7 @@ export default class EnergyOffsetHandleNode extends InteractiveHighlighting( Arr
       } );
 
     this.addInputListener( new EnergyOffsetHandleDragListener( this, potential.yOffsetProperty, chartRectangleBounds,
-      chartTransform, tandem ) );
+      chartTransform, time, tandem ) );
 
     this.addInputListener( new HomeEndKeyboardListener( potential.yOffsetProperty, {
       homeCallback: () => this.describeMoved(),
