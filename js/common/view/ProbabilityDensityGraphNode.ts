@@ -31,12 +31,15 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
                       curvesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
+    const yRange = new Range( probabilityDensityGraph.yAxisRangeProperty.value.min,
+      probabilityDensityGraph.yAxisRangeProperty.value.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
+
     const options = optionize<ProbabilityDensityGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {
 
       // Options related to the y-axis.
       yAxisLabelStringProperty: QuantumBoundStatesFluent.probabilityDensityStringProperty,
-      yRange: QBSConstants.PROBABILITY_DENSITY_GRAPH_Y_RANGE,
-      yTickSpacing: 0.5,
+      yRange: yRange,
+      yTickSpacing: yRange.max,
       yTickLabelDecimals: 1,
 
       // Visible when this graph is selected.
@@ -66,7 +69,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       probabilityDensityPlot.setYCoordinates( probabilityDensityValues );
     } );
 
-    probabilityDensityGraph.yAxisRangeProperty.link( yAxisRange => {
+    probabilityDensityGraph.yAxisRangeProperty.lazyLink( yAxisRange => {
       this.setYRange( new Range( yAxisRange.min, yAxisRange.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( yAxisRange.max );
     } );

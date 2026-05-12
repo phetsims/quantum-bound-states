@@ -32,12 +32,14 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
                       curvesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions: WaveFunctionGraphNodeOptions ) {
 
+    const yRange = waveFunctionGraph.yAxisRangeProperty.value.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
+
     const options = optionize<WaveFunctionGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {
 
       // Options related to the y-axis.
       yAxisLabelStringProperty: QuantumBoundStatesFluent.waveFunctionStringProperty,
-      yRange: QBSConstants.WAVEFUNCTION_GRAPH_Y_RANGE,
-      yTickSpacing: 0.5,
+      yRange: yRange,
+      yTickSpacing: yRange.max,
       yTickLabelDecimals: 1,
 
       // Visible when this graph is selected.
@@ -101,7 +103,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     this.addPlot( imaginaryPartPlot );
     this.addPlot( realPartPlot );
 
-    waveFunctionGraph.yAxisRangeProperty.link( yAxisRange => {
+    waveFunctionGraph.yAxisRangeProperty.lazyLink( yAxisRange => {
       this.setYRange( yAxisRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( yAxisRange.max );
     } );
