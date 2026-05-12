@@ -74,7 +74,7 @@ export default class XGrid extends PhetioObject {
 
     this.xCoordinatesProperty = new Property( xCoordinates, {
       units: nanometersUnit,
-      validValues: [ xCoordinates ], // effectively constant
+      isValidValue: value => value.length === xCoordinates.length,
       tandem: options.tandem.createTandem( 'xCoordinatesProperty' ),
       phetioValueType: ArrayIO( NumberIO ),
       phetioFeatured: true,
