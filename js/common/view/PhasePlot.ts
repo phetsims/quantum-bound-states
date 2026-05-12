@@ -28,8 +28,7 @@ export default class PhasePlot extends Node {
   private readonly mutableColor: Color; // One instance of Color is reused for phase-to-Color conversion.
   private readonly polygons: Path[]; // Polygons are reused to draw the phase.
 
-  public constructor( waveFunctionGraph: WaveFunctionGraph,
-                      chartTransform: ChartTransform ) {
+  public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
     super( {
       visibleProperty: waveFunctionGraph.phaseVisibleProperty
