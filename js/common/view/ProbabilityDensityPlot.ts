@@ -16,11 +16,12 @@ export default class ProbabilityDensityPlot extends YLinePlot {
   public constructor( probabilityDensityGraph: ProbabilityDensityGraph, chartTransform: ChartTransform ) {
 
     super( chartTransform, probabilityDensityGraph.xGrid.xCoordinates,
-      probabilityDensityGraph.probabilityDensityValuesProperty.value, {
+      probabilityDensityGraph.timeEvolvedSuperpositionProperty.value.probabilityDensityValues, {
         stroke: QBSColors.probabilityDensityStrokeProperty,
         lineWidth: 2
       } );
 
-    probabilityDensityGraph.probabilityDensityValuesProperty.lazyLink( values => this.setYCoordinates( values ) );
+    probabilityDensityGraph.timeEvolvedSuperpositionProperty.lazyLink(
+      timeEvolvedSuperposition => this.setYCoordinates( timeEvolvedSuperposition.probabilityDensityValues ) );
   }
 }

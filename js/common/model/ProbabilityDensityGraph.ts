@@ -10,7 +10,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import QBSModel from './QBSModel.js';
+import QBSModel, { TimeEvolvedSuperposition } from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import XGrid from './solver/XGrid.js';
 
@@ -20,7 +20,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
   public readonly xGrid: XGrid;
 
   // y-axis values for plotting the time-dependent probability density
-  public readonly probabilityDensityValuesProperty: TReadOnlyProperty<number[]>;
+  public readonly timeEvolvedSuperpositionProperty: TReadOnlyProperty<TimeEvolvedSuperposition>;
 
   // Range for the y-axis
   public readonly yAxisRangeProperty: TReadOnlyProperty<Range>;
@@ -31,7 +31,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
     super( tandem );
 
     this.xGrid = model.xGrid;
-    this.probabilityDensityValuesProperty = model.probabilityDensityValuesProperty;
+    this.timeEvolvedSuperpositionProperty = model.timeEvolvedSuperpositionProperty;
 
     // Use the maximum time-independent probability density to set the y-axis range.
     this.yAxisRangeProperty = new DerivedProperty(

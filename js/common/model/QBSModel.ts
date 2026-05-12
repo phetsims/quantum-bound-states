@@ -17,13 +17,14 @@ import TModel from '../../../../joist/js/TModel.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { radiansUnit } from '../../../../scenery-phet/js/units/radiansUnit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import SchemaOrientedIOType from '../../../../tandem/js/types/SchemaOrientedIOType.js';
+import type { CoreRecord } from '../../../../tandem/js/types/StateSchema.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import EnergyDiagram from './EnergyDiagram.js';
@@ -36,17 +37,23 @@ import ReferenceLine from './ReferenceLine.js';
 import { BoundStateResult } from './solver/BoundStateResult.js';
 import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
-import { inverseNanometersUnit } from './units/inverseNanometersUnit.js';
-import { inverseSquareRootNanometersUnit } from './units/inverseSquareRootNanometersUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
-export type TimeEvolvedSuperposition = {
-  realPartValues: number[];
-  imaginaryPartValues: number[];
-  magnitudeValues: number[];
-  phaseValues: number[];
-  probabilityDensityValues: number[];
+const SCHEMA = {
+  realPartValues: ArrayIO( NumberIO ),
+  imaginaryPartValues: ArrayIO( NumberIO ),
+  magnitudeValues: ArrayIO( NumberIO ),
+  phaseValues: ArrayIO( NumberIO ),
+  probabilityDensityValues: ArrayIO( NumberIO )
 };
+
+export type TimeEvolvedSuperposition = CoreRecord<typeof SCHEMA>;
+
+export const TimeEvolvedSuperpositionIO = new SchemaOrientedIOType<TimeEvolvedSuperposition, typeof SCHEMA>( 'TimeEvolvedSuperpositionIO', {
+  documentation: 'Serialization for the time-evolved superposition of a wave function at a given energy level.',
+  stateSchema: SCHEMA
+} );
+
 
 type SelfOptions = {
 
@@ -112,13 +119,7 @@ export default class QBSModel implements TModel {
   public readonly curvesVisibleProperty: Property<boolean>;
 
   // y-axis values for plotting components of the time-dependent wave function
-  public readonly realPartValuesProperty: TReadOnlyProperty<number[]>;
-  public readonly imaginaryPartValuesProperty: TReadOnlyProperty<number[]>;
-  public readonly magnitudeValuesProperty: TReadOnlyProperty<number[]>;
-  public readonly phaseValuesProperty: TReadOnlyProperty<number[]>;
-
-  // y-axis values for plotting the time-dependent probability density
-  public readonly probabilityDensityValuesProperty: TReadOnlyProperty<number[]>;
+  public readonly timeEvolvedSuperpositionProperty: TReadOnlyProperty<TimeEvolvedSuperposition>;
 
   public readonly magnifier: Magnifier;
   public readonly referenceLine: ReferenceLine;
@@ -237,49 +238,12 @@ export default class QBSModel implements TModel {
         }
       } );
 
-    const timeEvolvedSuperpositionProperty = new DerivedProperty(
+    this.timeEvolvedSuperpositionProperty = new DerivedProperty(
       [ this.time.currentTimeProperty, this.boundStateResultProperty, this.selectedEnergyLevelProperty ],
       ( t, boundStateResult, selectedEnergyLevel ) =>
-        getTimeEvolvedSuperposition( t, this.xGrid, boundStateResult, selectedEnergyLevel, this.potentialProperty.value.groundStateIndex )
-    );
-
-    this.realPartValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
-      timeEvolvedSuperposition => timeEvolvedSuperposition.realPartValues, {
-        units: inverseSquareRootNanometersUnit,
-        tandem: options.tandem.createTandem( 'realPartValuesProperty' ),
-        phetioValueType: ArrayIO( NumberIO ),
-        phetioFeatured: true
-      } );
-
-    this.imaginaryPartValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
-      timeEvolvedSuperposition => timeEvolvedSuperposition.imaginaryPartValues, {
-        units: inverseSquareRootNanometersUnit,
-        tandem: options.tandem.createTandem( 'imaginaryPartValuesProperty' ),
-        phetioValueType: ArrayIO( NumberIO ),
-        phetioFeatured: true
-      } );
-
-    this.magnitudeValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
-      timeEvolvedSuperposition => timeEvolvedSuperposition.magnitudeValues, {
-        //TODO what are the units for magnitude?
-        tandem: options.tandem.createTandem( 'magnitudeValuesProperty' ),
-        phetioValueType: ArrayIO( NumberIO ),
-        phetioFeatured: true
-      } );
-
-    this.phaseValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
-      timeEvolvedSuperposition => timeEvolvedSuperposition.phaseValues, {
-        units: radiansUnit, //TODO is this correct?
-        tandem: options.tandem.createTandem( 'phaseValuesProperty' ),
-        phetioValueType: ArrayIO( NumberIO ),
-        phetioFeatured: true
-      } );
-
-    this.probabilityDensityValuesProperty = new DerivedProperty( [ timeEvolvedSuperpositionProperty ],
-      timeEvolvedSuperposition => timeEvolvedSuperposition.probabilityDensityValues, {
-        units: inverseNanometersUnit,
-        tandem: options.tandem.createTandem( 'probabilityDensityValuesProperty' ),
-        phetioValueType: ArrayIO( NumberIO ),
+        getTimeEvolvedSuperposition( t, this.xGrid, boundStateResult, selectedEnergyLevel, this.potentialProperty.value.groundStateIndex ), {
+        tandem: options.tandem.createTandem( 'timeEvolvedSuperpositionProperty' ),
+        phetioValueType: TimeEvolvedSuperpositionIO,
         phetioFeatured: true
       } );
 

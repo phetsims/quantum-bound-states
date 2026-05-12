@@ -15,12 +15,13 @@ export default class RealPartPlot extends YLinePlot {
 
   public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
-    super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.realPartValuesProperty.value, {
+    super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.timeEvolvedSuperpositionProperty.value.realPartValues, {
       stroke: QBSColors.realPartStrokeProperty,
       lineWidth: 2,
       visibleProperty: waveFunctionGraph.realPartVisibleProperty
     } );
 
-    waveFunctionGraph.realPartValuesProperty.lazyLink( values => this.setYCoordinates( values ) );
+    waveFunctionGraph.timeEvolvedSuperpositionProperty.lazyLink(
+      timeEvolvedSuperposition => this.setYCoordinates( timeEvolvedSuperposition.realPartValues ) );
   }
 }

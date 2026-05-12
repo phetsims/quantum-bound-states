@@ -49,9 +49,7 @@ export default class PhasePlot extends Node {
     // Initialize
     this.update();
 
-    //TODO This assumes that magnitudeValuesProperty is updated before phaseValuesProperty, which is an order dependency.
-    //TODO Adding magnitudeValuesProperty as a dependency here would result in twice as much work being done.
-    Multilink.multilink( [ waveFunctionGraph.phaseVisibleProperty, waveFunctionGraph.phaseValuesProperty ],
+    Multilink.multilink( [ waveFunctionGraph.phaseVisibleProperty, waveFunctionGraph.timeEvolvedSuperpositionProperty ],
       () => this.update() );
 
     // Update when the transform changes.
@@ -65,8 +63,8 @@ export default class PhasePlot extends Node {
    */
   private update(): void {
 
-    const magnitudeValues = this.waveFunctionGraph.magnitudeValuesProperty.value;
-    const phaseValues = this.waveFunctionGraph.phaseValuesProperty.value;
+    const magnitudeValues = this.waveFunctionGraph.timeEvolvedSuperpositionProperty.value.magnitudeValues;
+    const phaseValues = this.waveFunctionGraph.timeEvolvedSuperpositionProperty.value.phaseValues;
 
     const dxView = this.chartTransform.modelToViewDeltaX( this.xCoordinates[ 1 ] - this.xCoordinates[ 0 ] );
     const yZeroView = this.chartTransform.modelToViewY( 0 );

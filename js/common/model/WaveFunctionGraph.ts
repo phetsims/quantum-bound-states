@@ -13,7 +13,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
-import QBSModel from './QBSModel.js';
+import QBSModel, { TimeEvolvedSuperposition } from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import XGrid from './solver/XGrid.js';
 
@@ -23,10 +23,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   public readonly xGrid: XGrid;
 
   // y-axis values for plotting components of the time-dependent wave function
-  public readonly realPartValuesProperty: TReadOnlyProperty<number[]>;
-  public readonly imaginaryPartValuesProperty: TReadOnlyProperty<number[]>;
-  public readonly magnitudeValuesProperty: TReadOnlyProperty<number[]>;
-  public readonly phaseValuesProperty: TReadOnlyProperty<number[]>;
+  public readonly timeEvolvedSuperpositionProperty: TReadOnlyProperty<TimeEvolvedSuperposition>;
 
   // Visibility of the wave function components
   public readonly realPartVisibleProperty: Property<boolean>;
@@ -44,10 +41,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
 
     this.xGrid = model.xGrid;
 
-    this.realPartValuesProperty = model.realPartValuesProperty;
-    this.imaginaryPartValuesProperty = model.imaginaryPartValuesProperty;
-    this.magnitudeValuesProperty = model.magnitudeValuesProperty;
-    this.phaseValuesProperty = model.phaseValuesProperty;
+    this.timeEvolvedSuperpositionProperty = model.timeEvolvedSuperpositionProperty;
 
     this.realPartVisibleProperty = new BooleanProperty( QBSQueryParameters.realPartVisible, {
       tandem: tandem.createTandem( 'realPartVisibleProperty' ),

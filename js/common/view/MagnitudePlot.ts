@@ -15,12 +15,13 @@ export default class MagnitudePlot extends YLinePlot {
 
   public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
-    super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.magnitudeValuesProperty.value, {
+    super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.timeEvolvedSuperpositionProperty.value.magnitudeValues, {
       stroke: QBSColors.magnitudeStrokeProperty,
       lineWidth: 2,
       visibleProperty: waveFunctionGraph.magnitudeVisibleProperty
     } );
 
-    waveFunctionGraph.magnitudeValuesProperty.lazyLink( values => this.setYCoordinates( values ) );
+    waveFunctionGraph.timeEvolvedSuperpositionProperty.lazyLink(
+      timeEvolvedSuperposition => this.setYCoordinates( timeEvolvedSuperposition.magnitudeValues ) );
   }
 }

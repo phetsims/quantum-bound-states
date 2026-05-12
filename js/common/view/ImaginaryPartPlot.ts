@@ -15,12 +15,13 @@ export default class ImaginaryPartPlot extends YLinePlot {
 
   public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
-    super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.imaginaryPartValuesProperty.value, {
+    super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.timeEvolvedSuperpositionProperty.value.imaginaryPartValues, {
       stroke: QBSColors.imaginaryPartStrokeProperty,
       lineWidth: 2,
       visibleProperty: waveFunctionGraph.imaginaryPartVisibleProperty
     } );
 
-    waveFunctionGraph.imaginaryPartValuesProperty.lazyLink( values => this.setYCoordinates( values ) );
+    waveFunctionGraph.timeEvolvedSuperpositionProperty.lazyLink(
+      timeEvolvedSuperposition => this.setYCoordinates( timeEvolvedSuperposition.imaginaryPartValues ) );
   }
 }
