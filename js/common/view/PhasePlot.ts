@@ -13,12 +13,12 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
+import { phaseToTwilight } from './PhaseColormapNode.js';
 
 export default class PhasePlot extends Node {
 
@@ -94,15 +94,8 @@ export default class PhasePlot extends Node {
         shape.makeImmutable(); //TODO This is typically done in bamboo plots. Is it necessary?
 
         polygon.shape = shape;
-        polygon.fill = this.phaseToColor( phaseValues[ i ] );
+        polygon.fill = phaseToTwilight( phaseValues[ i ] );
       }
     }
-  }
-
-  /**
-   * Converts phase (in radians) to a CSS color string.
-   */
-  private phaseToColor( phase: number ): string {
-    return this.mutableColor.setHSLA( toDegrees( phase ), 100, 50, 1 ).toCSS(); //TODO Java version used HSV colorspace
   }
 }

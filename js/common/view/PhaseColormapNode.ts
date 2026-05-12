@@ -11,11 +11,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Shape from '../../../../kite/js/Shape.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
@@ -85,7 +87,7 @@ function toByte( value: number ): number {
  * Each integer degree in the range [0,359] maps to a distinct color entry.
  * Returns a CSS color string.
  */
-export function phaseToColorLookupTable( radians: number ): string {
+export function phaseToTwilight( radians: number ): string {
   const twoPi = 2 * Math.PI;
   const normalizedRadians = ( ( radians % twoPi ) + twoPi ) % twoPi;
   const normalizedDegrees = Math.floor( normalizedRadians / twoPi * 360 );
@@ -93,25 +95,21 @@ export function phaseToColorLookupTable( radians: number ): string {
 }
 
 /**
- * Implements the twilight colormap using linear regression.
- *
- * @author Martin Viellette
- */
-export function phaseToColorLinearRegression( radians: number ): string {
-  const r = 0.544 + 0.412 * Math.cos( radians );
-  const g = 0.471 + 0.449 * Math.cos( radians );
-  const b = 0.559 + 0.399 * Math.cos( radians );
-  return new Color( r * 255, g * 255, b * 255 ).toCSS();
-}
-
-/**
- * Implements a mapping using HSL colorspace. The Java version used HSV colorspace, which is not supported by scenery.
+ * Implements a mapping to 'rainbow' colors using HSL colorspace. The Java version used HSV colorspace, which
+ * is not supported by scenery.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-export function phaseToColorHSV( radians: number ): string {
+export function phaseToRainbow( radians: number ): string {
   return new Color( 0, 0, 0 ).setHSLA( toDegrees( radians ), 100, 50, 1 ).toCSS();
 }
+
+type SelfOptions = {
+  phaseToColor: ( phase: number ) => string;
+  size?: Dimension2;
+};
+
+type PhaseColormapNodeOptions = SelfOptions;
 
 /**
  * PhaseColormapNode displays the complete spectrum of a phase colormap.
@@ -119,12 +117,16 @@ export function phaseToColorHSV( radians: number ): string {
  */
 export class PhaseColormapNode extends Node {
 
-  public constructor( phaseToColor: ( phase: number ) => string ) {
+  public constructor( providedOptions: PhaseColormapNodeOptions ) {
+
+    const options = optionize<PhaseColormapNodeOptions, SelfOptions>()( {
+      size: new Dimension2( 800, 100 )
+    }, providedOptions );
 
     const polygons: Node[] = [];
-    const width = 2;
-    const height = 100;
-    const overlap = 0.1;
+    const width = options.size.width / 360;
+    const height = options.size.height;
+    const overlap = 0.1 * width;
 
     let x = 0;
     for ( let degrees = 0; degrees < 360; degrees++ ) {
@@ -137,7 +139,7 @@ export class PhaseColormapNode extends Node {
         .close();
 
       const polygon = new Path( shape, {
-        fill: phaseToColor( toRadians( degrees ) )
+        fill: options.phaseToColor( toRadians( degrees ) )
       } );
       polygons.push( polygon );
 

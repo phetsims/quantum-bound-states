@@ -12,8 +12,6 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import SpectrumNode from '../../../../scenery-phet/js/SpectrumNode.js';
-import VisibleColor from '../../../../scenery-phet/js/VisibleColor.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -21,6 +19,7 @@ import TColor from '../../../../scenery/js/util/TColor.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSPreferences from '../model/QBSPreferences.js';
 import QBSConstants from '../QBSConstants.js';
+import { PhaseColormapNode, phaseToTwilight } from './PhaseColormapNode.js';
 import WaveFunctionPartsCheckbox, { WaveFunctionPartsCheckboxOptions } from './WaveFunctionPartsCheckbox.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -62,12 +61,9 @@ function createContent( stringProperty: TReadOnlyProperty<string>, strokePropert
     font: QBSConstants.CONTROL_FONT
   } );
 
-  //TODO Change icon to match the color mapping that is eventually chosen.
-  const spectrumNode = new SpectrumNode( {
-    size: new Dimension2( 40, 0.75 * zeroNode.height ),
-    minValue: VisibleColor.MIN_WAVELENGTH,
-    maxValue: VisibleColor.MAX_WAVELENGTH,
-    valueToColor: VisibleColor.wavelengthToColor
+  const spectrumNode = new PhaseColormapNode( {
+    phaseToColor: phaseToTwilight,
+    size: new Dimension2( 40, 0.75 * zeroNode.height )
   } );
 
   const twoPiNode = new Text( '2\u03C0', {

@@ -10,7 +10,7 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../../common/QBSQueryParameters.js';
-import { PhaseColormapNode, phaseToColorHSV, phaseToColorLinearRegression, phaseToColorLookupTable } from '../../common/view/PhaseColormapNode.js';
+import { PhaseColormapNode, phaseToRainbow, phaseToTwilight } from '../../common/view/PhaseColormapNode.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
 import EnergyRangeShiftSpinner from './EnergyRangeShiftSpinner.js';
@@ -44,9 +44,12 @@ export default class OneWellScreenView extends QBSScreenView {
     if ( QBSQueryParameters.showPhaseSpectra ) {
       this.addChild( new VBox( {
         children: [
-          new PhaseColormapNode( phaseToColorLookupTable ),
-          new PhaseColormapNode( phaseToColorLinearRegression ),
-          new PhaseColormapNode( phaseToColorHSV )
+          new PhaseColormapNode( {
+            phaseToColor: phaseToRainbow
+          } ),
+          new PhaseColormapNode( {
+            phaseToColor: phaseToTwilight
+          } )
         ],
         spacing: 20,
         align: 'center',
