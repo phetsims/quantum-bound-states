@@ -76,9 +76,13 @@ units:
     symbol:        eV/nm<sup>2</sup>
     symbolPattern: '{{value}} eV/nm<sup>2</sup>'
   # time
-  femtoSeconds:
+  femtoseconds:
     symbol:        fs
     symbolPattern: '{{value}} fs'
+  # angular frequency of Harmonic Oscillator
+  inverseFemtoseconds:
+    symbol:        fs<sup>-1</sup>
+    symbolPattern: '{{value}} fs<sup>-1</sup>'
   # probability density y-values
   inverseNanometers:
     symbol:        nm<sup>-1</sup>
@@ -438,6 +442,8 @@ a11y:
       accessiblePattern: '{$value} electron volts per nanometer squared'
     femtoseconds:
       accessiblePattern: '{$value} femtoseconds'
+    inverseFemtoseconds:
+      accessiblePattern: '{$value} per femtosecond'
     inverseNanometers:
       accessiblePattern: '{$value} inverse nanometers'
     inverseSquareRootNanometers:

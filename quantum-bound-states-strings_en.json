@@ -140,12 +140,20 @@
         "value": "{{value}} eV/nm<sup>2</sup>"
       }
     },
-    "femtoSeconds": {
+    "femtoseconds": {
       "symbol": {
         "value": "fs"
       },
       "symbolPattern": {
         "value": "{{value}} fs"
+      }
+    },
+    "inverseFemtoseconds": {
+      "symbol": {
+        "value": "fs<sup>-1</sup>"
+      },
+      "symbolPattern": {
+        "value": "{{value}} fs<sup>-1</sup>"
       }
     },
     "inverseNanometers": {
@@ -796,6 +804,11 @@
       "femtoseconds": {
         "accessiblePattern": {
           "value": "{$value} femtoseconds"
+        }
+      },
+      "inverseFemtoseconds": {
+        "accessiblePattern": {
+          "value": "{$value} per femtosecond"
         }
       },
       "inverseNanometers": {

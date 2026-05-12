@@ -12,7 +12,7 @@ import PhetUnit from '../../../../../scenery-phet/js/PhetUnit.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 
 export const femtosecondsUnit = new PhetUnit<ReadOnlyProperty<string>>( 'fs', {
-  visualSymbolStringProperty: QuantumBoundStatesFluent.units.femtoSeconds.symbolStringProperty,
-  visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.femtoSeconds.symbolPatternStringProperty,
+  visualSymbolStringProperty: QuantumBoundStatesFluent.units.femtoseconds.symbolStringProperty,
+  visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.femtoseconds.symbolPatternStringProperty,
   accessiblePattern: QuantumBoundStatesFluent.a11y.units.femtoseconds.accessiblePattern
 } );

@@ -69,7 +69,11 @@ type StringsType = {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
     };
-    'femtoSeconds': {
+    'femtoseconds': {
+      'symbolStringProperty': LocalizedStringProperty;
+      'symbolPatternStringProperty': LocalizedStringProperty;
+    };
+    'inverseFemtoseconds': {
       'symbolStringProperty': LocalizedStringProperty;
       'symbolPatternStringProperty': LocalizedStringProperty;
     };
@@ -383,6 +387,9 @@ type StringsType = {
         'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'femtoseconds': {
+        'accessiblePatternStringProperty': LocalizedStringProperty;
+      };
+      'inverseFemtoseconds': {
         'accessiblePatternStringProperty': LocalizedStringProperty;
       };
       'inverseNanometers': {
