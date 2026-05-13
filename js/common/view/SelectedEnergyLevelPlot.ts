@@ -14,6 +14,7 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import QBSColors from '../QBSColors.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
 
+// Properties of equilateral triangle.
 const TRIANGLE_SIDE_LENGTH = 15;
 const TRIANGLE_HEIGHT = ( Math.sqrt( 3 ) / 2 ) * TRIANGLE_SIDE_LENGTH;
 
@@ -44,21 +45,27 @@ export default class SelectedEnergyLevelPlot extends Node {
     this.trianglesPath = trianglesPath;
     this.selectedEnergy = selectedEnergy;
 
-    this.update();
+    this.updateTriangles();
 
     // Update when the transform changes.
-    const changedListener = () => this.update();
+    const changedListener = () => this.updateTriangles();
     chartTransform.changedEmitter.addListener( changedListener );
     this.disposeEmitter.addListener( () => chartTransform.changedEmitter.removeListener( changedListener ) );
   }
 
+  /**
+   * Sets the selected energy level, in eV.
+   */
   public setSelectedEnergy( selectedEnergy: number ): void {
     this.selectedEnergy = selectedEnergy;
-    this.energyLevelsPlot.setEnergies( [ selectedEnergy ] );
-    this.update();
+    this.energyLevelsPlot.setEnergies( [ selectedEnergy ] ); // energyLevelsPlot handles its own updating.
+    this.updateTriangles();
   }
 
-  protected update(): void {
+  /**
+   * Updates the triangles.
+   */
+  protected updateTriangles(): void {
 
     const xMin = this.chartTransform.modelToViewX( this.chartTransform.modelXRange.min );
     const xMax = this.chartTransform.modelToViewX( this.chartTransform.modelXRange.max );
