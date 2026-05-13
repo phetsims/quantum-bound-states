@@ -6,17 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import SpectrumNode, { SpectrumNodeOptions } from '../../../../scenery-phet/js/SpectrumNode.js';
-import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSColors from '../../common/QBSColors.js';
-import QBSQueryParameters from '../../common/QBSQueryParameters.js';
-import PhaseColormap from '../../common/view/PhaseColormap.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
 import EnergyOffsetHandleNode from './EnergyOffsetHandleNode.js';
@@ -67,28 +61,5 @@ export default class OneWellScreenView extends QBSScreenView {
     } );
     this.screenViewRootNode.addChild( energyAxisBackgroundRectangle );
     energyAxisBackgroundRectangle.moveToBack();
-
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/41 Delete when a phase mapping has been chosen.
-    if ( QBSQueryParameters.showPhaseSpectra ) {
-      const spectrumNodeOptions = {
-        size: new Dimension2( 600, 100 ),
-        minValue: 0,
-        maxValue: 2 * Math.PI
-      };
-      this.addChild( new VBox( {
-        children: [
-          new SpectrumNode( combineOptions<SpectrumNodeOptions>( {}, spectrumNodeOptions, {
-            valueToColor: value => PhaseColormap.phaseToRainbow( value )
-          } ) ),
-          new SpectrumNode( combineOptions<SpectrumNodeOptions>( {}, spectrumNodeOptions, {
-            valueToColor: value => PhaseColormap.phaseToTwilight( value )
-          } ) )
-        ],
-        spacing: 20,
-        align: 'center',
-        centerX: this.layoutBounds.centerX,
-        top: this.layoutBounds.top + 50
-      } ) );
-    }
   }
 }
