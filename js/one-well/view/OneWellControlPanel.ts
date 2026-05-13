@@ -25,7 +25,7 @@ import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphCo
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import AdjustEnergyOffsetCheckbox from './AdjustEnergyOffsetCheckbox.js';
 import ElectronMassesControl from './ElectronMassesControl.js';
-import ResetEnergyOffsetButton from './ResetEnergyOffsetButton.js';
+import EnergyOffsetResetButton from './EnergyOffsetResetButton.js';
 
 export class OneWellControlPanel extends Panel {
 
@@ -56,7 +56,7 @@ export class OneWellControlPanel extends Panel {
           spacing: 12,
           children: [
             new AdjustEnergyOffsetCheckbox( energyOffsetDragHandleVisibleProperty, tandem.createTandem( 'adjustEnergyOffsetCheckbox' ) ),
-            new ResetEnergyOffsetButton( potentialProperty, tandem.createTandem( 'resetEnergyOffsetButton' ) )
+            new EnergyOffsetResetButton( potentialProperty, tandem.createTandem( 'energyOffsetResetButton' ) )
           ]
         } )
       ]

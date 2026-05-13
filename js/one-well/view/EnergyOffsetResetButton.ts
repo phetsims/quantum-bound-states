@@ -13,7 +13,7 @@ import QuantumPotential from '../../common/model/potentials/QuantumPotential.js'
 import QBSColors from '../../common/QBSColors.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
-export default class ResetEnergyOffsetButton extends ResetButton {
+export default class EnergyOffsetResetButton extends ResetButton {
 
   public constructor( potentialProperty: TReadOnlyProperty<QuantumPotential>, tandem: Tandem ) {
 
