@@ -20,7 +20,8 @@ export default class PhaseColormap {
 
   /**
    * phaseToRainbow implements a mapping to 'rainbow' colors using HSL colorspace. The Java version used HSV colorspace,
-   * which scenery does not support.
+   * which scenery does not support.  In https://github.com/phetsims/quantum-bound-states/issues/41 it was decided not
+   * to use this mapping, but decided to keep this method around in case it comes up again in the future.
    */
   public static phaseToRainbow( radians: number ): Color {
     return new Color( 0, 0, 0 ).setHSLA( toDegrees( radians ), 100, 50, 1 );
