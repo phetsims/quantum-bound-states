@@ -27,6 +27,7 @@ import QBSConstants from '../QBSConstants.js';
 import EnergyLevelDisplay from './EnergyLevelDisplay.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
+import SelectedEnergyLevelPlot from './SelectedEnergyLevelPlot.js';
 import YLinePlot from './YLinePlot.js';
 
 export default class EnergyDiagramNode extends Node {
@@ -108,12 +109,10 @@ export default class EnergyDiagramNode extends Node {
     model.boundStateResultProperty.lazyLink( boundStateResult => energyLevelsPlot.setEnergies( boundStateResult.energies ) );
 
     // Plots the selected energy level.
-    const selectedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [ model.getEnergyAtEnergyLevel( model.selectedEnergyLevelProperty.value ) ], {
-      stroke: QBSColors.selectedEnergyLevelColorProperty,
-      lineWidth: 3
-    } );
+    const selectedEnergyLevelPlot = new SelectedEnergyLevelPlot( this.chartTransform,
+      model.getEnergyAtEnergyLevel( model.selectedEnergyLevelProperty.value ) );
     Multilink.multilink( [ model.selectedEnergyLevelProperty, model.boundStateResultProperty ],
-      ( selectedEnergyLevel, boundStateResult ) => selectedEnergyLevelPlot.setEnergies( [ model.getEnergyAtEnergyLevel( selectedEnergyLevel ) ] ) );
+      ( selectedEnergyLevel, boundStateResult ) => selectedEnergyLevelPlot.setSelectedEnergy( model.getEnergyAtEnergyLevel( selectedEnergyLevel ) ) );
 
     // Plots the highlighted energy level.
     const highlightedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [], {
