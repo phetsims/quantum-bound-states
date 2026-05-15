@@ -110,8 +110,11 @@ export default class OneWellModel extends QBSModel {
     this.energyOffsetProperty = new NumberProperty( this.potentialProperty.value.yOffsetProperty.value, {
       reentrant: true, // see QuantumPotential yOffsetProperty
       units: electronVoltsUnit,
-      range: this.potentialProperty.value.yOffsetProperty.range
-      // PhET-iO instrumentation is not necessary.
+      range: this.potentialProperty.value.yOffsetProperty.range,
+      tandem: tandem.createTandem( 'energyOffsetProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true,
+      phetioDocumentation: 'Energy offset from zero eV of the selected potential'
     } );
 
     // Update y-offset of the selected potential so that the potential does not appear to move on the Energy Diagram.

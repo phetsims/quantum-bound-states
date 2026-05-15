@@ -132,7 +132,8 @@ export default class QBSModel implements TModel {
       validValues: options.potentials,
       phetioValueType: QuantumPotential.QuantumPotentialIO,
       tandem: options.tandem.createTandem( 'potentialProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioDocumentation: 'The selected quantum potential'
     } );
     this.potentials = options.potentials;
 
@@ -145,14 +146,16 @@ export default class QBSModel implements TModel {
       range: getEnergyLevelRange( this.potentialProperty.value.groundStateIndex, this.boundStateResultProperty.value.energies.length ),
       tandem: options.energyLevelPropertyInstrumented ? options.tandem.createTandem( 'selectedEnergyLevelProperty' ) : Tandem.OPT_OUT,
       phetioFeatured: true,
-      phetioReadOnly: true
+      phetioReadOnly: true,
+      phetioDocumentation: 'Energy level of the selected potential'
     } );
 
     this.highlightedEnergyLevelProperty = new Property<number | null>( null, {
       tandem: options.tandem.createTandem( 'highlightedEnergyLevelProperty' ),
       phetioValueType: NullableIO( NumberIO ),
       phetioFeatured: true,
-      phetioReadOnly: true
+      phetioReadOnly: true,
+      phetioDocumentation: 'Energy level of the highlighted potential'
     } );
 
     // When the bound state changes, clear the highlighted energy level.
