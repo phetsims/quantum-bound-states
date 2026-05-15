@@ -117,9 +117,10 @@ export default class InfiniteStepSolution {
     }
 
     const potentialFunction = InfiniteStepSolution.createPotential( wellWidth, stepHeight, yOffset + 1000, xOffset, yOffset );
+    const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {
-      potentials: xGrid.xCoordinates.map( x => potentialFunction( x ) ),
+      potentials: potentials,
       energies: energies,
       waveFunctions: waveFunctions,
       method: 'analytical'

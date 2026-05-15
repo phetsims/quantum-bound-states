@@ -141,8 +141,6 @@ export default class CoulombSolution {
     const normalizer = new WaveFunctionNormalizer();
     const waveFunctions: number[][] = [];
 
-    const potentialFunction = CoulombSolution.createPotential( coupling, 1e5, xOffset, yOffset );
-
     for ( const n of quantumNumbers ) {
       const polynomialCoefficients = computePolynomialCoefficients( n, bohrRadius );
       const inverseNA = 1 / ( n * bohrRadius );
@@ -158,6 +156,7 @@ export default class CoulombSolution {
       waveFunctions.push( normalizer.normalize( psi, xGrid.dx ) );
     }
 
+    const potentialFunction = CoulombSolution.createPotential( coupling, 1e5, xOffset, yOffset );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {
