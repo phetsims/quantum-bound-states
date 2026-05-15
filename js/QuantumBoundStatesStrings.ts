@@ -55,6 +55,7 @@ type StringsType = {
   'fastStringProperty': LocalizedStringProperty;
   'energyLevelStringProperty': LocalizedStringProperty;
   'energyLevelPatternStringProperty': LocalizedStringProperty;
+  'energyOffsetStringProperty': LocalizedStringProperty;
   'presetStringProperty': LocalizedStringProperty;
   'customStringProperty': LocalizedStringProperty;
   'units': {
@@ -341,6 +342,10 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'energyLevelSpinner': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'energyOffsetSpinner': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };

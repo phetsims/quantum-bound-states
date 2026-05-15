@@ -57,6 +57,7 @@ fast:                                         fast
 # Spinners
 energyLevel:                                  Energy Level
 energyLevelPattern:                           E<sub>{{index}}</sub>
+energyOffset:                                 Energy Offset
 
 # Toggles and Switches
 preset:                                       Preset
@@ -390,6 +391,10 @@ a11y:
   energyLevelSpinner:
     accessibleName:     Energy Level
     accessibleHelpText: TODO.energyLevelSpinner.accessibleHelpText
+
+  energyOffsetSpinner:
+    accessibleName:     Energy Offset
+    accessibleHelpText: TODO.energyOffsetSpinner.accessibleHelpText
 
   energyRangeShiftSpinner:
     accessibleName:                TODO.energyRangeShiftSpinner.accessibleName

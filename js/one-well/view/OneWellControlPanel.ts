@@ -23,12 +23,14 @@ import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ElectronMassesControl from './ElectronMassesControl.js';
+import EnergyOffsetControl from './EnergyOffsetControl.js';
 
 export class OneWellControlPanel extends Panel {
 
   public constructor( listboxParent: Node,
                       potentialProperty: Property<QuantumPotential>,
                       electronMassesProperty: NumberProperty,
+                      energyOffsetProperty: NumberProperty,
                       energyLevelProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
@@ -42,11 +44,12 @@ export class OneWellControlPanel extends Panel {
     } );
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
-      spacing: 12, // Add more spacing for this screen.
+      spacing: 10, // Add more spacing for this screen.
       children: [
         titleText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new ElectronMassesControl( electronMassesProperty, time, tandem.createTandem( 'electronMassesControl' ) ),
+        new EnergyOffsetControl( energyOffsetProperty, time, tandem.createTandem( 'energyOffsetControl' ) ),
         new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );

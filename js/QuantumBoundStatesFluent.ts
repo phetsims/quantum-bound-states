@@ -63,6 +63,7 @@ addToMapIfDefined( 'electricField', 'electricFieldStringProperty' );
 addToMapIfDefined( 'slow', 'slowStringProperty' );
 addToMapIfDefined( 'fast', 'fastStringProperty' );
 addToMapIfDefined( 'energyLevel', 'energyLevelStringProperty' );
+addToMapIfDefined( 'energyOffset', 'energyOffsetStringProperty' );
 addToMapIfDefined( 'preset', 'presetStringProperty' );
 addToMapIfDefined( 'custom', 'customStringProperty' );
 addToMapIfDefined( 'units_electronMasses_symbol', 'units.electronMasses.symbolStringProperty' );
@@ -210,6 +211,8 @@ addToMapIfDefined( 'a11y_numberOfWellsControl_accessibleHelpText', 'a11y.numberO
 addToMapIfDefined( 'a11y_electricFieldControl_accessibleHelpText', 'a11y.electricFieldControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_energyLevelSpinner_accessibleName', 'a11y.energyLevelSpinner.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_energyLevelSpinner_accessibleHelpText', 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_energyOffsetSpinner_accessibleName', 'a11y.energyOffsetSpinner.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_energyOffsetSpinner_accessibleHelpText', 'a11y.energyOffsetSpinner.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_energyRangeShiftSpinner_accessibleName', 'a11y.energyRangeShiftSpinner.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_energyRangeShiftSpinner_accessibleHelpText', 'a11y.energyRangeShiftSpinner.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_timeDisplayToggleButton_accessibleNameOn', 'a11y.timeDisplayToggleButton.accessibleNameOnStringProperty' );
@@ -319,6 +322,7 @@ const QuantumBoundStatesFluent = {
   _comment_13: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
   energyLevelStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelStringProperty' ),
   energyLevelPatternStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelPatternStringProperty' ),
+  energyOffsetStringProperty: _.get( QuantumBoundStatesStrings, 'energyOffsetStringProperty' ),
   _comment_14: new FluentComment( {"comment":"Toggles and Switches","associatedKey":"preset"} ),
   presetStringProperty: _.get( QuantumBoundStatesStrings, 'presetStringProperty' ),
   customStringProperty: _.get( QuantumBoundStatesStrings, 'customStringProperty' ),
@@ -660,6 +664,10 @@ const QuantumBoundStatesFluent = {
     energyLevelSpinner: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyLevelSpinner_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyLevelSpinner.accessibleHelpTextStringProperty' ) )
+    },
+    energyOffsetSpinner: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetSpinner_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetSpinner.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetSpinner_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetSpinner.accessibleHelpTextStringProperty' ) )
     },
     energyRangeShiftSpinner: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyRangeShiftSpinner_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyRangeShiftSpinner.accessibleNameStringProperty' ) ),

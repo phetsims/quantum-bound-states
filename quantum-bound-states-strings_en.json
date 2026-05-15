@@ -112,6 +112,9 @@
   "energyLevelPattern": {
     "value": "E<sub>{{index}}</sub>"
   },
+  "energyOffset": {
+    "value": "Energy Offset"
+  },
   "preset": {
     "value": "Preset"
   },
@@ -711,6 +714,14 @@
       },
       "accessibleHelpText": {
         "value": "TODO.energyLevelSpinner.accessibleHelpText"
+      }
+    },
+    "energyOffsetSpinner": {
+      "accessibleName": {
+        "value": "Energy Offset"
+      },
+      "accessibleHelpText": {
+        "value": "TODO.energyOffsetSpinner.accessibleHelpText"
       }
     },
     "energyRangeShiftSpinner": {
