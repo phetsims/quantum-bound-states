@@ -48,6 +48,7 @@ export default class ElectronMassesControl extends QBSNumberControl {
 
         // Increase the size of the display to accommodate localized units.
         textOptions: {
+          font: QBSConstants.CONTROL_FONT,
           maxWidth: 50
         },
         minBackgroundWidth: 65
