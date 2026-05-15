@@ -198,9 +198,9 @@ addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomInButton_accessibleContextResp
 addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleName', 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleHelpText', 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleContextResponse', 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleContextResponseStringProperty' );
-addToMapIfDefined( 'a11y_resetEnergyOffsetButton_accessibleName', 'a11y.resetEnergyOffsetButton.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_resetEnergyOffsetButton_accessibleHelpText', 'a11y.resetEnergyOffsetButton.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_resetEnergyOffsetButton_accessibleContextResponse', 'a11y.resetEnergyOffsetButton.accessibleContextResponseStringProperty' );
+addToMapIfDefined( 'a11y_energyOffsetResetButton_accessibleName', 'a11y.energyOffsetResetButton.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_energyOffsetResetButton_accessibleHelpText', 'a11y.energyOffsetResetButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_energyOffsetResetButton_accessibleContextResponse', 'a11y.energyOffsetResetButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleName', 'a11y.quantumStateGraphRadioButtonGroup.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleHelpText', 'a11y.quantumStateGraphRadioButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_timeSpeedSlider_accessibleName', 'a11y.timeSpeedSlider.accessibleNameStringProperty' );
@@ -625,10 +625,10 @@ const QuantumBoundStatesFluent = {
         accessibleContextResponse: new FluentPattern<{ max: FluentVariable, min: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleContextResponseStringProperty' ), [{"name":"max"},{"name":"min"}] )
       }
     },
-    resetEnergyOffsetButton: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_resetEnergyOffsetButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.resetEnergyOffsetButton.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_resetEnergyOffsetButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.resetEnergyOffsetButton.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_resetEnergyOffsetButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.resetEnergyOffsetButton.accessibleContextResponseStringProperty' ) )
+    energyOffsetResetButton: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetResetButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetResetButton.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetResetButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetResetButton.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyOffsetResetButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.energyOffsetResetButton.accessibleContextResponseStringProperty' ) )
     },
     _comment_25: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"quantumStateGraphRadioButtonGroup"} ),
     _comment_26: new FluentComment( {"comment":"Radio Buttons","associatedKey":"quantumStateGraphRadioButtonGroup"} ),

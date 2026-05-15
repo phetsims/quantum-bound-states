@@ -663,15 +663,15 @@
         }
       }
     },
-    "resetEnergyOffsetButton": {
+    "energyOffsetResetButton": {
       "accessibleName": {
-        "value": "Reset Energy Offset"
+        "value": "Energy Offset Reset"
       },
       "accessibleHelpText": {
-        "value": "TODO.resetEnergyOffsetButton.accessibleHelpText"
+        "value": "TODO.energyOffsetResetButton.accessibleHelpText"
       },
       "accessibleContextResponse": {
-        "value": "TODO.resetEnergyOffsetButton.accessibleContextResponse"
+        "value": "TODO.energyOffsetResetButton.accessibleContextResponse"
       }
     },
     "quantumStateGraphRadioButtonGroup": {

@@ -24,9 +24,9 @@ export default class EnergyOffsetResetButton extends ResetButton {
       xMargin: 3,
       yMargin: 3,
       baseColor: QBSColors.resetEnergyOffsetButtonColorProperty,
-      accessibleName: QuantumBoundStatesFluent.a11y.resetEnergyOffsetButton.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.resetEnergyOffsetButton.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.resetEnergyOffsetButton.accessibleContextResponseStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.energyOffsetResetButton.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.energyOffsetResetButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.energyOffsetResetButton.accessibleContextResponseStringProperty,
       tandem: tandem,
       enabledPropertyOptions: {
         phetioReadOnly: true
