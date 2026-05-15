@@ -44,7 +44,8 @@ class EnergyLevelSpinner extends QBSNumberSpinner {
 
     super( energyLevelProperty, time, {
       isDisposable: false,
-      arrowsScale: 2,
+      arrowsPosition: 'leftRight',
+      arrowsScale: 1,
       arrowButtonOptions: {
         phetioVisiblePropertyInstrumented: false
       },
