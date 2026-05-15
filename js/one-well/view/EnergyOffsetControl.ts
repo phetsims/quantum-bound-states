@@ -13,6 +13,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSTime from '../../common/model/QBSTime.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import { addPauseListeners } from '../../common/view/addPauseListeners.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 export default class EnergyOffsetControl extends VBox {
@@ -66,6 +67,16 @@ class EnergyOffsetSpinner extends FineCoarseSpinner {
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyOffsetSpinner.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: false
+    } );
+
+    // Restart time and pause while the user is interacting with this spinner.
+    addPauseListeners( this, time, {
+      //TODO keys relies on internal knowledge of FineCoarseSpinner
+      keys: [
+        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
+        'shift+arrowLeft', 'shift+arrowRight', 'shift+arrowUp', 'shift+arrowDown',
+        'home', 'end'
+      ]
     } );
   }
 }
