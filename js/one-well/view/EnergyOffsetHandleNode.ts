@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/quantum-bound-states/issues/39 Delete if not used
 /**
  * EnergyOffsetHandleNode is the drag handle used to change the y-offset of the selected potential and (as a side effect)
  * change the range of the y-axis for the Energy Diagram,

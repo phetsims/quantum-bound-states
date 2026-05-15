@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/quantum-bound-states/issues/39 Delete if not used
 /**
  * ResetEnergyOffsetButton resets the energy offset (y-offset) of the selected potential.
  *

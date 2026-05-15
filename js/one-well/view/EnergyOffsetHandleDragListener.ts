@@ -1,6 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Delete when certain that we will not revert to this approach
+//TODO https://github.com/phetsims/quantum-bound-states/issues/39 Delete if not used
 /**
  * EnergyOffsetHandleDragListener is the listener for the drag handle that appears on the y-axis of the Energy Diagram.
  * If supports dragging with pointer and keyboard.

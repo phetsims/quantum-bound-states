@@ -10,7 +10,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -23,9 +22,7 @@ import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import AdjustEnergyOffsetCheckbox from './AdjustEnergyOffsetCheckbox.js';
 import ElectronMassesControl from './ElectronMassesControl.js';
-import EnergyOffsetResetButton from './EnergyOffsetResetButton.js';
 
 export class OneWellControlPanel extends Panel {
 
@@ -33,7 +30,6 @@ export class OneWellControlPanel extends Panel {
                       potentialProperty: Property<QuantumPotential>,
                       electronMassesProperty: NumberProperty,
                       energyLevelProperty: NumberProperty,
-                      energyOffsetDragHandleVisibleProperty: Property<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -51,14 +47,7 @@ export class OneWellControlPanel extends Panel {
         titleText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new ElectronMassesControl( electronMassesProperty, time, tandem.createTandem( 'electronMassesControl' ) ),
-        new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) ),
-        new HBox( {
-          spacing: 12,
-          children: [
-            new AdjustEnergyOffsetCheckbox( energyOffsetDragHandleVisibleProperty, tandem.createTandem( 'adjustEnergyOffsetCheckbox' ) ),
-            new EnergyOffsetResetButton( potentialProperty, tandem.createTandem( 'energyOffsetResetButton' ) )
-          ]
-        } )
+        new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );
 

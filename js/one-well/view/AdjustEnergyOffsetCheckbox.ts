@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/quantum-bound-states/issues/39 Delete if not used
 /**
  * AdjustOffsetCheckbox is a checkbox that allows the user to show and hide the drag handle for adjusting
  * the energy offset of the selected potential.
