@@ -10,11 +10,12 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSTime from '../model/QBSTime.js';
 import QBSConstants from '../QBSConstants.js';
-import QBSNumberSpinner from './QBSNumberSpinner.js';
+import { addPauseListeners } from './addPauseListeners.js';
 
 export default class EnergyLevelControl extends HBox {
 
@@ -36,13 +37,13 @@ export default class EnergyLevelControl extends HBox {
   }
 }
 
-class EnergyLevelSpinner extends QBSNumberSpinner {
+class EnergyLevelSpinner extends NumberSpinner {
 
   public constructor( energyLevelProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( energyLevelProperty, time, {
+    super( energyLevelProperty, energyLevelProperty.rangeProperty, {
       isDisposable: false,
       arrowsPosition: 'leftRight',
       arrowsScale: 1,
@@ -67,6 +68,15 @@ class EnergyLevelSpinner extends QBSNumberSpinner {
       accessibleHelpText: QuantumBoundStatesFluent.a11y.energyLevelSpinner.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: false
+    } );
+
+    // Restart time and pause while the user is interacting with this spinner.
+    addPauseListeners( this, time, {
+      //TODO keys relies on internal knowledge of NumberSpinner
+      keys: [
+        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
+        'home', 'end'
+      ]
     } );
   }
 }
