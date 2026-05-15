@@ -22,7 +22,7 @@ const TIME_STEP_VALUES = [ 0.01, 0.1, 1, 10, 100 ];
 affirm( _.every( TIME_STEP_VALUES, value => value > 0 ), 'TIME_STEP_VALUES must be > 0' );
 
 // Number of decimal places to display for each time speed.
-const TIME_DECIMAL_PLACES = [ 3, 2, 1, 0, 0 ];
+const TIME_DECIMAL_PLACES = [ 2, 1, 0, 0, 0 ];
 affirm( _.every( TIME_DECIMAL_PLACES, value => Number.isInteger( value ) && value >= 0 ), 'TIME_DECIMAL_PLACES must be integers >= 0' );
 affirm( TIME_DECIMAL_PLACES.length === TIME_STEP_VALUES.length, 'TIME_DECIMAL_PLACES and TIME_STEP_VALUES must have the same length' );
 
