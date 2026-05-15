@@ -97,8 +97,11 @@ export default class MorseSolution {
       waveFunctions.push( waveFunction );
     }
 
+    const potentialFunction = MorseSolution.createPotential( wellDepth, width );
+    const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
+
     return {
-      potentials: [], // not relevant for analytical solution
+      potentials: potentials,
       energies: energies,
       waveFunctions: waveFunctions,
       method: 'analytical'

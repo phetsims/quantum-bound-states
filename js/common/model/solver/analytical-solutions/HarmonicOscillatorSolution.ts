@@ -128,8 +128,11 @@ export default class HarmonicOscillatorSolution {
       waveFunctions.push( waveFunction );
     }
 
+    const potentialFunction = HarmonicOscillatorSolution.createPotential( springConstant );
+    const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
+
     return {
-      potentials: [], // not relevant for analytical solution
+      potentials: potentials,
       energies: energies,
       waveFunctions: waveFunctions,
       method: 'analytical'

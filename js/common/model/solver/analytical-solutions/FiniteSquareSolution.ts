@@ -131,8 +131,11 @@ export default class FiniteSquareSolution {
       waveFunctions.push( waveFunction );
     }
 
+    const potentialFunction = FiniteSquareSolution.createPotential( wellWidth, wellDepth );
+    const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
+
     return {
-      potentials: [], // not relevant for analytical solution
+      potentials: potentials,
       energies: energies,
       waveFunctions: waveFunctions,
       method: 'analytical'
