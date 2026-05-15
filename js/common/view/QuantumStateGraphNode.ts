@@ -16,7 +16,7 @@ import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -85,8 +85,10 @@ export default class QuantumStateGraphNode extends Node {
       isDisposable: false
     }, providedOptions );
 
-    affirm( options.createEquationTermNode || options.createEquationDetailsButton, 'One of these options must be provided.' );
-    affirm( !( options.createEquationTermNode && options.createEquationDetailsButton ), 'These options are mutually exclusive.' );
+    if ( isAffirmEnabled() ) {
+      affirm( options.createEquationTermNode || options.createEquationDetailsButton, 'One of these options must be provided.' );
+      affirm( !( options.createEquationTermNode && options.createEquationDetailsButton ), 'These options are mutually exclusive.' );
+    }
 
     super( options );
 

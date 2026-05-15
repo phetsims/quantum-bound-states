@@ -10,7 +10,7 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { affirmCallback, isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class SuperpositionCoefficients {
 
@@ -37,7 +37,7 @@ export default class SuperpositionCoefficients {
    * then the extra coefficients are set to zero.
    */
   public apply( superpositionCoefficients: SuperpositionCoefficients ): void {
-    affirm( superpositionCoefficients.coefficients.length <= this.coefficients.length,
+    affirmCallback( () => superpositionCoefficients.coefficients.length <= this.coefficients.length,
       'too many coefficients: ' + superpositionCoefficients.coefficients.length + ', max: ' + this.coefficients.length + '' );
     this.coefficients.fill( 0 );
     superpositionCoefficients.coefficients.forEach( ( coefficient, index ) => {
@@ -52,12 +52,12 @@ export default class SuperpositionCoefficients {
    */
   public normalize(): void {
     const sumOfSquares = this.getSumOfSquares();
-    affirm( sumOfSquares, 'sumOfSquares must be > zero to normalized' );
+    affirmCallback( () => sumOfSquares !== 0, 'sumOfSquares must be > zero to normalized' );
     for ( let i = 0; i < this.coefficients.length; i++ ) {
       const coefficient = this.coefficients[ i ];
       this.coefficients[ i ] = Math.sqrt( ( coefficient * coefficient ) / sumOfSquares );
     }
-    affirm( this.isNormalized(), 'expected to be normalized' );
+    affirmCallback( () => this.isNormalized(), 'expected to be normalized' );
     this.valuesChangedEmitter.emit();
   }
 
@@ -105,8 +105,11 @@ export default class SuperpositionCoefficients {
    * coefficient will be lost, then they can simply be deleted without changing the values of any non-zero coefficient.
    */
   public setNumberOfCoefficients( numberOfCoefficients: number ): void {
-    affirm( Number.isInteger( numberOfCoefficients ), 'numberOfCoefficients must be an integer: ' + numberOfCoefficients );
-    affirm( numberOfCoefficients > 0, 'numberOfCoefficients must be > 0: ' + numberOfCoefficients );
+
+    if ( isAffirmEnabled() ) {
+      affirm( Number.isInteger( numberOfCoefficients ), 'numberOfCoefficients must be an integer: ' + numberOfCoefficients );
+      affirm( numberOfCoefficients > 0, 'numberOfCoefficients must be > 0: ' + numberOfCoefficients );
+    }
 
     const previousNumberOfCoefficients = this.coefficients.length;
     let numberOfCoefficientsChanged = false;
@@ -200,8 +203,10 @@ export default class SuperpositionCoefficients {
    * Gets the value of a specific coefficient.
    */
   public getCoefficient( index: number ): number {
-    affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
-    affirm( index >= 0 && index <= this.coefficients.length - 1, 'index is out of bounds: ' + index );
+    if ( isAffirmEnabled() ) {
+      affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
+      affirm( index >= 0 && index <= this.coefficients.length - 1, 'index is out of bounds: ' + index );
+    }
     return this.coefficients[ index ];
   }
 
@@ -209,9 +214,11 @@ export default class SuperpositionCoefficients {
    * Sets the value of a specific coefficient and notifies observers.
    */
   public setCoefficient( index: number, coefficient: number ): void {
-    affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
-    affirm( index >= 0 && index <= this.coefficients.length - 1, 'index is out of bounds: ' + index );
-    affirm( coefficient >= 0 && coefficient <= 1, 'coefficient must be between 0 and 1: ' + coefficient );
+    if ( isAffirmEnabled() ) {
+      affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
+      affirm( index >= 0 && index <= this.coefficients.length - 1, 'index is out of bounds: ' + index );
+      affirm( coefficient >= 0 && coefficient <= 1, 'coefficient must be between 0 and 1: ' + coefficient );
+    }
     this.coefficients[ index ] = coefficient;
     this.valuesChangedEmitter.emit();
   }
@@ -221,7 +228,7 @@ export default class SuperpositionCoefficients {
    * If numberOfCoefficients is provided, then the number of coefficients is also adjusted to match.
    */
   public setOneCoefficient( index: number, numberOfCoefficients?: number ): void {
-    affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
+    isAffirmEnabled() && affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
     const previousNumberOfCoefficients = this.coefficients.length;
     if ( numberOfCoefficients !== undefined && numberOfCoefficients !== this.coefficients.length ) {
       this.coefficients = new Array( numberOfCoefficients ).fill( 0 );
@@ -246,7 +253,7 @@ export default class SuperpositionCoefficients {
    * when the actual coefficient should be 0.543.
    */
   public isNormalized( normalizationError = 0 ): boolean {
-    affirm( normalizationError >= 0, 'normalizationError must be >= 0: ' + normalizationError );
+    isAffirmEnabled() && affirm( normalizationError >= 0, 'normalizationError must be >= 0: ' + normalizationError );
     const sumOfSquares = this.getSumOfSquares();
     if ( sumOfSquares === 0 ) {
       return false;
@@ -303,17 +310,20 @@ export default class SuperpositionCoefficients {
     return index;
   }
 
+  //TODO Delete this because we removed 'Average Probability Density of Band' feature.
   /**
    * Sets all the coefficient values in a band of eigenstates. Coefficients outside the band are set to zero.
    * The band is defined by startIndex and endIndex inclusive.
    */
   public setBandOfCoefficients( startIndex: number, endIndex: number, coefficient: number ): void {
-    affirm( Number.isInteger( startIndex ), 'startIndex must be an integer: ' + startIndex );
-    affirm( Number.isInteger( endIndex ), 'endIndex must be an integer: ' + endIndex );
-    affirm( startIndex < endIndex, 'startIndex must be < endIndex: ' + startIndex + ', ' + endIndex );
-    affirm( startIndex >= 0 && startIndex < this.coefficients.length, 'startIndex is out of bounds: ' + startIndex );
-    affirm( endIndex >= 0 && endIndex < this.coefficients.length, 'endIndex is out of bounds: ' + endIndex );
-    affirm( coefficient >= 0 && coefficient <= 1, 'coefficient must be between 0 and 1: ' + coefficient );
+    if ( isAffirmEnabled() ) {
+      affirm( Number.isInteger( startIndex ), 'startIndex must be an integer: ' + startIndex );
+      affirm( Number.isInteger( endIndex ), 'endIndex must be an integer: ' + endIndex );
+      affirm( startIndex < endIndex, 'startIndex must be < endIndex: ' + startIndex + ', ' + endIndex );
+      affirm( startIndex >= 0 && startIndex < this.coefficients.length, 'startIndex is out of bounds: ' + startIndex );
+      affirm( endIndex >= 0 && endIndex < this.coefficients.length, 'endIndex is out of bounds: ' + endIndex );
+      affirm( coefficient >= 0 && coefficient <= 1, 'coefficient must be between 0 and 1: ' + coefficient );
+    }
 
     this.coefficients.fill( 0 );
     for ( let i = startIndex; i <= endIndex; i++ ) {

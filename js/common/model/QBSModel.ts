@@ -14,7 +14,7 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { affirmCallback, isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
@@ -206,7 +206,7 @@ export default class QBSModel implements TModel {
         const groundStateIndex = this.potentialProperty.value.groundStateIndex;
         const waveFunctionsIndex = selectedEnergyLevel - groundStateIndex;
         const waveFunctions = boundStateResult.waveFunctions;
-        affirm( waveFunctionsIndex >= 0 && waveFunctionsIndex < waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
+        affirmCallback( () => waveFunctionsIndex >= 0 && waveFunctionsIndex < waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
         return waveFunctions[ waveFunctionsIndex ];
       } );
 
@@ -341,7 +341,7 @@ export default class QBSModel implements TModel {
     const groundStateIndex = this.potentialProperty.value.groundStateIndex;
     const energiesIndex = energyLevel - groundStateIndex;
     const energies = this.boundStateResultProperty.value.energies;
-    affirm( energiesIndex >= 0 && energiesIndex < energies.length, `energiesIndex out of range: ${energiesIndex}` );
+    affirmCallback( () => energiesIndex >= 0 && energiesIndex < energies.length, `energiesIndex out of range: ${energiesIndex}` );
     return energies[ energiesIndex ];
   }
 }
@@ -376,11 +376,13 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid, electronMas
   }
 
   // Validate the result.
-  affirm( result.potentials.length > 0, 'BoundStateResult has no potentials: ' + potential.toString() );
-  affirm( result.potentials.length === xGrid.xCoordinates.length, `BoundStateResult has the wrong number of potentials, ${result.potentials.length} != ${xGrid.xCoordinates.length}: ` + potential.toString() );
-  affirm( result.energies.length > 0, 'BoundStateResult has no energies: ' + potential.toString() );
-  affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions: ' + potential.toString() );
-  affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each energy: ' + potential.toString() );
+  if ( isAffirmEnabled() ) {
+    affirm( result.potentials.length > 0, 'BoundStateResult has no potentials: ' + potential.toString() );
+    affirm( result.potentials.length === xGrid.xCoordinates.length, `BoundStateResult has the wrong number of potentials, ${result.potentials.length} != ${xGrid.xCoordinates.length}: ` + potential.toString() );
+    affirm( result.energies.length > 0, 'BoundStateResult has no energies: ' + potential.toString() );
+    affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions: ' + potential.toString() );
+    affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each energy: ' + potential.toString() );
+  }
 
   return result;
 }

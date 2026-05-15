@@ -8,7 +8,7 @@
 
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Shape from '../../../../kite/js/Shape.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 
@@ -26,8 +26,11 @@ export default class YLinePlot extends Path {
                       xCoordinates: readonly number[],
                       yCoordinates: readonly number[],
                       providedOptions?: YLinePlotOptions ) {
-    affirm( xCoordinates.length > 1, 'xCoordinates must contain at least two values' );
-    affirm( xCoordinates.length === yCoordinates.length, 'xCoordinates and yCoordinates must be the same length' );
+
+    if ( isAffirmEnabled() ) {
+      affirm( xCoordinates.length > 1, 'xCoordinates must contain at least two values' );
+      affirm( xCoordinates.length === yCoordinates.length, 'xCoordinates and yCoordinates must be the same length' );
+    }
 
     const options = optionize<YLinePlotOptions, SelfOptions, PathOptions>()( {
 
@@ -55,7 +58,7 @@ export default class YLinePlot extends Path {
    * Sets the y-coordinates and redraws the plot.
    */
   public setYCoordinates( yCoordinates: readonly number[] ): void {
-    affirm( yCoordinates.length === this.xCoordinates.length, 'yCoordinates must be the same length as xCoordinates' );
+    isAffirmEnabled() && affirm( yCoordinates.length === this.xCoordinates.length, 'yCoordinates must be the same length as xCoordinates' );
     this.yCoordinates = yCoordinates;
     this.update();
   }

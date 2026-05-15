@@ -11,7 +11,7 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -95,8 +95,10 @@ export default class MorsePotential extends QuantumPotential {
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public getPotentialEnergyAt( x: number ): number {
-    affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
-    affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
+    if ( isAffirmEnabled() ) {
+      affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
+      affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
+    }
     const wellDepth = this.wellDepthProperty.value;
     const wellWidth = this.wellWidthProperty.value;
     const term = 1 - Math.exp( -( x - this.xOffsetProperty.value ) / wellWidth );

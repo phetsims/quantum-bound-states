@@ -14,7 +14,7 @@ import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -137,8 +137,10 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
    * For a 1D harmonic oscillator, V(x) = (1/2) k x²
    */
   public override getPotentialEnergyAt( x: number ): number {
-    affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
-    affirm( this.electricFieldProperty.value === 0, 'HarmonicOscillatorPotential does not support electric field.' );
+    if ( isAffirmEnabled() ) {
+      affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
+      affirm( this.electricFieldProperty.value === 0, 'HarmonicOscillatorPotential does not support electric field.' );
+    }
     const xAdjusted = x - this.xOffsetProperty.value;
     return this.yOffsetProperty.value + ( 0.5 * this.springConstantProperty.value * xAdjusted * xAdjusted );
   }

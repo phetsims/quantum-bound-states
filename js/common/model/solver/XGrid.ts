@@ -12,7 +12,7 @@
 
 import Property from '../../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
-import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
@@ -50,8 +50,10 @@ export default class XGrid extends PhetioObject {
       phetioState: false
     }, providedOptions );
 
-    affirm( options.xMax > options.xMin, 'xMax must be greater than xMin' );
-    affirm( options.numberOfPoints >= 2, 'Grid must have at least 2 points' );
+    if ( isAffirmEnabled() ) {
+      affirm( options.xMax > options.xMin, 'xMax must be greater than xMin' );
+      affirm( options.numberOfPoints >= 2, 'Grid must have at least 2 points' );
+    }
 
     super( options );
 
