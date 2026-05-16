@@ -225,8 +225,8 @@ export default class QBSModel implements TModel {
 
     this.timeEvolvedSuperpositionProperty = new DerivedProperty(
       [ this.time.currentTimeProperty, this.boundStateResultProperty, this.selectedEnergyLevelProperty ],
-      ( t, boundStateResult, selectedEnergyLevel ) =>
-        getTimeEvolvedSuperposition( t, this.xGrid, boundStateResult, selectedEnergyLevel, this.potentialProperty.value.groundStateIndex ), {
+      ( currentTime, boundStateResult, selectedEnergyLevel ) =>
+        getTimeEvolvedSuperposition( currentTime, this.xGrid, boundStateResult, selectedEnergyLevel, this.potentialProperty.value.groundStateIndex ), {
         tandem: options.tandem.createTandem( 'timeEvolvedSuperpositionProperty' ),
         phetioValueType: TimeEvolvedSuperpositionIO,
         phetioFeatured: true
@@ -393,7 +393,7 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid, electronMas
 /**
  * TODO document
  */
-function getTimeEvolvedSuperposition( t: number,
+function getTimeEvolvedSuperposition( currentTime: number, // femtoseconds
                                       xGrid: XGrid,
                                       boundStateResult: BoundStateResult,
                                       selectedEnergyLevel: number,
@@ -426,7 +426,7 @@ function getTimeEvolvedSuperposition( t: number,
       const energy = boundStateResult.energies[ n ];
 
       // Time evolution phase for this eigenstate: -E_n*t/ℏ
-      const timePhase = -( energy * t ) / NumerovSolver.HBAR;
+      const timePhase = -( energy * currentTime ) / NumerovSolver.HBAR;
 
       // Total phase: initial phase + time evolution phase
       const totalPhase = initialPhase + timePhase;
