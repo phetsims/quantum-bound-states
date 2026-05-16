@@ -37,10 +37,8 @@ export default class CoulombPotential extends QuantumPotential {
 
     const options = optionize<CoulombPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
-      // SelfOptions
-      energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
-
       // QuantumPotentialOptions
+      energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
       tandemPrefix: 'coulombPotential'
     }, providedOptions );

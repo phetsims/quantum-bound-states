@@ -50,7 +50,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
-      energyAxisRange: new Range( -15.5, 5.5 ),
+      energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.poschlTellerStringProperty,
       tandemPrefix: 'poschlTellerPotential' //TODO rename to 'anharmonicOscillatorPotential'?
     }, providedOptions );
