@@ -116,11 +116,16 @@ export default class InfiniteSquarePotential extends QuantumPotential {
    * Solves for the bound state using an analytic solution.
    */
   public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    return InfiniteSquareSolution.solve(
-      xGrid, this.wellWidthProperty.value, electronMasses,
-      this.getMinSolverEnergy(), this.getMaxSolverEnergy(),
-      this.xOffsetProperty.value, this.yOffsetProperty.value
-    );
+    affirm( this.numberOfWellsProperty.value === 1, 'InfiniteSquarePotential does not support multiple wells.' );
+
+    return InfiniteSquareSolution.solve( xGrid, {
+      energyMin: this.getMinSolverEnergy(),
+      energyMax: this.getMaxSolverEnergy(),
+      xOffset: this.xOffsetProperty.value,
+      yOffset: this.yOffsetProperty.value,
+      wellWidth: this.wellWidthProperty.value,
+      electronMasses: electronMasses
+    } );
   }
 
   /**

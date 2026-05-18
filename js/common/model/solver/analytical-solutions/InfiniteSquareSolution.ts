@@ -27,6 +27,16 @@ import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 
+// Parameters for solve method
+type SolveParameters = {
+  energyMin: number; // Minimum energy to search (eV)
+  energyMax: number; // Maximum energy to search (eV)
+  xOffset: number; // Horizontal position x₀ of the nucleus in nm
+  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
+  wellWidth: number; // Width of the well L in nm
+  electronMasses: number; // Particle mass in electron masses
+};
+
 export default class InfiniteSquareSolution {
 
   private constructor() {
@@ -61,23 +71,13 @@ export default class InfiniteSquareSolution {
    * returning, so callers never need to manage the frame conversion themselves.
    *
    * @param xGrid - uniformly spaced x-coordinates in nm
-   * @param wellWidth - Width of the well L in nm
-   * @param mass - Particle mass in electron masses
-   * @param energyMin - Minimum energy to search in the lab frame (eV)
-   * @param energyMax - Maximum energy to search in the lab frame (eV)
-   * @param xOffset - Horizontal centre of the well in nm (default 0)
-   * @param yOffset - Energy of the well bottom in the lab frame in eV (default 0)
+   * @param parameters - see SolveParameters
    * @returns Bound state results with energies in the lab frame and wave functions
    */
-  public static solve(
-    xGrid: XGrid,
-    wellWidth: number,
-    mass: number,
-    energyMin: number,
-    energyMax: number,
-    xOffset = 0,
-    yOffset = 0
-  ): BoundStateResult {
+  public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
+
+    const { energyMin, energyMax, wellWidth, xOffset, yOffset, electronMasses } = parameters;
+
 
     // Work in the well frame where the well bottom is at E = 0.
     const wellEnergyMin = energyMin - yOffset;
@@ -88,7 +88,7 @@ export default class InfiniteSquareSolution {
 
     // Solve for n from E_n = (n² π² ℏ²) / (2mL²)
     // n = √(2mL² E_n / (π² ℏ²))
-    const factor = 2 * mass * wellWidth * wellWidth / ( Math.PI * Math.PI * HBAR * HBAR );
+    const factor = 2 * electronMasses * wellWidth * wellWidth / ( Math.PI * Math.PI * HBAR * HBAR );
 
     // Find minimum n: n >= √(2mL² wellEnergyMin / (π² ℏ²))
     // Important: n starts at 1, not 0!
@@ -103,7 +103,7 @@ export default class InfiniteSquareSolution {
     for ( let n = nMin; n <= nMax; n++ ) {
 
       // Well-frame eigenvalue shifted back to the lab frame.
-      const energy = ( n * n * Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * mass * wellWidth * wellWidth ) + yOffset;
+      const energy = ( n * n * Math.PI * Math.PI * HBAR * HBAR ) / ( 2 * electronMasses * wellWidth * wellWidth ) + yOffset;
       quantumNumbers.push( n );
       energies.push( energy );
     }

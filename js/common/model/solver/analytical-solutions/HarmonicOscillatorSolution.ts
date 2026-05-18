@@ -31,7 +31,7 @@ type SolveParameters = {
   xOffset: number; // Horizontal position x₀ of the nucleus in nm
   yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
   springConstant: number; // Spring constant k in eV/nm²
-  electronMasses: number; //  Particle mass in electron masses
+  electronMasses: number; // Particle mass in electron masses
 };
 
 export default class HarmonicOscillatorSolution {

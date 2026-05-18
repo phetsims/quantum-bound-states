@@ -16,11 +16,11 @@ import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QBSQueryParameters from '../../QBSQueryParameters.js';
-import MorseSolution from './analytical-solutions/MorseSolution.js';
 import FiniteSquareSolution from './analytical-solutions/FiniteSquareSolution.js';
 import HarmonicOscillatorSolution from './analytical-solutions/HarmonicOscillatorSolution.js';
 import InfiniteSquareSolution from './analytical-solutions/InfiniteSquareSolution.js';
 import InfiniteStepSolution from './analytical-solutions/InfiniteStepSolution.js';
+import MorseSolution from './analytical-solutions/MorseSolution.js';
 import NumerovSolver from './NumerovSolver.js';
 import XGrid from './XGrid.js';
 
@@ -326,7 +326,14 @@ function testInfiniteSquare(): void {
   const numericalResult = NumerovSolver.solve( xGrid, potentialFunction, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = InfiniteSquareSolution.solve( xGrid, L, mass, energyMin, energyMax, xOffset, yOffset );
+  const analyticalResult = InfiniteSquareSolution.solve( xGrid, {
+    energyMin: energyMin,
+    energyMax: energyMax,
+    xOffset: 0,
+    yOffset: 0,
+    wellWidth: L,
+    electronMasses: mass
+  } );
 
   logVerbose( `\nInfinite Square - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
