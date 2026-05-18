@@ -134,28 +134,33 @@ export default class PoschlTellerPotential extends QuantumPotential {
   }
 
   public override getMinSolverEnergy(): number {
-    const n = this.numberOfWellsProperty.value;
-    const wellWidth = this.wellWidthProperty.value;
-    const spacing = this.spacingProperty.value;
-    const xOffset = this.xOffsetProperty.value;
 
-    // Estimate the minimum by sampling the field-free multi-well landscape. This is much tighter than
-    // the old fully-overlapped bound and works well for partial overlap in multi-well configurations.
-    const firstCenter = xOffset + spacing * ( 1 - ( n + 1 ) / 2 );
-    const lastCenter = xOffset + spacing * ( n - ( n + 1 ) / 2 );
-    const margin = 4 * wellWidth;
-    const xMin = firstCenter - margin;
-    const xMax = lastCenter + margin;
-    const sampleCount = 600;
-    const dx = ( xMax - xMin ) / ( sampleCount - 1 );
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Confirm with MV that this change is OK. Energy levels are the same before (1.0.0-dev.7) and after the change.
 
-    let minimumPotential = Number.POSITIVE_INFINITY;
-    for ( let i = 0; i < sampleCount; i++ ) {
-      const x = xMin + i * dx;
-      minimumPotential = Math.min( minimumPotential, this.getPotentialEnergyAt( x ) );
-    }
+    // const n = this.numberOfWellsProperty.value;
+    // const wellWidth = this.wellWidthProperty.value;
+    // const spacing = this.spacingProperty.value;
+    // const xOffset = this.xOffsetProperty.value;
+    //
+    // // Estimate the minimum by sampling the field-free multi-well landscape. This is much tighter than
+    // // the old fully-overlapped bound and works well for partial overlap in multi-well configurations.
+    // const firstCenter = xOffset + spacing * ( 1 - ( n + 1 ) / 2 );
+    // const lastCenter = xOffset + spacing * ( n - ( n + 1 ) / 2 );
+    // const margin = 4 * wellWidth;
+    // const xMin = firstCenter - margin;
+    // const xMax = lastCenter + margin;
+    // const sampleCount = 600;
+    // const dx = ( xMax - xMin ) / ( sampleCount - 1 );
+    //
+    // let minimumPotential = Number.POSITIVE_INFINITY;
+    // for ( let i = 0; i < sampleCount; i++ ) {
+    //   const x = xMin + i * dx;
+    //   minimumPotential = Math.min( minimumPotential, this.getPotentialEnergyAt( x ) );
+    // }
+    //
+    // return minimumPotential;
 
-    return minimumPotential;
+    return this.getMaxSolverEnergy() - this.wellDepthProperty.value;
   }
 
   public override getMaxSolverEnergy(): number {
