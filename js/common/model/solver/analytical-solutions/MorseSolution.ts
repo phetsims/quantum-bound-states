@@ -46,6 +46,17 @@ import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 
+// Parameters for solve method
+type SolveParameters = {
+  energyMin: number; // Minimum energy to search (eV)
+  energyMax: number; // Maximum energy to search (eV)
+  xOffset: number; // Horizontal position x₀ of the nucleus in nm
+  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
+  wellWidth: number; // Width of the well L in nm
+  wellDepth: number; // Depth of the well V₀ in eV (positive value)
+  electronMasses: number; // Particle mass in electron masses
+};
+
 export default class MorseSolution {
 
   private constructor() {
@@ -73,31 +84,23 @@ export default class MorseSolution {
    * Returns a BoundStateResult compatible with NumerovSolver output.
    *
    * @param xGrid - Uniformly spaced x-coordinates in nm
-   * @param wellDepth - Dissociation energy D_e in eV (positive)
-   * @param width - Width parameter w = 1/a in nm (positive)
-   * @param mass - Particle mass in electron masses
-   * @param energyMin - Minimum energy to include (eV)
-   * @param energyMax - Maximum energy to include (eV)
+   * @param parameters - See SolveParameters
    * @returns Bound state results with exact energies (eV) and wave functions
    */
-  public static solve(
-    xGrid: XGrid,
-    wellDepth: number,
-    width: number,
-    mass: number,
-    energyMin: number,
-    energyMax: number
-  ): BoundStateResult {
+  public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
-    const { energies, quantumNumbers } = findBoundStateEnergies( wellDepth, width, mass, energyMin, energyMax );
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
+    const { energyMin, energyMax, wellWidth, wellDepth, electronMasses } = parameters;
+
+    const { energies, quantumNumbers } = findBoundStateEnergies( wellDepth, wellWidth, electronMasses, energyMin, energyMax );
 
     const waveFunctions: number[][] = [];
     for ( let i = 0; i < energies.length; i++ ) {
-      const waveFunction = calculateWaveFunction( quantumNumbers[ i ], wellDepth, width, mass, xGrid.xCoordinates );
+      const waveFunction = calculateWaveFunction( quantumNumbers[ i ], wellDepth, wellWidth, electronMasses, xGrid.xCoordinates );
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = MorseSolution.createPotentialFunction( wellDepth, width );
+    const potentialFunction = MorseSolution.createPotentialFunction( wellDepth, wellWidth );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {
@@ -117,25 +120,25 @@ export default class MorseSolution {
  * all bound states have E_v < 0.
  *
  * @param wellDepth - D_e in eV
- * @param width - w = 1/a in nm
- * @param mass - Particle mass in electron masses
+ * @param wellWidth - w = 1/a in nm
+ * @param electronMasses - Particle mass in electron masses
  * @param energyMin - Lower bound of requested range (eV)
  * @param energyMax - Upper bound of requested range (eV)
  * @returns Energies (eV) and corresponding vibrational quantum numbers
  */
 function findBoundStateEnergies(
   wellDepth: number,
-  width: number,
-  mass: number,
+  wellWidth: number,
+  electronMasses: number,
   energyMin: number,
   energyMax: number
 ): { energies: number[]; quantumNumbers: number[] } {
 
   // ℏω_e = (ℏ/w) · √(2D_e/m)
-  const hbarOmegaE = ( HBAR / width ) * Math.sqrt( 2 * wellDepth / mass );
+  const hbarOmegaE = ( HBAR / wellWidth ) * Math.sqrt( 2 * wellDepth / electronMasses );
 
   // λ = w√(2mD_e)/ℏ; bound states exist for v = 0, 1, …, ⌊λ−½⌋
-  const lambda = width * Math.sqrt( 2 * mass * wellDepth ) / HBAR;
+  const lambda = wellWidth * Math.sqrt( 2 * electronMasses * wellDepth ) / HBAR;
   const vMax = Math.floor( lambda - 0.5 );
 
   const energies: number[] = [];
@@ -167,26 +170,26 @@ function findBoundStateEnergies(
  *
  * @param v - Vibrational quantum number
  * @param wellDepth - D_e in eV
- * @param width - w = 1/a in nm
- * @param mass - Particle mass in electron masses
+ * @param wellWidth - w = 1/a in nm
+ * @param electronMasses - Particle mass in electron masses
  * @param xArray - Array of x positions in nm
  * @returns Normalised wave function values
  */
 function calculateWaveFunction(
   v: number,
   wellDepth: number,
-  width: number,
-  mass: number,
+  wellWidth: number,
+  electronMasses: number,
   xArray: readonly number[]
 ): number[] {
 
-  const lambda = width * Math.sqrt( 2 * mass * wellDepth ) / HBAR;
+  const lambda = wellWidth * Math.sqrt( 2 * electronMasses * wellDepth ) / HBAR;
   const alpha = 2 * lambda - 2 * v - 1; // Laguerre parameter; also equals 2·(z-exponent)
 
   const waveFunction: number[] = [];
 
   for ( const x of xArray ) {
-    const z = 2 * lambda * Math.exp( -x / width );
+    const z = 2 * lambda * Math.exp( -x / wellWidth );
     const laguerre = associatedLaguerre( v, alpha, z );
     // ψ_v ∝ z^{α/2} · e^{−z/2} · L_v^{(α)}(z)
     const value = Math.pow( z, alpha / 2 ) * Math.exp( -z / 2 ) * laguerre;

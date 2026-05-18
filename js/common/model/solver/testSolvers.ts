@@ -567,11 +567,11 @@ function testMorsePotential(): void {
 
   const mass = ELECTRON_MASSES; // electron masses
   const wellDepth = 10;  // D_e = 10 eV
-  const width = 0.5;  // w = 0.5 nm
+  const wellWidth = 0.5;  // w = 0.5 nm
 
   // The Morse potential: V(x) = D_e*(1 - e^{-x/w})^2 - D_e
   // Well bottom at x=0 (V = -D_e), dissociation limit at x→+∞ (V = 0), repulsive wall at x→-∞
-  const potentialFunction = MorseSolution.createPotentialFunction( wellDepth, width );
+  const potentialFunction = MorseSolution.createPotentialFunction( wellDepth, wellWidth );
 
   // Grid: from -0.5 nm (high repulsive wall ~20 eV above all bound states) to 5 nm (V ≈ 0)
   const xGrid = new XGrid( {
@@ -589,7 +589,15 @@ function testMorsePotential(): void {
   const numericalResult = NumerovSolver.solve( xGrid, potentialFunction, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = MorseSolution.solve( xGrid, wellDepth, width, mass, energyMin, energyMax );
+  const analyticalResult = MorseSolution.solve( xGrid, {
+    energyMin: energyMin,
+    energyMax: energyMax,
+    xOffset: 0,
+    yOffset: 0,
+    wellWidth: wellWidth,
+    wellDepth: wellDepth,
+    electronMasses: mass
+  } );
 
   logVerbose( `\nMorse - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 
