@@ -11,16 +11,18 @@ import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
+import Shape from '../../../../../kite/js/Shape.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
-import Shape from '../../../../../kite/js/Shape.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
+import { BoundStateResult } from '../solver/BoundStateResult.js';
+import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
@@ -102,6 +104,25 @@ export default class PoschlTellerPotential extends QuantumPotential {
            `wellDepth=${this.wellDepthProperty.value} ` +
            `spacing=${this.spacingProperty.value} ` +
            ']';
+  }
+
+  /**
+   * Solves for the bound state.
+   */
+  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    let result: BoundStateResult;
+    if ( this.numberOfWellsProperty.value === 1 ) {
+
+      // For single-well, use the analytical solution.
+      //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with PoschlTellerSolution.solve
+      result = super.solveBoundState( xGrid, electronMasses );
+    }
+    else {
+
+      // For multi-well, use Numerov.
+      result = super.solveBoundState( xGrid, electronMasses );
+    }
+    return result;
   }
 
   /**
