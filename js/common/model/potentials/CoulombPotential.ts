@@ -23,9 +23,6 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 // getPotentialEnergyAt handles an electric field, but it is not currently used in the sim.
 const ELECTRIC_FIELD = 0; // V/nm
 
-// Coulomb coupling K = ke² in eV·nm (positive), see CoulombPotential.solve
-const COUPLING = 1.44;
-
 type SelfOptions = EmptySelfOptions;
 
 export type CoulombPotentialOptions = SelfOptions &
@@ -50,12 +47,14 @@ export default class CoulombPotential extends QuantumPotential {
    * Solves for the bound state using an analytic solution.
    */
   public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    return CoulombSolution.solve( xGrid, COUPLING, electronMasses,
-      this.getMinSolverEnergy(), this.getMaxSolverEnergy(),
-      this.xOffsetProperty.value, this.yOffsetProperty.value
-    );
+    return CoulombSolution.solve( xGrid, {
+      energyMin: this.getMinSolverEnergy(),
+      energyMax: this.getMaxSolverEnergy(),
+      xOffset: this.xOffsetProperty.value,
+      yOffset: this.yOffsetProperty.value,
+      electronMasses: electronMasses
+    } );
   }
-
 
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).

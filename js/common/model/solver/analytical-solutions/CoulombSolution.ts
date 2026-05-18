@@ -32,6 +32,7 @@
  * @author Martin Veillette
  */
 
+import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -44,6 +45,23 @@ const HBAR = NumerovSolver.HBAR;
 // states are physically relevant for the sim. The Java reference also stopped at 10.
 const MAX_PRINCIPAL_QUANTUM_NUMBER = 10;
 
+// Coulomb coupling K = ke² in eV·nm (positive), see CoulombPotential.solve
+const COUPLING = 1.44;
+affirm( COUPLING > 0, 'COUPLING must be positive' );
+
+// Magnitude of the singularity at x = x₀ in eV (positive)
+const MAGNITUDE_AT_SINGULARITY = 1e5;
+affirm( MAGNITUDE_AT_SINGULARITY > 0, 'MAGNITUDE_AT_SINGULARITY must be positive' );
+
+// Parameters for solve method
+export type CoulombSolutionSolveParameters = {
+  energyMin: number; // Minimum energy to search (eV)
+  energyMax: number; // Maximum energy to search (eV)
+  xOffset: number; // Horizontal position x₀ of the nucleus in nm
+  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
+  electronMasses: number; // Particle mass in electron masses
+};
+
 export default class CoulombSolution {
 
   private constructor() {
@@ -55,22 +73,20 @@ export default class CoulombSolution {
    * V(x) = y₀ - K / |x - x₀|, with the singularity at x = x₀ capped so that a discrete
    * grid that includes x = x₀ sees a finite (but very deep) value.
    *
-   * @param coupling - Coulomb coupling K = ke² in eV·nm (positive)
-   * @param bigNegative - Magnitude of the cap at the singularity, in eV (positive)
    * @param xOffset - Horizontal position x₀ of the singularity in nm (default 0)
    * @param yOffset - Constant energy shift y₀ in eV (default 0)
    * @returns Potential function V(x) in eV
    */
-  public static createPotentialFunction( coupling: number, bigNegative = 1e5, xOffset = 0, yOffset = 0 ): PotentialFunction {
+  public static createPotentialFunction( xOffset: number, yOffset: number ): PotentialFunction {
     return ( x: number ) => {
       const ax = Math.abs( x - xOffset );
       let intrinsic: number;
       if ( ax === 0 ) {
-        intrinsic = -bigNegative;
+        intrinsic = -MAGNITUDE_AT_SINGULARITY;
       }
       else {
-        const v = -coupling / ax;
-        intrinsic = v < -bigNegative ? -bigNegative : v;
+        const v = -COUPLING / ax;
+        intrinsic = ( v < -MAGNITUDE_AT_SINGULARITY ) ? -MAGNITUDE_AT_SINGULARITY : v;
       }
       return yOffset + intrinsic;
     };
@@ -86,43 +102,37 @@ export default class CoulombSolution {
    * the same constant; the Coulomb nucleus is at x₀ and wave functions use (x − x₀).
    *
    * @param xGrid - Uniformly spaced x-coordinates in nm
-   * @param coupling - Coulomb coupling K = ke² in eV·nm (positive)
-   * @param mass - Particle mass in electron masses
-   * @param energyMin - Minimum energy to include in the lab frame (eV, typically negative)
-   * @param energyMax - Maximum energy to include in the lab frame (eV)
-   * @param xOffset - Horizontal position x₀ of the nucleus in nm (default 0)
-   * @param yOffset - Constant energy shift y₀ in the lab frame (eV) (default 0)
+   * @param parameters - see CoulombSolutionSolveParameters
    * @returns Bound state results with energies in the lab frame and normalized wave functions
    *
    * @example
    * // Hydrogen-like: m = 1 mₑ, K = 1.44 eV·nm gives E_1 ≈ -13.6 eV
-   * const result = CoulombSolution.solve(
-   *   new XGrid( -3.5, 3.5, 1001 ),
-   *   1.44,
-   *   1,
-   *   -20,
-   *   0
-   * );
+   * const xGrid new XGrid( {
+   *   xMin: -3.5,
+   *   xMax: 3.5,
+   *   numberOfPoints: 1001
+   * } );
+   * const result = CoulombSolution.solve( xGrid, {
+   *   energyMin: -20,
+   *   energyMax: 0,
+   *   xOffset: 0,
+   *   yOffset: 0,
+   *   electronMasses: 1
+   * } );
    */
-  public static solve(
-    xGrid: XGrid,
-    coupling: number,
-    mass: number,
-    energyMin: number,
-    energyMax: number,
-    xOffset = 0,
-    yOffset = 0
-  ): BoundStateResult {
+  public static solve( xGrid: XGrid, parameters: CoulombSolutionSolveParameters ): BoundStateResult {
+
+    const { energyMin, energyMax, xOffset, yOffset, electronMasses } = parameters;
 
     // Work in the Coulomb frame where the potential floor is the standard 1/|x| form (no y₀).
     const intrinsicEnergyMin = energyMin - yOffset;
     const intrinsicEnergyMax = energyMax - yOffset;
 
     // Energy scale: |E_1| = m K² / ( 2 ℏ² ). Then E_n = -energyScale / n² (intrinsic energies).
-    const energyScale = ( mass * coupling * coupling ) / ( 2 * HBAR * HBAR );
+    const energyScale = ( electronMasses * COUPLING * COUPLING ) / ( 2 * HBAR * HBAR );
 
     // Bohr radius for this (mass, coupling): a = ℏ² / ( m K ).
-    const bohrRadius = ( HBAR * HBAR ) / ( mass * coupling );
+    const bohrRadius = ( HBAR * HBAR ) / ( electronMasses * COUPLING );
 
     // Collect the principal quantum numbers whose energies fall inside the requested window.
     const quantumNumbers: number[] = [];
@@ -156,7 +166,7 @@ export default class CoulombSolution {
       waveFunctions.push( normalizer.normalize( psi, xGrid.dx ) );
     }
 
-    const potentialFunction = CoulombSolution.createPotentialFunction( coupling, 1e5, xOffset, yOffset );
+    const potentialFunction = CoulombSolution.createPotentialFunction( xOffset, yOffset );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {
