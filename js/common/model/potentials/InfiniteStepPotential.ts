@@ -93,6 +93,23 @@ export default class InfiniteStepPotential extends QuantumPotential {
            ']';
   }
 
+  /**
+   * Solves for the bound state using an analytic solution.
+   */
+  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    affirm( this.numberOfWellsProperty.value === 1, 'InfiniteStepPotential does not support multiple wells.' );
+
+    return InfiniteStepSolution.solve( xGrid, {
+      energyMin: this.getMinSolverEnergy(),
+      energyMax: this.getMaxSolverEnergy(),
+      xOffset: this.xOffsetProperty.value,
+      yOffset: this.yOffsetProperty.value,
+      wellWidth: this.wellWidthProperty.value,
+      stepHeight: this.stepHeightProperty.value,
+      electronMasses: electronMasses
+    } );
+  }
+
   public override getPotentialEnergyAt( x: number ): number {
     if ( isAffirmEnabled() ) {
       affirm( this.numberOfWellsProperty.value === 1, 'InfiniteStepPotential does not support multiple wells.' );
@@ -128,23 +145,6 @@ export default class InfiniteStepPotential extends QuantumPotential {
 
   public override getMaxSolverEnergy(): number {
     return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
-  }
-
-  /**
-   * Solves for the bound state using an analytic solution.
-   */
-  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    affirm( this.numberOfWellsProperty.value === 1, 'InfiniteStepPotential does not support multiple wells.' );
-
-    return InfiniteStepSolution.solve( xGrid, {
-      energyMin: this.getMinSolverEnergy(),
-      energyMax: this.getMaxSolverEnergy(),
-      xOffset: this.xOffsetProperty.value,
-      yOffset: this.yOffsetProperty.value,
-      wellWidth: this.wellWidthProperty.value,
-      stepHeight: this.stepHeightProperty.value,
-      electronMasses: electronMasses
-    } );
   }
 
   /**
