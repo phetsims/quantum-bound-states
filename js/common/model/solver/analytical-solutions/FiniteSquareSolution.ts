@@ -82,31 +82,9 @@ export default class FiniteSquareSolution {
   /**
    * Analytical solution for the finite square well.
    *
-   * This function returns a BoundStateResult compatible with NumerovSolver output.
-   * The API matches NumerovSolver.solve() by taking energy bounds.
-   *
    * @param xGrid - uniformly spaced x-coordinates in nm
    * @param parameters - see SolveParameters
    * @returns Bound state results with energies (eV) and wave functions
-   *
-   * @example
-   * // Solve for states within energy range
-   * const xGrid new XGrid( {
-   *   xMin: -3.5,
-   *   xMax: 3.5,
-   *   numberOfPoints: 1001
-   * } );
-   * const L = 2; // well width, nm
-   * const V0 = 10; // well depth, eV
-   * const result = solveFiniteSquareWell( xGrid, {
-   *   energyMin: 0,
-   *   energyMax: V0,
-   *   xOffset: 0,
-   *   yOffset: 0,
-   *   wellWidth: L,
-   *   wellDepth: V0,
-   *   electronMasses: 1
-   * } );
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 

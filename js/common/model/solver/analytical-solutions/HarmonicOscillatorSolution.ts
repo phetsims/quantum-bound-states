@@ -57,28 +57,9 @@ export default class HarmonicOscillatorSolution {
    * Analytical solution for a quantum harmonic oscillator.
    * V(x) = (1/2) * k * x^2 = (1/2) * m * ω^2 * x^2
    *
-   * This function returns a BoundStateResult compatible with NumerovSolver output,
-   * allowing analytical solutions to be used interchangeably with numerical solutions.
-   * The API matches NumerovSolver.solve() by taking energy bounds.
-   *
    * @param xGrid - uniformly spaced x-coordinates in nm
    * @param parameters - see SolveParameters
    * @returns Bound state results with exact energies (eV) and wave functions
-   *
-   * @example
-   * const xGrid new XGrid( {
-   *   xMin: -3.5,
-   *   xMax: 3.5,
-   *   numberOfPoints: 1001
-   * } );
-   * const result = solveHarmonicOscillator( xGrid, {
-   *   energyMin: 0,
-   *   energyMax: 20,
-   *   xOffset: 0,
-   *   yOffset: 0,
-   *   springConstant: 5.685630103565724, // arbitrary spring constant, eV/nm²
-   *   electronMasses: 1
-   * } );
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 

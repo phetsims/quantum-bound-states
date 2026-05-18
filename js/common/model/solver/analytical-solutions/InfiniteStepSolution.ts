@@ -82,10 +82,9 @@ export default class InfiniteStepSolution {
     };
   }
 
+  //TODO What is "the lab frame"?
   /**
    * Analytical solution for the infinite step potential.
-   *
-   * Returns a BoundStateResult compatible with NumerovSolver output.
    *
    * Energies are accepted and returned in the lab frame. yOffset is the energy of the well
    * bottom; the solver converts to the well frame internally and shifts eigenvalues back before

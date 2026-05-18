@@ -92,11 +92,9 @@ export default class CoulombSolution {
     };
   }
 
+  //TODO What is "the lab frame"?
   /**
    * Analytical solution for the 1D Coulomb potential.
-   *
-   * Returns a BoundStateResult compatible with NumerovSolver output. The API matches
-   * NumerovSolver.solve() by taking energy bounds in the lab frame.
    *
    * Energies are accepted and returned in the lab frame. y₀ shifts V and all eigenvalues by
    * the same constant; the Coulomb nucleus is at x₀ and wave functions use (x − x₀).
@@ -104,21 +102,6 @@ export default class CoulombSolution {
    * @param xGrid - Uniformly spaced x-coordinates in nm
    * @param parameters - see SolveParameters
    * @returns Bound state results with energies in the lab frame and normalized wave functions
-   *
-   * @example
-   * // Hydrogen-like: m = 1 mₑ, K = 1.44 eV·nm gives E_1 ≈ -13.6 eV
-   * const xGrid new XGrid( {
-   *   xMin: -3.5,
-   *   xMax: 3.5,
-   *   numberOfPoints: 1001
-   * } );
-   * const result = CoulombSolution.solve( xGrid, {
-   *   energyMin: -20,
-   *   energyMax: 0,
-   *   xOffset: 0,
-   *   yOffset: 0,
-   *   electronMasses: 1
-   * } );
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 

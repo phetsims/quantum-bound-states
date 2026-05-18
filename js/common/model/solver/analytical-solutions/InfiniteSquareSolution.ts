@@ -60,11 +60,9 @@ export default class InfiniteSquareSolution {
     };
   }
 
+  //TODO What is "the lab frame"?
   /**
    * Analytical solution for the infinite square well (particle in a box).
-   *
-   * This function returns a BoundStateResult compatible with NumerovSolver output.
-   * The API matches NumerovSolver.solve() by taking energy bounds.
    *
    * Energies are accepted and returned in the lab frame. yOffset is the energy of the well
    * bottom; the solver converts to the well frame internally and shifts eigenvalues back before
