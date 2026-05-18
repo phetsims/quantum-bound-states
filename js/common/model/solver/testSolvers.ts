@@ -389,7 +389,15 @@ function testFiniteSquare(): void {
   const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = FiniteSquareSolution.solve( xGrid, L, V0, mass, energyMin, energyMax );
+  const analyticalResult = FiniteSquareSolution.solve( xGrid, {
+    energyMin: energyMin,
+    energyMax: energyMax,
+    xOffset: 0,
+    yOffset: 0,
+    wellWidth: L,
+    wellDepth: V0,
+    electronMasses: mass
+  } );
 
   logVerbose( `\nFinite Square - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
 

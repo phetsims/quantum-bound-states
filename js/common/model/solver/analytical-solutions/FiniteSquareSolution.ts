@@ -43,6 +43,17 @@ const HBAR = NumerovSolver.HBAR;
  */
 type Parity = 'even' | 'odd';
 
+// Parameters for solve method
+export type FiniteSquareSolutionSolveParameters = {
+  energyMin: number; // Minimum energy to search (eV)
+  energyMax: number; // Maximum energy to search (eV)
+  xOffset: number; // Horizontal position x₀ of the nucleus in nm
+  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
+  wellWidth: number; // Width of the well L in nm
+  wellDepth: number; // Depth of the well V₀ in eV (positive value)
+  electronMasses: number; // Particle mass in electron masses
+};
+
 export default class FiniteSquareSolution {
 
   private constructor() {
@@ -75,44 +86,37 @@ export default class FiniteSquareSolution {
    * The API matches NumerovSolver.solve() by taking energy bounds.
    *
    * @param xGrid - uniformly spaced x-coordinates in nm
-   * @param wellWidth - Width of the well L in nm
-   * @param wellDepth - Depth of the well V₀ in eV (positive value)
-   * @param mass - Particle mass in electron masses
-   * @param energyMin - Minimum energy to search (eV)
-   * @param energyMax - Maximum energy to search (eV)
+   * @param parameters - see FiniteSquareSolutionSolveParameters
    * @returns Bound state results with energies (eV) and wave functions
    *
    * @example
    * // Solve for states within energy range
-   * const L = 2; // 2 nm well
-   * const V0 = 10; // 10 eV deep
-   * const mass = 1; // electron mass
-   *
-   * const result = solveFiniteSquareWell(
-   *   L,
-   *   V0,
-   *   mass,
-   *   { xMin: -3, xMax: 3, numPoints: 1001 },  // ±3 nm
-   *   -V0,
-   *   0
-   * );
-   *
-   * console.log( 'Number of bound states:', result.energies.length );
+   * const xGrid new XGrid( {
+   *   xMin: -3.5,
+   *   xMax: 3.5,
+   *   numberOfPoints: 1001
+   * } );
+   * const L = 2; // well width, nm
+   * const V0 = 10; // well depth, eV
+   * const result = solveFiniteSquareWell( xGrid, {
+   *   energyMin: 0,
+   *   energyMax: V0,
+   *   xOffset: 0,
+   *   yOffset: 0,
+   *   wellWidth: L,
+   *   wellDepth: V0,
+   *   electronMasses: 1
+   * } );
    */
-  public static solve(
-    xGrid: XGrid,
-    wellWidth: number,
-    wellDepth: number,
-    mass: number,
-    energyMin: number,
-    energyMax: number
-  ): BoundStateResult {
+  public static solve( xGrid: XGrid, parameters: FiniteSquareSolutionSolveParameters ): BoundStateResult {
+
+    const { energyMin, energyMax, wellWidth, wellDepth, electronMasses } = parameters;
 
     // Find all bound state energies
     const { energies, parities } = findBoundStateEnergies(
       wellWidth,
       wellDepth,
-      mass,
+      electronMasses,
       energyMin,
       energyMax
     );
@@ -125,7 +129,7 @@ export default class FiniteSquareSolution {
         parities[ i ],
         wellWidth,
         wellDepth,
-        mass,
+        electronMasses,
         xGrid.xCoordinates
       );
       waveFunctions.push( waveFunction );
