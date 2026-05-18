@@ -47,6 +47,8 @@ export default class CoulombPotential extends QuantumPotential {
    * Solves for the bound state using an analytic solution.
    */
   public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    affirm( this.numberOfWellsProperty.value === 1, 'CoulombPotential does not support multiple wells.' );
+
     return CoulombSolution.solve( xGrid, {
       energyMin: this.getMinSolverEnergy(),
       energyMax: this.getMaxSolverEnergy(),
