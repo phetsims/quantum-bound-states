@@ -18,8 +18,10 @@ import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhet
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
+import { BoundStateResult } from '../solver/BoundStateResult.js';
 import NumerovSolver from '../solver/NumerovSolver.js';
+import XGrid from '../solver/XGrid.js';
+import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
@@ -98,6 +100,34 @@ export default class FiniteSquarePotential extends QuantumPotential {
            `wellDepth=${this.wellDepthProperty.value} ` +
            `separation=${this.separationProperty.value} ` +
            ']';
+  }
+
+  /**
+   * Solves for the bound state.
+   */
+  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    let result: BoundStateResult;
+    if ( this.numberOfWellsProperty.value === 1 ) {
+
+      // For single-well, use the analytical solution.
+      //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Fails with no energy levels
+      // result = FiniteSquareSolution.solve( xGrid, {
+      //   energyMin: this.getMinSolverEnergy(),
+      //   energyMax: this.getMaxSolverEnergy(),
+      //   xOffset: this.xOffsetProperty.value,
+      //   yOffset: this.yOffsetProperty.value,
+      //   wellWidth: this.wellWidthProperty.value,
+      //   wellDepth: this.wellDepthProperty.value,
+      //   electronMasses: electronMasses
+      // } );
+      result = super.solveBoundState( xGrid, electronMasses );
+    }
+    else {
+
+      // For multi-well, use Numerov.
+      result = super.solveBoundState( xGrid, electronMasses );
+    }
+    return result;
   }
 
   /**
