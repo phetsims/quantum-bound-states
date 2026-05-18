@@ -5,8 +5,10 @@
  *
  * @author Martin Veillette
  *
- * The potential function defines the quantum system and determines
- * the allowed energy levels and wave functions. Common examples include:
+ * The potential function defines the quantum system and determines the allowed energy levels and wave functions.
+ *
+ * TODO Should these examples be included here when they are different than implementations in *Solution classes?
+ * Common examples include:
  *
  * @example
  * // Harmonic oscillator: V(x) = (1/2)kx²
