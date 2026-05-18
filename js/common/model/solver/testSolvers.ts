@@ -305,10 +305,9 @@ function testInfiniteSquare(): void {
 
   const mass = ELECTRON_MASSES; // electron masses
   const L = 4;  // 4 nm
-  const barrierHeight = 50;  // eV, finite approximation of infinite walls
   const xOffset = 0;  // nm, well centred at origin
   const yOffset = 0;  // eV, well bottom at zero
-  const potentialFunction = InfiniteSquareSolution.createPotentialFunction( L, barrierHeight, xOffset, yOffset );
+  const potentialFunction = InfiniteSquareSolution.createPotentialFunction( L, xOffset, yOffset );
 
   // Use grid that matches the infinite square well, as a result barrierHeight is irrelevant
   const xGrid = new XGrid( {
@@ -653,9 +652,7 @@ function testInfiniteStep(): void {
   const yOffset = 0;  // eV, well bottom at zero
 
   // Potential: 0 in left half [-L/2, 0), V₀ in right half [0, L/2], infinite walls at boundaries.
-  // Use a large but finite barrier to represent the infinite walls for NumerovSolver.
-  const barrierHeight = 1000;  // eV
-  const potentialFunction = InfiniteStepSolution.createPotentialFunction( wellWidth, stepHeight, barrierHeight, xOffset, yOffset );
+  const potentialFunction = InfiniteStepSolution.createPotentialFunction( wellWidth, stepHeight, xOffset, yOffset );
 
   // Grid spans exactly the well: [-L/2, L/2]
   const xGrid = new XGrid( {

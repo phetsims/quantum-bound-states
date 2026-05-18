@@ -27,6 +27,9 @@ import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 
+// Absolute energy value used for the infinite walls in eV
+const BARRIER_HEIGHT = 1000;
+
 // Parameters for solve method
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
@@ -47,16 +50,15 @@ export default class InfiniteSquareSolution {
    * Creates the potential function for an infinite square well in the lab frame.
    *
    * @param wellWidth - Width of the well L in nm
-   * @param barrierHeight - Absolute energy value used for the infinite walls in eV (default: 1000 eV)
    * @param xOffset - Horizontal centre of the well in nm (default 0)
    * @param yOffset - Energy of the well bottom in eV (default 0)
    * @returns Potential function V(x) in eV
    */
-  public static createPotentialFunction( wellWidth: number, barrierHeight = 1000, xOffset = 0, yOffset = 0 ): PotentialFunction {
+  public static createPotentialFunction( wellWidth: number, xOffset = 0, yOffset = 0 ): PotentialFunction {
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
       const xLocal = x - xOffset;
-      return ( xLocal >= -halfWidth && xLocal <= halfWidth ) ? yOffset : barrierHeight;
+      return ( xLocal >= -halfWidth && xLocal <= halfWidth ) ? yOffset : BARRIER_HEIGHT;
     };
   }
 
@@ -131,7 +133,7 @@ export default class InfiniteSquareSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = InfiniteSquareSolution.createPotentialFunction( wellWidth, yOffset + 1000, xOffset, yOffset );
+    const potentialFunction = InfiniteSquareSolution.createPotentialFunction( wellWidth, xOffset, yOffset );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {
