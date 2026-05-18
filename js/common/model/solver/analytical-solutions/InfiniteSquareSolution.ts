@@ -42,7 +42,7 @@ export default class InfiniteSquareSolution {
    * @param yOffset - Energy of the well bottom in eV (default 0)
    * @returns Potential function V(x) in eV
    */
-  public static createPotential( wellWidth: number, barrierHeight = 1000, xOffset = 0, yOffset = 0 ): PotentialFunction {
+  public static createPotentialFunction( wellWidth: number, barrierHeight = 1000, xOffset = 0, yOffset = 0 ): PotentialFunction {
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
       const xLocal = x - xOffset;
@@ -133,7 +133,7 @@ export default class InfiniteSquareSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = InfiniteSquareSolution.createPotential( wellWidth, yOffset + 1000, xOffset, yOffset );
+    const potentialFunction = InfiniteSquareSolution.createPotentialFunction( wellWidth, yOffset + 1000, xOffset, yOffset );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

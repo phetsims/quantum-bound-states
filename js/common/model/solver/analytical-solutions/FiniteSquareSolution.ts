@@ -57,7 +57,7 @@ export default class FiniteSquareSolution {
    * @param wellDepth - Depth of the well V₀ in eV (positive value)
    * @returns Potential function V(x) in eV
    */
-  public static createPotential( wellWidth: number, wellDepth: number ): PotentialFunction {
+  public static createPotentialFunction( wellWidth: number, wellDepth: number ): PotentialFunction {
     return ( x: number ) => {
       // Inside well: V = -V₀
       // Outside well: V = 0
@@ -131,7 +131,7 @@ export default class FiniteSquareSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = FiniteSquareSolution.createPotential( wellWidth, wellDepth );
+    const potentialFunction = FiniteSquareSolution.createPotentialFunction( wellWidth, wellDepth );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

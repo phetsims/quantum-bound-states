@@ -301,7 +301,7 @@ function testInfiniteSquare(): void {
   const barrierHeight = 50;  // eV, finite approximation of infinite walls
   const xOffset = 0;  // nm, well centred at origin
   const yOffset = 0;  // eV, well bottom at zero
-  const potential = InfiniteSquareSolution.createPotential( L, barrierHeight, xOffset, yOffset );
+  const potentialFunction = InfiniteSquareSolution.createPotentialFunction( L, barrierHeight, xOffset, yOffset );
 
   // Use grid that matches the infinite square well, as a result barrierHeight is irrelevant
   const xGrid = new XGrid( {
@@ -316,7 +316,7 @@ function testInfiniteSquare(): void {
   const energyMax = yOffset + 21 * 21 * E1_analytical;
 
   // Get numerical solution
-  const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
+  const numericalResult = NumerovSolver.solve( xGrid, potentialFunction, mass, energyMin, energyMax );
 
   // Get analytical solution
   const analyticalResult = InfiniteSquareSolution.solve( xGrid, L, mass, energyMin, energyMax, xOffset, yOffset );
@@ -549,7 +549,7 @@ function testMorsePotential(): void {
 
   // The Morse potential: V(x) = D_e*(1 - e^{-x/w})^2 - D_e
   // Well bottom at x=0 (V = -D_e), dissociation limit at x→+∞ (V = 0), repulsive wall at x→-∞
-  const potential = MorseSolution.createPotential( wellDepth, width );
+  const potentialFunction = MorseSolution.createPotentialFunction( wellDepth, width );
 
   // Grid: from -0.5 nm (high repulsive wall ~20 eV above all bound states) to 5 nm (V ≈ 0)
   const xGrid = new XGrid( {
@@ -564,7 +564,7 @@ function testMorsePotential(): void {
   const energyMax = -0.001;  // just below the dissociation limit
 
   // Get numerical solution
-  const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
+  const numericalResult = NumerovSolver.solve( xGrid, potentialFunction, mass, energyMin, energyMax );
 
   // Get analytical solution
   const analyticalResult = MorseSolution.solve( xGrid, wellDepth, width, mass, energyMin, energyMax );
@@ -625,7 +625,7 @@ function testInfiniteStep(): void {
   // Potential: 0 in left half [-L/2, 0), V₀ in right half [0, L/2], infinite walls at boundaries.
   // Use a large but finite barrier to represent the infinite walls for NumerovSolver.
   const barrierHeight = 1000;  // eV
-  const potential = InfiniteStepSolution.createPotential( wellWidth, stepHeight, barrierHeight, xOffset, yOffset );
+  const potentialFunction = InfiniteStepSolution.createPotentialFunction( wellWidth, stepHeight, barrierHeight, xOffset, yOffset );
 
   // Grid spans exactly the well: [-L/2, L/2]
   const xGrid = new XGrid( {
@@ -641,7 +641,7 @@ function testInfiniteStep(): void {
   const energyMax = yOffset + 100 * E1_ISW;  // covers ~10 states comfortably
 
   // Get numerical solution
-  const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
+  const numericalResult = NumerovSolver.solve( xGrid, potentialFunction, mass, energyMin, energyMax );
 
   // Get analytical solution
   const analyticalResult = InfiniteStepSolution.solve( xGrid, wellWidth, stepHeight, mass, energyMin, energyMax, xOffset, yOffset );

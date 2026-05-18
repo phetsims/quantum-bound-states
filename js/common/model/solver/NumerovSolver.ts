@@ -60,7 +60,7 @@ export default class NumerovSolver {
    * Main entry point for solving with default NumerovSolverOptions.
    *
    * @param xGrid - uniformly spaced x-coordinates in nm
-   * @param potential - Function V(x) that returns potential energy in eV
+   * @param potentialFunction - Function V(x) that returns potential energy in eV
    * @param mass - Particle mass in electron masses
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
@@ -69,14 +69,14 @@ export default class NumerovSolver {
    */
   public static solve(
     xGrid: XGrid,
-    potential: PotentialFunction,
+    potentialFunction: PotentialFunction,
     mass: number,
     energyMin: number,
     energyMax: number,
     options?: NumerovSolverOptions
   ): BoundStateResult {
     const solver = new NumerovSolver( mass, options );
-    return solver.getBoundStateResult( potential, xGrid, energyMin, energyMax, options?.energyScanPoints );
+    return solver.getBoundStateResult( potentialFunction, xGrid, energyMin, energyMax, options?.energyScanPoints );
   }
 
   // Number of energy steps for scanning in the shooting method.
@@ -140,14 +140,14 @@ export default class NumerovSolver {
    * console.log( 'First excited energy:', result.energies[ 1 ] );
    */
   public getBoundStateResult(
-    potential: PotentialFunction,
+    potentialFunction: PotentialFunction,
     xGrid: XGrid,
     energyMin: number,
     energyMax: number,
     energyScanPoints?: number[]
   ): BoundStateResult {
 
-    const V = this.evaluatePotential( potential, xGrid.xCoordinates );
+    const V = this.evaluatePotential( potentialFunction, xGrid.xCoordinates );
 
     // Find bound states
     const { energies, waveFunctions } = this.findBoundStates(
@@ -341,9 +341,9 @@ export default class NumerovSolver {
    * Evaluates potential on grid.
    * Clamps the potential energy to MAX_SOLVER_POTENTIAL_ENERGY to avoid overflow in steep potentials.
    */
-  private evaluatePotential( potential: PotentialFunction, xGridArray: readonly number[] ): number[] {
+  private evaluatePotential( potentialFunction: PotentialFunction, xGridArray: readonly number[] ): number[] {
     return xGridArray.map( x => {
-      const potentialEnergy = potential( x );
+      const potentialEnergy = potentialFunction( x );
       return Number.isFinite( potentialEnergy ) ?
              Math.min( potentialEnergy, NumerovSolver.MAX_SOLVER_POTENTIAL_ENERGY ) :
              NumerovSolver.MAX_SOLVER_POTENTIAL_ENERGY;

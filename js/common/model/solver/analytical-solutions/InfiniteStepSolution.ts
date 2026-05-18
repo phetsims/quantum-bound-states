@@ -55,7 +55,7 @@ export default class InfiniteStepSolution {
    * @param yOffset - Energy of the well bottom in eV (default 0)
    * @returns Potential function V(x) in eV
    */
-  public static createPotential( wellWidth: number, stepHeight: number, barrierHeight = 1000, xOffset = 0, yOffset = 0 ): PotentialFunction {
+  public static createPotentialFunction( wellWidth: number, stepHeight: number, barrierHeight = 1000, xOffset = 0, yOffset = 0 ): PotentialFunction {
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
       const xLocal = x - xOffset;
@@ -116,7 +116,7 @@ export default class InfiniteStepSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = InfiniteStepSolution.createPotential( wellWidth, stepHeight, yOffset + 1000, xOffset, yOffset );
+    const potentialFunction = InfiniteStepSolution.createPotentialFunction( wellWidth, stepHeight, yOffset + 1000, xOffset, yOffset );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

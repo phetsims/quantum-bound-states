@@ -60,7 +60,7 @@ export default class MorseSolution {
    * @param width - Width parameter w = 1/a in nm (positive)
    * @returns Potential function V(x) in eV
    */
-  public static createPotential( wellDepth: number, width: number ): PotentialFunction {
+  public static createPotentialFunction( wellDepth: number, width: number ): PotentialFunction {
     return ( x: number ) => {
       const term = 1 - Math.exp( -x / width );
       return wellDepth * term * term - wellDepth;
@@ -97,7 +97,7 @@ export default class MorseSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = MorseSolution.createPotential( wellDepth, width );
+    const potentialFunction = MorseSolution.createPotentialFunction( wellDepth, width );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

@@ -61,7 +61,7 @@ export default class CoulombSolution {
    * @param yOffset - Constant energy shift y₀ in eV (default 0)
    * @returns Potential function V(x) in eV
    */
-  public static createPotential( coupling: number, bigNegative = 1e5, xOffset = 0, yOffset = 0 ): PotentialFunction {
+  public static createPotentialFunction( coupling: number, bigNegative = 1e5, xOffset = 0, yOffset = 0 ): PotentialFunction {
     return ( x: number ) => {
       const ax = Math.abs( x - xOffset );
       let intrinsic: number;
@@ -156,7 +156,7 @@ export default class CoulombSolution {
       waveFunctions.push( normalizer.normalize( psi, xGrid.dx ) );
     }
 
-    const potentialFunction = CoulombSolution.createPotential( coupling, 1e5, xOffset, yOffset );
+    const potentialFunction = CoulombSolution.createPotentialFunction( coupling, 1e5, xOffset, yOffset );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

@@ -37,7 +37,7 @@ export default class HarmonicOscillatorSolution {
    * @param springConstant - Spring constant k in eV/nm²
    * @returns Potential function V(x) in eV
    */
-  public static createPotential( springConstant: number ): PotentialFunction {
+  public static createPotentialFunction( springConstant: number ): PotentialFunction {
     return ( x: number ) => {
       return 0.5 * springConstant * x * x;
     };
@@ -128,7 +128,7 @@ export default class HarmonicOscillatorSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = HarmonicOscillatorSolution.createPotential( springConstant );
+    const potentialFunction = HarmonicOscillatorSolution.createPotentialFunction( springConstant );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {
