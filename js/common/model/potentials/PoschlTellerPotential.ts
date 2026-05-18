@@ -163,18 +163,22 @@ export default class PoschlTellerPotential extends QuantumPotential {
     return this.getMaxSolverEnergy() - this.wellDepthProperty.value;
   }
 
+  /**
+   *  Without an electric field the potential asymptotes to yOffset on both sides, so no bound states exist above yOffset.
+   *  With a non-zero electric field the Stark effect creates a finite tunneling barrier on the downhill side of the
+   *  well: to the left of the leftmost well for E > 0, to the right for E < 0. Let's be conservative and find the
+   *  value of the potential at the left most or right most position of our grid.
+   */
   public override getMaxSolverEnergy(): number {
-    const electricField = this.electricFieldProperty.value;
+
     const yOffset = this.yOffsetProperty.value;
+    const electricField = this.electricFieldProperty.value;
 
-    // Without an electric field the potential asymptotes to yOffset on both sides, so no bound states exist above yOffset.
-    // With a non-zero electric field the Stark effect creates a finite tunneling barrier on the downhill side of the
-    // well: to the left of the leftmost well for E > 0, to the right for E < 0. let's be conservative and find the
-    // value of the potential at the left most or right most position of our grid
-    const xStar = QBSConstants.ALL_GRAPHS_X_RANGE.min;
+    // Electric field will contribute the most where the absolute value of x is largest.
+    const xMaxAbsolute = Math.max( Math.abs( QBSConstants.ALL_GRAPHS_X_RANGE.min ), Math.abs( QBSConstants.ALL_GRAPHS_X_RANGE.max ) );
 
-    // Return the field-free maximum (yOffset) adjusted downward by the electric field at xStar.
-    return yOffset - Math.abs( electricField * xStar );
+    // Adjust downward by the largest electric field contribution.
+    return yOffset - Math.abs( electricField * xMaxAbsolute );
   }
 
   /**
