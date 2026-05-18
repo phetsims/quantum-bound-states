@@ -19,6 +19,8 @@ import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhet
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
+import { BoundStateResult } from '../solver/BoundStateResult.js';
+import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
@@ -86,6 +88,16 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
            `wellWidth=${this.wellWidthProperty.value} ` +
            `wellDepth=${this.wellDepthProperty.value} ` +
            ']';
+  }
+
+  /**
+   * Solves for the bound state using an analytic solution.
+   */
+  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    affirm( this.numberOfWellsProperty.value === 1, 'AsymmetricTrianglePotential does not support multiple wells.' );
+
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with AsymmetricTriangleSolution.solve
+    return super.solveBoundState( xGrid, electronMasses );
   }
 
   /**
