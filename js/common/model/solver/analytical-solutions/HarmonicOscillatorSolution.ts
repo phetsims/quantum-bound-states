@@ -24,6 +24,16 @@ import hermitePolynomial from './hermitePolynomial.js';
 
 const HBAR = NumerovSolver.HBAR;
 
+// Parameters for solve method
+type SolveParameters = {
+  energyMin: number; // Minimum energy to search (eV)
+  energyMax: number; // Maximum energy to search (eV)
+  xOffset: number; // Horizontal position x₀ of the nucleus in nm
+  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
+  springConstant: number; // Spring constant k in eV/nm²
+  electronMasses: number; //  Particle mass in electron masses
+};
+
 export default class HarmonicOscillatorSolution {
 
   private constructor() {
@@ -52,36 +62,30 @@ export default class HarmonicOscillatorSolution {
    * The API matches NumerovSolver.solve() by taking energy bounds.
    *
    * @param xGrid - uniformly spaced x-coordinates in nm
-   * @param springConstant - Spring constant k in eV/nm²
-   * @param mass - Particle mass in electron masses
-   * @param energyMin - Minimum energy to search (eV)
-   * @param energyMax - Maximum energy to search (eV)
+   * @param parameters - see SolveParameters
    * @returns Bound state results with exact energies (eV) and wave functions
    *
    * @example
-   * // Solve for states within energy range
-   * const mass = 1; // electron mass
-   * const k = 5.685630103565724; // arbitrary spring constant, eV/nm²
-   *
-   * const result = solveHarmonicOscillator(
-   *   k,
-   *   mass,
-   *   { xMin: -4, xMax: 4, numPoints: 1001 },  // ±4 nm
-   *   0,
-   *   20  // 20 eV
-   * );
-   *
-   * console.log( 'Ground state energy (eV):', result.energies[ 0 ] );
-   * console.log( 'Number of states found:', result.energies.length );
+   * const xGrid new XGrid( {
+   *   xMin: -3.5,
+   *   xMax: 3.5,
+   *   numberOfPoints: 1001
+   * } );
+   * const result = solveHarmonicOscillator( xGrid, {
+   *   energyMin: 0,
+   *   energyMax: 20,
+   *   xOffset: 0,
+   *   yOffset: 0,
+   *   springConstant: 5.685630103565724, // arbitrary spring constant, eV/nm²
+   *   electronMasses: 1
+   * } );
    */
-  public static solve(
-    xGrid: XGrid,
-    springConstant: number,
-    mass: number,
-    energyMin: number,
-    energyMax: number
-  ): BoundStateResult {
-    const omega = Math.sqrt( springConstant / mass );
+  public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
+
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
+    const { energyMin, energyMax, springConstant, electronMasses } = parameters;
+
+    const omega = Math.sqrt( springConstant / electronMasses );
 
     // Calculate energies: E_n = ℏω(n + 1/2) for n = 0, 1, 2, ...
     // Find all n where energyMin <= E_n <= energyMax
@@ -109,7 +113,7 @@ export default class HarmonicOscillatorSolution {
     // Calculate wave functions using Hermite polynomials
     // ψ_n(x) = (1/√(2^n n!)) * (mω/πℏ)^(1/4) * exp(-mωx^2/(2ℏ)) * H_n(√(mω/ℏ) x)
     const waveFunctions: number[][] = [];
-    const alpha = Math.sqrt( ( mass * omega ) / HBAR );
+    const alpha = Math.sqrt( ( electronMasses * omega ) / HBAR );
 
     for ( const n of quantumNumbers ) {
       const waveFunction: number[] = [];

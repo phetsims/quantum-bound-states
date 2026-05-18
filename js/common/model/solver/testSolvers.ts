@@ -243,7 +243,14 @@ function testHarmonicOscillator(): void {
   const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = HarmonicOscillatorSolution.solve( xGrid, k, mass, energyMin, energyMax );
+  const analyticalResult = HarmonicOscillatorSolution.solve( xGrid, {
+    energyMin: energyMin,
+    energyMax: energyMax,
+    xOffset: 0,
+    yOffset: 0,
+    springConstant: k,
+    electronMasses: mass
+  } );
 
   // Basic smoke test - verify both methods return results
   affirm( numericalResult.energies.length > 0, `Found ${numericalResult.energies.length} numerical states` );

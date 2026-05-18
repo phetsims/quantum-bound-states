@@ -54,7 +54,7 @@ const MAGNITUDE_AT_SINGULARITY = 1e5;
 affirm( MAGNITUDE_AT_SINGULARITY > 0, 'MAGNITUDE_AT_SINGULARITY must be positive' );
 
 // Parameters for solve method
-export type CoulombSolutionSolveParameters = {
+export type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
   xOffset: number; // Horizontal position x₀ of the nucleus in nm
@@ -102,7 +102,7 @@ export default class CoulombSolution {
    * the same constant; the Coulomb nucleus is at x₀ and wave functions use (x − x₀).
    *
    * @param xGrid - Uniformly spaced x-coordinates in nm
-   * @param parameters - see CoulombSolutionSolveParameters
+   * @param parameters - see SolveParameters
    * @returns Bound state results with energies in the lab frame and normalized wave functions
    *
    * @example
@@ -120,7 +120,7 @@ export default class CoulombSolution {
    *   electronMasses: 1
    * } );
    */
-  public static solve( xGrid: XGrid, parameters: CoulombSolutionSolveParameters ): BoundStateResult {
+  public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     const { energyMin, energyMax, xOffset, yOffset, electronMasses } = parameters;
 

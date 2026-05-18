@@ -44,7 +44,7 @@ const HBAR = NumerovSolver.HBAR;
 type Parity = 'even' | 'odd';
 
 // Parameters for solve method
-export type FiniteSquareSolutionSolveParameters = {
+type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
   xOffset: number; // Horizontal position x₀ of the nucleus in nm
@@ -86,7 +86,7 @@ export default class FiniteSquareSolution {
    * The API matches NumerovSolver.solve() by taking energy bounds.
    *
    * @param xGrid - uniformly spaced x-coordinates in nm
-   * @param parameters - see FiniteSquareSolutionSolveParameters
+   * @param parameters - see SolveParameters
    * @returns Bound state results with energies (eV) and wave functions
    *
    * @example
@@ -108,7 +108,7 @@ export default class FiniteSquareSolution {
    *   electronMasses: 1
    * } );
    */
-  public static solve( xGrid: XGrid, parameters: FiniteSquareSolutionSolveParameters ): BoundStateResult {
+  public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     const { energyMin, energyMax, wellWidth, wellDepth, electronMasses } = parameters;
 
