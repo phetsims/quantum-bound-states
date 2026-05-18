@@ -307,7 +307,11 @@ function testInfiniteSquare(): void {
   const L = 4;  // 4 nm
   const xOffset = 0;  // nm, well centred at origin
   const yOffset = 0;  // eV, well bottom at zero
-  const potentialFunction = InfiniteSquareSolution.createPotentialFunction( L, xOffset, yOffset );
+  const potentialFunction = InfiniteSquareSolution.createPotentialFunction( {
+    xOffset: xOffset,
+    yOffset: yOffset,
+    wellWidth: L
+  } );
 
   // Use grid that matches the infinite square well, as a result barrierHeight is irrelevant
   const xGrid = new XGrid( {
@@ -570,7 +574,12 @@ function testMorsePotential(): void {
 
   // The Morse potential: V(x) = D_e*(1 - e^{-x/w})^2 - D_e
   // Well bottom at x=0 (V = -D_e), dissociation limit at x→+∞ (V = 0), repulsive wall at x→-∞
-  const potentialFunction = MorseSolution.createPotentialFunction( wellDepth, wellWidth );
+  const potentialFunction = MorseSolution.createPotentialFunction( {
+    xOffset: 0,
+    yOffset: 0,
+    wellWidth: wellWidth,
+    wellDepth: wellDepth
+  } );
 
   // Grid: from -0.5 nm (high repulsive wall ~20 eV above all bound states) to 5 nm (V ≈ 0)
   const xGrid = new XGrid( {
@@ -652,7 +661,12 @@ function testInfiniteStep(): void {
   const yOffset = 0;  // eV, well bottom at zero
 
   // Potential: 0 in left half [-L/2, 0), V₀ in right half [0, L/2], infinite walls at boundaries.
-  const potentialFunction = InfiniteStepSolution.createPotentialFunction( wellWidth, stepHeight, xOffset, yOffset );
+  const potentialFunction = InfiniteStepSolution.createPotentialFunction( {
+    xOffset: xOffset,
+    yOffset: yOffset,
+    wellWidth: wellWidth,
+    stepHeight: stepHeight
+  } );
 
   // Grid spans exactly the well: [-L/2, L/2]
   const xGrid = new XGrid( {

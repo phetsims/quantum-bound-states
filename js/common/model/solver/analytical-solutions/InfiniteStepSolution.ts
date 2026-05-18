@@ -42,6 +42,14 @@ const HBAR = NumerovSolver.HBAR;
 // Absolute energy value used for the infinite walls in eV
 const BARRIER_HEIGHT = 1000;
 
+// Parameters for createPotentialFunction method
+type PotentialParameters = {
+  xOffset: number; // Horizontal position x₀ of the singularity in nm
+  yOffset: number; // Constant energy shift y₀ in eV
+  wellWidth: number; // Width of the well L in nm,
+  stepHeight: number; // Height of the potential step V₀ in eV (relative to well bottom)
+};
+
 // Parameters for solve method
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
@@ -62,13 +70,14 @@ export default class InfiniteStepSolution {
   /**
    * Creates the potential function for an infinite step potential in the lab frame.
    *
-   * @param wellWidth - Total width of the well L in nm
-   * @param stepHeight - Height of the potential step V₀ in eV (relative to well bottom)
-   * @param xOffset - Horizontal centre of the well in nm (default 0)
-   * @param yOffset - Energy of the well bottom in eV (default 0)
+   * @param parameters - see PotentialParameters
    * @returns Potential function V(x) in eV
    */
-  public static createPotentialFunction( wellWidth: number, stepHeight: number, xOffset = 0, yOffset = 0 ): PotentialFunction {
+  public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
+
+    // Unpack parameters
+    const { xOffset, yOffset, wellWidth, stepHeight } = parameters;
+
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
       const xLocal = x - xOffset;
@@ -98,6 +107,7 @@ export default class InfiniteStepSolution {
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
+    // Unpack parameters
     const { energyMin, energyMax, xOffset, yOffset, wellWidth, stepHeight, electronMasses } = parameters;
 
     // Work in the well frame where the well bottom is at E = 0.
@@ -115,7 +125,12 @@ export default class InfiniteStepSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = InfiniteStepSolution.createPotentialFunction( wellWidth, stepHeight, xOffset, yOffset );
+    const potentialFunction = InfiniteStepSolution.createPotentialFunction( {
+      xOffset: xOffset,
+      yOffset: yOffset,
+      wellWidth: wellWidth,
+      stepHeight: stepHeight
+    } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

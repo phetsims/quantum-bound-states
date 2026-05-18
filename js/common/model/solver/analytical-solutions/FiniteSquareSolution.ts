@@ -43,6 +43,14 @@ const HBAR = NumerovSolver.HBAR;
  */
 type Parity = 'even' | 'odd';
 
+// Parameters for createPotentialFunction method
+type PotentialParameters = {
+  xOffset: number; // Horizontal position x₀ of the singularity in nm
+  yOffset: number; // Constant energy shift y₀ in eV
+  wellWidth: number; // Width of the well L in nm
+  wellDepth: number; // Depth of the well V₀ in eV
+};
+
 // Parameters for solve method
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
@@ -64,18 +72,22 @@ export default class FiniteSquareSolution {
    * Creates the potential function for a finite square well.
    * V(x) = -V₀ for |x| < L/2, V(x) = 0 for |x| > L/2
    *
-   * @param wellWidth - Width of the well L in nm
-   * @param wellDepth - Depth of the well V₀ in eV (positive value)
+   * @param parameters - see PotentialParameters
    * @returns Potential function V(x) in eV
    */
-  public static createPotentialFunction( wellWidth: number, wellDepth: number ): PotentialFunction {
+  public static createPotentialFunction( parameters : PotentialParameters ): PotentialFunction {
+
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
+    // Unpack parameters
+    const { wellWidth, wellDepth } = parameters;
+
     return ( x: number ) => {
-      // Inside well: V = -V₀
-      // Outside well: V = 0
       if ( Math.abs( x ) < wellWidth / 2 ) {
-        return -wellDepth;
+        return -wellDepth; // Inside well: V = -V
       }
-      return 0;
+      else {
+        return 0; // Outside well: V = 0
+      }
     };
   }
 
@@ -88,7 +100,9 @@ export default class FiniteSquareSolution {
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
-    const { energyMin, energyMax, wellWidth, wellDepth, electronMasses } = parameters;
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
+    // Unpack parameters
+    const { energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses } = parameters;
 
     // Find all bound state energies
     const { energies, parities } = findBoundStateEnergies(
@@ -113,7 +127,12 @@ export default class FiniteSquareSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = FiniteSquareSolution.createPotentialFunction( wellWidth, wellDepth );
+    const potentialFunction = FiniteSquareSolution.createPotentialFunction( {
+      xOffset: xOffset,
+      yOffset: yOffset,
+      wellWidth: wellWidth,
+      wellDepth: wellDepth
+    } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

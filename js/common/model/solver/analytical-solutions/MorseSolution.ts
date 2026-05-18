@@ -46,6 +46,14 @@ import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 
+// Parameters for createPotentialFunction method
+type PotentialParameters = {
+  xOffset: number; // Horizontal position x₀ of the singularity in nm
+  yOffset: number; // Constant energy shift y₀ in eV
+  wellWidth: number; // Width of the well L in nm
+  wellDepth: number; // // Depth of the well V₀ in eV (positive value)
+};
+
 // Parameters for solve method
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
@@ -67,13 +75,17 @@ export default class MorseSolution {
    * Creates the potential function for the Morse potential.
    * V(x) = D_e · (1 − e^{−x/w})² − D_e
    *
-   * @param wellDepth - Dissociation energy D_e in eV (positive)
-   * @param width - Width parameter w = 1/a in nm (positive)
+   * @param parameters - See PotentialParameters
    * @returns Potential function V(x) in eV
    */
-  public static createPotentialFunction( wellDepth: number, width: number ): PotentialFunction {
+  public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
+
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
+    // Unpack parameters
+    const { wellWidth, wellDepth } = parameters;
+
     return ( x: number ) => {
-      const term = 1 - Math.exp( -x / width );
+      const term = 1 - Math.exp( -x / wellWidth );
       return wellDepth * term * term - wellDepth;
     };
   }
@@ -90,7 +102,8 @@ export default class MorseSolution {
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
-    const { energyMin, energyMax, wellWidth, wellDepth, electronMasses } = parameters;
+    // Unpack parameters
+    const { energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses } = parameters;
 
     const { energies, quantumNumbers } = findBoundStateEnergies( wellDepth, wellWidth, electronMasses, energyMin, energyMax );
 
@@ -100,7 +113,12 @@ export default class MorseSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = MorseSolution.createPotentialFunction( wellDepth, wellWidth );
+    const potentialFunction = MorseSolution.createPotentialFunction( {
+      xOffset: xOffset,
+      yOffset: yOffset,
+      wellWidth: wellWidth,
+      wellDepth: wellDepth
+    } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

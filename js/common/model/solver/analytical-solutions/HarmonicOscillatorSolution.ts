@@ -24,6 +24,13 @@ import hermitePolynomial from './hermitePolynomial.js';
 
 const HBAR = NumerovSolver.HBAR;
 
+// Parameters for createPotentialFunction method
+type PotentialParameters = {
+  xOffset: number; // Horizontal position x₀ of the singularity in nm
+  yOffset: number; // Constant energy shift y₀ in eV
+  springConstant: number; // Spring constant k in eV/nm²
+};
+
 // Parameters for solve method
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
@@ -44,10 +51,15 @@ export default class HarmonicOscillatorSolution {
    * Creates the potential function for a harmonic oscillator.
    * V(x) = (1/2) * k * x^2
    *
-   * @param springConstant - Spring constant k in eV/nm²
+   * @param parameters - see PotentialParameters
    * @returns Potential function V(x) in eV
    */
-  public static createPotentialFunction( springConstant: number ): PotentialFunction {
+  public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
+
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
+    // Unpack parameters
+    const { springConstant } = parameters;
+
     return ( x: number ) => {
       return 0.5 * springConstant * x * x;
     };
@@ -64,7 +76,8 @@ export default class HarmonicOscillatorSolution {
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
-    const { energyMin, energyMax, springConstant, electronMasses } = parameters;
+    // Unpack parameters
+    const { energyMin, energyMax, xOffset, yOffset, springConstant, electronMasses } = parameters;
 
     const omega = Math.sqrt( springConstant / electronMasses );
 
@@ -113,7 +126,11 @@ export default class HarmonicOscillatorSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = HarmonicOscillatorSolution.createPotentialFunction( springConstant );
+    const potentialFunction = HarmonicOscillatorSolution.createPotentialFunction( {
+      xOffset: xOffset,
+      yOffset: yOffset,
+      springConstant: springConstant
+    } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

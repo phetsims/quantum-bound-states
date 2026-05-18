@@ -53,8 +53,14 @@ affirm( COUPLING > 0, 'COUPLING must be positive' );
 const MAGNITUDE_AT_SINGULARITY = 1e5;
 affirm( MAGNITUDE_AT_SINGULARITY > 0, 'MAGNITUDE_AT_SINGULARITY must be positive' );
 
+// Parameters for createPotentialFunction method
+type PotentialParameters = {
+  xOffset: number; // Horizontal position x₀ of the singularity in nm
+  yOffset: number; // Constant energy shift y₀ in eV
+};
+
 // Parameters for solve method
-export type SolveParameters = {
+type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
   xOffset: number; // Horizontal position x₀ of the nucleus in nm
@@ -73,11 +79,14 @@ export default class CoulombSolution {
    * V(x) = y₀ - K / |x - x₀|, with the singularity at x = x₀ capped so that a discrete
    * grid that includes x = x₀ sees a finite (but very deep) value.
    *
-   * @param xOffset - Horizontal position x₀ of the singularity in nm (default 0)
-   * @param yOffset - Constant energy shift y₀ in eV (default 0)
+   * @param parameters - see PotentialParameters
    * @returns Potential function V(x) in eV
    */
-  public static createPotentialFunction( xOffset: number, yOffset: number ): PotentialFunction {
+  public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
+
+    // Unpack parameters
+    const { xOffset, yOffset } = parameters;
+
     return ( x: number ) => {
       const ax = Math.abs( x - xOffset );
       let intrinsic: number;
@@ -105,6 +114,7 @@ export default class CoulombSolution {
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
+    // Unpack parameters
     const { energyMin, energyMax, xOffset, yOffset, electronMasses } = parameters;
 
     // Work in the Coulomb frame where the potential floor is the standard 1/|x| form (no y₀).
@@ -149,7 +159,10 @@ export default class CoulombSolution {
       waveFunctions.push( normalizer.normalize( psi, xGrid.dx ) );
     }
 
-    const potentialFunction = CoulombSolution.createPotentialFunction( xOffset, yOffset );
+    const potentialFunction = CoulombSolution.createPotentialFunction( {
+      xOffset: xOffset,
+      yOffset: yOffset
+    } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {

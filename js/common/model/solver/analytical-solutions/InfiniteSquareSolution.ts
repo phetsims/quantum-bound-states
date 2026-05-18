@@ -30,6 +30,13 @@ const HBAR = NumerovSolver.HBAR;
 // Absolute energy value used for the infinite walls in eV
 const BARRIER_HEIGHT = 1000;
 
+// Parameters for createPotentialFunction method
+type PotentialParameters = {
+  xOffset: number; // Horizontal position x₀ of the singularity in nm
+  yOffset: number; // Constant energy shift y₀ in eV
+  wellWidth: number; // Width of the well L in nm
+};
+
 // Parameters for solve method
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
@@ -49,12 +56,14 @@ export default class InfiniteSquareSolution {
   /**
    * Creates the potential function for an infinite square well in the lab frame.
    *
-   * @param wellWidth - Width of the well L in nm
-   * @param xOffset - Horizontal centre of the well in nm (default 0)
-   * @param yOffset - Energy of the well bottom in eV (default 0)
+   * @param parameters - see PotentialParameters
    * @returns Potential function V(x) in eV
    */
-  public static createPotentialFunction( wellWidth: number, xOffset = 0, yOffset = 0 ): PotentialFunction {
+  public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
+
+    // Unpack parameters
+    const { xOffset, yOffset, wellWidth } = parameters;
+
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
       const xLocal = x - xOffset;
@@ -76,8 +85,8 @@ export default class InfiniteSquareSolution {
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
+    // Unpack parameters
     const { energyMin, energyMax, wellWidth, xOffset, yOffset, electronMasses } = parameters;
-
 
     // Work in the well frame where the well bottom is at E = 0.
     const wellEnergyMin = energyMin - yOffset;
@@ -133,7 +142,11 @@ export default class InfiniteSquareSolution {
       waveFunctions.push( waveFunction );
     }
 
-    const potentialFunction = InfiniteSquareSolution.createPotentialFunction( wellWidth, xOffset, yOffset );
+    const potentialFunction = InfiniteSquareSolution.createPotentialFunction( {
+      xOffset: xOffset,
+      yOffset: yOffset,
+      wellWidth: wellWidth
+    } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
     return {
