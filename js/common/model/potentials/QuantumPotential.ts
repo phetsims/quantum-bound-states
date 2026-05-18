@@ -65,8 +65,6 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
 
-  private readonly getPotentialEnergyAtBound: ( x: number ) => number;
-
   protected constructor( providedOptions: QuantumPotentialOptions ) {
 
     const options = optionize<QuantumPotentialOptions, StrictOmit<SelfOptions, 'numberOfWellsProperty'>, PhetioObjectOptions>()( {
@@ -123,8 +121,6 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
     this.tandemPrefix = options.tandemPrefix;
-
-    this.getPotentialEnergyAtBound = this.getPotentialEnergyAt.bind( this );
   }
 
   public reset(): void {
@@ -173,7 +169,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     const energyScanPoints = this.getEnergyScanPoints( electronMasses );
     return NumerovSolver.solve(
       xGrid,
-      this.getPotentialEnergyAtBound,
+      x => this.getPotentialEnergyAt( x ),
       electronMasses,
       minPotentialEnergy,
       maxPotentialEnergy,
