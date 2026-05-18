@@ -80,6 +80,22 @@ export default class InfiniteSquarePotential extends QuantumPotential {
   }
 
   /**
+   * Solves for the bound state using an analytic solution.
+   */
+  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    affirm( this.numberOfWellsProperty.value === 1, 'InfiniteSquarePotential does not support multiple wells.' );
+
+    return InfiniteSquareSolution.solve( xGrid, {
+      energyMin: this.getMinSolverEnergy(),
+      energyMax: this.getMaxSolverEnergy(),
+      xOffset: this.xOffsetProperty.value,
+      yOffset: this.yOffsetProperty.value,
+      wellWidth: this.wellWidthProperty.value,
+      electronMasses: electronMasses
+    } );
+  }
+
+  /**
    * Gets the potential energy (y-value) at a specified x-coordinate.
    */
   public override getPotentialEnergyAt( x: number ): number {
@@ -110,22 +126,6 @@ export default class InfiniteSquarePotential extends QuantumPotential {
 
   public override getMaxSolverEnergy(): number {
     return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
-  }
-
-  /**
-   * Solves for the bound state using an analytic solution.
-   */
-  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    affirm( this.numberOfWellsProperty.value === 1, 'InfiniteSquarePotential does not support multiple wells.' );
-
-    return InfiniteSquareSolution.solve( xGrid, {
-      energyMin: this.getMinSolverEnergy(),
-      energyMax: this.getMaxSolverEnergy(),
-      xOffset: this.xOffsetProperty.value,
-      yOffset: this.yOffsetProperty.value,
-      wellWidth: this.wellWidthProperty.value,
-      electronMasses: electronMasses
-    } );
   }
 
   /**

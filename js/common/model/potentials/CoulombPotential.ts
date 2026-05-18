@@ -43,6 +43,14 @@ export default class CoulombPotential extends QuantumPotential {
     super( options );
   }
 
+  public override toString(): string {
+    return `${this.tandemPrefix}[ ` +
+           `numberOfWells=${this.numberOfWellsProperty.value} ` +
+           `electricField=${this.electricFieldProperty.value} ` +
+           `yOffset=${this.yOffsetProperty.value} ` +
+           ']';
+  }
+
   /**
    * Solves for the bound state using an analytic solution.
    */
@@ -90,14 +98,6 @@ export default class CoulombPotential extends QuantumPotential {
     energy += ( ELECTRIC_FIELD * x );
 
     return yOffset + energy;
-  }
-
-  public override toString(): string {
-    return `${this.tandemPrefix}[ ` +
-           `numberOfWells=${this.numberOfWellsProperty.value} ` +
-           `electricField=${this.electricFieldProperty.value} ` +
-           `yOffset=${this.yOffsetProperty.value} ` +
-           ']';
   }
 
   public override getMinSolverEnergy(): number {

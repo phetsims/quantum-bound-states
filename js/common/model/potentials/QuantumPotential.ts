@@ -134,6 +134,21 @@ export default abstract class QuantumPotential extends PhetioObject {
   public abstract override toString(): string;
 
   /**
+   * Solves for the bound state. The default uses a numerical solution (Numerov).
+   */
+  public solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+    const energyScanPoints = this.getEnergyScanPoints( electronMasses );
+    return NumerovSolver.solve(
+      xGrid,
+      x => this.getPotentialEnergyAt( x ),
+      electronMasses,
+      this.getMinSolverEnergy(),
+      this.getMaxSolverEnergy(),
+      energyScanPoints !== null ? { energyScanPoints: energyScanPoints } : undefined
+    );
+  }
+
+  /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */
   public abstract getPotentialEnergyAt( x: number ): number;
@@ -158,23 +173,6 @@ export default abstract class QuantumPotential extends PhetioObject {
    */
   public getEnergyScanPoints( mass: number ): number[] | null {
     return null;
-  }
-
-  /**
-   * Solves for the bound state. The default uses a numerical solution.
-   */
-  public solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    const minPotentialEnergy = this.getMinSolverEnergy();
-    const maxPotentialEnergy = this.getMaxSolverEnergy();
-    const energyScanPoints = this.getEnergyScanPoints( electronMasses );
-    return NumerovSolver.solve(
-      xGrid,
-      x => this.getPotentialEnergyAt( x ),
-      electronMasses,
-      minPotentialEnergy,
-      maxPotentialEnergy,
-      energyScanPoints !== null ? { energyScanPoints: energyScanPoints } : undefined
-    );
   }
 
   /**
