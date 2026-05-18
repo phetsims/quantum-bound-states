@@ -1,6 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Move to dot/js/util/
+//TODO Move to dot/js/util/ or into HarmonicOscillatorSolution.ts
 /**
  * Calculates the Hermite polynomial H_n(x) using recurrence relation.
  * H_0(x) = 1
