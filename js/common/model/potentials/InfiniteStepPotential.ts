@@ -134,11 +134,17 @@ export default class InfiniteStepPotential extends QuantumPotential {
    * Solves for the bound state using an analytic solution.
    */
   public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    return InfiniteStepSolution.solve(
-      xGrid, this.wellWidthProperty.value, this.stepHeightProperty.value, electronMasses,
-      this.getMinSolverEnergy(), this.getMaxSolverEnergy(),
-      this.xOffsetProperty.value, this.yOffsetProperty.value
-    );
+    affirm( this.numberOfWellsProperty.value === 1, 'InfiniteStepPotential does not support multiple wells.' );
+
+    return InfiniteStepSolution.solve( xGrid, {
+      energyMin: this.getMinSolverEnergy(),
+      energyMax: this.getMaxSolverEnergy(),
+      xOffset: this.xOffsetProperty.value,
+      yOffset: this.yOffsetProperty.value,
+      wellWidth: this.wellWidthProperty.value,
+      stepHeight: this.stepHeightProperty.value,
+      electronMasses: electronMasses
+    } );
   }
 
   /**

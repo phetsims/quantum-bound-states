@@ -233,7 +233,7 @@ function findRootInInterval(
  *
  * @param wellWidth - Width of the well L in nm
  * @param wellDepth - Depth of the well V₀ in eV (positive value)
- * @param mass - Particle mass in electron masses
+ * @param electronMasses - Particle mass in electron masses
  * @param energyMin - Minimum energy to search (eV)
  * @param energyMax - Maximum energy to search (eV)
  * @returns Arrays of energies and parities
@@ -241,7 +241,7 @@ function findRootInInterval(
 function findBoundStateEnergies(
   wellWidth: number,
   wellDepth: number,
-  mass: number,
+  electronMasses: number,
   energyMin: number,
   energyMax: number
 ): { energies: number[]; parities: Parity[] } {
@@ -255,7 +255,7 @@ function findBoundStateEnergies(
   }
 
   // Calculate z0 = (L/2)√(2mV₀/ℏ²)
-  const z0 = ( wellWidth / 2 ) * Math.sqrt( 2 * mass * wellDepth / ( HBAR * HBAR ) );
+  const z0 = ( wellWidth / 2 ) * Math.sqrt( 2 * electronMasses * wellDepth / ( HBAR * HBAR ) );
 
   const energies: number[] = [];
   const parities: Parity[] = [];
@@ -312,7 +312,7 @@ function findBoundStateEnergies(
 
     // Convert ξ back to energy: ξ = (L/2)√(2m(E+V₀)/ℏ²)
     // E = ξ²ℏ²/(2m(L/2)²) - V₀
-    const energy = ( xi * xi * HBAR * HBAR ) / ( 2 * mass * ( wellWidth / 2 ) * ( wellWidth / 2 ) ) - wellDepth;
+    const energy = ( xi * xi * HBAR * HBAR ) / ( 2 * electronMasses * ( wellWidth / 2 ) * ( wellWidth / 2 ) ) - wellDepth;
 
     // Check if energy is within requested bounds
     if ( energy >= actualEnergyMin && energy <= actualEnergyMax ) {
@@ -331,7 +331,7 @@ function findBoundStateEnergies(
  * @param parity - Parity of the state (even or odd)
  * @param wellWidth - Width of the well L in nm
  * @param wellDepth - Depth of the well V₀ in eV (positive value)
- * @param mass - Particle mass in electron masses
+ * @param electronMasses - Particle mass in electron masses
  * @param xGridArray - Array of x positions in nm
  * @returns Normalized wave function array
  */
@@ -340,13 +340,13 @@ function calculateWaveFunction(
   parity: Parity,
   wellWidth: number,
   wellDepth: number,
-  mass: number,
+  electronMasses: number,
   xGridArray: readonly number[]
 ): number[] {
 
   // Calculate wave numbers
-  const k = Math.sqrt( 2 * mass * ( energy + wellDepth ) / ( HBAR * HBAR ) );
-  const kappa = Math.sqrt( -2 * mass * energy / ( HBAR * HBAR ) );
+  const k = Math.sqrt( 2 * electronMasses * ( energy + wellDepth ) / ( HBAR * HBAR ) );
+  const kappa = Math.sqrt( -2 * electronMasses * energy / ( HBAR * HBAR ) );
 
   const waveFunction: number[] = [];
 

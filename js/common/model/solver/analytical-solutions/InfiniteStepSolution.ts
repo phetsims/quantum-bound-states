@@ -39,6 +39,17 @@ import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 
+// Parameters for solve method
+type SolveParameters = {
+  energyMin: number; // Minimum energy to search (eV)
+  energyMax: number; // Maximum energy to search (eV)
+  xOffset: number; // Horizontal position x₀ of the nucleus in nm
+  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
+  wellWidth: number; // Width of the well L in nm
+  stepHeight: number; // Height of the potential step V₀ in eV (relative to well bottom)
+  electronMasses: number; // Particle mass in electron masses
+};
+
 export default class InfiniteStepSolution {
 
   private constructor() {
@@ -81,38 +92,25 @@ export default class InfiniteStepSolution {
    * returning, so callers never need to manage the frame conversion themselves.
    *
    * @param xGrid - Uniformly spaced x-coordinates in nm
-   * @param wellWidth - Total width of the well L in nm
-   * @param stepHeight - Height of the potential step V₀ in eV (relative to well bottom)
-   * @param mass - Particle mass in electron masses
-   * @param energyMin - Minimum energy to search in the lab frame (eV)
-   * @param energyMax - Maximum energy to search in the lab frame (eV)
-   * @param xOffset - Horizontal centre of the well in nm (default 0)
-   * @param yOffset - Energy of the well bottom in the lab frame in eV (default 0)
+   * @param parameters - see SolveParameters
    * @returns Bound state results with energies in the lab frame and wave functions
    */
-  public static solve(
-    xGrid: XGrid,
-    wellWidth: number,
-    stepHeight: number,
-    mass: number,
-    energyMin: number,
-    energyMax: number,
-    xOffset = 0,
-    yOffset = 0
-  ): BoundStateResult {
+  public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
+
+    const { energyMin, energyMax, xOffset, yOffset, wellWidth, stepHeight, electronMasses } = parameters;
 
     // Work in the well frame where the well bottom is at E = 0.
     const wellEnergyMin = energyMin - yOffset;
     const wellEnergyMax = energyMax - yOffset;
 
-    const wellFrameEnergies = findBoundStateEnergies( wellWidth, stepHeight, mass, wellEnergyMin, wellEnergyMax );
+    const wellFrameEnergies = findBoundStateEnergies( wellWidth, stepHeight, electronMasses, wellEnergyMin, wellEnergyMax );
 
     // Shift eigenvalues back to the lab frame.
     const energies = wellFrameEnergies.map( e => e + yOffset );
 
     const waveFunctions: number[][] = [];
     for ( const wellEnergy of wellFrameEnergies ) {
-      const waveFunction = calculateWaveFunction( wellEnergy, wellWidth, stepHeight, mass, xGrid.xCoordinates, xOffset );
+      const waveFunction = calculateWaveFunction( wellEnergy, wellWidth, stepHeight, electronMasses, xGrid.xCoordinates, xOffset );
       waveFunctions.push( waveFunction );
     }
 
@@ -218,7 +216,7 @@ function transcendentalDerivative( energy: number, wellWidth: number, stepHeight
  *
  * @param wellWidth - Total width of the well L in nm
  * @param stepHeight - Step height V₀ in eV
- * @param mass - Particle mass in electron masses
+ * @param electronMasses - Particle mass in electron masses
  * @param energyMin - Lower bound of search range (eV)
  * @param energyMax - Upper bound of search range (eV)
  * @returns Array of eigenvalues in ascending order (eV)
@@ -226,7 +224,7 @@ function transcendentalDerivative( energy: number, wellWidth: number, stepHeight
 function findBoundStateEnergies(
   wellWidth: number,
   stepHeight: number,
-  mass: number,
+  electronMasses: number,
   energyMin: number,
   energyMax: number
 ): number[] {
@@ -246,7 +244,7 @@ function findBoundStateEnergies(
 
   for ( let n = 1; ; n++ ) {
     const k1Singular = n * Math.PI / halfWidth;
-    const eSingular = k1Singular * k1Singular * HBAR * HBAR / ( 2 * mass );
+    const eSingular = k1Singular * k1Singular * HBAR * HBAR / ( 2 * electronMasses );
     if ( eSingular > eMax ) {
       break;
     }
@@ -256,7 +254,7 @@ function findBoundStateEnergies(
   // Also include singularities from the right region when E > V₀: k₂ L/2 = n π
   for ( let n = 1; ; n++ ) {
     const k2Singular = n * Math.PI / halfWidth;
-    const eSingular = stepHeight + k2Singular * k2Singular * HBAR * HBAR / ( 2 * mass );
+    const eSingular = stepHeight + k2Singular * k2Singular * HBAR * HBAR / ( 2 * electronMasses );
     if ( eSingular > eMax ) {
       break;
     }
@@ -280,8 +278,8 @@ function findBoundStateEnergies(
     }
 
     const root = findRootInInterval(
-      ( e: number ) => transcendentalEquation( e, wellWidth, stepHeight, mass ),
-      ( e: number ) => transcendentalDerivative( e, wellWidth, stepHeight, mass ),
+      ( e: number ) => transcendentalEquation( e, wellWidth, stepHeight, electronMasses ),
+      ( e: number ) => transcendentalDerivative( e, wellWidth, stepHeight, electronMasses ),
       lo,
       hi
     );
@@ -337,7 +335,7 @@ function findRootInInterval(
  * @param energy - Eigenvalue in eV (well frame, well bottom = 0)
  * @param wellWidth - Total width of the well L in nm
  * @param stepHeight - Step height V₀ in eV
- * @param mass - Particle mass in electron masses
+ * @param electronMasses - Particle mass in electron masses
  * @param xArray - Array of x positions in nm (lab frame)
  * @param xOffset - Horizontal centre of the well in nm
  * @returns Normalised wave function values
@@ -346,13 +344,13 @@ function calculateWaveFunction(
   energy: number,
   wellWidth: number,
   stepHeight: number,
-  mass: number,
+  electronMasses: number,
   xArray: readonly number[],
   xOffset: number
 ): number[] {
 
   const halfWidth = wellWidth / 2;
-  const k1 = Math.sqrt( 2 * mass * energy / ( HBAR * HBAR ) );
+  const k1 = Math.sqrt( 2 * electronMasses * energy / ( HBAR * HBAR ) );
 
   // Amplitude ratio B/A (or C/A) from continuity of ψ at the step (ξ = 0).
   // ψ₁(0) = A sin(k₁ L/2),  so we set A = 1 and derive B or C.
@@ -378,7 +376,7 @@ function calculateWaveFunction(
     else {
       // Right region
       if ( energy > stepHeight ) {
-        const k2 = Math.sqrt( 2 * mass * ( energy - stepHeight ) / ( HBAR * HBAR ) );
+        const k2 = Math.sqrt( 2 * electronMasses * ( energy - stepHeight ) / ( HBAR * HBAR ) );
         const psi2AtZero = Math.sin( k2 * halfWidth );
         // Amplitude ratio from ψ₁(0) = B ψ₂_unit(0):  B = psi1AtZero / psi2AtZero
         const B = psi2AtZero !== 0 ? psi1AtZero / psi2AtZero : 0;
@@ -386,7 +384,7 @@ function calculateWaveFunction(
       }
       else {
         // Evanescent right region
-        const kappa2 = Math.sqrt( 2 * mass * ( stepHeight - energy ) / ( HBAR * HBAR ) );
+        const kappa2 = Math.sqrt( 2 * electronMasses * ( stepHeight - energy ) / ( HBAR * HBAR ) );
         const psi2AtZero = Math.sinh( kappa2 * halfWidth );
         const C = psi2AtZero !== 0 ? psi1AtZero / psi2AtZero : 0;
         value = C * Math.sinh( kappa2 * ( halfWidth - xi ) );

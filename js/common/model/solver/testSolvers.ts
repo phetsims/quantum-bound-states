@@ -666,7 +666,15 @@ function testInfiniteStep(): void {
   const numericalResult = NumerovSolver.solve( xGrid, potentialFunction, mass, energyMin, energyMax );
 
   // Get analytical solution
-  const analyticalResult = InfiniteStepSolution.solve( xGrid, wellWidth, stepHeight, mass, energyMin, energyMax, xOffset, yOffset );
+  const analyticalResult = InfiniteStepSolution.solve( xGrid, {
+    energyMin: energyMin,
+    energyMax: energyMax,
+    xOffset: xOffset,
+    yOffset: yOffset,
+    wellWidth: wellWidth,
+    stepHeight: stepHeight,
+    electronMasses: mass
+  } );
 
   logVerbose( `\nInfinite Step - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
   logVerbose( `Well parameters: L = ${wellWidth} nm, V₀ = ${stepHeight} eV` );
