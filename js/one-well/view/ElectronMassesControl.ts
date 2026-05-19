@@ -54,7 +54,7 @@ export default class ElectronMassesControl extends QBSNumberControl {
         minBackgroundWidth: 65
       },
       sliderOptions: {
-        trackSize: new Dimension2( 135, 3 ),
+        trackSize: new Dimension2( 120, 3 ),
         majorTicks: createMajorTicks( electronMassesProperty.range ),
         minorTickSpacing: 0.1,
         thumbFill: QBSColors.massSliderThumbFillProperty,

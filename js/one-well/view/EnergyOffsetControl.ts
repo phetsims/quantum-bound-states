@@ -49,6 +49,7 @@ class EnergyOffsetSpinner extends FineCoarseSpinner {
       isDisposable: false,
       deltaFine: 0.1, // eV
       deltaCoarse: 1, // eV
+      spacing: 6,
       arrowButtonOptions: {
         phetioVisiblePropertyInstrumented: false
       },

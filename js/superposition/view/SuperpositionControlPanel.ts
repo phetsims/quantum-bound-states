@@ -14,12 +14,14 @@ import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
+import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
@@ -95,10 +97,10 @@ export class SuperpositionControlPanel extends Panel {
     } );
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
-      spacing: 12, // Add more spacing for this screen.
       children: [
         titleText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
+        new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
         subtitleText,
         new PresetCustomSwitch( superpositionConfigurationTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
         new Node( {
