@@ -57,7 +57,7 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
         const previousWellWidth = wellWidthProperty.value;
 
         // Update the Property.
-        //TODO This is not working.
+        //TODO This is not working, something to do with the drag handle being on the left wall.
         const deltaWidth = 2 * chartTransform.viewToModelDeltaX( listener.modelDelta.x );
         wellWidthProperty.value = wellWidthProperty.range.clampValue( wellWidthProperty.value + deltaWidth );
 
