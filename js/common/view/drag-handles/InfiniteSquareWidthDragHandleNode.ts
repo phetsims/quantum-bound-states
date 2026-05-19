@@ -7,7 +7,6 @@
  */
 
 import Multilink from '../../../../../axon/js/Multilink.js';
-import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -21,8 +20,6 @@ export default class InfiniteSquareWidthDragHandleNode extends PotentialDragHand
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       tandem: Tandem ) {
-
-    affirm( potential.numberOfWellsProperty.value === 1, 'InfiniteSquareWidthDragHandleNode does not support multiple wells' );
 
     super( potential.wellWidthProperty, {
       orientation: 'horizontal',

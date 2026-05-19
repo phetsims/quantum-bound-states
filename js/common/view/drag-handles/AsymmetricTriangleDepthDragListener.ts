@@ -1,7 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO This is identical to FiniteSquareDepthDragListener except for the type of @param potential.
 /**
- * InfiniteStepHeightDragListener is the drag listener for changing the step height of an Infinite Step potential.
+ * AsymmetricTriangleDepthDragListener is the drag listener for changing the well depth of an Asymmetric Triangle potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,7 +10,7 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
+import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
@@ -19,29 +20,29 @@ import PotentialDragListener from './PotentialDragListener.js';
 const DRAG_DELTA = 0.5;
 const SHIFT_DRAG_DELTA = 0.1;
 
-export default class InfiniteStepHeightDragListener extends PotentialDragListener {
+export default class AsymmetricTriangleDepthDragListener extends PotentialDragListener {
 
   public constructor( dragHandleNode: PotentialDragHandleNode,
-                      potential: InfiniteStepPotential,
+                      potential: AsymmetricTrianglePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       parentTandem: Tandem ) {
 
-    const stepHeightProperty = potential.stepHeightProperty;
+    const wellDepthProperty = potential.wellDepthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing a transform option value, all drag events (including listener.modelDelta) are in view coordinates.
-    super( dragHandleNode, stepHeightProperty, time, {
+    super( dragHandleNode, wellDepthProperty, time, {
       tandem: parentTandem,
 
       // Adjust drag bounds for yOffset.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
         yOffset => new Bounds2(
           energyDiagramRectangleBounds.minX,
-          chartTransform.modelToViewY( yOffset + stepHeightProperty.range.max ),
+          chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max ),
           energyDiagramRectangleBounds.maxX,
-          chartTransform.modelToViewY( yOffset + stepHeightProperty.range.min ) ) ),
+          chartTransform.modelToViewY( yOffset + wellDepthProperty.range.min ) ) ),
 
       keyboardDragListenerOptions: {
         keyboardDragDirection: 'upDown',
@@ -54,14 +55,14 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
       drag: ( event, listener ) => {
 
         // Remember the Property's previous value for sound feedback.
-        const previousStepHeight = stepHeightProperty.value;
+        const previousWellDepth = wellDepthProperty.value;
 
         // Update the Property.
-        const deltaStepHeight = chartTransform.viewToModelDeltaY( listener.modelDelta.y );
-        stepHeightProperty.value = stepHeightProperty.range.clampValue( stepHeightProperty.value + deltaStepHeight );
+        const deltaDepth = chartTransform.viewToModelDeltaY( listener.modelDelta.y );
+        wellDepthProperty.value = wellDepthProperty.range.clampValue( wellDepthProperty.value + deltaDepth );
 
         // Play sound to communicate how the Property changed.
-        this.playSoundForValueChange( stepHeightProperty.value, previousStepHeight );
+        this.playSoundForValueChange( wellDepthProperty.value, previousWellDepth );
       }
     } );
   }
