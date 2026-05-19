@@ -1,0 +1,49 @@
+// Copyright 2026, University of Colorado Boulder
+
+/**
+ * PotentialDragHandleNode is the base class for all drag handles that are used to change some property of
+ * a quantum potential.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import { optionize4 } from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import AccessibleDraggableOptions from '../../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../../scenery-phet/js/ArrowNode.js';
+import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import QBSConstants from '../../QBSConstants.js';
+
+type SelfOptions = {
+  orientation: 'horizontal' | 'vertical';
+};
+
+export type PotentialDragHandleNodeOptions = SelfOptions &
+  PickOptional<ArrowNodeOptions, 'accessibleName' | 'accessibleHelpText' | 'accessibleFocusObjectResponse' | 'accessibleParagraphContent'> &
+  PickRequired<ArrowNodeOptions, 'tandem'>;
+
+export default abstract class PotentialDragHandleNode extends InteractiveHighlighting( ArrowNode ) {
+
+  protected constructor( providedOptions: PotentialDragHandleNodeOptions ) {
+
+    const options = optionize4<PotentialDragHandleNodeOptions, SelfOptions, ArrowNodeOptions>()( {},
+      AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, providedOptions );
+
+    const tailX = options.orientation === 'horizontal' ? -QBSConstants.HANDLE_LENGTH / 2 : 0;
+    const tailY = options.orientation === 'horizontal' ? 0 : -QBSConstants.HANDLE_LENGTH / 2;
+    const tipX = options.orientation === 'horizontal' ? QBSConstants.HANDLE_LENGTH / 2 : 0;
+    const tipY = options.orientation === 'horizontal' ? 0 : QBSConstants.HANDLE_LENGTH / 2;
+
+    super( tailX, tailY, tipX, tipY, options );
+
+    const pointerArea = this.localBounds.dilatedXY( 5, 5 );
+    this.mouseArea = pointerArea;
+    this.touchArea = pointerArea;
+  }
+
+  /**
+   * Describes the drag handle when it is moved.
+   */
+  public abstract describeMoved(): void;
+}

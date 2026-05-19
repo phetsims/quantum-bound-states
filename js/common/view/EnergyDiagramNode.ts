@@ -15,6 +15,7 @@ import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -27,6 +28,7 @@ import QBSConstants from '../QBSConstants.js';
 import EnergyLevelDisplay from './EnergyLevelDisplay.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
+import PotentialDragHandlesLayer from './drag-handles/PotentialDragHandlesLayer.js';
 import SelectedEnergyLevelPlot from './SelectedEnergyLevelPlot.js';
 import YLinePlot from './YLinePlot.js';
 
@@ -144,6 +146,12 @@ export default class EnergyDiagramNode extends Node {
       ]
     } );
 
+    const potentials = model.potentialProperty.validValues!;
+    affirm( potentials );
+
+    const dragHandlesLayer = new PotentialDragHandlesLayer( potentials, model.potentialProperty, this, model.time,
+      tandem.createTandem( 'dragHandlesLayer' ) );
+
     // Displays the selected energy level and its corresponding energy value.
     const selectedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.selectedEnergyLevelProperty, this.chartTransform, {
       left: this.chartRectangle.left + 10,
@@ -164,6 +172,7 @@ export default class EnergyDiagramNode extends Node {
       this.horizontalGridLines,
       verticalGridLines,
       clippedLayer,
+      dragHandlesLayer,
       selectedEnergyLevelDisplay,
       highlightedEnergyLevelDisplay
     ];
