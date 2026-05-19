@@ -39,7 +39,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   public readonly wellDepthProperty: NumberProperty;
-  public readonly spacingProperty: NumberProperty;
+  public readonly spacingProperty: NumberProperty; // distance between centers of adjacent wells
 
   public constructor( providedOptions: PoschlTellerPotentialOptions ) {
 
