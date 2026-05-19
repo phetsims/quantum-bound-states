@@ -8,7 +8,6 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import { clamp } from '../../../../../dot/js/util/clamp.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../../dot/js/Vector2Property.js';
 import RichDragListener from '../../../../../scenery/js/listeners/RichDragListener.js';
@@ -74,17 +73,15 @@ export default class InfiniteSquareWidthDragListener extends RichDragListener {
 
       drag: ( event, listener ) => {
 
-        // Remember the previous wellWidth for sound feedback.
+        // Remember the Property's previous value for sound feedback.
         const previousWellWidth = wellWidthProperty.value;
 
-        // Compute the new wellWidth.
+        // Update the Property.
         const deltaWidth = 2 * chartTransform.viewToModelDeltaX( listener.modelDelta.x );
-        let wellWidth = wellWidthProperty.value + deltaWidth;
-        wellWidth = clamp( wellWidth, wellWidthProperty.range.min, wellWidthProperty.range.max );
-        wellWidthProperty.value = wellWidth;
+        wellWidthProperty.value = wellWidthProperty.range.clampValue( wellWidthProperty.value + deltaWidth );
 
-        // Play sound to communicate how well width changed.
-        soundPlayer.playSoundForValueChange( wellWidth, previousWellWidth );
+        // Play sound to communicate how the Property changed.
+        soundPlayer.playSoundForValueChange( wellWidthProperty.value, previousWellWidth );
       },
 
       end: ( event, listener ) => {
