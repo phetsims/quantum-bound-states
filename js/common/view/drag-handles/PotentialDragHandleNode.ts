@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
 import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
@@ -14,6 +15,7 @@ import AccessibleDraggableOptions from '../../../../../scenery-phet/js/accessibi
 import ArrowNode, { ArrowNodeOptions } from '../../../../../scenery-phet/js/ArrowNode.js';
 import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import QBSConstants from '../../QBSConstants.js';
+import { HomeEndKeyboardListener } from '../HomeEndKeyboardListener.js';
 
 type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
@@ -25,7 +27,7 @@ export type PotentialDragHandleNodeOptions = SelfOptions &
 
 export default abstract class PotentialDragHandleNode extends InteractiveHighlighting( ArrowNode ) {
 
-  protected constructor( providedOptions: PotentialDragHandleNodeOptions ) {
+  protected constructor( rangedProperty: TRangedProperty, providedOptions: PotentialDragHandleNodeOptions ) {
 
     const options = optionize4<PotentialDragHandleNodeOptions, SelfOptions, ArrowNodeOptions>()( {},
       AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, providedOptions );
@@ -40,6 +42,12 @@ export default abstract class PotentialDragHandleNode extends InteractiveHighlig
     const pointerArea = this.localBounds.dilatedXY( 5, 5 );
     this.mouseArea = pointerArea;
     this.touchArea = pointerArea;
+
+    this.addInputListener( new HomeEndKeyboardListener( rangedProperty, {
+      homeCallback: () => this.describeMoved(),
+      endCallback: () => this.describeMoved(),
+      tandem: options.tandem.createTandem( 'homeEndKeyboardListener' )
+    } ) );
   }
 
   /**

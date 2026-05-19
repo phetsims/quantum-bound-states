@@ -7,22 +7,19 @@
  */
 
 import Multilink from '../../../../../axon/js/Multilink.js';
-import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
+import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import InfiniteSquareWidthDragListener from './InfiniteSquareWidthDragListener.js';
+import FiniteSquareWidthDragListener from './FiniteSquareWidthDragListener.js';
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
-export default class InfiniteSquareWidthDragHandleNode extends PotentialDragHandleNode {
+export default class FiniteSquareWidthDragHandleNode extends PotentialDragHandleNode {
 
-  public constructor( potential: InfiniteSquarePotential,
+  public constructor( potential: FiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       tandem: Tandem ) {
-
-    affirm( potential.numberOfWellsProperty.value === 1, 'InfiniteSquareWidthDragHandleNode does not support multiple wells' );
 
     super( potential.wellWidthProperty, {
       orientation: 'horizontal',
@@ -32,15 +29,17 @@ export default class InfiniteSquareWidthDragHandleNode extends PotentialDragHand
       tandem: tandem.createTandem( 'widthDragHandleNode' )
     } );
 
-    this.addInputListener( new InfiniteSquareWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new FiniteSquareWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    // Keep the handle connected to the right wall of the rightmost well.
+    // Keep the handle vertically centered on the right wall of the rightmost well.
     const chartTransform = energyDiagramNode.chartTransform;
     Multilink.multilink(
-      [ potential.wellWidthProperty, potential.xOffsetProperty, potential.yOffsetProperty ],
-      ( wellWidth, xOffset, yOffset ) => {
-        this.centerX = chartTransform.modelToViewX( xOffset + wellWidth / 2 );
-        this.centerY = chartTransform.modelToViewY( yOffset + potential.energyAxisRange.getLength() / 2 );
+      [ potential.numberOfWellsProperty, potential.separationProperty, potential.wellWidthProperty,
+        potential.wellDepthProperty, potential.xOffsetProperty, potential.yOffsetProperty ],
+      ( numberOfWells, separation, wellWidth, wellDepth, xOffset, yOffset ) => {
+        const potentialWidth = ( numberOfWells * wellWidth ) + ( ( numberOfWells - 1 ) * separation );
+        this.centerX = chartTransform.modelToViewX( xOffset + potentialWidth / 2 );
+        this.centerY = chartTransform.modelToViewY( yOffset + wellDepth / 2 );
       } );
   }
 
