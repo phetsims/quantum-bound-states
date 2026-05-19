@@ -2,7 +2,7 @@
 
 //TODO Add to testSolvers?
 /**
- * Analytical solution for the Morse potential.
+ * Analytical solution for a single-well Morse potential.
  *
  * The Morse potential models a diatomic-molecule-like well with a repulsive wall on
  * the left, a minimum at x = 0, and a flat asymptote at x → +∞.  It is parameterised
@@ -38,6 +38,7 @@
  * @author Martin Veillette
  */
 
+import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -48,6 +49,7 @@ const HBAR = NumerovSolver.HBAR;
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
+  numberOfWells: number;
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm
@@ -58,12 +60,8 @@ type PotentialParameters = {
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
-  xOffset: number; // Horizontal position x₀ of the nucleus in nm
-  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
-  wellWidth: number; // Width of the well L in nm
-  wellDepth: number; // Depth of the well V₀ in eV (positive value)
   electronMasses: number; // Particle mass in electron masses
-};
+} & PotentialParameters;
 
 export default class MorseSolution {
 
@@ -72,7 +70,7 @@ export default class MorseSolution {
   }
 
   /**
-   * Creates the potential function for the Morse potential.
+   * Creates the potential function for a single-well Morse potential.
    * V(x) = D_e · (1 − e^{−x/w})² − D_e
    *
    * @param parameters - See PotentialParameters
@@ -82,7 +80,8 @@ export default class MorseSolution {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { wellWidth, wellDepth } = parameters;
+    const { numberOfWells, wellWidth, wellDepth } = parameters;
+    affirm( numberOfWells === 1, 'MorseSolution does not support multiple wells' );
 
     return ( x: number ) => {
       const term = 1 - Math.exp( -x / wellWidth );
@@ -91,7 +90,7 @@ export default class MorseSolution {
   }
 
   /**
-   * Analytical solution for the Morse potential.
+   * Analytical solution for a single-well Morse potential.
    *
    * Returns a BoundStateResult compatible with NumerovSolver output.
    *
@@ -103,7 +102,8 @@ export default class MorseSolution {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses } = parameters;
+    affirm( numberOfWells === 1, 'MorseSolution does not support multiple wells' );
 
     const { energies, quantumNumbers } = findBoundStateEnergies( wellDepth, wellWidth, electronMasses, energyMin, energyMax );
 
@@ -114,6 +114,7 @@ export default class MorseSolution {
     }
 
     const potentialFunction = MorseSolution.createPotentialFunction( {
+      numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
       wellWidth: wellWidth,

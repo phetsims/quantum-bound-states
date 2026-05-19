@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for the infinite square well (particle in a box).
+ * Analytical solution for a single-well Infinite Square potential (particle in a box).
  *
  * The infinite square well is the simplest quantum mechanical system where a particle
  * is confined to a region with impenetrable walls.
@@ -20,6 +20,7 @@
  * @author Martin Veillette
  */
 
+import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -32,6 +33,7 @@ const BARRIER_HEIGHT = 1000;
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
+  numberOfWells: number;
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm
@@ -41,11 +43,8 @@ type PotentialParameters = {
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
-  xOffset: number; // Horizontal position x₀ of the nucleus in nm
-  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
-  wellWidth: number; // Width of the well L in nm
   electronMasses: number; // Particle mass in electron masses
-};
+} & PotentialParameters;
 
 export default class InfiniteSquareSolution {
 
@@ -54,15 +53,13 @@ export default class InfiniteSquareSolution {
   }
 
   /**
-   * Creates the potential function for an infinite square well in the lab frame.
-   *
-   * @param parameters - see PotentialParameters
-   * @returns Potential function V(x) in eV
+   * Creates the potential function for a single-well Infinite Square potential.
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
-    const { xOffset, yOffset, wellWidth } = parameters;
+    const { numberOfWells, xOffset, yOffset, wellWidth } = parameters;
+    affirm( numberOfWells === 1, 'InfiniteSquareSolution does not support multiple wells' );
 
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
@@ -73,20 +70,17 @@ export default class InfiniteSquareSolution {
 
   //TODO What is "the lab frame"?
   /**
-   * Analytical solution for the infinite square well (particle in a box).
+   * Analytical solution for a single-well Infinite Square potential.
    *
    * Energies are accepted and returned in the lab frame. yOffset is the energy of the well
    * bottom; the solver converts to the well frame internally and shifts eigenvalues back before
    * returning, so callers never need to manage the frame conversion themselves.
-   *
-   * @param xGrid - uniformly spaced x-coordinates in nm
-   * @param parameters - see SolveParameters
-   * @returns Bound state results with energies in the lab frame and wave functions
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { energyMin, energyMax, wellWidth, xOffset, yOffset, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, wellWidth, xOffset, yOffset, electronMasses } = parameters;
+    affirm( numberOfWells === 1, 'InfiniteSquareSolution does not support multiple wells' );
 
     // Work in the well frame where the well bottom is at E = 0.
     const wellEnergyMin = energyMin - yOffset;
@@ -143,6 +137,7 @@ export default class InfiniteSquareSolution {
     }
 
     const potentialFunction = InfiniteSquareSolution.createPotentialFunction( {
+      numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
       wellWidth: wellWidth

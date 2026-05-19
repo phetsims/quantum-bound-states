@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for a quantum harmonic oscillator.
+ * Analytical solution for a Harmonic Oscillator potential.
  * V(x) = (1/2) * k * x^2 = (1/2) * m * ω^2 * x^2
  *
  * ENERGY EIGENVALUES:
@@ -16,6 +16,7 @@
  */
 
 import factorial from '../../../../../../dot/js/util/factorial.js';
+import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -26,6 +27,7 @@ const HBAR = NumerovSolver.HBAR;
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
+  numberOfWells: number;
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
   springConstant: number; // Spring constant k in eV/nm²
@@ -35,11 +37,8 @@ type PotentialParameters = {
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
-  xOffset: number; // Horizontal position x₀ of the nucleus in nm
-  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
-  springConstant: number; // Spring constant k in eV/nm²
   electronMasses: number; // Particle mass in electron masses
-};
+} & PotentialParameters;
 
 export default class HarmonicOscillatorSolution {
 
@@ -48,17 +47,15 @@ export default class HarmonicOscillatorSolution {
   }
 
   /**
-   * Creates the potential function for a harmonic oscillator.
+   * Creates the potential function for a single-well Harmonic Oscillator potential.
    * V(x) = (1/2) * k * x^2
-   *
-   * @param parameters - see PotentialParameters
-   * @returns Potential function V(x) in eV
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { springConstant } = parameters;
+    const { numberOfWells, springConstant } = parameters;
+    affirm( numberOfWells === 1, 'HarmonicOscillatorSolution does not support multiple wells' );
 
     return ( x: number ) => {
       return 0.5 * springConstant * x * x;
@@ -66,18 +63,15 @@ export default class HarmonicOscillatorSolution {
   }
 
   /**
-   * Analytical solution for a quantum harmonic oscillator.
+   * Analytical solution for a single-well Harmonic Oscillator potential.
    * V(x) = (1/2) * k * x^2 = (1/2) * m * ω^2 * x^2
-   *
-   * @param xGrid - uniformly spaced x-coordinates in nm
-   * @param parameters - see SolveParameters
-   * @returns Bound state results with exact energies (eV) and wave functions
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { energyMin, energyMax, xOffset, yOffset, springConstant, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, springConstant, electronMasses } = parameters;
+    affirm( numberOfWells === 1, 'HarmonicOscillatorSolution does not support multiple wells' );
 
     const omega = Math.sqrt( springConstant / electronMasses );
 
@@ -127,6 +121,7 @@ export default class HarmonicOscillatorSolution {
     }
 
     const potentialFunction = HarmonicOscillatorSolution.createPotentialFunction( {
+      numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
       springConstant: springConstant

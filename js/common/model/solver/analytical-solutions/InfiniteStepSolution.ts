@@ -1,11 +1,11 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for the infinite step potential (infinite square well with an interior step).
+ * Analytical solution for a single-well Infinite Step potential (Infinite Square potential with an interior step).
  *
  * The well has impenetrable walls, but the floor is not flat: the right half sits at a higher
  * potential V₀ than the left half.  A particle in the left half "sees" a step barrier of height
- * V₀ at the centre; a particle with enough energy can classically enter the right half as well.
+ * V₀ at the center; a particle with enough energy can classically enter the right half as well.
  *
  * POTENTIAL (well centred at x₀):
  *   V(x) = ∞       for x ≤ x₀ - L/2
@@ -31,6 +31,7 @@
  */
 
 import { findRoot } from '../../../../../../dot/js/util/findRoot.js';
+import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -44,6 +45,7 @@ const BARRIER_HEIGHT = 1000;
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
+  numberOfWells: number;
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm,
@@ -54,12 +56,8 @@ type PotentialParameters = {
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
-  xOffset: number; // Horizontal position x₀ of the nucleus in nm
-  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
-  wellWidth: number; // Width of the well L in nm
-  stepHeight: number; // Height of the potential step V₀ in eV (relative to well bottom)
   electronMasses: number; // Particle mass in electron masses
-};
+} & PotentialParameters;
 
 export default class InfiniteStepSolution {
 
@@ -68,7 +66,7 @@ export default class InfiniteStepSolution {
   }
 
   /**
-   * Creates the potential function for an infinite step potential in the lab frame.
+   * Creates the potential function for a single-well Infinite Step potential.
    *
    * @param parameters - see PotentialParameters
    * @returns Potential function V(x) in eV
@@ -76,7 +74,8 @@ export default class InfiniteStepSolution {
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
-    const { xOffset, yOffset, wellWidth, stepHeight } = parameters;
+    const { numberOfWells, xOffset, yOffset, wellWidth, stepHeight } = parameters;
+    affirm( numberOfWells === 1, 'InfiniteStepSolution does not support multiple wells' );
 
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
@@ -95,7 +94,7 @@ export default class InfiniteStepSolution {
 
   //TODO What is "the lab frame"?
   /**
-   * Analytical solution for the infinite step potential.
+   * Analytical solution for a single-well Infinite Step potential.
    *
    * Energies are accepted and returned in the lab frame. yOffset is the energy of the well
    * bottom; the solver converts to the well frame internally and shifts eigenvalues back before
@@ -108,7 +107,8 @@ export default class InfiniteStepSolution {
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { energyMin, energyMax, xOffset, yOffset, wellWidth, stepHeight, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, stepHeight, electronMasses } = parameters;
+    affirm( numberOfWells === 1, 'InfiniteStepSolution does not support multiple wells' );
 
     // Work in the well frame where the well bottom is at E = 0.
     const wellEnergyMin = energyMin - yOffset;
@@ -126,6 +126,7 @@ export default class InfiniteStepSolution {
     }
 
     const potentialFunction = InfiniteStepSolution.createPotentialFunction( {
+      numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
       wellWidth: wellWidth,

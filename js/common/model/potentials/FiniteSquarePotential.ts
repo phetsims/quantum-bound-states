@@ -112,6 +112,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
       // For single-well, use the analytical solution.
       //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Fails with no energy levels
       // result = FiniteSquareSolution.solve( xGrid, {
+      //   numberOfWells: this.numberOfWellsProperty.value,
       //   energyMin: this.getMinSolverEnergy(),
       //   energyMax: this.getMaxSolverEnergy(),
       //   xOffset: this.xOffsetProperty.value,

@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for the finite square well.
+ * Analytical solution for a Finite Square potential.
  *
  * The finite square well extends the infinite well by allowing the potential to be
  * finite outside the well. Particles can penetrate into the classically forbidden
@@ -30,6 +30,7 @@
  */
 
 import { findRoot } from '../../../../../../dot/js/util/findRoot.js';
+import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -53,6 +54,7 @@ type PotentialParameters = {
 
 // Parameters for solve method
 type SolveParameters = {
+  numberOfWells: number;
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
   xOffset: number; // Horizontal position x₀ of the nucleus in nm
@@ -69,15 +71,12 @@ export default class FiniteSquareSolution {
   }
 
   /**
-   * Creates the potential function for a finite square well.
+   * Creates the potential function for a multi-well Finite Square potential.
    * V(x) = -V₀ for |x| < L/2, V(x) = 0 for |x| > L/2
-   *
-   * @param parameters - see PotentialParameters
-   * @returns Potential function V(x) in eV
    */
   public static createPotentialFunction( parameters : PotentialParameters ): PotentialFunction {
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for numberOfWells, xOffset, and yOffset
     // Unpack parameters
     const { wellWidth, wellDepth } = parameters;
 
@@ -92,17 +91,14 @@ export default class FiniteSquareSolution {
   }
 
   /**
-   * Analytical solution for the finite square well.
-   *
-   * @param xGrid - uniformly spaced x-coordinates in nm
-   * @param parameters - see SolveParameters
-   * @returns Bound state results with energies (eV) and wave functions
+   * Analytical solution for a single-well Finite Square potential.
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses } = parameters;
+    affirm( numberOfWells === 1, 'FiniteSquareSolution does not support multiple wells' );
 
     // Find all bound state energies
     const { energies, parities } = findBoundStateEnergies(

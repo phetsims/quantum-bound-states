@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for the 1D Coulomb potential.
+ * Analytical solution for a single-well 1D Coulomb potential.
  *
  * The 1D Coulomb potential is a hydrogen-like attractive well with a 1/|x| singularity
  * at x = x₀. Only the antisymmetric (odd-parity) family of states is included here,
@@ -55,6 +55,7 @@ affirm( MAGNITUDE_AT_SINGULARITY > 0, 'MAGNITUDE_AT_SINGULARITY must be positive
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
+  numberOfWells: number;
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
 };
@@ -63,10 +64,8 @@ type PotentialParameters = {
 type SolveParameters = {
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
-  xOffset: number; // Horizontal position x₀ of the nucleus in nm
-  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
   electronMasses: number; // Particle mass in electron masses
-};
+} & PotentialParameters;
 
 export default class CoulombSolution {
 
@@ -75,17 +74,16 @@ export default class CoulombSolution {
   }
 
   /**
-   * Creates the potential function for a single 1D Coulomb well in the lab frame.
+   * Creates the potential function for a single-well 1D Coulomb potential.
+   *
    * V(x) = y₀ - K / |x - x₀|, with the singularity at x = x₀ capped so that a discrete
    * grid that includes x = x₀ sees a finite (but very deep) value.
-   *
-   * @param parameters - see PotentialParameters
-   * @returns Potential function V(x) in eV
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
-    const { xOffset, yOffset } = parameters;
+    const { numberOfWells, xOffset, yOffset } = parameters;
+    affirm( numberOfWells === 1, 'CoulombSolution does not support multiple wells' );
 
     return ( x: number ) => {
       const ax = Math.abs( x - xOffset );
@@ -103,19 +101,16 @@ export default class CoulombSolution {
 
   //TODO What is "the lab frame"?
   /**
-   * Analytical solution for the 1D Coulomb potential.
+   * Analytical solution for a single-well 1D Coulomb potential.
    *
    * Energies are accepted and returned in the lab frame. y₀ shifts V and all eigenvalues by
    * the same constant; the Coulomb nucleus is at x₀ and wave functions use (x − x₀).
-   *
-   * @param xGrid - Uniformly spaced x-coordinates in nm
-   * @param parameters - see SolveParameters
-   * @returns Bound state results with energies in the lab frame and normalized wave functions
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { energyMin, energyMax, xOffset, yOffset, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, electronMasses } = parameters;
+    affirm( numberOfWells === 1, 'CoulombSolution does not support multiple wells' );
 
     // Work in the Coulomb frame where the potential floor is the standard 1/|x| form (no y₀).
     const intrinsicEnergyMin = energyMin - yOffset;
@@ -160,6 +155,7 @@ export default class CoulombSolution {
     }
 
     const potentialFunction = CoulombSolution.createPotentialFunction( {
+      numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset
     } );

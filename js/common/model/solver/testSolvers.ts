@@ -244,6 +244,7 @@ function testHarmonicOscillator(): void {
 
   // Get analytical solution
   const analyticalResult = HarmonicOscillatorSolution.solve( xGrid, {
+    numberOfWells: 1,
     energyMin: energyMin,
     energyMax: energyMax,
     xOffset: 0,
@@ -308,6 +309,7 @@ function testInfiniteSquare(): void {
   const xOffset = 0;  // nm, well centred at origin
   const yOffset = 0;  // eV, well bottom at zero
   const potentialFunction = InfiniteSquareSolution.createPotentialFunction( {
+    numberOfWells: 1,
     xOffset: xOffset,
     yOffset: yOffset,
     wellWidth: L
@@ -330,6 +332,7 @@ function testInfiniteSquare(): void {
 
   // Get analytical solution
   const analyticalResult = InfiniteSquareSolution.solve( xGrid, {
+    numberOfWells: 1,
     energyMin: energyMin,
     energyMax: energyMax,
     xOffset: 0,
@@ -407,6 +410,7 @@ function testFiniteSquare(): void {
 
   // Get analytical solution
   const analyticalResult = FiniteSquareSolution.solve( xGrid, {
+    numberOfWells: 1,
     energyMin: energyMin,
     energyMax: energyMax,
     xOffset: 0,
@@ -575,6 +579,7 @@ function testMorsePotential(): void {
   // The Morse potential: V(x) = D_e*(1 - e^{-x/w})^2 - D_e
   // Well bottom at x=0 (V = -D_e), dissociation limit at x→+∞ (V = 0), repulsive wall at x→-∞
   const potentialFunction = MorseSolution.createPotentialFunction( {
+    numberOfWells: 1,
     xOffset: 0,
     yOffset: 0,
     wellWidth: wellWidth,
@@ -598,6 +603,7 @@ function testMorsePotential(): void {
 
   // Get analytical solution
   const analyticalResult = MorseSolution.solve( xGrid, {
+    numberOfWells: 1,
     energyMin: energyMin,
     energyMax: energyMax,
     xOffset: 0,
@@ -662,6 +668,7 @@ function testInfiniteStep(): void {
 
   // Potential: 0 in left half [-L/2, 0), V₀ in right half [0, L/2], infinite walls at boundaries.
   const potentialFunction = InfiniteStepSolution.createPotentialFunction( {
+    numberOfWells: 1,
     xOffset: xOffset,
     yOffset: yOffset,
     wellWidth: wellWidth,
@@ -686,6 +693,7 @@ function testInfiniteStep(): void {
 
   // Get analytical solution
   const analyticalResult = InfiniteStepSolution.solve( xGrid, {
+    numberOfWells: 1,
     energyMin: energyMin,
     energyMax: energyMax,
     xOffset: xOffset,
