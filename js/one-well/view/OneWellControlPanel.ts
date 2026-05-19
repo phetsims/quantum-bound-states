@@ -10,6 +10,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -17,6 +18,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
 import QBSTime from '../../common/model/QBSTime.js';
+import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
@@ -50,6 +52,7 @@ export class OneWellControlPanel extends Panel {
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new ElectronMassesControl( electronMassesProperty, time, tandem.createTandem( 'electronMassesControl' ) ),
         new EnergyOffsetControl( energyOffsetProperty, time, tandem.createTandem( 'energyOffsetControl' ) ),
+        new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
         new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );
