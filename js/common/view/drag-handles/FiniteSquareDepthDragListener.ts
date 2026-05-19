@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * FiniteSquareWidthDragListener is the drag listener for changing the well width of a Finite Square potential.
+ * FiniteSquareDepthDragListener is the drag listener for changing the well depth of a Finite Square potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,24 +13,24 @@ import Vector2Property from '../../../../../dot/js/Vector2Property.js';
 import RichDragListener from '../../../../../scenery/js/listeners/RichDragListener.js';
 import ValueChangeSoundPlayer from '../../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
+import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
-// Drag deltas in nm.
+// Drag deltas in eV.
 const DRAG_DELTA = 0.5;
 const SHIFT_DRAG_DELTA = 0.1;
 
-export default class FiniteSquareWidthDragListener extends RichDragListener {
+export default class FiniteSquareDepthDragListener extends RichDragListener {
 
   public constructor( dragHandleNode: PotentialDragHandleNode,
-                      potential: InfiniteSquarePotential,
+                      potential: FiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       parentTandem: Tandem ) {
 
-    const wellWidthProperty = potential.wellWidthProperty;
+    const wellDepthProperty = potential.wellDepthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
 
     // Create a positionProperty so that we can get listener.modelDelta.
@@ -38,12 +38,12 @@ export default class FiniteSquareWidthDragListener extends RichDragListener {
 
     // Constrain the drag bounds.
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
-    const dragBoundsProperty = new DerivedProperty( [ potential.xOffsetProperty ],
-      xOffset => new Bounds2(
-        chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min ),
-        energyDiagramRectangleBounds.minY,
-        chartTransform.modelToViewX( xOffset + wellWidthProperty.range.max ),
-        energyDiagramRectangleBounds.maxY ) );
+    const dragBoundsProperty = new DerivedProperty( [ potential.yOffsetProperty ],
+      yOffset => new Bounds2(
+        energyDiagramRectangleBounds.minX,
+        chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max ),
+        energyDiagramRectangleBounds.maxX,
+        chartTransform.modelToViewY( yOffset + wellDepthProperty.range.min ) ) );
 
     const soundPlayer = new ValueChangeSoundPlayer( potential.wellWidthProperty.rangeProperty, {
       minimumInterMiddleSoundTime: 0.1 // seconds
@@ -59,9 +59,10 @@ export default class FiniteSquareWidthDragListener extends RichDragListener {
       dragBoundsProperty: dragBoundsProperty,
 
       keyboardDragListenerOptions: {
-        keyboardDragDirection: 'leftRight',
-        dragDelta: chartTransform.modelToViewDeltaX( DRAG_DELTA ),
-        shiftDragDelta: chartTransform.modelToViewDeltaX( SHIFT_DRAG_DELTA ),
+        keyboardDragDirection: 'upDown',
+        // Invert the sign on dragDelta and shiftDragDelta because drag events are in view coordinates, where +y is down.
+        dragDelta: -chartTransform.modelToViewDeltaY( DRAG_DELTA ),
+        shiftDragDelta: -chartTransform.modelToViewDeltaY( SHIFT_DRAG_DELTA ),
         moveOnHoldInterval: 20
       },
 
@@ -74,14 +75,14 @@ export default class FiniteSquareWidthDragListener extends RichDragListener {
       drag: ( event, listener ) => {
 
         // Remember the Property's previous value for sound feedback.
-        const previousWellWidth = wellWidthProperty.value;
+        const previousWellDepth = wellDepthProperty.value;
 
         // Update the Property.
-        const deltaWidth = 2 * chartTransform.viewToModelDeltaX( listener.modelDelta.x );
-        wellWidthProperty.value = wellWidthProperty.range.clampValue( wellWidthProperty.value + deltaWidth );
+        const deltaDepth = chartTransform.viewToModelDeltaY( listener.modelDelta.y );
+        wellDepthProperty.value = wellDepthProperty.range.clampValue( wellDepthProperty.value + deltaDepth );
 
         // Play sound to communicate how the Property changed.
-        soundPlayer.playSoundForValueChange( wellWidthProperty.value, previousWellWidth );
+        soundPlayer.playSoundForValueChange( wellDepthProperty.value, previousWellDepth );
       },
 
       end: ( event, listener ) => {

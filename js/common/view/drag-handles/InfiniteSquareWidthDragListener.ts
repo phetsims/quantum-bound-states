@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * InfiniteSquareWidthDragListener is the drag listener for changing the width of an Infinite Square potential.
+ * InfiniteSquareWidthDragListener is the drag listener for changing the well width of an Infinite Square potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -28,7 +28,7 @@ export default class InfiniteSquareWidthDragListener extends RichDragListener {
                       potential: InfiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
-                      tandem: Tandem ) {
+                      parentTandem: Tandem ) {
 
     const wellWidthProperty = potential.wellWidthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
@@ -40,9 +40,9 @@ export default class InfiniteSquareWidthDragListener extends RichDragListener {
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
     const dragBoundsProperty = new DerivedProperty( [ potential.xOffsetProperty ],
       xOffset => new Bounds2(
-        chartTransform.modelToViewX( wellWidthProperty.range.min + xOffset ),
+        chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min ),
         energyDiagramRectangleBounds.minY,
-        chartTransform.modelToViewX( wellWidthProperty.range.max + xOffset ),
+        chartTransform.modelToViewX( xOffset + wellWidthProperty.range.max ),
         energyDiagramRectangleBounds.maxY ) );
 
     const soundPlayer = new ValueChangeSoundPlayer( potential.wellWidthProperty.rangeProperty, {
@@ -54,7 +54,7 @@ export default class InfiniteSquareWidthDragListener extends RichDragListener {
 
     // Since we are not providing a transform option value, all drag events (including listener.modelDelta) are in view coordinates.
     super( {
-      tandem: tandem,
+      tandem: parentTandem,
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
 

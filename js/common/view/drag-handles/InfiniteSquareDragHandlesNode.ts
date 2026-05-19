@@ -24,11 +24,11 @@ export default class InfiniteSquareDragHandlesNode extends Node {
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    const widthDragHandleNode = new InfiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthDragHandleNode' ) );
-
     super( {
       isDisposable: false,
-      children: [ widthDragHandleNode ],
+      children: [
+        new InfiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthDragHandleNode' ) )
+      ],
       visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential ),
       tandem: tandem
     } );

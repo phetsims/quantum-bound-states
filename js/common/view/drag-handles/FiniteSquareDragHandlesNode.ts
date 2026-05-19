@@ -14,6 +14,7 @@ import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
+import FiniteSquareDepthDragHandleNode from './FiniteSquareDepthDragHandleNode.js';
 import FiniteSquareWidthDragHandleNode from './FiniteSquareWidthDragHandleNode.js';
 
 export default class FiniteSquareDragHandlesNode extends Node {
@@ -24,12 +25,12 @@ export default class FiniteSquareDragHandlesNode extends Node {
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    const widthDragHandleNode = new FiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthDragHandleNode' ) );
-    // const depthDragHandleNode = new FiniteSquareDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthDragHandleNode' ) );
-
     super( {
       isDisposable: false,
-      children: [ widthDragHandleNode ],
+      children: [
+        new FiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthDragHandleNode' ) ),
+        new FiniteSquareDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthDragHandleNode' ) )
+      ],
       visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential ),
       tandem: tandem
     } );
