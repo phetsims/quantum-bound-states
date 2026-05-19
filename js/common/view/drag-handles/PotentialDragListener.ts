@@ -2,7 +2,7 @@
 
 /**
  * PotentialDragListener is the base class for drag listeners that change some Property of a quantum potential.
- * It is responsible for playing a sound when the Property changes, and pausing the sim while the drag is in progress.
+ * It is responsible for pausing the sim while the drag is in progress and for creating a sound player.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -31,7 +31,7 @@ export default class PotentialDragListener extends RichDragListener {
                          time: QBSTime,
                          providedOptions: PotentialDragListenerOptions ) {
 
-    // Remember whether the sim was playing when the drag started, so that we can restart it after the drag ends.
+    // Remember whether the sim was playing when the drag started, so that we can restore it after the drag ends.
     let wasPlaying = time.isPlayingProperty.value;
 
     const options = optionize<PotentialDragListenerOptions, SelfOptions, RichDragListenerOptions>()( {
@@ -61,6 +61,9 @@ export default class PotentialDragListener extends RichDragListener {
     } );
   }
 
+  /**
+   * Subclasses should call this method when they change the value of the associated Property.
+   */
   protected playSoundForValueChange( newValue: number, oldValue: number ): void {
     this.valueChangeSoundPlayer.playSoundForValueChange( newValue, oldValue );
   }
