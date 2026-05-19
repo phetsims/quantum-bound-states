@@ -15,7 +15,7 @@ import FiniteSquareDepthDragListener from './FiniteSquareDepthDragListener.js';
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
 // How far the handle is positioned from the rightmost well of the potential, in nm
-const HANDLE_X_OFFSET = 0.2;
+const HANDLE_X_OFFSET = 0.25;
 
 export default class FiniteSquareDepthDragHandleNode extends PotentialDragHandleNode {
 
