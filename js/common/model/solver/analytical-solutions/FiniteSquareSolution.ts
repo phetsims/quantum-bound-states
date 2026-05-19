@@ -46,6 +46,7 @@ type Parity = 'even' | 'odd';
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
+  numberOfWells: number;
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm
@@ -54,15 +55,10 @@ type PotentialParameters = {
 
 // Parameters for solve method
 type SolveParameters = {
-  numberOfWells: number;
   energyMin: number; // Minimum energy to search (eV)
   energyMax: number; // Maximum energy to search (eV)
-  xOffset: number; // Horizontal position x₀ of the nucleus in nm
-  yOffset: number; // Constant energy shift y₀ in the lab frame (eV)
-  wellWidth: number; // Width of the well L in nm
-  wellDepth: number; // Depth of the well V₀ in eV (positive value)
   electronMasses: number; // Particle mass in electron masses
-};
+} & PotentialParameters;
 
 export default class FiniteSquareSolution {
 
@@ -124,6 +120,7 @@ export default class FiniteSquareSolution {
     }
 
     const potentialFunction = FiniteSquareSolution.createPotentialFunction( {
+      numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
       wellWidth: wellWidth,
