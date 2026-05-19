@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Add to testSolvers?
 /**
  * Analytical solution for a single-well Morse potential.
  *
