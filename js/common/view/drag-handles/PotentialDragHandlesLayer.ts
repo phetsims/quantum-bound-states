@@ -11,11 +11,13 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
+import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareDragHandlesNode from './FiniteSquareDragHandlesNode.js';
 import InfiniteSquareDragHandlesNode from './InfiniteSquareDragHandlesNode.js';
+import InfiniteStepDragHandlesNode from './InfiniteStepDragHandlesNode.js';
 
 export default class PotentialDragHandlesLayer extends Node {
 
@@ -35,6 +37,10 @@ export default class PotentialDragHandlesLayer extends Node {
       else if ( potential instanceof FiniteSquarePotential ) {
         children.push( new FiniteSquareDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, tandem.createTandem( 'finiteSquareDragHandlesNode' ) ) );
+      }
+      else if ( potential instanceof InfiniteStepPotential ) {
+        children.push( new InfiniteStepDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+          time, tandem.createTandem( 'infiniteStepDragHandlesNode' ) ) );
       }
     } );
 
