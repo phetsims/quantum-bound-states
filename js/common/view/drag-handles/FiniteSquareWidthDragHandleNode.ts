@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * InfiniteSquareWidthDragHandleNode is the drag handle for changing the well width of an Infinite Square potential.
+ * InfiniteSquareWidthDragHandleNode is the drag handle for changing the well width of a Finite Square potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
