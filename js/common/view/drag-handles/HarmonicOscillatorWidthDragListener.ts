@@ -14,9 +14,9 @@ import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillat
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import HarmonicOscillatorWidthDragHandleNode from './HarmonicOscillatorWidthDragHandleNode.js';
-import PotentialDragListener from './PotentialDragListener.js';
+import PotentialHandleDragListener from './PotentialHandleDragListener.js';
 
-export default class HarmonicOscillatorWidthDragListener extends PotentialDragListener<HarmonicOscillatorPotential> {
+export default class HarmonicOscillatorWidthDragListener extends PotentialHandleDragListener<HarmonicOscillatorPotential> {
 
   public constructor( dragHandleNode: HarmonicOscillatorWidthDragHandleNode,
                       potential: HarmonicOscillatorPotential,

@@ -13,9 +13,9 @@ import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotent
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareWidthDragHandleNode from './FiniteSquareWidthDragHandleNode.js';
-import PotentialDragListener from './PotentialDragListener.js';
+import PotentialHandleDragListener from './PotentialHandleDragListener.js';
 
-export default class FiniteSquareWidthDragListener extends PotentialDragListener<InfiniteSquarePotential> {
+export default class FiniteSquareWidthDragListener extends PotentialHandleDragListener<InfiniteSquarePotential> {
 
   public constructor( dragHandleNode: FiniteSquareWidthDragHandleNode,
                       potential: InfiniteSquarePotential,

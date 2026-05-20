@@ -13,9 +13,9 @@ import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import InfiniteStepHeightDragHandleNode from './InfiniteStepHeightDragHandleNode.js';
-import PotentialDragListener from './PotentialDragListener.js';
+import PotentialHandleDragListener from './PotentialHandleDragListener.js';
 
-export default class InfiniteStepHeightDragListener extends PotentialDragListener<InfiniteStepPotential> {
+export default class InfiniteStepHeightDragListener extends PotentialHandleDragListener<InfiniteStepPotential> {
 
   public constructor( dragHandleNode: InfiniteStepHeightDragHandleNode,
                       potential: InfiniteStepPotential,

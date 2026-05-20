@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialDragListener is the base class for drag listeners that change some Property of a quantum potential.
+ * PotentialHandleDragListener is the base class for drag listeners that change some Property of a quantum potential.
  * It is responsible for pausing the sim while the drag is in progress and for creating a sound player.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -25,18 +25,18 @@ type SelfOptions = {
   keyboardShiftDragDelta: number; // in model units
 };
 
-export type PotentialDragListenerOptions = SelfOptions &
+export type PotentialHandleDragListenerOptions = SelfOptions &
   StrictOmit<RichDragListenerOptions, 'positionProperty' | 'transform' | 'keyboardDragListenerOptions' | 'start' | 'end'>;
 
-export default class PotentialDragListener<T extends QuantumPotential> extends RichDragListener {
+export default class PotentialHandleDragListener<T extends QuantumPotential> extends RichDragListener {
 
   private readonly valueChangeSoundPlayer: ValueChangeSoundPlayer;
 
-  protected constructor( dragHandleNode: PotentialHandleNode<T>,
+  protected constructor( handleNode: PotentialHandleNode<T>,
                          rangedProperty: TRangedProperty,
                          chartTransform: ChartTransform,
                          time: QBSTime,
-                         providedOptions: PotentialDragListenerOptions ) {
+                         providedOptions: PotentialHandleDragListenerOptions ) {
 
     // Remember whether the sim was playing when the drag started, so that we can restore it after the drag ends.
     let wasPlaying = time.isPlayingProperty.value;
@@ -51,7 +51,7 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
                                        chartTransform.modelToViewDeltaX( providedOptions.keyboardShiftDragDelta ) :
                                        -chartTransform.modelToViewDeltaY( providedOptions.keyboardShiftDragDelta );
 
-    const options = optionize<PotentialDragListenerOptions, SelfOptions, RichDragListenerOptions>()( {
+    const options = optionize<PotentialHandleDragListenerOptions, SelfOptions, RichDragListenerOptions>()( {
 
       // We will not provide a transform value, so all drag events (including listener.modelDelta) will be in view coordinates.
       // Provide a positionProperty so that we can get listener.modelDelta.
@@ -73,7 +73,7 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
 
       // When the drag ends, describe the new state of the sim and restart the sim.
       end: ( event, listener ) => {
-        dragHandleNode.describeMoved();
+        handleNode.describeMoved();
         time.isPlayingProperty.value = wasPlaying;
       }
     }, providedOptions );
