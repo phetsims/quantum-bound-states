@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -31,15 +30,17 @@ export default class HarmonicOscillatorWidthDragHandleNode extends PotentialDrag
 
     this.addInputListener( new HarmonicOscillatorWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    // Vertically center the handle on the left wall.
     const chartTransform = energyDiagramNode.chartTransform;
-    Multilink.multilink(
-      [ potential.wellWidthProperty, potential.xOffsetProperty, potential.yOffsetProperty ],
-      ( wellWidth, xOffset, yOffset ) => {
-        this.centerX = chartTransform.modelToViewX( xOffset + wellWidth / 2 );
-        this.centerY = chartTransform.modelToViewY( yOffset + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY );
-      } );
 
+    // Vertically center the handle on the left wall.
+    const updatePosition = () => {
+      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potential.wellWidthProperty.value / 2 );
+      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY );
+    };
+
+    chartTransform.changedEmitter.addListener( () => updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => updatePosition() );
+    updatePosition();
   }
 
   public override describeMoved(): void {

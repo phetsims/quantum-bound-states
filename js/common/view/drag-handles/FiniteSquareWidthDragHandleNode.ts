@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -31,16 +30,19 @@ export default class FiniteSquareWidthDragHandleNode extends PotentialDragHandle
 
     this.addInputListener( new FiniteSquareWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    // Vertically center the handle on the right wall of the rightmost well.
     const chartTransform = energyDiagramNode.chartTransform;
-    Multilink.multilink(
-      [ potential.numberOfWellsProperty, potential.separationProperty, potential.wellWidthProperty,
-        potential.wellDepthProperty, potential.xOffsetProperty, potential.yOffsetProperty ],
-      ( numberOfWells, separation, wellWidth, wellDepth, xOffset, yOffset ) => {
-        const potentialWidth = ( numberOfWells * wellWidth ) + ( ( numberOfWells - 1 ) * separation );
-        this.centerX = chartTransform.modelToViewX( xOffset + potentialWidth / 2 );
-        this.centerY = chartTransform.modelToViewY( yOffset + wellDepth / 2 );
-      } );
+
+    // Vertically center the handle on the right wall of the rightmost well.
+    const updatePosition = () => {
+      const numberOfWells = potential.numberOfWellsProperty.value;
+      const potentialWidth = ( numberOfWells * potential.wellWidthProperty.value ) + ( ( numberOfWells - 1 ) * potential.separationProperty.value );
+      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potentialWidth / 2 );
+      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + potential.wellDepthProperty.value / 2 );
+    };
+
+    chartTransform.changedEmitter.addListener( () => updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => updatePosition() );
+    updatePosition();
   }
 
   public override describeMoved(): void {

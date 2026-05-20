@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -34,14 +33,17 @@ export default class AsymmetricTriangleDepthDragHandleNode extends PotentialDrag
 
     this.addInputListener( new AsymmetricTriangleDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    // Position the handle just to the right of the rightmost well.
     const chartTransform = energyDiagramNode.chartTransform;
-    Multilink.multilink(
-      [ potential.wellWidthProperty, potential.wellDepthProperty, potential.xOffsetProperty, potential.yOffsetProperty ],
-      ( wellWidth, wellDepth, xOffset, yOffset ) => {
-        this.centerX = chartTransform.modelToViewX( xOffset + wellWidth / 2 + HANDLE_X_OFFSET );
-        this.centerY = chartTransform.modelToViewY( yOffset + wellDepth );
-      } );
+
+    // Position the handle just to the right of the rightmost well.
+    const updatePosition = () => {
+      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potential.wellWidthProperty.value / 2 + HANDLE_X_OFFSET );
+      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + potential.wellDepthProperty.value );
+    };
+
+    chartTransform.changedEmitter.addListener( () => updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => updatePosition() );
+    updatePosition();
   }
 
   public override describeMoved(): void {

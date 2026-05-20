@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -31,14 +30,17 @@ export default class InfiniteStepHeightDragHandleNode extends PotentialDragHandl
 
     this.addInputListener( new InfiniteStepHeightDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    // Center the handle in the top of the step.
     const chartTransform = energyDiagramNode.chartTransform;
-    Multilink.multilink(
-      [ potential.stepHeightProperty, potential.wellWidthProperty, potential.xOffsetProperty, potential.yOffsetProperty ],
-      ( stepHeight, wellWidth, xOffset, yOffset ) => {
-        this.centerX = chartTransform.modelToViewX( xOffset + wellWidth / 4 );
-        this.centerY = chartTransform.modelToViewY( yOffset + stepHeight );
-      } );
+
+    // Center the handle in the top of the step.
+    const updatePosition = () => {
+      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potential.wellWidthProperty.value / 4 );
+      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + potential.stepHeightProperty.value );
+    };
+
+    chartTransform.changedEmitter.addListener( () => updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => updatePosition() );
+    updatePosition();
   }
 
   public override describeMoved(): void {

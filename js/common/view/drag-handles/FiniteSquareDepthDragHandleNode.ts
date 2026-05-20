@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -34,16 +33,19 @@ export default class FiniteSquareDepthDragHandleNode extends PotentialDragHandle
 
     this.addInputListener( new FiniteSquareDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    // Position the handle just to the right of the rightmost well.
     const chartTransform = energyDiagramNode.chartTransform;
-    Multilink.multilink(
-      [ potential.numberOfWellsProperty, potential.separationProperty, potential.wellWidthProperty,
-        potential.wellDepthProperty, potential.xOffsetProperty, potential.yOffsetProperty ],
-      ( numberOfWells, separation, wellWidth, wellDepth, xOffset, yOffset ) => {
-        const potentialWidth = ( numberOfWells * wellWidth ) + ( ( numberOfWells - 1 ) * separation );
-        this.centerX = chartTransform.modelToViewX( xOffset + potentialWidth / 2 + HANDLE_X_OFFSET );
-        this.centerY = chartTransform.modelToViewY( yOffset + wellDepth );
-      } );
+
+    // Position the handle just to the right of the rightmost well.
+    const updatePosition = () => {
+      const numberOfWells = potential.numberOfWellsProperty.value;
+      const potentialWidth = ( numberOfWells * potential.wellWidthProperty.value ) + ( ( numberOfWells - 1 ) * potential.separationProperty.value );
+      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potentialWidth / 2 + HANDLE_X_OFFSET );
+      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + potential.wellDepthProperty.value );
+    };
+
+    chartTransform.changedEmitter.addListener( () => updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => updatePosition() );
+    updatePosition();
   }
 
   public override describeMoved(): void {

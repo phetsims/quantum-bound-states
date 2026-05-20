@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -31,14 +30,19 @@ export default class InfiniteStepWidthDragHandleNode extends PotentialDragHandle
 
     this.addInputListener( new InfiniteStepWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    // Vertically center the handle on the right wall of the well, halfway down to the step.
     const chartTransform = energyDiagramNode.chartTransform;
-    Multilink.multilink(
-      [ potential.wellWidthProperty, potential.stepHeightProperty, potential.xOffsetProperty, potential.yOffsetProperty ],
-      ( wellWidth, stepHeight, xOffset, yOffset ) => {
-        this.centerX = chartTransform.modelToViewX( xOffset + wellWidth / 2 );
-        this.centerY = chartTransform.modelToViewY( yOffset + ( potential.energyAxisRange.getLength() / 2 ) + ( stepHeight / 2 ) );
-      } );
+
+    // Vertically center the handle on the right wall of the well, halfway down to the step.
+    const updatePosition = () => {
+      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potential.wellWidthProperty.value / 2 );
+      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value +
+                                                  ( potential.energyAxisRange.getLength() / 2 ) +
+                                                  ( potential.stepHeightProperty.value / 2 ) );
+    };
+
+    chartTransform.changedEmitter.addListener( () => updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => updatePosition() );
+    updatePosition();
   }
 
   public override describeMoved(): void {
