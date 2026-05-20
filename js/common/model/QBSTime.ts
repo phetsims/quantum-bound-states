@@ -47,6 +47,7 @@ export default class QBSTime extends PhetioObject {
   // With the three base units for length, mass and energy (nm, m_e, eV), using L = 10^-9, m_e = 9.1093837015e-31, and
   // eV = 1.602176634e-19 the time unit is:
   // t = L * sqrt( m/eV ) = 1 nm * sqrt( 9.1093837015e-31 / 1.602176634e-19 ) = 2.385 x10^-15 sec = 2.385 fs for 1 natural time unit
+  // See also https://github.com/phetsims/quantum-bound-states/issues/44
   public static readonly NATURAL_TIME_UNIT_FS = 2.385;
 
   public constructor( tandem: Tandem ) {
