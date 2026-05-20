@@ -11,6 +11,7 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
+import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
@@ -18,6 +19,7 @@ import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import AsymmetricTriangleDragHandlesNode from './AsymmetricTriangleDragHandlesNode.js';
 import FiniteSquareDragHandlesNode from './FiniteSquareDragHandlesNode.js';
+import HarmonicOscillatorDragHandlesNode from './HarmonicOscillatorDragHandlesNode.js';
 import InfiniteSquareDragHandlesNode from './InfiniteSquareDragHandlesNode.js';
 import InfiniteStepDragHandlesNode from './InfiniteStepDragHandlesNode.js';
 
@@ -49,6 +51,10 @@ export default class PotentialDragHandlesLayer extends Node {
       }
       else if ( potential instanceof AsymmetricTrianglePotential ) {
         children.push( new AsymmetricTriangleDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+          time, dragHandlesNodeTandem ) );
+      }
+      else if ( potential instanceof HarmonicOscillatorPotential ) {
+        children.push( new HarmonicOscillatorDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
       }
     } );
