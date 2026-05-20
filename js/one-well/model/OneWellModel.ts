@@ -34,6 +34,8 @@ export default class OneWellModel extends QBSModel {
   // Energy offset of the selected potential.
   public readonly energyOffsetProperty: NumberProperty;
 
+  public readonly harmonicOscillatorPotential: HarmonicOscillatorPotential;
+
   public constructor( tandem: Tandem ) {
 
     const numberOfWellsProperty = new NumberProperty( 1, {
@@ -70,6 +72,11 @@ export default class OneWellModel extends QBSModel {
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
+    const harmonicOscillatorPotential = new HarmonicOscillatorPotential( electronMassesProperty,
+      combineOptions<HarmonicOscillatorPotentialOptions>( {}, quantumPotentialOptions, {
+        tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
+      } ) );
+
     // Quantum potentials, in the order that they appear in PotentialComboBox.
     const potentials = [
       new InfiniteSquarePotential( combineOptions<InfiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
@@ -84,9 +91,7 @@ export default class OneWellModel extends QBSModel {
       new AsymmetricTrianglePotential( combineOptions<AsymmetricTrianglePotentialOptions>( {}, quantumPotentialOptions, {
         tandem: potentialsTandem.createTandem( 'asymmetricTrianglePotential' )
       } ) ),
-      new HarmonicOscillatorPotential( electronMassesProperty, combineOptions<HarmonicOscillatorPotentialOptions>( {}, quantumPotentialOptions, {
-        tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
-      } ) ),
+      harmonicOscillatorPotential,
       new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
       } ) ),
@@ -106,6 +111,8 @@ export default class OneWellModel extends QBSModel {
       potentials: potentials,
       tandem: tandem
     } );
+
+    this.harmonicOscillatorPotential = harmonicOscillatorPotential;
 
     this.energyOffsetProperty = new NumberProperty( this.potentialProperty.value.yOffsetProperty.value, {
       reentrant: true, // see QuantumPotential yOffsetProperty

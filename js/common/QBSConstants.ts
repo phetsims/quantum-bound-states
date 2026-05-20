@@ -60,6 +60,7 @@ export default class QBSConstants {
   public static readonly TIME_FONT = new PhetFont( { size: 15, family: 'monospace' } );
   public static readonly EQUATION_TERM_FONT = new PhetFont( 18 );
   public static readonly ENERGY_LEVEL_DISPLAY_FONT = new PhetFont( 14 );
+  public static readonly POTENTIAL_VALUE_FONT = new PhetFont( 14 );
 
   // Energy Diagram & all Quantum State Graphs
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 700;
@@ -87,6 +88,7 @@ export default class QBSConstants {
   public static readonly X_OFFSET_DECIMAL_PLACES = 1;
   public static readonly Y_OFFSET_DECIMAL_PLACES = 1;
   public static readonly ENERGY_LEVEL_DECIMALS = 2;
+  public static readonly ANGULAR_FREQUENCY = 1;
 
   // Intervals
   public static readonly Y_OFFSET_INTERVAL = Math.pow( 10, -QBSConstants.Y_OFFSET_DECIMAL_PLACES ); // eV
