@@ -10,6 +10,7 @@
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import PressListener, { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
+import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
@@ -28,6 +29,9 @@ export default class EnergyLevelSelectionListener extends PressListener {
                       chartRectangle: ChartRectangle,
                       chartTransform: ChartTransform,
                       tandem: Tandem ) {
+
+    const soundPlayer = sharedSoundPlayers.get( 'pushButton' );
+
     super( {
       tandem: tandem,
       press: event => {
@@ -35,6 +39,7 @@ export default class EnergyLevelSelectionListener extends PressListener {
         // Select the highlighted energy level.
         if ( model.highlightedEnergyLevelProperty.value !== null ) {
           model.selectedEnergyLevelProperty.value = model.highlightedEnergyLevelProperty.value;
+          soundPlayer.play();
         }
       }
     } );
