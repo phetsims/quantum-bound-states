@@ -1,13 +1,13 @@
 # Strings for PhET's Quantum Bound States simulation
 
 # Simulation Title
-quantum-bound-states.title:                   Quantum Bound States
+quantum-bound-states.title:            Quantum Bound States
 
 # Screen Names
-screen.oneWell:                               One Well
-screen.superposition:                         Superposition
-screen.twoWells:                              Two Wells
-screen.manyWells:                             Many Wells
+screen.oneWell:                        One Well
+screen.superposition:                  Superposition
+screen.twoWells:                       Two Wells
+screen.manyWells:                      Many Wells
 
 # Preferences
 phaseFeatureControl:
@@ -15,53 +15,52 @@ phaseFeatureControl:
   description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
 
 # Titles
-potentialEnergy:                              Potential Energy
-totalEnergy:                                  Total Energy
-position_nm:                                  Position (nm)
-energy_eV:                                    Energy (eV)
-probabilityDensity:                           Probability Density
-waveFunction:                                 Wave Function
-quantumStateGraph:                            Quantum State Graph
-energyDiagram:                                Energy Diagram
+potentialEnergy:                       Potential Energy
+totalEnergy:                           Total Energy
+position_nm:                           Position (nm)
+energy_eV:                             Energy (eV)
+probabilityDensity:                    Probability Density
+waveFunction:                          Wave Function
+quantumStateGraph:                     Quantum State Graph
+energyDiagram:                         Energy Diagram
 
 # Buttons
-probabilityDensityDetailsButton:              '|Ψ(x,t)|<sup>2</sup> = ...'
-waveFunctionDetailsButton:                    'Ψ(x,t) = ...'
+probabilityDensityDetailsButton:       '|Ψ(x,t)|<sup>2</sup> = ...'
+waveFunctionDetailsButton:             'Ψ(x,t) = ...'
 
 # Checkboxes
-values:                                       Values
-realPart:                                     Real Part
-imaginaryPart:                                Imaginary Part
-magnitude:                                    Magnitude
-phase:                                        Phase
-magnifier:                                    Magnifier
-referenceLine:                                Reference Line
-adjustEnergyOffset:                           Adjust Energy Offset
+values:                                Values
+realPart:                              Real Part
+imaginaryPart:                         Imaginary Part
+magnitude:                             Magnitude
+phase:                                 Phase
+magnifier:                             Magnifier
+referenceLine:                         Reference Line
 
 # ComboBoxes
-superposition:                                Superposition
+superposition:                         Superposition
 
 # Dialogs
-probabilityDensityDialogTitle:                Probability Density
-waveFunctionDialogTitle:                      Wave Function
-superpositionDetailsDialogTitle:              Superposition Details
-superpositionCustomizationDialogTitle:        Superposition Customization
+probabilityDensityDialogTitle:         Probability Density
+waveFunctionDialogTitle:               Wave Function
+superpositionDetailsDialogTitle:       Superposition Details
+superpositionCustomizationDialogTitle: Superposition Customization
 
 # Sliders
-mass:                                         Mass
-numberOfWells:                                Number of Wells
-electricField:                                Electric Field
-slow:                                         slow
-fast:                                         fast
+mass:                                  Mass
+numberOfWells:                         Number of Wells
+electricField:                         Electric Field
+slow:                                  slow
+fast:                                  fast
 
 # Spinners
-energyLevel:                                  Energy Level
-energyLevelPattern:                           E<sub>{{index}}</sub>
-energyOffset:                                 Energy Offset
+energyLevel:                           Energy Level
+energyLevelPattern:                    E<sub>{{index}}</sub>
+energyOffset:                          Energy Offset
 
 # Toggles and Switches
-preset:                                       Preset
-custom:                                       Custom
+preset:                                Preset
+custom:                                Custom
 
 # Units
 units:
@@ -130,7 +129,7 @@ superpositionConfigurations:
   custom5: Custom 5
 
 # Magnifier
-magnificationPower:                           '{{value}}×'
+magnificationPower:                    '{{value}}×'
 
 # Keyboard Help
 keyboardHelp:
@@ -281,11 +280,63 @@ a11y:
   # Drag Handles
   #=======================================================================================================
 
-  energyOffsetHandle:
-    accessibleName:                TODO.energyOffsetHandle.accessibleName
-    accessibleHelpText:            TODO.energyOffsetHandle.accessibleHelpText
-    accessibleFocusObjectResponse: TODO.energyOffsetHandle.accessibleFocusObjectResponse
-    accessibleObjectResponse:      TODO.energyOffsetHandle.accessibleObjectResponse
+  handles:
+    asymmetricTriangleDepthHandle:
+      accessibleName:           depth handle
+      accessibleHelpText:       TODO.asymmetricTriangleDepthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$depth} electron volts'
+    asymmetricTriangleWidthHandle:
+      accessibleName:           width handle
+      accessibleHelpText:       TODO.asymmetricTriangleWidthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$width} nanometers'
+    finiteSquareDepthHandle:
+      accessibleName:           depth handle
+      accessibleHelpText:       TODO.finiteSquareDepthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$depth} electron volts'
+    finiteSquareWidthHandle:
+      accessibleName:           width handle
+      accessibleHelpText:       TODO.finiteSquareWidthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$width} nanometers'
+    finiteSquareSpacingHandle:
+      accessibleName:           spacing handle
+      accessibleHelpText:       TODO.finiteSquareSpacingHandle.accessibleHelpText
+      accessibleObjectResponse: '{$spacing} nanometers'
+    harmonicOscillatorWidthHandle:
+      accessibleName:           width handle
+      accessibleHelpText:       TODO.harmonicOscillatorWidthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$width} nanometers'
+    infiniteSquareWidthHandle:
+      accessibleName:           width handle
+      accessibleHelpText:       TODO.infiniteSquareWidthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$width} nanometers'
+    infiniteStepWidthHandle:
+      accessibleName:           width handle
+      accessibleHelpText:       TODO.infiniteStepWidthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$width} nanometers'
+    infiniteStepHeightHandle:
+      accessibleName:           step height handle
+      accessibleHelpText:       TODO.infiniteStepHeightHandle.accessibleHelpText
+      accessibleObjectResponse: '{$stepHeight} electron volts'
+    morseDepthHandle:
+      accessibleName:           depth handle
+      accessibleHelpText:       TODO.morseDepthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$depth} electron volts'
+    morseWidthHandle:
+      accessibleName:           width handle
+      accessibleHelpText:       TODO.morseWidthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$width} nanometers'
+    poschlTellerDepthHandle:
+      accessibleName:           depth handle
+      accessibleHelpText:       TODO.poschlTellerDepthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$depth} electron volts'
+    poschlTellerWidthHandle:
+      accessibleName:           width handle
+      accessibleHelpText:       TODO.poschlTellerWidthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$width} nanometers'
+    poschlTellerSeparationHandle:
+      accessibleName:           separation handle
+      accessibleHelpText:       TODO.poschlTellerSeparationHandle.accessibleHelpText
+      accessibleObjectResponse: '{$separation} nanometers'
 
   #=======================================================================================================
   # Graphs
@@ -353,11 +404,6 @@ a11y:
       accessibleHelpText:        Zoom out y axis for Energy Diagram.
       accessibleContextResponse: 'zoomed out, y range {$min} to {$max}'
 
-  energyOffsetResetButton:
-    accessibleName:            Energy Offset Reset
-    accessibleHelpText:        TODO.energyOffsetResetButton.accessibleHelpText
-    accessibleContextResponse: TODO.energyOffsetResetButton.accessibleContextResponse
-
   #=======================================================================================================
   # Radio Buttons
   #=======================================================================================================
@@ -395,10 +441,6 @@ a11y:
   energyOffsetSpinner:
     accessibleName:     Energy Offset
     accessibleHelpText: TODO.energyOffsetSpinner.accessibleHelpText
-
-  energyRangeShiftSpinner:
-    accessibleName:                TODO.energyRangeShiftSpinner.accessibleName
-    accessibleHelpText:            TODO.energyRangeShiftSpinner.accessibleHelpText
 
   #=======================================================================================================
   # Toggle Buttons and Switches

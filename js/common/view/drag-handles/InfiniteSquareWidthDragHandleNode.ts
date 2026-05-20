@@ -7,6 +7,7 @@
  */
 
 import Tandem from '../../../../../tandem/js/Tandem.js';
+import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
@@ -22,9 +23,11 @@ export default class InfiniteSquareWidthDragHandleNode extends PotentialDragHand
 
     super( potential, energyDiagramNode.chartTransform, potential.wellWidthProperty, {
       orientation: 'horizontal',
-      //TODO accessibleName
-      //TODO accessibleHelpText
-      //TODO accessibleFocusObjectResponse
+      accessibleName: QuantumBoundStatesFluent.a11y.handles.infiniteSquareWidthHandle.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.infiniteSquareWidthHandle.accessibleHelpTextStringProperty,
+      accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.handles.infiniteSquareWidthHandle.accessibleObjectResponse.createProperty( {
+        width: potential.wellWidthProperty
+      } ),
       tandem: tandem
     } );
 
@@ -39,7 +42,12 @@ export default class InfiniteSquareWidthDragHandleNode extends PotentialDragHand
     this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.energyAxisRange.getLength() / 2 );
   }
 
+  /**
+   * Describes the drag handle when it is moved.
+   */
   public override describeMoved(): void {
-    //TODO this.addAccessibleObjectResponse
+    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.infiniteSquareWidthHandle.accessibleObjectResponse.format( {
+      width: this.potential.wellWidthProperty.value
+    } ) );
   }
 }

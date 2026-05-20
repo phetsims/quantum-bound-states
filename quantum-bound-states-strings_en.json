@@ -73,9 +73,6 @@
   "referenceLine": {
     "value": "Reference Line"
   },
-  "adjustEnergyOffset": {
-    "value": "Adjust Energy Offset"
-  },
   "superposition": {
     "value": "Superposition"
   },
@@ -528,18 +525,160 @@
         "value": "TODO.waveFunctionDetailsDialog.accessibleParagraph"
       }
     },
-    "energyOffsetHandle": {
-      "accessibleName": {
-        "value": "TODO.energyOffsetHandle.accessibleName"
+    "handles": {
+      "asymmetricTriangleDepthHandle": {
+        "accessibleName": {
+          "value": "depth handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.asymmetricTriangleDepthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$depth} electron volts"
+        }
       },
-      "accessibleHelpText": {
-        "value": "TODO.energyOffsetHandle.accessibleHelpText"
+      "asymmetricTriangleWidthHandle": {
+        "accessibleName": {
+          "value": "width handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.asymmetricTriangleWidthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$width} nanometers"
+        }
       },
-      "accessibleFocusObjectResponse": {
-        "value": "TODO.energyOffsetHandle.accessibleFocusObjectResponse"
+      "finiteSquareDepthHandle": {
+        "accessibleName": {
+          "value": "depth handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.finiteSquareDepthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$depth} electron volts"
+        }
       },
-      "accessibleObjectResponse": {
-        "value": "TODO.energyOffsetHandle.accessibleObjectResponse"
+      "finiteSquareWidthHandle": {
+        "accessibleName": {
+          "value": "width handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.finiteSquareWidthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$width} nanometers"
+        }
+      },
+      "finiteSquareSpacingHandle": {
+        "accessibleName": {
+          "value": "spacing handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.finiteSquareSpacingHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$spacing} nanometers"
+        }
+      },
+      "harmonicOscillatorWidthHandle": {
+        "accessibleName": {
+          "value": "width handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.harmonicOscillatorWidthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$width} nanometers"
+        }
+      },
+      "infiniteSquareWidthHandle": {
+        "accessibleName": {
+          "value": "width handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.infiniteSquareWidthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$width} nanometers"
+        }
+      },
+      "infiniteStepWidthHandle": {
+        "accessibleName": {
+          "value": "width handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.infiniteStepWidthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$width} nanometers"
+        }
+      },
+      "infiniteStepHeightHandle": {
+        "accessibleName": {
+          "value": "step height handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.infiniteStepHeightHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$stepHeight} electron volts"
+        }
+      },
+      "morseDepthHandle": {
+        "accessibleName": {
+          "value": "depth handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.morseDepthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$depth} electron volts"
+        }
+      },
+      "morseWidthHandle": {
+        "accessibleName": {
+          "value": "width handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.morseWidthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$width} nanometers"
+        }
+      },
+      "poschlTellerDepthHandle": {
+        "accessibleName": {
+          "value": "depth handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.poschlTellerDepthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$depth} electron volts"
+        }
+      },
+      "poschlTellerWidthHandle": {
+        "accessibleName": {
+          "value": "width handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.poschlTellerWidthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$width} nanometers"
+        }
+      },
+      "poschlTellerSeparationHandle": {
+        "accessibleName": {
+          "value": "separation handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.poschlTellerSeparationHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$separation} nanometers"
+        }
       }
     },
     "energyDiagram": {
@@ -666,17 +805,6 @@
         }
       }
     },
-    "energyOffsetResetButton": {
-      "accessibleName": {
-        "value": "Energy Offset Reset"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.energyOffsetResetButton.accessibleHelpText"
-      },
-      "accessibleContextResponse": {
-        "value": "TODO.energyOffsetResetButton.accessibleContextResponse"
-      }
-    },
     "quantumStateGraphRadioButtonGroup": {
       "accessibleName": {
         "value": "Quantum State Graph"
@@ -722,14 +850,6 @@
       },
       "accessibleHelpText": {
         "value": "TODO.energyOffsetSpinner.accessibleHelpText"
-      }
-    },
-    "energyRangeShiftSpinner": {
-      "accessibleName": {
-        "value": "TODO.energyRangeShiftSpinner.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.energyRangeShiftSpinner.accessibleHelpText"
       }
     },
     "timeDisplayToggleButton": {

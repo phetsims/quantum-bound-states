@@ -42,7 +42,6 @@ type StringsType = {
   'phaseStringProperty': LocalizedStringProperty;
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
-  'adjustEnergyOffsetStringProperty': LocalizedStringProperty;
   'superpositionStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
@@ -253,11 +252,77 @@ type StringsType = {
     'waveFunctionDetailsDialog': {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
-    'energyOffsetHandle': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleFocusObjectResponseStringProperty': LocalizedStringProperty;
-      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+    'handles': {
+      'asymmetricTriangleDepthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'asymmetricTriangleWidthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'finiteSquareDepthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'finiteSquareWidthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'finiteSquareSpacingHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'harmonicOscillatorWidthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'infiniteSquareWidthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'infiniteStepWidthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'infiniteStepHeightHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'morseDepthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'morseWidthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'poschlTellerDepthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'poschlTellerWidthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'poschlTellerSeparationHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      }
     };
     'energyDiagram': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
@@ -319,11 +384,6 @@ type StringsType = {
         'accessibleContextResponseStringProperty': LocalizedStringProperty;
       }
     };
-    'energyOffsetResetButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
     'quantumStateGraphRadioButtonGroup': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
@@ -346,10 +406,6 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'energyOffsetSpinner': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-    };
-    'energyRangeShiftSpinner': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
