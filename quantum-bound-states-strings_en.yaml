@@ -138,8 +138,8 @@ keyboardHelp:
   potentialHandles:
     heading: Potential Handles
   referenceLine:
-    heading:     Reference Line
-    checkValues: Check values
+    heading:    Reference Line
+    readValues: Read values
 
 # Strings that are specific to accessibility
 a11y:

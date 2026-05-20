@@ -25,7 +25,7 @@ import ReferenceLine from '../model/ReferenceLine.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import { HomeEndKeyboardListener } from './HomeEndKeyboardListener.js';
-import ReferenceLineCheckValuesListener from './ReferenceLineCheckValuesListener.js';
+import ReferenceLineReadValuesListener from './ReferenceLineReadValuesListener.js';
 import ReferenceLineDragListener from './ReferenceLineDragListener.js';
 
 type SelfOptions = {
@@ -112,7 +112,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
       tandem: tandem.createTandem( 'homeEndKeyboardListener' )
     } ) );
 
-    this.addInputListener( new ReferenceLineCheckValuesListener( this, tandem.createTandem( 'checkValuesListener' ) ) );
+    this.addInputListener( new ReferenceLineReadValuesListener( this, tandem.createTandem( 'readValuesListener' ) ) );
 
     // Center the handle on the x-coordinate of the reference line.
     referenceLine.xProperty.link( x => {

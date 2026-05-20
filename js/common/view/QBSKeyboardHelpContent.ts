@@ -14,6 +14,7 @@ import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keybo
 import SpinnerControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SpinnerControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import ReferenceLineKeyboardHelpSection from './ReferenceLineKeyboardHelpSection.js';
 
 export default class QBSKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -22,10 +23,13 @@ export default class QBSKeyboardHelpContent extends TwoColumnKeyboardHelpContent
     // Sections in the left column.
     const leftSections: KeyboardHelpSection[] = [
 
-      // Move Draggable Items
+      // Potential Handles
       new MoveDraggableItemsKeyboardHelpSection( {
         headingStringProperty: QuantumBoundStatesFluent.keyboardHelp.potentialHandles.headingStringProperty
       } ),
+
+      // Reference Line
+      new ReferenceLineKeyboardHelpSection(),
 
       // Slider Controls
       new SliderControlsKeyboardHelpSection()

@@ -279,8 +279,8 @@
       "heading": {
         "value": "Reference Line"
       },
-      "checkValues": {
-        "value": "Check values"
+      "readValues": {
+        "value": "Read values"
       }
     }
   },

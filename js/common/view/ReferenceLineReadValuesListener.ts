@@ -1,7 +1,7 @@
 // Copyright 2025-2026, University of Colorado Boulder
 
 /**
- * ReferenceLineCheckValuesListener implements a keyboard shortcut for the Reference Line that repeats the
+ * ReferenceLineReadValuesListener implements a keyboard shortcut for the Reference Line that repeats the
  * focus description of the Reference Line. This is useful because the data that the Reference Line is reporting
  * evolves over time.
  *
@@ -17,12 +17,12 @@ import quantumBoundStates from '../../quantumBoundStates.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { ReferenceLineHandleNode } from './ReferenceLineNode.js';
 
-export default class ReferenceLineCheckValuesListener extends KeyboardListener<OneKeyStroke[]> {
+export default class ReferenceLineReadValuesListener extends KeyboardListener<OneKeyStroke[]> {
 
-  public static readonly CHECK_VALUES_HOTKEY_DATA = new HotkeyData( {
-    keys: [ 'alt+c' ],
+  public static readonly HOTKEY_DATA = new HotkeyData( {
+    keys: [ 'alt+r' ],
     repoName: quantumBoundStates.name,
-    keyboardHelpDialogLabelStringProperty: QuantumBoundStatesFluent.keyboardHelp.referenceLine.checkValuesStringProperty
+    keyboardHelpDialogLabelStringProperty: QuantumBoundStatesFluent.keyboardHelp.referenceLine.readValuesStringProperty
   } );
 
   public constructor( referenceLineHandleNode: ReferenceLineHandleNode, tandem: Tandem ) {
@@ -31,7 +31,7 @@ export default class ReferenceLineCheckValuesListener extends KeyboardListener<O
 
     super( {
       isDisposable: false,
-      keyStringProperties: HotkeyData.combineKeyStringProperties( [ ReferenceLineCheckValuesListener.CHECK_VALUES_HOTKEY_DATA ] ),
+      keyStringProperties: HotkeyData.combineKeyStringProperties( [ ReferenceLineReadValuesListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
         referenceLineHandleNode.describeFocused();
         soundPlayer.play();
