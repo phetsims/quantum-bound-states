@@ -96,6 +96,8 @@ addToMapIfDefined( 'superpositionConfigurations_custom2', 'superpositionConfigur
 addToMapIfDefined( 'superpositionConfigurations_custom3', 'superpositionConfigurations.custom3StringProperty' );
 addToMapIfDefined( 'superpositionConfigurations_custom4', 'superpositionConfigurations.custom4StringProperty' );
 addToMapIfDefined( 'superpositionConfigurations_custom5', 'superpositionConfigurations.custom5StringProperty' );
+addToMapIfDefined( 'keyboardHelp_comboBox_heading', 'keyboardHelp.comboBox.headingStringProperty' );
+addToMapIfDefined( 'keyboardHelp_potentialHandles_heading', 'keyboardHelp.potentialHandles.headingStringProperty' );
 addToMapIfDefined( 'keyboardHelp_referenceLine_heading', 'keyboardHelp.referenceLine.headingStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenButtonsHelpText', 'a11y.screens.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_playArea', 'a11y.screens.oneWellScreen.screenSummary.playAreaStringProperty' );
@@ -439,6 +441,12 @@ const QuantumBoundStatesFluent = {
   magnificationPowerStringProperty: _.get( QuantumBoundStatesStrings, 'magnificationPowerStringProperty' ),
   _comment_22: new FluentComment( {"comment":"Keyboard Help","associatedKey":"keyboardHelp"} ),
   keyboardHelp: {
+    comboBox: {
+      headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.comboBox.headingStringProperty' )
+    },
+    potentialHandles: {
+      headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.potentialHandles.headingStringProperty' )
+    },
     referenceLine: {
       headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.headingStringProperty' )
     }

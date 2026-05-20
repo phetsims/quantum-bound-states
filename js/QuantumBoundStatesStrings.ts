@@ -124,6 +124,12 @@ type StringsType = {
   };
   'magnificationPowerStringProperty': LocalizedStringProperty;
   'keyboardHelp': {
+    'comboBox': {
+      'headingStringProperty': LocalizedStringProperty;
+    };
+    'potentialHandles': {
+      'headingStringProperty': LocalizedStringProperty;
+    };
     'referenceLine': {
       'headingStringProperty': LocalizedStringProperty;
     }

@@ -265,6 +265,16 @@
     "value": "{{value}}×"
   },
   "keyboardHelp": {
+    "comboBox": {
+      "heading": {
+        "value": "Combo Boxes"
+      }
+    },
+    "potentialHandles": {
+      "heading": {
+        "value": "Potential Handles"
+      }
+    },
     "referenceLine": {
       "heading": {
         "value": "Reference Line"

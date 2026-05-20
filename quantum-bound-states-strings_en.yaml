@@ -133,6 +133,10 @@ magnificationPower:                    '{{value}}×'
 
 # Keyboard Help
 keyboardHelp:
+  comboBox:
+    heading: Combo Boxes
+  potentialHandles:
+    heading: Potential Handles
   referenceLine:
     heading: Reference Line
 
