@@ -58,6 +58,7 @@ type PotentialParameters = {
   numberOfWells: number;
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
+  electricField: number; // Electric field in V/nm
 };
 
 // Parameters for solve method
@@ -82,8 +83,9 @@ export default class CoulombSolution {
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
-    const { numberOfWells, xOffset, yOffset } = parameters;
+    const { numberOfWells, xOffset, yOffset, electricField } = parameters;
     affirm( numberOfWells === 1, 'CoulombSolution does not support multiple wells' );
+    affirm( electricField === 0, 'CoulombSolution does not support electric field' );
 
     return ( x: number ) => {
       const ax = Math.abs( x - xOffset );
@@ -109,8 +111,9 @@ export default class CoulombSolution {
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'CoulombSolution does not support multiple wells' );
+    affirm( electricField === 0, 'CoulombSolution does not support electric field' );
 
     // Work in the Coulomb frame where the potential floor is the standard 1/|x| form (no y₀).
     const intrinsicEnergyMin = energyMin - yOffset;
@@ -157,7 +160,8 @@ export default class CoulombSolution {
     const potentialFunction = CoulombSolution.createPotentialFunction( {
       numberOfWells: numberOfWells,
       xOffset: xOffset,
-      yOffset: yOffset
+      yOffset: yOffset,
+      electricField: electricField
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 

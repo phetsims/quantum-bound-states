@@ -19,6 +19,7 @@ type PotentialParameters = {
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm
   wellDepth: number; // Depth of the well V₀ in eV
+  electricField: number; // Electric field in V/nm
 };
 
 // Parameters for solve method
@@ -39,8 +40,9 @@ export default class AsymmetricTriangleSolution {
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
-    const { numberOfWells } = parameters;
+    const { numberOfWells, electricField } = parameters;
     affirm( numberOfWells === 1, 'AsymmetricTriangleSolution does not support multiple wells' );
+    affirm( electricField === 0, 'AsymmetricTriangleSolution does not support electric field' );
 
     return ( x: number ) => {
       //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Implement
@@ -53,8 +55,9 @@ export default class AsymmetricTriangleSolution {
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
-    const { numberOfWells, wellWidth, wellDepth, xOffset, yOffset } = parameters;
+    const { numberOfWells, wellWidth, wellDepth, xOffset, yOffset, electricField } = parameters;
     affirm( numberOfWells === 1, 'AsymmetricTriangleSolution does not support multiple wells' );
+    affirm( electricField === 0, 'AsymmetricTriangleSolution does not support electric field' );
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Implement
     const energies: number[] = [];
@@ -65,7 +68,8 @@ export default class AsymmetricTriangleSolution {
       xOffset: xOffset,
       yOffset: yOffset,
       wellWidth: wellWidth,
-      wellDepth: wellDepth
+      wellDepth: wellDepth,
+      electricField: electricField
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 

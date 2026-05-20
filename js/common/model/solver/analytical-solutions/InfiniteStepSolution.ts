@@ -50,6 +50,7 @@ type PotentialParameters = {
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm,
   stepHeight: number; // Height of the potential step V₀ in eV (relative to well bottom)
+  electricField: number; // Electric field in V/nm
 };
 
 // Parameters for solve method
@@ -74,8 +75,9 @@ export default class InfiniteStepSolution {
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
-    const { numberOfWells, xOffset, yOffset, wellWidth, stepHeight } = parameters;
+    const { numberOfWells, xOffset, yOffset, wellWidth, stepHeight, electricField } = parameters;
     affirm( numberOfWells === 1, 'InfiniteStepSolution does not support multiple wells' );
+    affirm( electricField === 0, 'InfiniteStepSolution does not support electric field' );
 
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
@@ -107,8 +109,9 @@ export default class InfiniteStepSolution {
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, stepHeight, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, stepHeight, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'InfiniteStepSolution does not support multiple wells' );
+    affirm( electricField === 0, 'InfiniteStepSolution does not support electric field' );
 
     // Work in the well frame where the well bottom is at E = 0.
     const wellEnergyMin = energyMin - yOffset;
@@ -130,7 +133,8 @@ export default class InfiniteStepSolution {
       xOffset: xOffset,
       yOffset: yOffset,
       wellWidth: wellWidth,
-      stepHeight: stepHeight
+      stepHeight: stepHeight,
+      electricField: electricField
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 

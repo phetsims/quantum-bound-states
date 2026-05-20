@@ -250,7 +250,8 @@ function testHarmonicOscillator(): void {
     xOffset: 0,
     yOffset: 0,
     springConstant: k,
-    electronMasses: mass
+    electronMasses: mass,
+    electricField: 0
   } );
 
   // Basic smoke test - verify both methods return results
@@ -312,7 +313,8 @@ function testInfiniteSquare(): void {
     numberOfWells: 1,
     xOffset: xOffset,
     yOffset: yOffset,
-    wellWidth: L
+    wellWidth: L,
+    electricField: 0
   } );
 
   // Use grid that matches the infinite square well, as a result barrierHeight is irrelevant
@@ -338,7 +340,8 @@ function testInfiniteSquare(): void {
     xOffset: 0,
     yOffset: 0,
     wellWidth: L,
-    electronMasses: mass
+    electronMasses: mass,
+    electricField: 0
   } );
 
   logVerbose( `\nInfinite Square - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
@@ -417,7 +420,8 @@ function testFiniteSquare(): void {
     yOffset: 0,
     wellWidth: L,
     wellDepth: V0,
-    electronMasses: mass
+    electronMasses: mass,
+    electricField: 0
   } );
 
   logVerbose( `\nFinite Square - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
@@ -583,7 +587,8 @@ function testMorsePotential(): void {
     xOffset: 0,
     yOffset: 0,
     wellWidth: wellWidth,
-    wellDepth: wellDepth
+    wellDepth: wellDepth,
+    electricField: 0
   } );
 
   // Grid: from -0.5 nm (high repulsive wall ~20 eV above all bound states) to 5 nm (V ≈ 0)
@@ -610,7 +615,8 @@ function testMorsePotential(): void {
     yOffset: 0,
     wellWidth: wellWidth,
     wellDepth: wellDepth,
-    electronMasses: mass
+    electronMasses: mass,
+    electricField: 0
   } );
 
   logVerbose( `\nMorse - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );
@@ -672,7 +678,8 @@ function testInfiniteStep(): void {
     xOffset: xOffset,
     yOffset: yOffset,
     wellWidth: wellWidth,
-    stepHeight: stepHeight
+    stepHeight: stepHeight,
+    electricField: 0
   } );
 
   // Grid spans exactly the well: [-L/2, L/2]
@@ -700,7 +707,8 @@ function testInfiniteStep(): void {
     yOffset: yOffset,
     wellWidth: wellWidth,
     stepHeight: stepHeight,
-    electronMasses: mass
+    electronMasses: mass,
+    electricField: 0
   } );
 
   logVerbose( `\nInfinite Step - Found ${numericalResult.energies.length} numerical, ${analyticalResult.energies.length} analytical states` );

@@ -53,6 +53,7 @@ type PotentialParameters = {
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm
   wellDepth: number; // // Depth of the well V₀ in eV (positive value)
+  electricField: number; // Electric field in V/nm
 };
 
 // Parameters for solve method
@@ -79,8 +80,9 @@ export default class MorseSolution {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { numberOfWells, wellWidth, wellDepth } = parameters;
+    const { numberOfWells, wellWidth, wellDepth, electricField } = parameters;
     affirm( numberOfWells === 1, 'MorseSolution does not support multiple wells' );
+    affirm( electricField === 0, 'MorseSolution does not support electric field' );
 
     return ( x: number ) => {
       const term = 1 - Math.exp( -x / wellWidth );
@@ -101,8 +103,9 @@ export default class MorseSolution {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'MorseSolution does not support multiple wells' );
+    affirm( electricField === 0, 'MorseSolution does not support electric field' );
 
     const { energies, quantumNumbers } = findBoundStateEnergies( wellDepth, wellWidth, electronMasses, energyMin, energyMax );
 
@@ -117,7 +120,8 @@ export default class MorseSolution {
       xOffset: xOffset,
       yOffset: yOffset,
       wellWidth: wellWidth,
-      wellDepth: wellDepth
+      wellDepth: wellDepth,
+      electricField: electricField
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 

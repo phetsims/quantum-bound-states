@@ -37,6 +37,7 @@ type PotentialParameters = {
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm
+  electricField: number; // Electric field in V/nm
 };
 
 // Parameters for solve method
@@ -58,8 +59,9 @@ export default class InfiniteSquareSolution {
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
-    const { numberOfWells, xOffset, yOffset, wellWidth } = parameters;
+    const { numberOfWells, xOffset, yOffset, wellWidth, electricField } = parameters;
     affirm( numberOfWells === 1, 'InfiniteSquareSolution does not support multiple wells' );
+    affirm( electricField === 0, 'InfiniteSquareSolution does not support electric field' );
 
     const halfWidth = wellWidth / 2;
     return ( x: number ) => {
@@ -79,8 +81,9 @@ export default class InfiniteSquareSolution {
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, wellWidth, xOffset, yOffset, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, wellWidth, xOffset, yOffset, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'InfiniteSquareSolution does not support multiple wells' );
+    affirm( electricField === 0, 'InfiniteSquareSolution does not support electric field' );
 
     // Work in the well frame where the well bottom is at E = 0.
     const wellEnergyMin = energyMin - yOffset;
@@ -140,7 +143,8 @@ export default class InfiniteSquareSolution {
       numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
-      wellWidth: wellWidth
+      wellWidth: wellWidth,
+      electricField: electricField
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 

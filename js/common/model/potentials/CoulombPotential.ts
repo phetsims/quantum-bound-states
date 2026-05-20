@@ -61,7 +61,8 @@ export default class CoulombPotential extends QuantumPotential {
       energyMax: this.getMaxSolverEnergy(),
       xOffset: this.xOffsetProperty.value,
       yOffset: this.yOffsetProperty.value,
-      electronMasses: electronMasses
+      electronMasses: electronMasses,
+      electricField: this.electricFieldProperty.value
     } );
   }
 

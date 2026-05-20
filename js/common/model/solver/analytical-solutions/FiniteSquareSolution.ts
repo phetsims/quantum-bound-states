@@ -51,6 +51,7 @@ type PotentialParameters = {
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm
   wellDepth: number; // Depth of the well V₀ in eV
+  electricField: number; // Electric field in V/nm
 };
 
 // Parameters for solve method
@@ -74,7 +75,8 @@ export default class FiniteSquareSolution {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for numberOfWells, xOffset, and yOffset
     // Unpack parameters
-    const { wellWidth, wellDepth } = parameters;
+    const { wellWidth, wellDepth, electricField } = parameters;
+    affirm( electricField === 0, 'FiniteSquareSolution does not support electric field' );
 
     return ( x: number ) => {
       if ( Math.abs( x ) < wellWidth / 2 ) {
@@ -93,8 +95,9 @@ export default class FiniteSquareSolution {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'FiniteSquareSolution does not support multiple wells' );
+    affirm( electricField === 0, 'FiniteSquareSolution does not support electric field' );
 
     // Find all bound state energies
     const { energies, parities } = findBoundStateEnergies(
@@ -124,7 +127,8 @@ export default class FiniteSquareSolution {
       xOffset: xOffset,
       yOffset: yOffset,
       wellWidth: wellWidth,
-      wellDepth: wellDepth
+      wellDepth: wellDepth,
+      electricField: electricField
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 

@@ -105,7 +105,8 @@ export default class InfiniteStepPotential extends QuantumPotential {
       yOffset: this.yOffsetProperty.value,
       wellWidth: this.wellWidthProperty.value,
       stepHeight: this.stepHeightProperty.value,
-      electronMasses: electronMasses
+      electronMasses: electronMasses,
+      electricField: this.electricFieldProperty.value
     } );
   }
 

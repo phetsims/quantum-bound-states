@@ -31,6 +31,7 @@ type PotentialParameters = {
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
   springConstant: number; // Spring constant k in eV/nm²
+  electricField: number; // Electric field in V/nm
 };
 
 // Parameters for solve method
@@ -54,8 +55,9 @@ export default class HarmonicOscillatorSolution {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { numberOfWells, springConstant } = parameters;
+    const { numberOfWells, springConstant, electricField } = parameters;
     affirm( numberOfWells === 1, 'HarmonicOscillatorSolution does not support multiple wells' );
+    affirm( electricField === 0, 'HarmonicOscillatorSolution does not support electric field' );
 
     return ( x: number ) => {
       return 0.5 * springConstant * x * x;
@@ -70,8 +72,9 @@ export default class HarmonicOscillatorSolution {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, springConstant, electronMasses } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, springConstant, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'HarmonicOscillatorSolution does not support multiple wells' );
+    affirm( electricField === 0, 'HarmonicOscillatorSolution does not support electric field' );
 
     const omega = Math.sqrt( springConstant / electronMasses );
 
@@ -124,7 +127,8 @@ export default class HarmonicOscillatorSolution {
       numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
-      springConstant: springConstant
+      springConstant: springConstant,
+      electricField: electricField
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 

@@ -90,7 +90,8 @@ export default class InfiniteSquarePotential extends QuantumPotential {
       xOffset: this.xOffsetProperty.value,
       yOffset: this.yOffsetProperty.value,
       wellWidth: this.wellWidthProperty.value,
-      electronMasses: electronMasses
+      electronMasses: electronMasses,
+      electricField: this.electricFieldProperty.value
     } );
   }
 
