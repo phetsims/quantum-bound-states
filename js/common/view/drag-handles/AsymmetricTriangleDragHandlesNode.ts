@@ -28,8 +28,8 @@ export default class AsymmetricTriangleDragHandlesNode extends Node {
     super( {
       isDisposable: false,
       children: [
-        new AsymmetricTriangleWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthDragHandleNode' ) ),
-        new AsymmetricTriangleDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthDragHandleNode' ) )
+        new AsymmetricTriangleWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellWidthDragHandleNode' ) ),
+        new AsymmetricTriangleDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellDepthDragHandleNode' ) )
       ],
       visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential ),
       tandem: tandem

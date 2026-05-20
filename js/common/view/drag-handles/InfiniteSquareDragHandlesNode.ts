@@ -27,7 +27,7 @@ export default class InfiniteSquareDragHandlesNode extends Node {
     super( {
       isDisposable: false,
       children: [
-        new InfiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthDragHandleNode' ) )
+        new InfiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellWidthDragHandleNode' ) )
       ],
       visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential ),
       tandem: tandem

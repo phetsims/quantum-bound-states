@@ -28,8 +28,8 @@ export default class FiniteSquareDragHandlesNode extends Node {
     super( {
       isDisposable: false,
       children: [
-        new FiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthDragHandleNode' ) ),
-        new FiniteSquareDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthDragHandleNode' ) )
+        new FiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellWidthDragHandleNode' ) ),
+        new FiniteSquareDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellDepthDragHandleNode' ) )
         //TODO Add separation drag handle if potential.numberOfWellsProperty indicates that it is supported.
       ],
       visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential ),

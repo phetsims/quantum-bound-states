@@ -28,7 +28,7 @@ export default class MorseDragHandlesNode extends Node {
       isDisposable: false,
       children: [
         //TODO Add MorseWidthDragHandleNode
-        new MorseDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthDragHandleNode' ) )
+        new MorseDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellDepthDragHandleNode' ) )
       ],
       visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential ),
       tandem: tandem
