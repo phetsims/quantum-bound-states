@@ -36,7 +36,6 @@ export default class OneWellScreenView extends QBSScreenView {
       visibleProperty: new DerivedProperty( [ model.potentialProperty ], potential => potential === model.harmonicOscillatorPotential ),
       tandem: tandem.createTandem( 'angularFrequencyDisplay' )
     } );
-
     this.screenViewRootNode.addChild( angularFrequencyDisplay );
     angularFrequencyDisplay.localBoundsProperty.link( () => {
       angularFrequencyDisplay.right = this.energyDiagramRectangleBounds.right;
