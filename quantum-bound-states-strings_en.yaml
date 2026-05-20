@@ -484,8 +484,7 @@ a11y:
     accessibleRoleDescription:     custom slider
     accessibleName:                Reference Line
     accessibleHelpText:            Move across graphs to set a reference position.
-    accessibleFocusObjectResponse: reference position at {$x} nanometers
-    accessibleObjectResponse:      reference position at {$x} nanometers
+    accessibleObjectResponse:      at {$x} nanometers
 
   #=======================================================================================================
   # Units

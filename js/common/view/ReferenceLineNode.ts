@@ -130,7 +130,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
    * Adds an accessible response when the handle gets focus.
    */
   private describeFocused(): void {
-    const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleFocusObjectResponse.format( {
+    const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
       x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
     } );
     this.addAccessibleFocusObjectResponse( response );

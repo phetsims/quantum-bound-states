@@ -270,7 +270,6 @@ addToMapIfDefined( 'a11y_magnifier_body_accessibleObjectResponse', 'a11y.magnifi
 addToMapIfDefined( 'a11y_referenceLine_accessibleRoleDescription', 'a11y.referenceLine.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleName', 'a11y.referenceLine.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleHelpText', 'a11y.referenceLine.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_referenceLine_accessibleFocusObjectResponse', 'a11y.referenceLine.accessibleFocusObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse', 'a11y.referenceLine.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_units_electronMasses_accessiblePattern', 'a11y.units.electronMasses.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVolts_accessiblePattern', 'a11y.units.electronVolts.accessiblePatternStringProperty' );
@@ -803,7 +802,6 @@ const QuantumBoundStatesFluent = {
       accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleRoleDescription', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleRoleDescriptionStringProperty' ) ),
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleHelpTextStringProperty' ) ),
-      accessibleFocusObjectResponse: new FluentPattern<{ x: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleFocusObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleFocusObjectResponseStringProperty' ), [{"name":"x"}] ),
       accessibleObjectResponse: new FluentPattern<{ x: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponseStringProperty' ), [{"name":"x"}] )
     },
     _comment_41: new FluentComment( {"comment":"Units","associatedKey":"units"} ),

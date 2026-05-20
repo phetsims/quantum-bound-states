@@ -934,11 +934,8 @@
       "accessibleHelpText": {
         "value": "Move across graphs to set a reference position."
       },
-      "accessibleFocusObjectResponse": {
-        "value": "reference position at {$x} nanometers"
-      },
       "accessibleObjectResponse": {
-        "value": "reference position at {$x} nanometers"
+        "value": "at {$x} nanometers"
       }
     },
     "units": {
