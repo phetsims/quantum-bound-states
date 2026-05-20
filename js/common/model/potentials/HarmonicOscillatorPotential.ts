@@ -98,7 +98,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
       ( wellWidth, electronMasses ) => {
         const energy = HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY;
         const angularFrequency = Math.sqrt( 2 * energy / electronMasses ) * ( 2 / wellWidth ); // rad per 2.385 x10^-15 sec
-        return angularFrequency * QBSTime.TIME_CONVERSION_FACTOR;
+        return angularFrequency / QBSTime.TIME_CONVERSION_FACTOR;
       }, {
         units: inverseFemtosecondsUnit,
         tandem: options.tandem.createTandem( 'angularFrequencyProperty' ),
