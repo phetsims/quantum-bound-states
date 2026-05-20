@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * FiniteSquareDragHandlesNode is the parent for drag handles related to a Finite Square potential.
+ * FiniteSquareHandlesNode is the parent for handles related to a Finite Square potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ import FiniteSquareDepthDragHandleNode from './FiniteSquareDepthDragHandleNode.j
 import FiniteSquareWidthDragHandleNode from './FiniteSquareWidthDragHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
-export default class FiniteSquareDragHandlesNode extends PotentialHandlesNode {
+export default class FiniteSquareHandlesNode extends PotentialHandlesNode {
 
   public constructor( potential: FiniteSquarePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,

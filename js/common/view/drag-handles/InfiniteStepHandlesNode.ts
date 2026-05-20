@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * InfiniteStepDragHandlesNode is the parent for drag handles related to an Infinite Step potential.
+ * InfiniteStepHandlesNode is the parent for handles related to an Infinite Step potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ import InfiniteStepHeightDragHandleNode from './InfiniteStepHeightDragHandleNode
 import InfiniteStepWidthDragHandleNode from './InfiniteStepWidthDragHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
-export default class InfiniteStepDragHandlesNode extends PotentialHandlesNode {
+export default class InfiniteStepHandlesNode extends PotentialHandlesNode {
 
   public constructor( potential: InfiniteStepPotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,

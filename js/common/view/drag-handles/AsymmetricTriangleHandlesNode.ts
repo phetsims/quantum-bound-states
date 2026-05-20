@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MorseDragHandlesNode is the parent for drag handles related to a Morse potential.
+ * AsymmetricTriangleHandlesNode is the parent for handles related to an Asymmetric Triangle potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,10 +12,11 @@ import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTriang
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import MorseDepthDragHandleNode from './MorseDepthDragHandleNode.js';
+import AsymmetricTriangleDepthDragHandleNode from './AsymmetricTriangleDepthDragHandleNode.js';
+import AsymmetricTriangleWidthDragHandleNode from './AsymmetricTriangleWidthDragHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
-export default class MorseDragHandlesNode extends PotentialHandlesNode {
+export default class AsymmetricTriangleHandlesNode extends PotentialHandlesNode {
 
   public constructor( potential: AsymmetricTrianglePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
@@ -25,8 +26,8 @@ export default class MorseDragHandlesNode extends PotentialHandlesNode {
 
     super( potential, selectedPotentialProperty, {
       children: [
-        //TODO Add MorseWidthDragHandleNode
-        new MorseDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
+        new AsymmetricTriangleWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
+        new AsymmetricTriangleDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
       ],
       tandem: tandem
     } );

@@ -18,12 +18,12 @@ import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import AsymmetricTriangleDragHandlesNode from './AsymmetricTriangleDragHandlesNode.js';
-import FiniteSquareDragHandlesNode from './FiniteSquareDragHandlesNode.js';
+import AsymmetricTriangleHandlesNode from './AsymmetricTriangleHandlesNode.js';
+import FiniteSquareHandlesNode from './FiniteSquareHandlesNode.js';
 import HarmonicOscillatorDragHandlesNode from './HarmonicOscillatorDragHandlesNode.js';
-import InfiniteSquareDragHandlesNode from './InfiniteSquareDragHandlesNode.js';
-import InfiniteStepDragHandlesNode from './InfiniteStepDragHandlesNode.js';
-import MorseDragHandlesNode from './MorseDragHandlesNode.js';
+import InfiniteSquareHandlesNode from './InfiniteSquareHandlesNode.js';
+import InfiniteStepHandlesNode from './InfiniteStepHandlesNode.js';
+import MorseHandlesNode from './MorseHandlesNode.js';
 
 export default class PotentialHandlesLayer extends Node {
 
@@ -40,19 +40,19 @@ export default class PotentialHandlesLayer extends Node {
       const dragHandlesNodeTandem = tandem.createTandem( `${potential.tandemPrefix}HandlesNode` );
 
       if ( potential instanceof InfiniteSquarePotential ) {
-        children.push( new InfiniteSquareDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new InfiniteSquareHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
       }
       else if ( potential instanceof FiniteSquarePotential ) {
-        children.push( new FiniteSquareDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new FiniteSquareHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
       }
       else if ( potential instanceof InfiniteStepPotential ) {
-        children.push( new InfiniteStepDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new InfiniteStepHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
       }
       else if ( potential instanceof AsymmetricTrianglePotential ) {
-        children.push( new AsymmetricTriangleDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new AsymmetricTriangleHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
       }
       else if ( potential instanceof HarmonicOscillatorPotential ) {
@@ -61,7 +61,7 @@ export default class PotentialHandlesLayer extends Node {
       }
       //TODO Add PoschTellerDragHandlesNode
       else if ( potential instanceof MorsePotential ) {
-        children.push( new MorseDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new MorseHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
       }
       // NOTE: CoulombPotential has no drag handles.

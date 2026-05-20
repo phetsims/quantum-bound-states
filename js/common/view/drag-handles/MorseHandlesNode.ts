@@ -1,23 +1,23 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * InfiniteSquareDragHandlesNode is the parent for drag handles related to an Infinite Square potential.
+ * MorseHandlesNode is the parent for handles related to a Morse potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
+import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import InfiniteSquareWidthDragHandleNode from './InfiniteSquareWidthDragHandleNode.js';
+import MorseDepthDragHandleNode from './MorseDepthDragHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
-export default class InfiniteSquareDragHandlesNode extends PotentialHandlesNode {
+export default class MorseHandlesNode extends PotentialHandlesNode {
 
-  public constructor( potential: InfiniteSquarePotential,
+  public constructor( potential: AsymmetricTrianglePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
@@ -25,7 +25,8 @@ export default class InfiniteSquareDragHandlesNode extends PotentialHandlesNode 
 
     super( potential, selectedPotentialProperty, {
       children: [
-        new InfiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
+        //TODO Add MorseWidthHandleNode
+        new MorseDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
       ],
       tandem: tandem
     } );

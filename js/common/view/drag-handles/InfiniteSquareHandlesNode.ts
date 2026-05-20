@@ -1,24 +1,23 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * AsymmetricTriangleDragHandlesNode is the parent for drag handles related to an Asymmetric Triangle potential.
+ * InfiniteSquareHandlesNode is the parent for handles related to an Infinite Square potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
+import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import AsymmetricTriangleDepthDragHandleNode from './AsymmetricTriangleDepthDragHandleNode.js';
-import AsymmetricTriangleWidthDragHandleNode from './AsymmetricTriangleWidthDragHandleNode.js';
+import InfiniteSquareWidthDragHandleNode from './InfiniteSquareWidthDragHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
-export default class AsymmetricTriangleDragHandlesNode extends PotentialHandlesNode {
+export default class InfiniteSquareHandlesNode extends PotentialHandlesNode {
 
-  public constructor( potential: AsymmetricTrianglePotential,
+  public constructor( potential: InfiniteSquarePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
@@ -26,8 +25,7 @@ export default class AsymmetricTriangleDragHandlesNode extends PotentialHandlesN
 
     super( potential, selectedPotentialProperty, {
       children: [
-        new AsymmetricTriangleWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
-        new AsymmetricTriangleDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
+        new InfiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
       ],
       tandem: tandem
     } );
