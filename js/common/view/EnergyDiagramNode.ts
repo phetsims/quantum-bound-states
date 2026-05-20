@@ -28,7 +28,7 @@ import QBSConstants from '../QBSConstants.js';
 import EnergyLevelDisplay from './EnergyLevelDisplay.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
-import PotentialDragHandlesLayer from './drag-handles/PotentialDragHandlesLayer.js';
+import PotentialHandlesLayer from './drag-handles/PotentialHandlesLayer.js';
 import SelectedEnergyLevelPlot from './SelectedEnergyLevelPlot.js';
 import YLinePlot from './YLinePlot.js';
 
@@ -149,7 +149,7 @@ export default class EnergyDiagramNode extends Node {
     const potentials = model.potentialProperty.validValues!;
     affirm( potentials );
 
-    const handlesLayer = new PotentialDragHandlesLayer( potentials, model.potentialProperty, this, model.time,
+    const handlesLayer = new PotentialHandlesLayer( potentials, model.potentialProperty, this, model.time,
       tandem.createTandem( 'handlesLayer' ) );
 
     // Displays the selected energy level and its corresponding energy value.

@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialDragHandlesLayer create a layer that contains drag handles for all of the supported quantum potentials.
+ * PotentialHandlesLayer create a layer that contains drag handles for all of the supported quantum potentials.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,7 +25,7 @@ import InfiniteSquareDragHandlesNode from './InfiniteSquareDragHandlesNode.js';
 import InfiniteStepDragHandlesNode from './InfiniteStepDragHandlesNode.js';
 import MorseDragHandlesNode from './MorseDragHandlesNode.js';
 
-export default class PotentialDragHandlesLayer extends Node {
+export default class PotentialHandlesLayer extends Node {
 
   public constructor( potentials: readonly QuantumPotential[],
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
