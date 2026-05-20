@@ -13,9 +13,9 @@ import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import MorseDepthDragHandleNode from './MorseDepthDragHandleNode.js';
-import PotentialDragHandlesNode from './PotentialDragHandlesNode.js';
+import PotentialHandlesNode from './PotentialHandlesNode.js';
 
-export default class MorseDragHandlesNode extends PotentialDragHandlesNode {
+export default class MorseDragHandlesNode extends PotentialHandlesNode {
 
   public constructor( potential: AsymmetricTrianglePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,

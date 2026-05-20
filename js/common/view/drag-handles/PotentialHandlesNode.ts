@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialDragHandlesNode is the base class for a set of drag handles related to a quantum potential.
+ * PotentialHandlesNode is the base class for a set of handles related to a quantum potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,15 +15,15 @@ import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type PotentialDragHandlesNodeOptions = SelfOptions & PickRequired<NodeOptions, 'children' | 'tandem'>;
+export type PotentialHandlesNodeOptions = SelfOptions & PickRequired<NodeOptions, 'children' | 'tandem'>;
 
-export default class PotentialDragHandlesNode extends Node {
+export default class PotentialHandlesNode extends Node {
 
   protected constructor( potential: QuantumPotential,
                          selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
-                         providedOptions: PotentialDragHandlesNodeOptions ) {
+                         providedOptions: PotentialHandlesNodeOptions ) {
 
-    const options = optionize<PotentialDragHandlesNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<PotentialHandlesNodeOptions, SelfOptions, NodeOptions>()( {
       isDisposable: false,
       visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential )
     }, providedOptions );
