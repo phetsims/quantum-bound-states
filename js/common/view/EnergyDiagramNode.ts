@@ -28,7 +28,7 @@ import QBSConstants from '../QBSConstants.js';
 import EnergyLevelDisplay from './EnergyLevelDisplay.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
-import PotentialHandlesLayer from './drag-handles/PotentialHandlesLayer.js';
+import PotentialHandlesLayer from './handles/PotentialHandlesLayer.js';
 import SelectedEnergyLevelPlot from './SelectedEnergyLevelPlot.js';
 import YLinePlot from './YLinePlot.js';
 
