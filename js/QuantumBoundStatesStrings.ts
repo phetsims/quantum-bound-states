@@ -132,6 +132,7 @@ type StringsType = {
     };
     'referenceLine': {
       'headingStringProperty': LocalizedStringProperty;
+      'checkValuesStringProperty': LocalizedStringProperty;
     }
   };
   'a11y': {

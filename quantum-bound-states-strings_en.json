@@ -278,6 +278,9 @@
     "referenceLine": {
       "heading": {
         "value": "Reference Line"
+      },
+      "checkValues": {
+        "value": "Check values"
       }
     }
   },

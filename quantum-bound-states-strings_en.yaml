@@ -138,7 +138,8 @@ keyboardHelp:
   potentialHandles:
     heading: Potential Handles
   referenceLine:
-    heading: Reference Line
+    heading:     Reference Line
+    checkValues: Check values
 
 # Strings that are specific to accessibility
 a11y:
@@ -485,10 +486,10 @@ a11y:
       accessibleObjectResponse: TODO.magnifier.body.accessibleObjectResponse
 
   referenceLine:
-    accessibleRoleDescription:     custom slider
-    accessibleName:                Reference Line
-    accessibleHelpText:            Move across graphs to set a reference position.
-    accessibleObjectResponse:      at {$x} nanometers
+    accessibleRoleDescription: custom slider
+    accessibleName:            Reference Line
+    accessibleHelpText:        Move across graphs to set a reference position.
+    accessibleObjectResponse:  at {$x} nanometers
 
   #=======================================================================================================
   # Units

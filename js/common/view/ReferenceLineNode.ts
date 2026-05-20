@@ -25,6 +25,7 @@ import ReferenceLine from '../model/ReferenceLine.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import { HomeEndKeyboardListener } from './HomeEndKeyboardListener.js';
+import ReferenceLineCheckValuesListener from './ReferenceLineCheckValuesListener.js';
 import ReferenceLineDragListener from './ReferenceLineDragListener.js';
 
 type SelfOptions = {
@@ -108,8 +109,10 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     this.addInputListener( new HomeEndKeyboardListener( referenceLine.xProperty, {
       homeCallback: () => this.describeMoved(),
       endCallback: () => this.describeMoved(),
-      tandem: tandem.createTandem( 'keyboardListener' )
+      tandem: tandem.createTandem( 'homeEndKeyboardListener' )
     } ) );
+
+    this.addInputListener( new ReferenceLineCheckValuesListener( this, tandem.createTandem( 'checkValuesListener' ) ) );
 
     // Center the handle on the x-coordinate of the reference line.
     referenceLine.xProperty.link( x => {
@@ -129,7 +132,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
   /**
    * Adds an accessible response when the handle gets focus.
    */
-  private describeFocused(): void {
+  public describeFocused(): void {
     const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
       x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
     } );

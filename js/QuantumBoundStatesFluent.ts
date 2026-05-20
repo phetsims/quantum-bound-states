@@ -99,6 +99,7 @@ addToMapIfDefined( 'superpositionConfigurations_custom5', 'superpositionConfigur
 addToMapIfDefined( 'keyboardHelp_comboBox_heading', 'keyboardHelp.comboBox.headingStringProperty' );
 addToMapIfDefined( 'keyboardHelp_potentialHandles_heading', 'keyboardHelp.potentialHandles.headingStringProperty' );
 addToMapIfDefined( 'keyboardHelp_referenceLine_heading', 'keyboardHelp.referenceLine.headingStringProperty' );
+addToMapIfDefined( 'keyboardHelp_referenceLine_checkValues', 'keyboardHelp.referenceLine.checkValuesStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenButtonsHelpText', 'a11y.screens.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_playArea', 'a11y.screens.oneWellScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_controlArea', 'a11y.screens.oneWellScreen.screenSummary.controlAreaStringProperty' );
@@ -448,7 +449,8 @@ const QuantumBoundStatesFluent = {
       headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.potentialHandles.headingStringProperty' )
     },
     referenceLine: {
-      headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.headingStringProperty' )
+      headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.headingStringProperty' ),
+      checkValuesStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.checkValuesStringProperty' )
     }
   },
   _comment_23: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
