@@ -8,9 +8,10 @@
  */
 
 import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../../dot/js/Vector2Property.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import RichDragListener, { RichDragListenerOptions } from '../../../../../scenery/js/listeners/RichDragListener.js';
 import ValueChangeSoundPlayer from '../../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
@@ -18,10 +19,14 @@ import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  orientation: 'horizontal' | 'vertical';
+  keyboardDragDelta: number; // in model units
+  keyboardShiftDragDelta: number; // in model units
+};
 
 export type PotentialDragListenerOptions = SelfOptions &
-  StrictOmit<RichDragListenerOptions, 'positionProperty' | 'transform' | 'start' | 'end'>;
+  StrictOmit<RichDragListenerOptions, 'positionProperty' | 'transform' | 'keyboardDragListenerOptions' | 'start' | 'end'>;
 
 export default class PotentialDragListener<T extends QuantumPotential> extends RichDragListener {
 
@@ -29,17 +34,35 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
 
   protected constructor( dragHandleNode: PotentialDragHandleNode<T>,
                          rangedProperty: TRangedProperty,
+                         chartTransform: ChartTransform,
                          time: QBSTime,
                          providedOptions: PotentialDragListenerOptions ) {
 
     // Remember whether the sim was playing when the drag started, so that we can restore it after the drag ends.
     let wasPlaying = time.isPlayingProperty.value;
 
+    // SelfOptions keyboardDragDelta and keyboardShiftDragDelta are in model units, so convert them to view units.
+    // When dragging vertically, invert the sign on dragDelta and shiftDragDelta because drag events are in
+    // view coordinates, where +y is down.
+    const keyboardDragDeltaView = ( providedOptions.orientation === 'horizontal' ) ?
+                                  chartTransform.modelToViewDeltaX( providedOptions.keyboardDragDelta ) :
+                                  -chartTransform.modelToViewDeltaY( providedOptions.keyboardDragDelta );
+    const keyboardShiftDragDeltaView = ( providedOptions.orientation === 'horizontal' ) ?
+                                       chartTransform.modelToViewDeltaX( providedOptions.keyboardShiftDragDelta ) :
+                                       -chartTransform.modelToViewDeltaY( providedOptions.keyboardShiftDragDelta );
+
     const options = optionize<PotentialDragListenerOptions, SelfOptions, RichDragListenerOptions>()( {
 
       // We will not provide a transform value, so all drag events (including listener.modelDelta) will be in view coordinates.
       // Provide a positionProperty so that we can get listener.modelDelta.
       positionProperty: new Vector2Property( new Vector2( 0, 0 ) ),
+
+      keyboardDragListenerOptions: {
+        keyboardDragDirection: ( providedOptions.orientation === 'horizontal' ) ? 'leftRight' : 'upDown',
+        dragDelta: keyboardDragDeltaView,
+        shiftDragDelta: keyboardShiftDragDeltaView,
+        moveOnHoldInterval: 20
+      },
 
       // When the drag starts, pause the sim.
       start: ( event, listener ) => {

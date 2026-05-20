@@ -15,10 +15,6 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareWidthDragHandleNode from './FiniteSquareWidthDragHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
-// Drag deltas for well width, in nm.
-const DRAG_DELTA = 0.5;
-const SHIFT_DRAG_DELTA = 0.1;
-
 export default class FiniteSquareWidthDragListener extends PotentialDragListener<InfiniteSquarePotential> {
 
   public constructor( dragHandleNode: FiniteSquareWidthDragHandleNode,
@@ -32,8 +28,12 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing a transform option value, all drag events (including listener.modelDelta) are in view coordinates.
-    super( dragHandleNode, wellWidthProperty, time, {
+    super( dragHandleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
+
+      orientation: 'horizontal',
+      keyboardDragDelta: 0.5, // nm
+      keyboardShiftDragDelta: 0.1, // nm
 
       // Adjust drag bounds for xOffset.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
@@ -42,13 +42,6 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
           energyDiagramRectangleBounds.minY,
           chartTransform.modelToViewX( xOffset + wellWidthProperty.range.max ),
           energyDiagramRectangleBounds.maxY ) ),
-
-      keyboardDragListenerOptions: {
-        keyboardDragDirection: 'leftRight',
-        dragDelta: chartTransform.modelToViewDeltaX( DRAG_DELTA ),
-        shiftDragDelta: chartTransform.modelToViewDeltaX( SHIFT_DRAG_DELTA ),
-        moveOnHoldInterval: 20
-      },
 
       drag: ( event, listener ) => {
 

@@ -16,10 +16,6 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import MorseDepthDragHandleNode from './MorseDepthDragHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
-// Drag deltas for well depth, in eV.
-const DRAG_DELTA = 0.5;
-const SHIFT_DRAG_DELTA = 0.1;
-
 export default class MorseDepthDragListener extends PotentialDragListener<MorsePotential> {
 
   public constructor( dragHandleNode: MorseDepthDragHandleNode,
@@ -33,8 +29,12 @@ export default class MorseDepthDragListener extends PotentialDragListener<MorseP
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing a transform option value, all drag events (including listener.modelDelta) are in view coordinates.
-    super( dragHandleNode, wellDepthProperty, time, {
+    super( dragHandleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
+
+      orientation: 'vertical',
+      keyboardDragDelta: 0.5, // eV
+      keyboardShiftDragDelta: 0.1, // eV
 
       // Adjust drag bounds for yOffset.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
@@ -43,14 +43,6 @@ export default class MorseDepthDragListener extends PotentialDragListener<MorseP
           chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max ),
           energyDiagramRectangleBounds.maxX,
           chartTransform.modelToViewY( yOffset + wellDepthProperty.range.min ) ) ),
-
-      keyboardDragListenerOptions: {
-        keyboardDragDirection: 'upDown',
-        // Invert the sign on dragDelta and shiftDragDelta because drag events are in view coordinates, where +y is down.
-        dragDelta: -chartTransform.modelToViewDeltaY( DRAG_DELTA ),
-        shiftDragDelta: -chartTransform.modelToViewDeltaY( SHIFT_DRAG_DELTA ),
-        moveOnHoldInterval: 20
-      },
 
       drag: ( event, listener ) => {
 
