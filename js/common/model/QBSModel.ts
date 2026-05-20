@@ -426,7 +426,7 @@ function getTimeEvolvedSuperposition( currentTime: number, // femtoseconds
       const energy = boundStateResult.energies[ n ];
 
       // Time evolution phase for this eigenstate: -E_n*t/ℏ
-      const timePhase = -( energy * currentTime ) / NumerovSolver.HBAR;
+      const timePhase = -( energy * currentTime ) / QBSTime.TIME_CONVERSION_FACTOR / NumerovSolver.HBAR;
 
       // Total phase: initial phase + time evolution phase
       const totalPhase = initialPhase + timePhase;

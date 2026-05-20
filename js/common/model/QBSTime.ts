@@ -27,10 +27,7 @@ affirm( _.every( TIME_DECIMAL_PLACES, value => Number.isInteger( value ) && valu
 affirm( TIME_DECIMAL_PLACES.length === TIME_STEP_VALUES.length, 'TIME_DECIMAL_PLACES and TIME_STEP_VALUES must have the same length' );
 
 // Conversion of real time (seconds) to simulation time (femtoseconds).
-// With the three base units for length, mass and energy (nm, m_e, eV), using L = 10^-9, m_e = 9.1093837015e-31, and
-// eV = 1.602176634e-19 the time unit is:
-// t =L * sqrt( m/eV ) = 1 nm * sqrt( 9.1093837015e-31 / 1.602176634e-19 ) = 2.385 x10^-15 sec = 2.385 fs
-const FEMTOSECONDS_PER_SECOND = 2.385;
+const FEMTOSECONDS_PER_SECOND = 1;
 
 export default class QBSTime extends PhetioObject {
 
@@ -46,6 +43,12 @@ export default class QBSTime extends PhetioObject {
 
   // Whether time is visible.
   public readonly timeVisibleProperty: Property<boolean>;
+
+  // With the three base units for length, mass and energy (nm, m_e, eV), using L = 10^-9, m_e = 9.1093837015e-31, and
+  // eV = 1.602176634e-19 the time unit is:
+  // t = L * sqrt( m/eV ) = 1 nm * sqrt( 9.1093837015e-31 / 1.602176634e-19 ) = 2.385 x10^-15 sec = 2.385 fs
+  //TODO Better name?
+  public static readonly TIME_CONVERSION_FACTOR = 2.385;
 
   public constructor( tandem: Tandem ) {
 

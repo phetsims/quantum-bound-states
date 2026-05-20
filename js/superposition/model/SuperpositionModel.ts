@@ -71,7 +71,7 @@ export default class SuperpositionModel extends QBSModel {
       new FiniteSquarePotential( combineOptions<FiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ) ),
-      new HarmonicOscillatorPotential( combineOptions<HarmonicOscillatorPotentialOptions>( {}, quantumPotentialOptions, {
+      new HarmonicOscillatorPotential( electronMassesProperty, combineOptions<HarmonicOscillatorPotentialOptions>( {}, quantumPotentialOptions, {
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ) ),
       new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {

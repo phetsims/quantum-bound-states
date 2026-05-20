@@ -24,9 +24,11 @@ import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
+import QBSTime from '../QBSTime.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsPerNanometerSquaredUnit } from '../units/electronVoltsPerNanometerSquaredUnit.js';
+import { inverseFemtosecondsUnit } from '../units/inverseFemtosecondsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
@@ -43,9 +45,10 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
   public readonly wellWidthProperty: NumberProperty;
   private readonly springConstantProperty: TReadOnlyProperty<number>;
+  public readonly angularFrequencyProperty: TReadOnlyProperty<number>;
   private readonly turningPointProperty: TReadOnlyProperty<Vector2>; //TODO delete if not used
 
-  public constructor( providedOptions: HarmonicOscillatorPotentialOptions ) {
+  public constructor( electronMassesProperty: TReadOnlyProperty<number>, providedOptions: HarmonicOscillatorPotentialOptions ) {
 
     const options = optionize<HarmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
@@ -87,6 +90,18 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
       }, {
         units: electronVoltsPerNanometerSquaredUnit,
         tandem: options.tandem.createTandem( 'springConstantProperty' ),
+        phetioValueType: NumberIO,
+        phetioFeatured: true
+      } );
+
+    this.angularFrequencyProperty = new DerivedProperty( [ this.wellWidthProperty, electronMassesProperty ],
+      ( wellWidth, electronMasses ) => {
+        const energy = HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY;
+        const angularFrequency = Math.sqrt( 2 * energy / electronMasses ) * ( 2 / wellWidth ); // rad per 2.385 x10^-15 sec
+        return angularFrequency * QBSTime.TIME_CONVERSION_FACTOR;
+      }, {
+        units: inverseFemtosecondsUnit,
+        tandem: options.tandem.createTandem( 'angularFrequencyProperty' ),
         phetioValueType: NumberIO,
         phetioFeatured: true
       } );

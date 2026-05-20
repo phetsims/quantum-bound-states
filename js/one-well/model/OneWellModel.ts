@@ -84,7 +84,7 @@ export default class OneWellModel extends QBSModel {
       new AsymmetricTrianglePotential( combineOptions<AsymmetricTrianglePotentialOptions>( {}, quantumPotentialOptions, {
         tandem: potentialsTandem.createTandem( 'asymmetricTrianglePotential' )
       } ) ),
-      new HarmonicOscillatorPotential( combineOptions<HarmonicOscillatorPotentialOptions>( {}, quantumPotentialOptions, {
+      new HarmonicOscillatorPotential( electronMassesProperty, combineOptions<HarmonicOscillatorPotentialOptions>( {}, quantumPotentialOptions, {
         tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
       } ) ),
       new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
