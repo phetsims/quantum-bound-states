@@ -17,7 +17,7 @@ import PotentialHandleDragListener from './PotentialHandleDragListener.js';
 
 export default class FiniteSquareWidthDragListener extends PotentialHandleDragListener<InfiniteSquarePotential> {
 
-  public constructor( dragHandleNode: FiniteSquareWidthDragHandleNode,
+  public constructor( handleNode: FiniteSquareWidthDragHandleNode,
                       potential: InfiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
@@ -28,7 +28,7 @@ export default class FiniteSquareWidthDragListener extends PotentialHandleDragLi
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing a transform option value, all drag events (including listener.modelDelta) are in view coordinates.
-    super( dragHandleNode, wellWidthProperty, chartTransform, time, {
+    super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
 
       orientation: 'horizontal',

@@ -18,7 +18,7 @@ import PotentialHandleDragListener from './PotentialHandleDragListener.js';
 
 export default class MorseDepthDragListener extends PotentialHandleDragListener<MorsePotential> {
 
-  public constructor( dragHandleNode: MorseDepthDragHandleNode,
+  public constructor( handleNode: MorseDepthDragHandleNode,
                       potential: MorsePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
@@ -29,7 +29,7 @@ export default class MorseDepthDragListener extends PotentialHandleDragListener<
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing a transform option value, all drag events (including listener.modelDelta) are in view coordinates.
-    super( dragHandleNode, wellDepthProperty, chartTransform, time, {
+    super( handleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
 
       orientation: 'vertical',

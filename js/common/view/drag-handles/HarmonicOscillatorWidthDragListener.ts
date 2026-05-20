@@ -18,7 +18,7 @@ import PotentialHandleDragListener from './PotentialHandleDragListener.js';
 
 export default class HarmonicOscillatorWidthDragListener extends PotentialHandleDragListener<HarmonicOscillatorPotential> {
 
-  public constructor( dragHandleNode: HarmonicOscillatorWidthDragHandleNode,
+  public constructor( handleNode: HarmonicOscillatorWidthDragHandleNode,
                       potential: HarmonicOscillatorPotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
@@ -29,7 +29,7 @@ export default class HarmonicOscillatorWidthDragListener extends PotentialHandle
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing a transform option value, all drag events (including listener.modelDelta) are in view coordinates.
-    super( dragHandleNode, wellWidthProperty, chartTransform, time, {
+    super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
 
       orientation: 'horizontal',
