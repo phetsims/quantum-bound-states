@@ -12,9 +12,9 @@ import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillat
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import HarmonicOscillatorWidthDragListener from './HarmonicOscillatorWidthDragListener.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class HarmonicOscillatorWidthDragHandleNode extends PotentialDragHandleNode<HarmonicOscillatorPotential> {
+export default class HarmonicOscillatorWidthDragHandleNode extends PotentialHandleNode<HarmonicOscillatorPotential> {
 
   public constructor( potential: HarmonicOscillatorPotential,
                       energyDiagramNode: EnergyDiagramNode,

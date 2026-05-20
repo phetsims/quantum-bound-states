@@ -1,8 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialDragHandleNode is the base class for all drag handles that are used to change some property of
- * a quantum potential.
+ * PotentialHandleNode is the base class for all handles that are used to change some property of a quantum potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,11 +22,11 @@ type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
 };
 
-export type PotentialDragHandleNodeOptions = SelfOptions &
+export type PotentialHandleNodeOptions = SelfOptions &
   PickOptional<ArrowNodeOptions, 'accessibleName' | 'accessibleHelpText' | 'accessibleFocusObjectResponse' | 'accessibleParagraphContent'> &
   PickRequired<ArrowNodeOptions, 'tandem'>;
 
-export default abstract class PotentialDragHandleNode<T extends QuantumPotential> extends InteractiveHighlighting( ArrowNode ) {
+export default abstract class PotentialHandleNode<T extends QuantumPotential> extends InteractiveHighlighting( ArrowNode ) {
 
   protected readonly potential: T;
   protected readonly chartTransform: ChartTransform;
@@ -35,10 +34,10 @@ export default abstract class PotentialDragHandleNode<T extends QuantumPotential
   protected constructor( potential: T,
                          chartTransform: ChartTransform,
                          rangedProperty: TRangedProperty,
-                         providedOptions: PotentialDragHandleNodeOptions ) {
+                         providedOptions: PotentialHandleNodeOptions ) {
 
-    const options = optionize4<PotentialDragHandleNodeOptions, SelfOptions, ArrowNodeOptions>()( {},
-      AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, providedOptions );
+    const options = optionize4<PotentialHandleNodeOptions, SelfOptions, ArrowNodeOptions>()( {},
+      AccessibleDraggableOptions, QBSConstants.POTENTIAL_HANDLE_OPTIONS, providedOptions );
 
     const tailX = options.orientation === 'horizontal' ? -QBSConstants.HANDLE_LENGTH / 2 : 0;
     const tailY = options.orientation === 'horizontal' ? 0 : -QBSConstants.HANDLE_LENGTH / 2;
@@ -66,12 +65,12 @@ export default abstract class PotentialDragHandleNode<T extends QuantumPotential
   }
 
   /**
-   * Updates the position of the drag handle.
+   * Updates the position of the handle.
    */
   protected abstract updatePosition(): void;
 
   /**
-   * Describes the drag handle when it is moved.
+   * Describes the handle when it is moved.
    */
   public abstract describeMoved(): void;
 }

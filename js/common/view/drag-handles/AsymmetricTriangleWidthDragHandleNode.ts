@@ -12,9 +12,9 @@ import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTriang
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import AsymmetricTriangleWidthDragListener from './AsymmetricTriangleWidthDragListener.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class AsymmetricTriangleWidthDragHandleNode extends PotentialDragHandleNode<AsymmetricTrianglePotential> {
+export default class AsymmetricTriangleWidthDragHandleNode extends PotentialHandleNode<AsymmetricTrianglePotential> {
 
   public constructor( potential: AsymmetricTrianglePotential,
                       energyDiagramNode: EnergyDiagramNode,

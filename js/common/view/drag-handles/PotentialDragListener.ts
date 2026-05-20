@@ -17,7 +17,7 @@ import RichDragListener, { RichDragListenerOptions } from '../../../../../scener
 import ValueChangeSoundPlayer from '../../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 
 type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
@@ -32,7 +32,7 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
 
   private readonly valueChangeSoundPlayer: ValueChangeSoundPlayer;
 
-  protected constructor( dragHandleNode: PotentialDragHandleNode<T>,
+  protected constructor( dragHandleNode: PotentialHandleNode<T>,
                          rangedProperty: TRangedProperty,
                          chartTransform: ChartTransform,
                          time: QBSTime,

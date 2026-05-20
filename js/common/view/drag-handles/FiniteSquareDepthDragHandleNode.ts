@@ -12,12 +12,12 @@ import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareDepthDragListener from './FiniteSquareDepthDragListener.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 
 // How far the handle is positioned from the rightmost well of the potential, in nm
 const HANDLE_X_OFFSET = 0.25;
 
-export default class FiniteSquareDepthDragHandleNode extends PotentialDragHandleNode<FiniteSquarePotential> {
+export default class FiniteSquareDepthDragHandleNode extends PotentialHandleNode<FiniteSquarePotential> {
 
   public constructor( potential: FiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,

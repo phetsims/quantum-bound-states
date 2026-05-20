@@ -124,7 +124,7 @@ export default class QBSConstants {
     tandem: Tandem.OPT_OUT // Not instrumenting dialogs was a design decision.
   };
 
-  public static readonly DRAG_ARROWS_OPTIONS: ArrowNodeOptions = {
+  public static readonly POTENTIAL_HANDLE_OPTIONS: ArrowNodeOptions = {
     isDisposable: false,
     cursor: 'pointer',
     doubleHead: true,

@@ -12,9 +12,9 @@ import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareWidthDragListener from './FiniteSquareWidthDragListener.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class FiniteSquareWidthDragHandleNode extends PotentialDragHandleNode<FiniteSquarePotential> {
+export default class FiniteSquareWidthDragHandleNode extends PotentialHandleNode<FiniteSquarePotential> {
 
   public constructor( potential: FiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,

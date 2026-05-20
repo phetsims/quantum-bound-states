@@ -12,9 +12,9 @@ import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import MorseDepthDragListener from './MorseDepthDragListener.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class MorseDepthDragHandleNode extends PotentialDragHandleNode<MorsePotential> {
+export default class MorseDepthDragHandleNode extends PotentialHandleNode<MorsePotential> {
 
   public constructor( potential: MorsePotential,
                       energyDiagramNode: EnergyDiagramNode,
