@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -14,17 +13,14 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import InfiniteStepHeightDragListener from './InfiniteStepHeightDragListener.js';
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
-export default class InfiniteStepHeightDragHandleNode extends PotentialDragHandleNode {
-
-  private readonly potential: InfiniteStepPotential;
-  private readonly chartTransform: ChartTransform;
+export default class InfiniteStepHeightDragHandleNode extends PotentialDragHandleNode<InfiniteStepPotential> {
 
   public constructor( potential: InfiniteStepPotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential.stepHeightProperty, {
+    super( potential, energyDiagramNode.chartTransform, potential.stepHeightProperty, {
       orientation: 'vertical',
       //TODO accessibleName
       //TODO accessibleHelpText
@@ -32,14 +28,7 @@ export default class InfiniteStepHeightDragHandleNode extends PotentialDragHandl
       tandem: tandem
     } );
 
-    this.potential = potential;
-    this.chartTransform = energyDiagramNode.chartTransform;
-
     this.addInputListener( new InfiniteStepHeightDragListener( this, potential, energyDiagramNode, time, tandem ) );
-
-    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
-    this.updatePosition();
   }
 
   /**

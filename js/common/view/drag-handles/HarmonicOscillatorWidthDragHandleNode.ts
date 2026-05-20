@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -14,17 +13,14 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import HarmonicOscillatorWidthDragListener from './HarmonicOscillatorWidthDragListener.js';
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
-export default class HarmonicOscillatorWidthDragHandleNode extends PotentialDragHandleNode {
-
-  private readonly potential: HarmonicOscillatorPotential;
-  private readonly chartTransform: ChartTransform;
+export default class HarmonicOscillatorWidthDragHandleNode extends PotentialDragHandleNode<HarmonicOscillatorPotential> {
 
   public constructor( potential: HarmonicOscillatorPotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential.wellWidthProperty, {
+    super( potential, energyDiagramNode.chartTransform, potential.wellWidthProperty, {
       orientation: 'horizontal',
       //TODO accessibleName
       //TODO accessibleHelpText
@@ -32,14 +28,7 @@ export default class HarmonicOscillatorWidthDragHandleNode extends PotentialDrag
       tandem: tandem
     } );
 
-    this.potential = potential;
-    this.chartTransform = energyDiagramNode.chartTransform;
-
     this.addInputListener( new HarmonicOscillatorWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
-
-    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
-    this.updatePosition();
   }
 
   /**

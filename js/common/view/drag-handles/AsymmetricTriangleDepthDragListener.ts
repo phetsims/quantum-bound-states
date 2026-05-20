@@ -13,16 +13,16 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import AsymmetricTriangleDepthDragHandleNode from './AsymmetricTriangleDepthDragHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
 // Drag deltas for well depth, in eV.
 const DRAG_DELTA = 0.5;
 const SHIFT_DRAG_DELTA = 0.1;
 
-export default class AsymmetricTriangleDepthDragListener extends PotentialDragListener {
+export default class AsymmetricTriangleDepthDragListener extends PotentialDragListener<AsymmetricTrianglePotential> {
 
-  public constructor( dragHandleNode: PotentialDragHandleNode,
+  public constructor( dragHandleNode: AsymmetricTriangleDepthDragHandleNode,
                       potential: AsymmetricTrianglePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,

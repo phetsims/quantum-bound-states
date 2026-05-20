@@ -8,12 +8,14 @@
  */
 
 import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import AccessibleDraggableOptions from '../../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../../scenery-phet/js/ArrowNode.js';
 import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSConstants from '../../QBSConstants.js';
 import { HomeEndKeyboardListener } from '../HomeEndKeyboardListener.js';
 
@@ -25,9 +27,15 @@ export type PotentialDragHandleNodeOptions = SelfOptions &
   PickOptional<ArrowNodeOptions, 'accessibleName' | 'accessibleHelpText' | 'accessibleFocusObjectResponse' | 'accessibleParagraphContent'> &
   PickRequired<ArrowNodeOptions, 'tandem'>;
 
-export default abstract class PotentialDragHandleNode extends InteractiveHighlighting( ArrowNode ) {
+export default abstract class PotentialDragHandleNode<T extends QuantumPotential> extends InteractiveHighlighting( ArrowNode ) {
 
-  protected constructor( rangedProperty: TRangedProperty, providedOptions: PotentialDragHandleNodeOptions ) {
+  protected readonly potential: T;
+  protected readonly chartTransform: ChartTransform;
+
+  protected constructor( potential: T,
+                         chartTransform: ChartTransform,
+                         rangedProperty: TRangedProperty,
+                         providedOptions: PotentialDragHandleNodeOptions ) {
 
     const options = optionize4<PotentialDragHandleNodeOptions, SelfOptions, ArrowNodeOptions>()( {},
       AccessibleDraggableOptions, QBSConstants.DRAG_ARROWS_OPTIONS, providedOptions );
@@ -39,6 +47,9 @@ export default abstract class PotentialDragHandleNode extends InteractiveHighlig
 
     super( tailX, tailY, tipX, tipY, options );
 
+    this.potential = potential;
+    this.chartTransform = chartTransform;
+
     const pointerArea = this.localBounds.dilatedXY( 5, 5 );
     this.mouseArea = pointerArea;
     this.touchArea = pointerArea;
@@ -48,6 +59,10 @@ export default abstract class PotentialDragHandleNode extends InteractiveHighlig
       endCallback: () => this.describeMoved(),
       tandem: options.tandem.createTandem( 'homeEndKeyboardListener' )
     } ) );
+
+    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
+    this.updatePosition();
   }
 
   /**

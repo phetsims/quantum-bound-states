@@ -12,16 +12,16 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import InfiniteSquareWidthDragHandleNode from './InfiniteSquareWidthDragHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
 // Drag deltas for well width, in nm.
 const DRAG_DELTA = 0.5;
 const SHIFT_DRAG_DELTA = 0.1;
 
-export default class InfiniteSquareWidthDragListener extends PotentialDragListener {
+export default class InfiniteSquareWidthDragListener extends PotentialDragListener<InfiniteSquarePotential> {
 
-  public constructor( dragHandleNode: PotentialDragHandleNode,
+  public constructor( dragHandleNode: InfiniteSquareWidthDragHandleNode,
                       potential: InfiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,

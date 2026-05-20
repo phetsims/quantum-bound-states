@@ -6,25 +6,21 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
+import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import MorseDepthDragListener from './MorseDepthDragListener.js';
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
-export default class MorseDepthDragHandleNode extends PotentialDragHandleNode {
+export default class MorseDepthDragHandleNode extends PotentialDragHandleNode<MorsePotential> {
 
-  private readonly potential: AsymmetricTrianglePotential;
-  private readonly chartTransform: ChartTransform;
-
-  public constructor( potential: AsymmetricTrianglePotential,
+  public constructor( potential: MorsePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential.wellDepthProperty, {
+    super( potential, energyDiagramNode.chartTransform, potential.wellDepthProperty, {
       orientation: 'vertical',
       //TODO accessibleName
       //TODO accessibleHelpText
@@ -32,14 +28,7 @@ export default class MorseDepthDragHandleNode extends PotentialDragHandleNode {
       tandem: tandem
     } );
 
-    this.potential = potential;
-    this.chartTransform = energyDiagramNode.chartTransform;
-
     this.addInputListener( new MorseDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
-
-    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
-    this.updatePosition();
   }
 
   /**

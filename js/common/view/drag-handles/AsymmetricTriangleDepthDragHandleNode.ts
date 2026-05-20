@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -17,17 +16,14 @@ import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 // How far the handle is positioned from the rightmost well of the potential, in nm
 const HANDLE_X_OFFSET = 0.25;
 
-export default class AsymmetricTriangleDepthDragHandleNode extends PotentialDragHandleNode {
-
-  private readonly potential: AsymmetricTrianglePotential;
-  private readonly chartTransform: ChartTransform;
+export default class AsymmetricTriangleDepthDragHandleNode extends PotentialDragHandleNode<AsymmetricTrianglePotential> {
 
   public constructor( potential: AsymmetricTrianglePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential.wellDepthProperty, {
+    super( potential, energyDiagramNode.chartTransform, potential.wellDepthProperty, {
       orientation: 'vertical',
       //TODO accessibleName
       //TODO accessibleHelpText
@@ -35,14 +31,7 @@ export default class AsymmetricTriangleDepthDragHandleNode extends PotentialDrag
       tandem: tandem
     } );
 
-    this.potential = potential;
-    this.chartTransform = energyDiagramNode.chartTransform;
-
     this.addInputListener( new AsymmetricTriangleDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
-
-    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
-    this.updatePosition();
   }
 
   /**

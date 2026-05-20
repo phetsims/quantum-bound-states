@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO This is identical to FiniteSquareWidthDragListener except for the type of @param potential.
 /**
  * AsymmetricTriangleWidthDragListener is the drag listener for changing the well width of an Asymmetric Triangle potential.
  *
@@ -13,16 +12,16 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import AsymmetricTriangleWidthDragHandleNode from './AsymmetricTriangleWidthDragHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
 // Drag deltas for well width, in nm.
 const DRAG_DELTA = 0.5;
 const SHIFT_DRAG_DELTA = 0.1;
 
-export default class AsymmetricTriangleWidthDragListener extends PotentialDragListener {
+export default class AsymmetricTriangleWidthDragListener extends PotentialDragListener<AsymmetricTrianglePotential> {
 
-  public constructor( dragHandleNode: PotentialDragHandleNode,
+  public constructor( dragHandleNode: AsymmetricTriangleWidthDragHandleNode,
                       potential: AsymmetricTrianglePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,

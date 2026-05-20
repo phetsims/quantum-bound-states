@@ -13,16 +13,16 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import MorseDepthDragHandleNode from './MorseDepthDragHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
 // Drag deltas for well depth, in eV.
 const DRAG_DELTA = 0.5;
 const SHIFT_DRAG_DELTA = 0.1;
 
-export default class MorseDepthDragListener extends PotentialDragListener {
+export default class MorseDepthDragListener extends PotentialDragListener<MorsePotential> {
 
-  public constructor( dragHandleNode: PotentialDragHandleNode,
+  public constructor( dragHandleNode: MorseDepthDragHandleNode,
                       potential: MorsePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,

@@ -14,6 +14,7 @@ import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optioni
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import RichDragListener, { RichDragListenerOptions } from '../../../../../scenery/js/listeners/RichDragListener.js';
 import ValueChangeSoundPlayer from '../../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
+import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
@@ -22,11 +23,11 @@ type SelfOptions = EmptySelfOptions;
 export type PotentialDragListenerOptions = SelfOptions &
   StrictOmit<RichDragListenerOptions, 'positionProperty' | 'transform' | 'start' | 'end'>;
 
-export default class PotentialDragListener extends RichDragListener {
+export default class PotentialDragListener<T extends QuantumPotential> extends RichDragListener {
 
   private readonly valueChangeSoundPlayer: ValueChangeSoundPlayer;
 
-  protected constructor( dragHandleNode: PotentialDragHandleNode,
+  protected constructor( dragHandleNode: PotentialDragHandleNode<T>,
                          rangedProperty: TRangedProperty,
                          time: QBSTime,
                          providedOptions: PotentialDragListenerOptions ) {

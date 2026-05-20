@@ -12,16 +12,16 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import PotentialDragHandleNode from './PotentialDragHandleNode.js';
+import InfiniteStepHeightDragHandleNode from './InfiniteStepHeightDragHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
 // Drag deltas for well depth, in eV.
 const DRAG_DELTA = 0.5;
 const SHIFT_DRAG_DELTA = 0.1;
 
-export default class InfiniteStepHeightDragListener extends PotentialDragListener {
+export default class InfiniteStepHeightDragListener extends PotentialDragListener<InfiniteStepPotential> {
 
-  public constructor( dragHandleNode: PotentialDragHandleNode,
+  public constructor( dragHandleNode: InfiniteStepHeightDragHandleNode,
                       potential: InfiniteStepPotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
