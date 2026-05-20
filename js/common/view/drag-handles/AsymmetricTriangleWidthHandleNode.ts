@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * AsymmetricTriangleWidthDragHandleNode is the drag handle for changing the well width of an Asymmetric Triangle potential.
+ * AsymmetricTriangleWidthHandleNode is the handle for changing the well width of an Asymmetric Triangle potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import AsymmetricTriangleWidthDragListener from './AsymmetricTriangleWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class AsymmetricTriangleWidthDragHandleNode extends PotentialHandleNode<AsymmetricTrianglePotential> {
+export default class AsymmetricTriangleWidthHandleNode extends PotentialHandleNode<AsymmetricTrianglePotential> {
 
   public constructor( potential: AsymmetricTrianglePotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -43,7 +43,7 @@ export default class AsymmetricTriangleWidthDragHandleNode extends PotentialHand
   }
 
   /**
-   * Describes the drag handle when it is moved.
+   * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.asymmetricTriangleWidthHandle.accessibleObjectResponse.format( {

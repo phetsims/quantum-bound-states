@@ -12,12 +12,12 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import InfiniteSquareWidthDragHandleNode from './InfiniteSquareWidthDragHandleNode.js';
-import PotentialHandleDragListener from './PotentialHandleDragListener.js';
+import InfiniteSquareWidthHandleNode from './InfiniteSquareWidthHandleNode.js';
+import PotentialDragListener from './PotentialDragListener.js';
 
-export default class InfiniteSquareWidthDragListener extends PotentialHandleDragListener<InfiniteSquarePotential> {
+export default class InfiniteSquareWidthDragListener extends PotentialDragListener<InfiniteSquarePotential> {
 
-  public constructor( handleNode: InfiniteSquareWidthDragHandleNode,
+  public constructor( handleNode: InfiniteSquareWidthHandleNode,
                       potential: InfiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,

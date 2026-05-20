@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * AsymmetricTriangleDepthDragHandleNode is the drag handle for changing the well depth of an Asymmetric Triangle potential.
+ * AsymmetricTriangleDepthHandleNode is the handle for changing the well depth of an Asymmetric Triangle potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +17,7 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 // How far the handle is positioned from the rightmost well of the potential, in nm
 const HANDLE_X_OFFSET = 0.25;
 
-export default class AsymmetricTriangleDepthDragHandleNode extends PotentialHandleNode<AsymmetricTrianglePotential> {
+export default class AsymmetricTriangleDepthHandleNode extends PotentialHandleNode<AsymmetricTrianglePotential> {
 
   public constructor( potential: AsymmetricTrianglePotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -46,7 +46,7 @@ export default class AsymmetricTriangleDepthDragHandleNode extends PotentialHand
   }
 
   /**
-   * Describes the drag handle when it is moved.
+   * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.asymmetricTriangleDepthHandle.accessibleObjectResponse.format( {

@@ -20,7 +20,7 @@ import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import AsymmetricTriangleHandlesNode from './AsymmetricTriangleHandlesNode.js';
 import FiniteSquareHandlesNode from './FiniteSquareHandlesNode.js';
-import HarmonicOscillatorDragHandlesNode from './HarmonicOscillatorDragHandlesNode.js';
+import HarmonicOscillatorHandlesNode from './HarmonicOscillatorHandlesNode.js';
 import InfiniteSquareHandlesNode from './InfiniteSquareHandlesNode.js';
 import InfiniteStepHandlesNode from './InfiniteStepHandlesNode.js';
 import MorseHandlesNode from './MorseHandlesNode.js';
@@ -56,7 +56,7 @@ export default class PotentialHandlesLayer extends Node {
           time, dragHandlesNodeTandem ) );
       }
       else if ( potential instanceof HarmonicOscillatorPotential ) {
-        children.push( new HarmonicOscillatorDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new HarmonicOscillatorHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
       }
       //TODO Add PoschTellerDragHandlesNode

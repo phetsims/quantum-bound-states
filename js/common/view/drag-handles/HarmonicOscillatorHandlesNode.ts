@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * HarmonicOscillatorDragHandlesNode is the parent for drag handles related to a Harmonic Oscillator potential.
+ * HarmonicOscillatorHandlesNode is the parent for handles related to a Harmonic Oscillator potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,10 +12,10 @@ import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillat
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import HarmonicOscillatorWidthDragHandleNode from './HarmonicOscillatorWidthDragHandleNode.js';
+import HarmonicOscillatorWidthHandleNode from './HarmonicOscillatorWidthHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
-export default class HarmonicOscillatorDragHandlesNode extends PotentialHandlesNode {
+export default class HarmonicOscillatorHandlesNode extends PotentialHandlesNode {
 
   public constructor( potential: HarmonicOscillatorPotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
@@ -25,7 +25,7 @@ export default class HarmonicOscillatorDragHandlesNode extends PotentialHandlesN
 
     super( potential, selectedPotentialProperty, {
       children: [
-        new HarmonicOscillatorWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
+        new HarmonicOscillatorWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
       ],
       tandem: tandem
     } );

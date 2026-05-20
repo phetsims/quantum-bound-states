@@ -12,7 +12,7 @@ import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTriang
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import MorseDepthDragHandleNode from './MorseDepthDragHandleNode.js';
+import MorseDepthHandleNode from './MorseDepthHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class MorseHandlesNode extends PotentialHandlesNode {
@@ -26,7 +26,7 @@ export default class MorseHandlesNode extends PotentialHandlesNode {
     super( potential, selectedPotentialProperty, {
       children: [
         //TODO Add MorseWidthHandleNode
-        new MorseDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
+        new MorseDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
       ],
       tandem: tandem
     } );

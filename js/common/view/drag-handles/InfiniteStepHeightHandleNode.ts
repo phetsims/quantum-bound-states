@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * InfiniteStepHeightDragHandleNode is the drag handle for changing the step height of an Infinite Step potential.
+ * InfiniteStepHeightHandleNode is the handle for changing the step height of an Infinite Step potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import InfiniteStepHeightDragListener from './InfiniteStepHeightDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class InfiniteStepHeightDragHandleNode extends PotentialHandleNode<InfiniteStepPotential> {
+export default class InfiniteStepHeightHandleNode extends PotentialHandleNode<InfiniteStepPotential> {
 
   public constructor( potential: InfiniteStepPotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -43,7 +43,7 @@ export default class InfiniteStepHeightDragHandleNode extends PotentialHandleNod
   }
 
   /**
-   * Describes the drag handle when it is moved.
+   * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.infiniteStepHeightHandle.accessibleObjectResponse.format( {

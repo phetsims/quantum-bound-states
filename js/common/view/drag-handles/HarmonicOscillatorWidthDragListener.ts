@@ -13,12 +13,12 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import HarmonicOscillatorWidthDragHandleNode from './HarmonicOscillatorWidthDragHandleNode.js';
-import PotentialHandleDragListener from './PotentialHandleDragListener.js';
+import HarmonicOscillatorWidthHandleNode from './HarmonicOscillatorWidthHandleNode.js';
+import PotentialDragListener from './PotentialDragListener.js';
 
-export default class HarmonicOscillatorWidthDragListener extends PotentialHandleDragListener<HarmonicOscillatorPotential> {
+export default class HarmonicOscillatorWidthDragListener extends PotentialDragListener<HarmonicOscillatorPotential> {
 
-  public constructor( handleNode: HarmonicOscillatorWidthDragHandleNode,
+  public constructor( handleNode: HarmonicOscillatorWidthHandleNode,
                       potential: HarmonicOscillatorPotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,

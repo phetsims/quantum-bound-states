@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * FiniteSquareDepthDragHandleNode is the drag handle for changing the well depth of a Finite Square potential.
+ * FiniteSquareDepthHandleNode is the handle for changing the well depth of a Finite Square potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +17,7 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 // How far the handle is positioned from the rightmost well of the potential, in nm
 const HANDLE_X_OFFSET = 0.25;
 
-export default class FiniteSquareDepthDragHandleNode extends PotentialHandleNode<FiniteSquarePotential> {
+export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<FiniteSquarePotential> {
 
   public constructor( potential: FiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -49,7 +49,7 @@ export default class FiniteSquareDepthDragHandleNode extends PotentialHandleNode
   }
 
   /**
-   * Describes the drag handle when it is moved.
+   * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.finiteSquareDepthHandle.accessibleObjectResponse.format( {

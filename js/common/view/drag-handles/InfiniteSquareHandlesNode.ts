@@ -12,7 +12,7 @@ import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotent
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import InfiniteSquareWidthDragHandleNode from './InfiniteSquareWidthDragHandleNode.js';
+import InfiniteSquareWidthHandleNode from './InfiniteSquareWidthHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class InfiniteSquareHandlesNode extends PotentialHandlesNode {
@@ -25,7 +25,7 @@ export default class InfiniteSquareHandlesNode extends PotentialHandlesNode {
 
     super( potential, selectedPotentialProperty, {
       children: [
-        new InfiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
+        new InfiniteSquareWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
       ],
       tandem: tandem
     } );

@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MorseDepthDragHandleNode is the drag handle for changing the well depth of a Morse potential.
+ * MorseDepthHandleNode is the handle for changing the well depth of a Morse potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import MorseDepthDragListener from './MorseDepthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class MorseDepthDragHandleNode extends PotentialHandleNode<MorsePotential> {
+export default class MorseDepthHandleNode extends PotentialHandleNode<MorsePotential> {
 
   public constructor( potential: MorsePotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -44,7 +44,7 @@ export default class MorseDepthDragHandleNode extends PotentialHandleNode<MorseP
   }
 
   /**
-   * Describes the drag handle when it is moved.
+   * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.morseDepthHandle.accessibleObjectResponse.format( {

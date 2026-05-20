@@ -12,8 +12,8 @@ import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import FiniteSquareDepthDragHandleNode from './FiniteSquareDepthDragHandleNode.js';
-import FiniteSquareWidthDragHandleNode from './FiniteSquareWidthDragHandleNode.js';
+import FiniteSquareDepthHandleNode from './FiniteSquareDepthHandleNode.js';
+import FiniteSquareWidthHandleNode from './FiniteSquareWidthHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class FiniteSquareHandlesNode extends PotentialHandlesNode {
@@ -26,8 +26,8 @@ export default class FiniteSquareHandlesNode extends PotentialHandlesNode {
 
     super( potential, selectedPotentialProperty, {
       children: [
-        new FiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
-        new FiniteSquareDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
+        new FiniteSquareWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
+        new FiniteSquareDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
         //TODO Add separationHandleNode if potential.numberOfWellsProperty indicates that it is supported.
       ],
       tandem: tandem

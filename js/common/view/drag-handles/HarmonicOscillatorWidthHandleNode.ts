@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * HarmonicOscillatorWidthDragHandleNode is the drag handle for changing the well width of a Harmonic Oscillator potential.
+ * HarmonicOscillatorWidthHandleNode is the handle for changing the well width of a Harmonic Oscillator potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import HarmonicOscillatorWidthDragListener from './HarmonicOscillatorWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class HarmonicOscillatorWidthDragHandleNode extends PotentialHandleNode<HarmonicOscillatorPotential> {
+export default class HarmonicOscillatorWidthHandleNode extends PotentialHandleNode<HarmonicOscillatorPotential> {
 
   public constructor( potential: HarmonicOscillatorPotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -43,7 +43,7 @@ export default class HarmonicOscillatorWidthDragHandleNode extends PotentialHand
   }
 
   /**
-   * Describes the drag handle when it is moved.
+   * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.harmonicOscillatorWidthHandle.accessibleObjectResponse.format( {

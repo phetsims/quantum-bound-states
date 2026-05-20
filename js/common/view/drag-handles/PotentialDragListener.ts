@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialHandleDragListener is the base class for drag listeners that change some Property of a quantum potential.
+ * PotentialDragListener is the base class for drag listeners that change some Property of a quantum potential.
  * It is responsible for pausing the sim while the drag is in progress and for creating a sound player.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -28,7 +28,7 @@ type SelfOptions = {
 export type PotentialHandleDragListenerOptions = SelfOptions &
   StrictOmit<RichDragListenerOptions, 'positionProperty' | 'transform' | 'keyboardDragListenerOptions' | 'start' | 'end'>;
 
-export default class PotentialHandleDragListener<T extends QuantumPotential> extends RichDragListener {
+export default class PotentialDragListener<T extends QuantumPotential> extends RichDragListener {
 
   private readonly valueChangeSoundPlayer: ValueChangeSoundPlayer;
 

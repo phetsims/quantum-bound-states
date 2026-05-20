@@ -13,12 +13,12 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import AsymmetricTriangleDepthDragHandleNode from './AsymmetricTriangleDepthDragHandleNode.js';
-import PotentialHandleDragListener from './PotentialHandleDragListener.js';
+import AsymmetricTriangleDepthHandleNode from './AsymmetricTriangleDepthHandleNode.js';
+import PotentialDragListener from './PotentialDragListener.js';
 
-export default class AsymmetricTriangleDepthDragListener extends PotentialHandleDragListener<AsymmetricTrianglePotential> {
+export default class AsymmetricTriangleDepthDragListener extends PotentialDragListener<AsymmetricTrianglePotential> {
 
-  public constructor( handleNode: AsymmetricTriangleDepthDragHandleNode,
+  public constructor( handleNode: AsymmetricTriangleDepthHandleNode,
                       potential: AsymmetricTrianglePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,

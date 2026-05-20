@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * InfiniteStepWidthDragHandleNode is the drag handle for changing the well width of an Infinite Step potential.
+ * InfiniteStepWidthHandleNode is the handle for changing the well width of an Infinite Step potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import InfiniteStepWidthDragListener from './InfiniteStepWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class InfiniteStepWidthDragHandleNode extends PotentialHandleNode<InfiniteStepPotential> {
+export default class InfiniteStepWidthHandleNode extends PotentialHandleNode<InfiniteStepPotential> {
 
   public constructor( potential: InfiniteStepPotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -45,7 +45,7 @@ export default class InfiniteStepWidthDragHandleNode extends PotentialHandleNode
   }
 
   /**
-   * Describes the drag handle when it is moved.
+   * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.infiniteStepWidthHandle.accessibleObjectResponse.format( {

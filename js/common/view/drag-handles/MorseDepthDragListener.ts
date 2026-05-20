@@ -13,12 +13,12 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import MorseDepthDragHandleNode from './MorseDepthDragHandleNode.js';
-import PotentialHandleDragListener from './PotentialHandleDragListener.js';
+import MorseDepthHandleNode from './MorseDepthHandleNode.js';
+import PotentialDragListener from './PotentialDragListener.js';
 
-export default class MorseDepthDragListener extends PotentialHandleDragListener<MorsePotential> {
+export default class MorseDepthDragListener extends PotentialDragListener<MorsePotential> {
 
-  public constructor( handleNode: MorseDepthDragHandleNode,
+  public constructor( handleNode: MorseDepthHandleNode,
                       potential: MorsePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,

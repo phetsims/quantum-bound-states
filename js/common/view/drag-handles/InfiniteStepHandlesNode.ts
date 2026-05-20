@@ -12,8 +12,8 @@ import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import InfiniteStepHeightDragHandleNode from './InfiniteStepHeightDragHandleNode.js';
-import InfiniteStepWidthDragHandleNode from './InfiniteStepWidthDragHandleNode.js';
+import InfiniteStepHeightHandleNode from './InfiniteStepHeightHandleNode.js';
+import InfiniteStepWidthHandleNode from './InfiniteStepWidthHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class InfiniteStepHandlesNode extends PotentialHandlesNode {
@@ -26,8 +26,8 @@ export default class InfiniteStepHandlesNode extends PotentialHandlesNode {
 
     super( potential, selectedPotentialProperty, {
       children: [
-        new InfiniteStepWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
-        new InfiniteStepHeightDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'stepHeightHandleNode' ) )
+        new InfiniteStepWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
+        new InfiniteStepHeightHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'stepHeightHandleNode' ) )
       ],
       tandem: tandem
     } );

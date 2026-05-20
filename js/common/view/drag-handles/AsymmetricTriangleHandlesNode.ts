@@ -12,8 +12,8 @@ import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTriang
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import AsymmetricTriangleDepthDragHandleNode from './AsymmetricTriangleDepthDragHandleNode.js';
-import AsymmetricTriangleWidthDragHandleNode from './AsymmetricTriangleWidthDragHandleNode.js';
+import AsymmetricTriangleDepthHandleNode from './AsymmetricTriangleDepthHandleNode.js';
+import AsymmetricTriangleWidthHandleNode from './AsymmetricTriangleWidthHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class AsymmetricTriangleHandlesNode extends PotentialHandlesNode {
@@ -26,8 +26,8 @@ export default class AsymmetricTriangleHandlesNode extends PotentialHandlesNode 
 
     super( potential, selectedPotentialProperty, {
       children: [
-        new AsymmetricTriangleWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
-        new AsymmetricTriangleDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
+        new AsymmetricTriangleWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
+        new AsymmetricTriangleDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
       ],
       tandem: tandem
     } );

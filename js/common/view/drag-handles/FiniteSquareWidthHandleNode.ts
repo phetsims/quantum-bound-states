@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * InfiniteSquareWidthDragHandleNode is the drag handle for changing the well width of a Finite Square potential.
+ * InfiniteSquareWidthHandleNode is the handle for changing the well width of a Finite Square potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareWidthDragListener from './FiniteSquareWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class FiniteSquareWidthDragHandleNode extends PotentialHandleNode<FiniteSquarePotential> {
+export default class FiniteSquareWidthHandleNode extends PotentialHandleNode<FiniteSquarePotential> {
 
   public constructor( potential: FiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -46,7 +46,7 @@ export default class FiniteSquareWidthDragHandleNode extends PotentialHandleNode
   }
 
   /**
-   * Describes the drag handle when it is moved.
+   * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.finiteSquareWidthHandle.accessibleObjectResponse.format( {
