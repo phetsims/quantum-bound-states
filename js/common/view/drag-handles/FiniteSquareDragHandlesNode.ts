@@ -6,9 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
@@ -16,8 +14,9 @@ import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareDepthDragHandleNode from './FiniteSquareDepthDragHandleNode.js';
 import FiniteSquareWidthDragHandleNode from './FiniteSquareWidthDragHandleNode.js';
+import PotentialDragHandlesNode from './PotentialDragHandlesNode.js';
 
-export default class FiniteSquareDragHandlesNode extends Node {
+export default class FiniteSquareDragHandlesNode extends PotentialDragHandlesNode {
 
   public constructor( potential: FiniteSquarePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
@@ -25,14 +24,12 @@ export default class FiniteSquareDragHandlesNode extends Node {
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( {
-      isDisposable: false,
+    super( potential, selectedPotentialProperty, {
       children: [
         new FiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellWidthDragHandleNode' ) ),
         new FiniteSquareDepthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellDepthDragHandleNode' ) )
         //TODO Add separation drag handle if potential.numberOfWellsProperty indicates that it is supported.
       ],
-      visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential ),
       tandem: tandem
     } );
   }

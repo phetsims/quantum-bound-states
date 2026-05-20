@@ -6,17 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import InfiniteSquareWidthDragHandleNode from './InfiniteSquareWidthDragHandleNode.js';
+import PotentialDragHandlesNode from './PotentialDragHandlesNode.js';
 
-export default class InfiniteSquareDragHandlesNode extends Node {
+export default class InfiniteSquareDragHandlesNode extends PotentialDragHandlesNode {
 
   public constructor( potential: InfiniteSquarePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
@@ -24,12 +23,10 @@ export default class InfiniteSquareDragHandlesNode extends Node {
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( {
-      isDisposable: false,
+    super( potential, selectedPotentialProperty, {
       children: [
         new InfiniteSquareWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellWidthDragHandleNode' ) )
       ],
-      visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential ),
       tandem: tandem
     } );
   }
