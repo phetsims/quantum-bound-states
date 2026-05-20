@@ -25,7 +25,7 @@ export default class HarmonicOscillatorDragHandlesNode extends PotentialDragHand
 
     super( potential, selectedPotentialProperty, {
       children: [
-        new HarmonicOscillatorWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellWidthDragHandleNode' ) )
+        new HarmonicOscillatorWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
       ],
       tandem: tandem
     } );

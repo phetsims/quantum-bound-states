@@ -37,7 +37,7 @@ export default class PotentialDragHandlesLayer extends Node {
 
     potentials.forEach( potential => {
 
-      const dragHandlesNodeTandem = tandem.createTandem( `${potential.tandemPrefix}DragHandlesNode` );
+      const dragHandlesNodeTandem = tandem.createTandem( `${potential.tandemPrefix}HandlesNode` );
 
       if ( potential instanceof InfiniteSquarePotential ) {
         children.push( new InfiniteSquareDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,

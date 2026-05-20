@@ -26,8 +26,8 @@ export default class InfiniteStepDragHandlesNode extends PotentialDragHandlesNod
 
     super( potential, selectedPotentialProperty, {
       children: [
-        new InfiniteStepWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'wellWidthDragHandleNode' ) ),
-        new InfiniteStepHeightDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'stepHeightDragHandleNode' ) )
+        new InfiniteStepWidthDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
+        new InfiniteStepHeightDragHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'stepHeightHandleNode' ) )
       ],
       tandem: tandem
     } );
