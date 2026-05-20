@@ -64,7 +64,7 @@ export default class PotentialDragHandlesLayer extends Node {
         children.push( new MorseDragHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
       }
-      //TODO Add CoulombDragHandlesNode
+      // NOTE: CoulombPotential has no drag handles.
     } );
 
     super( {
