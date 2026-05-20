@@ -26,7 +26,7 @@ const TIME_DECIMAL_PLACES = [ 2, 1, 0, 0, 0 ];
 affirm( _.every( TIME_DECIMAL_PLACES, value => Number.isInteger( value ) && value >= 0 ), 'TIME_DECIMAL_PLACES must be integers >= 0' );
 affirm( TIME_DECIMAL_PLACES.length === TIME_STEP_VALUES.length, 'TIME_DECIMAL_PLACES and TIME_STEP_VALUES must have the same length' );
 
-// Conversion of real time (seconds) to simulation time (femtoseconds).
+// Conversion of real time (seconds) to simulation time (femtoseconds). Change this to make the sim run faster or slower.
 const FEMTOSECONDS_PER_SECOND = 1;
 
 export default class QBSTime extends PhetioObject {

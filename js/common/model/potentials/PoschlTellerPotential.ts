@@ -157,6 +157,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
   public override getMinSolverEnergy(): number {
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Confirm with MV that this change is OK. Energy levels are the same before (1.0.0-dev.7) and after the change.
+    //TODO We don't need to be precise here, just pick an energy below the potential. So maybe 3 * this.wellDepthProperty.value ?
 
     // const n = this.numberOfWellsProperty.value;
     // const wellWidth = this.wellWidthProperty.value;
