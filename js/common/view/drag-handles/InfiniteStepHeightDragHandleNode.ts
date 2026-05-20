@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -14,6 +15,9 @@ import InfiniteStepHeightDragListener from './InfiniteStepHeightDragListener.js'
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
 export default class InfiniteStepHeightDragHandleNode extends PotentialDragHandleNode {
+
+  private readonly potential: InfiniteStepPotential;
+  private readonly chartTransform: ChartTransform;
 
   public constructor( potential: InfiniteStepPotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -28,19 +32,22 @@ export default class InfiniteStepHeightDragHandleNode extends PotentialDragHandl
       tandem: tandem
     } );
 
+    this.potential = potential;
+    this.chartTransform = energyDiagramNode.chartTransform;
+
     this.addInputListener( new InfiniteStepHeightDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    const chartTransform = energyDiagramNode.chartTransform;
+    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
+    this.updatePosition();
+  }
 
-    // Center the handle in the top of the step.
-    const updatePosition = () => {
-      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potential.wellWidthProperty.value / 4 );
-      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + potential.stepHeightProperty.value );
-    };
-
-    chartTransform.changedEmitter.addListener( () => updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => updatePosition() );
-    updatePosition();
+  /**
+   * Horizontally center the handle at the top of the step.
+   */
+  protected override updatePosition(): void {
+    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 4 );
+    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.stepHeightProperty.value );
   }
 
   public override describeMoved(): void {

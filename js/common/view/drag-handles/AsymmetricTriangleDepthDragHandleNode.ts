@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -17,6 +18,9 @@ import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 const HANDLE_X_OFFSET = 0.25;
 
 export default class AsymmetricTriangleDepthDragHandleNode extends PotentialDragHandleNode {
+
+  private readonly potential: AsymmetricTrianglePotential;
+  private readonly chartTransform: ChartTransform;
 
   public constructor( potential: AsymmetricTrianglePotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -31,19 +35,22 @@ export default class AsymmetricTriangleDepthDragHandleNode extends PotentialDrag
       tandem: tandem
     } );
 
+    this.potential = potential;
+    this.chartTransform = energyDiagramNode.chartTransform;
+
     this.addInputListener( new AsymmetricTriangleDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    const chartTransform = energyDiagramNode.chartTransform;
+    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
+    this.updatePosition();
+  }
 
-    // Position the handle just to the right of the rightmost well.
-    const updatePosition = () => {
-      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potential.wellWidthProperty.value / 2 + HANDLE_X_OFFSET );
-      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + potential.wellDepthProperty.value );
-    };
-
-    chartTransform.changedEmitter.addListener( () => updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => updatePosition() );
-    updatePosition();
+  /**
+   * Position the handle to the right of the well, at the top of the potential.
+   */
+  protected override updatePosition(): void {
+    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 + HANDLE_X_OFFSET );
+    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.wellDepthProperty.value );
   }
 
   public override describeMoved(): void {

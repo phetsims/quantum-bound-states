@@ -51,6 +51,11 @@ export default abstract class PotentialDragHandleNode extends InteractiveHighlig
   }
 
   /**
+   * Updates the position of the drag handle.
+   */
+  protected abstract updatePosition(): void;
+
+  /**
    * Describes the drag handle when it is moved.
    */
   public abstract describeMoved(): void;

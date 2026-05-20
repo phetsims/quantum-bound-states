@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -14,6 +15,9 @@ import HarmonicOscillatorWidthDragListener from './HarmonicOscillatorWidthDragLi
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
 export default class HarmonicOscillatorWidthDragHandleNode extends PotentialDragHandleNode {
+
+  private readonly potential: HarmonicOscillatorPotential;
+  private readonly chartTransform: ChartTransform;
 
   public constructor( potential: HarmonicOscillatorPotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -28,19 +32,22 @@ export default class HarmonicOscillatorWidthDragHandleNode extends PotentialDrag
       tandem: tandem
     } );
 
+    this.potential = potential;
+    this.chartTransform = energyDiagramNode.chartTransform;
+
     this.addInputListener( new HarmonicOscillatorWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    const chartTransform = energyDiagramNode.chartTransform;
+    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
+    this.updatePosition();
+  }
 
-    // Vertically center the handle on the left wall.
-    const updatePosition = () => {
-      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potential.wellWidthProperty.value / 2 );
-      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY );
-    };
-
-    chartTransform.changedEmitter.addListener( () => updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => updatePosition() );
-    updatePosition();
+  /**
+   * Position the handle on the potential at HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY eV.
+   */
+  protected override updatePosition(): void {
+    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
+    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY );
   }
 
   public override describeMoved(): void {

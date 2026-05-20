@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -14,6 +15,9 @@ import InfiniteSquareWidthDragListener from './InfiniteSquareWidthDragListener.j
 import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 
 export default class InfiniteSquareWidthDragHandleNode extends PotentialDragHandleNode {
+
+  private readonly potential: InfiniteSquarePotential;
+  private readonly chartTransform: ChartTransform;
 
   public constructor( potential: InfiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -28,19 +32,22 @@ export default class InfiniteSquareWidthDragHandleNode extends PotentialDragHand
       tandem: tandem
     } );
 
+    this.potential = potential;
+    this.chartTransform = energyDiagramNode.chartTransform;
+
     this.addInputListener( new InfiniteSquareWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    const chartTransform = energyDiagramNode.chartTransform;
+    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
+    this.updatePosition();
+  }
 
-    // Vertically center the handle on the right wall of the well.
-    const updatePosition = () => {
-      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potential.wellWidthProperty.value / 2 );
-      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + potential.energyAxisRange.getLength() / 2 );
-    };
-
-    chartTransform.changedEmitter.addListener( () => updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => updatePosition() );
-    updatePosition();
+  /**
+   * Vertically center the handle on the right wall of the well.
+   */
+  protected override updatePosition(): void {
+    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
+    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.energyAxisRange.getLength() / 2 );
   }
 
   public override describeMoved(): void {

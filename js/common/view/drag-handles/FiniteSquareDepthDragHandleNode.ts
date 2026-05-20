@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -17,6 +18,9 @@ import PotentialDragHandleNode from './PotentialDragHandleNode.js';
 const HANDLE_X_OFFSET = 0.25;
 
 export default class FiniteSquareDepthDragHandleNode extends PotentialDragHandleNode {
+
+  private readonly potential: FiniteSquarePotential;
+  private readonly chartTransform: ChartTransform;
 
   public constructor( potential: FiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
@@ -31,21 +35,25 @@ export default class FiniteSquareDepthDragHandleNode extends PotentialDragHandle
       tandem: tandem
     } );
 
+    this.potential = potential;
+    this.chartTransform = energyDiagramNode.chartTransform;
+
     this.addInputListener( new FiniteSquareDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
 
-    const chartTransform = energyDiagramNode.chartTransform;
+    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
+    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
+    this.updatePosition();
+  }
 
-    // Position the handle just to the right of the rightmost well.
-    const updatePosition = () => {
-      const numberOfWells = potential.numberOfWellsProperty.value;
-      const potentialWidth = ( numberOfWells * potential.wellWidthProperty.value ) + ( ( numberOfWells - 1 ) * potential.separationProperty.value );
-      this.centerX = chartTransform.modelToViewX( potential.xOffsetProperty.value + potentialWidth / 2 + HANDLE_X_OFFSET );
-      this.centerY = chartTransform.modelToViewY( potential.yOffsetProperty.value + potential.wellDepthProperty.value );
-    };
-
-    chartTransform.changedEmitter.addListener( () => updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => updatePosition() );
-    updatePosition();
+  /**
+   * Position the handle to the right of the rightmost well, at the top of the potential.
+   */
+  protected override updatePosition(): void {
+    const numberOfWells = this.potential.numberOfWellsProperty.value;
+    const potentialWidth = ( numberOfWells * this.potential.wellWidthProperty.value ) +
+                           ( ( numberOfWells - 1 ) * this.potential.separationProperty.value );
+    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + potentialWidth / 2 + HANDLE_X_OFFSET );
+    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.wellDepthProperty.value );
   }
 
   public override describeMoved(): void {
