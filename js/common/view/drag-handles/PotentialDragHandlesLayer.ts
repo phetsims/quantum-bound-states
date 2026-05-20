@@ -70,7 +70,7 @@ export default class PotentialDragHandlesLayer extends Node {
     super( {
       children: children,
       tandem: tandem,
-      phetioVisiblePropertyInstrumented: false,
+      phetioVisiblePropertyInstrumented: true,
       visiblePropertyOptions: { phetioFeatured: true }
     } );
   }
