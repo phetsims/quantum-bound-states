@@ -159,8 +159,7 @@ export default class QBSScreenView extends ScreenView {
       y: energyDiagramNode.y
     } );
 
-    const referenceLineDescriber = new ReferenceLineDescriber( model.referenceLine, model.potentialProperty,
-      model.selectedGraphProperty, model.probabilityDensityGraph, model.waveFunctionGraph );
+    const referenceLineDescriber = new ReferenceLineDescriber( model );
 
     const referenceLineNode = new ReferenceLineNode( model.referenceLine, referenceLineDescriber, energyDiagramNode.chartTransform, {
       // -2 so that line is inside stroke of chartRectangles

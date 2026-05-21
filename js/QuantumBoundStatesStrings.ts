@@ -487,6 +487,10 @@ type StringsType = {
       'voltsPerNanometer': {
         'accessiblePatternStringProperty': LocalizedStringProperty;
       }
+    };
+    'values': {
+      'positiveInfinityStringProperty': LocalizedStringProperty;
+      'negativeInfinityStringProperty': LocalizedStringProperty;
     }
   }
 };

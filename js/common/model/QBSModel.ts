@@ -347,6 +347,31 @@ export default class QBSModel implements TModel {
     affirmCallback( () => energiesIndex >= 0 && energiesIndex < energies.length, `energiesIndex out of range: ${energiesIndex}` );
     return energies[ energiesIndex ];
   }
+
+  public getPotentialEnergyAt( x: number ): number {
+    const index = this.xGrid.getClosestIndex( x );
+    return this.boundStateResultProperty.value.potentials[ index ];
+  }
+
+  public getProbabilityDensityAt( x: number ): number {
+    const index = this.xGrid.getClosestIndex( x );
+    return this.timeEvolvedSuperpositionProperty.value.probabilityDensityValues[ index ];
+  }
+
+  public getRealPartAt( x: number ): number {
+    const index = this.xGrid.getClosestIndex( x );
+    return this.timeEvolvedSuperpositionProperty.value.realPartValues[ index ];
+  }
+
+  public getImaginaryPartAt( x: number ): number {
+    const index = this.xGrid.getClosestIndex( x );
+    return this.timeEvolvedSuperpositionProperty.value.imaginaryPartValues[ index ];
+  }
+
+  public getMagnitudeAt( x: number ): number {
+    const index = this.xGrid.getClosestIndex( x );
+    return this.timeEvolvedSuperpositionProperty.value.magnitudeValues[ index ];
+  }
 }
 
 /**

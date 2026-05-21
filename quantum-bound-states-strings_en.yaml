@@ -488,7 +488,7 @@ a11y:
   referenceLine:
     accessibleRoleDescription: custom slider
     accessibleName:            Reference Line
-    accessibleHelpText: Move across graphs to set a reference position.
+    accessibleHelpText:        Move across graphs to set a reference position.
     accessibleObjectResponse:
       joinPattern:              '{$first}, {$second}'
       positionPhrase:           at {$value} nanometers
@@ -519,3 +519,11 @@ a11y:
       accessiblePattern: '{$value} inverse square root nanometers'
     voltsPerNanometer:
       accessiblePattern: '{$value} volts per nanometer'
+
+  #=======================================================================================================
+  # Values
+  #=======================================================================================================
+
+  values:
+    positiveInfinity: 'positive infinity'
+    negativeInfinity: 'negative infinity'

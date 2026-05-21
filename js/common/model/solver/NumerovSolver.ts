@@ -15,6 +15,7 @@
  * @author Martin Veillette
  */
 
+import QBSConstants from '../../QBSConstants.js';
 import { BoundStateResult } from './BoundStateResult.js';
 import EnergyRefiner from './EnergyRefiner.js';
 import NumerovIntegrator from './NumerovIntegrator.js';
@@ -47,7 +48,7 @@ export default class NumerovSolver {
 
   // Positive barriers above this are effectively infinite for the energy ranges in this sim, but
   // keeping them finite avoids Numerov overflow in steep potentials such as Morse.
-  private static readonly MAX_SOLVER_POTENTIAL_ENERGY = 1000; // in eV
+  private static readonly MAX_SOLVER_POTENTIAL_ENERGY = QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY; // in eV
 
   // Relative threshold for detecting a node of psiR at the matching point.
   // If |psiR[m]| / max(|psiR[m-1]|, |psiR[m+1]|) is below this value, psiR is treated as having

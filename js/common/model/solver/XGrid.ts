@@ -87,4 +87,54 @@ export default class XGrid extends PhetioObject {
   public get xCoordinates(): readonly number[] {
     return this.xCoordinatesProperty.value;
   }
+
+  public getClosestIndex( x: number ): number {
+    affirm( x >= this.xMin && x <= this.xMax, `x out of range: ${x}` );
+    return findClosestIndex( this.xCoordinates, x );
+  }
+}
+
+/**
+ * Finds the index of the element in a sorted array closest to the target.
+ * @param array - Sorted array of numbers (lowest to highest).
+ * @param targetValue - The value to find the closest match for.
+ * @returns The index of the closest element.
+ * @author WebStorm AI Assistant
+ */
+function findClosestIndex( array: readonly number[], targetValue: number ): number {
+  affirm( array.length > 0, 'Array must have at least one element' );
+
+  let low = 0;
+  let high = array.length - 1;
+
+  // Early exits for targets outside the array range
+  if ( targetValue <= array[ low ] ) {
+    return low;
+  }
+  if ( targetValue >= array[ high ] ) {
+    return high;
+  }
+
+  // Binary search to narrow down the range
+  while ( low <= high ) {
+    const middle = Math.floor( ( low + high ) / 2 );
+
+    if ( array[ middle ] === targetValue ) {
+      return middle;
+    }
+
+    if ( targetValue < array[ middle ] ) {
+      high = middle - 1;
+    }
+    else {
+      low = middle + 1;
+    }
+  }
+
+  // After the loop, the closest value is either at 'high' or 'low'
+  // Compare differences to return the correct index
+  const diffLow = Math.abs( array[ low ] - targetValue );
+  const diffHigh = Math.abs( array[ high ] - targetValue );
+
+  return diffLow < diffHigh ? low : high;
 }

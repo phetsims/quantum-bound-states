@@ -87,7 +87,7 @@ export default class CoulombPotential extends QuantumPotential {
     for ( let i = 1; i <= n; i++ ) {
       const xi = spacing * ( i - ( ( n + 1 ) / 2.0 ) );
       let deltaEnergy = -QBSConstants.KE2 / Math.abs( ( x - xOffset ) - xi );
-      const BIG_NEGATIVE = -Math.abs( QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
+      const BIG_NEGATIVE = -Math.abs( QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
       if ( deltaEnergy < BIG_NEGATIVE ) {
         deltaEnergy = BIG_NEGATIVE;
       }

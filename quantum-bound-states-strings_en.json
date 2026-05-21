@@ -1012,6 +1012,14 @@
           "value": "{$value} volts per nanometer"
         }
       }
+    },
+    "values": {
+      "positiveInfinity": {
+        "value": "positive infinity"
+      },
+      "negativeInfinity": {
+        "value": "negative infinity"
+      }
     }
   }
 }

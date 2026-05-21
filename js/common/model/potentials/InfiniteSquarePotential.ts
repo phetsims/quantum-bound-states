@@ -115,7 +115,7 @@ export default class InfiniteSquarePotential extends QuantumPotential {
     }
     else {
       // outside the well
-      pe = QBSConstants.EFFECTIVELY_INFINITE_ENERGY;
+      pe = QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY;
     }
     return pe;
   }

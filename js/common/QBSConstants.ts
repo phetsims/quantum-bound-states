@@ -89,12 +89,17 @@ export default class QBSConstants {
   public static readonly Y_OFFSET_DECIMAL_PLACES = 1;
   public static readonly ENERGY_LEVEL_DECIMALS = 2;
   public static readonly ANGULAR_FREQUENCY = 1;
+  public static readonly POTENTIAL_ENERGY_DECIMALS = 2;
+  public static readonly PROBABILITY_DENSITY_DECIMAL_PLACES = 2;
+  public static readonly REAL_PART_DECIMAL_PLACES = 2;
+  public static readonly IMAGINARY_PART_DECIMAL_PLACES = 2;
+  public static readonly MAGNITUDE_DECIMAL_PLACES = 2;
 
   // Intervals
   public static readonly Y_OFFSET_INTERVAL = Math.pow( 10, -QBSConstants.Y_OFFSET_DECIMAL_PLACES ); // eV
 
   //TODO Is this OK or do we need to use Number.Infinity?
-  public static readonly EFFECTIVELY_INFINITE_ENERGY = 1E20; // eV
+  public static readonly EFFECTIVELY_INFINITE_POTENTIAL_ENERGY = 1000; // eV
 
   // Default value ranges. Some of these are overridden by specific screens.
   public static readonly WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 6, 1 );

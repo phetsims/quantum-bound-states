@@ -32,6 +32,7 @@
 
 import { findRoot } from '../../../../../../dot/js/util/findRoot.js';
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import QBSConstants from '../../../QBSConstants.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -41,7 +42,7 @@ import XGrid from '../XGrid.js';
 const HBAR = NumerovSolver.HBAR;
 
 // Absolute energy value used for the infinite walls in eV
-const BARRIER_HEIGHT = 1000;
+const BARRIER_HEIGHT = QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY;
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {

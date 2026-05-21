@@ -154,7 +154,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
     // Apply electric field.
     pe += ( this.electricFieldProperty.value * x );
 
-    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_ENERGY );
+    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
     return pe;
   }
 
