@@ -58,8 +58,8 @@ export default abstract class QuantumPotential extends PhetioObject {
   //TODO Should this be named energyOffsetProperty to correspond to EnergyOffsetHandleNode?
   public readonly yOffsetProperty: NumberProperty;
 
-  // Fires when any Property instantiated by the QuantumPotential changes.
-  public readonly propertyChangedEmitter: Emitter;
+  // Fires when the quantum potential has changed and the BoundStateResult needs to be recomputed.
+  public readonly changedEmitter: Emitter;
 
   public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
   public readonly electronMassesProperty: TReadOnlyProperty<number>;
@@ -92,7 +92,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     this.groundStateIndex = options.groundStateIndex;
 
-    this.propertyChangedEmitter = new Emitter(); //TODO PhET-iO?
+    this.changedEmitter = new Emitter(); //TODO PhET-iO?
 
     this.numberOfWellsProperty = options.numberOfWellsProperty;
     this.electronMassesProperty = options.electronMassesProperty;
@@ -121,7 +121,7 @@ export default abstract class QuantumPotential extends PhetioObject {
         this.xOffsetProperty, this.yOffsetProperty ],
       () => {
         if ( !isSettingPhetioStateProperty.value ) {
-          this.propertyChangedEmitter.emit();
+          this.changedEmitter.emit();
         }
       } );
 

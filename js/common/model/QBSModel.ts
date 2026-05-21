@@ -168,15 +168,15 @@ export default class QBSModel implements TModel {
     const potentialChangedListener = () => {
       this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid );
     };
-    this.potentialProperty.value.propertyChangedEmitter.addListener( potentialChangedListener );
+    this.potentialProperty.value.changedEmitter.addListener( potentialChangedListener );
 
     this.potentialProperty.lazyLink( ( potential, previousPotential ) => {
 
       // Move potentialChangedListener to the new potential.
-      if ( previousPotential.propertyChangedEmitter.hasListener( potentialChangedListener ) ) {
-        previousPotential.propertyChangedEmitter.removeListener( potentialChangedListener );
+      if ( previousPotential.changedEmitter.hasListener( potentialChangedListener ) ) {
+        previousPotential.changedEmitter.removeListener( potentialChangedListener );
       }
-      potential.propertyChangedEmitter.addListener( potentialChangedListener );
+      potential.changedEmitter.addListener( potentialChangedListener );
 
       if ( !isSettingPhetioStateProperty.value ) {
 

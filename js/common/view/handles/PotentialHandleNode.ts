@@ -60,7 +60,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     } ) );
 
     this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
-    potential.propertyChangedEmitter.addListener( () => this.updatePosition() );
+    potential.changedEmitter.addListener( () => this.updatePosition() );
     this.updatePosition();
   }
 
