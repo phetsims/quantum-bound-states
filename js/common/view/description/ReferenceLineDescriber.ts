@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ReferenceLineDescriber creates accessible responses for the Reference Line.
+ * ReferenceLineDescriber creates core descriptions for the Reference Line.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

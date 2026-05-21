@@ -698,24 +698,30 @@
       "accessibleHeading": {
         "value": "Energy Diagram"
       },
-      "accessibleParagraph": {
-        "value": "TODO.energyDiagram.accessibleParagraph"
+      "accessibleTemplate": {
+        "leadingParagraph": {
+          "value": "TODO.energyDiagram.accessibleTemplate.leadingParagraph"
+        }
       }
     },
     "probabilityDensityGraph": {
       "accessibleHeading": {
         "value": "Probability Density Graph"
       },
-      "accessibleParagraph": {
-        "value": "TODO.probabilityDensityGraph.accessibleParagraph"
+      "accessibleTemplate": {
+        "leadingParagraph": {
+          "value": "TODO.probabilityDensityGraph.accessibleTemplate.leadingParagraph"
+        }
       }
     },
     "waveFunctionGraph": {
       "accessibleHeading": {
         "value": "Wave Function Graph"
       },
-      "accessibleParagraph": {
-        "value": "TODO.waveFunctionGraph.accessibleParagraph"
+      "accessibleTemplate": {
+        "leadingParagraph": {
+          "value": "TODO.waveFunctionGraph.accessibleTemplate.leadingParagraph"
+        }
       }
     },
     "timeButtonGroup": {

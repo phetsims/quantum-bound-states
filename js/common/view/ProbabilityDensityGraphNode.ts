@@ -14,6 +14,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
 import QuantumStateGraph from '../model/QuantumStateGraph.js';
 import QBSConstants from '../QBSConstants.js';
+import ProbabilityDensityGraphDescriber from './description/ProbabilityDensityGraphDescriber.js';
 import EquationTermNode from './EquationTermNode.js';
 import ProbabilityDensityPlot from './ProbabilityDensityPlot.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
@@ -25,6 +26,7 @@ type ProbabilityDensityGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNo
 export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
   public constructor( probabilityDensityGraph: ProbabilityDensityGraph,
+                      describer: ProbabilityDensityGraphDescriber,
                       quantumStateGraphProperty: TReadOnlyProperty<QuantumStateGraph>,
                       selectedEnergyLevelProperty: TReadOnlyProperty<number>,
                       curvesVisibleProperty: TReadOnlyProperty<boolean>,
@@ -45,8 +47,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       visibleProperty: new DerivedProperty( [ quantumStateGraphProperty ], graph => graph === probabilityDensityGraph ),
 
       // Core-description options for this graph.
-      accessibleHeading: QuantumBoundStatesFluent.a11y.probabilityDensityGraph.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.probabilityDensityGraph.accessibleParagraphStringProperty
+      accessibleHeading: QuantumBoundStatesFluent.a11y.probabilityDensityGraph.accessibleHeadingStringProperty
     }, providedOptions );
 
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
@@ -65,5 +66,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       this.setYRange( new Range( yAxisRange.min, yAxisRange.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( yAxisRange.max );
     } );
+
+    this.setAccessibleTemplate( describer.getAccessibleTemplate() );
   }
 }

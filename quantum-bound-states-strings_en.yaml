@@ -348,16 +348,19 @@ a11y:
   #=======================================================================================================
 
   energyDiagram:
-    accessibleHeading:   Energy Diagram
-    accessibleParagraph: TODO.energyDiagram.accessibleParagraph
+    accessibleHeading: Energy Diagram
+    accessibleTemplate:
+      leadingParagraph: TODO.energyDiagram.accessibleTemplate.leadingParagraph
 
   probabilityDensityGraph:
-    accessibleHeading:   Probability Density Graph
-    accessibleParagraph: TODO.probabilityDensityGraph.accessibleParagraph
+    accessibleHeading: Probability Density Graph
+    accessibleTemplate:
+      leadingParagraph: TODO.probabilityDensityGraph.accessibleTemplate.leadingParagraph
 
   waveFunctionGraph:
-    accessibleHeading:   Wave Function Graph
-    accessibleParagraph: TODO.waveFunctionGraph.accessibleParagraph
+    accessibleHeading: Wave Function Graph
+    accessibleTemplate:
+      leadingParagraph: TODO.waveFunctionGraph.accessibleTemplate.leadingParagraph
 
   #=======================================================================================================
   # Push Buttons

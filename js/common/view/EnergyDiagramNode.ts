@@ -25,6 +25,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import EnergyDiagramDescriber from './description/EnergyDiagramDescriber.js';
 import EnergyLevelDisplay from './EnergyLevelDisplay.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
@@ -46,12 +47,11 @@ export default class EnergyDiagramNode extends Node {
   private readonly horizontalGridLines: GridLineSet;
 
   //TODO Reduce coupling with QBSModel
-  public constructor( model: QBSModel, tandem: Tandem ) {
+  public constructor( model: QBSModel, describer: EnergyDiagramDescriber, tandem: Tandem ) {
 
     super( {
       isDisposable: false,
       accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleHeadingStringProperty,
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleParagraphStringProperty,
       tandem: tandem,
       phetioInputEnabledPropertyInstrumented: true
     } );
@@ -176,6 +176,8 @@ export default class EnergyDiagramNode extends Node {
       selectedEnergyLevelDisplay,
       highlightedEnergyLevelDisplay
     ];
+
+    this.setAccessibleTemplate( describer.getAccessibleTemplate() );
   }
 
   //TODO Delete if this method is not used.

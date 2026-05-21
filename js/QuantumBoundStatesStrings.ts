@@ -333,15 +333,21 @@ type StringsType = {
     };
     'energyDiagram': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
+      'accessibleTemplate': {
+        'leadingParagraphStringProperty': LocalizedStringProperty;
+      }
     };
     'probabilityDensityGraph': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
+      'accessibleTemplate': {
+        'leadingParagraphStringProperty': LocalizedStringProperty;
+      }
     };
     'waveFunctionGraph': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
+      'accessibleTemplate': {
+        'leadingParagraphStringProperty': LocalizedStringProperty;
+      }
     };
     'timeButtonGroup': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;

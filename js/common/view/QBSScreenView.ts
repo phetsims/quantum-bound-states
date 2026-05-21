@@ -32,7 +32,10 @@ import ToolsPanel from '../../common/view/ToolsPanel.js';
 import QBSModel from '../model/QBSModel.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
+import EnergyDiagramDescriber from './description/EnergyDiagramDescriber.js';
+import ProbabilityDensityGraphDescriber from './description/ProbabilityDensityGraphDescriber.js';
 import ReferenceLineDescriber from './description/ReferenceLineDescriber.js';
+import WaveFunctionGraphDescriber from './description/WaveFunctionGraphDescriber.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
@@ -67,20 +70,21 @@ export default class QBSScreenView extends ScreenView {
 
     const legendPanel = new LegendPanel( options.tandem.createTandem( 'legendPanel' ) );
 
-    const energyDiagramNode = new EnergyDiagramNode( model, options.tandem.createTandem( 'energyDiagramNode' ) );
+    const energyDiagramNode = new EnergyDiagramNode( model, new EnergyDiagramDescriber( model ), options.tandem.createTandem( 'energyDiagramNode' ) );
     this.energyDiagramNode = energyDiagramNode;
 
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
     const quantumStateGraphNodes: QuantumStateGraphNode[] = [];
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model.probabilityDensityGraph,
-      model.selectedGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
+      new ProbabilityDensityGraphDescriber( model ), model.selectedGraphProperty, model.selectedEnergyLevelProperty,
+      model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createProbabilityDensityDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'probabilityDensityGraphNode' )
       } );
     quantumStateGraphNodes.push( probabilityDensityGraphNode );
 
-    const waveFunctionGraphNode = new WaveFunctionGraphNode( model.waveFunctionGraph,
+    const waveFunctionGraphNode = new WaveFunctionGraphNode( model.waveFunctionGraph, new WaveFunctionGraphDescriber( model ),
       model.selectedGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createWaveFunctionDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'waveFunctionGraphNode' )
