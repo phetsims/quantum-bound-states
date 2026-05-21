@@ -21,8 +21,8 @@ import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhet
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
-import { BoundStateResult } from '../solver/BoundStateResult.js';
 import PoschlTellerSolution from '../solver/analytical-solutions/PoschlTellerSolution.js';
+import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
@@ -34,7 +34,7 @@ type SelfOptions = {
 };
 
 export type PoschlTellerPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
 
 export default class PoschlTellerPotential extends QuantumPotential {
 
@@ -82,7 +82,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.numberOfWellsProperty, this.wellWidthProperty, this.wellDepthProperty, this.spacingProperty ], () => {
+    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty, this.spacingProperty ], () => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.propertyChangedEmitter.emit();
       }
@@ -110,7 +110,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
   /**
    * Solves for the bound state.
    */
-  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+  public override solveBoundState( xGrid: XGrid ): BoundStateResult {
 
     let result: BoundStateResult;
     if ( this.numberOfWellsProperty.value === 1 && this.electricFieldProperty.value === 0 ) {
@@ -124,14 +124,14 @@ export default class PoschlTellerPotential extends QuantumPotential {
         yOffset: this.yOffsetProperty.value,
         wellWidth: this.wellWidthProperty.value,
         wellDepth: this.wellDepthProperty.value,
-        electronMasses: electronMasses,
+        electronMasses: this.electronMassesProperty.value,
         electricField: this.electricFieldProperty.value
       } );
     }
     else {
 
       // For multi-well, use Numerov.
-      result = super.solveBoundState( xGrid, electronMasses );
+      result = super.solveBoundState( xGrid );
     }
     return result;
   }

@@ -26,7 +26,7 @@ const ELECTRIC_FIELD = 0; // V/nm
 type SelfOptions = EmptySelfOptions;
 
 export type CoulombPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
 
 export default class CoulombPotential extends QuantumPotential {
 
@@ -54,14 +54,14 @@ export default class CoulombPotential extends QuantumPotential {
   /**
    * Solves for the bound state using an analytic solution.
    */
-  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+  public override solveBoundState( xGrid: XGrid ): BoundStateResult {
     return CoulombSolution.solve( xGrid, {
       numberOfWells: this.numberOfWellsProperty.value,
       energyMin: this.getMinSolverEnergy(),
       energyMax: this.getMaxSolverEnergy(),
       xOffset: this.xOffsetProperty.value,
       yOffset: this.yOffsetProperty.value,
-      electronMasses: electronMasses,
+      electronMasses: this.electronMassesProperty.value,
       electricField: this.electricFieldProperty.value
     } );
   }

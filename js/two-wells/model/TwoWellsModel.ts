@@ -9,11 +9,9 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FiniteSquarePotential, { FiniteSquarePotentialOptions } from '../../common/model/potentials/FiniteSquarePotential.js';
-import PoschlTellerPotential, { PoschlTellerPotentialOptions } from '../../common/model/potentials/PoschlTellerPotential.js';
-import { QuantumPotentialOptions } from '../../common/model/potentials/QuantumPotential.js';
+import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
+import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
@@ -52,25 +50,25 @@ export default class TwoWellsModel extends QBSModel {
       phetioReadOnly: true
     } );
 
-    // Shared by all quantum potentials
-    const quantumPotentialOptions: Partial<QuantumPotentialOptions> = {
-      numberOfWellsProperty: numberOfWellsProperty,
-      electricFieldProperty: electricFieldProperty
-    };
-
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
-      new FiniteSquarePotential( combineOptions<FiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
+      new FiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
+        electricFieldProperty: electricFieldProperty,
         wellWidthRange: FINITE_SQUARE_WELL_WIDTH_RANGE,
         separationRange: SEPARATION_RANGE,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
-      } ) ),
-      new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new PoschlTellerPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
+        electricFieldProperty: electricFieldProperty,
         wellWidthRange: POSCHL_TELLER_WELL_WIDTH_RANGE,
         spacingRange: SPACING_RANGE,
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
-      } ) )
+      } )
     ];
 
     super( {

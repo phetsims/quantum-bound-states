@@ -36,7 +36,7 @@ type SelfOptions = {
 };
 
 export type HarmonicOscillatorPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
 
 export default class HarmonicOscillatorPotential extends QuantumPotential {
 
@@ -134,7 +134,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
   /**
    * Solves for the bound state using an analytic solution.
    */
-  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+  public override solveBoundState( xGrid: XGrid ): BoundStateResult {
     affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
 
     return HarmonicOscillatorSolution.solve( xGrid, {
@@ -143,7 +143,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
       yOffset: this.yOffsetProperty.value,
       springConstant: this.springConstantProperty.value,
       electricField: this.electricFieldProperty.value,
-      electronMasses: electronMasses,
+      electronMasses: this.electronMassesProperty.value,
       energyMin: this.getMinSolverEnergy(),
       energyMax: this.getMaxSolverEnergy()
     } );

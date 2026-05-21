@@ -27,9 +27,14 @@ import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 
 type SelfOptions = {
-  groundStateIndex?: number;
+
+  // Global Properties that are shared by all QuantumPotential instances.
   numberOfWellsProperty: TReadOnlyProperty<number>;
+  electronMassesProperty: TReadOnlyProperty<number>;
   electricFieldProperty: TReadOnlyProperty<number>;
+
+  // Attributes that are specific to a particular QuantumPotential instance.
+  groundStateIndex?: number;
   xOffsetRange?: RangeWithValue;
   yOffsetRange?: RangeWithValue;
   energyAxisRange?: Range; // range of the energy axis (y-axis) when yOffsetProperty is at its initial value
@@ -57,6 +62,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly propertyChangedEmitter: Emitter;
 
   public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
+  public readonly electronMassesProperty: TReadOnlyProperty<number>;
   public readonly electricFieldProperty: TReadOnlyProperty<number>;
 
   public readonly energyAxisRange: Range;
@@ -88,9 +94,8 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     this.propertyChangedEmitter = new Emitter(); //TODO PhET-iO?
 
-    // Do not trigger notification when numberOfWellsProperty or electricFieldProperty changes,
-    // because they are owned by the top-level model.
     this.numberOfWellsProperty = options.numberOfWellsProperty;
+    this.electronMassesProperty = options.electronMassesProperty;
     this.electricFieldProperty = options.electricFieldProperty;
 
     this.xOffsetProperty = new NumberProperty( options.xOffsetRange.defaultValue, {
@@ -110,13 +115,15 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     this.energyAxisRange = options.energyAxisRange;
 
-    // Changes to Properties instantiated by this class trigger notification.
+    // Changes to global Properties or Properties instantiated by this class trigger notification.
     //TODO Does energyAxisRangeProperty need to be included here? If not, document why not.
-    Multilink.multilink( [ this.xOffsetProperty, this.yOffsetProperty ], () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.propertyChangedEmitter.emit();
-      }
-    } );
+    Multilink.multilink( [ this.numberOfWellsProperty, this.electronMassesProperty, this.electricFieldProperty,
+        this.xOffsetProperty, this.yOffsetProperty ],
+      () => {
+        if ( !isSettingPhetioStateProperty.value ) {
+          this.propertyChangedEmitter.emit();
+        }
+      } );
 
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
@@ -136,12 +143,12 @@ export default abstract class QuantumPotential extends PhetioObject {
   /**
    * Solves for the bound state. The default uses a numerical solution (Numerov).
    */
-  public solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    const energyScanPoints = this.getEnergyScanPoints( electronMasses );
+  public solveBoundState( xGrid: XGrid ): BoundStateResult {
+    const energyScanPoints = this.getEnergyScanPoints( this.electronMassesProperty.value );
     return NumerovSolver.solve(
       xGrid,
       x => this.getPotentialEnergyAt( x ),
-      electronMasses,
+      this.electronMassesProperty.value,
       this.getMinSolverEnergy(),
       this.getMaxSolverEnergy(),
       energyScanPoints !== null ? { energyScanPoints: energyScanPoints } : undefined

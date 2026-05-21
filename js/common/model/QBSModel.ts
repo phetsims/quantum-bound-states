@@ -137,7 +137,7 @@ export default class QBSModel implements TModel {
     } );
     this.potentials = options.potentials;
 
-    this.boundStateResultProperty = new Property( solveBoundState( options.potential, this.xGrid, this.electronMassesProperty.value ) );
+    this.boundStateResultProperty = new Property( solveBoundState( options.potential, this.xGrid ) );
 
     this.energyDiagram = new EnergyDiagram( this, options.tandem.createTandem( 'energyDiagram' ) );
 
@@ -166,7 +166,7 @@ export default class QBSModel implements TModel {
     } );
 
     const potentialChangedListener = () => {
-      this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, this.electronMassesProperty.value );
+      this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid );
     };
     this.potentialProperty.value.propertyChangedEmitter.addListener( potentialChangedListener );
 
@@ -181,7 +181,7 @@ export default class QBSModel implements TModel {
       if ( !isSettingPhetioStateProperty.value ) {
 
         // Recompute the bound state.
-        this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, this.electronMassesProperty.value );
+        this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid );
 
         // Adjust energy level range and set to the ground state.
         const energyLevelRange = getEnergyLevelRange( potential.groundStateIndex, this.boundStateResultProperty.value.energies.length );
@@ -211,16 +211,6 @@ export default class QBSModel implements TModel {
         const waveFunctions = boundStateResult.waveFunctions;
         affirmCallback( () => waveFunctionsIndex >= 0 && waveFunctionsIndex < waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
         return waveFunctions[ waveFunctionsIndex ];
-      } );
-
-    // These Properties are owned by the top-level model - QBSModel and its subclasses. They are shared by all potentials,
-    // so we do not get notification from the potentials when they change. Instead, we must listen for changes and
-    // recompute the bound state.
-    Multilink.multilink( [ this.numberOfWellsProperty, this.electronMassesProperty, this.electricFieldProperty ],
-      ( numberOfWells, electronMasses, electricField ) => {
-        if ( !isSettingPhetioStateProperty.value ) {
-          this.boundStateResultProperty.value = solveBoundState( this.potentialProperty.value, this.xGrid, electronMasses );
-        }
       } );
 
     this.timeEvolvedSuperpositionProperty = new DerivedProperty(
@@ -384,9 +374,9 @@ function getEnergyLevelRange( groundStateIndex: number, numberOfEnergyLevels: nu
 /**
  * Solve for bound state and validate the result.
  */
-function solveBoundState( potential: QuantumPotential, xGrid: XGrid, electronMasses: number ): BoundStateResult {
+function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStateResult {
 
-  const result = potential.solveBoundState( xGrid, electronMasses );
+  const result = potential.solveBoundState( xGrid );
 
   //TODO Patch up problems so that the sim can continue to run. Eventually delete this code.
   if ( result.potentials.length !== xGrid.xCoordinates.length ) {

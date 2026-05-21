@@ -30,7 +30,7 @@ type SelfOptions = {
 };
 
 export type InfiniteStepPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
 
 export default class InfiniteStepPotential extends QuantumPotential {
 
@@ -96,7 +96,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
   /**
    * Solves for the bound state using an analytic solution.
    */
-  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+  public override solveBoundState( xGrid: XGrid ): BoundStateResult {
     return InfiniteStepSolution.solve( xGrid, {
       numberOfWells: this.numberOfWellsProperty.value,
       energyMin: this.getMinSolverEnergy(),
@@ -105,7 +105,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
       yOffset: this.yOffsetProperty.value,
       wellWidth: this.wellWidthProperty.value,
       stepHeight: this.stepHeightProperty.value,
-      electronMasses: electronMasses,
+      electronMasses: this.electronMassesProperty.value,
       electricField: this.electricFieldProperty.value
     } );
   }

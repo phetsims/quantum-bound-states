@@ -11,18 +11,16 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AsymmetricTrianglePotential, { AsymmetricTrianglePotentialOptions } from '../../common/model/potentials/AsymmetricTrianglePotential.js';
-import CoulombPotential, { CoulombPotentialOptions } from '../../common/model/potentials/CoulombPotential.js';
-import FiniteSquarePotential, { FiniteSquarePotentialOptions } from '../../common/model/potentials/FiniteSquarePotential.js';
-import HarmonicOscillatorPotential, { HarmonicOscillatorPotentialOptions } from '../../common/model/potentials/HarmonicOscillatorPotential.js';
-import InfiniteSquarePotential, { InfiniteSquarePotentialOptions } from '../../common/model/potentials/InfiniteSquarePotential.js';
-import InfiniteStepPotential, { InfiniteStepPotentialOptions } from '../../common/model/potentials/InfiniteStepPotential.js';
-import MorsePotential, { MorsePotentialOptions } from '../../common/model/potentials/MorsePotential.js';
-import PoschlTellerPotential, { PoschlTellerPotentialOptions } from '../../common/model/potentials/PoschlTellerPotential.js';
-import { QuantumPotentialOptions } from '../../common/model/potentials/QuantumPotential.js';
+import AsymmetricTrianglePotential from '../../common/model/potentials/AsymmetricTrianglePotential.js';
+import CoulombPotential from '../../common/model/potentials/CoulombPotential.js';
+import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
+import HarmonicOscillatorPotential from '../../common/model/potentials/HarmonicOscillatorPotential.js';
+import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquarePotential.js';
+import InfiniteStepPotential from '../../common/model/potentials/InfiniteStepPotential.js';
+import MorsePotential from '../../common/model/potentials/MorsePotential.js';
+import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import { electronVoltsUnit } from '../../common/model/units/electronVoltsUnit.js';
@@ -62,46 +60,79 @@ export default class OneWellModel extends QBSModel {
       phetioReadOnly: true
     } );
 
-    // Shared by all quantum potentials
-    const quantumPotentialOptions: Partial<QuantumPotentialOptions> = {
-      numberOfWellsProperty: numberOfWellsProperty,
-      electricFieldProperty: electricFieldProperty,
-      xOffsetRange: new RangeWithValue( -3, 3, 0 ), //TODO For development experimentation
-      yOffsetRange: new RangeWithValue( -10, 10, 0 ) //TODO This assumes that all potentials have energyAxisRange.getLength() === 20
-    };
+    const xOffsetRange = new RangeWithValue( -3, 3, 0 ); //TODO For development experimentation
+    const yOffsetRange = new RangeWithValue( -10, 10, 0 ); //TODO This assumes that all potentials have energyAxisRange.getLength() === 20
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
-    const harmonicOscillatorPotential = new HarmonicOscillatorPotential( electronMassesProperty,
-      combineOptions<HarmonicOscillatorPotentialOptions>( {}, quantumPotentialOptions, {
-        tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
-      } ) );
+    const harmonicOscillatorPotential = new HarmonicOscillatorPotential( electronMassesProperty, {
+      numberOfWellsProperty: numberOfWellsProperty,
+      electronMassesProperty: electronMassesProperty,
+      electricFieldProperty: electricFieldProperty,
+      xOffsetRange: xOffsetRange,
+      yOffsetRange: yOffsetRange,
+      tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
+    } );
 
     // Quantum potentials, in the order that they appear in PotentialComboBox.
     const potentials = [
-      new InfiniteSquarePotential( combineOptions<InfiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
+      new InfiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
+        electricFieldProperty: electricFieldProperty,
+        xOffsetRange: xOffsetRange,
+        yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
-      } ) ),
-      new FiniteSquarePotential( combineOptions<FiniteSquarePotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new FiniteSquarePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
+        electricFieldProperty: electricFieldProperty,
+        xOffsetRange: xOffsetRange,
+        yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
-      } ) ),
-      new InfiniteStepPotential( combineOptions<InfiniteStepPotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new InfiniteStepPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
+        electricFieldProperty: electricFieldProperty,
+        xOffsetRange: xOffsetRange,
+        yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'infiniteStepPotential' )
-      } ) ),
-      new AsymmetricTrianglePotential( combineOptions<AsymmetricTrianglePotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new AsymmetricTrianglePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
+        electricFieldProperty: electricFieldProperty,
+        xOffsetRange: xOffsetRange,
+        yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'asymmetricTrianglePotential' )
-      } ) ),
+      } ),
       harmonicOscillatorPotential,
-      new PoschlTellerPotential( combineOptions<PoschlTellerPotentialOptions>( {}, quantumPotentialOptions, {
+      new PoschlTellerPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
+        electricFieldProperty: electricFieldProperty,
+        xOffsetRange: xOffsetRange,
+        yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
-      } ) ),
-      new MorsePotential( combineOptions<MorsePotentialOptions>( {}, quantumPotentialOptions, {
-        xOffsetRange: new RangeWithValue( -3, 3, -2 ),
+      } ),
+      new MorsePotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
+        electricFieldProperty: electricFieldProperty,
+        xOffsetRange: xOffsetRange,
+        yOffsetRange: new RangeWithValue( -3, 3, -2 ),
         tandem: potentialsTandem.createTandem( 'morsePotential' )
-      } ) ),
-      new CoulombPotential( combineOptions<CoulombPotentialOptions>( {}, quantumPotentialOptions, {
+      } ),
+      new CoulombPotential( {
+        numberOfWellsProperty: numberOfWellsProperty,
+        electronMassesProperty: electronMassesProperty,
+        electricFieldProperty: electricFieldProperty,
+        xOffsetRange: xOffsetRange,
+        yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'coulombPotential' )
-      } ) )
+      } )
     ];
 
     super( {

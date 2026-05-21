@@ -32,7 +32,7 @@ type SelfOptions = {
 };
 
 export type MorsePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
 
 export default class MorsePotential extends QuantumPotential {
 
@@ -97,7 +97,7 @@ export default class MorsePotential extends QuantumPotential {
   /**
    * Solves for the bound state using an analytic solution.
    */
-  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+  public override solveBoundState( xGrid: XGrid ): BoundStateResult {
     affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
 
     return MorseSolution.solve( xGrid, {
@@ -108,7 +108,7 @@ export default class MorsePotential extends QuantumPotential {
       yOffset: this.yOffsetProperty.value,
       wellWidth: this.wellWidthProperty.value,
       wellDepth: this.wellDepthProperty.value,
-      electronMasses: electronMasses,
+      electronMasses: this.electronMassesProperty.value,
       electricField: this.electricFieldProperty.value
     } );
   }

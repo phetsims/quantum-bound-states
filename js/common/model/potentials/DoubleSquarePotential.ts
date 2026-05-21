@@ -19,7 +19,7 @@ import FiniteSquarePotential, { FiniteSquarePotentialOptions } from './FiniteSqu
 type SelfOptions = EmptySelfOptions;
 
 type DoubleSquarePotentialOptions = SelfOptions &
-  Pick<FiniteSquarePotentialOptions, 'electricFieldProperty' | 'tandem'>;
+  Pick<FiniteSquarePotentialOptions, 'electronMassesProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class DoubleSquarePotential extends FiniteSquarePotential {
 

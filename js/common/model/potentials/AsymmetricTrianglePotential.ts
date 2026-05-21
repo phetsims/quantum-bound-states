@@ -30,7 +30,7 @@ type SelfOptions = {
 };
 
 export type AsymmetricTrianglePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
 
 export default class AsymmetricTrianglePotential extends QuantumPotential {
 
@@ -93,11 +93,11 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
   /**
    * Solves for the bound state using an analytic solution.
    */
-  public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
+  public override solveBoundState( xGrid: XGrid ): BoundStateResult {
     affirm( this.numberOfWellsProperty.value === 1, 'AsymmetricTrianglePotential does not support multiple wells.' );
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with AsymmetricTriangleSolution.solve
-    return super.solveBoundState( xGrid, electronMasses );
+    return super.solveBoundState( xGrid );
   }
 
   /**
