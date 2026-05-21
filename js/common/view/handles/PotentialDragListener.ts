@@ -55,6 +55,7 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
 
       // We will not provide a transform value, so all drag events (including listener.modelDelta) will be in view coordinates.
       // Provide a positionProperty so that we can get listener.modelDelta.
+      //TODO This initial value is likely causing problems. The initial value is not correct, and the Property is not reset.
       positionProperty: new Vector2Property( new Vector2( 0, 0 ) ),
 
       keyboardDragListenerOptions: {
