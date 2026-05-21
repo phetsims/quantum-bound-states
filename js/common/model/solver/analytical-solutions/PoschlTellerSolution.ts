@@ -1,24 +1,59 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for a Poschl-Teller potential.
+ * Analytical solution for a single-well Pöschl-Teller potential.
  *
+ * The Pöschl-Teller potential is a symmetric quantum well with exact analytical solutions.
+ * It is parameterised by well depth V₀ and width w.
+ * For generality, we have included an offset y₀ and offset x₀ 
+ * so that the potential can be shifted horizontally and vertically.
+ *
+ * POTENTIAL:
+ *   V(x) = −V₀ / cosh²((x − x₀)/w) + y₀
+ *
+ *   V(x₀)  = −V₀ + y₀     (well bottom)
+ *   V(±∞)  =  y₀           (dissociation limit)
+ *
+ * DIMENSIONLESS DEPTH PARAMETER:
+ *   λ = w · √(2mV₀) / ℏ
+ *   The total number of bound states is ⌊λ − ½⌋ + 1.
+ *
+ * ENERGY EIGENVALUES (exact):
+ *   E_n = −V₀ · (λ − n − ½)² / λ² + y₀
+ *   for n = 0, 1, …, ⌊λ − ½⌋
+ *
+ *   The ground state (n=0) has the lowest energy; all bound states satisfy −V₀ + y₀ < E_n < y₀.
+ *
+ * WAVEFUNCTIONS (exact):
+ *   α_n = λ − n − ½              (Jacobi parameter, specific to each state)
+ *   t   = tanh((x − x₀)/w)       (dimensionless coordinate, t ∈ (−1, 1))
+ *   ψ_n(x) ∝ sech^{α_n}((x − x₀)/w) · P_n^{(α_n, α_n)}(t)
+ *
+ *   where P_n^{(α,α)} is the symmetric Jacobi polynomial computed via 3-term recurrence.
+ *   Wave functions are normalised numerically using WaveFunctionNormalizer.
+ *
+ *   The wave functions are normalised so that the integral of |ψ_n(x)|² over all x is 1.
+ * 
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { BoundStateResult } from '../BoundStateResult.js';
+import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
+import WaveFunctionNormalizer from '../WaveFunctionNormalizer.js';
 import XGrid from '../XGrid.js';
+
+const HBAR = NumerovSolver.HBAR;
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
   numberOfWells: number;
-  xOffset: number; // Horizontal position x₀ of the singularity in nm
+  xOffset: number; // Horizontal position x₀ of the well center in nm
   yOffset: number; // Constant energy shift y₀ in eV
-  wellWidth: number; // Width of the well L in nm
-  wellDepth: number; // Depth of the well V₀ in eV
+  wellWidth: number; // Width parameter w in nm
+  wellDepth: number; // Well depth V₀ in eV (positive value)
   electricField: number; // Electric field in V/nm
 };
 
@@ -36,27 +71,46 @@ export default class PoschlTellerSolution {
   }
 
   /**
-   * Creates the potential function for a multi-well Poschl-Teller potential.
+   * Creates the potential function for a single-well Pöschl-Teller potential.
+   * V(x) = −V₀ / cosh²((x − x₀)/w) + y₀
+   *
+   * @param parameters - See PotentialParameters
+   * @returns Potential function V(x) in eV
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
+    const { numberOfWells, xOffset, yOffset, wellWidth, wellDepth, electricField } = parameters;
+    affirm( numberOfWells === 1, 'PoschlTellerSolution does not support multiple wells' );
+    affirm( electricField === 0, 'PoschlTellerSolution does not support electric field' );
+
     return ( x: number ) => {
-      //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Implement
-      return 0;
+      const sech = 1 / Math.cosh( ( x - xOffset ) / wellWidth );
+      return -wellDepth * sech * sech + yOffset;
     };
   }
 
   /**
-   * Analytical solution for a single-well Poschl-Teller potential.
+   * Analytical solution for a single-well Pöschl-Teller potential.
+   *
+   * Returns a BoundStateResult compatible with NumerovSolver output.
+   *
+   * @param xGrid - Uniformly spaced x-coordinates in nm
+   * @param parameters - See SolveParameters
+   * @returns Bound state results with exact energies (eV) and wave functions
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
-    const { numberOfWells, wellWidth, wellDepth, xOffset, yOffset, electricField } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'PoschlTellerSolution does not support multiple wells' );
+    affirm( electricField === 0, 'PoschlTellerSolution does not support electric field' );
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Implement
-    const energies: number[] = [];
+    const { energies, quantumNumbers } = findBoundStateEnergies( wellDepth, wellWidth, electronMasses, yOffset, energyMin, energyMax );
+
     const waveFunctions: number[][] = [];
+    for ( let i = 0; i < energies.length; i++ ) {
+      const waveFunction = calculateWaveFunction( quantumNumbers[ i ], wellDepth, wellWidth, electronMasses, xOffset, xGrid.xCoordinates );
+      waveFunctions.push( waveFunction );
+    }
 
     const potentialFunction = PoschlTellerSolution.createPotentialFunction( {
       numberOfWells: numberOfWells,
@@ -75,4 +129,132 @@ export default class PoschlTellerSolution {
       method: 'analytical'
     };
   }
+}
+
+/**
+ * Find all bound-state energies within the requested range.
+ *
+ * The exact closed-form formula is used; no root-finding is required.
+ * All bound states satisfy −V₀ + y₀ < E_n < y₀.
+ *
+ * @param wellDepth - V₀ in eV (positive)
+ * @param wellWidth - w in nm
+ * @param electronMasses - Particle mass in electron masses
+ * @param yOffset - Energy offset y₀ in eV
+ * @param energyMin - Lower bound of requested range (eV)
+ * @param energyMax - Upper bound of requested range (eV)
+ * @returns Energies (eV) and corresponding quantum numbers
+ */
+function findBoundStateEnergies(
+  wellDepth: number,
+  wellWidth: number,
+  electronMasses: number,
+  yOffset: number,
+  energyMin: number,
+  energyMax: number
+): { energies: number[]; quantumNumbers: number[] } {
+
+  // λ = w · √(2mV₀) / ℏ; bound states exist for n = 0, 1, …, ⌊λ − ½⌋
+  const lambda = wellWidth * Math.sqrt( 2 * electronMasses * wellDepth ) / HBAR;
+  const nMax = Math.floor( lambda - 0.5 );
+
+  const energies: number[] = [];
+  const quantumNumbers: number[] = [];
+
+  for ( let n = 0; n <= nMax; n++ ) {
+    const alphaN = lambda - n - 0.5; // α_n = λ − n − ½
+    // E_n = −V₀ · α_n² / λ² + y₀
+    const energy = -wellDepth * alphaN * alphaN / ( lambda * lambda ) + yOffset;
+
+    if ( energy >= energyMin && energy <= energyMax ) {
+      energies.push( energy );
+      quantumNumbers.push( n );
+    }
+  }
+
+  return { energies: energies, quantumNumbers: quantumNumbers };
+}
+
+/**
+ * Compute the normalised wave function for a single Pöschl-Teller eigenstate.
+ *
+ *   α = λ − n − ½              (Jacobi parameter for state n)
+ *   t = tanh((x − x₀)/w)
+ *   ψ_n(x) ∝ sech^α((x − x₀)/w) · P_n^{(α,α)}(t)
+ *
+ * Any non-finite values (from intermediate overflow at extreme x) are replaced with zero.
+ *
+ * @param n - Quantum number
+ * @param wellDepth - V₀ in eV
+ * @param wellWidth - w in nm
+ * @param electronMasses - Particle mass in electron masses
+ * @param xOffset - x₀ in nm
+ * @param xArray - Array of x positions in nm
+ * @returns Normalised wave function values
+ */
+function calculateWaveFunction(
+  n: number,
+  wellDepth: number,
+  wellWidth: number,
+  electronMasses: number,
+  xOffset: number,
+  xArray: readonly number[]
+): number[] {
+
+  const lambda = wellWidth * Math.sqrt( 2 * electronMasses * wellDepth ) / HBAR;
+  const alpha = lambda - n - 0.5; // Jacobi parameter α = λ − n − ½
+
+  const waveFunction: number[] = [];
+
+  for ( const x of xArray ) {
+    const xi = ( x - xOffset ) / wellWidth;
+    const sech = 1 / Math.cosh( xi );
+    const t = Math.tanh( xi );
+    const poly = symmetricJacobiPolynomial( n, alpha, t );
+    // ψ_n ∝ sech^α · P_n^{(α,α)}(t)
+    const value = Math.pow( sech, alpha ) * poly;
+    waveFunction.push( isFinite( value ) ? value : 0 );
+  }
+
+  const dx = xArray.length > 1 ? xArray[ 1 ] - xArray[ 0 ] : 0;
+  return new WaveFunctionNormalizer().normalize( waveFunction, dx );
+}
+
+/**
+ * Symmetric Jacobi polynomial P_n^{(α,α)}(t) via the stable 3-term recurrence
+ * (DLMF 18.9.1 specialised to a = b = α) (see https://dlmf.nist.gov/18.9)
+ *   P_0^{(α,α)}(t) = 1
+ *   P_1^{(α,α)}(t) = (α + 1) · t
+ *
+ *   For k ≥ 2:
+ *   2k(k+2α)(2k+2α−2) · P_k = (2k+2α−1)(2k+2α)(2k+2α−2)·t · P_{k−1}
+ *                             − 2(k+α−1)²(2k+2α) · P_{k−2}
+ *
+ * The symmetry P_n^{(α,α)}(−t) = (−1)^n P_n^{(α,α)}(t) is preserved.
+ *
+ * @param n - Polynomial degree (quantum number)
+ * @param alpha - Jacobi parameter α = λ − n − ½ (fixed for the whole recurrence)
+ * @param t - Argument t = tanh((x − x₀)/w), t ∈ (−1, 1)
+ * @returns P_n^{(α,α)}(t)
+ */
+function symmetricJacobiPolynomial( n: number, alpha: number, t: number ): number {
+  if ( n === 0 ) {
+    return 1;
+  }
+  if ( n === 1 ) {
+    return ( alpha + 1 ) * t;
+  }
+
+  let pPrev2 = 1;
+  let pPrev1 = ( alpha + 1 ) * t;
+
+  for ( let k = 2; k <= n; k++ ) {
+    const s = 2 * k + 2 * alpha; // 2k + 2α
+    const pNext = ( ( s - 1 ) * s * ( s - 2 ) * t * pPrev1 - 2 * ( k + alpha - 1 ) * ( k + alpha - 1 ) * s * pPrev2 )
+                / ( 2 * k * ( k + 2 * alpha ) * ( s - 2 ) );
+    pPrev2 = pPrev1;
+    pPrev1 = pNext;
+  }
+
+  return pPrev1;
 }

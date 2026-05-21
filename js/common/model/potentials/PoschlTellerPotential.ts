@@ -22,6 +22,7 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
+import PoschlTellerSolution from '../solver/analytical-solutions/PoschlTellerSolution.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
@@ -110,12 +111,22 @@ export default class PoschlTellerPotential extends QuantumPotential {
    * Solves for the bound state.
    */
   public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    let result: BoundStateResult;
-    if ( this.numberOfWellsProperty.value === 1 ) {
 
-      // For single-well, use the analytical solution.
-      //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with PoschlTellerSolution.solve
-      result = super.solveBoundState( xGrid, electronMasses );
+    let result: BoundStateResult;
+    if ( this.numberOfWellsProperty.value === 1 && this.electricFieldProperty.value === 0 ) {
+
+      // For single-well and zero electric field, use the analytical solution.
+      result = PoschlTellerSolution.solve( xGrid, {
+        numberOfWells: this.numberOfWellsProperty.value,
+        energyMin: this.getMinSolverEnergy(),
+        energyMax: this.getMaxSolverEnergy(),
+        xOffset: this.xOffsetProperty.value,
+        yOffset: this.yOffsetProperty.value,
+        wellWidth: this.wellWidthProperty.value,
+        wellDepth: this.wellDepthProperty.value,
+        electronMasses: electronMasses,
+        electricField: this.electricFieldProperty.value
+      } );
     }
     else {
 
