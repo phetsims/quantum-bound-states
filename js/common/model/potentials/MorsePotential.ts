@@ -22,6 +22,7 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
+import MorseSolution from '../solver/analytical-solutions/MorseSolution.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
@@ -99,8 +100,17 @@ export default class MorsePotential extends QuantumPotential {
   public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
     affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with MorseSoluton.solve
-    return super.solveBoundState( xGrid, electronMasses );
+    return MorseSolution.solve( xGrid, {
+      numberOfWells: this.numberOfWellsProperty.value,
+      energyMin: this.getMinSolverEnergy(),
+      energyMax: this.getMaxSolverEnergy(),
+      xOffset: this.xOffsetProperty.value,
+      yOffset: this.yOffsetProperty.value,
+      wellWidth: this.wellWidthProperty.value,
+      wellDepth: this.wellDepthProperty.value,
+      electronMasses: electronMasses,
+      electricField: this.electricFieldProperty.value
+    } );
   }
 
   /**

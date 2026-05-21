@@ -34,6 +34,12 @@
  *   where L_v^{(α)} is the associated Laguerre polynomial computed by 3-term recurrence.
  *   Wave functions are normalised numerically using WaveFunctionNormalizer.
  *
+ *   The wave functions are normalised so that the integral of |ψ_v(x)|² over all x is 1.
+ *   
+ *   For generality, we add an xOffset to the wave functions to account for the horizontal position of the well.
+ *   The xOffset is added to the wave functions to shift them horizontally so that they are centered on the well.
+ *   We add an yOffset for the energy (yOffset in this case is an energy shift).
+ * 
  * @author Martin Veillette
  */
 
@@ -71,22 +77,21 @@ export default class MorseSolution {
 
   /**
    * Creates the potential function for a single-well Morse potential.
-   * V(x) = D_e · (1 − e^{−x/w})² − D_e
+   * V(x) = D_e · (1 − e^{−(x-xOffset)/w})² − D_e + yOffset
    *
    * @param parameters - See PotentialParameters
    * @returns Potential function V(x) in eV
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { numberOfWells, wellWidth, wellDepth, electricField } = parameters;
+    const { numberOfWells, xOffset, yOffset, wellWidth, wellDepth, electricField } = parameters;
     affirm( numberOfWells === 1, 'MorseSolution does not support multiple wells' );
     affirm( electricField === 0, 'MorseSolution does not support electric field' );
 
     return ( x: number ) => {
-      const term = 1 - Math.exp( -x / wellWidth );
-      return wellDepth * term * term - wellDepth;
+      const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
+      return wellDepth * term * term - wellDepth + yOffset;
     };
   }
 
@@ -101,17 +106,16 @@ export default class MorseSolution {
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
     const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'MorseSolution does not support multiple wells' );
     affirm( electricField === 0, 'MorseSolution does not support electric field' );
 
-    const { energies, quantumNumbers } = findBoundStateEnergies( wellDepth, wellWidth, electronMasses, energyMin, energyMax );
+    const { energies, quantumNumbers } = findBoundStateEnergies( wellDepth, wellWidth, electronMasses, yOffset, energyMin, energyMax );
 
     const waveFunctions: number[][] = [];
     for ( let i = 0; i < energies.length; i++ ) {
-      const waveFunction = calculateWaveFunction( quantumNumbers[ i ], wellDepth, wellWidth, electronMasses, xGrid.xCoordinates );
+      const waveFunction = calculateWaveFunction( quantumNumbers[ i ], wellDepth, wellWidth, electronMasses, xOffset, xGrid.xCoordinates );
       waveFunctions.push( waveFunction );
     }
 
@@ -152,6 +156,7 @@ function findBoundStateEnergies(
   wellDepth: number,
   wellWidth: number,
   electronMasses: number,
+  yOffset: number,
   energyMin: number,
   energyMax: number
 ): { energies: number[]; quantumNumbers: number[] } {
@@ -168,8 +173,8 @@ function findBoundStateEnergies(
 
   for ( let v = 0; v <= vMax; v++ ) {
     const s = v + 0.5; // v + ½
-    // E_v = ℏω_e·s − (ℏω_e)²·s²/(4D_e) − D_e
-    const energy = hbarOmegaE * s - hbarOmegaE * hbarOmegaE * s * s / ( 4 * wellDepth ) - wellDepth;
+    // E_v = ℏω_e·s − (ℏω_e)²·s²/(4D_e) − D_e + y₀
+    const energy = hbarOmegaE * s - hbarOmegaE * hbarOmegaE * s * s / ( 4 * wellDepth ) - wellDepth + yOffset;
 
     if ( energy >= energyMin && energy <= energyMax ) {
       energies.push( energy );
@@ -202,6 +207,7 @@ function calculateWaveFunction(
   wellDepth: number,
   wellWidth: number,
   electronMasses: number,
+  xOffset: number,
   xArray: readonly number[]
 ): number[] {
 
@@ -211,7 +217,7 @@ function calculateWaveFunction(
   const waveFunction: number[] = [];
 
   for ( const x of xArray ) {
-    const z = 2 * lambda * Math.exp( -x / wellWidth );
+    const z = 2 * lambda * Math.exp( -( x - xOffset ) / wellWidth );
     const laguerre = associatedLaguerre( v, alpha, z );
     // ψ_v ∝ z^{α/2} · e^{−z/2} · L_v^{(α)}(z)
     const value = Math.pow( z, alpha / 2 ) * Math.exp( -z / 2 ) * laguerre;
