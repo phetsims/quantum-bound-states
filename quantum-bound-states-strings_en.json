@@ -390,7 +390,7 @@
     },
     "valuesCheckbox": {
       "accessibleHelpText": {
-        "value": "Keep values visible for handles and sliders."
+        "value": "Keep values visible for handles and energy levels."
       },
       "accessibleContextResponseChecked": {
         "value": "Values stay visible."

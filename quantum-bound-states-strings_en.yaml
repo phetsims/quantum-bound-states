@@ -206,7 +206,7 @@ a11y:
   #=======================================================================================================
 
   valuesCheckbox:
-    accessibleHelpText:                 Keep values visible for handles and sliders.
+    accessibleHelpText:                 Keep values visible for handles and energy levels.
     accessibleContextResponseChecked:   Values stay visible.
     accessibleContextResponseUnchecked: Values shown on focus.
 
