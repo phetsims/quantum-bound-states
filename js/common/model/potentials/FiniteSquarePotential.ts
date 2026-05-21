@@ -167,6 +167,14 @@ export default class FiniteSquarePotential extends QuantumPotential {
   }
 
   /**
+   * Gets the total width of this potential, the sum of the well widths and the spacing between the wells.
+   */
+  public getTotalWidth(): number {
+    return ( this.numberOfWellsProperty.value * this.wellWidthProperty.value ) +
+           ( ( this.numberOfWellsProperty.value - 1 ) * this.separationProperty.value );
+  }
+
+  /**
    * Returns a non-uniform energy scan grid based on the infinite square well (ISW) eigenvalues.
    *
    * Physics: By Sturm-Liouville theory, each ISW interval (E_{n-1}^ISW, E_n^ISW) contains

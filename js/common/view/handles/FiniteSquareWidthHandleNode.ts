@@ -38,10 +38,7 @@ export default class FiniteSquareWidthHandleNode extends PotentialHandleNode<Fin
    * Vertically center the handle on the right wall of the rightmost well.
    */
   protected override updatePosition(): void {
-    const numberOfWells = this.potential.numberOfWellsProperty.value;
-    const potentialWidth = ( numberOfWells * this.potential.wellWidthProperty.value ) +
-                           ( ( numberOfWells - 1 ) * this.potential.separationProperty.value );
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + potentialWidth / 2 );
+    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 );
     this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.wellDepthProperty.value / 2 );
   }
 
