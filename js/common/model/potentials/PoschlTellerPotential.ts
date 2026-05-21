@@ -167,33 +167,11 @@ export default class PoschlTellerPotential extends QuantumPotential {
 
   public override getMinSolverEnergy(): number {
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Confirm with MV that this change is OK. Energy levels are the same before (1.0.0-dev.7) and after the change.
-    //TODO We don't need to be precise here, just pick an energy below the potential. So maybe 3 * this.wellDepthProperty.value ?
-
-    // const n = this.numberOfWellsProperty.value;
-    // const wellWidth = this.wellWidthProperty.value;
-    // const spacing = this.spacingProperty.value;
-    // const xOffset = this.xOffsetProperty.value;
-    //
-    // // Estimate the minimum by sampling the field-free multi-well landscape. This is much tighter than
-    // // the old fully-overlapped bound and works well for partial overlap in multi-well configurations.
-    // const firstCenter = xOffset + spacing * ( 1 - ( n + 1 ) / 2 );
-    // const lastCenter = xOffset + spacing * ( n - ( n + 1 ) / 2 );
-    // const margin = 4 * wellWidth;
-    // const xMin = firstCenter - margin;
-    // const xMax = lastCenter + margin;
-    // const sampleCount = 600;
-    // const dx = ( xMax - xMin ) / ( sampleCount - 1 );
-    //
-    // let minimumPotential = Number.POSITIVE_INFINITY;
-    // for ( let i = 0; i < sampleCount; i++ ) {
-    //   const x = xMin + i * dx;
-    //   minimumPotential = Math.min( minimumPotential, this.getPotentialEnergyAt( x ) );
-    // }
-    //
-    // return minimumPotential;
-
-    return this.getMaxSolverEnergy() - this.wellDepthProperty.value;
+    // Getting the precise min energy would be more performant, but that is a "chicken and egg" problem - it requires
+    // knowing the potential energies, which currently involves knowing the min energy. But it's not essential that
+    // we are precise here - we just need to pick an energy below the potential. So use 3 x wellDepth.
+    //TODO Is this OK as a final solution? If not, see git history for previous implementation of getMinSolverEnergy.
+    return this.getMaxSolverEnergy() - 3 * this.wellDepthProperty.value;
   }
 
   /**
