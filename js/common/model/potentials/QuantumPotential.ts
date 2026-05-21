@@ -47,6 +47,11 @@ export type QuantumPotentialOptions = SelfOptions & PickRequired<PhetioObjectOpt
 
 export default abstract class QuantumPotential extends PhetioObject {
 
+  // Global Properties that are shared by all QuantumPotential instances.
+  public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
+  public readonly electronMassesProperty: TReadOnlyProperty<number>;
+  public readonly electricFieldProperty: TReadOnlyProperty<number>;
+
   public readonly groundStateIndex: number;
 
   // Horizontal offset of the potential from x=0 nm. This Property is not exposed in the UI or PhET-iO, and is
@@ -61,10 +66,6 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   // Fires when the quantum potential has changed and the BoundStateResult needs to be recomputed.
   public readonly changedEmitter: Emitter;
-
-  public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
-  public readonly electronMassesProperty: TReadOnlyProperty<number>;
-  public readonly electricFieldProperty: TReadOnlyProperty<number>;
 
   public readonly energyAxisRange: Range;
 
@@ -91,13 +92,11 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     super( options );
 
-    this.groundStateIndex = options.groundStateIndex;
-
-    this.changedEmitter = new Emitter(); //TODO PhET-iO?
-
     this.numberOfWellsProperty = options.numberOfWellsProperty;
     this.electronMassesProperty = options.electronMassesProperty;
     this.electricFieldProperty = options.electricFieldProperty;
+
+    this.groundStateIndex = options.groundStateIndex;
 
     this.xOffsetProperty = new NumberProperty( options.xOffsetRange.defaultValue, {
       units: nanometersUnit,
@@ -113,6 +112,8 @@ export default abstract class QuantumPotential extends PhetioObject {
       phetioFeatured: true
       //TODO should this be phetioReadOnly: true?
     } );
+
+    this.changedEmitter = new Emitter(); //TODO PhET-iO?
 
     this.energyAxisRange = options.energyAxisRange;
 
