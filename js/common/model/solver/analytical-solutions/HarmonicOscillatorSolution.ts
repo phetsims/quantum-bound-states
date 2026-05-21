@@ -2,14 +2,14 @@
 
 /**
  * Analytical solution for a Harmonic Oscillator potential.
- * V(x) = (1/2) * k * x^2 = (1/2) * m * ω^2 * x^2
+ * V(x) = (1/2) * k * (x - x₀)² + y₀ = (1/2) * m * ω² * (x - x₀)² + y₀
  *
  * ENERGY EIGENVALUES:
- *   E_n = ℏω(n + 1/2),  n = 0, 1, 2, ...
+ *   E_n = ℏω(n + 1/2) + y₀,  n = 0, 1, 2, ...
  *   where ω = √(k/m)
  *
  * WAVEFUNCTIONS:
- *   ψ_n(x) = (1/√(2^n n!)) · (mω/πℏ)^(1/4) · exp(-mωx²/(2ℏ)) · H_n(√(mω/ℏ) x)
+ *   ψ_n(x) = (1/√(2^n n!)) · (mω/πℏ)^(1/4) · exp(-mω(x-x₀)²/(2ℏ)) · H_n(√(mω/ℏ) (x-x₀))
  *   where H_n are the Hermite polynomials
  *
  * @author Martin Veillette
@@ -49,28 +49,27 @@ export default class HarmonicOscillatorSolution {
 
   /**
    * Creates the potential function for a single-well Harmonic Oscillator potential.
-   * V(x) = (1/2) * k * x^2
+   * V(x) = (1/2) * k * (x - x₀)² + y₀
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
-    const { numberOfWells, springConstant, electricField } = parameters;
+    const { numberOfWells, xOffset, yOffset, springConstant, electricField } = parameters;
     affirm( numberOfWells === 1, 'HarmonicOscillatorSolution does not support multiple wells' );
     affirm( electricField === 0, 'HarmonicOscillatorSolution does not support electric field' );
 
     return ( x: number ) => {
-      return 0.5 * springConstant * x * x;
+      const dx = x - xOffset;
+      return 0.5 * springConstant * dx * dx + yOffset;
     };
   }
 
   /**
    * Analytical solution for a single-well Harmonic Oscillator potential.
-   * V(x) = (1/2) * k * x^2 = (1/2) * m * ω^2 * x^2
+   * V(x) = (1/2) * k * (x - x₀)² + y₀ = (1/2) * m * ω^2 * (x - x₀)² + y₀
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
     const { numberOfWells, energyMin, energyMax, xOffset, yOffset, springConstant, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'HarmonicOscillatorSolution does not support multiple wells' );
@@ -78,31 +77,29 @@ export default class HarmonicOscillatorSolution {
 
     const omega = Math.sqrt( springConstant / electronMasses );
 
-    // Calculate energies: E_n = ℏω(n + 1/2) for n = 0, 1, 2, ...
+    // Calculate energies: E_n = ℏω(n + 1/2) + y₀ for n = 0, 1, 2, ...
     // Find all n where energyMin <= E_n <= energyMax
     const energyQuantum = HBAR * omega;
 
     // Find the minimum n: E_n >= energyMin
-    // E_n = ℏω(n + 1/2) >= energyMin
-    // n >= (energyMin / ℏω) - 1/2
-    const nMin = Math.max( 0, Math.ceil( ( energyMin / energyQuantum ) - 0.5 ) );
+    // E_n = ℏω(n + 1/2) + y₀ >= energyMin  →  n >= (energyMin - y₀) / ℏω - 1/2
+    const nMin = Math.max( 0, Math.ceil( ( ( energyMin - yOffset ) / energyQuantum ) - 0.5 ) );
 
     // Find the maximum n: E_n <= energyMax
-    // E_n = ℏω(n + 1/2) <= energyMax
-    // n <= (energyMax / ℏω) - 1/2
-    const nMax = Math.floor( ( energyMax / energyQuantum ) - 0.5 );
+    // E_n = ℏω(n + 1/2) + y₀ <= energyMax  →  n <= (energyMax - y₀) / ℏω - 1/2
+    const nMax = Math.floor( ( ( energyMax - yOffset ) / energyQuantum ) - 0.5 );
 
     // Collect all quantum numbers within the energy range
     const quantumNumbers: number[] = [];
     const energies: number[] = [];
     for ( let n = nMin; n <= nMax; n++ ) {
-      const energy = energyQuantum * ( n + 0.5 );
+      const energy = energyQuantum * ( n + 0.5 ) + yOffset;
       quantumNumbers.push( n );
       energies.push( energy );
     }
 
-    // Calculate wave functions using Hermite polynomials
-    // ψ_n(x) = (1/√(2^n n!)) * (mω/πℏ)^(1/4) * exp(-mωx^2/(2ℏ)) * H_n(√(mω/ℏ) x)
+    // Calculate wave functions using Hermite polynomials centered at x₀
+    // ψ_n(x) = (1/√(2^n n!)) * (mω/πℏ)^(1/4) * exp(-mω(x-x₀)²/(2ℏ)) * H_n(√(mω/ℏ) (x-x₀))
     const waveFunctions: number[][] = [];
     const alpha = Math.sqrt( ( electronMasses * omega ) / HBAR );
 
@@ -115,7 +112,7 @@ export default class HarmonicOscillatorSolution {
         Math.pow( ( alpha * alpha ) / Math.PI, 0.25 );
 
       for ( const x of xGrid.xCoordinates ) {
-        const xi = alpha * x;
+        const xi = alpha * ( x - xOffset );
         const hermite = hermitePolynomial( n, xi );
         const value = normalization * Math.exp( ( -xi * xi ) / 2 ) * hermite;
         waveFunction.push( value );

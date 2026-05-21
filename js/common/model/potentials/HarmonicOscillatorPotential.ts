@@ -24,6 +24,7 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QBSTime from '../QBSTime.js';
+import HarmonicOscillatorSolution from '../solver/analytical-solutions/HarmonicOscillatorSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsPerNanometerSquaredUnit } from '../units/electronVoltsPerNanometerSquaredUnit.js';
@@ -136,8 +137,16 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
   public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
     affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with HarmonicOscillatorSoluton.solve
-    return super.solveBoundState( xGrid, electronMasses );
+    return HarmonicOscillatorSolution.solve( xGrid, {
+      numberOfWells: this.numberOfWellsProperty.value,
+      xOffset: this.xOffsetProperty.value,
+      yOffset: this.yOffsetProperty.value,
+      springConstant: this.springConstantProperty.value,
+      electricField: this.electricFieldProperty.value,
+      electronMasses: electronMasses,
+      energyMin: this.getMinSolverEnergy(),
+      energyMax: this.getMaxSolverEnergy()
+    } );
   }
 
   /**
