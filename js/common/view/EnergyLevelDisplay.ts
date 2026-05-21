@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Change to EnergyLevelDisplay extends NumberDisplay
 /**
  * EnergyLevelDisplay displays an energy level identifier (E1, E2, etc.) and the corresponding energy value in eV.
  *
@@ -44,21 +45,19 @@ export default class EnergyLevelDisplay extends BackgroundNode {
         stroke: QBSColors.energyLevelDisplayBackgroundStrokeProperty,
         opacity: 1 // use alpha in fill
       },
-      visibleProperty: new DerivedProperty( [ energyLevelProperty ], energyLevel => energyLevel !== null )
+      visibleProperty: new DerivedProperty( [ model.energyDiagram.valuesVisibleProperty, energyLevelProperty ],
+        ( valuesVisible, energyLevel ) => valuesVisible && energyLevel !== null )
     }, providedOptions );
 
     const stringProperty = new DerivedStringProperty(
-      [ energyLevelProperty, model.energyDiagram.valuesVisibleProperty, model.boundStateResultProperty ],
-      ( energyLevel, valuesVisible, boundStateResult ) => {
+      [ energyLevelProperty, model.boundStateResultProperty ],
+      ( energyLevel, boundStateResult ) => {
         if ( energyLevel === null ) {
           return '';
         }
-        else if ( valuesVisible ) {
+        else {
           const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevel ), QBSConstants.ENERGY_LEVEL_DECIMALS );
           return `E<sub>${energyLevel}</sub> = ${energy} eV`;
-        }
-        else {
-          return `E<sub>${energyLevel}</sub>`;
         }
       } );
 
