@@ -83,8 +83,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
      */
     this.springConstantProperty = new DerivedProperty( [ this.wellWidthProperty ],
       wellWidth => {
-        const halfWellWidth = wellWidth / 2;
-        return ( 2 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( halfWellWidth * halfWellWidth );
+        return ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / (wellWidth * wellWidth);
       }, {
         units: electronVoltsPerNanometerSquaredUnit,
         tandem: options.tandem.createTandem( 'springConstantProperty' ),
