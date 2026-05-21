@@ -21,6 +21,7 @@ import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // esli
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import NumerovSolver from '../solver/NumerovSolver.js';
 import XGrid from '../solver/XGrid.js';
+import FiniteSquareSolution from '../solver/analytical-solutions/FiniteSquareSolution.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
@@ -106,29 +107,26 @@ export default class FiniteSquarePotential extends QuantumPotential {
    * Solves for the bound state.
    */
   public override solveBoundState( xGrid: XGrid, electronMasses: number ): BoundStateResult {
-    let result: BoundStateResult;
-    if ( this.numberOfWellsProperty.value === 1 ) {
+    if ( this.numberOfWellsProperty.value === 1 && this.electricFieldProperty.value === 0 ) {
 
-      // For single-well, use the analytical solution.
-      //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Fails with no energy levels
-      // result = FiniteSquareSolution.solve( xGrid, {
-      //   numberOfWells: this.numberOfWellsProperty.value,
-      //   energyMin: this.getMinSolverEnergy(),
-      //   energyMax: this.getMaxSolverEnergy(),
-      //   xOffset: this.xOffsetProperty.value,
-      //   yOffset: this.yOffsetProperty.value,
-      //   wellWidth: this.wellWidthProperty.value,
-      //   wellDepth: this.wellDepthProperty.value,
-      //   electronMasses: electronMasses
-      // } );
-      result = super.solveBoundState( xGrid, electronMasses );
+      // For single-well without electric field, use the analytical solution.
+      return FiniteSquareSolution.solve( xGrid, {
+        numberOfWells: this.numberOfWellsProperty.value,
+        energyMin: this.getMinSolverEnergy(),
+        energyMax: this.getMaxSolverEnergy(),
+        xOffset: this.xOffsetProperty.value,
+        yOffset: this.yOffsetProperty.value,
+        wellWidth: this.wellWidthProperty.value,
+        wellDepth: this.wellDepthProperty.value,
+        electronMasses: electronMasses,
+        electricField: this.electricFieldProperty.value
+      } );
     }
     else {
 
-      // For multi-well, use Numerov.
-      result = super.solveBoundState( xGrid, electronMasses );
+      // For multi-well or with electric field, use Numerov.
+      return super.solveBoundState( xGrid, electronMasses );
     }
-    return result;
   }
 
   /**

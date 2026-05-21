@@ -7,24 +7,29 @@
  * finite outside the well. Particles can penetrate into the classically forbidden
  * regions, demonstrating quantum tunneling.
  *
- * POTENTIAL:
- *   V(x) = -V₀   for |x| < L/2
- *   V(x) = 0     for |x| > L/2
+ * POTENTIAL (with xOffset and yOffset):
+ *   V(x) = yOffset           for |x − x₀| < L/2  (inside well)
+ *   V(x) = yOffset + V₀     for |x − x₀| > L/2  (outside well)
+ *
+ * Internally the solver works in a shifted coordinate frame where V_inside = −V₀
+ * and V_outside = 0 (the standard textbook convention). The physical energy is
+ * related to the internal energy by:
+ *   E_phys = E_int + yOffset + V₀
  *
  * ENERGY EIGENVALUES:
  *   Energy eigenvalues are found by solving transcendental equations:
  *   - Even parity: tan(ξ) = η/ξ
  *   - Odd parity: -cot(ξ) = η/ξ
- *   where ξ = (L/2)√(2m(E+V₀)/ℏ²) and η = (L/2)√(-2mE/ℏ²)
+ *   where ξ = (L/2)√(2m(E_int+V₀)/ℏ²) and η = (L/2)√(−2mE_int/ℏ²)
  *
  * WAVEFUNCTIONS:
- *   Inside the well (|x| < L/2):
- *   - Even: ψ(x) = A cos(kx)
- *   - Odd: ψ(x) = A sin(kx)
- *   Outside the well (|x| > L/2):
- *   - Even: ψ(x) = B exp(-κ|x|)
- *   - Odd: ψ(x) = B sign(x) exp(-κ|x|)
- *   where k = √(2m(E+V₀)/ℏ²) and κ = √(-2mE/ℏ²)
+ *   Inside the well (|x − x₀| < L/2):
+ *   - Even: ψ(x) = A cos(k(x − x₀))
+ *   - Odd:  ψ(x) = A sin(k(x − x₀))
+ *   Outside the well (|x − x₀| > L/2):
+ *   - Even: ψ(x) = B exp(−κ|x − x₀|)
+ *   - Odd:  ψ(x) = B sign(x − x₀) exp(−κ|x − x₀|)
+ *   where k = √(2m(E_phys − yOffset)/ℏ²) and κ = √(2m(yOffset + V₀ − E_phys)/ℏ²)
  *
  * @author Martin Veillette
  */
@@ -47,7 +52,7 @@ type Parity = 'even' | 'odd';
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
   numberOfWells: number;
-  xOffset: number; // Horizontal position x₀ of the singularity in nm
+  xOffset: number; // Horizontal position x₀ of the well center in nm
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm
   wellDepth: number; // Depth of the well V₀ in eV
@@ -68,22 +73,22 @@ export default class FiniteSquareSolution {
   }
 
   /**
-   * Creates the potential function for a multi-well Finite Square potential.
-   * V(x) = -V₀ for |x| < L/2, V(x) = 0 for |x| > L/2
+   * Creates the potential function for a single-well Finite Square potential.
+   * V(x) = yOffset for |x − x₀| < L/2, V(x) = yOffset + V₀ for |x − x₀| > L/2
    */
-  public static createPotentialFunction( parameters : PotentialParameters ): PotentialFunction {
+  public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for numberOfWells, xOffset, and yOffset
     // Unpack parameters
-    const { wellWidth, wellDepth, electricField } = parameters;
+    const { numberOfWells, xOffset, yOffset, wellWidth, wellDepth, electricField } = parameters;
+    affirm( numberOfWells === 1, 'FiniteSquareSolution does not support multiple wells' );
     affirm( electricField === 0, 'FiniteSquareSolution does not support electric field' );
 
     return ( x: number ) => {
-      if ( Math.abs( x ) < wellWidth / 2 ) {
-        return -wellDepth; // Inside well: V = -V
+      if ( Math.abs( x - xOffset ) < wellWidth / 2 ) {
+        return yOffset; // Inside well
       }
       else {
-        return 0; // Outside well: V = 0
+        return yOffset + wellDepth; // Outside well
       }
     };
   }
@@ -93,17 +98,17 @@ export default class FiniteSquareSolution {
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Add support for xOffset and yOffset
     // Unpack parameters
     const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'FiniteSquareSolution does not support multiple wells' );
     affirm( electricField === 0, 'FiniteSquareSolution does not support electric field' );
 
-    // Find all bound state energies
+    // Find all bound state energies (returned in physical coordinates)
     const { energies, parities } = findBoundStateEnergies(
       wellWidth,
       wellDepth,
       electronMasses,
+      yOffset,
       energyMin,
       energyMax
     );
@@ -117,6 +122,8 @@ export default class FiniteSquareSolution {
         wellWidth,
         wellDepth,
         electronMasses,
+        yOffset,
+        xOffset,
         xGrid.xCoordinates
       );
       waveFunctions.push( waveFunction );
@@ -225,26 +232,35 @@ function findRootInInterval(
 /**
  * Find all bound state energies for a finite square well.
  *
+ * Internally uses the textbook convention V_inside = −V₀, V_outside = 0.
+ * The returned energies are in physical units (shifted by yOffset + V₀).
+ *
  * @param wellWidth - Width of the well L in nm
  * @param wellDepth - Depth of the well V₀ in eV (positive value)
  * @param electronMasses - Particle mass in electron masses
- * @param energyMin - Minimum energy to search (eV)
- * @param energyMax - Maximum energy to search (eV)
- * @returns Arrays of energies and parities
+ * @param yOffset - Energy shift y₀ in eV (well bottom is at yOffset)
+ * @param energyMin - Minimum physical energy to search (eV)
+ * @param energyMax - Maximum physical energy to search (eV)
+ * @returns Arrays of physical energies (eV) and parities
  */
 function findBoundStateEnergies(
   wellWidth: number,
   wellDepth: number,
   electronMasses: number,
+  yOffset: number,
   energyMin: number,
   energyMax: number
 ): { energies: number[]; parities: Parity[] } {
 
-  // All bound states have energies between -V₀ and 0
-  const actualEnergyMin = Math.max( energyMin, -wellDepth );
-  const actualEnergyMax = Math.min( energyMax, 0 );
+  // Internally energies are measured from the dissociation limit (V_outside = 0).
+  // Physical and internal energies are related by: E_phys = E_int + yOffset + wellDepth.
+  const energyShift = yOffset + wellDepth;
 
-  if ( actualEnergyMin >= actualEnergyMax ) {
+  // Clamp requested range to the valid internal bound-state range (−V₀, 0).
+  const internalEnergyMin = Math.max( energyMin - energyShift, -wellDepth );
+  const internalEnergyMax = Math.min( energyMax - energyShift, 0 );
+
+  if ( internalEnergyMin >= internalEnergyMax ) {
     return { energies: [], parities: [] };
   }
 
@@ -299,18 +315,17 @@ function findBoundStateEnergies(
       oddCount++;
     }
 
-    // Skip if state could not be found
     if ( xi === null ) {
       continue;
     }
 
-    // Convert ξ back to energy: ξ = (L/2)√(2m(E+V₀)/ℏ²)
-    // E = ξ²ℏ²/(2m(L/2)²) - V₀
-    const energy = ( xi * xi * HBAR * HBAR ) / ( 2 * electronMasses * ( wellWidth / 2 ) * ( wellWidth / 2 ) ) - wellDepth;
+    // Convert ξ to internal energy: E_int = ξ²ℏ²/(2m(L/2)²) − V₀
+    const internalEnergy = ( xi * xi * HBAR * HBAR ) / ( 2 * electronMasses * ( wellWidth / 2 ) * ( wellWidth / 2 ) ) - wellDepth;
 
-    // Check if energy is within requested bounds
-    if ( energy >= actualEnergyMin && energy <= actualEnergyMax ) {
-      energies.push( energy );
+    // Convert to physical energy and check if within requested bounds
+    const physicalEnergy = internalEnergy + energyShift;
+    if ( physicalEnergy >= energyMin && physicalEnergy <= energyMax ) {
+      energies.push( physicalEnergy );
       parities.push( parity );
     }
   }
@@ -321,11 +336,13 @@ function findBoundStateEnergies(
 /**
  * Calculate normalized wave function for a finite square well state.
  *
- * @param energy - Energy of the state in eV
+ * @param energy - Physical energy of the state in eV
  * @param parity - Parity of the state (even or odd)
  * @param wellWidth - Width of the well L in nm
  * @param wellDepth - Depth of the well V₀ in eV (positive value)
  * @param electronMasses - Particle mass in electron masses
+ * @param yOffset - Energy shift y₀ in eV (well bottom is at yOffset)
+ * @param xOffset - Horizontal position x₀ of the well center in nm
  * @param xGridArray - Array of x positions in nm
  * @returns Normalized wave function array
  */
@@ -335,42 +352,43 @@ function calculateWaveFunction(
   wellWidth: number,
   wellDepth: number,
   electronMasses: number,
+  yOffset: number,
+  xOffset: number,
   xGridArray: readonly number[]
 ): number[] {
 
-  // Calculate wave numbers
-  const k = Math.sqrt( 2 * electronMasses * ( energy + wellDepth ) / ( HBAR * HBAR ) );
-  const kappa = Math.sqrt( -2 * electronMasses * energy / ( HBAR * HBAR ) );
+  // Wave number inside the well (kinetic energy = E_phys − V_inside = E_phys − yOffset)
+  const k = Math.sqrt( 2 * electronMasses * ( energy - yOffset ) / ( HBAR * HBAR ) );
+
+  // Decay constant outside the well (barrier height = V_outside − E_phys = yOffset + V₀ − E_phys)
+  const kappa = Math.sqrt( 2 * electronMasses * ( yOffset + wellDepth - energy ) / ( HBAR * HBAR ) );
 
   const waveFunction: number[] = [];
 
-  // Calculate wave function at each grid point
   for ( const x of xGridArray ) {
     let value: number;
+    const xRel = x - xOffset; // position relative to well center
 
-    if ( Math.abs( x ) < wellWidth / 2 ) {
+    if ( Math.abs( xRel ) < wellWidth / 2 ) {
       // Inside the well
       if ( parity === 'even' ) {
-        value = Math.cos( k * x );
+        value = Math.cos( k * xRel );
       }
       else {
-        value = Math.sin( k * x );
+        value = Math.sin( k * xRel );
       }
     }
     else {
-      // Outside the well - exponentially decaying
+      // Outside the well - exponentially decaying, continuous at the well edge
+      const xEdge = wellWidth / 2;
       if ( parity === 'even' ) {
-        // Even: symmetric exponential decay
-        const xEdge = wellWidth / 2;
         const amplitude = Math.cos( k * xEdge );
-        value = amplitude * Math.exp( -kappa * ( Math.abs( x ) - xEdge ) );
+        value = amplitude * Math.exp( -kappa * ( Math.abs( xRel ) - xEdge ) );
       }
       else {
-        // Odd: antisymmetric exponential decay
-        const xEdge = wellWidth / 2;
         const amplitude = Math.sin( k * xEdge );
-        const sign = x > 0 ? 1 : -1;
-        value = sign * amplitude * Math.exp( -kappa * ( Math.abs( x ) - xEdge ) );
+        const sign = xRel > 0 ? 1 : -1;
+        value = sign * amplitude * Math.exp( -kappa * ( Math.abs( xRel ) - xEdge ) );
       }
     }
 
