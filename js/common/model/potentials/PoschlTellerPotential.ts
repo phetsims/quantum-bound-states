@@ -82,7 +82,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty, this.spacingProperty ], () => {
+    Multilink.multilink( [ this.numberOfWellsProperty, this.wellWidthProperty, this.wellDepthProperty, this.spacingProperty ], () => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.propertyChangedEmitter.emit();
       }

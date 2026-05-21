@@ -78,7 +78,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ], () => {
+    Multilink.multilink( [ this.numberOfWellsProperty, this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ], () => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.propertyChangedEmitter.emit();
       }
