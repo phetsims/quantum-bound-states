@@ -133,6 +133,32 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
    * Adds an accessible response when the handle gets focus.
    */
   public describeFocused(): void {
+
+    //TODO Need information about visibility and a way to get values. Do this in ReferenceLineDescriber.
+    //
+    // In yaml -
+    //
+    // a11y:
+    //   referenceLine:
+    //     accessibleObjectResponse:
+    //       joinPattern:           '{$firstPhrase}, {$secondPhrase}'
+    //       positionPhrase:        at {$value} nanometers
+    //       potentialEnergyPhrase: potential energy is {$value}
+    //       realPartPhrase:        real part is {$value}
+    //       imaginaryPartPhrase:   imaginary part is {$value}
+    //       magnitudePhrase:       magnitude is {$value}
+    //
+    // In code -
+    //
+    // const phrases = [
+    //   QuantumBoundStatesFluent.a11y.referenceLine.positionPhrase.format(...),
+    //   QuantumBoundStatesFluent.a11y.referenceLine.potentialEnergyPhrase.format(...)
+    // ];
+    // realPartVisible && phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.realPartPhrase.format(...);
+    // imaginaryPartVisible && phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.imaginaryPartPhrase.format(...);
+    // magnitudeVisible && phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.magnitudePhrase.format(...);
+    // const response = FluentUtils.joinClauses( QuantumBoundStatesFluent.a11y.referenceLine.joinPattern, phrases );
+
     const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
       x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
     } );
