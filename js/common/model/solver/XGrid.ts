@@ -95,7 +95,7 @@ export default class XGrid extends PhetioObject {
 }
 
 /**
- * Finds the index of the element in a sorted array closest to the target.
+ * Finds the index of the element in a sorted array closest to a target value.
  * @param array - Sorted array of numbers (lowest to highest).
  * @param targetValue - The value to find the closest match for.
  * @returns The index of the closest element.
