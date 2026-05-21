@@ -452,7 +452,15 @@ type StringsType = {
       'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      'accessibleObjectResponse': {
+        'joinPatternStringProperty': LocalizedStringProperty;
+        'positionPhraseStringProperty': LocalizedStringProperty;
+        'potentialEnergyPhraseStringProperty': LocalizedStringProperty;
+        'probabilityDensityPhraseStringProperty': LocalizedStringProperty;
+        'realPartPhraseStringProperty': LocalizedStringProperty;
+        'imaginaryPartPhraseStringProperty': LocalizedStringProperty;
+        'magnitudePhraseStringProperty': LocalizedStringProperty;
+      }
     };
     'units': {
       'electronMasses': {

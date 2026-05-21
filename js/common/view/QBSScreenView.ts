@@ -32,6 +32,7 @@ import ToolsPanel from '../../common/view/ToolsPanel.js';
 import QBSModel from '../model/QBSModel.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
+import ReferenceLineDescriber from './description/ReferenceLineDescriber.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
@@ -158,7 +159,10 @@ export default class QBSScreenView extends ScreenView {
       y: energyDiagramNode.y
     } );
 
-    const referenceLineNode = new ReferenceLineNode( model.referenceLine, energyDiagramNode.chartTransform, {
+    const referenceLineDescriber = new ReferenceLineDescriber( model.referenceLine, model.potentialProperty,
+      model.selectedGraphProperty, model.probabilityDensityGraph, model.waveFunctionGraph );
+
+    const referenceLineNode = new ReferenceLineNode( model.referenceLine, referenceLineDescriber, energyDiagramNode.chartTransform, {
       // -2 so that line is inside stroke of chartRectangles
       lineLength: Math.abs( energyDiagramRectangleBounds.top - quantumStateGraphRectangleBounds.bottom ) - 2,
       tandem: options.tandem.createTandem( 'referenceLineNode' )

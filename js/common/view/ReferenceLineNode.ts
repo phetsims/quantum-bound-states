@@ -9,7 +9,6 @@
 
 import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
@@ -24,9 +23,10 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ReferenceLine from '../model/ReferenceLine.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+import ReferenceLineDescriber from './description/ReferenceLineDescriber.js';
 import { HomeEndKeyboardListener } from './HomeEndKeyboardListener.js';
-import ReferenceLineReadValuesListener from './ReferenceLineReadValuesListener.js';
 import ReferenceLineDragListener from './ReferenceLineDragListener.js';
+import ReferenceLineReadValuesListener from './ReferenceLineReadValuesListener.js';
 
 type SelfOptions = {
 
@@ -41,13 +41,15 @@ export default class ReferenceLineNode extends Node {
   public static readonly HANDLE_DIAMETER = 18;
 
   public constructor( referenceLine: ReferenceLine,
+                      describer: ReferenceLineDescriber,
                       chartTransform: ChartTransform,
                       providedOptions: ReferenceLineNodeOptions ) {
 
     affirm( providedOptions.lineLength > 0, `lineLength must be > 0: ${providedOptions.lineLength}` );
 
     // Spherical handle that can be dragged left and right to change the x-coordinate of the reference line.
-    const handleNode = new ReferenceLineHandleNode( referenceLine, chartTransform, providedOptions.tandem.createTandem( 'handleNode' ) );
+    const handleNode = new ReferenceLineHandleNode( referenceLine, describer, chartTransform,
+      providedOptions.tandem.createTandem( 'handleNode' ) );
 
     // Vertical line that passes through all graphs.
     const verticalLine = new Line( 0, -providedOptions.lineLength, 0, 0, {
@@ -80,9 +82,12 @@ export default class ReferenceLineNode extends Node {
  */
 export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphereNode ) {
 
-  private readonly referenceLine: ReferenceLine;
+  private readonly describer: ReferenceLineDescriber;
 
-  public constructor( referenceLine: ReferenceLine, chartTransform: ChartTransform, tandem: Tandem ) {
+  public constructor( referenceLine: ReferenceLine,
+                      describer: ReferenceLineDescriber,
+                      chartTransform: ChartTransform,
+                      tandem: Tandem ) {
 
     const options = combineOptions<ShadedSphereNodeOptions>( {}, AccessibleInteractiveOptions, {
       isDisposable: false,
@@ -96,7 +101,7 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
 
     super( ReferenceLineNode.HANDLE_DIAMETER, options );
 
-    this.referenceLine = referenceLine;
+    this.describer = describer;
 
     // Initial position in model coordinates. y-value can be anything because movement is constrained to horizontal.
     const positionProperty = new Property( new Vector2( referenceLine.xProperty.value, 0 ) );
@@ -133,46 +138,14 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
    * Adds an accessible response when the handle gets focus.
    */
   public describeFocused(): void {
-
-    //TODO Need information about visibility and a way to get values. Do this in ReferenceLineDescriber.
-    //
-    // In yaml -
-    //
-    // a11y:
-    //   referenceLine:
-    //     accessibleObjectResponse:
-    //       joinPattern:           '{$firstPhrase}, {$secondPhrase}'
-    //       positionPhrase:        at {$value} nanometers
-    //       potentialEnergyPhrase: potential energy is {$value}
-    //       realPartPhrase:        real part is {$value}
-    //       imaginaryPartPhrase:   imaginary part is {$value}
-    //       magnitudePhrase:       magnitude is {$value}
-    //
-    // In code -
-    //
-    // const phrases = [
-    //   QuantumBoundStatesFluent.a11y.referenceLine.positionPhrase.format(...),
-    //   QuantumBoundStatesFluent.a11y.referenceLine.potentialEnergyPhrase.format(...)
-    // ];
-    // realPartVisible && phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.realPartPhrase.format(...);
-    // imaginaryPartVisible && phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.imaginaryPartPhrase.format(...);
-    // magnitudeVisible && phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.magnitudePhrase.format(...);
-    // const response = FluentUtils.joinClauses( QuantumBoundStatesFluent.a11y.referenceLine.joinPattern, phrases );
-
-    const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
-      x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
-    } );
-    this.addAccessibleFocusObjectResponse( response );
+    this.addAccessibleFocusObjectResponse( this.describer.getAccessibleObjectResponse() );
   }
 
   /**
    * Adds an accessible response when the handle is moved.
    */
   public describeMoved(): void {
-    const response = QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.format( {
-      x: toFixed( this.referenceLine.xProperty.value, QBSConstants.X_DECIMAL_PLACES )
-    } );
-    this.addAccessibleObjectResponse( response, {
+    this.addAccessibleObjectResponse( this.describer.getAccessibleObjectResponse(), {
       interruptible: true,
       alertDelay: 1000
     } );

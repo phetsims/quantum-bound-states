@@ -948,7 +948,27 @@
         "value": "Move across graphs to set a reference position."
       },
       "accessibleObjectResponse": {
-        "value": "at {$x} nanometers"
+        "joinPattern": {
+          "value": "{$first}, {$second}"
+        },
+        "positionPhrase": {
+          "value": "at {$value} nanometers"
+        },
+        "potentialEnergyPhrase": {
+          "value": "potential energy is {$value}"
+        },
+        "probabilityDensityPhrase": {
+          "value": "probability density is {$value}"
+        },
+        "realPartPhrase": {
+          "value": "real part is {$value}"
+        },
+        "imaginaryPartPhrase": {
+          "value": "imaginary part is {$value}"
+        },
+        "magnitudePhrase": {
+          "value": "magnitude is {$value}"
+        }
       }
     },
     "units": {

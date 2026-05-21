@@ -273,7 +273,13 @@ addToMapIfDefined( 'a11y_magnifier_body_accessibleObjectResponse', 'a11y.magnifi
 addToMapIfDefined( 'a11y_referenceLine_accessibleRoleDescription', 'a11y.referenceLine.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleName', 'a11y.referenceLine.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleHelpText', 'a11y.referenceLine.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse', 'a11y.referenceLine.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_joinPattern', 'a11y.referenceLine.accessibleObjectResponse.joinPatternStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_positionPhrase', 'a11y.referenceLine.accessibleObjectResponse.positionPhraseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_potentialEnergyPhrase', 'a11y.referenceLine.accessibleObjectResponse.potentialEnergyPhraseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_probabilityDensityPhrase', 'a11y.referenceLine.accessibleObjectResponse.probabilityDensityPhraseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_realPartPhrase', 'a11y.referenceLine.accessibleObjectResponse.realPartPhraseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_imaginaryPartPhrase', 'a11y.referenceLine.accessibleObjectResponse.imaginaryPartPhraseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_magnitudePhrase', 'a11y.referenceLine.accessibleObjectResponse.magnitudePhraseStringProperty' );
 addToMapIfDefined( 'a11y_units_electronMasses_accessiblePattern', 'a11y.units.electronMasses.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVolts_accessiblePattern', 'a11y.units.electronVolts.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVoltsPerNanometerSquared_accessiblePattern', 'a11y.units.electronVoltsPerNanometerSquared.accessiblePatternStringProperty' );
@@ -812,7 +818,15 @@ const QuantumBoundStatesFluent = {
       accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleRoleDescription', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleRoleDescriptionStringProperty' ) ),
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleHelpTextStringProperty' ) ),
-      accessibleObjectResponse: new FluentPattern<{ x: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponseStringProperty' ), [{"name":"x"}] )
+      accessibleObjectResponse: {
+        joinPattern: new FluentPattern<{ first: FluentVariable, second: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_joinPattern', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.joinPatternStringProperty' ), [{"name":"first"},{"name":"second"}] ),
+        positionPhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_positionPhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.positionPhraseStringProperty' ), [{"name":"value"}] ),
+        potentialEnergyPhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_potentialEnergyPhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.potentialEnergyPhraseStringProperty' ), [{"name":"value"}] ),
+        probabilityDensityPhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_probabilityDensityPhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.probabilityDensityPhraseStringProperty' ), [{"name":"value"}] ),
+        realPartPhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_realPartPhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.realPartPhraseStringProperty' ), [{"name":"value"}] ),
+        imaginaryPartPhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_imaginaryPartPhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.imaginaryPartPhraseStringProperty' ), [{"name":"value"}] ),
+        magnitudePhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_magnitudePhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.magnitudePhraseStringProperty' ), [{"name":"value"}] )
+      }
     },
     _comment_41: new FluentComment( {"comment":"Units","associatedKey":"units"} ),
     _comment_42: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"units"} ),

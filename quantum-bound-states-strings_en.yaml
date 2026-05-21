@@ -488,8 +488,15 @@ a11y:
   referenceLine:
     accessibleRoleDescription: custom slider
     accessibleName:            Reference Line
-    accessibleHelpText:        Move across graphs to set a reference position.
-    accessibleObjectResponse:  at {$x} nanometers
+    accessibleHelpText: Move across graphs to set a reference position.
+    accessibleObjectResponse:
+      joinPattern:              '{$first}, {$second}'
+      positionPhrase:           at {$value} nanometers
+      potentialEnergyPhrase:    potential energy is {$value}
+      probabilityDensityPhrase: probability density is {$value}
+      realPartPhrase:           real part is {$value}
+      imaginaryPartPhrase:      imaginary part is {$value}
+      magnitudePhrase:          magnitude is {$value}
 
   #=======================================================================================================
   # Units
