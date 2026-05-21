@@ -36,29 +36,31 @@ export default class ReferenceLineDescriber {
     ];
 
     // Add the phrases that conditionally present, based on the selected graph and which plots are visible.
-    if ( this.model.selectedGraphProperty.value === this.model.probabilityDensityGraph ) {
-      phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.probabilityDensityPhrase.format( {
-        value: toFixedNumber( this.model.getProbabilityDensityAt( x ), QBSConstants.PROBABILITY_DENSITY_DECIMAL_PLACES )
-      } ) );
-    }
-    else if ( this.model.selectedGraphProperty.value === this.model.waveFunctionGraph ) {
-
-      if ( this.model.waveFunctionGraph.realPartVisibleProperty.value ) {
-        phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.realPartPhrase.format( {
-          value: toFixedNumber( this.model.getRealPartAt( x ), QBSConstants.REAL_PART_DECIMAL_PLACES )
+    if ( this.model.curvesVisibleProperty.value ) {
+      if ( this.model.selectedGraphProperty.value === this.model.probabilityDensityGraph ) {
+        phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.probabilityDensityPhrase.format( {
+          value: toFixedNumber( this.model.getProbabilityDensityAt( x ), QBSConstants.PROBABILITY_DENSITY_DECIMAL_PLACES )
         } ) );
       }
+      else if ( this.model.selectedGraphProperty.value === this.model.waveFunctionGraph ) {
 
-      if ( this.model.waveFunctionGraph.imaginaryPartVisibleProperty.value ) {
-        phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.imaginaryPartPhrase.format( {
-          value: toFixedNumber( this.model.getImaginaryPartAt( x ), QBSConstants.IMAGINARY_PART_DECIMAL_PLACES )
-        } ) );
-      }
+        if ( this.model.waveFunctionGraph.realPartVisibleProperty.value ) {
+          phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.realPartPhrase.format( {
+            value: toFixedNumber( this.model.getRealPartAt( x ), QBSConstants.REAL_PART_DECIMAL_PLACES )
+          } ) );
+        }
 
-      if ( this.model.waveFunctionGraph.magnitudeVisibleProperty.value ) {
-        phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.magnitudePhrase.format( {
-          value: toFixedNumber( this.model.getMagnitudeAt( x ), QBSConstants.MAGNITUDE_DECIMAL_PLACES )
-        } ) );
+        if ( this.model.waveFunctionGraph.imaginaryPartVisibleProperty.value ) {
+          phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.imaginaryPartPhrase.format( {
+            value: toFixedNumber( this.model.getImaginaryPartAt( x ), QBSConstants.IMAGINARY_PART_DECIMAL_PLACES )
+          } ) );
+        }
+
+        if ( this.model.waveFunctionGraph.magnitudeVisibleProperty.value ) {
+          phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.magnitudePhrase.format( {
+            value: toFixedNumber( this.model.getMagnitudeAt( x ), QBSConstants.MAGNITUDE_DECIMAL_PLACES )
+          } ) );
+        }
       }
     }
 
