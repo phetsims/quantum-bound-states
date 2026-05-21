@@ -9,16 +9,16 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
+import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareWidthHandleNode from './FiniteSquareWidthHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
-export default class FiniteSquareWidthDragListener extends PotentialDragListener<InfiniteSquarePotential> {
+export default class FiniteSquareWidthDragListener extends PotentialDragListener<FiniteSquarePotential> {
 
   public constructor( handleNode: FiniteSquareWidthHandleNode,
-                      potential: InfiniteSquarePotential,
+                      potential: FiniteSquarePotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       parentTandem: Tandem ) {

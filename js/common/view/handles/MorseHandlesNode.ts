@@ -8,7 +8,7 @@
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
+import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
@@ -18,7 +18,7 @@ import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class MorseHandlesNode extends PotentialHandlesNode {
 
-  public constructor( potential: AsymmetricTrianglePotential,
+  public constructor( potential: MorsePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
