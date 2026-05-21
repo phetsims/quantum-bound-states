@@ -21,7 +21,6 @@ import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import XGrid from '../XGrid.js';
-import hermitePolynomial from './hermitePolynomial.js';
 
 const HBAR = NumerovSolver.HBAR;
 
@@ -113,7 +112,7 @@ export default class HarmonicOscillatorSolution {
 
       for ( const x of xGrid.xCoordinates ) {
         const xi = alpha * ( x - xOffset );
-        const hermite = hermitePolynomial( n, xi );
+        const hermite = HarmonicOscillatorSolution.hermitePolynomial( n, xi );
         const value = normalization * Math.exp( ( -xi * xi ) / 2 ) * hermite;
         waveFunction.push( value );
       }
@@ -135,5 +134,23 @@ export default class HarmonicOscillatorSolution {
       waveFunctions: waveFunctions,
       method: 'analytical'
     };
+  }
+
+  /**
+   * Calculates the Hermite polynomial H_n(x) using the recurrence relation:
+   * H_0(x) = 1, H_1(x) = 2x, H_{n+1}(x) = 2x·H_n(x) − 2n·H_{n−1}(x)
+   */
+  private static hermitePolynomial( n: number, x: number ): number {
+    if ( n === 0 ) { return 1; }
+    if ( n === 1 ) { return 2 * x; }
+
+    let hPrev = 1;
+    let hCurr = 2 * x;
+    for ( let i = 1; i < n; i++ ) {
+      const hNext = 2 * x * hCurr - 2 * i * hPrev;
+      hPrev = hCurr;
+      hCurr = hNext;
+    }
+    return hCurr;
   }
 }
