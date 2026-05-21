@@ -492,7 +492,7 @@ a11y:
     accessibleObjectResponse:
       joinPattern:              '{$first}, {$second}'
       positionPhrase:           at {$value} nanometers
-      potentialEnergyPhrase:    potential energy is {$value}
+      potentialEnergyPhrase:    potential energy is {$value} electron volts
       probabilityDensityPhrase: probability density is {$value}
       realPartPhrase:           real part is {$value}
       imaginaryPartPhrase:      imaginary part is {$value}

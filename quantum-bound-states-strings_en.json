@@ -955,7 +955,7 @@
           "value": "at {$value} nanometers"
         },
         "potentialEnergyPhrase": {
-          "value": "potential energy is {$value}"
+          "value": "potential energy is {$value} electron volts"
         },
         "probabilityDensityPhrase": {
           "value": "probability density is {$value}"
