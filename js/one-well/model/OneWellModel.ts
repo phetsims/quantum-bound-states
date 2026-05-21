@@ -121,8 +121,8 @@ export default class OneWellModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        xOffsetRange: xOffsetRange,
-        yOffsetRange: new RangeWithValue( -3, 3, -2 ),
+        xOffsetRange: new RangeWithValue( -3, 3, -2 ),
+        yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'morsePotential' )
       } ),
       new CoulombPotential( {
