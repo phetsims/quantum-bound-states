@@ -95,7 +95,7 @@ export default class InfiniteStepSolution {
     };
   }
 
-  //TODO https://github.com/phetsims/quantum-bound-states/issues/43 What is "the lab frame"?
+  //TODO Document "the lab frame"
   /**
    * Analytical solution for a single-well Infinite Step potential.
    *

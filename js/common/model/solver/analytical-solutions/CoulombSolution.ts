@@ -101,7 +101,7 @@ export default class CoulombSolution {
     };
   }
 
-  //TODO https://github.com/phetsims/quantum-bound-states/issues/43 What is "the lab frame"?
+  //TODO Document "the lab frame"
   /**
    * Analytical solution for a single-well 1D Coulomb potential.
    *
