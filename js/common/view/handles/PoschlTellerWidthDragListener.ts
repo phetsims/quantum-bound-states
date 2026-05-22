@@ -50,7 +50,7 @@ export default class PoschlTellerWidthDragListener extends PotentialDragListener
 
         // Update the Property.
         const deltaWidth = 2 * ( chartTransform.viewToModelDeltaX( listener.modelDelta.x ) / potential.numberOfWellsProperty.value );
-        wellWidthProperty.value = wellWidthProperty.range.constrainValue( wellWidthProperty.value + deltaWidth );
+        wellWidthProperty.value = wellWidthProperty.range.constrainValue( previousWellWidth + deltaWidth );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( wellWidthProperty.value, previousWellWidth );

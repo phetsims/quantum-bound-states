@@ -51,7 +51,7 @@ export default class MorseDepthDragListener extends PotentialDragListener<MorseP
 
         // Update the Property.
         const deltaDepth = chartTransform.viewToModelDeltaY( -listener.modelDelta.y ); // Negative because depth is downward for Morse.
-        wellDepthProperty.value = wellDepthProperty.range.constrainValue( wellDepthProperty.value + deltaDepth );
+        wellDepthProperty.value = wellDepthProperty.range.constrainValue( previousWellDepth + deltaDepth );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( wellDepthProperty.value, previousWellDepth );
