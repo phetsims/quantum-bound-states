@@ -90,7 +90,12 @@ export default class NumerovIntegrator {
       psi[ 0 ] = 0;
       const i = 1;
       if ( k2[ i ] >= 0 ) {
-        psi[ i ] = psiScale * Math.sin( Math.sqrt( k2[ i ] ) * dx );
+        const kx = Math.sqrt( k2[ i ] ) * dx;
+
+        // When k²=0 (energy equals local potential exactly), sin(0)=0 collapses the seed to zero
+        // and the entire integration stays at zero. Fall back to psiScale so the wave function
+        // propagates as a linear function, which is the correct behaviour for k²=0.
+        psi[ i ] = kx > 0 ? psiScale * Math.sin( kx ) : psiScale;
       }
       else {
         // Clamp the exponent so steep repulsive walls like Morse do not underflow the seed to zero.
@@ -102,7 +107,8 @@ export default class NumerovIntegrator {
       psi[ N - 1 ] = 0;
       const i = N - 2;
       if ( k2[ i ] >= 0 ) {
-        psi[ i ] = psiScale * Math.sin( Math.sqrt( k2[ i ] ) * dx );
+        const kx = Math.sqrt( k2[ i ] ) * dx;
+        psi[ i ] = kx > 0 ? psiScale * Math.sin( kx ) : psiScale;
       }
       else {
         const kappa = Math.sqrt( Math.abs( k2[ i ] ) );

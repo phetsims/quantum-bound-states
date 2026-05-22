@@ -394,7 +394,15 @@ function testFiniteSquare(): void {
   const mass = ELECTRON_MASSES; // electron masses
   const L = 2;  // 2 nm well width
   const V0 = 10;  // 10 eV well depth
-  const potential = ( x: number ) => Math.abs( x ) < L / 2 ? -V0 : 0;
+  const yOffset = -V0; // well bottom, with the outside barrier at 0 eV
+  const potential = FiniteSquareSolution.createPotentialFunction( {
+    numberOfWells: 1,
+    xOffset: 0,
+    yOffset: yOffset,
+    wellWidth: L,
+    wellDepth: V0,
+    electricField: 0
+  } );
 
   // Grid extends beyond the well to capture evanescent tails
   const xGrid = new XGrid( {
@@ -405,8 +413,8 @@ function testFiniteSquare(): void {
   } );
 
   // Bound states have energies between -V0 and 0
-  const energyMin = -V0;
-  const energyMax = 0;
+  const energyMin = yOffset;
+  const energyMax = yOffset + V0;
 
   // Get numerical solution
   const numericalResult = NumerovSolver.solve( xGrid, potential, mass, energyMin, energyMax );
@@ -417,7 +425,7 @@ function testFiniteSquare(): void {
     energyMin: energyMin,
     energyMax: energyMax,
     xOffset: 0,
-    yOffset: 0,
+    yOffset: yOffset,
     wellWidth: L,
     wellDepth: V0,
     electronMasses: mass,
@@ -469,6 +477,64 @@ function testFiniteSquare(): void {
   }
 
   logSummary( `Finite Square - Max energy error: ${toFixed( maxRelativeError * 100, 4 )}%, Max WF RMS: ${toFixed( maxWFError * 100, 3 )}%` );
+}
+
+/**
+ * Regression test for node-count bracketing in multiple separated finite square wells.
+ */
+function testMultipleFiniteSquareWells(): void {
+
+  const mass = ELECTRON_MASSES; // electron masses
+  const numberOfWells = 5;
+  const wellWidth = 0.5; // nm
+  const wellDepth = 10; // eV
+  const separation = 0.1; // nm, distance between walls of adjacent wells
+  const yOffset = 0; // eV
+
+  const potential = ( x: number ): number => {
+    const wellCenterSpacing = wellWidth + separation;
+    let energy = yOffset + wellDepth;
+
+    for ( let i = 1; i <= numberOfWells; i++ ) {
+      const xi = wellCenterSpacing * ( i - ( ( numberOfWells + 1 ) / 2 ) );
+      if ( x >= xi - wellWidth / 2 && x <= xi + wellWidth / 2 ) {
+        energy = yOffset;
+        break;
+      }
+    }
+
+    return energy;
+  };
+
+  const xGrid = new XGrid( {
+    xMin: -3.5,
+    xMax: 3.5,
+    numberOfPoints: 3001,
+    tandem: Tandem.OPT_OUT
+  } );
+
+  const result = NumerovSolver.solve( xGrid, potential, mass, yOffset, yOffset + wellDepth );
+  const expectedStates = 15;
+
+  logVerbose( `\nMultiple Finite Square Wells - Found ${result.energies.length} numerical states` );
+
+  const tableRows = [];
+  for ( let i = 0; i < result.energies.length; i++ ) {
+    tableRows.push( [ i, toFixed( result.energies[ i ], 4 ) ] );
+  }
+  logVerbose( formatTable( tableRows, [ 'State', 'Energy (eV)' ] ) );
+
+  affirm( result.energies.length === expectedStates,
+    `Multiple Finite Square Wells: Found ${result.energies.length} states, expected ${expectedStates}` );
+  affirm( result.energies[ 0 ] < 1.5,
+    `Multiple Finite Square Wells: Ground state should be in the first band, got ${toFixed( result.energies[ 0 ], 4 )} eV` );
+
+  for ( let i = 1; i < result.energies.length; i++ ) {
+    affirm( result.energies[ i ] > result.energies[ i - 1 ] + 1e-4,
+      `Multiple Finite Square Wells: Energies ${i - 1} and ${i} should be distinct and increasing` );
+  }
+
+  logSummary( `Multiple Finite Square Wells - Found ${result.energies.length} distinct states` );
 }
 
 /**
@@ -761,6 +827,7 @@ export function testSolvers(): void {
   testHarmonicOscillator();
   testInfiniteSquare();
   testFiniteSquare();
+  testMultipleFiniteSquareWells();
   testMorsePotential();
   testInfiniteStep();
   testWaveFunctionNormalization();
