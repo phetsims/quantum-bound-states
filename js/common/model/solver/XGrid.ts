@@ -94,6 +94,7 @@ export default class XGrid extends PhetioObject {
   }
 }
 
+//TODO Verify that this is correct, refine further if necessary.
 /**
  * Finds the index of the element in a sorted array closest to a target value.
  * @param array - Sorted array of numbers (lowest to highest).
@@ -103,38 +104,33 @@ export default class XGrid extends PhetioObject {
  */
 function findClosestIndex( array: readonly number[], targetValue: number ): number {
   affirm( array.length > 0, 'Array must have at least one element' );
+  affirm( targetValue >= array[ 0 ] && targetValue <= array[ array.length - 1 ], `Target value out of range: ${targetValue}` );
 
-  let low = 0;
-  let high = array.length - 1;
-
-  // Early exits for targets outside the array range
-  if ( targetValue <= array[ low ] ) {
-    return low;
-  }
-  if ( targetValue >= array[ high ] ) {
-    return high;
-  }
+  let lowIndex = 0;
+  let highIndex = array.length - 1;
 
   // Binary search to narrow down the range
-  while ( low <= high ) {
-    const middle = Math.floor( ( low + high ) / 2 );
+  while ( lowIndex <= highIndex ) {
+    const middleIndex = Math.floor( ( lowIndex + highIndex ) / 2 );
 
-    if ( array[ middle ] === targetValue ) {
-      return middle;
+    if ( array[ middleIndex ] === targetValue ) {
+      //TODO Multiple returns and returning from the middle of a loop is not recommended.
+      //TODO Consider setting both lowIndex and highIndex to middleIndex.
+      return middleIndex;
     }
 
-    if ( targetValue < array[ middle ] ) {
-      high = middle - 1;
+    if ( targetValue < array[ middleIndex ] ) {
+      highIndex = middleIndex - 1;
     }
     else {
-      low = middle + 1;
+      lowIndex = middleIndex + 1;
     }
   }
 
   // After the loop, the closest value is either at 'high' or 'low'
   // Compare differences to return the correct index
-  const diffLow = Math.abs( array[ low ] - targetValue );
-  const diffHigh = Math.abs( array[ high ] - targetValue );
+  const diffLow = Math.abs( array[ lowIndex ] - targetValue );
+  const diffHigh = Math.abs( array[ highIndex ] - targetValue );
 
-  return diffLow < diffHigh ? low : high;
+  return ( diffLow < diffHigh ) ? lowIndex : highIndex;
 }
