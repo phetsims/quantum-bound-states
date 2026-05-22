@@ -35,12 +35,12 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
 
-      // Adjust drag bounds for xOffset.
+      // Adjust drag bounds for xOffset. The handle is on the left wall, so mirror the right-wall bounds.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
         xOffset => new Bounds2(
-          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min ),
+          chartTransform.modelToViewX( xOffset - wellWidthProperty.range.max ),
           energyDiagramRectangleBounds.minY,
-          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.max ),
+          chartTransform.modelToViewX( xOffset - wellWidthProperty.range.min ),
           energyDiagramRectangleBounds.maxY ) ),
 
       drag: ( event, listener ) => {
@@ -48,9 +48,9 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
         // Remember the Property's previous value for sound feedback.
         const previousWellWidth = wellWidthProperty.value;
 
-        // Update the Property.
-        //TODO This is not working, something to do with the drag handle being on the left wall.
-        const deltaWidth = 2 * chartTransform.viewToModelDeltaX( listener.modelDelta.x );
+        // Update the Property. The handle is on the left wall (xOffset - wellWidth/2), so invert the sign used
+        // by right-wall width handles (xOffset + wellWidth/2).
+        const deltaWidth = -2 * chartTransform.viewToModelDeltaX( listener.modelDelta.x );
         wellWidthProperty.value = wellWidthProperty.range.clampValue( wellWidthProperty.value + deltaWidth );
 
         // Play sound to communicate how the Property changed.
