@@ -2,8 +2,8 @@
 
 /**
  * NumerovSolver orchestrates the solution of the 1D Time-Independent Schrödinger Equation (TISE)
- * using the Numerov method. This is the main solver class that coordinates the integration,
- * energy refinement, and normalization components.
+ * on a finite, uniformly spaced grid. It coordinates Numerov integration, node-count bracketing,
+ * eigenvalue refinement, wave-function stitching, and normalization.
  *
  * Architecture:
  * - NumerovIntegrator: Handles forward and backward integration
@@ -12,16 +12,16 @@
  *
  * The TISE is: -ℏ²/(2m) d²ψ/dx² + V(x)ψ = Eψ
  *
- * Eigenvalues are localized by **node counting** (Sturm–Liouville oscillation theorem): the
- * forward solution ψ_L for a trial energy E has exactly k interior nodes when E_k < E < E_{k+1}.
- * Bisecting on the integer node count produces a guaranteed bracket for state n that is robust to
- * arbitrarily clustered eigenvalues — every requested state is found regardless of scan resolution.
+ * Eigenvalues are localized by **node counting** (Sturm-Liouville oscillation theorem): the
+ * forward solution ψ_L for a trial energy E has exactly k interior nodes when E_k < E < E_{k+1}
+ * for the finite-grid Dirichlet problem. Bisecting on this integer node count isolates each state
+ * by index, so closely spaced multi-well levels do not depend on fixed energy sampling.
  *
  * The bracket is then refined to the eigenvalue using a **log-derivative mismatch** at the
- * meeting point m: (ψ_L'/ψ_L)|_m − (ψ_R'/ψ_R)|_m, multiplied through by ψ_L·ψ_R so it remains
- * bounded when ψ has a node at m. Each side is rescaled to its peak amplitude before forming the
- * mismatch so the magnitude is O(1) regardless of exponential growth in classically forbidden
- * regions.
+ * middle grid point m: (ψ_L'/ψ_L)|_m - (ψ_R'/ψ_R)|_m, multiplied through by ψ_L·ψ_R so it
+ * remains bounded when ψ has a node at m. Each side is rescaled to its peak amplitude before
+ * forming the mismatch so the magnitude is O(1) even when a trial solution grows exponentially in
+ * classically forbidden regions.
  *
  * @author Martin Veillette
  */
@@ -39,18 +39,11 @@ import XGrid from './XGrid.js';
  */
 export type NumerovSolverOptions = {
 
-  // Optional tolerance for energy refinement (eV). If not provided, uses relative tolerance × (bracket width)
+  // Optional absolute tolerance for energy refinement (eV). If omitted, EnergyRefiner uses its default relative tolerance.
   energyTolerance?: number;
 
   // Method for normalization (default: 'trapezoidal')
   normalizationMethod?: NormalizationMethod;
-
-  /**
-   * @deprecated Eigenvalue clustering is now handled by node-count bracketing, which guarantees
-   * every state in [energyMin, energyMax] is found regardless of spacing. Retained on the type so
-   * existing callers keep compiling; ignored at runtime.
-   */
-  energyScanPoints?: number[];
 };
 
 /**
@@ -67,8 +60,8 @@ export default class NumerovSolver {
   // Computed as: 1.054571817e-34 / (1e-9 * sqrt(9.1093837015e-31 * 1.602176634e-19))
   public static readonly HBAR = 0.2760428268035944;
 
-  // Positive barriers above this are effectively infinite for the energy ranges in this sim, but
-  // keeping them finite avoids Numerov overflow in steep potentials such as Morse.
+  // Positive barriers above this are effectively infinite for the energy ranges in this sim.
+  // Keeping them finite avoids overflow in Numerov factors for steep potentials such as Morse.
   private static readonly MAX_SOLVER_POTENTIAL_ENERGY = QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY; // in eV
 
   // Relative threshold for detecting a node of psi at the matching point.
@@ -81,8 +74,9 @@ export default class NumerovSolver {
   // 60 halvings shrink any bracket by ~10^18, far below floating-point relative resolution.
   private static readonly MAX_NODE_BISECTION_ITERATIONS = 60;
 
-  // Stop node-count bisection when the bracket is this small relative to the initial bracket
-  // width and contains only the requested state. The EnergyRefiner takes over from there.
+  // Stop node-count bisection when the bracket is this small relative to the initial energy
+  // window and the upper endpoint has crossed only the requested state. The EnergyRefiner then
+  // uses the continuous log-derivative mismatch within that bracket.
   private static readonly NODE_BRACKET_RELATIVE_TOLERANCE = 1e-3;
 
   /**
@@ -94,7 +88,7 @@ export default class NumerovSolver {
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
    * @param options - Optional solver configuration
-   * @returns Bound state results
+   * @returns Bound state results on xGrid
    */
   public static solve(
     xGrid: XGrid,
@@ -109,7 +103,7 @@ export default class NumerovSolver {
   }
 
   /**
-   * Solve for a single eigenstate by index (0 = ground state).
+   * Solve for a single eigenstate by index (0 = ground state for the finite-grid problem).
    * Uses node-count bisection to bracket E_n, then refines via the log-derivative mismatch.
    * Returns null when state n does not exist within [energyMin, energyMax].
    *
@@ -139,7 +133,7 @@ export default class NumerovSolver {
   private readonly normalizer: WaveFunctionNormalizer;
 
   /**
-   * @param mass - Particle mass in kg
+   * @param mass - Particle mass in electron masses
    * @param options - Optional solver configuration
    */
   public constructor( mass: number, options?: NumerovSolverOptions ) {
@@ -158,7 +152,7 @@ export default class NumerovSolver {
 
   /**
    * Solves the 1D Schrödinger equation using the Numerov method.
-   * Finds every bound state within the energy bounds.
+   * Returns all states detected by node count within the finite-grid energy bounds.
    *
    * @param potential - Function V(x) that returns potential energy in eV
    * @param xGrid - uniformly spaced x-coordinates in nm
@@ -167,18 +161,13 @@ export default class NumerovSolver {
    * @returns Bound state results containing energies, wave functions, and grid
    *
    * @example
-   * // Solve harmonic oscillator
+   * // Solve harmonic oscillator, assuming xGrid is an XGrid instance.
    * const mass = 1;  // electron masses
    * const k = 3; // arbitrary spring constant, eV/nm²
    * const potential = ( x: number ) => 0.5 * k * x * x;
    *
    * const solver = new NumerovSolver( mass );
-   * const result = solver.getBoundStateResult(
-   *   potential,
-   *   { xMin: -4, xMax: 4, numPoints: 1001 }, // nm
-   *   0,
-   *   20
-   * );
+   * const result = solver.getBoundStateResult( potential, xGrid, 0, 20 );
    *
    * console.log( 'Ground state energy:', result.energies[ 0 ] );
    * console.log( 'First excited energy:', result.energies[ 1 ] );
@@ -203,7 +192,7 @@ export default class NumerovSolver {
 
   /**
    * Solve for a single eigenstate by index. See the static overload for parameter documentation.
-   * Returns null when state stateIndex is not in [energyMin, energyMax].
+   * Returns null when state stateIndex is not detected in [energyMin, energyMax].
    */
   public getEigenstate(
     potential: PotentialFunction,
@@ -234,10 +223,10 @@ export default class NumerovSolver {
    *   1. Count interior nodes of ψ_L at energyMin and energyMax. By Sturm–Liouville, this gives
    *      the inclusive index of the lowest state and the exclusive index of the highest state in
    *      the energy window.
-   *   2. For each state index in that range, bisect on the integer node count to bracket E_n.
-   *   3. Refine the bracket to the eigenvalue using the log-derivative mismatch at the meeting
-   *      point.
-   *   4. Stitch ψ_L and ψ_R at the meeting point to form the final wave function and normalize.
+   *   2. For each state index in that range, bisect on the integer node count to isolate E_n.
+   *   3. Refine the bracket to the eigenvalue using the log-derivative mismatch at the middle
+   *      grid point.
+   *   4. Stitch ψ_L and ψ_R at the middle grid point to form the final wave function and normalize.
    */
   private findBoundStates(
     V: number[],
@@ -249,7 +238,7 @@ export default class NumerovSolver {
     const meetingIndex = this.getMeetingPointIndex( V );
     const mismatch = this.makeLogDerivativeMismatch( V, xGrid, meetingIndex );
 
-    // States E_n with n in [lowestStateIndex, highestStateIndexExclusive) lie in (energyMin, energyMax).
+    // States E_n with n in [lowestStateIndex, highestStateIndexExclusive) lie in the requested energy window.
     const lowestStateIndex = this.countNodesAtEnergy( energyMin, V, xGrid );
     const highestStateIndexExclusive = this.countNodesAtEnergy( energyMax, V, xGrid );
 
@@ -269,7 +258,7 @@ export default class NumerovSolver {
   }
 
   /**
-   * Number of interior nodes of ψ_L for trial energy E. By the Sturm–Liouville oscillation
+   * Number of interior nodes of ψ_L for trial energy E. By the Sturm-Liouville oscillation
    * theorem, this is also the index of the highest eigenstate strictly below E.
    */
   private countNodesAtEnergy( energy: number, V: number[], xGrid: XGrid ): number {
@@ -321,13 +310,13 @@ export default class NumerovSolver {
 
   /**
    * Build a mismatch function for use by the EnergyRefiner. At an eigenvalue, ψ_L and ψ_R have a
-   * common log-derivative at the meeting point: (ψ_L'/ψ_L)|_m = (ψ_R'/ψ_R)|_m. The returned
+   * common log-derivative at the midpoint: (ψ_L'/ψ_L)|_m = (ψ_R'/ψ_R)|_m. The returned
    * function is
    *
-   *     f(E) = (slopeLeft·valueRight − slopeRight·valueLeft)
+   *     f(E) = (slopeLeft·valueRight - slopeRight·valueLeft)
    *
    * which is the log-derivative difference multiplied through by ψ_L(m)·ψ_R(m) — equivalent at
-   * roots, but bounded when ψ has a node at the meeting point (avoiding 1/0). Each side is
+   * roots, but bounded when ψ has a node at the midpoint (avoiding 1/0). Each side is
    * rescaled by its peak amplitude beforehand so the mismatch has O(1) magnitude regardless of
    * the exponential scaling that arises when integrating across classically forbidden regions.
    * Centered finite differences give the slope to O(dx²) accuracy.
@@ -356,7 +345,7 @@ export default class NumerovSolver {
   }
 
   /**
-   * Integrate from both ends, stitch at the meeting point, and normalize.
+   * Integrate from both ends, stitch at the midpoint, and normalize.
    */
   private computeWaveFunction(
     energy: number,
@@ -371,7 +360,7 @@ export default class NumerovSolver {
   }
 
   /**
-   * Count zero crossings of psi in the interior (indices 1 … N-2).
+   * Count zero crossings of psi in the interior (indices 1 ... N-2).
    *
    * Do not use a global amplitude threshold here. Trial solutions can grow by many orders of
    * magnitude after crossing a forbidden barrier, especially for multiple separated wells. A
@@ -396,55 +385,11 @@ export default class NumerovSolver {
 
   /**
    * Grid index m where the left (forward) and right (backward) solutions meet for matching.
-   * ψ_L is used for indices i ≤ m; ψ_R is scaled for i > m. The mismatch is formed at m.
-   *
-   * Groups global-minimum indices into contiguous clusters. For a single flat-bottomed well the
-   * cluster centroid is used (original behaviour). For multiple separated minima (e.g., double-well
-   * or triple-well) the cluster centroid closest to the grid midpoint is chosen, avoiding the
-   * saddle point between wells that the naïve average of all minimum indices would produce.
-   * Any cluster centroid is in the classically allowed region for all bound states, because each
-   * cluster has the globally lowest potential value.
+   * The midpoint keeps matching independent of the potential shape: ψ_L is used for indices
+   * i ≤ m; ψ_R is scaled for i > m. The mismatch is formed at m.
    */
   private getMeetingPointIndex( V: number[] ): number {
-    const N = V.length;
-
-    let vMin = V[ 0 ];
-    for ( let i = 1; i < N; i++ ) {
-      if ( V[ i ] < vMin ) {
-        vMin = V[ i ];
-      }
-    }
-
-    type Cluster = { first: number; last: number };
-    const clusters: Cluster[] = [];
-    for ( let i = 0; i < N; i++ ) {
-      if ( V[ i ] === vMin ) {
-        if ( clusters.length === 0 || i !== clusters[ clusters.length - 1 ].last + 1 ) {
-          clusters.push( { first: i, last: i } );
-        }
-        else {
-          clusters[ clusters.length - 1 ].last = i;
-        }
-      }
-    }
-
-    if ( clusters.length <= 1 ) {
-      const cluster = clusters[ 0 ];
-      return Math.floor( ( cluster.first + cluster.last ) / 2 );
-    }
-
-    const gridMidpoint = ( N - 1 ) / 2;
-    let best = clusters[ 0 ];
-    let bestDist = Math.abs( Math.floor( ( best.first + best.last ) / 2 ) - gridMidpoint );
-    for ( let c = 1; c < clusters.length; c++ ) {
-      const clusterMid = Math.floor( ( clusters[ c ].first + clusters[ c ].last ) / 2 );
-      const dist = Math.abs( clusterMid - gridMidpoint );
-      if ( dist < bestDist ) {
-        bestDist = dist;
-        best = clusters[ c ];
-      }
-    }
-    return Math.floor( ( best.first + best.last ) / 2 );
+    return Math.floor( ( V.length - 1 ) / 2 );
   }
 
   /**
@@ -483,9 +428,9 @@ export default class NumerovSolver {
     else {
 
       // psiR has a node at the meeting point. Determine the relative sign of psiL and psiR by
-      // searching backward from meetingPointIndex − 1 for the nearest index where both are
+      // searching backward from meetingPointIndex - 1 for the nearest index where both are
       // significant. Searching beyond the immediate neighbor is necessary when consecutive nodes
-      // happen to fall close together and psiR[meetingPointIndex − 1] is also near zero.
+      // happen to fall close together and psiR[meetingPointIndex - 1] is also near zero.
       const psiRMaxAbs = psiR.reduce( ( m, v ) => Math.max( m, Math.abs( v ) ), 0 );
       const psiLMaxAbs = psiL.reduce( ( m, v ) => Math.max( m, Math.abs( v ) ), 0 );
       const threshR = NumerovSolver.RELATIVE_NODE_TOLERANCE * psiRMaxAbs;

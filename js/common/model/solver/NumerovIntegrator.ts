@@ -1,16 +1,21 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * NumerovIntegrator integrates the Schrödinger equation using the Numerov method.
- * Uses the higher-order Numerov formula with O(h^6) error.
+ * NumerovIntegrator integrates trial solutions of the 1D Schrödinger equation on a uniform
+ * position grid using the Numerov recurrence.
  *
  * The Numerov formula is:
  * ψ_(j+1) = [(2 - 10f_j)ψ_j - (1+f_(j-1))ψ_(j-1)] / (1+f_(j+1))
  * where f_j = (h²/12) k²(x_j) and k²(x) = 2m(E - V(x))/ℏ²
  *
- * **Forward integration** (increasing grid index j): start from x_min, use the recurrence above to
- * obtain ψ at larger x. **Backward integration** (decreasing j): start from x_max, use the
+ * **Forward integration** (increasing grid index j): start from x_min, seed the first interior
+ * point, and use the recurrence above to obtain ψ at larger x. **Backward integration**
+ * (decreasing j): start from x_max, seed the first interior point from that end, and use the
  * algebraically equivalent recurrence solved for ψ_(j-1) so ψ is filled toward smaller x.
+ *
+ * Each sweep may rescale the already-computed segment by a positive constant if its amplitude
+ * becomes very large. This prevents overflow while preserving node count, log-derivative matching,
+ * and final normalized wave-function shape.
  *
  * See https://arxiv.org/abs/2203.15262 or similar references for details.
  *
@@ -23,6 +28,9 @@ import XGrid from './XGrid.js';
 
 const RESCALE_TRIGGER = 1e100;
 const RESCALE_TARGET = 1e50;
+
+// Clamp forbidden-region boundary seeds so steep repulsive walls do not underflow the initial
+// amplitude to zero and collapse the recurrence.
 const MAX_FORBIDDEN_SEED_EXPONENT = 50;
 
 export default class NumerovIntegrator {
@@ -37,10 +45,11 @@ export default class NumerovIntegrator {
   }
 
   /**
-   * Integrate the Schrödinger equation using Numerov, sweeping **forward in x** (left → right):
-   * grid indices j = 0,1,…,N-1 correspond to increasing x, and ψ is stepped from x_min toward x_max.
+   * Integrate the Schrödinger equation using Numerov, sweeping **forward in x** (left to right):
+   * grid indices j = 0, 1, ..., N-1 correspond to increasing x, and ψ is stepped from x_min
+   * toward x_max.
    *
-   * @param E - Energy eigenvalue to test (eV)
+   * @param E - Trial energy (eV)
    * @param V - Potential energy array (eV) corresponding to xGrid points
    * @param xGrid - grid of x-coordinates with uniform spacing (nm)
    * @returns Wave function array
@@ -49,17 +58,17 @@ export default class NumerovIntegrator {
     const N = xGrid.numberOfPoints;
     const dx = xGrid.dx;
 
-    // Validate that V array matches grid length
+    // Validate that V array matches grid length.
     affirm( V.length === N, `V.length (${V.length}) must equal grid.getLength() (${N})` );
 
-    // Initialize the wave function array
+    // Initialize the wave function array.
     const psi = new Array( N ).fill( 0 );
 
-    // Calculate k²(x) and Numerov factors
+    // Calculate k²(x) and Numerov factors.
     const k2 = this.calculateK2( E, V );
     const f = this.calculateNumerovFactors( k2, dx );
 
-    // ψ = 0 at x_min; seed ψ₁, then Numerov sweep with increasing index (x_min → x_max).
+    // ψ = 0 at x_min; seed ψ₁, then Numerov sweep with increasing index (x_min to x_max).
     this.setBoundaryConditions( psi, k2, dx, N, 'left' );
     this.integrateForwardOnGrid( psi, f );
 
@@ -68,7 +77,8 @@ export default class NumerovIntegrator {
 
   /**
    * Set ψ = 0 at one domain end and seed the first interior point from that end.
-   * Uses domain size L = N·dx only for scale (not assuming symmetry or a match location).
+   * The seed scale is arbitrary because the solver later normalizes or compares ratios, but it
+   * must be finite and nonzero for the recurrence to propagate.
    *
    * @param psi - Wave function array (modified in place)
    * @param k2 - Array of k² values
@@ -92,7 +102,7 @@ export default class NumerovIntegrator {
       if ( k2[ i ] >= 0 ) {
         const kx = Math.sqrt( k2[ i ] ) * dx;
 
-        // When k²=0 (energy equals local potential exactly), sin(0)=0 collapses the seed to zero
+        // When k² = 0 (energy equals local potential exactly), sin(0)=0 collapses the seed to zero
         // and the entire integration stays at zero. Fall back to psiScale so the wave function
         // propagates as a linear function, which is the correct behaviour for k²=0.
         psi[ i ] = kx > 0 ? psiScale * Math.sin( kx ) : psiScale;
@@ -118,14 +128,14 @@ export default class NumerovIntegrator {
   }
 
   /**
-   * Integrate using Numerov, sweeping **backward in x** (right → left): grid indices decrease
+   * Integrate using Numerov, sweeping **backward in x** (right to left): grid indices decrease
    * from the high-x end, equivalent to the forward recurrence solved for ψ_(j-1):
    * ψ_(j-1) = [(2 - 10f_j)ψ_j - (1 + f_(j+1))ψ_(j+1)] / (1 + f_(j-1)).
    *
    * Boundary: ψ(x_max) = 0 with ψ(x_{N-2}) seeded like the forward case at the opposite end.
-   * Used in the matching method to limit blow-up in the right-side classically forbidden region.
+   * Used with the forward solution for midpoint matching.
    *
-   * @param E - Energy eigenvalue to test (eV)
+   * @param E - Trial energy (eV)
    * @param V - Potential energy array (eV)
    * @param xGrid - grid of x-coordinates with uniform spacing (nm)
    * @returns ψ at all grid points in left-to-right order (filled from x_max inward)
@@ -140,7 +150,7 @@ export default class NumerovIntegrator {
     const k2 = this.calculateK2( E, V );
     const f = this.calculateNumerovFactors( k2, dx );
 
-    // ψ = 0 at x_max; seed ψ_{N-2}, then Numerov sweep with decreasing index (x_max → x_min).
+    // ψ = 0 at x_max; seed ψ_{N-2}, then Numerov sweep with decreasing index (x_max to x_min).
     this.setBoundaryConditions( psi, k2, dx, N, 'right' );
     this.integrateBackwardOnGrid( psi, f );
 
@@ -162,8 +172,8 @@ export default class NumerovIntegrator {
   }
 
   /**
-   * Apply the Numerov recurrence **forward in x**: for j = 1,…,N-2 compute ψ_(j+1) from ψ_j and ψ_(j-1).
-   * Requires left-end boundary already set (ψ₀, ψ₁) via setBoundaryConditions(…, 'left').
+   * Apply the Numerov recurrence **forward in x**: for j = 1, ..., N-2 compute ψ_(j+1) from ψ_j and ψ_(j-1).
+   * Requires left-end boundary already set (ψ₀, ψ₁) via setBoundaryConditions(..., 'left').
    */
   private integrateForwardOnGrid( psi: number[], f: number[] ): void {
     const N = psi.length;
@@ -178,8 +188,8 @@ export default class NumerovIntegrator {
   }
 
   /**
-   * Apply the Numerov recurrence **backward in x**: for j = N-2,…,1 compute ψ_(j-1) from ψ_j and ψ_(j+1).
-   * Requires right-end boundary already set (ψ_{N-1}, ψ_{N-2}) via setBoundaryConditions(…, 'right').
+   * Apply the Numerov recurrence **backward in x**: for j = N-2, ..., 1 compute ψ_(j-1) from ψ_j and ψ_(j+1).
+   * Requires right-end boundary already set (ψ_{N-1}, ψ_{N-2}) via setBoundaryConditions(..., 'right').
    */
   private integrateBackwardOnGrid( psi: number[], f: number[] ): void {
     const N = psi.length;
@@ -196,7 +206,7 @@ export default class NumerovIntegrator {
   /**
    * Calculate k²(x) = 2m(E - V(x))/ℏ² for all grid points.
    *
-   * @param E - Energy eigenvalue (eV)
+   * @param E - Trial energy (eV)
    * @param V - Potential energy array (eV)
    * @returns Array of k² values
    */
@@ -208,7 +218,7 @@ export default class NumerovIntegrator {
    * Calculate Numerov factors f_j = (h²/12) * k²(x_j) for all grid points.
    *
    * @param k2 - Array of k² values
-   * @param dx - Grid spacing (meters)
+   * @param dx - Grid spacing (nm)
    * @returns Array of Numerov factors
    */
   private calculateNumerovFactors( k2: number[], dx: number ): number[] {
@@ -241,8 +251,8 @@ export default class NumerovIntegrator {
 
   /**
    * Rescale part of the wave function in place.
-   * Multiplying a left or right integration by a positive constant preserves Wronskian sign and
-   * stitched wave-function shape, while preventing intermediate overflow.
+   * Multiplying a left or right integration by a positive constant preserves node count,
+   * Wronskian sign, and stitched wave-function shape, while preventing intermediate overflow.
    */
   private rescaleWaveFunction( psi: number[], startIndex: number, endIndex: number, scale: number ): void {
     for ( let k = startIndex; k <= endIndex; k++ ) {

@@ -40,9 +40,8 @@ export default class EnergyRefiner {
    * The eigenvalue should be resolved to much better precision than the level spacing.
    * Typical quantum systems have level spacing ΔE, and we want tolerance << ΔE.
    *
-   * The initial bracket width (E2 - E1) is typically a fraction of the level spacing
-   * (from the energy scan that detected the sign change). A relative precision of
-   * 10^-4 ensures the eigenvalue is accurate to ~4 significant figures relative to
+   * The initial bracket width (E2 - E1) should be a fraction of the level spacing. A relative
+   * precision of 10^-4 ensures the eigenvalue is accurate to ~4 significant figures relative to
    * the bracket width.
    *
    * @param options - Configuration options

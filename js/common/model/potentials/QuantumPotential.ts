@@ -146,14 +146,12 @@ export default abstract class QuantumPotential extends PhetioObject {
    * Solves for the bound state. The default uses a numerical solution (Numerov).
    */
   public solveBoundState( xGrid: XGrid ): BoundStateResult {
-    const energyScanPoints = this.getEnergyScanPoints( this.electronMassesProperty.value );
     return NumerovSolver.solve(
       xGrid,
       x => this.getPotentialEnergyAt( x ),
       this.electronMassesProperty.value,
       this.getMinSolverEnergy(),
-      this.getMaxSolverEnergy(),
-      energyScanPoints !== null ? { energyScanPoints: energyScanPoints } : undefined
+      this.getMaxSolverEnergy()
     );
   }
 
@@ -171,18 +169,6 @@ export default abstract class QuantumPotential extends PhetioObject {
    * Gets the maximum energy (eV) used to solve for the bound state.
    */
   public abstract getMaxSolverEnergy(): number;
-
-  /**
-   * Returns a non-uniform array of energy values (eV) for eigenvalue scanning, or null to use the
-   * default uniform scan. Override in subclasses whose eigenvalue spacing is non-uniform (e.g. a
-   * finite square well, where low-lying states cluster near the well bottom and the uniform grid
-   * may straddle two eigenvalues in one step).
-   *
-   * @param mass - Particle mass in electron masses
-   */
-  public getEnergyScanPoints( mass: number ): number[] | null {
-    return null;
-  }
 
   /**
    * Creates the icon that represents this potential. Used in the combo box for selecting a potential.
