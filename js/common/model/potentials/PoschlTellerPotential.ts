@@ -193,6 +193,13 @@ export default class PoschlTellerPotential extends QuantumPotential {
   }
 
   /**
+   * Gets the total width of this potential.
+   */
+  public getTotalWidth(): number {
+    return ( ( this.numberOfWellsProperty.value - 1 ) * this.spacingProperty.value ) + this.wellWidthProperty.value;
+  }
+
+  /**
    * Creates the icon for this potential. Always shows a single well regardless of numberOfWellsProperty.
    */
   public override createIcon(): Node {

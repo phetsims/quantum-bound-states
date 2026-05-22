@@ -2,7 +2,7 @@
 
 //TODO This is identical to MorseDepthDragListener except for the type of @param potential.
 /**
- * MorseDepthDragListener is the drag listener for changing the well depth of a Morse potential.
+ * MorseDepthDragListener is the drag listener for changing the well depth of a Poschl-Teller potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -13,6 +13,7 @@ import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import PoschlTellerDepthHandleNode from './PoschlTellerDepthHandleNode.js';
+import PoschlTellerWidthHandleNode from './PoschlTellerWidthHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class PoschlTellerHandlesNode extends PotentialHandlesNode {
@@ -25,7 +26,7 @@ export default class PoschlTellerHandlesNode extends PotentialHandlesNode {
 
     super( potential, selectedPotentialProperty, {
       children: [
-        //TODO Add width handle
+        new PoschlTellerWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
         new PoschlTellerDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
         //TODO Add separationHandleNode if potential.numberOfWellsProperty indicates that it is supported.
       ],

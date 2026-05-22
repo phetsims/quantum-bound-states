@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MorseDepthHandleNode is the handle for changing the well depth of a Morse potential.
+ * MorseDepthHandleNode is the handle for changing the well depth of a Poschl-Teller potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -35,10 +35,10 @@ export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<Pos
   }
 
   /**
-   * Position the handle to the right of the well, at the top of the potential.
+   * Position the handle at the bottom of the rightmost well.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value );
+    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 - this.potential.wellWidthProperty.value / 2 );
     // Subtract wellDepth because depth is downward for Poschl-Teller.
     this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value - this.potential.wellDepthProperty.value );
   }
