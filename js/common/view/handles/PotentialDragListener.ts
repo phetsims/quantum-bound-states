@@ -51,11 +51,15 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
                                        chartTransform.modelToViewDeltaX( providedOptions.keyboardShiftDragDelta ) :
                                        -chartTransform.modelToViewDeltaY( providedOptions.keyboardShiftDragDelta );
 
+    // CONFUSION ALERT!
+    // Scenery drag listeners require a ModelViewTransform2 and we have a ChartTransform. So we will not provide a
+    // value for the transform option. This means that (according to the drag listener API) positionProperty and
+    // listener.modelDelta will be in view units. Subclasses will transform those view coordinates to model units
+    // using the ChartTransform.
     const options = optionize<PotentialHandleDragListenerOptions, SelfOptions, RichDragListenerOptions>()( {
 
-      // We will not provide a transform value, so all drag events (including listener.modelDelta) will be in view coordinates.
-      // Provide a positionProperty so that we can get listener.modelDelta.
-      //TODO This initial value is likely causing problems. The initial value is not correct, and the Property is not reset.
+      // Provide a positionProperty so that subclasses can get listener.modelDelta in their drag callback.
+      // This Property can have any initial value and will be synchronized with the drag position in view coordinates.
       positionProperty: new Vector2Property( new Vector2( 0, 0 ) ),
 
       keyboardDragListenerOptions: {
