@@ -32,9 +32,7 @@
  *   ψ_v(x) ∝ z^{α/2} · e^{−z/2} · L_v^{(α)}(z)
  *
  *   where L_v^{(α)} is the associated Laguerre polynomial computed by 3-term recurrence.
- *   Wave functions are normalised numerically using WaveFunctionNormalizer.
- *
- *   The wave functions are normalised so that the integral of |ψ_v(x)|² over all x is 1.
+ *   Wave functions are normalized in log space to avoid overflow from z^(α/2).
  *   
  *   For generality, we add an xOffset to the wave functions to account for the horizontal position of the well.
  *   The xOffset is added to the wave functions to shift them horizontally so that they are centered on the well.
@@ -47,7 +45,6 @@ import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
-import WaveFunctionNormalizer from '../WaveFunctionNormalizer.js';
 import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
@@ -186,14 +183,20 @@ function findBoundStateEnergies(
 }
 
 /**
- * Compute the normalised wave function for a single Morse eigenstate.
+ * Compute the normalized wave function for a single Morse eigenstate.
  *
  * Uses the substitution z = 2λ e^{−x/w} to map to a Laguerre equation:
- *   ψ_v(x) ∝ z^{α/2} · e^{−z/2} · L_v^{(α)}(z),   α = 2λ−2v−1
+ *   ψ_v(x) = N_v · z^{α/2} · e^{−z/2} · L_v^{(α)}(z),   α = 2λ−2v−1
+ *
+ * where:
+ *   N_v = sqrt( α Γ(v+1) / (w Γ(v+α+1)) )
  *
  * For large negative x, z → ∞ and e^{−z/2} suppresses the wavefunction to zero;
- * for large positive x, z → 0 and z^{α/2} → 0.  Any non-finite values (from
- * intermediate overflow at extreme x) are replaced with zero.
+ * for large positive x, z → 0 and z^{α/2} → 0.
+ * 
+ * Note that the z^(alpha/2) can be problematic for large values of alpha, 
+ * as it can lead to overflow. To avoid this, we compute the wave function in log space where is is merely alpha * Math.log( z ) / 2
+ * see https://github.com/phetsims/quantum-bound-states/issues/43 for more details.
  *
  * @param v - Vibrational quantum number
  * @param wellDepth - D_e in eV
@@ -213,19 +216,27 @@ function calculateWaveFunction(
 
   const lambda = wellWidth * Math.sqrt( 2 * electronMasses * wellDepth ) / HBAR;
   const alpha = 2 * lambda - 2 * v - 1; // Laguerre parameter; also equals 2·(z-exponent)
+  const logNormalization = 0.5 * (
+    Math.log( alpha ) +
+    logGamma( v + 1 ) -
+    Math.log( wellWidth ) -
+    logGamma( v + alpha + 1 )
+  );
 
   const waveFunction: number[] = [];
 
   for ( const x of xArray ) {
     const z = 2 * lambda * Math.exp( -( x - xOffset ) / wellWidth );
     const laguerre = associatedLaguerre( v, alpha, z );
-    // ψ_v ∝ z^{α/2} · e^{−z/2} · L_v^{(α)}(z)
-    const value = Math.pow( z, alpha / 2 ) * Math.exp( -z / 2 ) * laguerre;
+
+    // Compute the normalized envelope in log space to avoid overflow from z^(α/2) before N_v is applied.
+    // see https://github.com/phetsims/quantum-bound-states/issues/43 for more details.
+    const logEnvelope = logNormalization + alpha * Math.log( z ) / 2 - z / 2;
+    const value = Math.exp( logEnvelope ) * laguerre;
     waveFunction.push( isFinite( value ) ? value : 0 );
   }
 
-  const dx = xArray.length > 1 ? xArray[ 1 ] - xArray[ 0 ] : 0;
-  return new WaveFunctionNormalizer().normalize( waveFunction, dx );
+  return waveFunction;
 }
 
 /**
@@ -257,4 +268,41 @@ function associatedLaguerre( n: number, alpha: number, z: number ): number {
   }
 
   return lPrev1;
+}
+
+/**
+ * Natural logarithm of the Gamma function using the Lanczos approximation.
+ * This implementaion is based on the implementation in https://en.wikipedia.org/wiki/Lanczos_approximation for more details.
+ * It claims to be accurate to 13 decimal places
+ * @param z - Positive argument
+ * @returns ln(Γ(z))
+ */
+function logGamma( z: number ): number {
+  const coefficients = [
+    0.9999999999998099,
+    676.5203681218851,
+    -1259.1392167224028,
+    771.3234287776531,
+    -176.6150291621406,
+    12.507343278686905,
+    -0.13857109526572012,
+    9.984369578019572e-6,
+    1.5056327351493116e-7
+  ];
+
+  // This recursive approach may looks strange, but  it allows to extend the approximation 
+  // to values of z where z< 0.5, where the Lanczos method is not valid.
+  if ( z < 0.5 ) {
+    return Math.log( Math.PI ) - Math.log( Math.sin( Math.PI * z ) ) - logGamma( 1 - z );
+  }
+
+  // Apply the Lanczos approximation
+  z = z - 1;
+  let x = coefficients[ 0 ];
+  for ( let i = 1; i < coefficients.length; i++ ) { // Add the remaining coefficients to the sum.
+    x += coefficients[ i ] / ( z + i ); 
+  }
+
+  const t = z + coefficients.length - 1.5; // Compute the argument of the logarithm.
+  return Math.log( 2 * Math.PI ) / 2 + ( z + 0.5 ) * Math.log( t ) - t + Math.log( x );
 }
