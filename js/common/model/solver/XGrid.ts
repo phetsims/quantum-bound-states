@@ -115,7 +115,6 @@ function findClosestIndex( array: readonly number[], targetValue: number ): numb
 
     if ( array[ middleIndex ] === targetValue ) {
       //TODO Multiple returns and returning from the middle of a loop is not recommended.
-      //TODO Consider setting both lowIndex and highIndex to middleIndex.
       return middleIndex;
     }
 
