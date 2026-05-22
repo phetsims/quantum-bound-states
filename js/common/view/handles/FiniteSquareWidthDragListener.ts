@@ -37,6 +37,7 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
 
       // Adjust drag bounds for xOffset.
       // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
+      //TODO dragBoundsProperty is incorrect for multiple wells.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
         xOffset => new Bounds2(
           chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min ),
@@ -52,9 +53,14 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
         // Remember the Property's previous value for sound feedback.
         const previousWellWidth = wellWidthProperty.value;
 
-        // Update the Property.
-        const deltaWidth = 2 * ( chartTransform.viewToModelDeltaX( viewDeltaX ) / potential.numberOfWellsProperty.value );
-        wellWidthProperty.value = wellWidthProperty.range.constrainValue( previousWellWidth + deltaWidth );
+        // Dragging changes the total width of the potential.
+        const deltaTotalWidth = 2 * chartTransform.viewToModelDeltaX( viewDeltaX );
+        const totalWidth = potential.getTotalWidth() + deltaTotalWidth;
+
+        // Compute the new well width by subtracting out the separations between wells.
+        const totalSeparation = ( potential.numberOfWellsProperty.value - 1 ) * potential.separationProperty.value;
+        const newWellWidth = ( totalWidth - totalSeparation ) / potential.numberOfWellsProperty.value;
+        wellWidthProperty.value = wellWidthProperty.range.constrainValue( newWellWidth );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( wellWidthProperty.value, previousWellWidth );
