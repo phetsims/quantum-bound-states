@@ -21,6 +21,7 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
+import AsymmetricTriangleSolution from '../solver/analytical-solutions/AsymmetricTriangleSolution.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
@@ -91,13 +92,25 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
   }
 
   /**
-   * Solves for the bound state using an analytic solution.
+   * Solves for the bound state using an analytic solution where available.
    */
   public override solveBoundState( xGrid: XGrid ): BoundStateResult {
-    affirm( this.numberOfWellsProperty.value === 1, 'AsymmetricTrianglePotential does not support multiple wells.' );
-
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with AsymmetricTriangleSolution.solve
-    return super.solveBoundState( xGrid );
+    if ( this.numberOfWellsProperty.value === 1 && this.electricFieldProperty.value === 0 ) {
+      return AsymmetricTriangleSolution.solve( xGrid, {
+        numberOfWells: this.numberOfWellsProperty.value,
+        energyMin: this.getMinSolverEnergy(),
+        energyMax: this.getMaxSolverEnergy(),
+        xOffset: this.xOffsetProperty.value,
+        yOffset: this.yOffsetProperty.value,
+        wellWidth: this.wellWidthProperty.value,
+        wellDepth: this.wellDepthProperty.value,
+        electronMasses: this.electronMassesProperty.value,
+        electricField: this.electricFieldProperty.value
+      } );
+    }
+    else {
+      return super.solveBoundState( xGrid );
+    }
   }
 
   /**
