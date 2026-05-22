@@ -53,9 +53,9 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
 
     // CONFUSION ALERT!
     // Scenery drag listeners require a ModelViewTransform2 and we have a ChartTransform. So we will not provide a
-    // value for the transform option. This means that (according to the drag listener API) positionProperty and
-    // listener.modelDelta will be in view units. Subclasses will transform those view coordinates to model units
-    // using the ChartTransform.
+    // value for the transform option. This means that (according to the drag listener API) positionProperty,
+    // dragBoundsProperty, and listener.modelDelta will be in view units. Subclasses will transform those view
+    // coordinates to model units using the ChartTransform.
     const options = optionize<PotentialHandleDragListenerOptions, SelfOptions, RichDragListenerOptions>()( {
 
       // Provide a positionProperty so that subclasses can get listener.modelDelta in their drag callback.
