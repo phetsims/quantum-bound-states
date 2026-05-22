@@ -50,7 +50,7 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
 
         // Update the Property.
         const deltaStepHeight = chartTransform.viewToModelDeltaY( listener.modelDelta.y );
-        stepHeightProperty.value = stepHeightProperty.range.clampValue( stepHeightProperty.value + deltaStepHeight );
+        stepHeightProperty.value = stepHeightProperty.range.constrainValue( stepHeightProperty.value + deltaStepHeight );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( stepHeightProperty.value, previousStepHeight );

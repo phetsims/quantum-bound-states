@@ -51,7 +51,7 @@ export default class AsymmetricTriangleDepthDragListener extends PotentialDragLi
 
         // Update the Property.
         const deltaDepth = chartTransform.viewToModelDeltaY( listener.modelDelta.y );
-        wellDepthProperty.value = wellDepthProperty.range.clampValue( wellDepthProperty.value + deltaDepth );
+        wellDepthProperty.value = wellDepthProperty.range.constrainValue( wellDepthProperty.value + deltaDepth );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( wellDepthProperty.value, previousWellDepth );

@@ -51,7 +51,7 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
         // Update the Property. The handle is on the left wall (xOffset - wellWidth/2), so invert the sign used
         // by right-wall width handles (xOffset + wellWidth/2).
         const deltaWidth = -2 * chartTransform.viewToModelDeltaX( listener.modelDelta.x );
-        wellWidthProperty.value = wellWidthProperty.range.clampValue( wellWidthProperty.value + deltaWidth );
+        wellWidthProperty.value = wellWidthProperty.range.constrainValue( wellWidthProperty.value + deltaWidth );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( wellWidthProperty.value, previousWellWidth );
