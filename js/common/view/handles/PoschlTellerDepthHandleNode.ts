@@ -8,38 +8,38 @@
 
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
-import MorsePotential from '../../model/potentials/MorsePotential.js';
+import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
-import MorseDepthDragListener from './MorseDepthDragListener.js';
+import PoschlTellerDepthDragListener from './PoschlTellerDepthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class MorseDepthHandleNode extends PotentialHandleNode<MorsePotential> {
+export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<PoschlTellerPotential> {
 
-  public constructor( potential: MorsePotential,
+  public constructor( potential: PoschlTellerPotential,
                       energyDiagramNode: EnergyDiagramNode,
                       time: QBSTime,
                       tandem: Tandem ) {
 
     super( potential, energyDiagramNode.chartTransform, potential.wellDepthProperty, {
       orientation: 'vertical',
-      accessibleName: QuantumBoundStatesFluent.a11y.handles.morseDepthHandle.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.morseDepthHandle.accessibleHelpTextStringProperty,
-      accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.handles.morseDepthHandle.accessibleObjectResponse.createProperty( {
+      accessibleName: QuantumBoundStatesFluent.a11y.handles.poschlTellerDepthHandle.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.poschlTellerDepthHandle.accessibleHelpTextStringProperty,
+      accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.handles.poschlTellerDepthHandle.accessibleObjectResponse.createProperty( {
         depth: potential.wellDepthProperty
       } ),
       tandem: tandem
     } );
 
-    this.addInputListener( new MorseDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new PoschlTellerDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
   }
 
   /**
-   * Position the handle at the bottom of the well.
+   * Position the handle to the right of the well, at the top of the potential.
    */
   protected override updatePosition(): void {
     this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value );
-    // Subtract wellDepth because depth is downward for Morse.
+    // Subtract wellDepth because depth is downward for Poschl-Teller.
     this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value - this.potential.wellDepthProperty.value );
   }
 
@@ -47,7 +47,7 @@ export default class MorseDepthHandleNode extends PotentialHandleNode<MorsePoten
    * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
-    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.morseDepthHandle.accessibleObjectResponse.format( {
+    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.poschlTellerDepthHandle.accessibleObjectResponse.format( {
       depth: this.potential.wellDepthProperty.value
     } ) );
   }

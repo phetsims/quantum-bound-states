@@ -15,6 +15,7 @@ import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillat
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import MorsePotential from '../../model/potentials/MorsePotential.js';
+import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
@@ -24,6 +25,7 @@ import HarmonicOscillatorHandlesNode from './HarmonicOscillatorHandlesNode.js';
 import InfiniteSquareHandlesNode from './InfiniteSquareHandlesNode.js';
 import InfiniteStepHandlesNode from './InfiniteStepHandlesNode.js';
 import MorseHandlesNode from './MorseHandlesNode.js';
+import PoschlTellerHandlesNode from './PoschlTellerHandlesNode.js';
 
 export default class PotentialHandlesLayer extends Node {
 
@@ -59,7 +61,10 @@ export default class PotentialHandlesLayer extends Node {
         children.push( new HarmonicOscillatorHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
       }
-      //TODO Add PoschTellerDragHandlesNode
+      else if ( potential instanceof PoschlTellerPotential ) {
+        children.push( new PoschlTellerHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+          time, dragHandlesNodeTandem ) );
+      }
       else if ( potential instanceof MorsePotential ) {
         children.push( new MorseHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
           time, dragHandlesNodeTandem ) );
