@@ -300,7 +300,7 @@ function logGamma( z: number ): number {
   z = z - 1;
   let x = coefficients[ 0 ];
   for ( let i = 1; i < coefficients.length; i++ ) { // Add the remaining coefficients to the sum.
-    x += coefficients[ i ] / ( z + i ); 
+    x += coefficients[ i ] / ( z + i );
   }
 
   const t = z + coefficients.length - 1.5; // Compute the argument of the logarithm.
