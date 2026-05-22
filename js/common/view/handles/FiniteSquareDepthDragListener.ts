@@ -36,6 +36,7 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: 0.1, // eV
 
       // Adjust drag bounds for yOffset.
+      // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
         yOffset => new Bounds2(
           energyDiagramRectangleBounds.minX,
@@ -45,11 +46,14 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
 
       drag: ( event, listener ) => {
 
+        // Since we are not providing a transform option value, listener.modelDelta is in view coordinates.
+        const viewDeltaY = listener.modelDelta.y;
+
         // Remember the Property's previous value for sound feedback.
         const previousWellDepth = wellDepthProperty.value;
 
         // Update the Property.
-        const deltaDepth = chartTransform.viewToModelDeltaY( listener.modelDelta.y );
+        const deltaDepth = chartTransform.viewToModelDeltaY( viewDeltaY );
         wellDepthProperty.value = wellDepthProperty.range.constrainValue( previousWellDepth + deltaDepth );
 
         // Play sound to communicate how the Property changed.

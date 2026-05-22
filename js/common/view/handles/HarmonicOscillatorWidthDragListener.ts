@@ -37,6 +37,7 @@ export default class HarmonicOscillatorWidthDragListener extends PotentialDragLi
       keyboardShiftDragDelta: 0.1, // nm
 
       // Adjust drag bounds for xOffset.
+      // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
         xOffset => new Bounds2(
           chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min ),
@@ -46,11 +47,14 @@ export default class HarmonicOscillatorWidthDragListener extends PotentialDragLi
 
       drag: ( event, listener ) => {
 
+        // Since we are not providing a transform option value, listener.modelDelta is in view coordinates.
+        const viewDeltaX = listener.modelDelta.x;
+
         // Remember the Property's previous value for sound feedback.
         const previousWellWidth = wellWidthProperty.value;
 
         // Update the Property.
-        const deltaWidth = 2 * chartTransform.viewToModelDeltaX( listener.modelDelta.x );
+        const deltaWidth = 2 * chartTransform.viewToModelDeltaX( viewDeltaX );
         wellWidthProperty.value = wellWidthProperty.range.constrainValue( previousWellWidth + deltaWidth );
 
         // Play sound to communicate how the Property changed.
