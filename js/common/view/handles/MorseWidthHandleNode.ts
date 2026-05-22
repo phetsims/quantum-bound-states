@@ -14,6 +14,8 @@ import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import MorseWidthDragListener from './MorseWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
+// The width handle will be places this many eV above the potential's energy offset.
+// Vertical marker lines will indicate where the width is measured.
 const ENERGY_OFFSET = 2; // eV
 
 export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePotential> {
