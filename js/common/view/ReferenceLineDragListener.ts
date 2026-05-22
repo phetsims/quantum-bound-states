@@ -11,9 +11,8 @@ import Property from '../../../../axon/js/Property.js';
 import TRangedProperty from '../../../../axon/js/TRangedProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import RichDragListener from '../../../../scenery/js/listeners/RichDragListener.js';
 import ValueChangeSoundPlayer from '../../../../tambo/js/sound-generators/ValueChangeSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -23,37 +22,28 @@ export default class ReferenceLineDragListener extends RichDragListener {
 
   public constructor( referenceLineHandleNode: ReferenceLineHandleNode,
                       xProperty: TRangedProperty,
-                      positionProperty: Property<Vector2>,
-                      positionRange: Range,
                       chartTransform: ChartTransform,
                       parentTandem: Tandem ) {
 
-    //TODO Generalize creation of ModelViewTransform2 in QBSChartTransform extends ChartTransform.
-
-    // Synthesize a ModelViewTransform2 from the ChartTransform.
-    const transform = ModelViewTransform2.createOffsetXYScaleMapping(
-      //TODO y-offset is incorrect, y-range is dynamic.
-      chartTransform.modelToViewPosition( Vector2.ZERO ), // offset of the origin in view coordinates
-      chartTransform.viewWidth / chartTransform.modelXRange.getLength(), // xScale, model to view
-      //TODO y-scale is incorrect, y-range is dynamic. But reference line only moves horizontally, so maybe that's OK.
-      -( chartTransform.viewHeight / chartTransform.modelYRange.getLength() ) // yScale, model to view
-    );
-
-    // Drag bounds in model coordinates. y values can be anything because movement is constrained to horizontal.
-    //TODO dragBoundsProperty is incorrect, y-range is dynamic. But reference line only moves horizontally, so maybe that's OK.
-    const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, 0, chartTransform.modelXRange.max, 0 ) );
-
-    const soundPlayer = new ValueChangeSoundPlayer( positionRange, {
+    const soundPlayer = new ValueChangeSoundPlayer( xProperty.range, {
       minimumInterMiddleSoundTime: 0.1 // seconds
     } );
 
+    // CONFUSION ALERT!
+    // Scenery drag listeners require a ModelViewTransform2 and we have a ChartTransform. So we will not provide a
+    // value for the transform option. This means that (according to the drag listener API) positionProperty,
+    // dragBoundsProperty, and listener.modelDelta will be in view units.
     super( {
-      transform: transform,
-      positionProperty: positionProperty,
-      dragBoundsProperty: dragBoundsProperty,
-      dragListenerOptions: {
-        useParentOffset: true
-      },
+
+      // Provide a positionProperty so that drag callback can get listener.modelDelta.
+      // This Property can have any initial value and will be synchronized with the drag position in view coordinates.
+      positionProperty: new Vector2Property( new Vector2( 0, 0 ) ),
+
+      // Drag bounds in view coordinates. y values can be anything because movement is constrained to horizontal.
+      dragBoundsProperty: new Property( new Bounds2(
+        chartTransform.modelToViewX( chartTransform.modelXRange.min ), 0,
+        chartTransform.modelToViewX( chartTransform.modelXRange.max ), 0 ) ),
+
       keyboardDragListenerOptions: {
         keyboardDragDirection: 'leftRight',
         dragDelta: chartTransform.modelToViewDeltaX( 0.1 ),
@@ -63,7 +53,8 @@ export default class ReferenceLineDragListener extends RichDragListener {
 
       drag: ( event, listener ) => {
         const previousX = xProperty.value;
-        xProperty.value = positionProperty.value.x;
+        const deltaX = chartTransform.viewToModelDeltaX( listener.modelDelta.x );
+        xProperty.value = xProperty.range.constrainValue( previousX + deltaX );
         soundPlayer.playSoundForValueChange( xProperty.value, previousX );
       },
 

@@ -7,9 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -103,12 +101,8 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
 
     this.describer = describer;
 
-    // Initial position in model coordinates. y-value can be anything because movement is constrained to horizontal.
-    const positionProperty = new Property( new Vector2( referenceLine.xProperty.value, 0 ) );
-
     // Drag listeners for all forms of input.
-    this.addInputListener( new ReferenceLineDragListener( this, referenceLine.xProperty,
-      positionProperty, referenceLine.xProperty.range, chartTransform, tandem ) );
+    this.addInputListener( new ReferenceLineDragListener( this, referenceLine.xProperty, chartTransform, tandem ) );
 
     // Keyboard listener for shortcuts.
     this.addInputListener( new HomeEndKeyboardListener( referenceLine.xProperty, {
@@ -122,7 +116,6 @@ export class ReferenceLineHandleNode extends InteractiveHighlighting( ShadedSphe
     // Center the handle on the x-coordinate of the reference line.
     referenceLine.xProperty.link( x => {
       this.centerX = chartTransform.modelToViewX( x );
-      positionProperty.value = new Vector2( x, 0 );
     } );
 
     //TODO replace with accessibleFocusObjectResponse option?
