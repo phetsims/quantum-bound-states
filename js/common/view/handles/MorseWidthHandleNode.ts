@@ -19,7 +19,7 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 // The handle is positioned at a one "wellWidth" of the bottom of the well 
 // which means , that vertically it is at a fraction of the well depth below the y-axis. This fraction is computed below.
 // The fraction could be computed from the potential function, but this is a simpler computation.
-const FRACTION_OF_WELL_DEPTH = 1- (1-Math.exp(-1))**2; // ≈ 0.60
+const FRACTION_OF_WELL_DEPTH = 1 - ( 1 - Math.exp( -1 ) ) ** 2; // ≈ 0.60
 
 export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePotential> {
 
@@ -45,8 +45,8 @@ export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePoten
    * Vertically center the handle on the right wall of the well, halfway down to the step.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value  );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value - FRACTION_OF_WELL_DEPTH*this.potential.wellDepthProperty.value );
+    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value );
+    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value - FRACTION_OF_WELL_DEPTH * this.potential.wellDepthProperty.value );
   }
 
   /**
