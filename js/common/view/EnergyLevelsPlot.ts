@@ -2,8 +2,7 @@
 
 /**
  * EnergyLevelsPlot plots a set of energy levels as horizontal lines. The implementation uses the Canvas API to optimize
- * performance. Updating the YCanvasLinePlot and calling its paintCanvas method is the responsibility of a parent
- * ChartCanvasNode.
+ * performance. Updating this plot and calling its paintCanvas method is the responsibility of a parent ChartCanvasNode.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
