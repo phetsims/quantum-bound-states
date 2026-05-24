@@ -44,8 +44,8 @@ export default class MorsePotential extends QuantumPotential {
     const options = optionize<MorsePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ),
-      wellDepthRange: new RangeWithValue( 0.1, 15, 10 ),
+      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ), // for 1 well
+      wellDepthRange: new RangeWithValue( 0.1, 15, 10 ), // for 1 well
 
       // QuantumPotentialOptions
       groundStateIndex: 0,

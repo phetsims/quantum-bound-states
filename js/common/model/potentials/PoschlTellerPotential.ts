@@ -47,9 +47,9 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const options = optionize<PoschlTellerPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.1, 1.5, 1 ),
-      wellDepthRange: new RangeWithValue( 0.1, 15, 10 ),
-      spacingRange: new RangeWithValue( 1, 3, 1 ), //TODO Can this be constant 0 for 1-well case?
+      wellWidthRange: new RangeWithValue( 0.1, 1.5, 1 ), // for 1 well
+      wellDepthRange: new RangeWithValue( 0.1, 15, 10 ), // for 1 well
+      spacingRange: new RangeWithValue( 0, 0, 0 ), // for 1 well
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
