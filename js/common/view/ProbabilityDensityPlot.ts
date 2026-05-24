@@ -6,22 +6,30 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
+import { TimeEvolvedSuperposition } from '../model/TimeEvolvedSuperposition.js';
 import QBSColors from '../QBSColors.js';
-import YLinePlot from './YLinePlot.js';
+import YCanvasLinePlot from './YCanvasLinePlot.js';
 
-export default class ProbabilityDensityPlot extends YLinePlot {
+export default class ProbabilityDensityPlot extends YCanvasLinePlot {
+
+  private readonly timeEvolvedSuperpositionProperty: TReadOnlyProperty<TimeEvolvedSuperposition>;
 
   public constructor( probabilityDensityGraph: ProbabilityDensityGraph, chartTransform: ChartTransform ) {
 
     super( chartTransform, probabilityDensityGraph.xGrid.xCoordinates,
       probabilityDensityGraph.timeEvolvedSuperpositionProperty.value.probabilityDensityValues, {
-        stroke: QBSColors.probabilityDensityStrokeProperty,
+        strokeProperty: QBSColors.probabilityDensityStrokeProperty,
         lineWidth: 2
       } );
 
-    probabilityDensityGraph.timeEvolvedSuperpositionProperty.lazyLink(
-      timeEvolvedSuperposition => this.setYCoordinates( timeEvolvedSuperposition.probabilityDensityValues ) );
+    this.timeEvolvedSuperpositionProperty = probabilityDensityGraph.timeEvolvedSuperpositionProperty;
+    this.update();
+  }
+
+  public update(): void {
+    this.setYCoordinates( this.timeEvolvedSuperpositionProperty.value.probabilityDensityValues );
   }
 }

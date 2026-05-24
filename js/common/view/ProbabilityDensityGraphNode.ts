@@ -16,7 +16,7 @@ import QuantumStateGraph from '../model/QuantumStateGraph.js';
 import QBSConstants from '../QBSConstants.js';
 import ProbabilityDensityGraphDescriber from './description/ProbabilityDensityGraphDescriber.js';
 import EquationTermNode from './EquationTermNode.js';
-import ProbabilityDensityPlot from './ProbabilityDensityPlot.js';
+import ProbabilityDensityPlotsNode from './ProbabilityDensityPlotsNode.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -58,8 +58,8 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
     super( curvesVisibleProperty, options );
 
-    const probabilityDensityPlot = new ProbabilityDensityPlot( probabilityDensityGraph, this.chartTransform );
-    this.addPlot( probabilityDensityPlot );
+    // Canvas renderer for plots related to this graph.
+    this.clippedLayer.addChild( new ProbabilityDensityPlotsNode( probabilityDensityGraph, this.chartTransform ) );
 
     //TODO This should be lazyLink, but then the graph does not initially have correct y-range dilation.
     probabilityDensityGraph.yAxisRangeProperty.link( yAxisRange => {

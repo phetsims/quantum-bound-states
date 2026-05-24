@@ -15,11 +15,8 @@ import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import QBSConstants from '../QBSConstants.js';
 import WaveFunctionGraphDescriber from './description/WaveFunctionGraphDescriber.js';
 import EquationTermNode from './EquationTermNode.js';
-import ImaginaryPartPlot from './ImaginaryPartPlot.js';
-import MagnitudePlot from './MagnitudePlot.js';
-import PhasePlot from './PhasePlot.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
-import RealPartPlot from './RealPartPlot.js';
+import WaveFunctionPlotsNode from './WaveFunctionPlotsNode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -59,11 +56,8 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
     super( curvesVisibleProperty, options );
 
-    // Plots
-    this.addPlot( new PhasePlot( waveFunctionGraph, this.chartTransform ) );
-    this.addPlot( new MagnitudePlot( waveFunctionGraph, this.chartTransform ) );
-    this.addPlot( new ImaginaryPartPlot( waveFunctionGraph, this.chartTransform ) );
-    this.addPlot( new RealPartPlot( waveFunctionGraph, this.chartTransform ) );
+    // Canvas renderer for plots related to this graph.
+    this.clippedLayer.addChild( new WaveFunctionPlotsNode( waveFunctionGraph, this.chartTransform ) );
 
     //TODO This should be lazyLink, but then the graph does not initially have correct y-range dilation.
     waveFunctionGraph.yAxisRangeProperty.link( yAxisRange => {

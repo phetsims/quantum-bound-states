@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Cache colors?
 /**
  * PhasePlot plots the phase of the time-dependent wave function.
  *
@@ -11,93 +10,85 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import CanvasPainter from '../../../../bamboo/js/CanvasPainter.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import Shape from '../../../../kite/js/Shape.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import { TimeEvolvedSuperposition } from '../model/TimeEvolvedSuperposition.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import PhaseColormap from './PhaseColormap.js';
 
-export default class PhasePlot extends Node {
+export default class PhasePlot extends CanvasPainter {
 
-  private readonly waveFunctionGraph: WaveFunctionGraph;
+  private readonly timeEvolvedSuperpositionProperty: TReadOnlyProperty<TimeEvolvedSuperposition>;
   private readonly chartTransform: ChartTransform;
   private readonly xCoordinates: readonly number[];
-  private readonly mutableColor: Color; // One instance of Color is reused for phase-to-Color conversion.
-  private readonly polygons: Path[]; // Polygons are reused to draw the phase.
+  private phaseValues: readonly number[];
+  private magnitudeValues: readonly number[];
 
   public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
     super( {
-      visibleProperty: waveFunctionGraph.phaseVisibleProperty
+      visible: waveFunctionGraph.phaseVisibleProperty.value
     } );
 
-    this.waveFunctionGraph = waveFunctionGraph;
+    waveFunctionGraph.phaseVisibleProperty.lazyLink( phaseVisible => {
+      this.visible = phaseVisible;
+    } );
+
     this.chartTransform = chartTransform;
     this.xCoordinates = waveFunctionGraph.xGrid.xCoordinates;
-
-    this.mutableColor = new Color( 0, 0, 0 );
-
-    this.polygons = [];
-    for ( let i = 0; i < this.xCoordinates.length; i++ ) {
-      this.polygons.push( new Path( null ) );
-    }
-    this.children = this.polygons;
-
-    // Initialize
-    this.update();
-
-    Multilink.multilink( [ waveFunctionGraph.phaseVisibleProperty, waveFunctionGraph.timeEvolvedSuperpositionProperty ],
-      () => this.update() );
-
-    // Update when the transform changes.
-    const changedListener = () => this.update();
-    chartTransform.changedEmitter.addListener( changedListener );
-    this.disposeEmitter.addListener( () => chartTransform.changedEmitter.removeListener( changedListener ) );
+    this.timeEvolvedSuperpositionProperty = waveFunctionGraph.timeEvolvedSuperpositionProperty;
+    this.phaseValues = waveFunctionGraph.timeEvolvedSuperpositionProperty.value.phaseValues;
+    this.magnitudeValues = waveFunctionGraph.timeEvolvedSuperpositionProperty.value.magnitudeValues;
   }
 
   /**
-   * Updates the plot.
+   * Must be called by the associated ChartCanvasNode.
    */
-  private update(): void {
+  public update(): void {
+    this.phaseValues = this.timeEvolvedSuperpositionProperty.value.phaseValues;
+    this.magnitudeValues = this.timeEvolvedSuperpositionProperty.value.magnitudeValues;
+  }
 
-    const magnitudeValues = this.waveFunctionGraph.timeEvolvedSuperpositionProperty.value.magnitudeValues;
-    const phaseValues = this.waveFunctionGraph.timeEvolvedSuperpositionProperty.value.phaseValues;
+  /**
+   * To be called by the associated ChartCanvasNode.
+   */
+  public override paintCanvas( context: CanvasRenderingContext2D ): void {
 
-    const dxView = this.chartTransform.modelToViewDeltaX( this.xCoordinates[ 1 ] - this.xCoordinates[ 0 ] );
-    const yZeroView = this.chartTransform.modelToViewY( 0 );
+    if ( this.visible ) {
 
-    for ( let i = 0; i < this.xCoordinates.length - 1; i++ ) {
+      const phaseValues = this.phaseValues;
+      const magnitudeValues = this.magnitudeValues;
+      const chartTransform = this.chartTransform;
 
-      const polygon = this.polygons[ i ];
-      const yModel = magnitudeValues[ i ];
-      const yNextModel = magnitudeValues[ i + 1 ];
+      const dxView = chartTransform.modelToViewDeltaX( this.xCoordinates[ 1 ] - this.xCoordinates[ 0 ] );
+      const yZeroView = chartTransform.modelToViewY( 0 );
 
-      if ( yModel === 0 && yNextModel === 0 ) {
-        polygon.shape = null;
-      }
-      else {
+      for ( let i = 0; i < this.xCoordinates.length - 1; i++ ) {
+        const yModel = magnitudeValues[ i ];
+        const yNextModel = magnitudeValues[ i + 1 ];
+        if ( yModel !== 0 && yNextModel !== 0 ) {
 
-        const xView = this.chartTransform.modelToViewX( this.xCoordinates[ i ] );
-        const xNextView = xView + dxView;
-        const yView = this.chartTransform.modelToViewY( yModel );
-        const yNextView = this.chartTransform.modelToViewY( yNextModel );
+          // Describe a polygon of a thin slice of phase.
+          const xView = chartTransform.modelToViewX( this.xCoordinates[ i ] );
+          const xNextView = xView + dxView;
+          const yView = chartTransform.modelToViewY( yModel );
+          const yNextView = chartTransform.modelToViewY( yNextModel );
+          context.beginPath();
+          context.moveTo( xView, yZeroView );
+          context.lineTo( xView, yView );
+          context.lineTo( xNextView, yNextView );
+          context.lineTo( xNextView, yZeroView );
+          context.closePath();
 
-        const shape = new Shape()
-          .moveTo( xView, yZeroView )
-          .lineTo( xView, yView )
-          .lineTo( xNextView, yNextView )
-          .lineTo( xNextView, yZeroView )
-          .close();
-        shape.makeImmutable(); //TODO This is typically done in bamboo plots. Is it necessary?
-
-        polygon.shape = shape;
-        polygon.fill = ( QBSQueryParameters.phaseToColor === 'twilight' ) ?
-                       PhaseColormap.phaseToTwilight( phaseValues[ i ] ) :
-                       PhaseColormap.phaseToRainbow( phaseValues[ i ] );
+          // Fill the polygon with the phase mapped to a color.
+          const fillColor = ( QBSQueryParameters.phaseToColor === 'twilight' ) ?
+                            PhaseColormap.phaseToTwilight( phaseValues[ i ] ) :
+                            PhaseColormap.phaseToRainbow( phaseValues[ i ] );
+          context.fillStyle = fillColor.toCSS();
+          context.fill();
+        }
       }
     }
   }

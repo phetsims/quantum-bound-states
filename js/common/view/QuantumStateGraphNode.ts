@@ -63,10 +63,10 @@ export default class QuantumStateGraphNode extends Node {
   protected readonly chartTransform: ChartTransform;
 
   // Outer rectangle of the chart
-  private readonly chartRectangle: ChartRectangle;
+  protected readonly chartRectangle: ChartRectangle;
 
   // Parent for elements that are clipped to the chartRectangle.
-  private readonly clippedLayer: Node;
+  protected readonly clippedLayer: Node;
 
   // y-axis decorations that are mutable
   private readonly yTickMarkSet: TickMarkSet;
@@ -238,12 +238,5 @@ export default class QuantumStateGraphNode extends Node {
     this.yTickMarkSet.setSpacing( spacing );
     this.yTickLabelSet.setSpacing( spacing );
     this.horizontalGridLines.setSpacing( spacing );
-  }
-
-  /**
-   * Adds a plot to the graph. It will be clipped to the chart rectangle.
-   */
-  protected addPlot( plot: Node ): void {
-    this.clippedLayer.addChild( plot );
   }
 }

@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Delete if not used.
 /**
  * YLinePlotOptions plots a curve with fixed x-coordinates and variable y-coordinates.
  *
