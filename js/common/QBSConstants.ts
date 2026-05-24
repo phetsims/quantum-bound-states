@@ -9,7 +9,6 @@
 import { GridLineSetOptions } from '../../../bamboo/js/GridLineSet.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
-import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 import NumberControl, { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
@@ -100,13 +99,6 @@ export default class QBSConstants {
 
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_POTENTIAL_ENERGY = 1000; // eV
-
-  // Default value ranges. Some of these are overridden by specific screens.
-  public static readonly WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 6, 1 );
-  public static readonly WELL_DEPTH_RANGE = new RangeWithValue( 0.1, 20, 10 );
-  public static readonly STEP_HEIGHT_RANGE = new RangeWithValue( 0.1, 20, 3 );
-  public static readonly SEPARATION_RANGE = new RangeWithValue( 0.05, 0.2, 0.1 );
-  public static readonly SPACING_RANGE = new RangeWithValue( 1, 3, 1 );
 
   //TODO from BSConstants.java, are these compatible with values and units in new code?
   public static readonly ELECTRON_MASS = 5.68; // eV/c^2

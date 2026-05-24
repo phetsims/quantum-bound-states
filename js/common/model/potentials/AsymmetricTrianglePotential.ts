@@ -42,8 +42,8 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
     const options = optionize<AsymmetricTrianglePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
-      wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
+      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ),
+      wellDepthRange: new RangeWithValue( 0.1, 20, 10 ),
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.asymmetricTriangleStringProperty,

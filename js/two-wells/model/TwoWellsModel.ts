@@ -16,11 +16,6 @@ import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
 
-const FINITE_SQUARE_WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 3, 1 );
-const POSCHL_TELLER_WELL_WIDTH_RANGE = new RangeWithValue( 0.1, 1.5, 0.3 );
-const SEPARATION_RANGE = new RangeWithValue( 0.05, 0.2, 0.1 );
-const SPACING_RANGE = new RangeWithValue( 0.05, 3, 2 );
-
 export default class TwoWellsModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
@@ -57,16 +52,18 @@ export default class TwoWellsModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        wellWidthRange: FINITE_SQUARE_WELL_WIDTH_RANGE,
-        separationRange: SEPARATION_RANGE,
+        wellWidthRange: new RangeWithValue( 0.1, 3, 1 ),
+        wellDepthRange: new RangeWithValue( 0.1, 20, 10 ),
+        separationRange: new RangeWithValue( 0.05, 0.2, 0.1 ),
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new PoschlTellerPotential( {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        wellWidthRange: POSCHL_TELLER_WELL_WIDTH_RANGE,
-        spacingRange: SPACING_RANGE,
+        wellWidthRange: new RangeWithValue( 0.1, 1.5, 0.3 ),
+        wellDepthRange: new RangeWithValue( 0.1, 15, 10 ),
+        spacingRange: new RangeWithValue( 0.05, 3, 2 ),
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
       } )
     ];

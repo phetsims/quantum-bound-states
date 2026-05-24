@@ -45,9 +45,9 @@ export default class FiniteSquarePotential extends QuantumPotential {
     const options = optionize<FiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
-      wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
-      separationRange: QBSConstants.SEPARATION_RANGE,
+      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ),
+      wellDepthRange: new RangeWithValue( 0.1, 20, 10 ),
+      separationRange: new RangeWithValue( 0.05, 0.2, 0.1 ), //TODO Can this be constant 0 for 1-well case?
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,

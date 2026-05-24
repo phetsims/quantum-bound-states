@@ -39,7 +39,7 @@ export default class InfiniteSquarePotential extends QuantumPotential {
     const options = optionize<InfiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
+      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ),
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteSquareStringProperty,

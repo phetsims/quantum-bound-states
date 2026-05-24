@@ -44,8 +44,8 @@ export default class InfiniteStepPotential extends QuantumPotential {
     const options = optionize<InfiniteStepPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: QBSConstants.WELL_WIDTH_RANGE,
-      stepHeightRange: QBSConstants.STEP_HEIGHT_RANGE,
+      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ),
+      stepHeightRange: new RangeWithValue( 0.1, 20, 3 ),
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,

@@ -48,8 +48,8 @@ export default class PoschlTellerPotential extends QuantumPotential {
 
       // SelfOptions
       wellWidthRange: new RangeWithValue( 0.1, 1.5, 1 ),
-      wellDepthRange: QBSConstants.WELL_DEPTH_RANGE,
-      spacingRange: QBSConstants.SPACING_RANGE,
+      wellDepthRange: new RangeWithValue( 0.1, 15, 10 ),
+      spacingRange: new RangeWithValue( 1, 3, 1 ), //TODO Can this be constant 0 for 1-well case?
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
