@@ -1,7 +1,9 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PhasePlot plots the phase of the time-dependent wave function.
+ * PhasePlot plots the phase of the time-dependent wave function. The implementation uses the Canvas API to optimize
+ * performance. Updating the YCanvasLinePlot and calling its paintCanvas method is the responsibility of a parent
+ * ChartCanvasNode.
  *
  * The dataSet consists of a fixed set of x-coordinates and arrays of magnitude and phase values that correspond to
  * each x-coordinate. When drawing a magnitude/phase pair (M1,P1), we look ahead at the next pair (M2,P2). M1 and M2

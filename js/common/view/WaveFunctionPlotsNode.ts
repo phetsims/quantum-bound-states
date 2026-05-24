@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * TODO
+ * WaveFunctionPlotsNode draws the plots for the Wave Function graph. It uses Canvas to optimize performance.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,30 +19,23 @@ export default class WaveFunctionPlotsNode extends ChartCanvasNode {
 
   public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
-    // Plots
-    const realPartPlot = new RealPartPlot( waveFunctionGraph, chartTransform );
-    const imaginaryPartPlot = new ImaginaryPartPlot( waveFunctionGraph, chartTransform );
-    const magnitudePlot = new MagnitudePlot( waveFunctionGraph, chartTransform );
-    const phasePlot = new PhasePlot( waveFunctionGraph, chartTransform );
+    // Plots, in back-to-front rendering order.
+    const plots = [
+      new PhasePlot( waveFunctionGraph, chartTransform ),
+      new MagnitudePlot( waveFunctionGraph, chartTransform ),
+      new ImaginaryPartPlot( waveFunctionGraph, chartTransform ),
+      new RealPartPlot( waveFunctionGraph, chartTransform )
+    ];
 
-    super( chartTransform, [
-      // Back-to-front rendering order.
-      phasePlot,
-      magnitudePlot,
-      imaginaryPartPlot,
-      realPartPlot
-    ] );
+    super( chartTransform, plots );
 
     // Update all plots at the same time.
     const updatePlots = () => {
-      realPartPlot.update();
-      imaginaryPartPlot.update();
-      magnitudePlot.update();
-      phasePlot.update();
+      plots.forEach( plot => plot.update() );
       this.update();
     };
 
-    // Update when the state time-evolved changes, the chartTransform changes, or visibility of plots changes.
+    // Update when the time-evolved state changes, the chartTransform changes, or the visibility of plots changes.
     waveFunctionGraph.timeEvolvedSuperpositionProperty.lazyLink( () => updatePlots() );
     chartTransform.changedEmitter.addListener( () => updatePlots() );
     Multilink.multilink( [

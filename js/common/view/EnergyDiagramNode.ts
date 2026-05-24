@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -26,12 +25,10 @@ import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 import EnergyDiagramDescriber from './description/EnergyDiagramDescriber.js';
+import EnergyDiagramPlotsNode from './EnergyDiagramPlotsNode.js';
 import EnergyLevelDisplay from './EnergyLevelDisplay.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
-import EnergyLevelsPlot from './EnergyLevelsPlot.js';
 import PotentialHandlesLayer from './handles/PotentialHandlesLayer.js';
-import SelectedEnergyLevelPlot from './SelectedEnergyLevelPlot.js';
-import YLinePlot from './YLinePlot.js';
 
 export default class EnergyDiagramNode extends Node {
 
@@ -96,55 +93,25 @@ export default class EnergyDiagramNode extends Node {
     const verticalGridLines = new GridLineSet( this.chartTransform, Orientation.HORIZONTAL,
       QBSConstants.ALL_GRAPHS_X_TICK_SPACING, QBSConstants.GRID_LINE_SET_OPTIONS );
 
-    // Plots the shape of the selected potential.
-    const potentialPlot = new YLinePlot( this.chartTransform, model.xGrid.xCoordinates, model.boundStateResultProperty.value.potentials, {
-      stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: 3
-    } );
-    model.boundStateResultProperty.lazyLink( boundStateResult => potentialPlot.setYCoordinates( boundStateResult.potentials ) );
-
-    // Plots the energy levels of the selected potential.
-    const energyLevelsPlot = new EnergyLevelsPlot( this.chartTransform, model.boundStateResultProperty.value.energies, {
-      stroke: QBSColors.totalEnergyColorProperty,
-      lineWidth: 2
-    } );
-    model.boundStateResultProperty.lazyLink( boundStateResult => energyLevelsPlot.setEnergies( boundStateResult.energies ) );
-
-    // Plots the selected energy level.
-    const selectedEnergyLevelPlot = new SelectedEnergyLevelPlot( this.chartTransform,
-      model.getEnergyAtEnergyLevel( model.selectedEnergyLevelProperty.value ) );
-    Multilink.multilink( [ model.selectedEnergyLevelProperty, model.boundStateResultProperty ],
-      ( selectedEnergyLevel, boundStateResult ) => selectedEnergyLevelPlot.setSelectedEnergy( model.getEnergyAtEnergyLevel( selectedEnergyLevel ) ) );
-
-    // Plots the highlighted energy level.
-    const highlightedEnergyLevelPlot = new EnergyLevelsPlot( this.chartTransform, [], {
-      stroke: QBSColors.highlightedEnergyLevelColorProperty,
-      lineWidth: 3
-    } );
-    model.highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel => {
-
-      // Change the cursor to a pointer when an energy level is highlighted.
-      this.chartRectangle.cursor = ( highlightedEnergyLevel === null ) ? 'default' : 'pointer';
-
-      // Update the plot to display the highlighted energy level.
-      highlightedEnergyLevelPlot.setEnergies( ( highlightedEnergyLevel === null ) ? [] :
-        [ model.getEnergyAtEnergyLevel( highlightedEnergyLevel ) ] );
-    } );
-
-    // Highlighting and selection of energy levels.
-    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this.chartRectangle,
-      this.chartTransform, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
+    const energyDiagramPlotsNode = new EnergyDiagramPlotsNode( model, this.chartTransform );
 
     // Parent for elements that are clipped to the chartRectangle.
     const clippedLayer = new Node( {
       clipArea: this.chartRectangle.getShape(),
       children: [
-        energyLevelsPlot,
-        highlightedEnergyLevelPlot,
-        selectedEnergyLevelPlot,
-        potentialPlot
+        energyDiagramPlotsNode
       ]
     } );
+
+    model.highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel => {
+
+      // Change the cursor to a pointer when an energy level is highlighted.
+      this.chartRectangle.cursor = ( highlightedEnergyLevel === null ) ? 'default' : 'pointer';
+    } );
+
+    // Highlighting and selection of energy levels.
+    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this.chartRectangle,
+      this.chartTransform, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
 
     const potentials = model.potentialProperty.validValues!;
     affirm( potentials );

@@ -17,8 +17,12 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
+import XGrid from './solver/XGrid.js';
 
 export default class EnergyDiagram extends PhetioObject {
+
+  // x-axis values
+  public readonly xGrid: XGrid;
 
   public readonly yRangeProperty: TReadOnlyProperty<Range>;
   private readonly _yRangeProperty: Property<Range>;
@@ -34,6 +38,8 @@ export default class EnergyDiagram extends PhetioObject {
       tandem: tandem,
       phetioState: false
     } );
+
+    this.xGrid = model.xGrid;
 
     this._yRangeProperty = new Property( model.potentialProperty.value.energyAxisRange, {
       tandem: tandem.createTandem( 'yRangeProperty' ),

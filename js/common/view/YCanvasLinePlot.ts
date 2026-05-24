@@ -54,7 +54,7 @@ export default class YCanvasLinePlot extends CanvasPainter {
       visible: providedOptions.visibleProperty ? providedOptions.visibleProperty.value : true
     }, providedOptions );
 
-    super();
+    super( options );
 
     this.chartTransform = chartTransform;
     this.xCoordinates = xCoordinates;

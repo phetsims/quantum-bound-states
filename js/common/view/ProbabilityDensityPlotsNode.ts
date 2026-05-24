@@ -1,7 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Similar to WaveFunctionPlotsNode, factor out a base class.
 /**
- * TODO
+ * ProbabilityDensityPlotsNode draws the plots for the Probability Density graph. It uses Canvas to optimize performance.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,12 +17,15 @@ export default class ProbabilityDensityPlotsNode extends ChartCanvasNode {
   public constructor( probabilityDensityGraph: ProbabilityDensityGraph,
                       chartTransform: ChartTransform ) {
 
-    const probabilityDensityPlot = new ProbabilityDensityPlot( probabilityDensityGraph, chartTransform );
+    // Plots, in back-to-front rendering order.
+    const plots = [
+      new ProbabilityDensityPlot( probabilityDensityGraph, chartTransform )
+    ];
 
-    super( chartTransform, [ probabilityDensityPlot ] );
+    super( chartTransform, plots );
 
     const updatePlots = () => {
-      probabilityDensityPlot.update();
+      plots.forEach( plot => plot.update() );
       this.update();
     };
 
