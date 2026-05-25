@@ -18,6 +18,7 @@ import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersU
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
@@ -49,7 +50,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
       // SelfOptions
       wellWidthRange: new RangeWithValue( 0.1, 1.5, 1 ), // for 1 well
       wellDepthRange: new RangeWithValue( 0.1, 15, 10 ), // for 1 well
-      spacingRange: new RangeWithValue( 0, 0, 0 ), // for 1 well
+      spacingRange: new RangeWithValue( 0, 0, 0 ), // for 1 well, effectively constant zero
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
@@ -77,7 +78,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     this.spacingProperty = new NumberProperty( options.spacingRange.defaultValue, {
       units: nanometersUnit,
       range: options.spacingRange,
-      tandem: options.tandem.createTandem( 'spacingProperty' ),
+      tandem: ( options.spacingRange.getLength() > 0 ) ? options.tandem.createTandem( 'spacingProperty' ) : Tandem.OPT_OUT,
       phetioFeatured: true
     } );
 

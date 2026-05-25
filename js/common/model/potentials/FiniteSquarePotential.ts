@@ -15,6 +15,7 @@ import WithOptional from '../../../../../phet-core/js/types/WithOptional.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
@@ -47,7 +48,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
       // SelfOptions
       wellWidthRange: new RangeWithValue( 0.1, 6, 1 ), // for 1 well
       wellDepthRange: new RangeWithValue( 0.1, 20, 10 ), // for 1 well
-      separationRange: new RangeWithValue( 0, 0, 0 ), // for 1 well
+      separationRange: new RangeWithValue( 0, 0, 0 ), // for 1 well, effectively constant zero
 
       // QuantumPotentialOptions
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
@@ -73,7 +74,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
     this.separationProperty = new NumberProperty( options.separationRange.defaultValue, {
       units: nanometersUnit,
       range: options.separationRange,
-      tandem: options.tandem.createTandem( 'separationProperty' ),
+      tandem: ( options.separationRange.getLength() > 0 ) ? options.tandem.createTandem( 'separationProperty' ) : Tandem.OPT_OUT,
       phetioFeatured: true
     } );
 
