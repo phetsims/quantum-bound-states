@@ -94,26 +94,24 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
    * Solves for the bound state using an analytic solution where available.
    */
   public override solveBoundState( xGrid: XGrid ): BoundStateResult {
-    if ( this.numberOfWellsProperty.value === 1 && this.electricFieldProperty.value === 0 ) {
-      
-      // TODO: this is not ready for prime time
-      // return AsymmetricTriangleSolution.solve( xGrid, {
-      //   numberOfWells: this.numberOfWellsProperty.value,
-      //   energyMin: this.getMinSolverEnergy(),
-      //   energyMax: this.getMaxSolverEnergy(),
-      //   xOffset: this.xOffsetProperty.value,
-      //   yOffset: this.yOffsetProperty.value,
-      //   wellWidth: this.wellWidthProperty.value,
-      //   wellDepth: this.wellDepthProperty.value,
-      //   electronMasses: this.electronMassesProperty.value,
-      //   electricField: this.electricFieldProperty.value
-      // } );
+    if ( isAffirmEnabled() ) {
+      affirm( this.numberOfWellsProperty.value === 1, 'AsymmetricTrianglePotential does not support multiple wells.' );
+      affirm( this.electricFieldProperty.value === 0, 'AsymmetricTrianglePotential does not support electric field.' );
+    }
 
-      return super.solveBoundState( xGrid );
-    }
-    else {
-      return super.solveBoundState( xGrid );
-    }
+    // TODO: this is not ready for prime time
+    // return AsymmetricTriangleSolution.solve( xGrid, {
+    //   numberOfWells: this.numberOfWellsProperty.value,
+    //   energyMin: this.getMinSolverEnergy(),
+    //   energyMax: this.getMaxSolverEnergy(),
+    //   xOffset: this.xOffsetProperty.value,
+    //   yOffset: this.yOffsetProperty.value,
+    //   wellWidth: this.wellWidthProperty.value,
+    //   wellDepth: this.wellDepthProperty.value,
+    //   electronMasses: this.electronMassesProperty.value,
+    //   electricField: this.electricFieldProperty.value
+    // } );
+    return super.solveBoundState( xGrid );
   }
 
   /**

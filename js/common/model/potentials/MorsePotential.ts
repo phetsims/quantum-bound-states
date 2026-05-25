@@ -98,8 +98,10 @@ export default class MorsePotential extends QuantumPotential {
    * Solves for the bound state using an analytic solution.
    */
   public override solveBoundState( xGrid: XGrid ): BoundStateResult {
-    affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
-
+    if ( isAffirmEnabled() ) {
+      affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
+      affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
+    }
     return MorseSolution.solve( xGrid, {
       numberOfWells: this.numberOfWellsProperty.value,
       energyMin: this.getMinSolverEnergy(),

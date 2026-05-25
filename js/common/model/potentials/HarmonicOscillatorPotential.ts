@@ -135,8 +135,10 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
    * Solves for the bound state using an analytic solution.
    */
   public override solveBoundState( xGrid: XGrid ): BoundStateResult {
-    affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
-
+    if ( isAffirmEnabled() ) {
+      affirm( this.numberOfWellsProperty.value === 1, 'HarmonicOscillatorPotential does not support multiple wells.' );
+      affirm( this.electricFieldProperty.value === 0, 'HarmonicOscillatorPotential does not support electric field.' );
+    }
     return HarmonicOscillatorSolution.solve( xGrid, {
       numberOfWells: this.numberOfWellsProperty.value,
       xOffset: this.xOffsetProperty.value,
