@@ -362,6 +362,41 @@ export default class QBSModel implements TModel {
     const index = this.xGrid.getClosestIndex( x );
     return this.timeEvolvedSuperpositionProperty.value.magnitudeValues[ index ];
   }
+
+  /**
+   * Determines whether the given energy level index is valid.
+   */
+  public isEnergyLevelValid( energyLevel: number ): boolean {
+    const groundStateIndex = this.potentialProperty.value.groundStateIndex;
+    const energiesIndex = energyLevel - groundStateIndex;
+    const energies = this.boundStateResultProperty.value.energies;
+    return ( energiesIndex >= 0 && energiesIndex < energies.length );
+  }
+
+  /**
+   * Determines whether the selected energy level is valid.
+   * Because selectedEnergyLevelProperty is adjusted when boundStateResultProperty changes, there are circumstances
+   * where it is necessary to test whether that has happened. For example, when redrawing the Energy Diagram plots,
+   * or when restoring PhET-iO state.
+   */
+  public isSelectedEnergyLevelValid(): boolean {
+    return this.isEnergyLevelValid( this.selectedEnergyLevelProperty.value );
+  }
+
+  /**
+   * Determines whether the highlighted energy level is valid.
+   * Because highlightedEnergyLevelProperty is adjusted when boundStateResultProperty changes, there are circumstances
+   * where it is necessary to test whether that has happened. For example, when redrawing the Energy Diagram plots,
+   * or when restoring PhET-iO state.
+   */
+  public isHighlightedEnergyLevelValid(): boolean {
+    if ( this.highlightedEnergyLevelProperty.value === null ) {
+      return true;
+    }
+    else {
+      return this.isEnergyLevelValid( this.highlightedEnergyLevelProperty.value );
+    }
+  }
 }
 
 /**
