@@ -19,12 +19,16 @@ export default class WaveFunctionPlotsNode extends ChartCanvasNode {
 
   public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
-    // Plots, in back-to-front rendering order.
-    const plots = [
-      new PhasePlot( waveFunctionGraph, chartTransform ),
+    const linePlots = [
       new MagnitudePlot( waveFunctionGraph, chartTransform ),
       new ImaginaryPartPlot( waveFunctionGraph, chartTransform ),
       new RealPartPlot( waveFunctionGraph, chartTransform )
+    ];
+
+    // Plots, in back-to-front rendering order.
+    const plots = [
+      new PhasePlot( waveFunctionGraph, chartTransform ),
+      ...linePlots
     ];
 
     super( chartTransform, plots );
@@ -38,11 +42,12 @@ export default class WaveFunctionPlotsNode extends ChartCanvasNode {
     // Update when the time-evolved state changes, the chartTransform changes, or the visibility of plots changes.
     waveFunctionGraph.timeEvolvedSuperpositionProperty.lazyLink( () => updatePlots() );
     chartTransform.changedEmitter.addListener( () => updatePlots() );
-    Multilink.multilink( [
+    Multilink.multilinkAny( [
       waveFunctionGraph.realPartVisibleProperty,
       waveFunctionGraph.imaginaryPartVisibleProperty,
       waveFunctionGraph.magnitudeVisibleProperty,
-      waveFunctionGraph.phaseVisibleProperty
+      waveFunctionGraph.phaseVisibleProperty,
+      ...linePlots.map( plot => plot.strokeProperty )
     ], () => updatePlots() );
   }
 }

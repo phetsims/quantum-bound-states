@@ -33,7 +33,7 @@ export default class EnergyLevelsPlot extends CanvasPainter {
   private energies: number[];
   public lineWidth: number;
   public lineDash: number[];
-  private readonly strokeProperty: ProfileColorProperty;
+  public readonly strokeProperty: ProfileColorProperty;
   private readonly hasArrowHeads: boolean;
 
   public constructor( chartTransform: ChartTransform,

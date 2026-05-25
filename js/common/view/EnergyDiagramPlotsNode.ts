@@ -41,13 +41,15 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
       lineWidth: 3
     } );
 
-    super( chartTransform, [
-      // Back-to-front rendering order.
+    // Back-to-front rendering order.
+    const plots = [
       energyLevelsPlot,
       highlightedEnergyLevelPlot,
       selectedEnergyLevelPlot,
       potentialPlot
-    ] );
+    ];
+
+    super( chartTransform, plots );
 
 
     // Update all plots at the same time.
@@ -72,8 +74,13 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
       this.update();
     };
 
-    // Update when the model changes or chartTransform changes.
-    Multilink.multilink( [ model.boundStateResultProperty, model.selectedEnergyLevelProperty, model.highlightedEnergyLevelProperty ],
+    // Update when the model changes, stroke colors change, or chartTransform changes.
+    Multilink.multilinkAny( [
+        model.boundStateResultProperty,
+        model.selectedEnergyLevelProperty,
+        model.highlightedEnergyLevelProperty,
+        ...plots.map( plot => plot.strokeProperty )
+      ],
       () => updatePlots() );
     chartTransform.changedEmitter.addListener( () => updatePlots() );
   }

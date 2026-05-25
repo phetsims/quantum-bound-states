@@ -17,20 +17,18 @@ export default class ProbabilityDensityPlotsNode extends ChartCanvasNode {
   public constructor( probabilityDensityGraph: ProbabilityDensityGraph,
                       chartTransform: ChartTransform ) {
 
-    // Plots, in back-to-front rendering order.
-    const plots = [
-      new ProbabilityDensityPlot( probabilityDensityGraph, chartTransform )
-    ];
+    const probabilityDensityPlot = new ProbabilityDensityPlot( probabilityDensityGraph, chartTransform );
 
-    super( chartTransform, plots );
+    super( chartTransform, [ probabilityDensityPlot ] );
 
     const updatePlots = () => {
-      plots.forEach( plot => plot.update() );
+      probabilityDensityPlot.update();
       this.update();
     };
 
     // Update when the time-evolved state changes or the chartTransform changes.
     probabilityDensityGraph.timeEvolvedSuperpositionProperty.lazyLink( () => updatePlots() );
     chartTransform.changedEmitter.addListener( () => updatePlots() );
+    probabilityDensityPlot.strokeProperty.lazyLink( () => this.update() );
   }
 }

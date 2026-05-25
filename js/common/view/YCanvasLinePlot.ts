@@ -32,7 +32,7 @@ export default class YCanvasLinePlot extends CanvasPainter {
   private yCoordinates: readonly number[];
   public lineWidth: number;
   public lineDash: number[];
-  private readonly strokeProperty: ProfileColorProperty;
+  public readonly strokeProperty: ProfileColorProperty;
 
   public constructor( chartTransform: ChartTransform,
                       xCoordinates: readonly number[],
