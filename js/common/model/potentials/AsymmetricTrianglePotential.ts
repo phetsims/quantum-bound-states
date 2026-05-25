@@ -91,7 +91,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
   }
 
   /**
-   * Solves for the bound state using an analytic solution where available.
+   * Solves for the bound state using an analytic solution.
    */
   public override solveBoundState( xGrid: XGrid ): BoundStateResult {
     if ( isAffirmEnabled() ) {

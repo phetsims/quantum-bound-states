@@ -114,6 +114,9 @@ export default class InfiniteStepPotential extends QuantumPotential {
     } );
   }
 
+  /**
+   * Gets the potential energy (eV) at a specified x-coordinate (nm).
+   */
   public override getPotentialEnergyAt( x: number ): number {
     if ( isAffirmEnabled() ) {
       affirm( this.numberOfWellsProperty.value === 1, 'InfiniteStepPotential does not support multiple wells.' );
