@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import QBSModel from '../model/QBSModel.js';
@@ -49,27 +48,40 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
       potentialPlot
     ] );
 
-    // Update all plots at the same time.
-    const updatePlots = () => {
+    //TODO Duplication here with other listeners below.
+    chartTransform.changedEmitter.addListener( () => {
 
       const boundStateResult = model.boundStateResultProperty.value;
       potentialPlot.setYCoordinates( boundStateResult.potentials );
       energyLevelsPlot.setEnergies( boundStateResult.energies );
 
+      //TODO This fails when switching between potentials because selectedEnergyLevelProperty may be out of sync.
+      // const selectedEnergyLevel = model.selectedEnergyLevelProperty.value;
+      // const selectedEnergy = model.getEnergyAtEnergyLevel( selectedEnergyLevel );
+      // selectedEnergyLevelPlot.setEnergy( selectedEnergy );
+
+      this.update();
+    } );
+
+    model.boundStateResultProperty.lazyLink( () => {
+      const boundStateResult = model.boundStateResultProperty.value;
+      potentialPlot.setYCoordinates( boundStateResult.potentials );
+      energyLevelsPlot.setEnergies( boundStateResult.energies );
+      this.update();
+    } );
+
+    model.selectedEnergyLevelProperty.lazyLink( () => {
       const selectedEnergyLevel = model.selectedEnergyLevelProperty.value;
       const selectedEnergy = model.getEnergyAtEnergyLevel( selectedEnergyLevel );
       selectedEnergyLevelPlot.setEnergy( selectedEnergy );
+      this.update();
+    } );
 
+    model.highlightedEnergyLevelProperty.lazyLink( () => {
       const highlightedEnergyLevel = model.highlightedEnergyLevelProperty.value;
       const highlightedEnergy = ( highlightedEnergyLevel === null ) ? null : model.getEnergyAtEnergyLevel( highlightedEnergyLevel );
       highlightedEnergyLevelPlot.setEnergy( highlightedEnergy );
-
       this.update();
-    };
-
-    // Update when the model changes or chartTransform changes.
-    Multilink.multilink( [ model.boundStateResultProperty, model.selectedEnergyLevelProperty, model.highlightedEnergyLevelProperty ],
-      () => updatePlots() );
-    chartTransform.changedEmitter.addListener( () => updatePlots() );
+    } );
   }
 }
