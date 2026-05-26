@@ -35,15 +35,17 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
 
-      // Adjust drag bounds for xOffset.
+      // Adjust drag bounds for xOffset and the handle position at getTotalWidth()/2.
       // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
-      //TODO dragBoundsProperty is incorrect for multiple wells.
-      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
-        xOffset => new Bounds2(
-          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min ),
-          energyDiagramRectangleBounds.minY,
-          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.max ),
-          energyDiagramRectangleBounds.maxY ) ),
+      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.separationProperty ],
+        ( xOffset, numberOfWells, separation ) => {
+          const totalSeparation = ( numberOfWells - 1 ) * separation;
+          return new Bounds2(
+            chartTransform.modelToViewX( xOffset + ( numberOfWells * wellWidthProperty.range.min + totalSeparation ) / 2 ),
+            energyDiagramRectangleBounds.minY,
+            chartTransform.modelToViewX( xOffset + ( numberOfWells * wellWidthProperty.range.max + totalSeparation ) / 2 ),
+            energyDiagramRectangleBounds.maxY );
+        } ),
 
       drag: ( event, listener ) => {
 
@@ -53,14 +55,10 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
         // Remember the Property's previous value for sound feedback.
         const previousWellWidth = wellWidthProperty.value;
 
-        // Dragging changes the total width of the potential.
-        const deltaTotalWidth = 2 * chartTransform.viewToModelDeltaX( viewDeltaX );
-        const totalWidth = potential.getTotalWidth() + deltaTotalWidth;
-
-        // Compute the new well width by subtracting out the separations between wells.
-        const totalSeparation = ( potential.numberOfWellsProperty.value - 1 ) * potential.separationProperty.value;
-        const newWellWidth = ( totalWidth - totalSeparation ) / potential.numberOfWellsProperty.value;
-        wellWidthProperty.value = wellWidthProperty.range.constrainValue( newWellWidth );
+        // The handle is at getTotalWidth()/2, and each well width contributes numberOfWells times to getTotalWidth.
+        const deltaWidth = 2 * chartTransform.viewToModelDeltaX( viewDeltaX );
+        wellWidthProperty.value = wellWidthProperty.range.constrainValue(
+          previousWellWidth + deltaWidth / potential.numberOfWellsProperty.value );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( wellWidthProperty.value, previousWellWidth );

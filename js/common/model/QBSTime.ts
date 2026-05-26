@@ -58,7 +58,7 @@ export default class QBSTime extends PhetioObject {
       phetioState: false
     } );
 
-    this.isPlayingProperty = new BooleanProperty( true, {
+    this.isPlayingProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'isPlayingProperty' ),
       phetioFeatured: true
     } );
