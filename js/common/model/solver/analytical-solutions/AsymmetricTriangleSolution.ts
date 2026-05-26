@@ -2,7 +2,16 @@
 
 /**
  * Analytical solution for a single-well Asymmetric Triangle potential.
+ * The solution involves Airy functions Ai(z) and Bi(z).
  *
+ * Analytical solution for the finite triangular potential well.
+ *
+ * V(x) = wellDepth + yOffset    for x < xOffset - wellWidth/2
+ * V(x) = yOffset + (wellDepth/wellWidth) * x    for xOffset - wellWidth/2 < x < xOffset + wellWidth/2
+ * V(x) = wellDepth + yOffset    for x > xOffset + wellWidth/2
+ *
+ * Bound states exist when: yOffset < E < wellDepth + yOffset
+ * 
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,17 +32,20 @@ const ENERGY_BOUNDARY_FRACTION = 1e-6;
 // Bisection stops when the energy interval is narrower than this value (eV).
 const BISECTION_CONVERGENCE_THRESHOLD = 1e-10;
 
-// Minimum number of samples used when counting interior nodes of the Airy wave function.
-const MIN_NODE_COUNT_SAMPLES = 50;
+// Number of search intervals used to bracket roots of the transcendental boundary equation.
+const ENERGY_SEARCH_POINTS = 1000;
 
-// Number of samples per local oscillation period when counting nodes adaptively.
-const NODE_COUNT_SAMPLES_PER_PERIOD = 10;
+// Maximum number of bisection iterations used to refine one energy root.
+const BISECTION_MAX_ITERATIONS = 100;
 
 // Threshold below which an Airy boundary value is treated as zero when computing A/B coefficients.
 const AIRY_DEGENERACY_THRESHOLD = 1e-12;
 
 // Step size for the central-difference approximation of Airy function derivatives.
 const AIRY_PRIME_STEP = 1e-6;
+
+// Positive Airy argument where the asymptotic Ai form is used instead of direct evaluation.
+const AIRY_ASYMPTOTIC_THRESHOLD = 4;
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
@@ -137,10 +149,10 @@ export default class AsymmetricTriangleSolution {
 
 /**
  * Find all bound-state energies for the finite triangular well.
- *
- * By the Sturm oscillation theorem, the n-th eigenstate has exactly n interior nodes,
- * and the node count increases by 1 at each eigenvalue. Bisecting on each n→n+1 transition
- * guarantees that no eigenvalue is missed, regardless of how closely spaced the states are.
+ * The well is defined by its width, depth, and position.
+ * The energy is searched for in the range [energyMin, energyMax].
+ * The energy is returned in ascending order.
+ * The energies are shifted by yOffset so that the well bottom is at E = yOffset.
  */
 function findBoundStateEnergies(
   wellWidth: number,
@@ -159,77 +171,78 @@ function findBoundStateEnergies(
     return [];
   }
 
-  const nodeCount = ( energy: number ) =>
-    countNodesInAiryRegion( energy, wellWidth, wellDepth, electronMasses, yOffset );
+  // Transcendental boundary equation: leftBi * rightAi - leftAi * rightBi = 0
+  const transcendentalFunction = ( energy: number ): number => {
+    const { leftAi, leftBi, rightAi, rightBi } = calculateAiryCoefficients(
+      energy, wellWidth, wellDepth, electronMasses, yOffset
+    );
 
-  const totalStates = nodeCount( internalEnergyMax );
-  const energies: number[] = [];
-  let searchLow = internalEnergyMin;
+    // Boundary matching condition at both finite barriers.
+    return leftBi * rightAi - leftAi * rightBi;
+  };
 
-  for ( let n = 0; n < totalStates; n++ ) {
+  const brackets: Array<[ number, number ]> = [];
+  const dE = ( internalEnergyMax - internalEnergyMin ) / ENERGY_SEARCH_POINTS;
+  let prevEnergy = internalEnergyMin;
+  let prevValue = transcendentalFunction( prevEnergy );
 
-    // Bisect to find the energy where node count transitions from n to n+1.
-    let bisectLow = searchLow;
-    let bisectHigh = internalEnergyMax;
+  for ( let i = 1; i <= ENERGY_SEARCH_POINTS; i++ ) {
+    const energy = internalEnergyMin + i * dE;
+    const value = transcendentalFunction( energy );
 
-    while ( bisectHigh - bisectLow > BISECTION_CONVERGENCE_THRESHOLD ) {
-      const mid = ( bisectLow + bisectHigh ) / 2;
-      if ( nodeCount( mid ) <= n ) {
-        bisectLow = mid;
-      }
-      else {
-        bisectHigh = mid;
-      }
+    if ( Number.isFinite( prevValue ) && Number.isFinite( value ) && prevValue * value < 0 ) {
+      brackets.push( [ prevEnergy, energy ] );
     }
 
-    energies.push( ( bisectLow + bisectHigh ) / 2 );
-    searchLow = bisectLow;
+    prevEnergy = energy;
+    prevValue = value;
   }
 
-  return energies;
+  const energies: number[] = [];
+
+  for ( const [ low, high ] of brackets ) {
+    const energy = refineBisection( transcendentalFunction, low, high );
+
+    if ( energy !== null ) {
+      energies.push( energy );
+    }
+  }
+
+  return energies.sort( ( a, b ) => a - b );
 }
 
-/**
- * Count interior nodes (zero crossings) of the Airy wave function at the given energy.
- * Nodes occur only in the classically allowed region where V(x) < energy.
- * Uses adaptive sampling: zeros of A·Ai(z)+B·Bi(z) are spaced ~π/√|z| apart,
- * so we sample proportionally to |zLeft|^(3/2) to resolve all zeros near the left edge.
- */
-function countNodesInAiryRegion(
-  energy: number,
-  wellWidth: number,
-  wellDepth: number,
-  electronMasses: number,
-  yOffset: number
-): number {
+// Refine the energy eigenvalue using bisection when the energy is bracketed by a sign change.
+function refineBisection( f: ( x: number ) => number, low: number, high: number ): number | null {
+  let fLow = f( low );
+  const fHigh = f( high );
 
-  const { alpha, turningPoint, A, B } = calculateAiryCoefficients(
-    energy, wellWidth, wellDepth, electronMasses, yOffset
-  );
-
-  if ( turningPoint <= 0 ) {
-    return 0;
+  if ( !Number.isFinite( fLow ) || !Number.isFinite( fHigh ) || fLow * fHigh > 0 ) {
+    return null;
   }
 
-  // The Airy argument z = alpha*(x - turningPoint) maps the classically allowed region [0, turningPoint] to [zLeft, 0].
-  const zLeft = -alpha * turningPoint;
+  let a = low;
+  let b = high;
 
-  // ≥10 samples per local period at z = zLeft (densest region) ensures all zeros are detected.
-  const nSamples = Math.max( MIN_NODE_COUNT_SAMPLES, Math.ceil( Math.pow( -zLeft, 1.5 ) * NODE_COUNT_SAMPLES_PER_PERIOD / Math.PI ) );
+  for ( let i = 0; i < BISECTION_MAX_ITERATIONS && b - a > BISECTION_CONVERGENCE_THRESHOLD; i++ ) {
+    const mid = ( a + b ) / 2;
+    const fMid = f( mid );
 
-  let count = 0;
-  let prev = A * airyAi( zLeft ) + B * airyBi( zLeft );
-
-  for ( let i = 1; i <= nSamples; i++ ) {
-    const z = zLeft + i * ( -zLeft ) / nSamples;
-    const curr = A * airyAi( z ) + B * airyBi( z );
-    if ( prev * curr < 0 ) {
-      count++;
+    if ( !Number.isFinite( fMid ) ) {
+      return null;
     }
-    prev = curr;
+    if ( Math.abs( fMid ) < Number.EPSILON ) {
+      return mid;
+    }
+    if ( fLow * fMid < 0 ) {
+      b = mid;
+    }
+    else {
+      a = mid;
+      fLow = fMid;
+    }
   }
 
-  return count;
+  return ( a + b ) / 2;
 }
 
 type AiryCoefficients = {
@@ -298,6 +311,21 @@ function calculateAiryCoefficients(
     B = 0;
   }
 
+  const zTest = Math.min( zRight, 3 );
+  if ( zTest > 0 ) {
+    const psiTest = A * airyAi( zTest ) + B * airyBi( zTest );
+    const psiAtLeft = A * AiLeft + B * BiLeft;
+
+    if ( Math.abs( psiTest ) > 100 * Math.abs( psiAtLeft ) ) {
+      A = 1;
+      B = -airyAi( zTest ) / airyBi( zTest );
+
+      const norm = Math.sqrt( A * A + B * B );
+      A /= norm;
+      B /= norm;
+    }
+  }
+
   return {
     alpha: alpha,
     kappa: kappa,
@@ -341,37 +369,53 @@ function calculateWaveFunction(
 /**
  * Evaluate the unnormalized eigenfunction in local coordinates where the ramp starts at x = 0.
  *
- * The full Airy combination A·Ai(z) + B·Bi(z) is used throughout the entire well (0 ≤ x ≤ wellWidth)
- * with no switch at the classical turning point. This guarantees both value and derivative are
- * continuous everywhere — in particular, there is no kink at the turning point.
- *
- * Why Bi does not blow up: at a converged eigenvalue the right boundary condition forces
- * B ≈ A·Ai(z_R)/Bi(z_R), which is exponentially small when z_R is large, so B·Bi(z) ≤ A·Ai(z_R)
- * for all z ≤ z_R and the combination remains bounded throughout the well.
+ * This follows the finite triangular well approach: full Ai/Bi in the classically allowed
+ * ramp, Ai-only/asymptotic decay past the turning point, then exponential decay in the barrier.
  */
 function evaluateWaveFunction( x: number, wellWidth: number, coefficients: AiryCoefficients ): number {
   const { alpha, kappa, turningPoint, A, B } = coefficients;
+  const zLeft = -alpha * turningPoint;
+  const psiAtLeft = A * airyAi( zLeft ) + B * airyBi( zLeft );
+  const psiAtTurningPoint = A * airyAi( 0 ) + B * airyBi( 0 );
 
   if ( x < 0 ) {
 
-    // Left barrier: exponential decay matched to the Airy combination at x = 0.
-    const zLeft = -alpha * turningPoint;
-    const psiAtLeft = A * airyAi( zLeft ) + B * airyBi( zLeft );
     return psiAtLeft * Math.exp( kappa * x );
   }
-  else if ( x <= wellWidth ) {
+  else if ( x <= turningPoint ) {
 
-    // Ramp region: single Airy combination, valid in both the classically allowed (z < 0)
-    // and classically forbidden (z > 0) sub-regions. No formula switch → no derivative kink.
     const z = alpha * ( x - turningPoint );
     return A * airyAi( z ) + B * airyBi( z );
   }
+  else if ( x < wellWidth ) {
+
+    return evaluateForbiddenRampWaveFunction( x, alpha, turningPoint, psiAtTurningPoint );
+  }
   else {
 
-    // Right barrier: exponential decay matched to the Airy combination at x = wellWidth.
-    const zRight = alpha * ( wellWidth - turningPoint );
-    const psiAtRight = A * airyAi( zRight ) + B * airyBi( zRight );
+    const psiAtRight = evaluateForbiddenRampWaveFunction( wellWidth, alpha, turningPoint, psiAtTurningPoint );
     return psiAtRight * Math.exp( -kappa * ( x - wellWidth ) );
+  }
+}
+
+/**
+ * Evaluate the decaying wave function in the forbidden part of the linear ramp, scaled so
+ * that its value matches the full Airy combination at the classical turning point.
+ */
+function evaluateForbiddenRampWaveFunction( x: number, alpha: number, turningPoint: number, psiAtTurningPoint: number ): number {
+  const z = alpha * ( x - turningPoint );
+  return psiAtTurningPoint * evaluateAiDecayRatio( z );
+}
+
+function evaluateAiDecayRatio( z: number ): number {
+  const aiAtZero = airyAi( 0 );
+
+  if ( z < AIRY_ASYMPTOTIC_THRESHOLD ) {
+    return airyAi( z ) / aiAtZero;
+  }
+  else {
+    const zeta = ( 2 / 3 ) * Math.pow( z, 1.5 );
+    return Math.exp( -zeta ) / ( 2 * Math.sqrt( Math.PI ) * Math.pow( z, 0.25 ) * aiAtZero );
   }
 }
 
