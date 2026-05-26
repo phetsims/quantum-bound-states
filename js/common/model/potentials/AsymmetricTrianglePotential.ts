@@ -23,6 +23,7 @@ import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
+import AsymmetricTriangleSolution from '../solver/analytical-solutions/AsymmetricTriangleSolution.js';
 
 type SelfOptions = {
   wellWidthRange?: RangeWithValue;
@@ -100,18 +101,17 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
     }
 
     // TODO: this is not ready for prime time
-    // return AsymmetricTriangleSolution.solve( xGrid, {
-    //   numberOfWells: this.numberOfWellsProperty.value,
-    //   energyMin: this.getMinSolverEnergy(),
-    //   energyMax: this.getMaxSolverEnergy(),
-    //   xOffset: this.xOffsetProperty.value,
-    //   yOffset: this.yOffsetProperty.value,
-    //   wellWidth: this.wellWidthProperty.value,
-    //   wellDepth: this.wellDepthProperty.value,
-    //   electronMasses: this.electronMassesProperty.value,
-    //   electricField: this.electricFieldProperty.value
-    // } );
-    return super.solveBoundState( xGrid );
+    return AsymmetricTriangleSolution.solve( xGrid, {
+      numberOfWells: this.numberOfWellsProperty.value,
+      energyMin: this.getMinSolverEnergy(),
+      energyMax: this.getMaxSolverEnergy(),
+      xOffset: this.xOffsetProperty.value,
+      yOffset: this.yOffsetProperty.value,
+      wellWidth: this.wellWidthProperty.value,
+      wellDepth: this.wellDepthProperty.value,
+      electronMasses: this.electronMassesProperty.value,
+      electricField: this.electricFieldProperty.value
+    } );
   }
 
   /**

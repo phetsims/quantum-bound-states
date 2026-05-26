@@ -16,6 +16,25 @@ import XGrid from '../XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 
+// Fraction of wellDepth used to nudge the energy search range away from exact well edges,
+// preventing the solver from starting exactly at a boundary where V(x) = E.
+const ENERGY_BOUNDARY_FRACTION = 1e-6;
+
+// Bisection stops when the energy interval is narrower than this value (eV).
+const BISECTION_CONVERGENCE_THRESHOLD = 1e-10;
+
+// Minimum number of samples used when counting interior nodes of the Airy wave function.
+const MIN_NODE_COUNT_SAMPLES = 50;
+
+// Number of samples per local oscillation period when counting nodes adaptively.
+const NODE_COUNT_SAMPLES_PER_PERIOD = 10;
+
+// Threshold below which an Airy boundary value is treated as zero when computing A/B coefficients.
+const AIRY_DEGENERACY_THRESHOLD = 1e-12;
+
+// Step size for the central-difference approximation of Airy function derivatives.
+const AIRY_PRIME_STEP = 1e-6;
+
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
   numberOfWells: number;
@@ -133,8 +152,8 @@ function findBoundStateEnergies(
 ): number[] {
 
   const barrierEnergy = yOffset + wellDepth;
-  const internalEnergyMin = Math.max( energyMin, yOffset + 1e-6 * wellDepth );
-  const internalEnergyMax = Math.min( energyMax, barrierEnergy - 1e-6 * wellDepth );
+  const internalEnergyMin = Math.max( energyMin, yOffset + ENERGY_BOUNDARY_FRACTION * wellDepth );
+  const internalEnergyMax = Math.min( energyMax, barrierEnergy - ENERGY_BOUNDARY_FRACTION * wellDepth );
 
   if ( internalEnergyMin >= internalEnergyMax ) {
     return [];
@@ -153,7 +172,7 @@ function findBoundStateEnergies(
     let bisectLow = searchLow;
     let bisectHigh = internalEnergyMax;
 
-    while ( bisectHigh - bisectLow > 1e-10 ) {
+    while ( bisectHigh - bisectLow > BISECTION_CONVERGENCE_THRESHOLD ) {
       const mid = ( bisectLow + bisectHigh ) / 2;
       if ( nodeCount( mid ) <= n ) {
         bisectLow = mid;
@@ -196,7 +215,7 @@ function countNodesInAiryRegion(
   const zLeft = -alpha * turningPoint;
 
   // ≥10 samples per local period at z = zLeft (densest region) ensures all zeros are detected.
-  const nSamples = Math.max( 50, Math.ceil( Math.pow( -zLeft, 1.5 ) * 10 / Math.PI ) );
+  const nSamples = Math.max( MIN_NODE_COUNT_SAMPLES, Math.ceil( Math.pow( -zLeft, 1.5 ) * NODE_COUNT_SAMPLES_PER_PERIOD / Math.PI ) );
 
   let count = 0;
   let prev = A * airyAi( zLeft ) + B * airyBi( zLeft );
@@ -262,13 +281,13 @@ function calculateAiryCoefficients(
   let A: number;
   let B: number;
 
-  if ( Math.abs( leftAi ) > 1e-12 ) {
+  if ( Math.abs( leftAi ) > AIRY_DEGENERACY_THRESHOLD ) {
     const ratio = -leftBi / leftAi; // A/B
     const norm = 1 / Math.sqrt( 1 + ratio * ratio );
     A = ratio * norm;
     B = norm;
   }
-  else if ( Math.abs( leftBi ) > 1e-12 ) {
+  else if ( Math.abs( leftBi ) > AIRY_DEGENERACY_THRESHOLD ) {
     const ratio = -leftAi / leftBi; // B/A
     const norm = 1 / Math.sqrt( 1 + ratio * ratio );
     A = norm;
@@ -377,6 +396,9 @@ function airyAi( x: number ): number {
   const ABS_X_THRESHOLD = 3;
 
   if ( Math.abs( x ) < ABS_X_THRESHOLD ) {
+     // Series expansion for small |x|
+    // Ai(x) = c1 * (1 + x^3/(2*3) + x^6/(2*3*5*6) + ...) - c2 * (x + x^4/(3*4) + x^7/(3*4*6*7) + ...)
+    // where c1 = 1/(3^(2/3)*Γ(2/3)), c2 = 1/(3^(1/3)*Γ(1/3))
     const c1 = 0.3550280538878172; // 1 / ( 3^(2/3) * Γ(2/3) )
     const c2 = 0.2588194037928068; // 1 / ( 3^(1/3) * Γ(1/3) )
 
@@ -399,10 +421,16 @@ function airyAi( x: number ): number {
     return c1 * sum1 - c2 * sum2;
   }
   else if ( x > 0 ) {
+    // Asymptotic expansion for large positive x
+    // Ai(x) ≈ (1/(2√π)) * x^(-1/4) * exp(-ζ) * (1 - ...)
+    // where ζ = (2/3) * x^(3/2)
     const zeta = ( 2 / 3 ) * Math.pow( x, 1.5 );
     return 0.5 * Math.pow( x, -0.25 ) * Math.exp( -zeta ) / Math.sqrt( Math.PI );
   }
   else {
+    // Asymptotic expansion for large negative x
+    // Ai(x) ≈ (1/√π) * |x|^(-1/4) * sin(ζ + π/4)
+    // where ζ = (2/3) * |x|^(3/2)
     const absX = Math.abs( x );
     const zeta = ( 2 / 3 ) * Math.pow( absX, 1.5 );
     return Math.pow( absX, -0.25 ) * Math.sin( zeta + Math.PI / 4 ) / Math.sqrt( Math.PI );
@@ -416,6 +444,9 @@ function airyBi( x: number ): number {
   const ABS_X_THRESHOLD = 3;
 
   if ( Math.abs( x ) < ABS_X_THRESHOLD ) {
+    // Series expansion for small |x|
+    // Bi(x) = c3 * (1 + x^3/(2*3) + x^6/(2*3*5*6) + ...) + c4 * (x + x^4/(3*4) + x^7/(3*4*6*7) + ...)
+    // where c3 = 1/(3^(1/6)*Γ(2/3)), c4 = 3^(1/6)/Γ(1/3)
     const c3 = 0.6149266274460007; // 1 / ( 3^(1/6) * Γ(2/3) )
     const c4 = 0.4482883573538264; // 3^(1/6) / Γ(1/3)
 
@@ -438,10 +469,16 @@ function airyBi( x: number ): number {
     return c3 * sum1 + c4 * sum2;
   }
   else if ( x > 0 ) {
+    // Asymptotic expansion for large positive x
+    // Bi(x) ≈ (1/√π) * x^(-1/4) * exp(ζ)
+    // where ζ = (2/3) * x^(3/2)
     const zeta = ( 2 / 3 ) * Math.pow( x, 1.5 );
     return Math.pow( x, -0.25 ) * Math.exp( zeta ) / Math.sqrt( Math.PI );
   }
   else {
+    // Asymptotic expansion for large negative x
+    // Bi(x) ≈ (1/√π) * |x|^(-1/4) * cos(ζ + π/4)
+    // where ζ = (2/3) * |x|^(3/2)
     const absX = Math.abs( x );
     const zeta = ( 2 / 3 ) * Math.pow( absX, 1.5 );
     return Math.pow( absX, -0.25 ) * Math.cos( zeta + Math.PI / 4 ) / Math.sqrt( Math.PI );
@@ -449,11 +486,9 @@ function airyBi( x: number ): number {
 }
 
 function airyAiPrime( x: number ): number {
-  const h = 1e-6;
-  return ( airyAi( x + h ) - airyAi( x - h ) ) / ( 2 * h );
+  return ( airyAi( x + AIRY_PRIME_STEP ) - airyAi( x - AIRY_PRIME_STEP ) ) / ( 2 * AIRY_PRIME_STEP );
 }
 
 function airyBiPrime( x: number ): number {
-  const h = 1e-6;
-  return ( airyBi( x + h ) - airyBi( x - h ) ) / ( 2 * h );
+  return ( airyBi( x + AIRY_PRIME_STEP ) - airyBi( x - AIRY_PRIME_STEP ) ) / ( 2 * AIRY_PRIME_STEP );
 }
