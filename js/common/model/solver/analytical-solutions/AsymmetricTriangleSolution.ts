@@ -321,43 +321,38 @@ function calculateWaveFunction(
 
 /**
  * Evaluate the unnormalized eigenfunction in local coordinates where the ramp starts at x = 0.
+ *
+ * The full Airy combination A·Ai(z) + B·Bi(z) is used throughout the entire well (0 ≤ x ≤ wellWidth)
+ * with no switch at the classical turning point. This guarantees both value and derivative are
+ * continuous everywhere — in particular, there is no kink at the turning point.
+ *
+ * Why Bi does not blow up: at a converged eigenvalue the right boundary condition forces
+ * B ≈ A·Ai(z_R)/Bi(z_R), which is exponentially small when z_R is large, so B·Bi(z) ≤ A·Ai(z_R)
+ * for all z ≤ z_R and the combination remains bounded throughout the well.
  */
 function evaluateWaveFunction( x: number, wellWidth: number, coefficients: AiryCoefficients ): number {
   const { alpha, kappa, turningPoint, A, B } = coefficients;
-  const zLeft = -alpha * turningPoint;
-  const psiAtLeft = A * airyAi( zLeft ) + B * airyBi( zLeft );
-  const psiAtTurningPoint = A * airyAi( 0 ) + B * airyBi( 0 );
 
   if ( x < 0 ) {
+
+    // Left barrier: exponential decay matched to the Airy combination at x = 0.
+    const zLeft = -alpha * turningPoint;
+    const psiAtLeft = A * airyAi( zLeft ) + B * airyBi( zLeft );
     return psiAtLeft * Math.exp( kappa * x );
   }
-  else if ( x <= turningPoint ) {
+  else if ( x <= wellWidth ) {
+
+    // Ramp region: single Airy combination, valid in both the classically allowed (z < 0)
+    // and classically forbidden (z > 0) sub-regions. No formula switch → no derivative kink.
     const z = alpha * ( x - turningPoint );
     return A * airyAi( z ) + B * airyBi( z );
   }
-  else if ( x < wellWidth ) {
-    return evaluateDecayingAiryTail( alpha * ( x - turningPoint ), psiAtTurningPoint );
-  }
   else {
-    const zAtRight = alpha * ( wellWidth - turningPoint );
-    const psiAtRight = evaluateDecayingAiryTail( zAtRight, psiAtTurningPoint );
+
+    // Right barrier: exponential decay matched to the Airy combination at x = wellWidth.
+    const zRight = alpha * ( wellWidth - turningPoint );
+    const psiAtRight = A * airyAi( zRight ) + B * airyBi( zRight );
     return psiAtRight * Math.exp( -kappa * ( x - wellWidth ) );
-  }
-}
-
-/**
- * Use the decaying Airy branch in the classically forbidden ramp region to avoid Bi blow-up.
- */
-function evaluateDecayingAiryTail( z: number, psiAtTurningPoint: number ): number {
-  const aiAtZero = airyAi( 0 );
-
-  if ( z < 4 ) {
-    return psiAtTurningPoint * airyAi( z ) / aiAtZero;
-  }
-  else {
-    const zeta = ( 2 / 3 ) * Math.pow( z, 1.5 );
-    const airyRatio = Math.exp( -zeta ) / ( 2 * Math.sqrt( Math.PI ) * Math.pow( z, 0.25 ) * aiAtZero );
-    return psiAtTurningPoint * airyRatio;
   }
 }
 
