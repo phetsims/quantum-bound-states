@@ -39,8 +39,13 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
       [ model.selectedWaveFunctionValuesProperty ],
       waveFunctionValues => {
         //TODO It may be more performant to return maxAbsY as part of BoundStateResult, then use maxAbsY * maxAbsY here.
+       
+       // TODO: copied from WaveFunctionGraph.ts, should be refactored to use maxAbsY from BoundStateResult
+       // Let's not assume that the wave function values are all positive. 
+        const minY = Math.min( ...waveFunctionValues );
         const maxY = Math.max( ...waveFunctionValues );
-        return new Range( 0, maxY * maxY );
+        const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
+        return new Range( 0, maxAbsY * maxAbsY );
       } );
   }
 }
