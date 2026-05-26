@@ -552,6 +552,45 @@ function testDoubleSquareWell(): void {
 }
 
 /**
+ * Regression: large spacing in a symmetric double-well Poschl-Teller must not hang in EnergyRefiner.
+ * At spacing ~2.25 nm the ground and first excited states are nearly degenerate, producing a micro-bracket
+ * whose relative tolerance would fall below one ulp without the machine-epsilon floor.
+ */
+function testDoublePoschlTellerLargeSpacing(): void {
+
+  const mass = ELECTRON_MASSES;
+  const wellWidth = 0.3; // nm
+  const wellDepth = 10; // eV
+  const spacing = 2.25; // nm, centre-to-centre spacing (Two Wells screen default range)
+
+  const potential = ( x: number ): number => {
+    let pe = 0;
+    for ( let i = 1; i <= 2; i++ ) {
+      const xi = spacing * ( i - 1.5 );
+      const coshValue = Math.cosh( ( x - xi ) / wellWidth );
+      pe += -wellDepth / ( coshValue * coshValue );
+    }
+    return pe;
+  };
+
+  const xGrid = new XGrid( {
+    xMin: -3.5,
+    xMax: 3.5,
+    numberOfPoints: 3001,
+    tandem: Tandem.OPT_OUT
+  } );
+
+  const result = NumerovSolver.solve( xGrid, potential, mass, -30, 0 );
+
+  affirm( result.energies.length >= 1,
+    `Double Poschl-Teller (spacing=${spacing}): expected at least 1 state, got ${result.energies.length}` );
+  affirm( Math.abs( result.energies[ 0 ] + 8.143 ) < 0.01,
+    `Double Poschl-Teller ground state energy ~-8.143 eV, got ${result.energies[ 0 ]}` );
+
+  logSummary( `Double Poschl-Teller (spacing=${spacing} nm) - Found ${result.energies.length} states, E0=${toFixed( result.energies[ 0 ], 4 )} eV` );
+}
+
+/**
  * Regression test for node-count bracketing in multiple separated finite square wells.
  */
 function testMultipleFiniteSquareWells(): void {
@@ -917,6 +956,7 @@ export function testSolvers(): void {
   testInfiniteSquare();
   testFiniteSquare();
   testDoubleSquareWell();
+  testDoublePoschlTellerLargeSpacing();
   testMultipleFiniteSquareWells();
   testMorsePotential();
   testInfiniteStep();

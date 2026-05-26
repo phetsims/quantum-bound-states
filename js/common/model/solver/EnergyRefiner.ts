@@ -15,12 +15,15 @@
  * @author Martin Veillette
  */
 
-// Default relative precision of 10^-4 gives absolute tolerance = 10^-4 × (bracket width)
-const DEFAULT_RELATIVE_TOLERANCE = 1e-4;
+// Default relative precision of 10^-6 gives absolute tolerance = 10^-6 × (bracket width)
+const DEFAULT_RELATIVE_TOLERANCE = 1e-6;
 
 // Minimum |fHi - fLo| to attempt a false-position step; below this the function is numerically
 // flat across the bracket and bisection is safer.
 const SMALL = 1e-10;
+
+// Backstop against infinite loops when the bracket cannot shrink below floating-point resolution.
+const MAX_REFINEMENT_ITERATIONS = 200;
 
 /**
  * Configuration options for EnergyRefiner.
@@ -72,9 +75,15 @@ export default class EnergyRefiner {
     let energyLow = E1;
     let energyHigh = E2;
 
-    const absoluteTolerance = this.isRelative ?
+    const computedTolerance = this.isRelative ?
       this.tolerance * Math.abs( energyHigh - energyLow ) :
       this.tolerance;
+
+    // A relative tolerance on a micro-bracket can demand sub-ulp precision at the energy scale.
+    // Clamping upward prevents an infinite loop when nearly degenerate levels produce tiny brackets.
+    const energyScale = Math.max( Math.abs( energyLow ), Math.abs( energyHigh ), 1 );
+    const machineEpsilonFloor = energyScale * Number.EPSILON * 8;
+    const absoluteTolerance = Math.max( computedTolerance, machineEpsilonFloor );
 
     let mismatchLow = mismatch( energyLow );
     let mismatchHigh = mismatch( energyHigh );
@@ -90,8 +99,15 @@ export default class EnergyRefiner {
     // lands outside the bracket due to floating-point rounding.
     let consecutiveSameSide = 0;
     let lastReplacedLow: boolean | null = null;
+    let iteration = 0;
+    let previousBracketWidth = energyHigh - energyLow;
 
     while ( energyHigh - energyLow > absoluteTolerance ) {
+      if ( iteration >= MAX_REFINEMENT_ITERATIONS ) {
+        break;
+      }
+      iteration++;
+
       let energyMid: number;
       if ( Math.abs( mismatchHigh - mismatchLow ) > SMALL ) {
         energyMid = energyLow + ( energyHigh - energyLow ) * ( -mismatchLow ) / ( mismatchHigh - mismatchLow );
@@ -132,6 +148,12 @@ export default class EnergyRefiner {
         energyHigh = energyMid;
         mismatchHigh = mismatchMid;
       }
+
+      const bracketWidth = energyHigh - energyLow;
+      if ( bracketWidth >= previousBracketWidth ) {
+        break;
+      }
+      previousBracketWidth = bracketWidth;
     }
 
     return ( energyLow + energyHigh ) / 2;
