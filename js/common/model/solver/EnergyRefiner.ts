@@ -29,7 +29,7 @@ const MAX_REFINEMENT_ITERATIONS = 200;
  * Configuration options for EnergyRefiner.
  */
 export type EnergyRefinerOptions = {
-  tolerance?: number;   // Tolerance value (default: 1e-4)
+  tolerance?: number;   // Tolerance value (default: 1e-6)
   isRelative?: boolean; // If true, tolerance is relative to bracket width; if false, absolute in eV (default: true)
 };
 
@@ -44,13 +44,13 @@ export default class EnergyRefiner {
    * Typical quantum systems have level spacing ΔE, and we want tolerance << ΔE.
    *
    * The initial bracket width (E2 - E1) should be a fraction of the level spacing. A relative
-   * precision of 10^-4 ensures the eigenvalue is accurate to ~4 significant figures relative to
+   * precision of 10^-6 ensures the eigenvalue is accurate to ~6 significant figures relative to
    * the bracket width.
    *
    * @param options - Configuration options
    *   - tolerance: Energy tolerance value. If isRelative is true, this is a dimensionless
    *                relative tolerance. If isRelative is false, this is an absolute tolerance in eV.
-   *                Default: 1e-4
+   *                Default: 1e-6
    *   - isRelative: If true, tolerance is relative to the energy bracket width.
    *                 If false, tolerance is an absolute value in eV. Default: true
    */
