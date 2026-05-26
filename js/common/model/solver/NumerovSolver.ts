@@ -26,12 +26,18 @@
  *
  * For **symmetric** potentials (V(-x) = V(x)) the Sturm-Liouville theorem guarantees that
  * eigenfunctions alternate between even (ψ(-x) = ψ(x)) and odd (ψ(-x) = -ψ(x)) with increasing
- * index n. This solver exploits that structure in two ways:
- *   1. **Mismatch** — only the forward sweep ψ_L is needed:
+ * index n. This solver exploits that structure in three ways:
+ *   1. **Detection** — symmetry is tested against the analytical potential function via
+ *        V(x) === V(-x) at every grid point. Using IEEE-754 bit-flip negation avoids the
+ *        1-ulp asymmetry that comparing V[i] to V[N-1-i] would otherwise introduce when a
+ *        well boundary lands exactly on a grid point.
+ *   2. **Mismatch** — only the forward sweep ψ_L is needed:
  *        Even states (n = 0, 2, 4, …): ψ'(0) = 0  →  slope mismatch at centre.
  *        Odd  states (n = 1, 3, 5, …): ψ(0)  = 0  →  value mismatch at centre.
- *   2. **Wave function** — ψ on [0, x_max] is the mirror image of ψ_L, giving exact symmetry in
- *        the output and halving the integration work.
+ *   3. **Wave function** — ψ on [0, x_max] is the mirror image of ψ_L, giving exact symmetry in
+ *        the output and halving the integration work. The discrete V is also mirrored about
+ *        the centre before integration so any 1-ulp boundary asymmetry in V does not feed back
+ *        into the bracketing or refinement.
  *
  * @author Martin Veillette
  */
@@ -92,10 +98,6 @@ export default class NumerovSolver {
   // window and the upper endpoint has crossed only the requested state. The EnergyRefiner then
   // uses the continuous log-derivative mismatch within that bracket.
   private static readonly NODE_BRACKET_RELATIVE_TOLERANCE = 1e-5;
-
-  // Relative tolerance for identifying a symmetric potential: V is symmetric when
-  // |V[m-i] - V[m+i]| ≤ SYMMETRY_RELATIVE_TOLERANCE × max|V| for all i.
-  private static readonly SYMMETRY_RELATIVE_TOLERANCE = 1e-10;
 
   /**
    * Main entry point for solving with default NumerovSolverOptions.
@@ -186,7 +188,7 @@ export default class NumerovSolver {
   ): BoundStateResult {
 
     const V = this.evaluatePotential( potentialFunction, xGrid.xCoordinates );
-    const { energies, waveFunctions } = this.findBoundStates( V, xGrid, energyMin, energyMax );
+    const { energies, waveFunctions } = this.findBoundStates( potentialFunction, V, xGrid, energyMin, energyMax );
 
     return {
       potentials: V,
@@ -210,9 +212,14 @@ export default class NumerovSolver {
 
     const V = this.evaluatePotential( potential, xGrid.xCoordinates );
     const meetingIndex = this.getMeetingPointIndex( xGrid );
-    const isSymmetric = this.isPotentialSymmetric( V, meetingIndex );
+    const isSymmetric = this.isPotentialSymmetric( potential, xGrid );
 
-    const bracket = this.bracketEigenvalueByNodeCount( stateIndex, V, xGrid, energyMin, energyMax );
+    // For symmetric potentials, mirror the left half over the right half so that the forward
+    // integrator (which sweeps the entire grid) does not propagate any tail asymmetry that
+    // arose from 1-ulp floating-point boundary effects when V was discretised.
+    const solverV = isSymmetric ? this.symmetrize( V, meetingIndex ) : V;
+
+    const bracket = this.bracketEigenvalueByNodeCount( stateIndex, solverV, xGrid, energyMin, energyMax );
     if ( bracket === null ) {
       return null;
     }
@@ -222,14 +229,14 @@ export default class NumerovSolver {
 
     if ( isSymmetric ) {
       const parity: 'even' | 'odd' = stateIndex % 2 === 0 ? 'even' : 'odd';
-      const mismatch = this.makeSymmetricMismatch( V, xGrid, meetingIndex, parity );
+      const mismatch = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
       energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatch );
-      waveFunction = this.computeSymmetricWaveFunction( energy, V, xGrid, meetingIndex, parity );
+      waveFunction = this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity );
     }
     else {
-      const mismatch = this.makeLogDerivativeMismatch( V, xGrid, meetingIndex );
+      const mismatch = this.makeLogDerivativeMismatch( solverV, xGrid, meetingIndex );
       energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatch );
-      waveFunction = this.computeWaveFunction( energy, V, xGrid, meetingIndex );
+      waveFunction = this.computeWaveFunction( energy, solverV, xGrid, meetingIndex );
     }
 
     return { energy: energy, waveFunction: waveFunction };
@@ -250,6 +257,7 @@ export default class NumerovSolver {
    *      - General potential: stitch ψ_L and ψ_R at the middle grid point.
    */
   private findBoundStates(
+    potentialFunction: PotentialFunction,
     V: number[],
     xGrid: XGrid,
     energyMin: number,
@@ -257,35 +265,40 @@ export default class NumerovSolver {
   ): { energies: number[]; waveFunctions: number[][] } {
 
     const meetingIndex = this.getMeetingPointIndex( xGrid );
-    const isSymmetric = this.isPotentialSymmetric( V, meetingIndex );
+    const isSymmetric = this.isPotentialSymmetric( potentialFunction, xGrid );
+
+    // For symmetric potentials, mirror the left half over the right half so that the forward
+    // integrator (which sweeps the entire grid) does not propagate any tail asymmetry that
+    // arose from 1-ulp floating-point boundary effects when V was discretised.
+    const solverV = isSymmetric ? this.symmetrize( V, meetingIndex ) : V;
 
     // For non-symmetric potentials, build the log-derivative mismatch once and reuse it.
-    const sharedMismatch = isSymmetric ? null : this.makeLogDerivativeMismatch( V, xGrid, meetingIndex );
+    const sharedMismatch = isSymmetric ? null : this.makeLogDerivativeMismatch( solverV, xGrid, meetingIndex );
 
     // States E_n with n in [lowestStateIndex, highestStateIndexExclusive) lie in the requested energy window.
-    const lowestStateIndex = this.countNodesAtEnergy( energyMin, V, xGrid );
-    const highestStateIndexExclusive = this.countNodesAtEnergy( energyMax, V, xGrid );
+    const lowestStateIndex = this.countNodesAtEnergy( energyMin, solverV, xGrid );
+    const highestStateIndexExclusive = this.countNodesAtEnergy( energyMax, solverV, xGrid );
 
     const energies: number[] = [];
     const waveFunctions: number[][] = [];
 
     for ( let n = lowestStateIndex; n < highestStateIndexExclusive; n++ ) {
-      const bracket = this.bracketEigenvalueByNodeCount( n, V, xGrid, energyMin, energyMax );
+      const bracket = this.bracketEigenvalueByNodeCount( n, solverV, xGrid, energyMin, energyMax );
       if ( bracket === null ) { continue; }
 
       if ( isSymmetric ) {
 
         // Even-indexed states are spatially even; odd-indexed states are spatially odd.
         const parity: 'even' | 'odd' = n % 2 === 0 ? 'even' : 'odd';
-        const mismatch = this.makeSymmetricMismatch( V, xGrid, meetingIndex, parity );
+        const mismatch = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
         const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatch );
         energies.push( energy );
-        waveFunctions.push( this.computeSymmetricWaveFunction( energy, V, xGrid, meetingIndex, parity ) );
+        waveFunctions.push( this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity ) );
       }
       else {
         const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, sharedMismatch! );
         energies.push( energy );
-        waveFunctions.push( this.computeWaveFunction( energy, V, xGrid, meetingIndex ) );
+        waveFunctions.push( this.computeWaveFunction( energy, solverV, xGrid, meetingIndex ) );
       }
     }
 
@@ -344,21 +357,54 @@ export default class NumerovSolver {
   }
 
   /**
-   * Returns true when the discrete potential V is symmetric about the grid point at centerIndex,
-   * i.e. V[centerIndex - i] ≈ V[centerIndex + i] for every valid offset i. The check uses a
-   * tolerance relative to max|V| so it is scale-independent.
+   * Returns true when the analytical potential is symmetric about x = 0,
+   * i.e. V(x) === V(-x) at every grid x-coordinate.
+   *
+   * Why we evaluate the potential function directly rather than comparing the already-
+   * discretised V[i] with V[N-1-i]:
+   *
+   *   The grid is built as xGrid[i] = xMin + i·dx with dx = (xMax−xMin)/(N−1). For symmetric
+   *   ranges (xMin = −xMax) the *mathematical* mirror of xGrid[i] is xGrid[N-1-i], but in
+   *   IEEE-754 those two grid points differ by ~1 ulp because dx is not exactly representable.
+   *   For piecewise-constant potentials such as the double square well, that 1-ulp offset can
+   *   flip an inclusive boundary inequality (e.g. x ≤ +1.05) when a well wall happens to land
+   *   on a grid point — yielding a single asymmetric V pair and tripping a naive discrete
+   *   comparison even though the analytical potential is genuinely symmetric.
+   *
+   *   IEEE-754 negation is an exact bit-flip, so potentialFunction( x ) and
+   *   potentialFunction( -x ) evaluate the same inequalities on bit-mirror inputs and agree
+   *   exactly whenever V is symmetric about x = 0.
    */
-  private isPotentialSymmetric( V: number[], centerIndex: number ): boolean {
-    const N = V.length;
-    const vMax = V.reduce( ( max, v ) => Math.max( max, Math.abs( v ) ), 0 ) || 1;
-    const tolerance = NumerovSolver.SYMMETRY_RELATIVE_TOLERANCE * vMax;
-
-    for ( let i = 1; centerIndex - i >= 0 && centerIndex + i < N; i++ ) {
-      if ( Math.abs( V[ centerIndex - i ] - V[ centerIndex + i ] ) > tolerance ) {
+  private isPotentialSymmetric( potentialFunction: PotentialFunction, xGrid: XGrid ): boolean {
+    const xCoordinates = xGrid.xCoordinates;
+    for ( let i = 0; i < xCoordinates.length; i++ ) {
+      const x = xCoordinates[ i ];
+      if ( potentialFunction( x ) !== potentialFunction( -x ) ) {
         return false;
       }
     }
     return true;
+  }
+
+  /**
+   * Returns a copy of V with the right half (indices > centerIndex) replaced by the mirror of
+   * the left half: symV[centerIndex + k] = V[centerIndex - k]. The result is exactly symmetric
+   * about centerIndex by construction.
+   *
+   * Used on the symmetric-potential path after isPotentialSymmetric has confirmed the
+   * analytical V is symmetric. The discretised array can still pick up a 1-ulp asymmetry at a
+   * single grid point when a well boundary lands exactly on a grid index; mirroring guarantees
+   * that the forward integrator sees the same potential on both halves and produces a node
+   * count and eigenenergy consistent with the symmetric wave function we ultimately emit.
+   */
+  private symmetrize( V: number[], centerIndex: number ): number[] {
+    const symV = V.slice();
+    for ( let k = 1; centerIndex + k < V.length; k++ ) {
+      if ( centerIndex - k >= 0 ) {
+        symV[ centerIndex + k ] = V[ centerIndex - k ];
+      }
+    }
+    return symV;
   }
 
   /**
@@ -518,10 +564,14 @@ export default class NumerovSolver {
    *
    * Using the geometric midpoint rather than the array midpoint floor((N−1)/2) is essential:
    * due to floating-point rounding in dx = (xMax−xMin)/(N−1), the array midpoint may not
-   * land on x=0 for grids with N not a power of 2 or an exact divisor of the range.  For the
+   * land on x=0 for grids with N not a power of 2 or an exact divisor of the range. For the
    * default sim grid (N=3001, xMin=−3.5, xMax=3.5), the array-midpoint x value is
    * ~4.4×10⁻¹⁶ nm off from zero, which is negligible in practice but inconsistent with the
    * assumption made by the symmetric-potential code that the centre index lies at x=0.
+   *
+   * The symmetric path additionally guarantees the discretised V is exactly mirrored about
+   * this index (see symmetrize), so the centre index becomes the true axis of symmetry for
+   * the forward integration as well.
    *
    * For the general (non-symmetric) case the midpoint is still a reasonable meeting point
    * for the log-derivative mismatch, independent of potential shape.
