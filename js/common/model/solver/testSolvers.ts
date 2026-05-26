@@ -480,6 +480,78 @@ function testFiniteSquare(): void {
 }
 
 /**
+ * Verify that the double square well produces exactly (anti-)symmetric wave functions.
+ * The potential has two wells symmetric about x=0, so each eigenstate must be spatially
+ * even (ψ(-x) = ψ(x)) or odd (ψ(-x) = -ψ(x)).
+ *
+ * The max antisymmetry residual:
+ *   R = max_k |ψ[m+k] ∓ ψ[m-k]|  (where m is the center index)
+ * should be zero (or at the level of float round-off) for both parities.
+ */
+function testDoubleSquareWell(): void {
+
+  const mass = ELECTRON_MASSES; // electron masses
+  const wellWidth = 1; // nm
+  const wellDepth = 10; // eV
+  const gap = 0.1; // nm, distance between the two walls
+  const separation = wellWidth + gap; // nm, centre-to-centre
+
+  // Symmetric double-well potential (same formula as FiniteSquarePotential.getPotentialEnergyAt)
+  const potential = ( x: number ): number => {
+    let pe = wellDepth;
+    for ( let i = 1; i <= 2; i++ ) {
+      const xi = separation * ( i - 1.5 );
+      if ( x >= xi - wellWidth / 2 && x <= xi + wellWidth / 2 ) {
+        pe = 0;
+        break;
+      }
+    }
+    return pe;
+  };
+
+  // Grid that matches the actual sim: xMin=-3.5, xMax=3.5, N=3001.
+  const xGrid = new XGrid( {
+    xMin: -3.5,
+    xMax: 3.5,
+    numberOfPoints: 3001,
+    tandem: Tandem.OPT_OUT
+  } );
+
+  const result = NumerovSolver.solve( xGrid, potential, mass, 0, wellDepth );
+
+  affirm( result.energies.length >= 2, `Double square well: expected at least 2 states, got ${result.energies.length}` );
+
+  logVerbose( `\nDouble Square Well - Found ${result.energies.length} states` );
+
+  // Use getClosestIndex to find the grid point nearest x=0, matching NumerovSolver's getMeetingPointIndex.
+  const m = xGrid.getClosestIndex( ( xGrid.xMin + xGrid.xMax ) / 2 );
+  logVerbose( `  Center index m=${m}, x[m]=${xGrid.xCoordinates[ m ]} nm` );
+  let maxAsymmetry = 0;
+
+  const tableRows = [];
+  for ( let n = 0; n < result.energies.length; n++ ) {
+    const psi = result.waveFunctions[ n ];
+    const expectedParity = n % 2 === 0 ? 'even' : 'odd';
+    const sign = expectedParity === 'even' ? 1 : -1;
+
+    // Measure the largest deviation from (anti)symmetry: max_k |ψ[m+k] − sign·ψ[m-k]|
+    let residual = 0;
+    for ( let k = 1; m + k < xGrid.numberOfPoints; k++ ) {
+      residual = Math.max( residual, Math.abs( psi[ m + k ] - sign * psi[ m - k ] ) );
+    }
+    maxAsymmetry = Math.max( maxAsymmetry, residual );
+
+    tableRows.push( [ n, toFixed( result.energies[ n ], 4 ), expectedParity, residual.toExponential( 2 ) ] );
+
+    affirmOrLog( residual < 1e-12,
+      `Double Square Well: State n=${n} (${expectedParity}): symmetry residual = ${residual.toExponential( 4 )} (expected < 1e-12)` );
+  }
+
+  logVerbose( formatTable( tableRows, [ 'n', 'Energy (eV)', 'Parity', 'Sym residual' ] ) );
+  logSummary( `Double Square Well - Max symmetry residual: ${maxAsymmetry.toExponential( 2 )} (0 = exact symmetry)` );
+}
+
+/**
  * Regression test for node-count bracketing in multiple separated finite square wells.
  */
 function testMultipleFiniteSquareWells(): void {
@@ -601,6 +673,23 @@ function testNodeCounting(): void {
 
     // Ensure we found some states
     affirm( result.waveFunctions.length > 0, `Found ${result.waveFunctions.length} states` );
+    affirm( result.waveFunctions.length > 1, 'Found first excited state for centered-node regression' );
+
+    const firstExcitedState = result.waveFunctions[ 1 ];
+    const centerIndex = xGrid.getClosestIndex( 0 );
+    const centerAmplitude = Math.abs( firstExcitedState[ centerIndex ] );
+    const adjacentAmplitude = Math.max(
+      Math.abs( firstExcitedState[ centerIndex - 1 ] ),
+      Math.abs( firstExcitedState[ centerIndex + 1 ] )
+    );
+    affirmOrLog(
+      centerAmplitude < 1e-6 * adjacentAmplitude,
+      `Node Counting: First excited harmonic oscillator state should have a central node, got center amplitude ${centerAmplitude}`
+    );
+    affirmOrLog(
+      Math.sign( firstExcitedState[ centerIndex - 1 ] ) !== Math.sign( firstExcitedState[ centerIndex + 1 ] ),
+      'Node Counting: First excited harmonic oscillator state should change sign across x=0'
+    );
 
     logVerbose( `\nNode Counting - Found ${result.waveFunctions.length} states` );
 
@@ -827,6 +916,7 @@ export function testSolvers(): void {
   testHarmonicOscillator();
   testInfiniteSquare();
   testFiniteSquare();
+  testDoubleSquareWell();
   testMultipleFiniteSquareWells();
   testMorsePotential();
   testInfiniteStep();
