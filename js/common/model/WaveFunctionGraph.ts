@@ -71,7 +71,13 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
         const minY = Math.min( ...selectedWaveFunctionValues );
         const maxY = Math.max( ...selectedWaveFunctionValues );
         const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
-        return new Range( -maxAbsY, maxAbsY );
+
+        // Guard against maxAbsY === 0, which occurs when the wave function is all zeros
+        // (e.g. the placeholder used for the no-bound-state edge case, see
+        // https://github.com/phetsims/quantum-bound-states/issues/56). A degenerate
+        // Range(0,0) propagates to setYTickSpacing(0), crashing bamboo's forEachSpacing with NaN.
+        const safeMaxAbsY = ( maxAbsY > 0 && Number.isFinite( maxAbsY ) ) ? maxAbsY : 1;
+        return new Range( -safeMaxAbsY, safeMaxAbsY );
       } );
   }
 
