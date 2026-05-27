@@ -283,9 +283,13 @@ function findBoundStateEnergies(
 
     // Alternate between even (stateIndex=0,2,4,...) and odd (stateIndex=1,3,5,...)
     if ( stateIndex % 2 === 0 ) {
-      // Even parity state: search in interval [evenCount*π, (evenCount+1/2)*π]
+      // Even parity state: search in interval [evenCount*π, (evenCount+1/2)*π].
+      // Use 1e-9 as the upper guard against the z0 singularity so that the
+      // ground state is found even when z0 is very small (≪ 0.001) — the 1D finite square
+      // well ALWAYS has at least one bound state, and its root ξ₁ approaches z0 from below
+      // as the well becomes shallow/narrow.
       const xiMin = evenCount * Math.PI + 0.001;
-      const xiMax = Math.min( evenCount * Math.PI + Math.PI / 2 - 0.001, z0 - 0.001 );
+      const xiMax = Math.min( evenCount * Math.PI + Math.PI / 2 - 0.001, z0 - 1e-9 );
 
       if ( xiMin < xiMax && xiMin < z0 ) {
         xi = findRootInInterval(
@@ -299,9 +303,10 @@ function findBoundStateEnergies(
       evenCount++;
     }
     else {
-      // Odd parity state: search in interval [(oddCount+1/2)*π, (oddCount+1)*π]
+      // Odd parity state: search in interval [(oddCount+1/2)*π, (oddCount+1)*π].
+      // Same rationale: use 1e-9 guard instead of 0.001 for the z0 upper bound.
       const xiMin = oddCount * Math.PI + Math.PI / 2 + 0.001;
-      const xiMax = Math.min( ( oddCount + 1 ) * Math.PI - 0.001, z0 - 0.001 );
+      const xiMax = Math.min( ( oddCount + 1 ) * Math.PI - 0.001, z0 - 1e-9 );
 
       if ( xiMin < xiMax && xiMin < z0 ) {
         xi = findRootInInterval(
