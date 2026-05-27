@@ -89,16 +89,20 @@ export default class YCanvasLinePlot extends CanvasPainter {
 
       const length = this.xCoordinates.length;
       let pathStarted = false;
+      const VERTICAL_LARGE_VALUE_GUARD = 1e10;
       for ( let i = 0; i < length; i++ ) {
         const x = this.chartTransform.modelToViewX( this.xCoordinates[ i ] );
         const y = this.chartTransform.modelToViewY( this.yCoordinates[ i ] );
 
-        // Guard against non-finite view coordinates (e.g. from a Morse potential that diverges to ±Infinity
-        // on the left wall, see https://github.com/phetsims/quantum-bound-states/issues/50).
-        // The Canvas API silently ignores moveTo/lineTo with non-finite arguments,
-        // which breaks the path and causes the curve to disappear without any console error.
-        // Reset pathStarted so the next finite point opens a fresh sub-path.
-        if ( !isFinite( x ) || !isFinite( y ) ) {
+        // Guard against non-finite view coordinates, or view coordinates that are so large they
+        // overflow float32 (Canvas uses float32 internally), producing the same effect as Infinity.
+        // This can occur e.g. from a Morse potential with a very narrow well and large x-offset, where
+        // the repulsive wall produces astronomically large but technically finite values.
+        // The Canvas API silently ignores moveTo/lineTo with such an argument, which breaks the
+        // current path, causing the curve to disappear without any console error.
+        // Reset pathStarted so the next canvas-safe point opens a fresh sub-path.
+        // See https://github.com/phetsims/quantum-bound-states/issues/50
+        if ( !isFinite( x ) || !isFinite( y ) || Math.abs( y ) > VERTICAL_LARGE_VALUE_GUARD ) {
           pathStarted = false;
           continue;
         }
