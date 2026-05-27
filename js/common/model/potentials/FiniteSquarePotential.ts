@@ -163,7 +163,16 @@ export default class FiniteSquarePotential extends QuantumPotential {
   }
 
   public override getMaxSolverEnergy(): number {
-    return this.yOffsetProperty.value + this.wellDepthProperty.value; // top of the well
+    const yOffset = this.yOffsetProperty.value;
+    const wellDepth = this.wellDepthProperty.value;
+    const electricField = this.electricFieldProperty.value;
+    const xMin = QBSConstants.ALL_GRAPHS_X_RANGE.min;
+    const xMax = QBSConstants.ALL_GRAPHS_X_RANGE.max;
+
+    // The top of the well, adjusted for the electric field at the domain boundaries.
+    // With an electric field, the asymptotic potential outside the well is tilted as V(x) = yOffset + wellDepth + electricField * x.
+    // Bound states can only exist below the lower of the two asymptotic barriers at the edges of the domain.
+    return yOffset + wellDepth + Math.min( electricField * xMin, electricField * xMax );
   }
 
   /**
