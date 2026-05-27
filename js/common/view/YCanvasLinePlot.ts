@@ -88,11 +88,24 @@ export default class YCanvasLinePlot extends CanvasPainter {
       context.setLineDash( this.lineDash );
 
       const length = this.xCoordinates.length;
+      let pathStarted = false;
       for ( let i = 0; i < length; i++ ) {
         const x = this.chartTransform.modelToViewX( this.xCoordinates[ i ] );
         const y = this.chartTransform.modelToViewY( this.yCoordinates[ i ] );
-        if ( i === 0 ) {
+
+        // Guard against non-finite view coordinates (e.g. from a Morse potential that diverges to ±Infinity
+        // on the left wall, see https://github.com/phetsims/quantum-bound-states/issues/50).
+        // The Canvas API silently ignores moveTo/lineTo with non-finite arguments,
+        // which breaks the path and causes the curve to disappear without any console error.
+        // Reset pathStarted so the next finite point opens a fresh sub-path.
+        if ( !isFinite( x ) || !isFinite( y ) ) {
+          pathStarted = false;
+          continue;
+        }
+
+        if ( !pathStarted ) {
           context.moveTo( x, y );
+          pathStarted = true;
         }
         else {
           context.lineTo( x, y );
