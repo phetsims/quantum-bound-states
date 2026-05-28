@@ -21,6 +21,7 @@
 
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSConstants from '../QBSConstants.js';
 import AsymmetricTriangleSolution from './solver/analytical-solutions/AsymmetricTriangleSolution.js';
 import CoulombSolution from './solver/analytical-solutions/CoulombSolution.js';
 import FiniteSquareSolution from './solver/analytical-solutions/FiniteSquareSolution.js';
@@ -34,6 +35,12 @@ import { allFinite, computeNorm, computeOverlap, countNodes, getParity, waveFunc
 import XGrid from './solver/XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
+
+/** Half-width of the sim view grid (QBSConstants.ALL_GRAPHS_X_RANGE is [−3.5, 3.5] nm). */
+const STANDARD_X_MAX = QBSConstants.ALL_GRAPHS_X_RANGE.max;
+
+/** Point count for the standard grid (matches QBSQueryParameters default). */
+const STANDARD_NUMBER_OF_POINTS = 3001;
 
 // ─── Grid helpers ──────────────────────────────────────────────────────────────
 
@@ -51,14 +58,13 @@ function tightGrid( halfWidth: number ): XGrid {
 }
 
 /**
- * Standard grid [−5, 5] nm used for soft-wall potentials that have evanescent tails.
- * 5 nm is wide enough for all decay lengths encountered in the sim parameter space.
+ * Standard grid [−3.5, 3.5] nm used for soft-wall potentials that have evanescent tails.
  */
 function standardGrid(): XGrid {
   return new XGrid( {
-    xMin: -5,
-    xMax: 5,
-    numberOfPoints: 1001,
+    xMin: -STANDARD_X_MAX,
+    xMax: STANDARD_X_MAX,
+    numberOfPoints: STANDARD_NUMBER_OF_POINTS,
     tandem: Tandem.OPT_OUT
   } );
 }
@@ -85,19 +91,19 @@ function morseGrid( wellWidth: number ): XGrid {
   const xMin = Math.max( -wellWidth, -6 );
 
   // Six well-widths to the right; e^{−6} ≈ 0.0025 so V ≈ 0 (dissociation limit).
-  // Minimum 5 nm so narrow wells still have a long enough decay tail.
-  const xMax = Math.max( 6 * wellWidth, 5 );
+  // Minimum STANDARD_X_MAX so narrow wells still have a long enough decay tail.
+  const xMax = Math.max( 6 * wellWidth, STANDARD_X_MAX );
 
   return new XGrid( {
     xMin: xMin,
     xMax: xMax,
-    numberOfPoints: 3001,
+    numberOfPoints: STANDARD_NUMBER_OF_POINTS,
     tandem: Tandem.OPT_OUT
   } );
 }
 
 /**
- * Adaptive grid for the Harmonic Oscillator.  The standard ±5 nm grid is too wide for
+ * Adaptive grid for the Harmonic Oscillator.  The standard ±3.5 nm grid is too wide for
  * compact wells (e.g., wellWidth = 0.4 nm): the potential rises so steeply that the
  * classically-forbidden region spans several nm, the integrand grows by 10^{500}+, and
  * the 10-rescaling limit is exhausted before the wave function reaches the allowed region.
@@ -258,8 +264,8 @@ function runSweep( assert: Assert, configs: SweepConfig[] ): void {
 
     if ( cfg.checkNodes ) {
 
-      // Node counting is reliable for the first few states; check up to 5.
-      assertNodeCounting( assert, result.waveFunctions, 5, cfg.label );
+      // Node counting is reliable for the first few states; check up to 10.
+      assertNodeCounting( assert, result.waveFunctions, 10, cfg.label );
     }
   }
 }
@@ -343,9 +349,6 @@ QUnit.test( 'multi-well separation sweep', assert => {
   // Test FiniteSquare multi-well using an inline potential function (analytical
   // solutions only support single wells, so we replicate the sim's formula directly).
   const numberOfWellsList = SWEEP_NUMBER_OF_WELLS;
-  // Separations ≥ 0.5 nm create near-degenerate states (tunnelling splitting ≈ 10^{−7} eV or
-  // smaller), below the solver's refinement tolerance ~10^{−6} eV.  Keep gaps small enough
-  // that all adjacent energy levels are resolvable.
   const separations = SWEEP_SEPARATIONS;
   const wellWidths = SWEEP_MULTI_WELL_WIDTHS;
   const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
@@ -370,7 +373,7 @@ QUnit.test( 'multi-well separation sweep', assert => {
             };
 
             configs.push( {
-              grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
+              grid: standardGrid(),
               potFn: potFn,
               mass: mass,
               energyMin: 0,
@@ -394,8 +397,8 @@ QUnit.test( 'electric field sweep', assert => {
   const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
   const masses = SWEEP_MASSES;
   const electricFields = SWEEP_ELECTRIC_FIELDS;
-  const xMin = -5;
-  const xMax = 5;
+  const xMin = -STANDARD_X_MAX;
+  const xMax = STANDARD_X_MAX;
 
   const configs: SweepConfig[] = [];
 
@@ -438,8 +441,8 @@ QUnit.test( 'multi-well electric field sweep', assert => {
   const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
   const masses = SWEEP_MASSES_MULTI;
   const electricFields = SWEEP_ELECTRIC_FIELDS;
-  const xMin = -5;
-  const xMax = 5;
+  const xMin = -STANDARD_X_MAX;
+  const xMax = STANDARD_X_MAX;
 
   const configs: SweepConfig[] = [];
 
@@ -463,7 +466,7 @@ QUnit.test( 'multi-well electric field sweep', assert => {
               const energyMax = wellDepth + Math.min( electricField * xMin, electricField * xMax );
 
               configs.push( {
-                grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
+                grid: standardGrid(),
                 potFn: potFn,
                 mass: mass,
                 energyMin: 0,
@@ -635,7 +638,7 @@ QUnit.test( 'single-well parameter sweep', assert => {
           energyMin: -3 * wellDepth, // 3× wellDepth below 0 covers all bound states
           energyMax: 0,
           label: `PT wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
-          checkNodes: false // sech² potential; node counting is less reliable at boundaries
+          checkNodes: true
         } );
       }
     }
@@ -675,13 +678,13 @@ QUnit.test( 'multi-well spacing sweep', assert => {
             };
 
             configs.push( {
-              grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
+              grid: standardGrid(),
               potFn: potFn,
               mass: mass,
               energyMin: -3 * wellDepth * nWells,
               energyMax: 0,
               label: `PT nWells=${nWells} spacing=${spacing} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
-              checkNodes: false
+              checkNodes: true
             } );
           }
         }
@@ -694,7 +697,7 @@ QUnit.test( 'multi-well spacing sweep', assert => {
 
 QUnit.test( 'electric field sweep', assert => {
 
-  // Pöschl-Teller is the only potential (other than Coulomb) that supports a non-zero
+  // Pöschl-Teller is the only potential (other than Square Well) that supports a non-zero
   // electric field in the sim.  The inline potential adds the field contribution.
   const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
   const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
@@ -717,7 +720,7 @@ QUnit.test( 'electric field sweep', assert => {
           // With a Stark field the effective barrier is slightly lower.  Use the tilt-corrected
           // max (same logic as PoschlTellerPotential.getMaxSolverEnergy):
           //   energyMax = 0 − |electricField| * xMaxAbsolute
-          const xMaxAbsolute = 5; // matches standardGrid() xMax
+          const xMaxAbsolute = STANDARD_X_MAX; // matches standardGrid() xMax
           const energyMax = -Math.abs( electricField * xMaxAbsolute );
 
           configs.push( {
@@ -727,7 +730,7 @@ QUnit.test( 'electric field sweep', assert => {
             energyMin: -3 * wellDepth,
             energyMax: energyMax,
             label: `PT electricField=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
-            checkNodes: false
+            checkNodes: true
           } );
         }
       }
@@ -745,7 +748,7 @@ QUnit.test( 'multi-well electric field sweep', assert => {
   const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
   const masses = SWEEP_MASSES_MULTI;
   const electricFields = SWEEP_ELECTRIC_FIELDS;
-  const xMaxAbsolute = 5;
+  const xMaxAbsolute = STANDARD_X_MAX;
 
   const configs: SweepConfig[] = [];
 
@@ -769,13 +772,13 @@ QUnit.test( 'multi-well electric field sweep', assert => {
               const energyMax = -Math.abs( electricField * xMaxAbsolute );
 
               configs.push( {
-                grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
+                grid: standardGrid(),
                 potFn: potFn,
                 mass: mass,
                 energyMin: -3 * wellDepth * nWells,
                 energyMax: energyMax,
                 label: `PT nWells=${nWells} spacing=${spacing} E=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
-                checkNodes: false
+                checkNodes: true
               } );
             }
           }
@@ -1057,7 +1060,7 @@ QUnit.test( 'energy error < 1 % for standard spring constant', assert => {
   const mass = 1;
   const omega = Math.sqrt( k / mass );
   const E0 = 0.5 * HBAR * omega;
-  const grid = new XGrid( { xMin: -4, xMax: 4, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } );
+  const grid = standardGrid();
   const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
   } );
@@ -1083,7 +1086,7 @@ QUnit.test( 'wave-function RMS error < 5 % for standard spring constant', assert
   const mass = 1;
   const omega = Math.sqrt( k / mass );
   const E0 = 0.5 * HBAR * omega;
-  const grid = new XGrid( { xMin: -4, xMax: 4, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } );
+  const grid = standardGrid();
   const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
   } );
@@ -1160,7 +1163,7 @@ QUnit.test( 'E_n/E_0 = (n+1)² within 0.1%', assert => {
 } );
 
 // Note: A Bohr-ratio test (E_n/E_0 = 1/(n+1)²) is not included here because the
-// standard grid (dx = 0.01 nm) cannot resolve Coulomb excited states: the Bohr
+// standard grid (dx ≈ 0.002 nm) cannot resolve Coulomb excited states: the Bohr
 // radius is ~0.053 nm and higher states are widely spread, so Numerov finds wrong
 // levels in the energy range.  The B4 analytical comparison below checks the
 // ground-state energy with a realistic tolerance.
@@ -1267,7 +1270,7 @@ QUnit.test( 'energy error < 1% for w=0.5 nm, V₀=10 eV', assert => {
   } );
 
   assert.ok( numericalResultPT.energies.length >= 2, `Found ${numericalResultPT.energies.length} numerical states (need ≥ 2)` );
-  // Use 2% tolerance: higher PT states (n ≥ 5) on the standard 1001-point grid show
+  // Use 2% tolerance: higher PT states (n ≥ 5) on the standard 3001-point grid show
   // ~1–2% error due to the narrow sech² well shape requiring finer dx near the peak.
   const nComparePT = Math.min( numericalResultPT.energies.length, analyticalResultPT.energies.length, 6 );
   for ( let i = 0; i < nComparePT; i++ ) {
@@ -1372,8 +1375,8 @@ QUnit.test( 'energy error < 1% for default Coulomb', assert => {
     energyMin: -17.5, energyMax: 0, electronMasses: massC, electricField: 0
   } );
 
-  // The standard 1001-point grid cannot resolve Coulomb excited states (Bohr radius
-  // ~0.053 nm, dx = 0.01 nm), so only the ground state (n=1) is compared.
+  // The standard 3001-point grid cannot resolve Coulomb excited states (Bohr radius
+  // ~0.053 nm, dx ≈ 0.002 nm), so only the ground state (n=1) is compared.
   // The ground-state energy converges reasonably; higher states are unresolvable
   // on this grid and are not checked here.
   assert.ok( numericalResultC.energies.length >= 1, `Found ${numericalResultC.energies.length} numerical states (need ≥ 1)` );
@@ -1694,7 +1697,7 @@ QUnit.test( 'Poschl-Teller with E-field has mixed-parity states', assert => {
           const grid = standardGrid();
 
           // energyMax: effective continuum floor drops by field * xMax at the far edge.
-          const energyMax = -electricField * 5;
+          const energyMax = -electricField * STANDARD_X_MAX;
 
           const result = NumerovSolver.solve( grid, potFn, mass, -3 * wellDepth, energyMax );
 
