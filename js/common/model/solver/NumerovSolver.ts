@@ -28,16 +28,12 @@
  * eigenfunctions alternate between even (ψ(-x) = ψ(x)) and odd (ψ(-x) = -ψ(x)) with increasing
  * index n. This solver exploits that structure in three ways:
  *   1. **Detection** — symmetry is tested against the analytical potential function via
- *        V(x) === V(-x) at every grid point. Using IEEE-754 bit-flip negation avoids the
- *        1-ulp asymmetry that comparing V[i] to V[N-1-i] would otherwise introduce when a
- *        well boundary lands exactly on a grid point.
+ *        V(x) === V(-x) at every grid point. 
  *   2. **Mismatch** — only the forward sweep ψ_L is needed:
  *        Even states (n = 0, 2, 4, …): ψ'(0) = 0  →  slope mismatch at center.
  *        Odd  states (n = 1, 3, 5, …): ψ(0)  = 0  →  value mismatch at center.
  *   3. **Wave function** — ψ on [0, x_max] is the mirror image of ψ_L, giving exact symmetry in
- *        the output and halving the integration work. The discrete V is also mirrored about
- *        the center before integration so any 1-ulp boundary asymmetry in V does not feed back
- *        into the bracketing or refinement.
+ *        the output and halving the integration work.
  *
  * @author Martin Veillette
  */
@@ -232,8 +228,7 @@ export default class NumerovSolver {
     const isSymmetric = this.isPotentialSymmetric( potential, xGrid );
 
     // For symmetric potentials, mirror the left half over the right half so that the forward
-    // integrator (which sweeps the entire grid) does not propagate any tail asymmetry that
-    // arose from 1-ulp floating-point boundary effects when V was discretized.
+    // integrator (which sweeps the entire grid) does not propagate any tail asymmetry
     const solverV = isSymmetric ? this.symmetrize( V, meetingIndex ) : V;
 
     const bracket = this.bracketEigenvalueByNodeCount( stateIndex, solverV, xGrid, energyMin, energyMax );
