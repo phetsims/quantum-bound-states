@@ -200,7 +200,7 @@ const SWEEP_WELL_DEPTHS_20 = [ 0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0, 15.0, 20
 const SWEEP_WELL_DEPTHS_15 = [ 0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0, 12.5, 15.0 ];
 
 /** Number of wells for multi-well potentials (Finite Square, Pöschl-Teller). */
-const SWEEP_NUMBER_OF_WELLS = [ 1, 2, 3, 4 , 5 ,6 ,7 ,8 ,9 ,10 ];
+const SWEEP_NUMBER_OF_WELLS = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 
 /** Wall-to-wall gap between adjacent Finite Square wells (nm). Sim range [0.05, 0.2]. */
 const SWEEP_SEPARATIONS = [ 0.05, 0.1, 0.2 ];
@@ -757,7 +757,7 @@ QUnit.test( 'multi-well electric field sweep', assert => {
           for ( const mass of masses ) {
             for ( const electricField of electricFields ) {
               const potFn = ( x: number ): number => {
-                more thourlet pe = 0;
+                let pe = 0;
                 for ( let i = 1; i <= nWells; i++ ) {
                   const xi = spacing * ( i - ( nWells + 1 ) / 2 );
                   const sech = 1 / Math.cosh( ( x - xi ) / wellWidth );
