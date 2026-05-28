@@ -100,6 +100,14 @@ export default class NumerovSolver {
   private static readonly NODE_BRACKET_RELATIVE_TOLERANCE = 1e-5;
 
   /**
+   * Returns the peak absolute amplitude of psi, or 1 if psi is identically zero.
+   * Used to normalize mismatch magnitudes so they remain O(1) across all trial energies.
+   */
+  private static getPeak( psi: number[] ): number {
+    return psi.reduce( ( max, v ) => Math.max( max, Math.abs( v ) ), 0 ) || 1;
+  }
+
+  /**
    * Main entry point for solving with default NumerovSolverOptions.
    *
    * @param xGrid - uniformly spaced x-coordinates in nm
@@ -229,14 +237,14 @@ export default class NumerovSolver {
 
     if ( isSymmetric ) {
       const parity: 'even' | 'odd' = stateIndex % 2 === 0 ? 'even' : 'odd';
-      const mismatch = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
-      energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatch );
-      waveFunction = this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity );
+      const { fn: mismatchFn, getLastPsiL } = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
+      energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFn );
+      waveFunction = this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() );
     }
     else {
-      const mismatch = this.makeLogDerivativeMismatch( solverV, xGrid, meetingIndex );
-      energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatch );
-      waveFunction = this.computeWaveFunction( energy, solverV, xGrid, meetingIndex );
+      const { fn: mismatchFn, getLastPsiLeft, getLastPsiRight } = this.makeLogDerivativeMismatch( solverV, xGrid, meetingIndex );
+      energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFn );
+      waveFunction = this.computeWaveFunction( energy, solverV, xGrid, meetingIndex, getLastPsiLeft(), getLastPsiRight() );
     }
 
     return { energy: energy, waveFunction: waveFunction };
@@ -273,6 +281,7 @@ export default class NumerovSolver {
     const solverV = isSymmetric ? this.symmetrize( V, meetingIndex ) : V;
 
     // For non-symmetric potentials, build the log-derivative mismatch once and reuse it.
+    // The closure caches the last psi arrays so computeWaveFunction can skip re-integration.
     const sharedMismatch = isSymmetric ? null : this.makeLogDerivativeMismatch( solverV, xGrid, meetingIndex );
 
     // States E_n with n in [lowestStateIndex, highestStateIndexExclusive) lie in the requested energy window.
@@ -283,22 +292,22 @@ export default class NumerovSolver {
     const waveFunctions: number[][] = [];
 
     for ( let n = lowestStateIndex; n < highestStateIndexExclusive; n++ ) {
-      const bracket = this.bracketEigenvalueByNodeCount( n, solverV, xGrid, energyMin, energyMax );
+      const bracket = this.bracketEigenvalueByNodeCount( n, solverV, xGrid, energyMin, energyMax, lowestStateIndex, highestStateIndexExclusive );
       if ( bracket === null ) { continue; }
 
       if ( isSymmetric ) {
 
         // Even-indexed states are spatially even; odd-indexed states are spatially odd.
         const parity: 'even' | 'odd' = n % 2 === 0 ? 'even' : 'odd';
-        const mismatch = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
-        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatch );
+        const { fn: mismatchFn, getLastPsiL } = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
+        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFn );
         energies.push( energy );
-        waveFunctions.push( this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity ) );
+        waveFunctions.push( this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() ) );
       }
       else {
-        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, sharedMismatch! );
+        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, sharedMismatch!.fn );
         energies.push( energy );
-        waveFunctions.push( this.computeWaveFunction( energy, solverV, xGrid, meetingIndex ) );
+        waveFunctions.push( this.computeWaveFunction( energy, solverV, xGrid, meetingIndex, sharedMismatch!.getLastPsiLeft(), sharedMismatch!.getLastPsiRight() ) );
       }
     }
 
@@ -321,20 +330,29 @@ export default class NumerovSolver {
    * countNodesAtEnergy(upperEnergy) > stateIndex. The bracket therefore strictly contains E_n.
    *
    * Returns null when state stateIndex lies outside [energyMin, energyMax].
+   *
+   * @param precomputedLowerNodeCount - optional pre-computed countNodesAtEnergy(energyMin); if
+   *   provided the boundary guard at the low end is skipped (caller guarantees it passes).
+   * @param precomputedUpperNodeCount - same for energyMax.
    */
   private bracketEigenvalueByNodeCount(
     stateIndex: number,
     V: number[],
     xGrid: XGrid,
     energyMin: number,
-    energyMax: number
+    energyMax: number,
+    precomputedLowerNodeCount?: number,
+    precomputedUpperNodeCount?: number
   ): { lowerEnergy: number; upperEnergy: number } | null {
 
     let lowerEnergy = energyMin;
     let upperEnergy = energyMax;
 
-    if ( this.countNodesAtEnergy( lowerEnergy, V, xGrid ) > stateIndex ) { return null; }
-    if ( this.countNodesAtEnergy( upperEnergy, V, xGrid ) <= stateIndex ) { return null; }
+    const lowerNodeCount = precomputedLowerNodeCount ?? this.countNodesAtEnergy( lowerEnergy, V, xGrid );
+    const upperNodeCount = precomputedUpperNodeCount ?? this.countNodesAtEnergy( upperEnergy, V, xGrid );
+
+    if ( lowerNodeCount > stateIndex ) { return null; }
+    if ( upperNodeCount <= stateIndex ) { return null; }
 
     const bracketTolerance = NumerovSolver.NODE_BRACKET_RELATIVE_TOLERANCE * ( upperEnergy - lowerEnergy );
 
@@ -426,11 +444,14 @@ export default class NumerovSolver {
     xGrid: XGrid,
     centerIndex: number,
     parity: 'even' | 'odd'
-  ): ( E: number ) => number {
+  ): { fn: ( E: number ) => number; getLastPsiL: () => number[] } {
 
-    return ( E: number ): number => {
+    let lastPsiL: number[] = [];
+
+    const fn = ( E: number ): number => {
       const psiL = this.integrator.integrate( E, V, xGrid );
-      const peak = psiL.reduce( ( max, v ) => Math.max( max, Math.abs( v ) ), 0 ) || 1;
+      lastPsiL = psiL;
+      const peak = NumerovSolver.getPeak( psiL );
 
       if ( parity === 'odd' ) {
 
@@ -445,6 +466,8 @@ export default class NumerovSolver {
         return ( -psiL[ m + 2 ] + 8 * psiL[ m + 1 ] - 8 * psiL[ m - 1 ] + psiL[ m - 2 ] ) / ( 12 * xGrid.dx * peak );
       }
     };
+
+    return { fn: fn, getLastPsiL: () => lastPsiL };
   }
 
   /**
@@ -461,10 +484,11 @@ export default class NumerovSolver {
     V: number[],
     xGrid: XGrid,
     centerIndex: number,
-    parity: 'even' | 'odd'
+    parity: 'even' | 'odd',
+    cachedPsiL?: number[]
   ): number[] {
     const N = V.length;
-    const psiL = this.integrator.integrate( energy, V, xGrid );
+    const psiL = cachedPsiL ?? this.integrator.integrate( energy, V, xGrid );
     const psi = new Array<number>( N );
 
     // Copy left half (including centre).
@@ -508,14 +532,19 @@ export default class NumerovSolver {
     V: number[],
     xGrid: XGrid,
     meetingIndex: number
-  ): ( E: number ) => number {
+  ): { fn: ( E: number ) => number; getLastPsiLeft: () => number[]; getLastPsiRight: () => number[] } {
 
-    return ( E: number ): number => {
+    let lastPsiLeft: number[] = [];
+    let lastPsiRight: number[] = [];
+
+    const fn = ( E: number ): number => {
       const psiLeft = this.integrator.integrate( E, V, xGrid );
       const psiRight = this.integrator.integrateBackward( E, V, xGrid );
+      lastPsiLeft = psiLeft;
+      lastPsiRight = psiRight;
 
-      const peakLeft = psiLeft.reduce( ( max, v ) => Math.max( max, Math.abs( v ) ), 0 ) || 1;
-      const peakRight = psiRight.reduce( ( max, v ) => Math.max( max, Math.abs( v ) ), 0 ) || 1;
+      const peakLeft = NumerovSolver.getPeak( psiLeft );
+      const peakRight = NumerovSolver.getPeak( psiRight );
 
       const m = meetingIndex;
       const valueLeft = psiLeft[ m ] / peakLeft;
@@ -527,19 +556,28 @@ export default class NumerovSolver {
 
       return slopeLeft * valueRight - slopeRight * valueLeft;
     };
+
+    return {
+      fn: fn,
+      getLastPsiLeft: () => lastPsiLeft,
+      getLastPsiRight: () => lastPsiRight
+    };
   }
 
   /**
    * Integrate from both ends, stitch at the midpoint, and normalize.
+   * Accepts optional pre-computed psi arrays (from the mismatch cache) to avoid re-integrating.
    */
   private computeWaveFunction(
     energy: number,
     V: number[],
     xGrid: XGrid,
-    meetingIndex: number
+    meetingIndex: number,
+    cachedPsiLeft?: number[],
+    cachedPsiRight?: number[]
   ): number[] {
-    const psiL = this.integrator.integrate( energy, V, xGrid );
-    const psiR = this.integrator.integrateBackward( energy, V, xGrid );
+    const psiL = cachedPsiLeft ?? this.integrator.integrate( energy, V, xGrid );
+    const psiR = cachedPsiRight ?? this.integrator.integrateBackward( energy, V, xGrid );
     const stitched = this.stitchWaveFunctions( psiL, psiR, meetingIndex );
     return this.normalizer.normalize( stitched, xGrid.dx );
   }
