@@ -184,13 +184,12 @@ export default class PoschlTellerPotential extends QuantumPotential {
   public override getMaxSolverEnergy(): number {
 
     const yOffset = this.yOffsetProperty.value;
-    const electricField = this.electricFieldProperty.value;
 
     // Electric field will contribute the most where the absolute value of x is largest.
     const xMaxAbsolute = Math.max( Math.abs( QBSConstants.ALL_GRAPHS_X_RANGE.min ), Math.abs( QBSConstants.ALL_GRAPHS_X_RANGE.max ) );
 
     // Adjust downward by the largest electric field contribution.
-    return yOffset - Math.abs( electricField * xMaxAbsolute );
+    return yOffset - Math.abs( this.getYOffsetForElectricField( xMaxAbsolute ) );
   }
 
   /**
