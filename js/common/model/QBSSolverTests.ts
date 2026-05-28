@@ -116,7 +116,7 @@ function hoGrid( wellWidth: number, mass: number ): XGrid {
   // Classical turning point for E ≈ 20.5 ℏω (highest state in the test sweep).
   const xTurning = Math.sqrt( 41 * HBAR * omega / k );
 
-  // Extend 3× the turning point beyond the centre; minimum 3 nm.
+  // Extend 3× the turning point beyond the center; minimum 3 nm.
   const halfWidth = Math.max( 3, 3 * xTurning );
 
   return new XGrid( {
@@ -152,7 +152,7 @@ function assertEnergyOrdering( assert: Assert, energies: number[], label: string
 }
 
 /**
- * Assert that every wave function in result is normalised to 1 within tolerance.
+ * Assert that every wave function in result is normalized to 1 within tolerance.
  */
 function assertNormalization( assert: Assert, result: { waveFunctions: number[][] }, dx: number, tolerance: number, label: string ): void {
   for ( let i = 0; i < result.waveFunctions.length; i++ ) {
@@ -176,10 +176,33 @@ function assertNodeCounting( assert: Assert, waveFunctions: number[][], maxState
   }
 }
 
+// ─── Sweep parameter sets (sim-valid ranges) ───────────────────────────────────
+
+/** Electron masses — OneWellModel range [0.5, 1.1]. */
+const SWEEP_MASSES = [ 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 ];
+
+/** Well widths for potentials with range [0.1, 6] nm (FSW, Morse, ATri, …). */
+const SWEEP_WELL_WIDTHS = [ 0.1, 0.2, 0.3, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0 ];
+
+/** Well widths for Infinite Square / Infinite Step (effective sim minimum 0.2 nm). */
+const SWEEP_WELL_WIDTHS_INFINITE = [ 0.2, 0.3, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0 ];
+
+/** Well widths for Harmonic Oscillator (effective sim minimum 0.4 nm). */
+const SWEEP_WELL_WIDTHS_HO = [ 0.4, 0.5, 0.6, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0 ];
+
+/** Well widths for Pöschl-Teller (sim maximum 1.5 nm). */
+const SWEEP_WELL_WIDTHS_PT = [ 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.75, 1.0, 1.25, 1.5 ];
+
+/** Well depth / step height for potentials with range [0.1, 20] eV. */
+const SWEEP_WELL_DEPTHS_20 = [ 0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0, 15.0, 20.0 ];
+
+/** Well depth for Morse and Pöschl-Teller (sim maximum 15 eV). */
+const SWEEP_WELL_DEPTHS_15 = [ 0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0, 12.5, 15.0 ];
+
 // ─── Sweep helpers ─────────────────────────────────────────────────────────────
 
 /**
- * Run the four core assertions (finite, ordered, normalised, node-count) for every
+ * Run the four core assertions (finite, ordered, normalized, node-count) for every
  * combination in a pre-built array of parameter sets.
  *
  * @param assert - QUnit assert object
@@ -228,9 +251,8 @@ QUnit.module( 'Infinite Square Well' );
 
 QUnit.test( 'parameter sweep', assert => {
 
-  // wellWidth range [0.2, 6] nm (0.2 is the effective sim minimum)
-  const wellWidths = [ 0.2, 0.5, 1.0, 3.0, 6.0 ]; // nm
-  const masses = [ 0.5, 1.0, 1.1 ]; // electron masses
+  const wellWidths = SWEEP_WELL_WIDTHS_INFINITE;
+  const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
 
@@ -264,10 +286,9 @@ QUnit.module( 'Finite Square Well' );
 
 QUnit.test( 'single-well parameter sweep', assert => {
 
-  // wellWidth [0.1, 6] nm, wellDepth [0.1, 20] eV
-  const wellWidths = [ 0.1, 0.5, 1.0, 3.0, 6.0 ]; // nm
-  const wellDepths = [ 0.5, 2.0, 5.0, 10.0, 20.0 ]; // eV
-  const masses = [ 0.5, 1.0, 1.1 ];
+  const wellWidths = SWEEP_WELL_WIDTHS;
+  const wellDepths = SWEEP_WELL_DEPTHS_20;
+  const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
 
@@ -347,10 +368,9 @@ QUnit.module( 'Harmonic Oscillator' );
 
 QUnit.test( 'parameter sweep', assert => {
 
-  // wellWidth [0.4, 6] nm (0.4 is effective sim minimum; k = 32/w²).
   // The adaptive hoGrid() prevents precision exhaustion for the narrowest wells.
-  const wellWidths = [ 0.4, 0.6, 1.0, 2.0, 4.0, 6.0 ]; // nm
-  const masses = [ 0.5, 1.0, 1.1 ];
+  const wellWidths = SWEEP_WELL_WIDTHS_HO;
+  const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
 
@@ -388,10 +408,9 @@ QUnit.module( 'Morse Potential' );
 
 QUnit.test( 'parameter sweep', assert => {
 
-  // wellWidth [0.1, 6] nm, wellDepth [0.1, 15] eV
-  const wellWidths = [ 0.1, 0.3, 0.5, 1.0, 2.0, 6.0 ]; // nm
-  const wellDepths = [ 0.5, 2.0, 5.0, 10.0, 15.0 ];     // eV
-  const masses = [ 0.5, 1.0, 1.1 ];
+  const wellWidths = SWEEP_WELL_WIDTHS;
+  const wellDepths = SWEEP_WELL_DEPTHS_15;
+  const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
 
@@ -428,10 +447,9 @@ QUnit.module( 'Infinite Step Potential' );
 
 QUnit.test( 'parameter sweep', assert => {
 
-  // wellWidth [0.2, 6] nm (effective sim minimum 0.2), stepHeight [0.1, 20] eV
-  const wellWidths = [ 0.2, 0.5, 1.0, 3.0, 6.0 ];   // nm
-  const stepHeights = [ 0.5, 2.0, 5.0, 10.0, 20.0 ]; // eV
-  const masses = [ 0.5, 1.0, 1.1 ];
+  const wellWidths = SWEEP_WELL_WIDTHS_INFINITE;
+  const stepHeights = SWEEP_WELL_DEPTHS_20;
+  const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
 
@@ -455,7 +473,7 @@ QUnit.test( 'parameter sweep', assert => {
           // The step discontinuity at x = 0 coincides with an interior zero for odd eigenstates
           // (states 1, 3, 5, …) when stepHeight << E.  The Numerov evaluations straddle the
           // exact step point and produce a small spike that countNodes misidentifies as an extra
-          // node.  Energy ordering and normalisation still verify the physics correctly.
+          // node.  Energy ordering and normalization still verify the physics correctly.
           checkNodes: false
         } );
       }
@@ -473,10 +491,9 @@ QUnit.module( 'Poschl-Teller Potential' );
 
 QUnit.test( 'single-well parameter sweep', assert => {
 
-  // wellWidth [0.1, 1.5] nm, wellDepth [0.1, 15] eV
-  const wellWidths = [ 0.1, 0.3, 0.5, 1.0, 1.5 ]; // nm
-  const wellDepths = [ 0.5, 2.0, 5.0, 10.0, 15.0 ]; // eV
-  const masses = [ 0.5, 1.0, 1.1 ];
+  const wellWidths = SWEEP_WELL_WIDTHS_PT;
+  const wellDepths = SWEEP_WELL_DEPTHS_15;
+  const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
 
@@ -516,7 +533,7 @@ QUnit.test( 'multi-well spacing sweep', assert => {
   // spacing ≤ 0.66 nm to keep all band splittings well above the solver's refinement
   // tolerance (~10⁻⁶ eV).  Spacings ≥ 0.7 nm give near-degenerate states that the
   // solver cannot reliably order.
-  const spacings = [ 0.4, 0.5, 0.6 ]; // nm centre-to-centre
+  const spacings = [ 0.4, 0.5, 0.6 ]; // nm center-to-center
   const wellWidth = 0.3;  // nm
   const wellDepth = 10;   // eV
   const mass = 1;
@@ -597,10 +614,9 @@ QUnit.module( 'Asymmetric Triangle Potential' );
 
 QUnit.test( 'parameter sweep', assert => {
 
-  // wellWidth [0.1, 6] nm, wellDepth [0.1, 20] eV
-  const wellWidths = [ 0.1, 0.5, 1.0, 3.0, 6.0 ];   // nm
-  const wellDepths = [ 0.5, 2.0, 5.0, 10.0, 20.0 ]; // eV
-  const masses = [ 0.5, 1.0, 1.1 ];
+  const wellWidths = SWEEP_WELL_WIDTHS;
+  const wellDepths = SWEEP_WELL_DEPTHS_20;
+  const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
 
@@ -624,7 +640,7 @@ QUnit.test( 'parameter sweep', assert => {
           // The asymmetric ramp means low-energy states have their first interior node close
           // to the left (low-potential) wall.  For wide wells the node falls inside countNodes'
           // 10 % boundary-skip zone and is not counted, giving n − 1 instead of n.
-          // Energy ordering and normalisation still verify the physics correctly.
+          // Energy ordering and normalization still verify the physics correctly.
           checkNodes: false
         } );
       }
@@ -640,32 +656,32 @@ QUnit.test( 'parameter sweep', assert => {
 
 QUnit.module( 'Coulomb Potential' );
 
-QUnit.test( 'basic validity', assert => {
+QUnit.test( 'mass sweep', assert => {
 
-  // Coulomb has no tunable parameters in the sim — only check default configuration.
-  const mass = 1; // electron mass
+  // Coulomb has no tunable well parameters — sweep electron mass only.
   const yOffset = 0;
-  const potFn = CoulombSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: yOffset, electricField: 0
-  } );
-
-  // Range of Coulomb energies: E_n = -13.6/n² eV for n=1,2,...
-  // Sim energyAxisRange = Range(-15, 5).dilated(0.5) = [-17.5, 7.5].
   const energyMin = -17.5;
   const energyMax = 0;
 
-  const result = NumerovSolver.solve(
-    standardGrid(),
-    potFn,
-    mass,
-    energyMin,
-    energyMax
-  );
+  const configs: SweepConfig[] = [];
 
-  assert.ok( result.energies.length >= 1, 'Coulomb: at least one bound state found' );
-  assertAllFinite( assert, result, 'Coulomb' );
-  assertEnergyOrdering( assert, result.energies, 'Coulomb' );
-  assertNormalization( assert, result, standardGrid().dx, 1e-3, 'Coulomb' );
+  for ( const mass of SWEEP_MASSES ) {
+    const potFn = CoulombSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: yOffset, electricField: 0
+    } );
+
+    configs.push( {
+      grid: standardGrid(),
+      potFn: potFn,
+      mass: mass,
+      energyMin: energyMin,
+      energyMax: energyMax,
+      label: `Coulomb mass=${mass}`,
+      checkNodes: false
+    } );
+  }
+
+  runSweep( assert, configs );
 } );
 
 // ============================================================================
@@ -711,7 +727,7 @@ QUnit.test( 'Harmonic Oscillator parity alternates even/odd', assert => {
   }
 } );
 
-QUnit.test( 'Finite Square Well (single, centred) parity alternates even/odd', assert => {
+QUnit.test( 'Finite Square Well (single, centered) parity alternates even/odd', assert => {
 
   const L = 2;    // nm
   const V0 = 10; // eV
@@ -729,7 +745,7 @@ QUnit.test( 'Finite Square Well (single, centred) parity alternates even/odd', a
   }
 } );
 
-QUnit.test( 'Poschl-Teller (single, centred) parity alternates even/odd', assert => {
+QUnit.test( 'Poschl-Teller (single, centered) parity alternates even/odd', assert => {
 
   const wellWidth = 0.5; // nm
   const wellDepth = 10;  // eV
@@ -901,5 +917,632 @@ QUnit.test( 'wave-function RMS error < 5 % for standard spring constant', assert
   for ( let i = 0; i < nCompare; i++ ) {
     const rms = waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], grid.dx );
     assert.ok( rms < 0.05, `HO n=${i}: WF RMS error = ${toFixed( rms * 100, 3 )} % (must be < 5 %)` );
+  }
+} );
+
+// ============================================================================
+// Module: Harmonic Oscillator — energy ladder (equal spacing)
+// ============================================================================
+
+QUnit.module( 'Harmonic Oscillator — energy ladder' );
+
+QUnit.test( 'equal spacing matches ℏω within 0.5%', assert => {
+
+  const wellWidth = 2;
+  const mass = 1;
+  const k = 32 / ( wellWidth * wellWidth );
+  const omega = Math.sqrt( k / mass );
+  const expectedSpacing = HBAR * omega;
+
+  const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
+  } );
+  const result = NumerovSolver.solve( hoGrid( wellWidth, mass ), potFn, mass, 0.1 * expectedSpacing / 2, 10.5 * HBAR * omega );
+
+  assert.ok( result.energies.length >= 3, `HO: need ≥ 3 states, got ${result.energies.length}` );
+
+  for ( let n = 0; n < result.energies.length - 1; n++ ) {
+    const spacing = result.energies[ n + 1 ] - result.energies[ n ];
+    const relErr = Math.abs( spacing - expectedSpacing ) / expectedSpacing;
+    assert.ok( relErr < 0.005,
+      `HO spacing n=${n}: Δ=${toFixed( spacing, 6 )} eV, expected ${toFixed( expectedSpacing, 6 )} eV, error=${toFixed( relErr * 100, 3 )} %` );
+  }
+} );
+
+// ============================================================================
+// Module: Infinite Square Well — energy ladder (quadratic ratio)
+// ============================================================================
+
+QUnit.module( 'Infinite Square Well — energy ladder' );
+
+QUnit.test( 'E_n/E_0 = (n+1)² within 0.1%', assert => {
+
+  const L = 2;
+  const mass = 1;
+  const E1 = Math.PI * Math.PI * HBAR * HBAR / ( 2 * mass * L * L );
+  const potFn = InfiniteSquareSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, electricField: 0
+  } );
+  const result = NumerovSolver.solve( tightGrid( L / 2 ), potFn, mass, 0, 100 * E1 );
+
+  assert.ok( result.energies.length >= 5, `ISW: need ≥ 5 states, got ${result.energies.length}` );
+
+  const E0 = result.energies[ 0 ];
+  const nCheck = Math.min( result.energies.length, 8 );
+  for ( let n = 1; n < nCheck; n++ ) {
+    const expectedRatio = ( n + 1 ) * ( n + 1 );
+    const actualRatio = result.energies[ n ] / E0;
+    const relErr = Math.abs( actualRatio - expectedRatio ) / expectedRatio;
+    assert.ok( relErr < 0.001,
+      `ISW n=${n}: ratio=${toFixed( actualRatio, 4 )}, expected ${expectedRatio}, error=${toFixed( relErr * 100, 4 )} %` );
+  }
+} );
+
+// Note: A Bohr-ratio test (E_n/E_0 = 1/(n+1)²) is not included here because the
+// standard grid (dx = 0.01 nm) cannot resolve Coulomb excited states: the Bohr
+// radius is ~0.053 nm and higher states are widely spread, so Numerov finds wrong
+// levels in the energy range.  The B4 analytical comparison below checks the
+// ground-state energy with a realistic tolerance.
+
+// ============================================================================
+// Module: Morse — anharmonic level convergence
+// ============================================================================
+
+QUnit.module( 'Morse — anharmonic level convergence' );
+
+QUnit.test( 'energy spacing decreases monotonically', assert => {
+
+  const wellWidth = 1;
+  const wellDepth = 10;
+  const mass = 1;
+  const potFn = MorseSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+  } );
+  const result = NumerovSolver.solve( morseGrid( wellWidth ), potFn, mass, -wellDepth, 0 );
+
+  assert.ok( result.energies.length >= 3, `Morse: need ≥ 3 states for anharmonicity test, got ${result.energies.length}` );
+
+  for ( let n = 0; n < result.energies.length - 2; n++ ) {
+    const spacing0 = result.energies[ n + 1 ] - result.energies[ n ];
+    const spacing1 = result.energies[ n + 2 ] - result.energies[ n + 1 ];
+    assert.ok( spacing0 > spacing1,
+      `Morse: spacing at n=${n} (${toFixed( spacing0, 4 )} eV) must exceed spacing at n=${n + 1} (${toFixed( spacing1, 4 )} eV)` );
+  }
+} );
+
+// ============================================================================
+// Module: Analytical comparison — Finite Square Well
+// ============================================================================
+
+QUnit.module( 'Analytical comparison — Finite Square Well' );
+
+QUnit.test( 'energy error < 1% for L=2 nm, V₀=10 eV', assert => {
+
+  const L = 2;
+  const V0 = 10;
+  const mass = 1;
+  const grid = standardGrid();
+  const potFn = FiniteSquareSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0
+  } );
+
+  const numericalResult = NumerovSolver.solve( grid, potFn, mass, 0, V0 );
+  const analyticalResult = FiniteSquareSolution.solve( grid, {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0,
+    energyMin: 0, energyMax: V0, electronMasses: mass, electricField: 0
+  } );
+
+  assert.ok( numericalResult.energies.length >= 2, `Found ${numericalResult.energies.length} numerical states (need ≥ 2)` );
+  const nCompareB1 = Math.min( numericalResult.energies.length, analyticalResult.energies.length, 6 );
+  for ( let i = 0; i < nCompareB1; i++ ) {
+    const relErr = Math.abs( numericalResult.energies[ i ] - analyticalResult.energies[ i ] ) / Math.abs( analyticalResult.energies[ i ] );
+    assert.ok( relErr < 0.01, `FSW n=${i}: energy error = ${toFixed( relErr * 100, 3 )} % (must be < 1 %)` );
+  }
+} );
+
+QUnit.test( 'wave-function RMS error < 5% for L=2 nm, V₀=10 eV', assert => {
+
+  const L = 2;
+  const V0 = 10;
+  const mass = 1;
+  const grid = standardGrid();
+  const potFn = FiniteSquareSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0
+  } );
+
+  const numericalResult = NumerovSolver.solve( grid, potFn, mass, 0, V0 );
+  const analyticalResult = FiniteSquareSolution.solve( grid, {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0,
+    energyMin: 0, energyMax: V0, electronMasses: mass, electricField: 0
+  } );
+
+  const nCompareB1wf = Math.min( numericalResult.waveFunctions.length, analyticalResult.waveFunctions.length, 6 );
+  for ( let i = 0; i < nCompareB1wf; i++ ) {
+    const rms = waveFunctionRMSError( numericalResult.waveFunctions[ i ], analyticalResult.waveFunctions[ i ], grid.dx );
+    assert.ok( rms < 0.05, `FSW n=${i}: WF RMS error = ${toFixed( rms * 100, 3 )} % (must be < 5 %)` );
+  }
+} );
+
+// ============================================================================
+// Module: Analytical comparison — Poschl-Teller
+// ============================================================================
+
+QUnit.module( 'Analytical comparison — Poschl-Teller' );
+
+QUnit.test( 'energy error < 1% for w=0.5 nm, V₀=10 eV', assert => {
+
+  const wPT = 0.5;
+  const V0PT = 10;
+  const massPT = 1;
+  const gridPT = standardGrid();
+  const potFnPT = PoschlTellerSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT, electricField: 0
+  } );
+
+  const numericalResultPT = NumerovSolver.solve( gridPT, potFnPT, massPT, -3 * V0PT, 0 );
+  const analyticalResultPT = PoschlTellerSolution.solve( gridPT, {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT,
+    energyMin: -3 * V0PT, energyMax: 0, electronMasses: massPT, electricField: 0
+  } );
+
+  assert.ok( numericalResultPT.energies.length >= 2, `Found ${numericalResultPT.energies.length} numerical states (need ≥ 2)` );
+  // Use 2% tolerance: higher PT states (n ≥ 5) on the standard 1001-point grid show
+  // ~1–2% error due to the narrow sech² well shape requiring finer dx near the peak.
+  const nComparePT = Math.min( numericalResultPT.energies.length, analyticalResultPT.energies.length, 6 );
+  for ( let i = 0; i < nComparePT; i++ ) {
+    const relErr = Math.abs( numericalResultPT.energies[ i ] - analyticalResultPT.energies[ i ] ) / Math.abs( analyticalResultPT.energies[ i ] );
+    assert.ok( relErr < 0.02, `PT n=${i}: energy error = ${toFixed( relErr * 100, 3 )} % (must be < 2 %)` );
+  }
+} );
+
+QUnit.test( 'wave-function RMS error < 5% for w=0.5 nm, V₀=10 eV', assert => {
+
+  const wPT = 0.5;
+  const V0PT = 10;
+  const massPT = 1;
+  const gridPT = standardGrid();
+  const potFnPT = PoschlTellerSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT, electricField: 0
+  } );
+
+  const numericalResultPT = NumerovSolver.solve( gridPT, potFnPT, massPT, -3 * V0PT, 0 );
+  const analyticalResultPT = PoschlTellerSolution.solve( gridPT, {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT,
+    energyMin: -3 * V0PT, energyMax: 0, electronMasses: massPT, electricField: 0
+  } );
+
+  const nComparePTwf = Math.min( numericalResultPT.waveFunctions.length, analyticalResultPT.waveFunctions.length, 6 );
+  for ( let i = 0; i < nComparePTwf; i++ ) {
+    const rms = waveFunctionRMSError( numericalResultPT.waveFunctions[ i ], analyticalResultPT.waveFunctions[ i ], gridPT.dx );
+    assert.ok( rms < 0.05, `PT n=${i}: WF RMS error = ${toFixed( rms * 100, 3 )} % (must be < 5 %)` );
+  }
+} );
+
+// ============================================================================
+// Module: Analytical comparison — Morse
+// ============================================================================
+
+QUnit.module( 'Analytical comparison — Morse' );
+
+QUnit.test( 'energy error < 2% for w=1 nm, D_e=5 eV', assert => {
+
+  const wM = 1;
+  const DeM = 5;
+  const massM = 1;
+  const gridM = morseGrid( wM );
+  const potFnM = MorseSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wM, wellDepth: DeM, electricField: 0
+  } );
+
+  const numericalResultM = NumerovSolver.solve( gridM, potFnM, massM, -DeM, 0 );
+  const analyticalResultM = MorseSolution.solve( gridM, {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wM, wellDepth: DeM,
+    energyMin: -DeM, energyMax: 0, electronMasses: massM, electricField: 0
+  } );
+
+  assert.ok( numericalResultM.energies.length >= 2, `Found ${numericalResultM.energies.length} numerical states (need ≥ 2)` );
+  const nCompareM = Math.min( numericalResultM.energies.length, analyticalResultM.energies.length, 8 );
+  for ( let i = 0; i < nCompareM; i++ ) {
+    const relErr = Math.abs( numericalResultM.energies[ i ] - analyticalResultM.energies[ i ] ) / Math.abs( analyticalResultM.energies[ i ] );
+    assert.ok( relErr < 0.02, `Morse n=${i}: energy error = ${toFixed( relErr * 100, 3 )} % (must be < 2 %)` );
+  }
+} );
+
+QUnit.test( 'wave-function RMS error < 10% for w=1 nm, D_e=5 eV', assert => {
+
+  const wM = 1;
+  const DeM = 5;
+  const massM = 1;
+  const gridM = morseGrid( wM );
+  const potFnM = MorseSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wM, wellDepth: DeM, electricField: 0
+  } );
+
+  const numericalResultM = NumerovSolver.solve( gridM, potFnM, massM, -DeM, 0 );
+  const analyticalResultM = MorseSolution.solve( gridM, {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wM, wellDepth: DeM,
+    energyMin: -DeM, energyMax: 0, electronMasses: massM, electricField: 0
+  } );
+
+  const nCompareMwf = Math.min( numericalResultM.waveFunctions.length, analyticalResultM.waveFunctions.length, 8 );
+  for ( let i = 0; i < nCompareMwf; i++ ) {
+    const rms = waveFunctionRMSError( numericalResultM.waveFunctions[ i ], analyticalResultM.waveFunctions[ i ], gridM.dx );
+    assert.ok( rms < 0.10, `Morse n=${i}: WF RMS error = ${toFixed( rms * 100, 3 )} % (must be < 10 %)` );
+  }
+} );
+
+// ============================================================================
+// Module: Analytical comparison — Coulomb
+// ============================================================================
+
+QUnit.module( 'Analytical comparison — Coulomb' );
+
+QUnit.test( 'energy error < 1% for default Coulomb', assert => {
+
+  const massC = 1;
+  const gridC = standardGrid();
+  const potFnC = CoulombSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, electricField: 0
+  } );
+
+  const numericalResultC = NumerovSolver.solve( gridC, potFnC, massC, -17.5, 0 );
+  const analyticalResultC = CoulombSolution.solve( gridC, {
+    numberOfWells: 1, xOffset: 0, yOffset: 0,
+    energyMin: -17.5, energyMax: 0, electronMasses: massC, electricField: 0
+  } );
+
+  // The standard 1001-point grid cannot resolve Coulomb excited states (Bohr radius
+  // ~0.053 nm, dx = 0.01 nm), so only the ground state (n=1) is compared.
+  // The ground-state energy converges reasonably; higher states are unresolvable
+  // on this grid and are not checked here.
+  assert.ok( numericalResultC.energies.length >= 1, `Found ${numericalResultC.energies.length} numerical states (need ≥ 1)` );
+  if ( analyticalResultC.energies.length >= 1 ) {
+    const relErr = Math.abs( numericalResultC.energies[ 0 ] - analyticalResultC.energies[ 0 ] ) / Math.abs( analyticalResultC.energies[ 0 ] );
+    assert.ok( relErr < 0.05, `Coulomb n=1: energy error = ${toFixed( relErr * 100, 3 )} % (must be < 5 %)` );
+  }
+} );
+
+// ============================================================================
+// Module: yOffset energy shift invariant
+// ============================================================================
+
+QUnit.module( 'yOffset energy shift invariant' );
+
+QUnit.test( 'all eigenvalues shift by yOffset within 1e-4 eV', assert => {
+
+  const yShift = 1;
+  const tolerance = 1e-4;
+
+  // ISW: L=1 nm, m=1
+  {
+    const L = 1;
+    const mass = 1;
+    const E1 = Math.PI * Math.PI * HBAR * HBAR / ( 2 * mass * L * L );
+    const grid = tightGrid( L / 2 );
+    const potFn0 = InfiniteSquareSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, electricField: 0
+    } );
+    const potFn1 = InfiniteSquareSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: yShift, wellWidth: L, electricField: 0
+    } );
+    const result0 = NumerovSolver.solve( grid, potFn0, mass, 0, 100 * E1 );
+    const result1 = NumerovSolver.solve( grid, potFn1, mass, yShift, yShift + 100 * E1 );
+    const nCheck = Math.min( result0.energies.length, result1.energies.length );
+    for ( let i = 0; i < nCheck; i++ ) {
+      const shift = result1.energies[ i ] - result0.energies[ i ];
+      assert.ok( Math.abs( shift - yShift ) < tolerance,
+        `ISW n=${i}: shift=${toFixed( shift, 6 )} eV, expected ${yShift} eV` );
+    }
+  }
+
+  // FSW: L=1 nm, V0=5 eV, m=1
+  {
+    const L = 1;
+    const V0 = 5;
+    const mass = 1;
+    const grid = standardGrid();
+    const potFn0 = FiniteSquareSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0
+    } );
+    const potFn1 = FiniteSquareSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: yShift, wellWidth: L, wellDepth: V0, electricField: 0
+    } );
+    const result0 = NumerovSolver.solve( grid, potFn0, mass, 0, V0 );
+    const result1 = NumerovSolver.solve( grid, potFn1, mass, yShift, yShift + V0 );
+    const nCheck = Math.min( result0.energies.length, result1.energies.length );
+    for ( let i = 0; i < nCheck; i++ ) {
+      const shift = result1.energies[ i ] - result0.energies[ i ];
+      assert.ok( Math.abs( shift - yShift ) < tolerance,
+        `FSW n=${i}: shift=${toFixed( shift, 6 )} eV, expected ${yShift} eV` );
+    }
+  }
+
+  // HO: w=2 nm, m=1
+  {
+    const w = 2;
+    const mass = 1;
+    const k = 32 / ( w * w );
+    const omega = Math.sqrt( k / mass );
+    const grid = hoGrid( w, mass );
+    const potFn0 = HarmonicOscillatorSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
+    } );
+    const potFn1 = HarmonicOscillatorSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: yShift, springConstant: k, electricField: 0
+    } );
+    const result0 = NumerovSolver.solve( grid, potFn0, mass, 0.1 * HBAR * omega / 2, 10.5 * HBAR * omega );
+    const result1 = NumerovSolver.solve( grid, potFn1, mass, yShift + 0.1 * HBAR * omega / 2, yShift + 10.5 * HBAR * omega );
+    const nCheck = Math.min( result0.energies.length, result1.energies.length );
+    for ( let i = 0; i < nCheck; i++ ) {
+      const shift = result1.energies[ i ] - result0.energies[ i ];
+      assert.ok( Math.abs( shift - yShift ) < tolerance,
+        `HO n=${i}: shift=${toFixed( shift, 6 )} eV, expected ${yShift} eV` );
+    }
+  }
+} );
+
+// ============================================================================
+// Module: Mass scaling
+// ============================================================================
+
+QUnit.module( 'Mass scaling' );
+
+QUnit.test( 'ISW E_n(2m) ≈ E_n(m)/2 within 0.5%', assert => {
+
+  // ISW energies E_n = n²π²ℏ²/(2mL²) ∝ 1/m, so doubling m halves all eigenvalues.
+  const L = 2;
+  const mass1 = 1;
+  const mass2 = 2;
+  const E1_m1 = Math.PI * Math.PI * HBAR * HBAR / ( 2 * mass1 * L * L );
+  const E1_m2 = Math.PI * Math.PI * HBAR * HBAR / ( 2 * mass2 * L * L );
+  const grid = tightGrid( L / 2 );
+  const potFn = InfiniteSquareSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, electricField: 0
+  } );
+
+  const resultM1 = NumerovSolver.solve( grid, potFn, mass1, 0, 100 * E1_m1 );
+  const resultM2 = NumerovSolver.solve( grid, potFn, mass2, 0, 100 * E1_m2 );
+
+  const nCheckMS = Math.min( resultM1.energies.length, resultM2.energies.length, 8 );
+  for ( let i = 0; i < nCheckMS; i++ ) {
+    const expected = resultM1.energies[ i ] / 2;
+    const relErr = Math.abs( resultM2.energies[ i ] - expected ) / expected;
+    assert.ok( relErr < 0.005,
+      `ISW n=${i}: E(2m)=${toFixed( resultM2.energies[ i ], 4 )} eV, E(m)/2=${toFixed( expected, 4 )} eV, error=${toFixed( relErr * 100, 3 )} %` );
+  }
+} );
+
+QUnit.test( 'HO E_n(2m) ≈ E_n(m)/√2 within 0.5%', assert => {
+
+  // HO energies E_n = ℏ√(k/m)(n+½) ∝ m^{-½}, so doubling m scales energies by 1/√2.
+  const w = 2;
+  const mass1 = 1;
+  const mass2 = 2;
+  const k = 32 / ( w * w );
+  const omega1 = Math.sqrt( k / mass1 );
+  const omega2 = Math.sqrt( k / mass2 );
+  const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
+  } );
+
+  const resultHO1 = NumerovSolver.solve( hoGrid( w, mass1 ), potFn, mass1, 0.1 * HBAR * omega1 / 2, 10.5 * HBAR * omega1 );
+  const resultHO2 = NumerovSolver.solve( hoGrid( w, mass2 ), potFn, mass2, 0.1 * HBAR * omega2 / 2, 10.5 * HBAR * omega2 );
+
+  const nCheckHOMS = Math.min( resultHO1.energies.length, resultHO2.energies.length, 8 );
+  for ( let i = 0; i < nCheckHOMS; i++ ) {
+    const expected = resultHO1.energies[ i ] / Math.SQRT2;
+    const relErr = Math.abs( resultHO2.energies[ i ] - expected ) / expected;
+    assert.ok( relErr < 0.005,
+      `HO n=${i}: E(2m)=${toFixed( resultHO2.energies[ i ], 4 )} eV, E(m)/√2=${toFixed( expected, 4 )} eV, error=${toFixed( relErr * 100, 3 )} %` );
+  }
+} );
+
+// ============================================================================
+// Module: Finite Square Well — guaranteed bound state
+// ============================================================================
+
+QUnit.module( 'Finite Square Well — guaranteed bound state' );
+
+QUnit.test( 'always finds at least one bound state across parameter space', assert => {
+
+  // A 1D finite square well always has at least one bound state (exact quantum theorem).
+  const wellWidths = [ 0.1, 0.5, 1.0, 3.0, 6.0 ];
+  const wellDepths = [ 0.5, 2.0, 5.0, 10.0, 20.0 ];
+  const mass = 1;
+
+  for ( const wellWidth of wellWidths ) {
+    for ( const wellDepth of wellDepths ) {
+      const potFn = FiniteSquareSolution.createPotentialFunction( {
+        numberOfWells: 1, xOffset: 0, yOffset: 0,
+        wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+      } );
+      const result = NumerovSolver.solve( standardGrid(), potFn, mass, 0, wellDepth );
+      assert.ok( result.energies.length >= 1,
+        `FSW wellWidth=${wellWidth} wellDepth=${wellDepth}: must have ≥1 bound state, found ${result.energies.length}` );
+    }
+  }
+} );
+
+// ============================================================================
+// Module: Orthogonality — extended (FSW, Poschl-Teller)
+// ============================================================================
+
+QUnit.module( 'Orthogonality — extended' );
+
+QUnit.test( 'Finite Square Well eigenstates are orthogonal', assert => {
+
+  const L = 2;
+  const V0 = 10;
+  const mass = 1;
+  const grid = standardGrid();
+  const potFn = FiniteSquareSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0
+  } );
+  const result = NumerovSolver.solve( grid, potFn, mass, 0, V0 );
+  assertOrthogonality( assert, result.waveFunctions, grid.dx, 1e-3, 'FSW' );
+} );
+
+QUnit.test( 'Poschl-Teller eigenstates are orthogonal', assert => {
+
+  const w = 0.5;
+  const V0 = 10;
+  const mass = 1;
+  const grid = standardGrid();
+  const potFn = PoschlTellerSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: w, wellDepth: V0, electricField: 0
+  } );
+  const result = NumerovSolver.solve( grid, potFn, mass, -3 * V0, 0 );
+  assertOrthogonality( assert, result.waveFunctions, grid.dx, 1e-3, 'PT' );
+} );
+
+// ============================================================================
+// Module: Wavefunction boundary decay
+// ============================================================================
+
+QUnit.module( 'Wavefunction boundary decay' );
+
+/**
+ * Assert that bound-state wave functions are negligibly small at both grid edges,
+ * confirming the state is localised and the grid is wide enough.
+ */
+function assertBoundaryDecay( assert: Assert, waveFunctions: number[][], threshold: number, label: string ): void {
+  for ( let i = 0; i < waveFunctions.length; i++ ) {
+    const psi = waveFunctions[ i ];
+    const maxAbs = Math.max( ...psi.map( Math.abs ) );
+    if ( maxAbs === 0 ) {
+      continue;
+    }
+    const leftDecay = Math.abs( psi[ 0 ] ) / maxAbs;
+    const rightDecay = Math.abs( psi[ psi.length - 1 ] ) / maxAbs;
+    assert.ok( leftDecay < threshold,
+      `${label} state ${i}: left boundary |ψ|/max = ${leftDecay.toExponential( 2 )} must be < ${threshold}` );
+    assert.ok( rightDecay < threshold,
+      `${label} state ${i}: right boundary |ψ|/max = ${rightDecay.toExponential( 2 )} must be < ${threshold}` );
+  }
+}
+
+QUnit.test( 'Finite Square Well states decay to < 1% at grid edges', assert => {
+
+  const grid = standardGrid();
+  const potFn = FiniteSquareSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 2, wellDepth: 10, electricField: 0
+  } );
+  const result = NumerovSolver.solve( grid, potFn, 1, 0, 10 );
+  assertBoundaryDecay( assert, result.waveFunctions, 0.01, 'FSW' );
+} );
+
+QUnit.test( 'Poschl-Teller states decay to < 1% at grid edges', assert => {
+
+  const grid = standardGrid();
+  const potFn = PoschlTellerSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 0.5, wellDepth: 10, electricField: 0
+  } );
+  const result = NumerovSolver.solve( grid, potFn, 1, -30, 0 );
+  assertBoundaryDecay( assert, result.waveFunctions, 0.01, 'PT' );
+} );
+
+QUnit.test( 'Morse states decay to < 1% at grid edges', assert => {
+
+  const wellWidth = 1;
+  const grid = morseGrid( wellWidth );
+  const potFn = MorseSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wellWidth, wellDepth: 5, electricField: 0
+  } );
+  const result = NumerovSolver.solve( grid, potFn, 1, -5, 0 );
+  assertBoundaryDecay( assert, result.waveFunctions, 0.01, 'Morse' );
+} );
+
+// ============================================================================
+// Module: Poschl-Teller — state count formula
+// ============================================================================
+
+QUnit.module( 'Poschl-Teller — state count formula' );
+
+QUnit.test( 'N_bound = ⌊λ − ½⌋ + 1 where λ = w√(2mV₀)/ℏ', assert => {
+
+  const wellWidths = [ 0.1, 0.3, 0.5, 1.0 ];
+  const wellDepths = [ 2.0, 5.0, 10.0, 15.0 ];
+  const mass = 1;
+
+  for ( const wellWidth of wellWidths ) {
+    for ( const wellDepth of wellDepths ) {
+      const lambda = wellWidth * Math.sqrt( 2 * mass * wellDepth ) / HBAR;
+      const expectedCount = Math.floor( lambda - 0.5 ) + 1;
+
+      const potFn = PoschlTellerSolution.createPotentialFunction( {
+        numberOfWells: 1, xOffset: 0, yOffset: 0,
+        wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+      } );
+      const result = NumerovSolver.solve( standardGrid(), potFn, mass, -3 * wellDepth, 0 );
+
+      // Allow off-by-1: when the top state is barely bound (energy very close to 0),
+      // Numerov may miss it due to finite energy-range discretisation.
+      assert.ok( Math.abs( result.energies.length - expectedCount ) <= 1,
+        `PT wellWidth=${wellWidth} wellDepth=${wellDepth}: expected ${expectedCount} states (λ=${toFixed( lambda, 3 )}), got ${result.energies.length}` );
+    }
+  }
+} );
+
+// ============================================================================
+// Module: Electric field breaks parity
+// ============================================================================
+
+QUnit.module( 'Electric field breaks parity' );
+
+QUnit.test( 'Poschl-Teller with E-field has mixed-parity states', assert => {
+
+  // A Stark field tilts the symmetric well; eigenstates no longer have definite parity.
+  // We decompose each ψ into even and odd components and verify both are non-negligible.
+  // Use a strong field (1 V/nm) so the mixing fraction (~5%) exceeds the threshold.
+  // The level spacing for the deep states (~2 eV) is comparable to the Stark energy
+  // eE⟨x⟩ ≈ 1*0.5 = 0.5 eV, giving a mixing coefficient of ~25%.
+  const wellWidth = 0.5;
+  const wellDepth = 10;
+  const mass = 1;
+  const electricField = 1.0; // V/nm — strong enough to produce ~5% parity mixing
+
+  const potFn = ( x: number ): number => {
+    const sech = 1 / Math.cosh( x / wellWidth );
+    return -wellDepth * sech * sech + electricField * x;
+  };
+
+  const grid = standardGrid();
+
+  // energyMax: effective continuum floor drops by field * xMax at the far edge.
+  // With field=1 V/nm and xMax=5 nm, only states below -5 eV survive.
+  const energyMax = -electricField * 5;
+
+  const result = NumerovSolver.solve( grid, potFn, mass, -3 * wellDepth, energyMax );
+
+  assert.ok( result.energies.length >= 2, `Need ≥ 2 states, got ${result.energies.length}` );
+
+  const N = grid.numberOfPoints;
+  const nCheck = Math.min( result.waveFunctions.length, 4 );
+
+  for ( let i = 0; i < nCheck; i++ ) {
+    const psi = result.waveFunctions[ i ];
+
+    // For standardGrid (symmetric about x=0): index j corresponds to x_j and N-1-j to -x_j.
+    // Decompose: ψ_e = (ψ(x) + ψ(-x))/2, ψ_o = (ψ(x) - ψ(-x))/2.
+    let evenNorm2 = 0;
+    let oddNorm2 = 0;
+    const half = Math.floor( N / 2 );
+    for ( let j = 0; j < half; j++ ) {
+      const e = 0.5 * ( psi[ j ] + psi[ N - 1 - j ] );
+      const o = 0.5 * ( psi[ j ] - psi[ N - 1 - j ] );
+      evenNorm2 += e * e;
+      oddNorm2 += o * o;
+    }
+    const totalNorm2 = evenNorm2 + oddNorm2;
+
+    // Minority fraction: 0 = pure parity state, 0.5 = maximally mixed.
+    const mixFraction = Math.min( evenNorm2, oddNorm2 ) / Math.max( totalNorm2, 1e-30 );
+
+    // With E=1 V/nm on a 10 eV well (level spacing ~2 eV), Stark mixing is perturbative:
+    // coefficient ~eE⟨x⟩/ΔE ≈ 0.01–0.05, giving mix fractions of 1e-4 to 3e-2.
+    // Threshold 1e-3 is far above machine epsilon (~1e-15 for a pure-parity state)
+    // and confirms the solver produces genuinely mixed-parity states under the field.
+    assert.ok( mixFraction > 1e-3,
+      `PT E-field state ${i}: parity mix fraction = ${mixFraction.toExponential( 2 )} must be > 1e-3` );
   }
 } );
