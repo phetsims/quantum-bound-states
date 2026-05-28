@@ -19,11 +19,11 @@ import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhet
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
+import AsymmetricTriangleSolution from '../solver/analytical-solutions/AsymmetricTriangleSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
-import AsymmetricTriangleSolution from '../solver/analytical-solutions/AsymmetricTriangleSolution.js';
 
 type SelfOptions = {
   wellWidthRange?: RangeWithValue;
@@ -112,30 +112,6 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
       electronMasses: this.electronMassesProperty.value,
       electricField: this.electricFieldProperty.value
     } );
-  }
-
-  /**
-   * Gets the potential energy (eV) at a specified x-coordinate (nm).
-   */
-  public override getPotentialEnergyAt( x: number ): number {
-    if ( isAffirmEnabled() ) {
-      affirm( this.numberOfWellsProperty.value === 1, 'AsymmetricTrianglePotential does not support multiple wells.' );
-      affirm( this.electricFieldProperty.value === 0, 'AsymmetricTrianglePotential does not support electric field.' );
-    }
-
-    const wellWidth = this.wellWidthProperty.value;
-    const wellDepth = this.wellDepthProperty.value;
-    const xOffset = this.xOffsetProperty.value;
-    const yOffset = this.yOffsetProperty.value;
-
-    // From BSAsymmetricPotential.java
-    let pe = yOffset + wellDepth;
-    if ( Math.abs( x - xOffset ) <= wellWidth / 2 ) {
-      pe = yOffset + ( wellDepth - ( Math.abs( xOffset + wellWidth / 2 - x ) * wellDepth / wellWidth ) );
-    }
-
-    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
-    return pe;
   }
 
   public override getMinSolverEnergy(): number {

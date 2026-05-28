@@ -16,7 +16,6 @@ import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersU
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
-import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import InfiniteStepSolution from '../solver/analytical-solutions/InfiniteStepSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
@@ -112,37 +111,6 @@ export default class InfiniteStepPotential extends QuantumPotential {
       electronMasses: this.electronMassesProperty.value,
       electricField: this.electricFieldProperty.value
     } );
-  }
-
-  /**
-   * Gets the potential energy (eV) at a specified x-coordinate (nm).
-   */
-  public override getPotentialEnergyAt( x: number ): number {
-    if ( isAffirmEnabled() ) {
-      affirm( this.numberOfWellsProperty.value === 1, 'InfiniteStepPotential does not support multiple wells.' );
-      affirm( this.electricFieldProperty.value === 0, 'InfiniteStepPotential does not support electric field.' );
-    }
-    const wellWidth = this.wellWidthProperty.value;
-    const xOffset = this.xOffsetProperty.value;
-    const leftX = xOffset - wellWidth / 2;
-    const rightX = xOffset + wellWidth / 2;
-    let pe: number;
-    if ( leftX <= x && x <= rightX ) {
-      // inside the well
-      if ( x <= leftX + wellWidth / 2 ) {
-        // to the left of the step
-        pe = this.yOffsetProperty.value;
-      }
-      else {
-        // at the step
-        pe = this.yOffsetProperty.value + this.stepHeightProperty.value;
-      }
-    }
-    else {
-      // outside the well
-      pe = QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY;
-    }
-    return pe;
   }
 
   public override getMinSolverEnergy(): number {

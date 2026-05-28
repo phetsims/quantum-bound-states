@@ -21,6 +21,7 @@ import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import FiniteSquareSolution from '../solver/analytical-solutions/FiniteSquareSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
+import NumerovSolver from '../solver/NumerovSolver.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
@@ -125,14 +126,21 @@ export default class FiniteSquarePotential extends QuantumPotential {
     else {
 
       // For multi-well or with electric field, use Numerov.
-      return super.solveBoundState( xGrid );
+      return NumerovSolver.solve(
+        xGrid,
+        x => this.getPotentialEnergyAt( x ),
+        this.electronMassesProperty.value,
+        this.getMinSolverEnergy(),
+        this.getMaxSolverEnergy()
+      );
     }
   }
 
+  //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with FiniteSquareSolution.createPotentialFunction
   /**
    * Gets the potential energy (y-value) at a specified x-coordinate.
    */
-  public override getPotentialEnergyAt( x: number ): number {
+  public getPotentialEnergyAt( x: number ): number {
 
     const n = this.numberOfWellsProperty.value;
     const wellWidth = this.wellWidthProperty.value;

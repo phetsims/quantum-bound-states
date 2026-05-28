@@ -24,6 +24,7 @@ import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import PoschlTellerSolution from '../solver/analytical-solutions/PoschlTellerSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
+import NumerovSolver from '../solver/NumerovSolver.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
@@ -131,12 +132,19 @@ export default class PoschlTellerPotential extends QuantumPotential {
     }
     else {
 
-      // For multi-well, use Numerov.
-      result = super.solveBoundState( xGrid );
+      // For multi-well or with electric field, use Numerov.
+      return NumerovSolver.solve(
+        xGrid,
+        x => this.getPotentialEnergyAt( x ),
+        this.electronMassesProperty.value,
+        this.getMinSolverEnergy(),
+        this.getMaxSolverEnergy()
+      );
     }
     return result;
   }
 
+  //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with PoschlTellerSolution.createPotentialFunction
   /**
    * Gets the potential energy (eV) at a specified x-coordinate (nm).
    */

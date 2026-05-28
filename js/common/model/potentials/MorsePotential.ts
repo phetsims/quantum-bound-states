@@ -20,9 +20,9 @@ import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhet
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
+import MorseSolution from '../solver/analytical-solutions/MorseSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
-import MorseSolution from '../solver/analytical-solutions/MorseSolution.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
@@ -113,20 +113,6 @@ export default class MorsePotential extends QuantumPotential {
       electronMasses: this.electronMassesProperty.value,
       electricField: this.electricFieldProperty.value
     } );
-  }
-
-  /**
-   * Gets the potential energy (eV) at a specified x-coordinate (nm).
-   */
-  public getPotentialEnergyAt( x: number ): number {
-    if ( isAffirmEnabled() ) {
-      affirm( this.numberOfWellsProperty.value === 1, 'MorsePotential does not support multiple wells.' );
-      affirm( this.electricFieldProperty.value === 0, 'MorsePotential does not support electric field.' );
-    }
-    const wellDepth = this.wellDepthProperty.value;
-    const wellWidth = this.wellWidthProperty.value;
-    const term = 1 - Math.exp( -( x - this.xOffsetProperty.value ) / wellWidth );
-    return wellDepth * term * term - wellDepth + this.yOffsetProperty.value;
   }
 
   public override getMinSolverEnergy(): number {

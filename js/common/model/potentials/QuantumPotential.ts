@@ -22,7 +22,6 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/Phet
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
-import NumerovSolver from '../solver/NumerovSolver.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 
@@ -145,20 +144,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   /**
    * Solves for the bound state. The default uses a numerical solution (Numerov).
    */
-  public solveBoundState( xGrid: XGrid ): BoundStateResult {
-    return NumerovSolver.solve(
-      xGrid,
-      x => this.getPotentialEnergyAt( x ),
-      this.electronMassesProperty.value,
-      this.getMinSolverEnergy(),
-      this.getMaxSolverEnergy()
-    );
-  }
-
-  /**
-   * Gets the potential energy (eV) at a specified x-coordinate (nm).
-   */
-  public abstract getPotentialEnergyAt( x: number ): number;
+  public abstract solveBoundState( xGrid: XGrid ): BoundStateResult;
 
   /**
    * Gets the minimum energy (eV) used to solve for the bound state.

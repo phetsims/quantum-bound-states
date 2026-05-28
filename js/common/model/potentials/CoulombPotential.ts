@@ -67,37 +67,6 @@ export default class CoulombPotential extends QuantumPotential {
     } );
   }
 
-  /**
-   * Gets the potential energy (eV) at a specified x-coordinate (nm).
-   */
-  public override getPotentialEnergyAt( x: number ): number {
-    if ( isAffirmEnabled() ) {
-      affirm( this.numberOfWellsProperty.value === 1, 'CoulombPotential does not support multiple wells.' );
-      affirm( this.electricFieldProperty.value === 0, 'CoulombPotential does not support electric field.' );
-    }
-
-    // This algorithm handles multiple wells, but we only have 1 well in the current implementation.
-    const n = 1; // number of wells
-    const spacing = 0; // because n = 1
-
-    const xOffset = this.xOffsetProperty.value;
-    const yOffset = this.yOffsetProperty.value;
-
-    // From BSCoulomb1DPotential.java
-    let energy = 0;
-    for ( let i = 1; i <= n; i++ ) {
-      const xi = spacing * ( i - ( ( n + 1 ) / 2.0 ) );
-      let deltaEnergy = -QBSConstants.KE2 / Math.abs( ( x - xOffset ) - xi );
-      const BIG_NEGATIVE = -Math.abs( QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
-      if ( deltaEnergy < BIG_NEGATIVE ) {
-        deltaEnergy = BIG_NEGATIVE;
-      }
-      energy += deltaEnergy;
-    }
-
-    return yOffset + energy;
-  }
-
   public override getMinSolverEnergy(): number {
     return this.energyAxisRange.min + this.yOffsetProperty.value; // bottom of the y-axis range
   }

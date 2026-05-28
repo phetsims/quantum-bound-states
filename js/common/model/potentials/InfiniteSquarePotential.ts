@@ -16,8 +16,7 @@ import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersU
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
-import QBSConstants from '../../QBSConstants.js';
-import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js';  // eslint-disable-line phet/no-view-imported-from-model
+import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import InfiniteSquareSolution from '../solver/analytical-solutions/InfiniteSquareSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
@@ -97,30 +96,6 @@ export default class InfiniteSquarePotential extends QuantumPotential {
       electronMasses: this.electronMassesProperty.value,
       electricField: this.electricFieldProperty.value
     } );
-  }
-
-  /**
-   * Gets the potential energy (y-value) at a specified x-coordinate.
-   */
-  public override getPotentialEnergyAt( x: number ): number {
-    if ( isAffirmEnabled() ) {
-      affirm( this.numberOfWellsProperty.value === 1, 'InfiniteSquarePotential does not support multiple wells.' );
-      affirm( this.electricFieldProperty.value === 0, 'InfiniteSquarePotential does not support electric field.' );
-    }
-    const wellWidth = 2; //this.wellWidthProperty.value;
-    const xOffset = this.xOffsetProperty.value;
-    const leftX = xOffset - wellWidth / 2;
-    const rightX = xOffset + wellWidth / 2;
-    let pe: number;
-    if ( leftX <= x && x <= rightX ) {
-      // inside the well
-      pe = this.yOffsetProperty.value;
-    }
-    else {
-      // outside the well
-      pe = QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY;
-    }
-    return pe;
   }
 
   public override getMinSolverEnergy(): number {
