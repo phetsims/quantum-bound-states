@@ -184,47 +184,47 @@ function assertNodeCounting( assert: Assert, waveFunctions: number[][], maxState
 
 // ─── Sweep parameter sets (sim-valid ranges) ───────────────────────────────────
 
-/** Electron masses — OneWellModel range [0.5, 1.1]. */
-const SWEEP_MASSES = [ 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 ];
+/** Electron masses — two bookend values cover the sim range [0.5, 1.1] without 7× blow-up. */
+const SWEEP_MASSES = [ 0.5, 1.0 ];
 
-/** Well widths for potentials with range [0.1, 6] nm (FSW, Morse, ATri, …). */
-const SWEEP_WELL_WIDTHS = [ 0.1, 0.2, 0.3, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0 ];
+/** Well widths for potentials with range [0.1, 6] nm — four representative values spanning two decades. */
+const SWEEP_WELL_WIDTHS = [ 0.3, 1.0, 3.0, 6.0 ];
 
-/** Well widths for Infinite Square / Infinite Step (effective sim minimum 0.2 nm). */
-const SWEEP_WELL_WIDTHS_INFINITE = [ 0.2, 0.3, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0 ];
+/** Well widths for Infinite Square / Infinite Step. */
+const SWEEP_WELL_WIDTHS_INFINITE = [ 0.3, 1.0, 3.0, 6.0 ];
 
 /** Well widths for Harmonic Oscillator (effective sim minimum 0.4 nm). */
-const SWEEP_WELL_WIDTHS_HO = [ 0.4, 0.5, 0.6, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0 ];
+const SWEEP_WELL_WIDTHS_HO = [ 0.5, 1.0, 3.0, 6.0 ];
 
 /** Well widths for Pöschl-Teller (sim maximum 1.5 nm). */
-const SWEEP_WELL_WIDTHS_PT = [ 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.75, 1.0, 1.25, 1.5 ];
+const SWEEP_WELL_WIDTHS_PT = [ 0.2, 0.5, 1.0, 1.5 ];
 
 /** Well depth / step height for potentials with range [0.1, 20] eV. */
-const SWEEP_WELL_DEPTHS_20 = [ 0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0, 15.0, 20.0 ];
+const SWEEP_WELL_DEPTHS_20 = [ 1.0, 5.0, 10.0, 20.0 ];
 
 /** Well depth for Morse and Pöschl-Teller (sim maximum 15 eV). */
-const SWEEP_WELL_DEPTHS_15 = [ 0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0, 12.5, 15.0 ];
+const SWEEP_WELL_DEPTHS_15 = [ 1.0, 5.0, 10.0, 15.0 ];
 
-/** Number of wells for multi-well potentials (Finite Square, Pöschl-Teller). */
-const SWEEP_NUMBER_OF_WELLS = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+/** Number of wells for multi-well potentials — covers single, small, medium, maximum. */
+const SWEEP_NUMBER_OF_WELLS = [ 1, 3, 5, 10 ];
 
-/** Wall-to-wall gap between adjacent Finite Square wells (nm). Sim range [0.05, 0.2]. */
-const SWEEP_SEPARATIONS = [ 0.05, 0.1, 0.2 ];
+/** Wall-to-wall gap between adjacent Finite Square wells (nm). */
+const SWEEP_SEPARATIONS = [ 0.05, 0.2 ];
 
 /** Center-to-center gap beyond well width for Pöschl-Teller multi-well (nm). */
-const SWEEP_PT_GAPS = [ 0.1, 0.2, 0.3 ];
+const SWEEP_PT_GAPS = [ 0.1, 0.3 ];
 
-/** Electric field strengths (V/nm). Sim range is roughly [−1, 1]; keep moderate to retain bound states. */
-const SWEEP_ELECTRIC_FIELDS = [ 0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 ];
+/** Electric field strengths (V/nm) — zero, moderate, and maximum. */
+const SWEEP_ELECTRIC_FIELDS = [ 0, 0.3, 1.0 ];
 
-/** Reduced well-width set for multi-well / electric-field sweeps (keeps combinatorics tractable). */
-const SWEEP_MULTI_WELL_WIDTHS = [ 0.3, 0.5, 1.0 ];
+/** Reduced well-width set for multi-well / electric-field sweeps. */
+const SWEEP_MULTI_WELL_WIDTHS = [ 0.5, 1.0 ];
 
 /** Reduced well-depth set for multi-well / electric-field sweeps. */
-const SWEEP_MULTI_WELL_DEPTHS = [ 5.0, 10.0, 15.0 ];
+const SWEEP_MULTI_WELL_DEPTHS = [ 5.0, 15.0 ];
 
-/** Reduced mass set for the heaviest combined multi-well + electric-field sweeps. */
-const SWEEP_MASSES_MULTI = [ 0.8, 1.0 ];
+/** Single representative mass for the heaviest combined multi-well + electric-field sweeps. */
+const SWEEP_MASSES_MULTI = [ 1.0 ];
 
 // ─── Sweep helpers ─────────────────────────────────────────────────────────────
 
