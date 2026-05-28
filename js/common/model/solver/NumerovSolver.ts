@@ -142,6 +142,7 @@ export default class NumerovSolver {
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
    * @param options - Optional solver configuration
+   * @returns Eigenstate energy and wave function, or null if the state is not in the window
    */
   public static getEigenstate(
     xGrid: XGrid,
@@ -182,7 +183,7 @@ export default class NumerovSolver {
    * Solves the 1D Schrödinger equation using the Numerov method.
    * Returns all states detected by node count within the finite-grid energy bounds.
    *
-   * @param potential - Function V(x) that returns potential energy in eV
+   * @param potentialFunction - Function V(x) that returns potential energy in eV
    * @param xGrid - uniformly spaced x-coordinates in nm
    * @param energyMin - Minimum energy to search (eV)
    * @param energyMax - Maximum energy to search (eV)
@@ -207,8 +208,16 @@ export default class NumerovSolver {
   }
 
   /**
-   * Solve for a single eigenstate by index. See the static overload for parameter documentation.
+   * Solve for a single eigenstate by index (0 = ground state for the finite-grid problem).
+   * Uses node-count bisection to bracket E_n, then refines via the log-derivative mismatch.
    * Returns null when state stateIndex is not detected in [energyMin, energyMax].
+   *
+   * @param potential - Function V(x) that returns potential energy in eV
+   * @param xGrid - uniformly spaced x-coordinates in nm
+   * @param stateIndex - Zero-based eigenstate index (0 = ground state)
+   * @param energyMin - Minimum energy to search (eV)
+   * @param energyMax - Maximum energy to search (eV)
+   * @returns Eigenstate energy and wave function, or null if the state is not in the window
    */
   public getEigenstate(
     potential: PotentialFunction,
@@ -331,9 +340,15 @@ export default class NumerovSolver {
    *
    * Returns null when state stateIndex lies outside [energyMin, energyMax].
    *
+   * @param stateIndex - Zero-based eigenstate index to bracket
+   * @param V - Discretized potential energy array on xGrid (eV)
+   * @param xGrid - uniformly spaced x-coordinates in nm
+   * @param energyMin - Minimum energy to search (eV)
+   * @param energyMax - Maximum energy to search (eV)
    * @param precomputedLowerNodeCount - optional pre-computed countNodesAtEnergy(energyMin); if
    *   provided the boundary guard at the low end is skipped (caller guarantees it passes).
    * @param precomputedUpperNodeCount - same for energyMax.
+   * @returns Energy bracket { lowerEnergy, upperEnergy }, or null if stateIndex is outside the window
    */
   private bracketEigenvalueByNodeCount(
     stateIndex: number,
