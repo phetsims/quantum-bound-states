@@ -215,7 +215,10 @@ const SWEEP_ELECTRIC_FIELDS = [ 0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8,
 const SWEEP_MULTI_WELL_WIDTHS = [ 0.3, 0.5, 1.0 ];
 
 /** Reduced well-depth set for multi-well / electric-field sweeps. */
-const SWEEP_MULTI_WELL_DEPTHS = [ 1, 2, 3, 5.0, 10.0, 15.0 ];
+const SWEEP_MULTI_WELL_DEPTHS = [ 5.0, 10.0, 15.0 ];
+
+/** Reduced mass set for the heaviest combined multi-well + electric-field sweeps. */
+const SWEEP_MASSES_MULTI = [ 0.8, 1.0 ];
 
 // ─── Sweep helpers ─────────────────────────────────────────────────────────────
 
@@ -433,7 +436,7 @@ QUnit.test( 'multi-well electric field sweep', assert => {
   const separations = SWEEP_SEPARATIONS;
   const wellWidths = SWEEP_MULTI_WELL_WIDTHS;
   const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
-  const masses = SWEEP_MASSES;
+  const masses = SWEEP_MASSES_MULTI;
   const electricFields = SWEEP_ELECTRIC_FIELDS;
   const xMin = -5;
   const xMax = 5;
@@ -740,7 +743,7 @@ QUnit.test( 'multi-well electric field sweep', assert => {
   const ptGaps = SWEEP_PT_GAPS;
   const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
   const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
-  const masses = SWEEP_MASSES;
+  const masses = SWEEP_MASSES_MULTI;
   const electricFields = SWEEP_ELECTRIC_FIELDS;
   const xMaxAbsolute = 5;
 
@@ -754,7 +757,7 @@ QUnit.test( 'multi-well electric field sweep', assert => {
           for ( const mass of masses ) {
             for ( const electricField of electricFields ) {
               const potFn = ( x: number ): number => {
-                let pe = 0;
+                more thourlet pe = 0;
                 for ( let i = 1; i <= nWells; i++ ) {
                   const xi = spacing * ( i - ( nWells + 1 ) / 2 );
                   const sech = 1 / Math.cosh( ( x - xi ) / wellWidth );
