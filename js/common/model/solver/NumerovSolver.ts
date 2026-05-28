@@ -104,7 +104,7 @@ export default class NumerovSolver {
    * Used to normalize mismatch magnitudes so they remain O(1) across all trial energies.
    */
   private static getPeak( psi: number[] ): number {
-    return psi.reduce( ( max, v ) => Math.max( max, Math.abs( v ) ), 0 ) || 1;
+    return psi.reduce( ( peak, value ) => Math.max( peak, Math.abs( value ) ), 0 ) || 1;
   }
 
   /**
@@ -237,13 +237,13 @@ export default class NumerovSolver {
 
     if ( isSymmetric ) {
       const parity: 'even' | 'odd' = stateIndex % 2 === 0 ? 'even' : 'odd';
-      const { fn: mismatchFn, getLastPsiL } = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
-      energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFn );
+      const { mismatchFunction, getLastPsiL } = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
+      energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFunction );
       waveFunction = this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() );
     }
     else {
-      const { fn: mismatchFn, getLastPsiLeft, getLastPsiRight } = this.makeLogDerivativeMismatch( solverV, xGrid, meetingIndex );
-      energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFn );
+      const { mismatchFunction, getLastPsiLeft, getLastPsiRight } = this.makeLogDerivativeMismatch( solverV, xGrid, meetingIndex );
+      energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFunction );
       waveFunction = this.computeWaveFunction( energy, solverV, xGrid, meetingIndex, getLastPsiLeft(), getLastPsiRight() );
     }
 
@@ -299,13 +299,13 @@ export default class NumerovSolver {
 
         // Even-indexed states are spatially even; odd-indexed states are spatially odd.
         const parity: 'even' | 'odd' = n % 2 === 0 ? 'even' : 'odd';
-        const { fn: mismatchFn, getLastPsiL } = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
-        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFn );
+        const { mismatchFunction, getLastPsiL } = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
+        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFunction );
         energies.push( energy );
         waveFunctions.push( this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() ) );
       }
       else {
-        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, sharedMismatch!.fn );
+        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, sharedMismatch!.mismatchFunction );
         energies.push( energy );
         waveFunctions.push( this.computeWaveFunction( energy, solverV, xGrid, meetingIndex, sharedMismatch!.getLastPsiLeft(), sharedMismatch!.getLastPsiRight() ) );
       }
@@ -444,12 +444,13 @@ export default class NumerovSolver {
     xGrid: XGrid,
     centerIndex: number,
     parity: 'even' | 'odd'
-  ): { fn: ( E: number ) => number; getLastPsiL: () => number[] } {
+  ): { mismatchFunction: ( energy: number ) => number; getLastPsiL: () => number[] } {
 
+    // Cached by the last mismatchFunction evaluation so computeSymmetricWaveFunction can reuse ψ_L.
     let lastPsiL: number[] = [];
 
-    const fn = ( E: number ): number => {
-      const psiL = this.integrator.integrate( E, V, xGrid );
+    const mismatchFunction = ( energy: number ): number => {
+      const psiL = this.integrator.integrate( energy, V, xGrid );
       lastPsiL = psiL;
       const peak = NumerovSolver.getPeak( psiL );
 
@@ -462,12 +463,12 @@ export default class NumerovSolver {
 
         // Even eigenfunction: ψ'(0) must be zero.
         // 5-point O(dx⁴) centered-difference stencil for the first derivative.
-        const m = centerIndex;
-        return ( -psiL[ m + 2 ] + 8 * psiL[ m + 1 ] - 8 * psiL[ m - 1 ] + psiL[ m - 2 ] ) / ( 12 * xGrid.dx * peak );
+        const centerGridIndex = centerIndex;
+        return ( -psiL[ centerGridIndex + 2 ] + 8 * psiL[ centerGridIndex + 1 ] - 8 * psiL[ centerGridIndex - 1 ] + psiL[ centerGridIndex - 2 ] ) / ( 12 * xGrid.dx * peak );
       }
     };
 
-    return { fn: fn, getLastPsiL: () => lastPsiL };
+    return { mismatchFunction: mismatchFunction, getLastPsiL: () => lastPsiL };
   }
 
   /**
@@ -532,33 +533,35 @@ export default class NumerovSolver {
     V: number[],
     xGrid: XGrid,
     meetingIndex: number
-  ): { fn: ( E: number ) => number; getLastPsiLeft: () => number[]; getLastPsiRight: () => number[] } {
+  ): { mismatchFunction: ( energy: number ) => number; getLastPsiLeft: () => number[]; getLastPsiRight: () => number[] } {
 
+    // Cached by the last mismatchFunction evaluation so computeWaveFunction can reuse both sweeps.
     let lastPsiLeft: number[] = [];
     let lastPsiRight: number[] = [];
 
-    const fn = ( E: number ): number => {
-      const psiLeft = this.integrator.integrate( E, V, xGrid );
-      const psiRight = this.integrator.integrateBackward( E, V, xGrid );
+    const mismatchFunction = ( energy: number ): number => {
+      const psiLeft = this.integrator.integrate( energy, V, xGrid );
+      const psiRight = this.integrator.integrateBackward( energy, V, xGrid );
       lastPsiLeft = psiLeft;
       lastPsiRight = psiRight;
 
       const peakLeft = NumerovSolver.getPeak( psiLeft );
       const peakRight = NumerovSolver.getPeak( psiRight );
 
-      const m = meetingIndex;
-      const valueLeft = psiLeft[ m ] / peakLeft;
-      const valueRight = psiRight[ m ] / peakRight;
+      const meetingGridIndex = meetingIndex;
+      const valueLeft = psiLeft[ meetingGridIndex ] / peakLeft;
+      const valueRight = psiRight[ meetingGridIndex ] / peakRight;
 
       // 5-point O(dx⁴) centered-difference stencil for the first derivative.
-      const slopeLeft = ( -psiLeft[ m + 2 ] + 8 * psiLeft[ m + 1 ] - 8 * psiLeft[ m - 1 ] + psiLeft[ m - 2 ] ) / ( 12 * xGrid.dx * peakLeft );
-      const slopeRight = ( -psiRight[ m + 2 ] + 8 * psiRight[ m + 1 ] - 8 * psiRight[ m - 1 ] + psiRight[ m - 2 ] ) / ( 12 * xGrid.dx * peakRight );
+      const slopeLeft = ( -psiLeft[ meetingGridIndex + 2 ] + 8 * psiLeft[ meetingGridIndex + 1 ] - 8 * psiLeft[ meetingGridIndex - 1 ] + psiLeft[ meetingGridIndex - 2 ] ) / ( 12 * xGrid.dx * peakLeft );
+      const slopeRight = ( -psiRight[ meetingGridIndex + 2 ] + 8 * psiRight[ meetingGridIndex + 1 ] - 8 * psiRight[ meetingGridIndex - 1 ] + psiRight[ meetingGridIndex - 2 ] ) / ( 12 * xGrid.dx * peakRight );
 
+      // Zero when log-derivatives match at the meeting point (eigenvalue condition).
       return slopeLeft * valueRight - slopeRight * valueLeft;
     };
 
     return {
-      fn: fn,
+      mismatchFunction: mismatchFunction,
       getLastPsiLeft: () => lastPsiLeft,
       getLastPsiRight: () => lastPsiRight
     };
@@ -643,8 +646,8 @@ export default class NumerovSolver {
    */
   private getNodeMatchScale( psiL: number[], psiR: number[], meetingPointIndex: number ): number {
     const N = psiL.length;
-    const psiRMaxAbs = psiR.reduce( ( m, v ) => Math.max( m, Math.abs( v ) ), 0 );
-    const psiLMaxAbs = psiL.reduce( ( m, v ) => Math.max( m, Math.abs( v ) ), 0 );
+    const psiRMaxAbs = psiR.reduce( ( peak, value ) => Math.max( peak, Math.abs( value ) ), 0 );
+    const psiLMaxAbs = psiL.reduce( ( peak, value ) => Math.max( peak, Math.abs( value ) ), 0 );
     const threshR = NumerovSolver.SCALE_REFERENCE_TOLERANCE * psiRMaxAbs;
     const threshL = NumerovSolver.SCALE_REFERENCE_TOLERANCE * psiLMaxAbs;
 
@@ -657,9 +660,9 @@ export default class NumerovSolver {
     }
 
     // Fall back to sign matching if no stable derivative reference was found.
-    for ( let refIdx = meetingPointIndex - 1; refIdx > 0; refIdx-- ) {
-      const leftValue = psiL[ refIdx ];
-      const rightValue = psiR[ refIdx ];
+    for ( let referenceIndex = meetingPointIndex - 1; referenceIndex > 0; referenceIndex-- ) {
+      const leftValue = psiL[ referenceIndex ];
+      const rightValue = psiR[ referenceIndex ];
       if ( Math.abs( leftValue ) > threshL && Math.abs( rightValue ) > threshR ) {
         return Math.sign( leftValue ) !== Math.sign( rightValue ) ? -1 : 1;
       }

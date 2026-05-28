@@ -4,9 +4,9 @@
  * EnergyRefiner refines energy eigenvalues using false-position (regula falsi) with a bisection
  * fallback. Used to find the precise energy where the wave function satisfies boundary conditions.
  *
- * The caller supplies a mismatch function f(E) that returns a signed value whose zero
+ * The caller supplies a mismatchFunction(energy) that returns a signed value whose zero
  * corresponds to an eigenvalue (e.g. ψ(x_max), a Wronskian, or a log-derivative difference).
- * The bracket [E1, E2] must straddle the root (f(E1) and f(E2) have opposite signs).
+ * The bracket [lowerEnergyBound, upperEnergyBound] must straddle the root (opposite signs at the ends).
  *
  * False-position converges much faster than bisection for smooth mismatch functions by linearly
  * interpolating the root position each step. Bisection is used as a fallback when the bracket is
@@ -62,18 +62,18 @@ export default class EnergyRefiner {
   /**
    * Refine energy eigenvalue using false-position with bisection fallback.
    *
-   * @param E1 - Lower energy bound (eV); mismatch(E1) and mismatch(E2) must have opposite signs
-   * @param E2 - Upper energy bound (eV)
-   * @param mismatch - Function returning a signed value whose zero is the eigenvalue
+   * @param lowerEnergyBound - Lower energy bound (eV); mismatchFunction(lower) and mismatchFunction(upper) must have opposite signs
+   * @param upperEnergyBound - Upper energy bound (eV)
+   * @param mismatchFunction - Function returning a signed value whose zero is the eigenvalue
    * @returns Refined energy eigenvalue (eV)
    */
   public refine(
-    E1: number,
-    E2: number,
-    mismatch: ( E: number ) => number
+    lowerEnergyBound: number,
+    upperEnergyBound: number,
+    mismatchFunction: ( energy: number ) => number
   ): number {
-    let energyLow = E1;
-    let energyHigh = E2;
+    let energyLow = lowerEnergyBound;
+    let energyHigh = upperEnergyBound;
 
     const computedTolerance = this.isRelative ?
       this.tolerance * Math.abs( energyHigh - energyLow ) :
@@ -85,8 +85,8 @@ export default class EnergyRefiner {
     const machineEpsilonFloor = energyScale * Number.EPSILON * 8;
     const absoluteTolerance = Math.max( computedTolerance, machineEpsilonFloor );
 
-    let mismatchLow = mismatch( energyLow );
-    let mismatchHigh = mismatch( energyHigh );
+    let mismatchLow = mismatchFunction( energyLow );
+    let mismatchHigh = mismatchFunction( energyHigh );
 
     // Illinois false-position with bisection fallback.
     // Plain regula falsi can stagnate when the mismatch function is curved: one endpoint
@@ -121,7 +121,7 @@ export default class EnergyRefiner {
         energyMid = ( energyLow + energyHigh ) / 2;
       }
 
-      const mismatchMid = mismatch( energyMid );
+      const mismatchMid = mismatchFunction( energyMid );
       if ( mismatchMid === 0 ) { return energyMid; }
 
       const replaceLow = Math.sign( mismatchMid ) === Math.sign( mismatchLow );
@@ -156,6 +156,7 @@ export default class EnergyRefiner {
       previousBracketWidth = bracketWidth;
     }
 
+    // Midpoint of the final bracket when tolerance or iteration limit is reached.
     return ( energyLow + energyHigh ) / 2;
   }
 }
