@@ -32,15 +32,20 @@ export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<Pos
     } );
 
     this.addInputListener( new PoschlTellerDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+
+    potential.electricFieldProperty.link( () => this.updatePosition() );
   }
 
   /**
    * Position the handle at the bottom of the rightmost well.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 - this.potential.wellWidthProperty.value / 2 );
+    const x = this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 - this.potential.wellWidthProperty.value / 2;
+    this.centerX = this.chartTransform.modelToViewX( x );
     // Subtract wellDepth because depth is downward for Poschl-Teller.
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value - this.potential.wellDepthProperty.value );
+    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value -
+                                                     this.potential.wellDepthProperty.value +
+                                                     x * this.potential.electricFieldProperty.value );
   }
 
   /**

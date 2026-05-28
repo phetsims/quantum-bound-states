@@ -32,14 +32,19 @@ export default class FiniteSquareWidthHandleNode extends PotentialHandleNode<Fin
     } );
 
     this.addInputListener( new FiniteSquareWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+
+    potential.electricFieldProperty.link( () => this.updatePosition() );
   }
 
   /**
    * Vertically center the handle on the right wall of the rightmost well.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.wellDepthProperty.value / 2 );
+    const x = this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2;
+    this.centerX = this.chartTransform.modelToViewX( x );
+    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
+                                                     this.potential.wellDepthProperty.value / 2 +
+                                                     x * this.potential.electricFieldProperty.value );
   }
 
   /**

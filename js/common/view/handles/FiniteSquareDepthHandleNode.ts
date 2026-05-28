@@ -35,6 +35,8 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
     } );
 
     this.addInputListener( new FiniteSquareDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+
+    potential.electricFieldProperty.link( () => this.updatePosition() );
   }
 
   /**
@@ -44,8 +46,11 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
     const numberOfWells = this.potential.numberOfWellsProperty.value;
     const potentialWidth = ( numberOfWells * this.potential.wellWidthProperty.value ) +
                            ( ( numberOfWells - 1 ) * this.potential.separationProperty.value );
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + potentialWidth / 2 + HANDLE_X_OFFSET );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.wellDepthProperty.value );
+    const x = this.potential.xOffsetProperty.value + potentialWidth / 2 + HANDLE_X_OFFSET;
+    this.centerX = this.chartTransform.modelToViewX( x );
+    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
+                                                     this.potential.wellDepthProperty.value +
+                                                     x * this.potential.electricFieldProperty.value );
   }
 
   /**
