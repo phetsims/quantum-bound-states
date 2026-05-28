@@ -772,11 +772,7 @@ QUnit.test( 'Infinite Square Well eigenstates are orthogonal', assert => {
   const mass = 1;
   const E1 = Math.PI * Math.PI * HBAR * HBAR / ( 2 * mass * L * L );
 
-  // Use 4001 points (dx = 0.0005 nm) instead of the standard 1001.  The Numerov midpoint-
-  // matching procedure introduces a small glitch at x = 0; with 1001 points the resulting
-  // ⟨ψ₀|ψ₂⟩ is ~2 × 10⁻³.  Halving dx reduces the artefact by ~4× (it scales as dx²),
-  // bringing the overlap safely below the 10⁻³ threshold.
-  const grid = new XGrid( { xMin: -L / 2, xMax: L / 2, numberOfPoints: 4001, tandem: Tandem.OPT_OUT } );
+  const grid = new XGrid( { xMin: -L / 2, xMax: L / 2, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } );
   const potFn = InfiniteSquareSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, electricField: 0
   } );
