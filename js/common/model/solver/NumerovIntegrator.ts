@@ -104,7 +104,7 @@ export default class NumerovIntegrator {
 
         // When k² = 0 (energy equals local potential exactly), sin(0)=0 collapses the seed to zero
         // and the entire integration stays at zero. Fall back to psiScale so the wave function
-        // propagates as a linear function, which is the correct behaviour for k²=0.
+        // propagates as a linear function, which is the correct behavior for k²=0.
         psi[ i ] = kx > 0 ? psiScale * Math.sin( kx ) : psiScale;
       }
       else {

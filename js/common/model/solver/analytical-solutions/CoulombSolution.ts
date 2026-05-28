@@ -8,7 +8,7 @@
  * which is the standard "1D Coulomb" choice — antisymmetric wave functions vanish at
  * x = x₀ and so avoid the singularity.
  *
- * POTENTIAL (well centred at x = x₀ in the lab frame):
+ * POTENTIAL (well centered at x = x₀ in the lab frame):
  *   V(x) = energyOffset - K / |x - x₀|        where K = ke²  (eV·nm)
  *
  * ENERGY EIGENVALUES (Bohr formula):

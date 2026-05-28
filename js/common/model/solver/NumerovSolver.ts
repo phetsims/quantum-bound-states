@@ -17,7 +17,7 @@
  * for the finite-grid Dirichlet problem. Bisecting on this integer node count isolates each state
  * by index, so closely spaced multi-well levels do not depend on fixed energy sampling.
  *
- * The bracket is then refined to the eigenvalue using a mismatch at the centre grid point m.
+ * The bracket is then refined to the eigenvalue using a mismatch at the center grid point m.
  * For **non-symmetric** potentials this is the log-derivative mismatch
  * (ψ_L'/ψ_L)|_m - (ψ_R'/ψ_R)|_m, multiplied through by ψ_L·ψ_R so it remains bounded when ψ
  * has a node at m. Each side is rescaled to its peak amplitude before forming the mismatch so the
@@ -32,11 +32,11 @@
  *        1-ulp asymmetry that comparing V[i] to V[N-1-i] would otherwise introduce when a
  *        well boundary lands exactly on a grid point.
  *   2. **Mismatch** — only the forward sweep ψ_L is needed:
- *        Even states (n = 0, 2, 4, …): ψ'(0) = 0  →  slope mismatch at centre.
- *        Odd  states (n = 1, 3, 5, …): ψ(0)  = 0  →  value mismatch at centre.
+ *        Even states (n = 0, 2, 4, …): ψ'(0) = 0  →  slope mismatch at center.
+ *        Odd  states (n = 1, 3, 5, …): ψ(0)  = 0  →  value mismatch at center.
  *   3. **Wave function** — ψ on [0, x_max] is the mirror image of ψ_L, giving exact symmetry in
  *        the output and halving the integration work. The discrete V is also mirrored about
- *        the centre before integration so any 1-ulp boundary asymmetry in V does not feed back
+ *        the center before integration so any 1-ulp boundary asymmetry in V does not feed back
  *        into the bracketing or refinement.
  *
  * @author Martin Veillette
@@ -224,7 +224,7 @@ export default class NumerovSolver {
 
     // For symmetric potentials, mirror the left half over the right half so that the forward
     // integrator (which sweeps the entire grid) does not propagate any tail asymmetry that
-    // arose from 1-ulp floating-point boundary effects when V was discretised.
+    // arose from 1-ulp floating-point boundary effects when V was discretized.
     const solverV = isSymmetric ? this.symmetrize( V, meetingIndex ) : V;
 
     const bracket = this.bracketEigenvalueByNodeCount( stateIndex, solverV, xGrid, energyMin, energyMax );
@@ -258,9 +258,9 @@ export default class NumerovSolver {
    *      the energy window.
    *   2. For each state index in that range, bisect on the integer node count to isolate E_n.
    *   3. Refine the bracket to the eigenvalue:
-   *      - Symmetric potential: parity-specific centre-BC mismatch (forward integration only).
+   *      - Symmetric potential: parity-specific center-BC mismatch (forward integration only).
    *      - General potential: log-derivative mismatch at the middle grid point.
-   *   4. Build the normalised wave function:
+   *   4. Build the normalized wave function:
    *      - Symmetric potential: reflect the left half.
    *      - General potential: stitch ψ_L and ψ_R at the middle grid point.
    */
@@ -277,7 +277,7 @@ export default class NumerovSolver {
 
     // For symmetric potentials, mirror the left half over the right half so that the forward
     // integrator (which sweeps the entire grid) does not propagate any tail asymmetry that
-    // arose from 1-ulp floating-point boundary effects when V was discretised.
+    // arose from 1-ulp floating-point boundary effects when V was discretized.
     const solverV = isSymmetric ? this.symmetrize( V, meetingIndex ) : V;
 
     // For non-symmetric potentials, build the log-derivative mismatch once and reuse it.
@@ -410,7 +410,7 @@ export default class NumerovSolver {
    * about centerIndex by construction.
    *
    * Used on the symmetric-potential path after isPotentialSymmetric has confirmed the
-   * analytical V is symmetric. The discretised array can still pick up a 1-ulp asymmetry at a
+   * analytical V is symmetric. The discretized array can still pick up a 1-ulp asymmetry at a
    * single grid point when a well boundary lands exactly on a grid index; mirroring guarantees
    * that the forward integrator sees the same potential on both halves and produces a node
    * count and eigenenergy consistent with the symmetric wave function we ultimately emit.
@@ -428,7 +428,7 @@ export default class NumerovSolver {
   /**
    * Build a mismatch function for symmetric potentials. By the Sturm-Liouville theorem,
    * eigenfunctions alternate parity: even-indexed states are spatially even (ψ(-x) = ψ(x)) and
-   * odd-indexed states are spatially odd (ψ(-x) = -ψ(x)). The boundary condition at the centre
+   * odd-indexed states are spatially odd (ψ(-x) = -ψ(x)). The boundary condition at the center
    * therefore differs by parity:
    *
    *   Even states: ψ'(0) = 0  →  f(E) = slope at center / peak
@@ -472,7 +472,7 @@ export default class NumerovSolver {
 
   /**
    * Construct the wave function for a symmetric potential by integrating from the left boundary
-   * to the centre only, then reflecting to fill the right half:
+   * to the center only, then reflecting to fill the right half:
    *
    *   Even states: ψ[centerIndex + k]  =  ψ[centerIndex - k]
    *   Odd  states: ψ[centerIndex + k]  = -ψ[centerIndex - k],  ψ[centerIndex] = 0 exactly
@@ -491,12 +491,12 @@ export default class NumerovSolver {
     const psiL = cachedPsiL ?? this.integrator.integrate( energy, V, xGrid );
     const psi = new Array<number>( N );
 
-    // Copy left half (including centre).
+    // Copy left half (including center).
     for ( let i = 0; i <= centerIndex; i++ ) {
       psi[ i ] = psiL[ i ];
     }
 
-    // Enforce exact zero at centre for odd states.
+    // Enforce exact zero at center for odd states.
     if ( parity === 'odd' ) {
       psi[ centerIndex ] = 0;
     }
@@ -550,7 +550,7 @@ export default class NumerovSolver {
       const valueLeft = psiLeft[ m ] / peakLeft;
       const valueRight = psiRight[ m ] / peakRight;
 
-      // 5-point O(dx⁴) centred-difference stencil for the first derivative.
+      // 5-point O(dx⁴) centered-difference stencil for the first derivative.
       const slopeLeft = ( -psiLeft[ m + 2 ] + 8 * psiLeft[ m + 1 ] - 8 * psiLeft[ m - 1 ] + psiLeft[ m - 2 ] ) / ( 12 * xGrid.dx * peakLeft );
       const slopeRight = ( -psiRight[ m + 2 ] + 8 * psiRight[ m + 1 ] - 8 * psiRight[ m - 1 ] + psiRight[ m - 2 ] ) / ( 12 * xGrid.dx * peakRight );
 
@@ -614,10 +614,10 @@ export default class NumerovSolver {
    * land on x=0 for grids with N not a power of 2 or an exact divisor of the range. For the
    * default sim grid (N=3001, xMin=−3.5, xMax=3.5), the array-midpoint x value is
    * ~4.4×10⁻¹⁶ nm off from zero, which is negligible in practice but inconsistent with the
-   * assumption made by the symmetric-potential code that the centre index lies at x=0.
+   * assumption made by the symmetric-potential code that the center index lies at x=0.
    *
-   * The symmetric path additionally guarantees the discretised V is exactly mirrored about
-   * this index (see symmetrize), so the centre index becomes the true axis of symmetry for
+   * The symmetric path additionally guarantees the discretized V is exactly mirrored about
+   * this index (see symmetrize), so the center index becomes the true axis of symmetry for
    * the forward integration as well.
    *
    * For the general (non-symmetric) case the midpoint is still a reasonable meeting point

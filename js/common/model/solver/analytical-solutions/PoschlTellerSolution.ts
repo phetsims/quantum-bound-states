@@ -4,7 +4,7 @@
  * Analytical solution for a single-well Pöschl-Teller potential.
  *
  * The Pöschl-Teller potential is a symmetric quantum well with exact analytical solutions.
- * It is parameterised by well depth V₀ and width w.
+ * It is parameterized by well depth V₀ and width w.
  * For generality, we have included an offset y₀ and offset x₀ 
  * so that the potential can be shifted horizontally and vertically.
  *
@@ -30,9 +30,9 @@
  *   ψ_n(x) ∝ sech^{α_n}((x − x₀)/w) · P_n^{(α_n, α_n)}(t)
  *
  *   where P_n^{(α,α)} is the symmetric Jacobi polynomial computed via 3-term recurrence.
- *   Wave functions are normalised numerically using WaveFunctionNormalizer.
+ *   Wave functions are normalized numerically using WaveFunctionNormalizer.
  *
- *   The wave functions are normalised so that the integral of |ψ_n(x)|² over all x is 1.
+ *   The wave functions are normalized so that the integral of |ψ_n(x)|² over all x is 1.
  * 
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -176,7 +176,7 @@ function findBoundStateEnergies(
 }
 
 /**
- * Compute the normalised wave function for a single Pöschl-Teller eigenstate.
+ * Compute the normalized wave function for a single Pöschl-Teller eigenstate.
  *
  *   α = λ − n − ½              (Jacobi parameter for state n)
  *   t = tanh((x − x₀)/w)
@@ -190,7 +190,7 @@ function findBoundStateEnergies(
  * @param electronMasses - Particle mass in electron masses
  * @param xOffset - x₀ in nm
  * @param xArray - Array of x positions in nm
- * @returns Normalised wave function values
+ * @returns Normalized wave function values
  */
 function calculateWaveFunction(
   n: number,
@@ -222,7 +222,7 @@ function calculateWaveFunction(
 
 /**
  * Symmetric Jacobi polynomial P_n^{(α,α)}(t) via the stable 3-term recurrence
- * (DLMF 18.9.1 specialised to a = b = α) (see https://dlmf.nist.gov/18.9)
+ * (DLMF 18.9.1 specialized to a = b = α) (see https://dlmf.nist.gov/18.9)
  *   P_0^{(α,α)}(t) = 1
  *   P_1^{(α,α)}(t) = (α + 1) · t
  *

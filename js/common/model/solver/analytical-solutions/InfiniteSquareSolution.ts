@@ -6,7 +6,7 @@
  * The infinite square well is the simplest quantum mechanical system where a particle
  * is confined to a region with impenetrable walls.
  *
- * POTENTIAL (well centred at x = x₀):
+ * POTENTIAL (well centered at x = x₀):
  *   V(x) = 0     for x₀ - L/2 < x < x₀ + L/2
  *   V(x) = ∞     otherwise
  *
@@ -116,7 +116,7 @@ export default class InfiniteSquareSolution {
     }
 
     // Calculate wave functions: ψ_n(x) = √(2/L) sin(nπ((x - x₀) + L/2)/L)
-    // The well is centred at x₀ = xOffset; (x - xOffset) maps to the well frame.
+    // The well is centered at x₀ = xOffset; (x - xOffset) maps to the well frame.
     const waveFunctions: number[][] = [];
     const normalization = Math.sqrt( 2 / wellWidth );
     const halfWidth = wellWidth / 2;

@@ -7,7 +7,7 @@
  * potential V₀ than the left half.  A particle in the left half "sees" a step barrier of height
  * V₀ at the center; a particle with enough energy can classically enter the right half as well.
  *
- * POTENTIAL (well centred at x₀):
+ * POTENTIAL (well centered at x₀):
  *   V(x) = ∞       for x ≤ x₀ - L/2
  *   V(x) = 0       for x₀ - L/2 < x < x₀      (left half)
  *   V(x) = V₀      for x₀       < x < x₀ + L/2 (right half, step)
@@ -352,15 +352,15 @@ function findRootInInterval(
 }
 
 /**
- * Compute the normalised wave function for a single eigenstate.
+ * Compute the normalized wave function for a single eigenstate.
  *
  * @param energy - Eigenvalue in eV (well frame, well bottom = 0)
  * @param wellWidth - Total width of the well L in nm
  * @param stepHeight - Step height V₀ in eV
  * @param electronMasses - Particle mass in electron masses
  * @param xArray - Array of x positions in nm (lab frame)
- * @param xOffset - Horizontal centre of the well in nm
- * @returns Normalised wave function values
+ * @param xOffset - Horizontal center of the well in nm
+ * @returns Normalized wave function values
  */
 function calculateWaveFunction(
   energy: number,
@@ -378,7 +378,7 @@ function calculateWaveFunction(
   // ψ₁(0) = A sin(k₁ L/2),  so we set A = 1 and derive B or C.
   const psi1AtZero = Math.sin( k1 * halfWidth );
 
-  // Unnormalised wave function: A = 1
+  // Unnormalized wave function: A = 1
   const waveFunction: number[] = [];
 
   for ( const x of xArray ) {

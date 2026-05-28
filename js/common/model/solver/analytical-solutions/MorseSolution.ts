@@ -4,7 +4,7 @@
  * Analytical solution for a single-well Morse potential.
  *
  * The Morse potential models a diatomic-molecule-like well with a repulsive wall on
- * the left, a minimum at x = 0, and a flat asymptote at x → +∞.  It is parameterised
+ * the left, a minimum at x = 0, and a flat asymptote at x → +∞.  It is parameterized
  * by well depth D_e and width w = 1/a (replacing the standard Morse parameter a).
  *
  * POTENTIAL:
@@ -203,7 +203,7 @@ function findBoundStateEnergies(
  * @param wellWidth - w = 1/a in nm
  * @param electronMasses - Particle mass in electron masses
  * @param xArray - Array of x positions in nm
- * @returns Normalised wave function values
+ * @returns Normalized wave function values
  */
 function calculateWaveFunction(
   v: number,
