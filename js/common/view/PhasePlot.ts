@@ -12,6 +12,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import CanvasPainter from '../../../../bamboo/js/CanvasPainter.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
@@ -31,12 +32,13 @@ export default class PhasePlot extends CanvasPainter {
   public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
     super( {
-      visible: waveFunctionGraph.phaseVisibleProperty.value
+      visible: waveFunctionGraph.magnitudeVisibleProperty.value && waveFunctionGraph.phaseVisibleProperty.value
     } );
 
-    waveFunctionGraph.phaseVisibleProperty.lazyLink( phaseVisible => {
-      this.visible = phaseVisible;
-    } );
+    Multilink.multilink( [ waveFunctionGraph.magnitudeVisibleProperty, waveFunctionGraph.phaseVisibleProperty ],
+      ( magnitudeVisible, phaseVisible ) => {
+      this.visible = ( magnitudeVisible && phaseVisible );
+      } );
 
     this.chartTransform = chartTransform;
     this.xCoordinates = waveFunctionGraph.xGrid.xCoordinates;
