@@ -51,7 +51,7 @@ export default class WaveFunctionNormalizer {
       case 'max':
         return this.normalizeMax( psi );
       default:
-        return this.normalizeTrapezoidal( psi, dx );
+        return this.normalizeSimpson( psi, dx );
     }
   }
 
