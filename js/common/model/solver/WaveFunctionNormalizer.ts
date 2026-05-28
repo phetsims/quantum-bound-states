@@ -150,13 +150,16 @@ export default class WaveFunctionNormalizer {
     return psi.map( value => value / normalization );
   }
 
+
+  // TODO: this appears unused
   /**
-   * Get the normalization method being used.
+   * Get the normalization method being used
    */
   public getMethod(): NormalizationMethod {
     return this.method;
   }
 
+  //TODO : this is only called by isNormalized, which itself is unused.
   /**
    * Calculate the norm (integral of |ψ|²) without normalizing.
    * Useful for checking if a wave function is already normalized.
@@ -171,6 +174,7 @@ export default class WaveFunctionNormalizer {
            : this.calculateTrapezoidalIntegral( psi, dx );
   }
 
+  // TODO: this appears to be unused
   /**
    * Check if a wave function is approximately normalized.
    *
