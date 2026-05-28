@@ -73,7 +73,7 @@ export function countNodes( psi: number[] ): number {
 
 /**
  * Determine the parity (even/odd) of a wave function by comparing values
- * at symmetric points about the centre index.
+ * at symmetric points about the center index.
  *
  * @param psi - Wave function array (assumed to live on a symmetric grid)
  * @returns 'even' if ψ(-x) ≈ ψ(x), 'odd' if ψ(-x) ≈ -ψ(x)
