@@ -104,9 +104,11 @@ export default class WaveFunctionNormalizer {
     let sum = 0;
     const N = psi.length;
 
-    // Simpson's rule requires even number of intervals
-    // If odd number of points, use trapezoidal for last interval
-    const limit = N % 2 === 1 ? N - 2 : N - 1;
+    // Composite Simpson's requires an even number of intervals (= odd number of points).
+    // For odd N: the loop covers every point exactly, no extra panel needed.
+    // For even N: the loop covers N-1 points (N-2 intervals), and the last interval
+    // is handled by the trapezoidal fallback below.
+    const limit = N % 2 === 1 ? N - 1 : N - 2;
 
     for ( let i = 0; i < limit; i += 2 ) {
       sum += psi[ i ] ** 2 + 4 * psi[ i + 1 ] ** 2 + psi[ i + 2 ] ** 2;
@@ -114,8 +116,8 @@ export default class WaveFunctionNormalizer {
 
     let integral = ( sum * dx ) / 3.0;
 
-    // Handle odd case with trapezoidal rule for last interval
-    if ( N % 2 === 1 ) {
+    // Add trapezoidal patch only when N is even (one leftover interval).
+    if ( N % 2 === 0 ) {
       const lastTerm = ( psi[ N - 2 ] ** 2 + psi[ N - 1 ] ** 2 ) / 2;
       integral += lastTerm * dx;
     }
