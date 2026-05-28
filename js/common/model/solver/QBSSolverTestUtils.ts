@@ -13,7 +13,7 @@
 /**
  * Count the number of interior nodes (zero crossings) in a wave function.
  * Handles both regular sign changes and exact zeros (for odd wave functions).
- * Skips the outermost 10 % of the array to avoid counting boundary effects.
+ * Skips the outermost 1 % of the array to avoid counting boundary effects.
  *
  * @param psi - Wave function array
  * @returns Number of interior nodes
@@ -21,8 +21,8 @@
 export function countNodes( psi: number[] ): number {
   const N = psi.length;
 
-  // Skip boundary regions (first and last 10% to be safe)
-  const skipPoints = Math.floor( N * 0.1 );
+  // Skip boundary regions (first and last 1% to be safe)
+  const skipPoints = Math.floor( N * 0.01 );
 
   let nodeCount = 0;
 
