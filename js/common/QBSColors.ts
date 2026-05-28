@@ -29,15 +29,15 @@ export default class QBSColors {
   } );
 
   public static readonly potentialEnergyColorProperty = new ProfileColorProperty( quantumBoundStates, 'potentialEnergyColorProperty', {
-    default: 'rgb( 149, 29, 214 )'
+    default: 'rgb( 85, 85, 255 )'
   } );
 
   public static readonly totalEnergyColorProperty = new ProfileColorProperty( quantumBoundStates, 'totalEnergyColorProperty', {
-    default: 'rgb( 92, 184, 79 )'
+    default: 'rgb( 54, 172, 13 )'
   } );
 
   public static readonly selectedEnergyLevelColorProperty = new ProfileColorProperty( quantumBoundStates, 'selectedEnergyLevelColorProperty', {
-    default: PhetColorScheme.RED_COLORBLIND
+    default: 'rgb( 0, 179, 149 )'
   } );
 
   public static readonly highlightedEnergyLevelColorProperty = new ProfileColorProperty( quantumBoundStates, 'highlightedEnergyLevelColorProperty', {
@@ -69,7 +69,7 @@ export default class QBSColors {
   } );
 
   public static readonly timePanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'timePanelFillProperty', {
-    default: 'rgba( 255, 255, 255, 0 )'
+    default: 'rgba( 255, 255, 255, 0.5 )'
   } );
 
   public static readonly timePanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'timePanelStrokeProperty', {
@@ -101,11 +101,11 @@ export default class QBSColors {
   } );
 
   public static readonly realPartStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'realPartStrokeProperty', {
-    default: 'rgb( 10, 70, 250 )'
+    default: 'rgb( 166, 12, 137 )'
   } );
 
   public static readonly imaginaryPartStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'imaginaryPartStrokeProperty', {
-    default: 'rgb( 225, 122, 20 )'
+    default: 'rgb( 254, 148, 0 )'
   } );
 
   public static readonly magnitudeStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'magnitudeStrokeProperty', {
