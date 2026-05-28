@@ -171,6 +171,13 @@ export default abstract class QuantumPotential extends PhetioObject {
   public abstract getMaxSolverEnergy(): number;
 
   /**
+   * Gets the contribution that electric field makes to y offset.
+   */
+  public getYOffsetForElectricField( x: number ): number {
+    return x * this.electricFieldProperty.value;
+  }
+
+  /**
    * Creates the icon that represents this potential. Used in the combo box for selecting a potential.
    */
   public abstract createIcon(): Node;

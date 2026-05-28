@@ -47,7 +47,7 @@ export default class PoschlTellerWidthHandleNode extends PotentialHandleNode<Pos
     const x = this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2;
     this.centerX = this.chartTransform.modelToViewX( x );
     this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + ENERGY_OFFSET +
-                                                     x * this.potential.electricFieldProperty.value );
+                                                     this.potential.getYOffsetForElectricField( x ) );
   }
 
   /**

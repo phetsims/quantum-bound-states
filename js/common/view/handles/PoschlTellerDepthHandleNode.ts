@@ -45,7 +45,7 @@ export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<Pos
     // Subtract wellDepth because depth is downward for Poschl-Teller.
     this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value -
                                                      this.potential.wellDepthProperty.value +
-                                                     x * this.potential.electricFieldProperty.value );
+                                                     this.potential.getYOffsetForElectricField( x ) );
   }
 
   /**

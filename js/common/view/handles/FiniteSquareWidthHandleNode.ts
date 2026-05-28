@@ -44,7 +44,7 @@ export default class FiniteSquareWidthHandleNode extends PotentialHandleNode<Fin
     this.centerX = this.chartTransform.modelToViewX( x );
     this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
                                                      this.potential.wellDepthProperty.value / 2 +
-                                                     x * this.potential.electricFieldProperty.value );
+                                                     this.potential.getYOffsetForElectricField( x ) );
   }
 
   /**

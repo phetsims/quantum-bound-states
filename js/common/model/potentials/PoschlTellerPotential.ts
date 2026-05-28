@@ -160,7 +160,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     potentialEnergy += this.yOffsetProperty.value;
 
     // Apply electric field.
-    potentialEnergy += ( this.electricFieldProperty.value * x );
+    potentialEnergy += this.getYOffsetForElectricField( x );
 
     affirm( potentialEnergy < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
     return potentialEnergy;

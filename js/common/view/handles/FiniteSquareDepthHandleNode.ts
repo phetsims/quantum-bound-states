@@ -50,7 +50,7 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
     this.centerX = this.chartTransform.modelToViewX( x );
     this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
                                                      this.potential.wellDepthProperty.value +
-                                                     x * this.potential.electricFieldProperty.value );
+                                                     this.potential.getYOffsetForElectricField( x ) );
   }
 
   /**
