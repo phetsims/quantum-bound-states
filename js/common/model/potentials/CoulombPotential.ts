@@ -20,9 +20,6 @@ import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-// getPotentialEnergyAt handles an electric field, but it is not currently used in the sim.
-const ELECTRIC_FIELD = 0; // V/nm
-
 type SelfOptions = EmptySelfOptions;
 
 export type CoulombPotentialOptions = SelfOptions &
@@ -97,9 +94,6 @@ export default class CoulombPotential extends QuantumPotential {
       }
       energy += deltaEnergy;
     }
-
-    // Apply electric field.
-    energy += ( ELECTRIC_FIELD * x );
 
     return yOffset + energy;
   }
