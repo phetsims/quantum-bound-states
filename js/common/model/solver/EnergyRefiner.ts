@@ -15,8 +15,8 @@
  * @author Martin Veillette
  */
 
-// Default relative precision of 10^-6 gives absolute tolerance = 10^-6 × (bracket width)
-const DEFAULT_RELATIVE_TOLERANCE = 1e-6;
+// Default relative precision of 10^-8 gives absolute tolerance = 10^-8 × (bracket width)
+const DEFAULT_RELATIVE_TOLERANCE = 1e-8;
 
 // Minimum |fHi - fLo| to attempt a false-position step; below this the function is numerically
 // flat across the bracket and bisection is safer.
@@ -44,13 +44,13 @@ export default class EnergyRefiner {
    * Typical quantum systems have level spacing ΔE, and we want tolerance << ΔE.
    *
    * The initial bracket width (E2 - E1) should be a fraction of the level spacing. A relative
-   * precision of 10^-6 ensures the eigenvalue is accurate to ~6 significant figures relative to
+   * precision of say 10^-8 ensures the eigenvalue is accurate to ~8 significant figures relative to
    * the bracket width.
    *
    * @param options - Configuration options
    *   - tolerance: Energy tolerance value. If isRelative is true, this is a dimensionless
    *                relative tolerance. If isRelative is false, this is an absolute tolerance in eV.
-   *                Default: 1e-6
+   *                Default: 1e-8
    *   - isRelative: If true, tolerance is relative to the energy bracket width.
    *                 If false, tolerance is an absolute value in eV. Default: true
    */
