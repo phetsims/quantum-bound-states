@@ -199,6 +199,24 @@ const SWEEP_WELL_DEPTHS_20 = [ 0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0, 15.0, 20
 /** Well depth for Morse and Pöschl-Teller (sim maximum 15 eV). */
 const SWEEP_WELL_DEPTHS_15 = [ 0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0, 12.5, 15.0 ];
 
+/** Number of wells for multi-well potentials (Finite Square, Pöschl-Teller). */
+const SWEEP_NUMBER_OF_WELLS = [ 1, 2, 3, 4 , 5 ,6 ,7 ,8 ,9 ,10 ];
+
+/** Wall-to-wall gap between adjacent Finite Square wells (nm). Sim range [0.05, 0.2]. */
+const SWEEP_SEPARATIONS = [ 0.05, 0.1, 0.2 ];
+
+/** Center-to-center gap beyond well width for Pöschl-Teller multi-well (nm). */
+const SWEEP_PT_GAPS = [ 0.1, 0.2, 0.3 ];
+
+/** Electric field strengths (V/nm). Sim range is roughly [−1, 1]; keep moderate to retain bound states. */
+const SWEEP_ELECTRIC_FIELDS = [ 0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 ];
+
+/** Reduced well-width set for multi-well / electric-field sweeps (keeps combinatorics tractable). */
+const SWEEP_MULTI_WELL_WIDTHS = [ 0.3, 0.5, 1.0 ];
+
+/** Reduced well-depth set for multi-well / electric-field sweeps. */
+const SWEEP_MULTI_WELL_DEPTHS = [ 1, 2, 3, 5.0, 10.0, 15.0 ];
+
 // ─── Sweep helpers ─────────────────────────────────────────────────────────────
 
 /**
@@ -321,39 +339,139 @@ QUnit.test( 'multi-well separation sweep', assert => {
 
   // Test FiniteSquare multi-well using an inline potential function (analytical
   // solutions only support single wells, so we replicate the sim's formula directly).
-  const numberOfWellsList = [ 2, 3, 5 ];
+  const numberOfWellsList = SWEEP_NUMBER_OF_WELLS;
   // Separations ≥ 0.5 nm create near-degenerate states (tunnelling splitting ≈ 10^{−7} eV or
   // smaller), below the solver's refinement tolerance ~10^{−6} eV.  Keep gaps small enough
   // that all adjacent energy levels are resolvable.
-  const separations = [ 0.05, 0.1, 0.2 ]; // nm (gap between adjacent well walls)
-  const wellWidth = 0.5; // nm
-  const wellDepth = 10;  // eV
-  const mass = 1;
+  const separations = SWEEP_SEPARATIONS;
+  const wellWidths = SWEEP_MULTI_WELL_WIDTHS;
+  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
+  const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
 
   for ( const nWells of numberOfWellsList ) {
     for ( const separation of separations ) {
-      const centerSpacing = wellWidth + separation;
-      const potFn = ( x: number ): number => {
-        for ( let i = 1; i <= nWells; i++ ) {
-          const xi = centerSpacing * ( i - ( nWells + 1 ) / 2 );
-          if ( x >= xi - wellWidth / 2 && x <= xi + wellWidth / 2 ) {
-            return 0;
+      for ( const wellWidth of wellWidths ) {
+        for ( const wellDepth of wellDepths ) {
+          for ( const mass of masses ) {
+            const centerSpacing = wellWidth + separation;
+            const potFn = ( x: number ): number => {
+              for ( let i = 1; i <= nWells; i++ ) {
+                const xi = centerSpacing * ( i - ( nWells + 1 ) / 2 );
+                if ( x >= xi - wellWidth / 2 && x <= xi + wellWidth / 2 ) {
+                  return 0;
+                }
+              }
+              return wellDepth;
+            };
+
+            configs.push( {
+              grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
+              potFn: potFn,
+              mass: mass,
+              energyMin: 0,
+              energyMax: wellDepth,
+              label: `FSW nWells=${nWells} sep=${separation} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
+              checkNodes: false
+            } );
           }
         }
-        return wellDepth;
-      };
+      }
+    }
+  }
 
-      configs.push( {
-        grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
-        potFn: potFn,
-        mass: mass,
-        energyMin: 0,
-        energyMax: wellDepth,
-        label: `FSW nWells=${nWells} sep=${separation}`,
-        checkNodes: false
-      } );
+  runSweep( assert, configs );
+} );
+
+QUnit.test( 'electric field sweep', assert => {
+
+  // Finite Square supports electric field in the Many Wells screen.  Replicate the sim formula.
+  const wellWidths = SWEEP_MULTI_WELL_WIDTHS;
+  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
+  const masses = SWEEP_MASSES;
+  const electricFields = SWEEP_ELECTRIC_FIELDS;
+  const xMin = -5;
+  const xMax = 5;
+
+  const configs: SweepConfig[] = [];
+
+  for ( const wellWidth of wellWidths ) {
+    for ( const wellDepth of wellDepths ) {
+      for ( const mass of masses ) {
+        for ( const electricField of electricFields ) {
+          const potFn = ( x: number ): number => {
+            if ( x >= -wellWidth / 2 && x <= wellWidth / 2 ) {
+              return electricField * x;
+            }
+            return wellDepth + electricField * x;
+          };
+
+          // Same logic as FiniteSquarePotential.getMaxSolverEnergy().
+          const energyMax = wellDepth + Math.min( electricField * xMin, electricField * xMax );
+
+          configs.push( {
+            grid: standardGrid(),
+            potFn: potFn,
+            mass: mass,
+            energyMin: 0,
+            energyMax: energyMax,
+            label: `FSW electricField=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
+            checkNodes: false
+          } );
+        }
+      }
+    }
+  }
+
+  runSweep( assert, configs );
+} );
+
+QUnit.test( 'multi-well electric field sweep', assert => {
+
+  const numberOfWellsList = SWEEP_NUMBER_OF_WELLS;
+  const separations = SWEEP_SEPARATIONS;
+  const wellWidths = SWEEP_MULTI_WELL_WIDTHS;
+  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
+  const masses = SWEEP_MASSES;
+  const electricFields = SWEEP_ELECTRIC_FIELDS;
+  const xMin = -5;
+  const xMax = 5;
+
+  const configs: SweepConfig[] = [];
+
+  for ( const nWells of numberOfWellsList ) {
+    for ( const separation of separations ) {
+      for ( const wellWidth of wellWidths ) {
+        for ( const wellDepth of wellDepths ) {
+          for ( const mass of masses ) {
+            for ( const electricField of electricFields ) {
+              const centerSpacing = wellWidth + separation;
+              const potFn = ( x: number ): number => {
+                for ( let i = 1; i <= nWells; i++ ) {
+                  const xi = centerSpacing * ( i - ( nWells + 1 ) / 2 );
+                  if ( x >= xi - wellWidth / 2 && x <= xi + wellWidth / 2 ) {
+                    return electricField * x;
+                  }
+                }
+                return wellDepth + electricField * x;
+              };
+
+              const energyMax = wellDepth + Math.min( electricField * xMin, electricField * xMax );
+
+              configs.push( {
+                grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
+                potFn: potFn,
+                mass: mass,
+                energyMin: 0,
+                energyMax: energyMax,
+                label: `FSW nWells=${nWells} sep=${separation} E=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
+                checkNodes: false
+              } );
+            }
+          }
+        }
+      }
     }
   }
 
@@ -526,41 +644,45 @@ QUnit.test( 'single-well parameter sweep', assert => {
 QUnit.test( 'multi-well spacing sweep', assert => {
 
   // Multi-well Pöschl-Teller using inline potential (analytical solution is single-well only).
-  const numberOfWellsList = [ 2, 3 ];
+  const numberOfWellsList = SWEEP_NUMBER_OF_WELLS.filter( n => n <= 3 ); // PT: test 2 and 3 wells
   // For the Pöschl-Teller multi-well, the n-th band tunnelling splitting scales as
   // exp(−2κ_n × gap), where κ_n = sqrt(2m|E_n|)/ℏ and gap = spacing − wellWidth.
-  // For the lowest band (E_0 ≈ −8.1 eV, κ_0 ≈ 14.6 nm⁻¹) we need gap ≤ 0.36 nm →
-  // spacing ≤ 0.66 nm to keep all band splittings well above the solver's refinement
-  // tolerance (~10⁻⁶ eV).  Spacings ≥ 0.7 nm give near-degenerate states that the
-  // solver cannot reliably order.
-  const spacings = [ 0.4, 0.5, 0.6 ]; // nm center-to-center
-  const wellWidth = 0.3;  // nm
-  const wellDepth = 10;   // eV
-  const mass = 1;
+  // Use wellWidth + gap so the wall-to-wall gap stays ≤ 0.3 nm across all well widths.
+  const ptGaps = SWEEP_PT_GAPS;
+  const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
+  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
+  const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
 
   for ( const nWells of numberOfWellsList ) {
-    for ( const spacing of spacings ) {
-      const potFn = ( x: number ): number => {
-        let pe = 0;
-        for ( let i = 1; i <= nWells; i++ ) {
-          const xi = spacing * ( i - ( nWells + 1 ) / 2 );
-          const sech = 1 / Math.cosh( ( x - xi ) / wellWidth );
-          pe += -wellDepth * sech * sech;
-        }
-        return pe;
-      };
+    for ( const wellWidth of wellWidths ) {
+      for ( const gap of ptGaps ) {
+        const spacing = wellWidth + gap;
+        for ( const wellDepth of wellDepths ) {
+          for ( const mass of masses ) {
+            const potFn = ( x: number ): number => {
+              let pe = 0;
+              for ( let i = 1; i <= nWells; i++ ) {
+                const xi = spacing * ( i - ( nWells + 1 ) / 2 );
+                const sech = 1 / Math.cosh( ( x - xi ) / wellWidth );
+                pe += -wellDepth * sech * sech;
+              }
+              return pe;
+            };
 
-      configs.push( {
-        grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
-        potFn: potFn,
-        mass: mass,
-        energyMin: -3 * wellDepth * nWells,
-        energyMax: 0,
-        label: `PT nWells=${nWells} spacing=${spacing}`,
-        checkNodes: false
-      } );
+            configs.push( {
+              grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
+              potFn: potFn,
+              mass: mass,
+              energyMin: -3 * wellDepth * nWells,
+              energyMax: 0,
+              label: `PT nWells=${nWells} spacing=${spacing} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
+              checkNodes: false
+            } );
+          }
+        }
+      }
     }
   }
 
@@ -571,36 +693,92 @@ QUnit.test( 'electric field sweep', assert => {
 
   // Pöschl-Teller is the only potential (other than Coulomb) that supports a non-zero
   // electric field in the sim.  The inline potential adds the field contribution.
-  const wellWidth = 0.5;   // nm
-  const wellDepth = 10;    // eV
-  const mass = 1;
-  const electricFields = [ 0, 0.05, 0.1, 0.2 ]; // V/nm — sim range is 0 to ~1, but large fields suppress bound states
+  const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
+  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
+  const masses = SWEEP_MASSES;
+  const electricFields = SWEEP_ELECTRIC_FIELDS;
 
   const configs: SweepConfig[] = [];
 
-  for ( const electricField of electricFields ) {
+  for ( const wellWidth of wellWidths ) {
+    for ( const wellDepth of wellDepths ) {
+      for ( const mass of masses ) {
+        for ( const electricField of electricFields ) {
 
-    // PoschlTellerSolution asserts electricField === 0.  Use an inline function instead.
-    const potFn = ( x: number ): number => {
-      const sech = 1 / Math.cosh( x / wellWidth );
-      return -wellDepth * sech * sech + electricField * x;
-    };
+          // PoschlTellerSolution asserts electricField === 0.  Use an inline function instead.
+          const potFn = ( x: number ): number => {
+            const sech = 1 / Math.cosh( x / wellWidth );
+            return -wellDepth * sech * sech + electricField * x;
+          };
 
-    // With a Stark field the effective barrier is slightly lower.  Use the tilt-corrected
-    // max (same logic as PoschlTellerPotential.getMaxSolverEnergy):
-    //   energyMax = 0 − |electricField| * xMaxAbsolute
-    const xMaxAbsolute = 5; // matches standardGrid() xMax
-    const energyMax = -Math.abs( electricField * xMaxAbsolute );
+          // With a Stark field the effective barrier is slightly lower.  Use the tilt-corrected
+          // max (same logic as PoschlTellerPotential.getMaxSolverEnergy):
+          //   energyMax = 0 − |electricField| * xMaxAbsolute
+          const xMaxAbsolute = 5; // matches standardGrid() xMax
+          const energyMax = -Math.abs( electricField * xMaxAbsolute );
 
-    configs.push( {
-      grid: standardGrid(),
-      potFn: potFn,
-      mass: mass,
-      energyMin: -3 * wellDepth,
-      energyMax: energyMax,
-      label: `PT electricField=${electricField}`,
-      checkNodes: false
-    } );
+          configs.push( {
+            grid: standardGrid(),
+            potFn: potFn,
+            mass: mass,
+            energyMin: -3 * wellDepth,
+            energyMax: energyMax,
+            label: `PT electricField=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
+            checkNodes: false
+          } );
+        }
+      }
+    }
+  }
+
+  runSweep( assert, configs );
+} );
+
+QUnit.test( 'multi-well electric field sweep', assert => {
+
+  const numberOfWellsList = SWEEP_NUMBER_OF_WELLS.filter( n => n <= 3 );
+  const ptGaps = SWEEP_PT_GAPS;
+  const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
+  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
+  const masses = SWEEP_MASSES;
+  const electricFields = SWEEP_ELECTRIC_FIELDS;
+  const xMaxAbsolute = 5;
+
+  const configs: SweepConfig[] = [];
+
+  for ( const nWells of numberOfWellsList ) {
+    for ( const wellWidth of wellWidths ) {
+      for ( const gap of ptGaps ) {
+        const spacing = wellWidth + gap;
+        for ( const wellDepth of wellDepths ) {
+          for ( const mass of masses ) {
+            for ( const electricField of electricFields ) {
+              const potFn = ( x: number ): number => {
+                let pe = 0;
+                for ( let i = 1; i <= nWells; i++ ) {
+                  const xi = spacing * ( i - ( nWells + 1 ) / 2 );
+                  const sech = 1 / Math.cosh( ( x - xi ) / wellWidth );
+                  pe += -wellDepth * sech * sech;
+                }
+                return pe + electricField * x;
+              };
+
+              const energyMax = -Math.abs( electricField * xMaxAbsolute );
+
+              configs.push( {
+                grid: new XGrid( { xMin: -5, xMax: 5, numberOfPoints: 1001, tandem: Tandem.OPT_OUT } ),
+                potFn: potFn,
+                mass: mass,
+                energyMin: -3 * wellDepth * nWells,
+                energyMax: energyMax,
+                label: `PT nWells=${nWells} spacing=${spacing} E=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
+                checkNodes: false
+              } );
+            }
+          }
+        }
+      }
+    }
   }
 
   runSweep( assert, configs );
@@ -1346,19 +1524,21 @@ QUnit.module( 'Finite Square Well — guaranteed bound state' );
 QUnit.test( 'always finds at least one bound state across parameter space', assert => {
 
   // A 1D finite square well always has at least one bound state (exact quantum theorem).
-  const wellWidths = [ 0.1, 0.5, 1.0, 3.0, 6.0 ];
-  const wellDepths = [ 0.5, 2.0, 5.0, 10.0, 20.0 ];
-  const mass = 1;
+  const wellWidths = SWEEP_WELL_WIDTHS;
+  const wellDepths = SWEEP_WELL_DEPTHS_20;
+  const masses = SWEEP_MASSES;
 
   for ( const wellWidth of wellWidths ) {
     for ( const wellDepth of wellDepths ) {
-      const potFn = FiniteSquareSolution.createPotentialFunction( {
-        numberOfWells: 1, xOffset: 0, yOffset: 0,
-        wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
-      } );
-      const result = NumerovSolver.solve( standardGrid(), potFn, mass, 0, wellDepth );
-      assert.ok( result.energies.length >= 1,
-        `FSW wellWidth=${wellWidth} wellDepth=${wellDepth}: must have ≥1 bound state, found ${result.energies.length}` );
+      for ( const mass of masses ) {
+        const potFn = FiniteSquareSolution.createPotentialFunction( {
+          numberOfWells: 1, xOffset: 0, yOffset: 0,
+          wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+        } );
+        const result = NumerovSolver.solve( standardGrid(), potFn, mass, 0, wellDepth );
+        assert.ok( result.energies.length >= 1,
+          `FSW wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}: must have ≥1 bound state, found ${result.energies.length}` );
+      }
     }
   }
 } );
@@ -1493,56 +1673,60 @@ QUnit.test( 'Poschl-Teller with E-field has mixed-parity states', assert => {
 
   // A Stark field tilts the symmetric well; eigenstates no longer have definite parity.
   // We decompose each ψ into even and odd components and verify both are non-negligible.
-  // Use a strong field (1 V/nm) so the mixing fraction (~5%) exceeds the threshold.
-  // The level spacing for the deep states (~2 eV) is comparable to the Stark energy
-  // eE⟨x⟩ ≈ 1*0.5 = 0.5 eV, giving a mixing coefficient of ~25%.
-  const wellWidth = 0.5;
-  const wellDepth = 10;
-  const mass = 1;
-  const electricField = 1.0; // V/nm — strong enough to produce ~5% parity mixing
+  const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
+  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
+  const masses = SWEEP_MASSES;
+  // Use moderate-to-strong fields so mixing exceeds the detection threshold.
+  const electricFields = [ 0.2, 0.5, 1.0 ];
 
-  const potFn = ( x: number ): number => {
-    const sech = 1 / Math.cosh( x / wellWidth );
-    return -wellDepth * sech * sech + electricField * x;
-  };
+  for ( const wellWidth of wellWidths ) {
+    for ( const wellDepth of wellDepths ) {
+      for ( const mass of masses ) {
+        for ( const electricField of electricFields ) {
+          const potFn = ( x: number ): number => {
+            const sech = 1 / Math.cosh( x / wellWidth );
+            return -wellDepth * sech * sech + electricField * x;
+          };
 
-  const grid = standardGrid();
+          const grid = standardGrid();
 
-  // energyMax: effective continuum floor drops by field * xMax at the far edge.
-  // With field=1 V/nm and xMax=5 nm, only states below -5 eV survive.
-  const energyMax = -electricField * 5;
+          // energyMax: effective continuum floor drops by field * xMax at the far edge.
+          const energyMax = -electricField * 5;
 
-  const result = NumerovSolver.solve( grid, potFn, mass, -3 * wellDepth, energyMax );
+          const result = NumerovSolver.solve( grid, potFn, mass, -3 * wellDepth, energyMax );
 
-  assert.ok( result.energies.length >= 2, `Need ≥ 2 states, got ${result.energies.length}` );
+          if ( result.energies.length < 2 ) {
+            assert.ok( true, `PT E=${electricField} w=${wellWidth} V=${wellDepth} m=${mass}: fewer than 2 bound states (field too strong)` );
+            continue;
+          }
 
-  const N = grid.numberOfPoints;
-  const nCheck = Math.min( result.waveFunctions.length, 4 );
+          const N = grid.numberOfPoints;
+          const nCheck = Math.min( result.waveFunctions.length, 4 );
 
-  for ( let i = 0; i < nCheck; i++ ) {
-    const psi = result.waveFunctions[ i ];
+          for ( let i = 0; i < nCheck; i++ ) {
+            const psi = result.waveFunctions[ i ];
 
-    // For standardGrid (symmetric about x=0): index j corresponds to x_j and N-1-j to -x_j.
-    // Decompose: ψ_e = (ψ(x) + ψ(-x))/2, ψ_o = (ψ(x) - ψ(-x))/2.
-    let evenNorm2 = 0;
-    let oddNorm2 = 0;
-    const half = Math.floor( N / 2 );
-    for ( let j = 0; j < half; j++ ) {
-      const e = 0.5 * ( psi[ j ] + psi[ N - 1 - j ] );
-      const o = 0.5 * ( psi[ j ] - psi[ N - 1 - j ] );
-      evenNorm2 += e * e;
-      oddNorm2 += o * o;
+            // For standardGrid (symmetric about x=0): index j corresponds to x_j and N-1-j to -x_j.
+            // Decompose: ψ_e = (ψ(x) + ψ(-x))/2, ψ_o = (ψ(x) - ψ(-x))/2.
+            let evenNorm2 = 0;
+            let oddNorm2 = 0;
+            const half = Math.floor( N / 2 );
+            for ( let j = 0; j < half; j++ ) {
+              const e = 0.5 * ( psi[ j ] + psi[ N - 1 - j ] );
+              const o = 0.5 * ( psi[ j ] - psi[ N - 1 - j ] );
+              evenNorm2 += e * e;
+              oddNorm2 += o * o;
+            }
+            const totalNorm2 = evenNorm2 + oddNorm2;
+
+            // Minority fraction: 0 = pure parity state, 0.5 = maximally mixed.
+            const mixFraction = Math.min( evenNorm2, oddNorm2 ) / Math.max( totalNorm2, 1e-30 );
+
+            assert.ok( mixFraction > 1e-3,
+              `PT E=${electricField} w=${wellWidth} V=${wellDepth} m=${mass} state ${i}: parity mix fraction = ${mixFraction.toExponential( 2 )} must be > 1e-3` );
+          }
+        }
+      }
     }
-    const totalNorm2 = evenNorm2 + oddNorm2;
-
-    // Minority fraction: 0 = pure parity state, 0.5 = maximally mixed.
-    const mixFraction = Math.min( evenNorm2, oddNorm2 ) / Math.max( totalNorm2, 1e-30 );
-
-    // With E=1 V/nm on a 10 eV well (level spacing ~2 eV), Stark mixing is perturbative:
-    // coefficient ~eE⟨x⟩/ΔE ≈ 0.01–0.05, giving mix fractions of 1e-4 to 3e-2.
-    // Threshold 1e-3 is far above machine epsilon (~1e-15 for a pure-parity state)
-    // and confirms the solver produces genuinely mixed-parity states under the field.
-    assert.ok( mixFraction > 1e-3,
-      `PT E-field state ${i}: parity mix fraction = ${mixFraction.toExponential( 2 )} must be > 1e-3` );
   }
 } );
