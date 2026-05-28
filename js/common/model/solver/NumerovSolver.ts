@@ -84,7 +84,7 @@ export default class NumerovSolver {
   // If |psi[m]| / max(|psi[m-1]|, |psi[m+1]|) is below this value, psi is treated as having a node
   // at m. A relative threshold is essential: the absolute amplitude of psi varies with the seed
   // value, so an absolute tolerance would misclassify the node when the seed changes.
-  private static readonly RELATIVE_NODE_TOLERANCE = 1e-1;
+  private static readonly RELATIVE_NODE_TOLERANCE = 1e-3;
 
   // Relative threshold for choosing non-zero reference values near a node. This is much smaller
   // than RELATIVE_NODE_TOLERANCE because it is used only to avoid division by numerical zero.
@@ -361,7 +361,7 @@ export default class NumerovSolver {
    * i.e. V(x) === V(-x) at every grid x-coordinate.
    *
    * Why we evaluate the potential function directly rather than comparing the already-
-   * discretised V[i] with V[N-1-i]:
+   * discretized V[i] with V[N-1-i]:
    *
    *   The grid is built as xGrid[i] = xMin + i·dx with dx = (xMax−xMin)/(N−1). For symmetric
    *   ranges (xMin = −xMax) the *mathematical* mirror of xGrid[i] is xGrid[N-1-i], but in
@@ -413,10 +413,13 @@ export default class NumerovSolver {
    * odd-indexed states are spatially odd (ψ(-x) = -ψ(x)). The boundary condition at the centre
    * therefore differs by parity:
    *
-   *   Even states: ψ'(0) = 0  →  f(E) = [ψ_L[m+1] - ψ_L[m-1]] / (2·dx·peak)
+   *   Even states: ψ'(0) = 0  →  f(E) = slope at center / peak
    *   Odd  states: ψ(0)  = 0  →  f(E) = ψ_L[m] / peak
    *
    * Only the forward integration ψ_L is required — no backward sweep.
+   *
+   * The slope is computed with a 5-point O(dx⁴) stencil rather than the 3-point O(dx²) stencil.
+   * The extra accuracy reduces the eigenvalue error from O(dx²) to O(dx⁴)
    */
   private makeSymmetricMismatch(
     V: number[],
@@ -436,8 +439,10 @@ export default class NumerovSolver {
       }
       else {
 
-        // Even eigenfunction: ψ'(0) must be zero. Centred finite difference to O(dx²).
-        return ( psiL[ centerIndex + 1 ] - psiL[ centerIndex - 1 ] ) / ( 2 * xGrid.dx * peak );
+        // Even eigenfunction: ψ'(0) must be zero.
+        // 5-point O(dx⁴) centered-difference stencil for the first derivative.
+        const m = centerIndex;
+        return ( -psiL[ m + 2 ] + 8 * psiL[ m + 1 ] - 8 * psiL[ m - 1 ] + psiL[ m - 2 ] ) / ( 12 * xGrid.dx * peak );
       }
     };
   }
@@ -495,7 +500,9 @@ export default class NumerovSolver {
    * roots, but bounded when ψ has a node at the midpoint (avoiding 1/0). Each side is
    * rescaled by its peak amplitude beforehand so the mismatch has O(1) magnitude regardless of
    * the exponential scaling that arises when integrating across classically forbidden regions.
-   * Centered finite differences give the slope to O(dx²) accuracy.
+   *
+   * Slopes use a 5-point O(dx⁴) stencil rather than the 3-point O(dx²) stencil. The higher-order
+   * slope reduces the eigenvalue error from O(dx²) to O(dx⁴)
    */
   private makeLogDerivativeMismatch(
     V: number[],
@@ -513,8 +520,10 @@ export default class NumerovSolver {
       const m = meetingIndex;
       const valueLeft = psiLeft[ m ] / peakLeft;
       const valueRight = psiRight[ m ] / peakRight;
-      const slopeLeft = ( psiLeft[ m + 1 ] - psiLeft[ m - 1 ] ) / ( 2 * xGrid.dx * peakLeft );
-      const slopeRight = ( psiRight[ m + 1 ] - psiRight[ m - 1 ] ) / ( 2 * xGrid.dx * peakRight );
+
+      // 5-point O(dx⁴) centred-difference stencil for the first derivative.
+      const slopeLeft = ( -psiLeft[ m + 2 ] + 8 * psiLeft[ m + 1 ] - 8 * psiLeft[ m - 1 ] + psiLeft[ m - 2 ] ) / ( 12 * xGrid.dx * peakLeft );
+      const slopeRight = ( -psiRight[ m + 2 ] + 8 * psiRight[ m + 1 ] - 8 * psiRight[ m - 1 ] + psiRight[ m - 2 ] ) / ( 12 * xGrid.dx * peakRight );
 
       return slopeLeft * valueRight - slopeRight * valueLeft;
     };
