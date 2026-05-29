@@ -10,7 +10,6 @@ import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
-import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
@@ -52,7 +51,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     const options = optionize<HarmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ), // for 1 well
+      wellWidthRange: new RangeWithValue( 0.1, 3, 1 ), // for 1 well
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
@@ -64,9 +63,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
     this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
       units: nanometersUnit,
-      //TODO range.min should be 0.1, but wellWidth < 0.4 causes assertion failure, no eigenvalues
-      // range: options.wellWidthRange,
-      range: new Range( 0.4, 6 ),
+      range: options.wellWidthRange,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
