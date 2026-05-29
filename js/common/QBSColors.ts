@@ -224,12 +224,20 @@ export default class QBSColors {
     default: 'rgba( 255, 255, 255, 0.85 )'
   } );
 
-  public static readonly dragArrowsFillProperty = new ProfileColorProperty( quantumBoundStates, 'dragArrowsFillProperty', {
+  public static readonly handleFillProperty = new ProfileColorProperty( quantumBoundStates, 'handleFillProperty', {
     default: 'yellow'
   } );
 
-  public static readonly dragArrowsStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'dragArrowsStrokeProperty', {
+  public static readonly handleDisabledFillProperty = new ProfileColorProperty( quantumBoundStates, 'handleDisabledFillProperty', {
+    default: Color.grayColor( 240 )
+  } );
+
+  public static readonly handleStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'handleStrokeProperty', {
     default: 'black'
+  } );
+
+  public static readonly handleDisabledStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'handleDisabledStrokeProperty', {
+    default: Color.grayColor( 100 )
   } );
 
   public static readonly eyeClosedFillProperty = new ProfileColorProperty( quantumBoundStates, 'eyeClosedFillProperty', {

@@ -15,6 +15,7 @@ import AccessibleDraggableOptions from '../../../../../scenery-phet/js/accessibi
 import ArrowNode, { ArrowNodeOptions } from '../../../../../scenery-phet/js/ArrowNode.js';
 import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
+import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import { HomeEndKeyboardListener } from '../HomeEndKeyboardListener.js';
 
@@ -36,8 +37,20 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
                          rangedProperty: TRangedProperty,
                          providedOptions: PotentialHandleNodeOptions ) {
 
-    const options = optionize4<PotentialHandleNodeOptions, SelfOptions, ArrowNodeOptions>()( {},
-      AccessibleDraggableOptions, QBSConstants.POTENTIAL_HANDLE_OPTIONS, providedOptions );
+    const options = optionize4<PotentialHandleNodeOptions, SelfOptions, ArrowNodeOptions>()(
+      {}, AccessibleDraggableOptions, {
+
+        // ArrowNodeOptions
+        isDisposable: false,
+        cursor: 'pointer',
+        doubleHead: true,
+        headHeight: 11,
+        headWidth: 15,
+        tailWidth: 6,
+        phetioVisiblePropertyInstrumented: true,
+        visiblePropertyOptions: { phetioFeatured: true },
+        phetioInputEnabledPropertyInstrumented: true
+      }, providedOptions );
 
     const tailX = options.orientation === 'horizontal' ? -QBSConstants.HANDLE_LENGTH / 2 : 0;
     const tailY = options.orientation === 'horizontal' ? 0 : -QBSConstants.HANDLE_LENGTH / 2;
@@ -58,6 +71,12 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
       endCallback: () => this.describeMoved(),
       tandem: options.tandem.createTandem( 'homeEndKeyboardListener' )
     } ) );
+
+    this.inputEnabledProperty.link( inputEnabled => {
+      console.log( 'inputEnabledProperty.value = ' + inputEnabled );
+      this.fill = inputEnabled ? QBSColors.handleFillProperty : QBSColors.handleDisabledFillProperty;
+      this.stroke = inputEnabled ? QBSColors.handleStrokeProperty : QBSColors.handleDisabledStrokeProperty;
+    } );
 
     this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
     potential.changedEmitter.addListener( () => this.updatePosition() );

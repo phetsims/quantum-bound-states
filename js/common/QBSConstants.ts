@@ -10,7 +10,6 @@ import { GridLineSetOptions } from '../../../bamboo/js/GridLineSet.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
-import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 import NumberControl, { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import ProbeNode, { ProbeNodeOptions } from '../../../scenery-phet/js/ProbeNode.js';
@@ -121,20 +120,6 @@ export default class QBSConstants {
 
   public static readonly DIALOG_OPTIONS: DialogOptions = {
     tandem: Tandem.OPT_OUT // Not instrumenting dialogs was a design decision.
-  };
-
-  public static readonly POTENTIAL_HANDLE_OPTIONS: ArrowNodeOptions = {
-    isDisposable: false,
-    cursor: 'pointer',
-    doubleHead: true,
-    headHeight: 11,
-    headWidth: 15,
-    tailWidth: 6,
-    fill: QBSColors.dragArrowsFillProperty,
-    stroke: QBSColors.dragArrowsStrokeProperty,
-    phetioVisiblePropertyInstrumented: true,
-    visiblePropertyOptions: { phetioFeatured: true },
-    phetioInputEnabledPropertyInstrumented: true
   };
 
   public static readonly GRID_LINE_SET_OPTIONS: GridLineSetOptions = {
