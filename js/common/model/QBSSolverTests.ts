@@ -79,38 +79,6 @@ function standardGrid(): XGrid {
   } );
 }
 
-/**
- * Asymmetric grid used for the Morse potential, which has a repulsive wall on the left
- * and an exponential tail on the right.
- *
- * xMin is capped at −6 nm so that the forbidden tunnel length never exceeds ≈6 nm.
- * Beyond that, the exponentially growing integrand requires more than ~10 rescalings and
- * floating-point precision is exhausted (wave-function values collapse to zero).
- * One well-width to the left of equilibrium is enough to place the boundary in a region
- * where V >> energyMax, satisfying the Dirichlet condition.
- *
- * 3001 points gives dx ≤ 0.014 nm — fine enough for Numerov accuracy across all
- * well-width/depth combinations in the sim.
- *
- * @param wellWidth - Morse width parameter w in nm
- */
-function morseGrid( wellWidth: number ): XGrid {
-
-  // One well-width left of equilibrium; V(−w) ≈ D_e·(e−1)² >> 0 for any D_e.
-  // Never go further than −6 nm to avoid precision exhaustion.
-  const xMin = Math.max( -wellWidth, -6 );
-
-  // Six well-widths to the right; e^{−6} ≈ 0.0025 so V ≈ 0 (dissociation limit).
-  // Minimum STANDARD_X_MAX so narrow wells still have a long enough decay tail.
-  const xMax = Math.max( 6 * wellWidth, STANDARD_X_MAX );
-
-  return new XGrid( {
-    xMin: xMin,
-    xMax: xMax,
-    numberOfPoints: STANDARD_NUMBER_OF_POINTS,
-    tandem: Tandem.OPT_OUT
-  } );
-}
 
 /**
  * Adaptive grid for the Harmonic Oscillator.  The standard ±3.5 nm grid is too wide for
@@ -567,7 +535,7 @@ QUnit.test( 'parameter sweep', assert => {
 
         // Bound states exist between −wellDepth and 0.
         configs.push( {
-          grid: morseGrid( wellWidth ),
+          grid: standardGrid(),
           potFn: potFn,
           mass: mass,
           energyMin: -wellDepth,
@@ -1213,7 +1181,7 @@ QUnit.test( 'energy spacing decreases monotonically', assert => {
   const potFn = MorseSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
   } );
-  const result = NumerovSolver.solve( morseGrid( wellWidth ), potFn, mass, -wellDepth, 0 );
+  const result = NumerovSolver.solve( standardGrid(), potFn, mass, -wellDepth, 0 );
 
   assert.ok( result.energies.length >= 3, `Morse: need ≥ 3 states for anharmonicity test, got ${result.energies.length}` );
 
@@ -1344,7 +1312,7 @@ QUnit.test( 'energy error < 2% for w=1 nm, D_e=5 eV', assert => {
   const wM = 1;
   const DeM = 5;
   const massM = 1;
-  const gridM = morseGrid( wM );
+  const gridM = standardGrid();
   const potFnM = MorseSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wM, wellDepth: DeM, electricField: 0
   } );
@@ -1368,7 +1336,7 @@ QUnit.test( 'wave-function RMS error < 10% for w=1 nm, D_e=5 eV', assert => {
   const wM = 1;
   const DeM = 5;
   const massM = 1;
-  const gridM = morseGrid( wM );
+  const gridM = standardGrid();
   const potFnM = MorseSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wM, wellDepth: DeM, electricField: 0
   } );
@@ -1661,7 +1629,7 @@ QUnit.test( 'Poschl-Teller states decay to < 1% at grid edges', assert => {
 QUnit.test( 'Morse states decay to < 1% at grid edges', assert => {
 
   const wellWidth = 1;
-  const grid = morseGrid( wellWidth );
+  const grid = standardGrid();
   const potFn = MorseSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wellWidth, wellDepth: 5, electricField: 0
   } );
@@ -1828,7 +1796,7 @@ QUnit.test( 'soft-wall potentials — ψ and ψ′ continuous everywhere', asser
     const wellWidth = 1;
     const wellDepth = 5;
     const mass = 1;
-    const grid = morseGrid( wellWidth );
+    const grid = standardGrid();
     const potFn = MorseSolution.createPotentialFunction( {
       numberOfWells: 1, xOffset: 0, yOffset: 0,
       wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
