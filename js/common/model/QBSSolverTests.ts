@@ -15,13 +15,16 @@
  *
  * Additional cross-potential tests cover parity, orthogonality, and direct comparison
  * against analytical solutions (ported from testSolvers.ts).
- *
+ * 
+ * Written with the help of Claude
+ * 
  * @author Martin Veillette
  */
 
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../QBSConstants.js';
+import HarmonicOscillatorPotential from './potentials/HarmonicOscillatorPotential.js';
 import AsymmetricTriangleSolution from './solver/analytical-solutions/AsymmetricTriangleSolution.js';
 import CoulombSolution from './solver/analytical-solutions/CoulombSolution.js';
 import FiniteSquareSolution from './solver/analytical-solutions/FiniteSquareSolution.js';
@@ -112,11 +115,11 @@ function morseGrid( wellWidth: number ): XGrid {
  * the highest test state (E ≈ 20.5 ℏω), with a minimum of 3 nm.  For typical sim
  * parameters the grid is [−3, 3] to [−8, 8] nm, giving at most ~3 rescalings.
  *
- * @param wellWidth - well-width parameter in nm; k = 32/wellWidth²
+ * @param wellWidth - well-width parameter in nm; k = 8·WIDTH_HANDLE_ENERGY/wellWidth²
  * @param mass - particle mass in electron masses
  */
 function hoGrid( wellWidth: number, mass: number ): XGrid {
-  const k = 32 / ( wellWidth * wellWidth );
+  const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
   const omega = Math.sqrt( k / mass );
 
   // Classical turning point for E ≈ 20.5 ℏω (highest state in the test sweep).
@@ -184,34 +187,34 @@ function assertNodeCounting( assert: Assert, waveFunctions: number[][], maxState
 
 // ─── Sweep parameter sets (sim-valid ranges) ───────────────────────────────────
 
-/** Electron masses — two bookend values cover the sim range [0.5, 1.1] without 7× blow-up. */
-const SWEEP_MASSES = [ 0.5, 1.0 ];
+/** Electron masses — two bookend values cover the sim range [0.5, 1.1] (OneWellModel.ts) without 7× blow-up. */
+const SWEEP_MASSES = [ 0.5, 1.0, 1.1 ];
 
-/** Well widths for Finite Square / Asymmetric Triangle (sim range [0.5, 6] nm). */
+/** Well widths for Finite Square / Asymmetric Triangle — matches FiniteSquarePotential / AsymmetricTrianglePotential wellWidthRange [0.5, 6] nm. */
 const SWEEP_WELL_WIDTHS = [ 0.5, 1.0, 3.0, 6.0 ];
 
-/** Well widths for Infinite Square / Infinite Step (sim range [0.5, 6] nm). */
+/** Well widths for Infinite Square / Infinite Step — matches InfiniteSquarePotential / InfiniteStepPotential wellWidthRange [0.5, 6] nm. */
 const SWEEP_WELL_WIDTHS_INFINITE = [ 0.5, 1.0, 3.0, 6.0 ];
 
-/** Well widths for Harmonic Oscillator (sim range [0.1, 3] nm). */
+/** Well widths for Harmonic Oscillator — matches HarmonicOscillatorPotential wellWidthRange [0.1, 3] nm. */
 const SWEEP_WELL_WIDTHS_HO = [ 0.1, 0.5, 1.0, 3.0 ];
 
-/** Well widths for Pöschl-Teller (sim range [0.1, 1] nm). */
+/** Well widths for Pöschl-Teller — matches PoschlTellerPotential wellWidthRange [0.1, 1] nm. */
 const SWEEP_WELL_WIDTHS_PT = [ 0.1, 0.5, 1.0 ];
 
-/** Well widths for Morse (sim range [0.1, 1] nm). */
+/** Well widths for Morse — matches MorsePotential wellWidthRange [0.1, 1] nm. */
 const SWEEP_WELL_WIDTHS_MORSE = [ 0.1, 0.5, 1.0 ];
 
-/** Well depth for Finite Square / Asymmetric Triangle (sim range [1, 20] eV). */
+/** Well depth for Finite Square / Asymmetric Triangle — matches FiniteSquarePotential / AsymmetricTrianglePotential wellDepthRange [1, 20] eV. */
 const SWEEP_WELL_DEPTHS_20 = [ 1.0, 5.0, 10.0, 20.0 ];
 
-/** Well depth for Pöschl-Teller (sim range [1, 15] eV). */
+/** Well depth for Pöschl-Teller — matches PoschlTellerPotential wellDepthRange [1, 15] eV. */
 const SWEEP_WELL_DEPTHS_15 = [ 1.0, 5.0, 10.0, 15.0 ];
 
-/** Well depth for Morse (sim range [1.5, 15] eV). */
+/** Well depth for Morse — matches MorsePotential wellDepthRange [1.5, 15] eV. */
 const SWEEP_WELL_DEPTHS_MORSE = [ 1.5, 5.0, 10.0, 15.0 ];
 
-/** Step heights for Infinite Step (sim range [0, 17] eV). */
+/** Step heights for Infinite Step — matches InfiniteStepPotential stepHeightRange [0, 17] eV. */
 const SWEEP_STEP_HEIGHTS = [ 0, 5.0, 10.0, 17.0 ];
 
 /** Number of wells for multi-well potentials — covers single, small, medium, maximum. */
@@ -509,7 +512,7 @@ QUnit.test( 'parameter sweep', assert => {
 
   for ( const wellWidth of wellWidths ) {
     for ( const mass of masses ) {
-      const k = 32 / ( wellWidth * wellWidth ); // eV/nm² — same formula as the sim
+      const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth ); // eV/nm² — same formula as the sim
       const omega = Math.sqrt( k / mass );
       const E0 = 0.5 * HBAR * omega;
 
@@ -869,7 +872,7 @@ QUnit.test( 'mass sweep', assert => {
 
   for ( const mass of SWEEP_MASSES ) {
     const potFn = CoulombSolution.createPotentialFunction( {
-      numberOfWells: 1, xOffset: 0, yOffset: yOffset, electricField: 0, coupling: 1.44
+      numberOfWells: 1, xOffset: 0, yOffset: yOffset, electricField: 0, coupling: QBSConstants.KE2
     } );
 
     configs.push( {
@@ -914,7 +917,7 @@ QUnit.test( 'Harmonic Oscillator parity alternates even/odd', assert => {
 
   const wellWidth = 2; // nm
   const mass = 1;
-  const k = 32 / ( wellWidth * wellWidth );
+  const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
   const omega = Math.sqrt( k / mass );
   const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
@@ -1005,7 +1008,7 @@ QUnit.test( 'Harmonic Oscillator eigenstates are orthogonal', assert => {
 
   const wellWidth = 2;
   const mass = 1;
-  const k = 32 / ( wellWidth * wellWidth );
+  const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
   const omega = Math.sqrt( k / mass );
   const grid = standardGrid();
   const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
@@ -1135,7 +1138,7 @@ QUnit.test( 'equal spacing matches ℏω within 0.5%', assert => {
 
   const wellWidth = 2;
   const mass = 1;
-  const k = 32 / ( wellWidth * wellWidth );
+  const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
   const omega = Math.sqrt( k / mass );
   const expectedSpacing = HBAR * omega;
 
@@ -1387,13 +1390,13 @@ QUnit.test( 'energy error < 1% for default Coulomb', assert => {
   const massC = 1;
   const gridC = standardGrid();
   const potFnC = CoulombSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, electricField: 0, coupling: 1.44
+    numberOfWells: 1, xOffset: 0, yOffset: 0, electricField: 0, coupling: QBSConstants.KE2
   } );
 
   const numericalResultC = NumerovSolver.solve( gridC, potFnC, massC, -17.5, 0 );
   const analyticalResultC = CoulombSolution.solve( gridC, {
     numberOfWells: 1, xOffset: 0, yOffset: 0,
-    energyMin: -17.5, energyMax: 0, electronMasses: massC, electricField: 0, coupling: 1.44
+    energyMin: -17.5, energyMax: 0, electronMasses: massC, electricField: 0, coupling: QBSConstants.KE2
   } );
 
   // The standard 3001-point grid cannot resolve Coulomb excited states (Bohr radius
@@ -1466,7 +1469,7 @@ QUnit.test( 'all eigenvalues shift by yOffset within 1e-4 eV', assert => {
   {
     const w = 2;
     const mass = 1;
-    const k = 32 / ( w * w );
+    const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( w * w );
     const omega = Math.sqrt( k / mass );
     const grid = hoGrid( w, mass );
     const potFn0 = HarmonicOscillatorSolution.createPotentialFunction( {
@@ -1523,7 +1526,7 @@ QUnit.test( 'HO E_n(2m) ≈ E_n(m)/√2 within 0.5%', assert => {
   const w = 2;
   const mass1 = 1;
   const mass2 = 2;
-  const k = 32 / ( w * w );
+  const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( w * w );
   const omega1 = Math.sqrt( k / mass1 );
   const omega2 = Math.sqrt( k / mass2 );
   const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
