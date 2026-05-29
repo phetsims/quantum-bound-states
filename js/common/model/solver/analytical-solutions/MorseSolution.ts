@@ -145,6 +145,7 @@ export default class MorseSolution {
  * @param wellDepth - D_e in eV
  * @param wellWidth - w = 1/a in nm
  * @param electronMasses - Particle mass in electron masses
+ * @param yOffset - Constant energy shift y₀ in eV
  * @param energyMin - Lower bound of requested range (eV)
  * @param energyMax - Upper bound of requested range (eV)
  * @returns Energies (eV) and corresponding vibrational quantum numbers
@@ -193,8 +194,8 @@ function findBoundStateEnergies(
  *
  * For large negative x, z → ∞ and e^{−z/2} suppresses the wavefunction to zero;
  * for large positive x, z → 0 and z^{α/2} → 0.
- * 
- * Note that the z^(alpha/2) can be problematic for large values of alpha, 
+ *
+ * Note that the z^(alpha/2) can be problematic for large values of alpha,
  * as it can lead to overflow. To avoid this, we compute the wave function in log space where is is merely alpha * Math.log( z ) / 2
  * see https://github.com/phetsims/quantum-bound-states/issues/43 for more details.
  *
@@ -202,6 +203,7 @@ function findBoundStateEnergies(
  * @param wellDepth - D_e in eV
  * @param wellWidth - w = 1/a in nm
  * @param electronMasses - Particle mass in electron masses
+ * @param xOffset
  * @param xArray - Array of x positions in nm
  * @returns Normalized wave function values
  */
