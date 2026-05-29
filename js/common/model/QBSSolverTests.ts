@@ -79,38 +79,6 @@ function standardGrid(): XGrid {
   } );
 }
 
-
-/**
- * Adaptive grid for the Harmonic Oscillator.  The standard ±3.5 nm grid is too wide for
- * compact wells (e.g., wellWidth = 0.4 nm): the potential rises so steeply that the
- * classically-forbidden region spans several nm, the integrand grows by 10^{500}+, and
- * the 10-rescaling limit is exhausted before the wave function reaches the allowed region.
- *
- * This function chooses a half-width equal to three times the classical turning point of
- * the highest test state (E ≈ 20.5 ℏω), with a minimum of 3 nm.  For typical sim
- * parameters the grid is [−3, 3] to [−8, 8] nm, giving at most ~3 rescalings.
- *
- * @param wellWidth - well-width parameter in nm; k = 8·WIDTH_HANDLE_ENERGY/wellWidth²
- * @param mass - particle mass in electron masses
- */
-function hoGrid( wellWidth: number, mass: number ): XGrid {
-  const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
-  const omega = Math.sqrt( k / mass );
-
-  // Classical turning point for E ≈ 20.5 ℏω (highest state in the test sweep).
-  const xTurning = Math.sqrt( 41 * HBAR * omega / k );
-
-  // Extend 3× the turning point beyond the center; minimum 3 nm.
-  const halfWidth = Math.max( 3, 3 * xTurning );
-
-  return new XGrid( {
-    xMin: -halfWidth,
-    xMax: halfWidth,
-    numberOfPoints: 1001,
-    tandem: Tandem.OPT_OUT
-  } );
-}
-
 // ─── Assertion helpers ─────────────────────────────────────────────────────────
 
 /**
@@ -479,7 +447,6 @@ QUnit.module( 'Harmonic Oscillator' );
 
 QUnit.test( 'parameter sweep', assert => {
 
-  // The adaptive hoGrid() prevents precision exhaustion for the narrowest wells.
   const wellWidths = SWEEP_WELL_WIDTHS_HO;
   const masses = SWEEP_MASSES;
 
@@ -497,7 +464,7 @@ QUnit.test( 'parameter sweep', assert => {
       } );
 
       configs.push( {
-        grid: hoGrid( wellWidth, mass ),
+        grid: standardGrid(),
         potFn: potFn,
         mass: mass,
         energyMin: 0.1 * E0,
@@ -1120,7 +1087,7 @@ QUnit.test( 'equal spacing matches ℏω within 0.5%', assert => {
   const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
   } );
-  const result = NumerovSolver.solve( hoGrid( wellWidth, mass ), potFn, mass, 0.1 * expectedSpacing / 2, 10.5 * HBAR * omega );
+  const result = NumerovSolver.solve( standardGrid(), potFn, mass, 0.1 * expectedSpacing / 2, 10.5 * HBAR * omega );
 
   assert.ok( result.energies.length >= 3, `HO: need ≥ 3 states, got ${result.energies.length}` );
 
@@ -1446,7 +1413,7 @@ QUnit.test( 'all eigenvalues shift by yOffset within 1e-4 eV', assert => {
     const mass = 1;
     const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( w * w );
     const omega = Math.sqrt( k / mass );
-    const grid = hoGrid( w, mass );
+    const grid = standardGrid();
     const potFn0 = HarmonicOscillatorSolution.createPotentialFunction( {
       numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
     } );
@@ -1508,8 +1475,8 @@ QUnit.test( 'HO E_n(2m) ≈ E_n(m)/√2 within 0.5%', assert => {
     numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
   } );
 
-  const resultHO1 = NumerovSolver.solve( hoGrid( w, mass1 ), potFn, mass1, 0.1 * HBAR * omega1 / 2, 10.5 * HBAR * omega1 );
-  const resultHO2 = NumerovSolver.solve( hoGrid( w, mass2 ), potFn, mass2, 0.1 * HBAR * omega2 / 2, 10.5 * HBAR * omega2 );
+  const resultHO1 = NumerovSolver.solve( standardGrid(), potFn, mass1, 0.1 * HBAR * omega1 / 2, 10.5 * HBAR * omega1 );
+  const resultHO2 = NumerovSolver.solve( standardGrid(), potFn, mass2, 0.1 * HBAR * omega2 / 2, 10.5 * HBAR * omega2 );
 
   const nCheckHOMS = Math.min( resultHO1.energies.length, resultHO2.energies.length, 8 );
   for ( let i = 0; i < nCheckHOMS; i++ ) {
@@ -1769,7 +1736,7 @@ QUnit.test( 'soft-wall potentials — ψ and ψ′ continuous everywhere', asser
     const mass = 1;
     const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
     const omega = Math.sqrt( k / mass );
-    const grid = hoGrid( wellWidth, mass );
+    const grid = standardGrid();
     const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
       numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
     } );
@@ -1783,7 +1750,7 @@ QUnit.test( 'soft-wall potentials — ψ and ψ′ continuous everywhere', asser
     const mass = 1;
     const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
     const omega = Math.sqrt( k / mass );
-    const grid = hoGrid( wellWidth, mass );
+    const grid = standardGrid();
     const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
       numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
     } );
