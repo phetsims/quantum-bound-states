@@ -272,7 +272,7 @@ function associatedLaguerre( n: number, alpha: number, z: number ): number {
 
 /**
  * Natural logarithm of the Gamma function using the Lanczos approximation.
- * This implementaion is based on the implementation in https://en.wikipedia.org/wiki/Lanczos_approximation for more details.
+ * This implementation is based on the implementation in https://en.wikipedia.org/wiki/Lanczos_approximation for more details.
  * It claims to be accurate to 13 decimal places
  * @param z - Positive argument
  * @returns ln(Γ(z))
