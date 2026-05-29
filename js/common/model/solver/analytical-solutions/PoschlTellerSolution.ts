@@ -42,6 +42,7 @@
  */
 
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import QBSConstants from '../../../QBSConstants.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -101,7 +102,10 @@ export default class PoschlTellerSolution {
         const sech = 1 / Math.cosh( ( x - xi ) / wellWidth );
         potentialEnergy += -wellDepth * sech * sech;
       }
-      return potentialEnergy + yOffset + electricField * x;
+      potentialEnergy += yOffset + electricField * x;
+
+      affirm( potentialEnergy < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
+      return potentialEnergy;
     };
   }
 

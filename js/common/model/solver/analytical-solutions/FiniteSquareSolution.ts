@@ -7,7 +7,7 @@
  * finite outside the well. Particles can penetrate into the classically forbidden
  * regions, demonstrating quantum tunneling.
  *
- * POTENTIAL (with xOffset and yOffset):
+ * POTENTIAL for single well with no electric field (with xOffset and yOffset):
  *   V(x) = yOffset           for |x − x₀| < L/2  (inside well)
  *   V(x) = yOffset + V₀     for |x − x₀| > L/2  (outside well)
  *
@@ -31,11 +31,16 @@
  *   - Odd:  ψ(x) = B sign(x − x₀) exp(−κ|x − x₀|)
  *   where k = √(2m(E_phys − yOffset)/ℏ²) and κ = √(2m(yOffset + V₀ − E_phys)/ℏ²)
  *
+ *  The createPotentialFunction method is more general than the solve method, 
+ *  it allows for multiple wells and a non-zero electric field. 
+ *  See https://github.com/phetsims/quantum-bound-states/issues/43
+ * 
  * @author Martin Veillette
  */
 
 import { findRoot } from '../../../../../../dot/js/util/findRoot.js';
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import QBSConstants from '../../../QBSConstants.js';
 import { BoundStateResult } from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
@@ -73,7 +78,6 @@ export default class FiniteSquareSolution {
     // Not intended for instantiation.
   }
 
-
   /**
    * Creates the potential energy function V(x) for one or more finite square wells.
    *
@@ -85,8 +89,8 @@ export default class FiniteSquareSolution {
    *
    * This potential definition is general: it is valid for multiple wells and for a non-zero
    * electric field. The analytical solve() method in this class is more restricted—it only
-   * applies to a single well with no electric field.
-   *
+   * applies to a single well with no electric field. See https://github.com/phetsims/quantum-bound-states/issues/43
+   * 
    * @param parameters - See PotentialParameters
    * @returns Potential function V(x) in eV
    */
@@ -99,15 +103,18 @@ export default class FiniteSquareSolution {
     const centerToCenter = wellWidth + separation; // center-to-center spacing between adjacent wells
 
     return ( x: number ) => {
-      let pe = yOffset + wellDepth;
+      let potentialEnergy = wellDepth;
       for ( let i = 1; i <= numberOfWells; i++ ) {
         const xi = centerToCenter * ( i - ( numberOfWells + 1 ) / 2 );
         if ( ( x - xOffset ) >= xi - wellWidth / 2 && ( x - xOffset ) <= xi + wellWidth / 2 ) {
-          pe = yOffset;
+          potentialEnergy = 0;
           break;
         }
       }
-      return pe + electricField * x;
+      potentialEnergy += yOffset + electricField * x;
+
+      affirm( potentialEnergy < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
+      return potentialEnergy;
     };
   }
 
