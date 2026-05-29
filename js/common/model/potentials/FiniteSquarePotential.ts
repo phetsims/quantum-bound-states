@@ -9,7 +9,6 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
-import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import WithOptional from '../../../../../phet-core/js/types/WithOptional.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
@@ -120,7 +119,8 @@ export default class FiniteSquarePotential extends QuantumPotential {
         wellWidth: this.wellWidthProperty.value,
         wellDepth: this.wellDepthProperty.value,
         electronMasses: this.electronMassesProperty.value,
-        electricField: this.electricFieldProperty.value
+        electricField: this.electricFieldProperty.value,
+        separation: 0
       } );
     }
     else {
@@ -128,42 +128,20 @@ export default class FiniteSquarePotential extends QuantumPotential {
       // For multi-well or with electric field, use Numerov.
       return NumerovSolver.solve(
         xGrid,
-        x => this.getPotentialEnergyAt( x ),
+        FiniteSquareSolution.createPotentialFunction( {
+          numberOfWells: this.numberOfWellsProperty.value,
+          xOffset: this.xOffsetProperty.value,
+          yOffset: this.yOffsetProperty.value,
+          wellWidth: this.wellWidthProperty.value,
+          wellDepth: this.wellDepthProperty.value,
+          electricField: this.electricFieldProperty.value,
+          separation: this.separationProperty.value
+        } ),
         this.electronMassesProperty.value,
         this.getMinSolverEnergy(),
         this.getMaxSolverEnergy()
       );
     }
-  }
-
-  //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with FiniteSquareSolution.createPotentialFunction
-  /**
-   * Gets the potential energy (y-value) at a specified x-coordinate.
-   */
-  public getPotentialEnergyAt( x: number ): number {
-
-    const n = this.numberOfWellsProperty.value;
-    const wellWidth = this.wellWidthProperty.value;
-    const xOffset = this.xOffsetProperty.value;
-    const yOffset = this.yOffsetProperty.value;
-    const separation = wellWidth + this.separationProperty.value;
-
-    let pe = yOffset + this.wellDepthProperty.value;
-
-    // From BSSquarePotential.java
-    for ( let i = 1; i <= n; i++ ) {
-      const xi = separation * ( i - ( ( n + 1 ) / 2 ) );
-      if ( ( ( x - xOffset ) >= xi - ( wellWidth / 2 ) ) && ( ( x - xOffset ) <= xi + ( wellWidth / 2 ) ) ) {
-        pe = yOffset;
-        break;
-      }
-    }
-
-    // Apply electric field.
-    pe += this.getYOffsetForElectricField( x );
-
-    affirm( pe < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
-    return pe;
   }
 
   public override getMinSolverEnergy(): number {

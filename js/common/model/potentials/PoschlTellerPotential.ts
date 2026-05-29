@@ -12,7 +12,6 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -127,7 +126,8 @@ export default class PoschlTellerPotential extends QuantumPotential {
         wellWidth: this.wellWidthProperty.value,
         wellDepth: this.wellDepthProperty.value,
         electronMasses: this.electronMassesProperty.value,
-        electricField: this.electricFieldProperty.value
+        electricField: this.electricFieldProperty.value,
+        spacing: 0
       } );
     }
     else {
@@ -135,43 +135,21 @@ export default class PoschlTellerPotential extends QuantumPotential {
       // For multi-well or with electric field, use Numerov.
       return NumerovSolver.solve(
         xGrid,
-        x => this.getPotentialEnergyAt( x ),
+        PoschlTellerSolution.createPotentialFunction( {
+          numberOfWells: this.numberOfWellsProperty.value,
+          xOffset: this.xOffsetProperty.value,
+          yOffset: this.yOffsetProperty.value,
+          wellWidth: this.wellWidthProperty.value,
+          wellDepth: this.wellDepthProperty.value,
+          electricField: this.electricFieldProperty.value,
+          spacing: this.spacingProperty.value
+        } ),
         this.electronMassesProperty.value,
         this.getMinSolverEnergy(),
         this.getMaxSolverEnergy()
       );
     }
     return result;
-  }
-
-  //TODO https://github.com/phetsims/quantum-bound-states/issues/43 Replace with PoschlTellerSolution.createPotentialFunction
-  /**
-   * Gets the potential energy (eV) at a specified x-coordinate (nm).
-   */
-  public getPotentialEnergyAt( x: number ): number {
-
-    const n = this.numberOfWellsProperty.value;
-    const wellWidth = this.wellWidthProperty.value;
-    const wellDepth = this.wellDepthProperty.value;
-    const spacing = this.spacingProperty.value;
-    const xOffset = this.xOffsetProperty.value;
-
-    // Sum contributions from all N wells symmetrically centered around xOffset.
-    let potentialEnergy = 0;
-    for ( let i = 1; i <= n; i++ ) {
-      const xi = xOffset + spacing * ( i - ( n + 1 ) / 2 );
-      const coshValue = Math.cosh( ( x - xi ) / wellWidth );
-      potentialEnergy += -wellDepth / ( coshValue * coshValue );
-    }
-
-    // Adjust for y-offset.
-    potentialEnergy += this.yOffsetProperty.value;
-
-    // Apply electric field.
-    potentialEnergy += this.getYOffsetForElectricField( x );
-
-    affirm( potentialEnergy < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
-    return potentialEnergy;
   }
 
   public override getMinSolverEnergy(): number {
@@ -224,7 +202,6 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const shape = new Shape();
     for ( let x = xMin; x <= xMax; x += dx ) {
 
-      //TODO Duplication here with getPotentialEnergyAt
       const coshValue = Math.cosh( x / wellWidth );
       let y = -wellDepth / ( coshValue * coshValue );
 

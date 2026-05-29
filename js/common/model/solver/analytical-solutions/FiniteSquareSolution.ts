@@ -57,6 +57,7 @@ type PotentialParameters = {
   wellWidth: number; // Width of the well L in nm
   wellDepth: number; // Depth of the well V₀ in eV
   electricField: number; // Electric field in V/nm
+  separation?: number; // Wall-to-wall distance between adjacent wells in nm (default: 0)
 };
 
 // Parameters for solve method
@@ -72,24 +73,41 @@ export default class FiniteSquareSolution {
     // Not intended for instantiation.
   }
 
+
   /**
-   * Creates the potential function for a single-well Finite Square potential.
-   * V(x) = yOffset for |x − x₀| < L/2, V(x) = yOffset + V₀ for |x − x₀| > L/2
+   * Creates the potential energy function V(x) for one or more finite square wells.
+   *
+   * At each position x, the function evaluates a piecewise-constant baseline plus a linear
+   * electric-field term. The baseline is yOffset inside any well and yOffset + wellDepth
+   * outside all wells; wells are placed symmetrically about xOffset with center-to-center
+   * spacing wellWidth + separation. The returned function adds electricField * x to that
+   * baseline, so a uniform electric field tilts the entire potential.
+   *
+   * This potential definition is general: it is valid for multiple wells and for a non-zero
+   * electric field. The analytical solve() method in this class is more restricted—it only
+   * applies to a single well with no electric field.
+   *
+   * @param parameters - See PotentialParameters
+   * @returns Potential function V(x) in eV
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
     const { numberOfWells, xOffset, yOffset, wellWidth, wellDepth, electricField } = parameters;
-    affirm( numberOfWells === 1, 'FiniteSquareSolution does not support multiple wells' );
-    affirm( electricField === 0, 'FiniteSquareSolution does not support electric field' );
+    const separation = parameters.separation ?? 0;
+
+    const centerToCenter = wellWidth + separation; // center-to-center spacing between adjacent wells
 
     return ( x: number ) => {
-      if ( Math.abs( x - xOffset ) < wellWidth / 2 ) {
-        return yOffset; // Inside well
+      let pe = yOffset + wellDepth;
+      for ( let i = 1; i <= numberOfWells; i++ ) {
+        const xi = centerToCenter * ( i - ( numberOfWells + 1 ) / 2 );
+        if ( ( x - xOffset ) >= xi - wellWidth / 2 && ( x - xOffset ) <= xi + wellWidth / 2 ) {
+          pe = yOffset;
+          break;
+        }
       }
-      else {
-        return yOffset + wellDepth; // Outside well
-      }
+      return pe + electricField * x;
     };
   }
 

@@ -8,7 +8,7 @@
  * For generality, we have included an offset y₀ and offset x₀ 
  * so that the potential can be shifted horizontally and vertically.
  *
- * POTENTIAL:
+ * POTENTIAL for single well with no electric field (with xOffset and yOffset):
  *   V(x) = −V₀ / cosh²((x − x₀)/w) + y₀
  *
  *   V(x₀)  = −V₀ + y₀     (well bottom)
@@ -34,6 +34,9 @@
  *
  *   The wave functions are normalized so that the integral of |ψ_n(x)|² over all x is 1.
  * 
+ *  The createPotentialFunction method is more general than the solve method, 
+ *  it allows for multiple wells and a non-zero electric field. 
+ *  
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -55,6 +58,7 @@ type PotentialParameters = {
   wellWidth: number; // Width parameter w in nm
   wellDepth: number; // Well depth V₀ in eV (positive value)
   electricField: number; // Electric field in V/nm
+  spacing?: number; // Center-to-center distance between adjacent wells in nm (default: 0)
 };
 
 // Parameters for solve method
@@ -71,8 +75,16 @@ export default class PoschlTellerSolution {
   }
 
   /**
-   * Creates the potential function for a single-well Pöschl-Teller potential.
-   * V(x) = −V₀ / cosh²((x − x₀)/w) + y₀
+   * Creates the potential energy function V(x) for one or more Pöschl-Teller wells.
+   *
+   * At each position x, the function sums a hyperbolic-secant-squared well term for every
+   * well, then adds a constant vertical offset and a linear electric-field term:
+   * V(x) = Σᵢ −V₀/cosh²((x − xᵢ)/w) + y₀ + electricField·x. Wells are placed
+   * symmetrically about xOffset with center-to-center spacing given by spacing.
+   *
+   * This potential definition is general: it is valid for multiple wells and for a non-zero
+   * electric field. The analytical solve() method in this class is more restricted, it only
+   * applies to a single well with no electric field. See https://github.com/phetsims/quantum-bound-states/issues/43
    *
    * @param parameters - See PotentialParameters
    * @returns Potential function V(x) in eV
@@ -80,12 +92,16 @@ export default class PoschlTellerSolution {
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     const { numberOfWells, xOffset, yOffset, wellWidth, wellDepth, electricField } = parameters;
-    affirm( numberOfWells === 1, 'PoschlTellerSolution does not support multiple wells' );
-    affirm( electricField === 0, 'PoschlTellerSolution does not support electric field' );
+    const spacing = parameters.spacing ?? 0;
 
     return ( x: number ) => {
-      const sech = 1 / Math.cosh( ( x - xOffset ) / wellWidth );
-      return -wellDepth * sech * sech + yOffset;
+      let potentialEnergy = 0;
+      for ( let i = 1; i <= numberOfWells; i++ ) {
+        const xi = xOffset + spacing * ( i - ( numberOfWells + 1 ) / 2 );
+        const sech = 1 / Math.cosh( ( x - xi ) / wellWidth );
+        potentialEnergy += -wellDepth * sech * sech;
+      }
+      return potentialEnergy + yOffset + electricField * x;
     };
   }
 
