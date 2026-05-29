@@ -100,7 +100,6 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
       affirm( this.electricFieldProperty.value === 0, 'AsymmetricTrianglePotential does not support electric field.' );
     }
 
-    // TODO: this is not ready for prime time
     return AsymmetricTriangleSolution.solve( xGrid, {
       numberOfWells: this.numberOfWellsProperty.value,
       energyMin: this.getMinSolverEnergy(),
