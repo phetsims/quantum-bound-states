@@ -179,3 +179,85 @@ export function computeOverlap( psi1: number[], psi2: number[], dx: number ): nu
 export function allFinite( arr: number[] ): boolean {
   return arr.every( v => isFinite( v ) );
 }
+
+/**
+ * Returns max |ψ[i+1] − ψ[i]| / max|ψ| over the index range [iStart, iEnd).
+ * A large value at a single index indicates a jump discontinuity in ψ.
+ */
+export function maxPsiJump( psi: number[], iStart: number, iEnd: number ): number {
+  const maxAbs = Math.max( ...psi.map( Math.abs ) );
+  if ( maxAbs === 0 ) { return 0; }
+  let max = 0;
+  for ( let i = iStart; i < iEnd; i++ ) {
+    max = Math.max( max, Math.abs( psi[ i + 1 ] - psi[ i ] ) / maxAbs );
+  }
+  return max;
+}
+
+/**
+ * Returns max |ψ'[j+1] − ψ'[j]| / max|ψ'| over derivative indices [jStart, jEnd),
+ * where ψ' is estimated by central differences at all interior grid points.
+ * A large value at a single index indicates a kink (discontinuous ψ').
+ */
+export function maxDPsiJump( psi: number[], dx: number, jStart: number, jEnd: number ): number {
+  const N = psi.length;
+  const dPsi: number[] = [];
+  for ( let i = 1; i < N - 1; i++ ) {
+    dPsi.push( ( psi[ i + 1 ] - psi[ i - 1 ] ) / ( 2 * dx ) );
+  }
+  const maxAbsDPsi = Math.max( ...dPsi.map( Math.abs ) );
+  if ( maxAbsDPsi === 0 ) { return 0; }
+  let max = 0;
+  const limit = Math.min( jEnd, dPsi.length - 1 );
+  for ( let j = jStart; j < limit; j++ ) {
+    max = Math.max( max, Math.abs( dPsi[ j + 1 ] - dPsi[ j ] ) / maxAbsDPsi );
+  }
+  return max;
+}
+
+/**
+ * Assert that every bound state returned by the solver is continuous in ψ and ψ'.
+ *
+ * @param assert - QUnit assert object
+ * @param result - Solver result containing waveFunctions array
+ * @param dx - Grid spacing in nm
+ * @param skipEdgePoints - number of grid points to exclude at each end.
+ *   Pass 1 for infinite-wall potentials (ISW, ISP) whose Dirichlet boundary makes
+ *   ψ' physically discontinuous at the hard wall, which is the grid edge.
+ *   Pass 0 for soft-wall potentials where ψ and ψ' are continuous everywhere.
+ * @param label - label used in assertion messages
+ */
+export function assertWaveFunctionContinuity(
+  assert: Assert,
+  result: { waveFunctions: number[][] },
+  dx: number,
+  skipEdgePoints: number,
+  label: string
+): void {
+
+  // Threshold for ψ: max change per grid step, normalised by max|ψ|.
+  // For a smooth wave function the change per step is ~kwave·dx.  HO state 10 on the
+  // hoGrid (dx ≈ 0.012 nm, kwave ≈ 14 nm⁻¹) reaches ~14 %; we set 0.15 to give margin.
+  const PSI_JUMP_THRESHOLD = 0.15;
+
+  // Threshold for ψ': max change per grid step in the central-difference derivative,
+  // normalised by max|ψ'|.  ISW odd-parity states (state 1, 3, …) have a node at x = 0
+  // (the Numerov matching point), making the rescaling ill-conditioned and introducing a
+  // matching-point kink of ≈ 26 %.  We set 0.30 to detect genuine (> 50 %) kinks while
+  // tolerating this known numerical artifact.
+  const DPSI_JUMP_THRESHOLD = 0.30;
+
+  for ( let n = 0; n < result.waveFunctions.length; n++ ) {
+    const psi = result.waveFunctions[ n ];
+    const N = psi.length;
+
+    const psiJump = maxPsiJump( psi, skipEdgePoints, N - 1 - skipEdgePoints );
+    assert.ok( psiJump < PSI_JUMP_THRESHOLD,
+      `${label} state ${n}: ψ jump = ${psiJump.toExponential( 2 )} must be < ${PSI_JUMP_THRESHOLD}` );
+
+    // Derivative array has N-2 elements (interior points); skip skipEdgePoints at each end.
+    const dPsiJump = maxDPsiJump( psi, dx, skipEdgePoints, N - 2 - skipEdgePoints );
+    assert.ok( dPsiJump < DPSI_JUMP_THRESHOLD,
+      `${label} state ${n}: ψ' jump = ${dPsiJump.toExponential( 2 )} must be < ${DPSI_JUMP_THRESHOLD}` );
+  }
+}

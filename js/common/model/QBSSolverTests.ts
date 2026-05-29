@@ -13,11 +13,18 @@
  *   4. Node counting      – eigenstate n (0-indexed) has exactly n interior nodes
  *                           (tested only for potentials with reliable node detection).
  *
- * Additional cross-potential tests cover parity, orthogonality, and direct comparison
- * against analytical solutions (ported from testSolvers.ts).
+ * Additional cross-potential tests cover:
+ *   - Parity (even/odd symmetry) and orthogonality (∫ψ_m ψ_n dx ≈ 0 for m ≠ n).
+ *   - Direct comparison against analytical solutions for FSW, ISW, ISP, HO, Morse,
+ *     Pöschl-Teller, Asymmetric Triangle, and Coulomb.
+ *   - Wavefunction continuity: ψ and ψ' must be continuous everywhere for soft-wall
+ *     potentials, and at interior points for infinite-wall potentials (ISW, ISP).
+ *
+ * Helper utilities (grid factories, node-counting, parity, RMS error, continuity checks)
+ * live in QBSSolverTestUtils.ts and are shared with testSolvers.ts.
  * 
  * Written with the help of Claude
- * 
+ *
  * @author Martin Veillette
  */
 
@@ -34,7 +41,7 @@ import InfiniteStepSolution from './solver/analytical-solutions/InfiniteStepSolu
 import MorseSolution from './solver/analytical-solutions/MorseSolution.js';
 import PoschlTellerSolution from './solver/analytical-solutions/PoschlTellerSolution.js';
 import NumerovSolver from './solver/NumerovSolver.js';
-import { allFinite, computeNorm, computeOverlap, countNodes, getParity, waveFunctionRMSError } from './solver/QBSSolverTestUtils.js';
+import { allFinite, assertWaveFunctionContinuity, computeNorm, computeOverlap, countNodes, getParity, waveFunctionRMSError } from './solver/QBSSolverTestUtils.js';
 import XGrid from './solver/XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
@@ -1767,5 +1774,133 @@ QUnit.test( 'Poschl-Teller with E-field has mixed-parity states', assert => {
         }
       }
     }
+  }
+} );
+
+// ============================================================================
+// Module: Wavefunction continuity
+// ============================================================================
+
+QUnit.module( 'Wavefunction continuity' );
+
+QUnit.test( 'soft-wall potentials — ψ and ψ′ continuous everywhere', assert => {
+
+  // Finite Square Well
+  {
+    const grid = standardGrid();
+    const potFn = FiniteSquareSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 2, wellDepth: 10, electricField: 0
+    } );
+    const result = NumerovSolver.solve( grid, potFn, 1, 0, 10 );
+    assertWaveFunctionContinuity( assert, result, grid.dx, 0, 'FSW L=2 V₀=10' );
+  }
+
+  // Harmonic Oscillator (typical width)
+  {
+    const wellWidth = 2;
+    const mass = 1;
+    const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
+    const omega = Math.sqrt( k / mass );
+    const grid = hoGrid( wellWidth, mass );
+    const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
+    } );
+    const result = NumerovSolver.solve( grid, potFn, mass, 0.1 * HBAR * omega / 2, 10.5 * HBAR * omega );
+    assertWaveFunctionContinuity( assert, result, grid.dx, 0, 'HO w=2' );
+  }
+
+  // Harmonic Oscillator (narrow — exercises the tightest turning-point region)
+  {
+    const wellWidth = 0.5;
+    const mass = 1;
+    const k = ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
+    const omega = Math.sqrt( k / mass );
+    const grid = hoGrid( wellWidth, mass );
+    const potFn = HarmonicOscillatorSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0, springConstant: k, electricField: 0
+    } );
+    const result = NumerovSolver.solve( grid, potFn, mass, 0.1 * HBAR * omega / 2, 10.5 * HBAR * omega );
+    assertWaveFunctionContinuity( assert, result, grid.dx, 0, 'HO w=0.5' );
+  }
+
+  // Morse
+  {
+    const wellWidth = 1;
+    const wellDepth = 5;
+    const mass = 1;
+    const grid = morseGrid( wellWidth );
+    const potFn = MorseSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0,
+      wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+    } );
+    const result = NumerovSolver.solve( grid, potFn, mass, -wellDepth, 0 );
+    assertWaveFunctionContinuity( assert, result, grid.dx, 0, 'Morse w=1 Dₑ=5' );
+  }
+
+  // Pöschl-Teller
+  {
+    const grid = standardGrid();
+    const potFn = PoschlTellerSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 0.5, wellDepth: 10, electricField: 0
+    } );
+    const result = NumerovSolver.solve( grid, potFn, 1, -30, 0 );
+    assertWaveFunctionContinuity( assert, result, grid.dx, 0, 'PT w=0.5 V₀=10' );
+  }
+
+  // Asymmetric Triangle
+  {
+    const wellWidth = 2;
+    const wellDepth = 10;
+    const grid = tightGrid( wellWidth / 2 );
+    const potFn = AsymmetricTriangleSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0,
+      wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+    } );
+    const result = NumerovSolver.solve( grid, potFn, 1, 0, wellDepth );
+    assertWaveFunctionContinuity( assert, result, grid.dx, 0, 'ATri w=2 V₀=10' );
+  }
+
+  // Coulomb
+  {
+    const grid = standardGrid();
+    const potFn = CoulombSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0, electricField: 0, coupling: QBSConstants.KE2
+    } );
+    const result = NumerovSolver.solve( grid, potFn, 1, -17.5, 0 );
+    // Standard grid cannot resolve Coulomb excited states (Bohr radius ~0.053 nm, dx ≈ 0.002 nm);
+    // only the ground state wavefunction is well-formed — check only state 0.
+    const coulombGroundOnly = { waveFunctions: result.waveFunctions.slice( 0, 1 ) };
+    assertWaveFunctionContinuity( assert, coulombGroundOnly, grid.dx, 0, 'Coulomb' );
+  }
+} );
+
+QUnit.test( 'infinite-wall potentials — ψ and ψ′ continuous at interior points (edges excluded)', assert => {
+
+  // Infinite Square Well — ψ' is discontinuous at the hard walls (grid edges), so skip them.
+  {
+    const L = 2;
+    const mass = 1;
+    const E1 = Math.PI * Math.PI * HBAR * HBAR / ( 2 * mass * L * L );
+    const grid = tightGrid( L / 2 );
+    const potFn = InfiniteSquareSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, electricField: 0
+    } );
+    const result = NumerovSolver.solve( grid, potFn, mass, 0, 100 * E1 );
+    assertWaveFunctionContinuity( assert, result, grid.dx, 1, 'ISW L=2' );
+  }
+
+  // Infinite Step Potential — same hard-wall edges; interior step at x=0 keeps ψ and ψ' continuous.
+  {
+    const wellWidth = 2;
+    const stepHeight = 5;
+    const mass = 1;
+    const E1_ISW = Math.PI * Math.PI * HBAR * HBAR / ( 2 * mass * wellWidth * wellWidth );
+    const grid = tightGrid( wellWidth / 2 );
+    const potFn = InfiniteStepSolution.createPotentialFunction( {
+      numberOfWells: 1, xOffset: 0, yOffset: 0,
+      wellWidth: wellWidth, stepHeight: stepHeight, electricField: 0
+    } );
+    const result = NumerovSolver.solve( grid, potFn, mass, 0.1 * E1_ISW, 100 * E1_ISW );
+    assertWaveFunctionContinuity( assert, result, grid.dx, 1, 'ISP w=2 h=5' );
   }
 } );
