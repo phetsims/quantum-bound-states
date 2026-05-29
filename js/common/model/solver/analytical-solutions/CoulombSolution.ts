@@ -51,11 +51,10 @@ affirm( MAGNITUDE_AT_SINGULARITY > 0, 'MAGNITUDE_AT_SINGULARITY must be positive
 
 // Parameters for createPotentialFunction method
 type PotentialParameters = {
-  numberOfWells: number;
+  numberOfWells: number; // number of wells, must be 1 for CoulombSolution
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
-  wellWidth: number; // Width of the well L in nm,
-  electricField: number; // Electric field in V/nm
+  electricField: number; // Electric field in V/nm, must be 0 for CoulombSolution
   coupling: number; // Coulomb coupling K = ke² in eV·nm (positive)
 };
 
@@ -164,7 +163,6 @@ export default class CoulombSolution {
       numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
-      wellWidth: parameters.wellWidth,
       electricField: electricField,
       coupling: coupling
     } );
