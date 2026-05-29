@@ -6,8 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
@@ -34,14 +36,21 @@ export type CoulombPotentialOptions = SelfOptions &
 
 export default class CoulombPotential extends QuantumPotential {
 
+  // The energy (eV above the well minimum) at which the classical turning-point width is measured.
+  // At that energy the turning point is r = coupling / WIDTH_HANDLE_ENERGY, giving
+  // full width w = 2r, so coupling = w * WIDTH_HANDLE_ENERGY / 2.
+  public static readonly WIDTH_HANDLE_ENERGY = 4; // eV
+
   public readonly wellWidthProperty: NumberProperty;
+  private readonly couplingProperty: TReadOnlyProperty<number>;
 
   public constructor( providedOptions: CoulombPotentialOptions ) {
 
     const options = optionize<CoulombPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ), // for 1 well
+      // Default width gives coupling = 0.72 * 4 / 2 = 1.44 eV·nm (the physical ke²).
+      wellWidthRange: new RangeWithValue( 0.2, 0.72, 0.72 ),
 
       // QuantumPotentialOptions
       energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
@@ -57,6 +66,11 @@ export default class CoulombPotential extends QuantumPotential {
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
     } );
+
+    // coupling K = w * E_ref / 2, where w is the well width and E_ref = WIDTH_HANDLE_ENERGY.
+    this.couplingProperty = new DerivedProperty( [ this.wellWidthProperty ],
+      wellWidth => wellWidth * CoulombPotential.WIDTH_HANDLE_ENERGY / 2
+    );
 
     // Changes to Properties instantiated by this class trigger notification.
     Multilink.multilink( [ this.wellWidthProperty ], () => {
@@ -96,7 +110,8 @@ export default class CoulombPotential extends QuantumPotential {
       yOffset: this.yOffsetProperty.value,
       wellWidth: this.wellWidthProperty.value,
       electronMasses: this.electronMassesProperty.value,
-      electricField: this.electricFieldProperty.value
+      electricField: this.electricFieldProperty.value,
+      coupling: this.couplingProperty.value
     } );
   }
 

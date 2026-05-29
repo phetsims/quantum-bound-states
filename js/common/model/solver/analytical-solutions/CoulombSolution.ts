@@ -8,7 +8,7 @@
  * which is the standard "1D Coulomb" choice — antisymmetric wave functions vanish at
  * x = x₀ and so avoid the singularity.
  *
- * POTENTIAL (well centered at x = x₀ in the lab frame):
+ * POTENTIAL (singularity at x = x₀, energy reference y₀):
  *   V(x) = energyOffset - K / |x - x₀|        where K = ke²  (eV·nm)
  *
  * ENERGY EIGENVALUES (Bohr formula):
@@ -45,10 +45,6 @@ const HBAR = NumerovSolver.HBAR;
 // states are physically relevant for the sim. The Java reference also stopped at 10.
 const MAX_PRINCIPAL_QUANTUM_NUMBER = 10;
 
-// Coulomb coupling K = ke² in eV·nm (positive), see CoulombPotential.solve
-const COUPLING = 1.44;
-affirm( COUPLING > 0, 'COUPLING must be positive' );
-
 // Magnitude of the singularity at x = x₀ in eV (positive)
 const MAGNITUDE_AT_SINGULARITY = 1e5;
 affirm( MAGNITUDE_AT_SINGULARITY > 0, 'MAGNITUDE_AT_SINGULARITY must be positive' );
@@ -60,6 +56,7 @@ type PotentialParameters = {
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm,
   electricField: number; // Electric field in V/nm
+  coupling: number; // Coulomb coupling K = ke² in eV·nm (positive)
 };
 
 // Parameters for solve method
@@ -79,15 +76,18 @@ export default class CoulombSolution {
   /**
    * Creates the potential function for a single-well 1D Coulomb potential.
    *
-   * V(x) = y₀ - K / |x - x₀|, with the singularity at x = x₀ capped so that a discrete
+   * V(x) = y₀ - K / |x - x₀|, 
+   * and K is the Coulomb coupling.
+   * with the singularity at x = x₀ capped so that a discrete
    * grid that includes x = x₀ sees a finite (but very deep) value.
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
-    const { numberOfWells, xOffset, yOffset, electricField } = parameters;
+    const { numberOfWells, xOffset, yOffset, electricField, coupling } = parameters;
     affirm( numberOfWells === 1, 'CoulombSolution does not support multiple wells' );
     affirm( electricField === 0, 'CoulombSolution does not support electric field' );
+    affirm( coupling > 0, 'coupling must be positive' );
 
     return ( x: number ) => {
       const ax = Math.abs( x - xOffset );
@@ -96,36 +96,38 @@ export default class CoulombSolution {
         intrinsic = -MAGNITUDE_AT_SINGULARITY;
       }
       else {
-        const v = -COUPLING / ax;
+        const v = -coupling / ax;
         intrinsic = ( v < -MAGNITUDE_AT_SINGULARITY ) ? -MAGNITUDE_AT_SINGULARITY : v;
       }
       return yOffset + intrinsic;
     };
   }
 
-  //TODO https://github.com/phetsims/quantum-bound-states/issues/60 Add support for wellWidth
   /**
    * Analytical solution for a single-well 1D Coulomb potential.
    *
-   * Energies are accepted and returned in the lab frame. y₀ shifts V and all eigenvalues by
-   * the same constant; the Coulomb nucleus is at x₀ and wave functions use (x − x₀).
+   * Energies are accepted and returned with the energy offset y₀ included (matching V(x) on the
+   * grid). The solver works in the intrinsic Coulomb frame (y₀ = 0, standard −K/|x − x₀| form)
+   * and adds y₀ back to each eigenvalue before returning. The singularity is at x₀; wave
+   * functions are built from the local coordinate (x − x₀).
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, electronMasses, electricField } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, electronMasses, electricField, coupling } = parameters;
     affirm( numberOfWells === 1, 'CoulombSolution does not support multiple wells' );
     affirm( electricField === 0, 'CoulombSolution does not support electric field' );
+    affirm( coupling > 0, 'coupling must be positive' );
 
     // Work in the Coulomb frame where the potential floor is the standard 1/|x| form (no y₀).
     const intrinsicEnergyMin = energyMin - yOffset;
     const intrinsicEnergyMax = energyMax - yOffset;
 
     // Energy scale: |E_1| = m K² / ( 2 ℏ² ). Then E_n = -energyScale / n² (intrinsic energies).
-    const energyScale = ( electronMasses * COUPLING * COUPLING ) / ( 2 * HBAR * HBAR );
+    const energyScale = ( electronMasses * coupling * coupling ) / ( 2 * HBAR * HBAR );
 
     // Bohr radius for this (mass, coupling): a = ℏ² / ( m K ).
-    const bohrRadius = ( HBAR * HBAR ) / ( electronMasses * COUPLING );
+    const bohrRadius = ( HBAR * HBAR ) / ( electronMasses * coupling );
 
     // Collect the principal quantum numbers whose energies fall inside the requested window.
     const quantumNumbers: number[] = [];
@@ -133,7 +135,7 @@ export default class CoulombSolution {
     for ( let n = 1; n <= MAX_PRINCIPAL_QUANTUM_NUMBER; n++ ) {
       const intrinsicEnergy = -energyScale / ( n * n );
 
-      // Lab-frame eigenvalue E_n' = intrinsic E_n + y₀.
+      // Display eigenvalue: intrinsic E_n + y₀.
       if ( intrinsicEnergy >= intrinsicEnergyMin && intrinsicEnergy <= intrinsicEnergyMax ) {
         quantumNumbers.push( n );
         energies.push( intrinsicEnergy + yOffset );
@@ -163,8 +165,9 @@ export default class CoulombSolution {
       numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
-      wellWidth: wellWidth,
-      electricField: electricField
+      wellWidth: parameters.wellWidth,
+      electricField: electricField,
+      coupling: coupling
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 

@@ -7,10 +7,8 @@
  */
 
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../../scenery/js/nodes/Text.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import WellWidthControl from './WellWidthControl.js';
 import XOffsetControl from './XOffsetControl.js';
@@ -30,12 +28,6 @@ export default class ConfigureCoulombDialog extends ConfigureQuantumPotentialDia
 
     if ( potential.yOffsetProperty.range.getLength() > 0 ) {
       controls.push( new YOffsetControl( potential.yOffsetProperty, time ) );
-    }
-
-    if ( controls.length === 0 ) {
-      controls.push( new Text( 'Nothing to configure', {
-        font: QBSConstants.CONTROL_FONT
-      } ) );
     }
 
     super( 'Coulomb', controls );
