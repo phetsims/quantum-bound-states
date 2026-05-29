@@ -594,15 +594,15 @@
           "value": "{$width} nanometers"
         }
       },
-      "finiteSquareSpacingHandle": {
+      "finiteSquareSeparationHandle": {
         "accessibleName": {
-          "value": "spacing handle"
+          "value": "separation handle"
         },
         "accessibleHelpText": {
-          "value": "TODO.finiteSquareSpacingHandle.accessibleHelpText"
+          "value": "TODO.finiteSquareSeparationHandle.accessibleHelpText"
         },
         "accessibleObjectResponse": {
-          "value": "{$spacing} nanometers"
+          "value": "{$separation} nanometers"
         }
       },
       "harmonicOscillatorWidthHandle": {
@@ -693,15 +693,15 @@
           "value": "{$width} nanometers"
         }
       },
-      "poschlTellerSeparationHandle": {
+      "poschlTellerSpacingHandle": {
         "accessibleName": {
-          "value": "separation handle"
+          "value": "spacing handle"
         },
         "accessibleHelpText": {
-          "value": "TODO.poschlTellerSeparationHandle.accessibleHelpText"
+          "value": "TODO.poschlTellerSpacingHandle.accessibleHelpText"
         },
         "accessibleObjectResponse": {
-          "value": "{$separation} nanometers"
+          "value": "{$spacing} nanometers"
         }
       }
     },

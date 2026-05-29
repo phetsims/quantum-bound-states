@@ -306,10 +306,10 @@ a11y:
       accessibleName:           width handle
       accessibleHelpText:       TODO.finiteSquareWidthHandle.accessibleHelpText
       accessibleObjectResponse: '{$width} nanometers'
-    finiteSquareSpacingHandle:
-      accessibleName:           spacing handle
-      accessibleHelpText:       TODO.finiteSquareSpacingHandle.accessibleHelpText
-      accessibleObjectResponse: '{$spacing} nanometers'
+    finiteSquareSeparationHandle:
+      accessibleName:           separation handle
+      accessibleHelpText:       TODO.finiteSquareSeparationHandle.accessibleHelpText
+      accessibleObjectResponse: '{$separation} nanometers'
     harmonicOscillatorWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       TODO.harmonicOscillatorWidthHandle.accessibleHelpText
@@ -342,10 +342,10 @@ a11y:
       accessibleName:           width handle
       accessibleHelpText:       TODO.poschlTellerWidthHandle.accessibleHelpText
       accessibleObjectResponse: '{$width} nanometers'
-    poschlTellerSeparationHandle:
-      accessibleName:           separation handle
-      accessibleHelpText:       TODO.poschlTellerSeparationHandle.accessibleHelpText
-      accessibleObjectResponse: '{$separation} nanometers'
+    poschlTellerSpacingHandle:
+      accessibleName:           spacing handle
+      accessibleHelpText:       TODO.poschlTellerSpacingHandle.accessibleHelpText
+      accessibleObjectResponse: '{$spacing} nanometers'
 
   #=======================================================================================================
   # Graphs

@@ -180,9 +180,9 @@ addToMapIfDefined( 'a11y_handles_finiteSquareDepthHandle_accessibleObjectRespons
 addToMapIfDefined( 'a11y_handles_finiteSquareWidthHandle_accessibleName', 'a11y.handles.finiteSquareWidthHandle.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_handles_finiteSquareWidthHandle_accessibleHelpText', 'a11y.handles.finiteSquareWidthHandle.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_handles_finiteSquareWidthHandle_accessibleObjectResponse', 'a11y.handles.finiteSquareWidthHandle.accessibleObjectResponseStringProperty' );
-addToMapIfDefined( 'a11y_handles_finiteSquareSpacingHandle_accessibleName', 'a11y.handles.finiteSquareSpacingHandle.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_handles_finiteSquareSpacingHandle_accessibleHelpText', 'a11y.handles.finiteSquareSpacingHandle.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_handles_finiteSquareSpacingHandle_accessibleObjectResponse', 'a11y.handles.finiteSquareSpacingHandle.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_handles_finiteSquareSeparationHandle_accessibleName', 'a11y.handles.finiteSquareSeparationHandle.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_handles_finiteSquareSeparationHandle_accessibleHelpText', 'a11y.handles.finiteSquareSeparationHandle.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_handles_finiteSquareSeparationHandle_accessibleObjectResponse', 'a11y.handles.finiteSquareSeparationHandle.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_handles_harmonicOscillatorWidthHandle_accessibleName', 'a11y.handles.harmonicOscillatorWidthHandle.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_handles_harmonicOscillatorWidthHandle_accessibleHelpText', 'a11y.handles.harmonicOscillatorWidthHandle.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_handles_harmonicOscillatorWidthHandle_accessibleObjectResponse', 'a11y.handles.harmonicOscillatorWidthHandle.accessibleObjectResponseStringProperty' );
@@ -207,9 +207,9 @@ addToMapIfDefined( 'a11y_handles_poschlTellerDepthHandle_accessibleObjectRespons
 addToMapIfDefined( 'a11y_handles_poschlTellerWidthHandle_accessibleName', 'a11y.handles.poschlTellerWidthHandle.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_handles_poschlTellerWidthHandle_accessibleHelpText', 'a11y.handles.poschlTellerWidthHandle.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_handles_poschlTellerWidthHandle_accessibleObjectResponse', 'a11y.handles.poschlTellerWidthHandle.accessibleObjectResponseStringProperty' );
-addToMapIfDefined( 'a11y_handles_poschlTellerSeparationHandle_accessibleName', 'a11y.handles.poschlTellerSeparationHandle.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_handles_poschlTellerSeparationHandle_accessibleHelpText', 'a11y.handles.poschlTellerSeparationHandle.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_handles_poschlTellerSeparationHandle_accessibleObjectResponse', 'a11y.handles.poschlTellerSeparationHandle.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_handles_poschlTellerSpacingHandle_accessibleName', 'a11y.handles.poschlTellerSpacingHandle.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_handles_poschlTellerSpacingHandle_accessibleHelpText', 'a11y.handles.poschlTellerSpacingHandle.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_handles_poschlTellerSpacingHandle_accessibleObjectResponse', 'a11y.handles.poschlTellerSpacingHandle.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_leadingParagraph', 'a11y.energyDiagram.accessibleTemplate.leadingParagraphStringProperty' );
 addToMapIfDefined( 'a11y_probabilityDensityGraph_accessibleHeading', 'a11y.probabilityDensityGraph.accessibleHeadingStringProperty' );
@@ -636,10 +636,10 @@ const QuantumBoundStatesFluent = {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_finiteSquareWidthHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.finiteSquareWidthHandle.accessibleHelpTextStringProperty' ) ),
         accessibleObjectResponse: new FluentPattern<{ width: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_handles_finiteSquareWidthHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.handles.finiteSquareWidthHandle.accessibleObjectResponseStringProperty' ), [{"name":"width"}] )
       },
-      finiteSquareSpacingHandle: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_finiteSquareSpacingHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.handles.finiteSquareSpacingHandle.accessibleNameStringProperty' ) ),
-        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_finiteSquareSpacingHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.finiteSquareSpacingHandle.accessibleHelpTextStringProperty' ) ),
-        accessibleObjectResponse: new FluentPattern<{ spacing: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_handles_finiteSquareSpacingHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.handles.finiteSquareSpacingHandle.accessibleObjectResponseStringProperty' ), [{"name":"spacing"}] )
+      finiteSquareSeparationHandle: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_finiteSquareSeparationHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.handles.finiteSquareSeparationHandle.accessibleNameStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_finiteSquareSeparationHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.finiteSquareSeparationHandle.accessibleHelpTextStringProperty' ) ),
+        accessibleObjectResponse: new FluentPattern<{ separation: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_handles_finiteSquareSeparationHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.handles.finiteSquareSeparationHandle.accessibleObjectResponseStringProperty' ), [{"name":"separation"}] )
       },
       harmonicOscillatorWidthHandle: {
         accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_harmonicOscillatorWidthHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.handles.harmonicOscillatorWidthHandle.accessibleNameStringProperty' ) ),
@@ -681,10 +681,10 @@ const QuantumBoundStatesFluent = {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerWidthHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerWidthHandle.accessibleHelpTextStringProperty' ) ),
         accessibleObjectResponse: new FluentPattern<{ width: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerWidthHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerWidthHandle.accessibleObjectResponseStringProperty' ), [{"name":"width"}] )
       },
-      poschlTellerSeparationHandle: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerSeparationHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerSeparationHandle.accessibleNameStringProperty' ) ),
-        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerSeparationHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerSeparationHandle.accessibleHelpTextStringProperty' ) ),
-        accessibleObjectResponse: new FluentPattern<{ separation: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerSeparationHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerSeparationHandle.accessibleObjectResponseStringProperty' ), [{"name":"separation"}] )
+      poschlTellerSpacingHandle: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerSpacingHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerSpacingHandle.accessibleNameStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerSpacingHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerSpacingHandle.accessibleHelpTextStringProperty' ) ),
+        accessibleObjectResponse: new FluentPattern<{ spacing: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerSpacingHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerSpacingHandle.accessibleObjectResponseStringProperty' ), [{"name":"spacing"}] )
       }
     },
     _comment_18: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
