@@ -49,8 +49,8 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const options = optionize<PoschlTellerPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.1, 1.5, 1 ), // for 1 well
-      wellDepthRange: new RangeWithValue( 0.1, 15, 10 ), // for 1 well
+      wellWidthRange: new RangeWithValue( 0.1, 1, 1 ), // for 1 well
+      wellDepthRange: new RangeWithValue( 1, 15, 10 ), // for 1 well
       spacingRange: new RangeWithValue( 0, 0, 0 ), // for 1 well, effectively constant zero
 
       // QuantumPotentialOptions

@@ -46,8 +46,8 @@ export default class FiniteSquarePotential extends QuantumPotential {
     const options = optionize<FiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ), // for 1 well
-      wellDepthRange: new RangeWithValue( 0.1, 20, 10 ), // for 1 well
+      wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
+      wellDepthRange: new RangeWithValue( 1, 20, 10 ), // for 1 well
       separationRange: new RangeWithValue( 0, 0, 0 ), // for 1 well, effectively constant zero
 
       // QuantumPotentialOptions
