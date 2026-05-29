@@ -413,7 +413,7 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStat
 
   const result = potential.solveBoundState( xGrid );
 
-  //TODO Patch up problems so that the sim can continue to run. Eventually delete this code.
+  //TODO https://github.com/phetsims/quantum-bound-states/issues/26 Patch up problems so that the sim can continue to run. Eventually delete this code.
   if ( result.potentials.length !== xGrid.xCoordinates.length ) {
     logError( 'BoundStateResult has the wrong number of potentials: ' + potential.toString() );
     result.potentials = new Array( xGrid.xCoordinates.length ).fill( 0 );
