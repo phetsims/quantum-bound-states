@@ -12,7 +12,6 @@ import QBSTime from '../../model/QBSTime.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
 import SpacingControl from './SpacingControl.js';
 import WellDepthControl from './WellDepthControl.js';
-import WellWidthControl from './WellWidthControl.js';
 import XOffsetControl from './XOffsetControl.js';
 import YOffsetControl from './YOffsetControl.js';
 
@@ -21,7 +20,6 @@ export default class ConfigurePoschlTellerDialog extends ConfigureQuantumPotenti
   public constructor( potential: PoschlTellerPotential, time: QBSTime ) {
 
     const controls: Node[] = [
-      new WellWidthControl( potential.wellWidthProperty, time ),
       new WellDepthControl( potential.wellDepthProperty, time )
     ];
 
