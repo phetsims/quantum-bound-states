@@ -558,13 +558,12 @@ export default class NumerovSolver {
       const peakLeft = NumerovSolver.getPeak( psiLeft );
       const peakRight = NumerovSolver.getPeak( psiRight );
 
-      const meetingGridIndex = meetingIndex;
-      const valueLeft = psiLeft[ meetingGridIndex ] / peakLeft;
-      const valueRight = psiRight[ meetingGridIndex ] / peakRight;
+      const valueLeft = psiLeft[ meetingIndex ] / peakLeft;
+      const valueRight = psiRight[ meetingIndex ] / peakRight;
 
       // 5-point O(dx⁴) centered-difference stencil for the first derivative.
-      const slopeLeft = ( -psiLeft[ meetingGridIndex + 2 ] + 8 * psiLeft[ meetingGridIndex + 1 ] - 8 * psiLeft[ meetingGridIndex - 1 ] + psiLeft[ meetingGridIndex - 2 ] ) / ( 12 * xGrid.dx * peakLeft );
-      const slopeRight = ( -psiRight[ meetingGridIndex + 2 ] + 8 * psiRight[ meetingGridIndex + 1 ] - 8 * psiRight[ meetingGridIndex - 1 ] + psiRight[ meetingGridIndex - 2 ] ) / ( 12 * xGrid.dx * peakRight );
+      const slopeLeft = ( -psiLeft[ meetingIndex + 2 ] + 8 * psiLeft[ meetingIndex + 1 ] - 8 * psiLeft[ meetingIndex - 1 ] + psiLeft[ meetingIndex - 2 ] ) / ( 12 * xGrid.dx * peakLeft );
+      const slopeRight = ( -psiRight[ meetingIndex + 2 ] + 8 * psiRight[ meetingIndex + 1 ] - 8 * psiRight[ meetingIndex - 1 ] + psiRight[ meetingIndex - 2 ] ) / ( 12 * xGrid.dx * peakRight );
 
       // Zero when log-derivatives match at the meeting point (eigenvalue condition).
       return slopeLeft * valueRight - slopeRight * valueLeft;
