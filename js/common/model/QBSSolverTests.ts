@@ -187,23 +187,32 @@ function assertNodeCounting( assert: Assert, waveFunctions: number[][], maxState
 /** Electron masses — two bookend values cover the sim range [0.5, 1.1] without 7× blow-up. */
 const SWEEP_MASSES = [ 0.5, 1.0 ];
 
-/** Well widths for potentials with range [0.1, 6] nm — four representative values spanning two decades. */
-const SWEEP_WELL_WIDTHS = [ 0.3, 1.0, 3.0, 6.0 ];
+/** Well widths for Finite Square / Asymmetric Triangle (sim range [0.5, 6] nm). */
+const SWEEP_WELL_WIDTHS = [ 0.5, 1.0, 3.0, 6.0 ];
 
-/** Well widths for Infinite Square / Infinite Step. */
-const SWEEP_WELL_WIDTHS_INFINITE = [ 0.3, 1.0, 3.0, 6.0 ];
+/** Well widths for Infinite Square / Infinite Step (sim range [0.5, 6] nm). */
+const SWEEP_WELL_WIDTHS_INFINITE = [ 0.5, 1.0, 3.0, 6.0 ];
 
-/** Well widths for Harmonic Oscillator (effective sim minimum 0.4 nm). */
-const SWEEP_WELL_WIDTHS_HO = [ 0.5, 1.0, 3.0, 6.0 ];
+/** Well widths for Harmonic Oscillator (sim range [0.1, 3] nm). */
+const SWEEP_WELL_WIDTHS_HO = [ 0.1, 0.5, 1.0, 3.0 ];
 
-/** Well widths for Pöschl-Teller (sim maximum 1.5 nm). */
-const SWEEP_WELL_WIDTHS_PT = [ 0.2, 0.5, 1.0, 1.5 ];
+/** Well widths for Pöschl-Teller (sim range [0.1, 1] nm). */
+const SWEEP_WELL_WIDTHS_PT = [ 0.1, 0.5, 1.0 ];
 
-/** Well depth / step height for potentials with range [0.1, 20] eV. */
+/** Well widths for Morse (sim range [0.1, 1] nm). */
+const SWEEP_WELL_WIDTHS_MORSE = [ 0.1, 0.5, 1.0 ];
+
+/** Well depth for Finite Square / Asymmetric Triangle (sim range [1, 20] eV). */
 const SWEEP_WELL_DEPTHS_20 = [ 1.0, 5.0, 10.0, 20.0 ];
 
-/** Well depth for Morse and Pöschl-Teller (sim maximum 15 eV). */
+/** Well depth for Pöschl-Teller (sim range [1, 15] eV). */
 const SWEEP_WELL_DEPTHS_15 = [ 1.0, 5.0, 10.0, 15.0 ];
+
+/** Well depth for Morse (sim range [1.5, 15] eV). */
+const SWEEP_WELL_DEPTHS_MORSE = [ 1.5, 5.0, 10.0, 15.0 ];
+
+/** Step heights for Infinite Step (sim range [0, 17] eV). */
+const SWEEP_STEP_HEIGHTS = [ 0, 5.0, 10.0, 17.0 ];
 
 /** Number of wells for multi-well potentials — covers single, small, medium, maximum. */
 const SWEEP_NUMBER_OF_WELLS = [ 1, 3, 5, 10 ];
@@ -532,8 +541,8 @@ QUnit.module( 'Morse Potential' );
 
 QUnit.test( 'parameter sweep', assert => {
 
-  const wellWidths = SWEEP_WELL_WIDTHS;
-  const wellDepths = SWEEP_WELL_DEPTHS_15;
+  const wellWidths = SWEEP_WELL_WIDTHS_MORSE;
+  const wellDepths = SWEEP_WELL_DEPTHS_MORSE;
   const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
@@ -572,7 +581,7 @@ QUnit.module( 'Infinite Step Potential' );
 QUnit.test( 'parameter sweep', assert => {
 
   const wellWidths = SWEEP_WELL_WIDTHS_INFINITE;
-  const stepHeights = SWEEP_WELL_DEPTHS_20;
+  const stepHeights = SWEEP_STEP_HEIGHTS;
   const masses = SWEEP_MASSES;
 
   const configs: SweepConfig[] = [];
