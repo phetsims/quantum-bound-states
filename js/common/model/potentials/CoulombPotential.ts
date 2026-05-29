@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
@@ -15,6 +16,7 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
+import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
@@ -54,6 +56,13 @@ export default class CoulombPotential extends QuantumPotential {
       range: options.wellWidthRange,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
       phetioFeatured: true
+    } );
+
+    // Changes to Properties instantiated by this class trigger notification.
+    Multilink.multilink( [ this.wellWidthProperty ], () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.changedEmitter.emit();
+      }
     } );
   }
 
