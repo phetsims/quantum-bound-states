@@ -55,7 +55,7 @@ type PotentialParameters = {
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
   wellWidth: number; // Width of the well L in nm
-  wellDepth: number; // // Depth of the well V₀ in eV (positive value)
+  wellDepth: number; // Depth of the well V₀ in eV (positive value)
   electricField: number; // Electric field in V/nm
 };
 
