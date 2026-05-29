@@ -73,7 +73,6 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     } ) );
 
     this.inputEnabledProperty.link( inputEnabled => {
-      console.log( 'inputEnabledProperty.value = ' + inputEnabled );
       this.fill = inputEnabled ? QBSColors.handleFillProperty : QBSColors.handleDisabledFillProperty;
       this.stroke = inputEnabled ? QBSColors.handleStrokeProperty : QBSColors.handleDisabledStrokeProperty;
     } );
