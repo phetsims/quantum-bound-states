@@ -561,6 +561,17 @@
           "value": "{$width} nanometers"
         }
       },
+      "coulombWidthHandle": {
+        "accessibleName": {
+          "value": "width handle"
+        },
+        "accessibleHelpText": {
+          "value": "TODO.coulombWidthHandle.accessibleHelpText"
+        },
+        "accessibleObjectResponse": {
+          "value": "{$width} nanometers"
+        }
+      },
       "finiteSquareDepthHandle": {
         "accessibleName": {
           "value": "depth handle"

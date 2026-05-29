@@ -282,7 +282,7 @@ a11y:
     accessibleParagraph: TODO.waveFunctionDetailsDialog.accessibleParagraph
 
   #=======================================================================================================
-  # Drag Handles
+  # Handles
   #=======================================================================================================
 
   handles:
@@ -293,6 +293,10 @@ a11y:
     asymmetricTriangleWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       TODO.asymmetricTriangleWidthHandle.accessibleHelpText
+      accessibleObjectResponse: '{$width} nanometers'
+    coulombWidthHandle:
+      accessibleName:           width handle
+      accessibleHelpText:       TODO.coulombWidthHandle.accessibleHelpText
       accessibleObjectResponse: '{$width} nanometers'
     finiteSquareDepthHandle:
       accessibleName:           depth handle

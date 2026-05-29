@@ -171,6 +171,9 @@ addToMapIfDefined( 'a11y_handles_asymmetricTriangleDepthHandle_accessibleObjectR
 addToMapIfDefined( 'a11y_handles_asymmetricTriangleWidthHandle_accessibleName', 'a11y.handles.asymmetricTriangleWidthHandle.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_handles_asymmetricTriangleWidthHandle_accessibleHelpText', 'a11y.handles.asymmetricTriangleWidthHandle.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_handles_asymmetricTriangleWidthHandle_accessibleObjectResponse', 'a11y.handles.asymmetricTriangleWidthHandle.accessibleObjectResponseStringProperty' );
+addToMapIfDefined( 'a11y_handles_coulombWidthHandle_accessibleName', 'a11y.handles.coulombWidthHandle.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_handles_coulombWidthHandle_accessibleHelpText', 'a11y.handles.coulombWidthHandle.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_handles_coulombWidthHandle_accessibleObjectResponse', 'a11y.handles.coulombWidthHandle.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_handles_finiteSquareDepthHandle_accessibleName', 'a11y.handles.finiteSquareDepthHandle.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_handles_finiteSquareDepthHandle_accessibleHelpText', 'a11y.handles.finiteSquareDepthHandle.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_handles_finiteSquareDepthHandle_accessibleObjectResponse', 'a11y.handles.finiteSquareDepthHandle.accessibleObjectResponseStringProperty' );
@@ -605,7 +608,7 @@ const QuantumBoundStatesFluent = {
       accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsDialog_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsDialog.accessibleParagraphStringProperty' ) )
     },
     _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"handles"} ),
-    _comment_16: new FluentComment( {"comment":"Drag Handles","associatedKey":"handles"} ),
+    _comment_16: new FluentComment( {"comment":"Handles","associatedKey":"handles"} ),
     _comment_17: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"handles"} ),
     handles: {
       asymmetricTriangleDepthHandle: {
@@ -617,6 +620,11 @@ const QuantumBoundStatesFluent = {
         accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_asymmetricTriangleWidthHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.handles.asymmetricTriangleWidthHandle.accessibleNameStringProperty' ) ),
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_asymmetricTriangleWidthHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.asymmetricTriangleWidthHandle.accessibleHelpTextStringProperty' ) ),
         accessibleObjectResponse: new FluentPattern<{ width: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_handles_asymmetricTriangleWidthHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.handles.asymmetricTriangleWidthHandle.accessibleObjectResponseStringProperty' ), [{"name":"width"}] )
+      },
+      coulombWidthHandle: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_coulombWidthHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.handles.coulombWidthHandle.accessibleNameStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_coulombWidthHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.coulombWidthHandle.accessibleHelpTextStringProperty' ) ),
+        accessibleObjectResponse: new FluentPattern<{ width: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_handles_coulombWidthHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.handles.coulombWidthHandle.accessibleObjectResponseStringProperty' ), [{"name":"width"}] )
       },
       finiteSquareDepthHandle: {
         accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_finiteSquareDepthHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.handles.finiteSquareDepthHandle.accessibleNameStringProperty' ) ),

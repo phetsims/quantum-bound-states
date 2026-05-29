@@ -270,6 +270,11 @@ type StringsType = {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
       };
+      'coulombWidthHandle': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
       'finiteSquareDepthHandle': {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;

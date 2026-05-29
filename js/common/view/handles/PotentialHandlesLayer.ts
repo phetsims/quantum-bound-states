@@ -1,7 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PotentialHandlesLayer create a layer that contains drag handles for all of the supported quantum potentials.
+ * PotentialHandlesLayer creates a layer that contains handles for configuring the parameters of all supported
+ * quantum potentials.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,6 +11,7 @@ import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
+import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
@@ -20,6 +22,7 @@ import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import AsymmetricTriangleHandlesNode from './AsymmetricTriangleHandlesNode.js';
+import CoulombHandlesNode from './CoulombHandlesNode.js';
 import FiniteSquareHandlesNode from './FiniteSquareHandlesNode.js';
 import HarmonicOscillatorHandlesNode from './HarmonicOscillatorHandlesNode.js';
 import InfiniteSquareHandlesNode from './InfiniteSquareHandlesNode.js';
@@ -39,37 +42,40 @@ export default class PotentialHandlesLayer extends Node {
 
     potentials.forEach( potential => {
 
-      const dragHandlesNodeTandem = tandem.createTandem( `${potential.tandemPrefix}HandlesNode` );
+      const handlesNodeTandem = tandem.createTandem( `${potential.tandemPrefix}HandlesNode` );
 
       if ( potential instanceof InfiniteSquarePotential ) {
         children.push( new InfiniteSquareHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
-          time, dragHandlesNodeTandem ) );
+          time, handlesNodeTandem ) );
       }
       else if ( potential instanceof FiniteSquarePotential ) {
         children.push( new FiniteSquareHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
-          time, dragHandlesNodeTandem ) );
+          time, handlesNodeTandem ) );
       }
       else if ( potential instanceof InfiniteStepPotential ) {
         children.push( new InfiniteStepHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
-          time, dragHandlesNodeTandem ) );
+          time, handlesNodeTandem ) );
       }
       else if ( potential instanceof AsymmetricTrianglePotential ) {
         children.push( new AsymmetricTriangleHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
-          time, dragHandlesNodeTandem ) );
+          time, handlesNodeTandem ) );
       }
       else if ( potential instanceof HarmonicOscillatorPotential ) {
         children.push( new HarmonicOscillatorHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
-          time, dragHandlesNodeTandem ) );
+          time, handlesNodeTandem ) );
       }
       else if ( potential instanceof PoschlTellerPotential ) {
         children.push( new PoschlTellerHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
-          time, dragHandlesNodeTandem ) );
+          time, handlesNodeTandem ) );
       }
       else if ( potential instanceof MorsePotential ) {
         children.push( new MorseHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
-          time, dragHandlesNodeTandem ) );
+          time, handlesNodeTandem ) );
       }
-      // NOTE: CoulombPotential has no drag handles.
+      else if ( potential instanceof CoulombPotential ) {
+        children.push( new CoulombHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+          time, handlesNodeTandem ) );
+      }
     } );
 
     super( {
