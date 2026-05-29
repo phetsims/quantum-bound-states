@@ -72,7 +72,6 @@ export default class CoulombSolution {
     // Not intended for instantiation.
   }
 
-  //TODO https://github.com/phetsims/quantum-bound-states/issues/60 Add support for wellWidth
   /**
    * Creates the potential function for a single-well 1D Coulomb potential.
    *
@@ -109,7 +108,7 @@ export default class CoulombSolution {
    * Energies are accepted and returned with the energy offset y₀ included (matching V(x) on the
    * grid). The solver works in the intrinsic Coulomb frame (y₀ = 0, standard −K/|x − x₀| form)
    * and adds y₀ back to each eigenvalue before returning. The singularity is at x₀; wave
-   * functions are built from the local coordinate (x − x₀).
+   * functions are built from the coordinate (x − x₀).
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
