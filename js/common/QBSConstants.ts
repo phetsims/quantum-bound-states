@@ -133,7 +133,8 @@ export default class QBSConstants {
     fill: QBSColors.dragArrowsFillProperty,
     stroke: QBSColors.dragArrowsStrokeProperty,
     phetioVisiblePropertyInstrumented: true,
-    visiblePropertyOptions: { phetioFeatured: true }
+    visiblePropertyOptions: { phetioFeatured: true },
+    phetioInputEnabledPropertyInstrumented: true
   };
 
   public static readonly GRID_LINE_SET_OPTIONS: GridLineSetOptions = {
