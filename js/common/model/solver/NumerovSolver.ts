@@ -68,6 +68,7 @@ export type EigenstateResult = {
 
 export default class NumerovSolver {
 
+  // TODO: move this to QBSConstants, it is used in the analytical solutions as well.
   // Reduced Planck constant (hbar) in natural units: √(eV⋅mₑ)⋅nm
   // Computed as: 1.054571817e-34 / (1e-9 * sqrt(9.1093837015e-31 * 1.602176634e-19))
   public static readonly HBAR = 0.2760428268035944;
