@@ -112,12 +112,10 @@ export default class PoschlTellerPotential extends QuantumPotential {
    * Solves for the bound state.
    */
   public override solveBoundState( xGrid: XGrid ): BoundStateResult {
-
-    let result: BoundStateResult;
     if ( this.numberOfWellsProperty.value === 1 && this.electricFieldProperty.value === 0 ) {
 
       // For single-well and zero electric field, use the analytical solution.
-      result = PoschlTellerSolution.solve( xGrid, {
+      return PoschlTellerSolution.solve( xGrid, {
         numberOfWells: this.numberOfWellsProperty.value,
         energyMin: this.getMinSolverEnergy(),
         energyMax: this.getMaxSolverEnergy(),
@@ -149,7 +147,6 @@ export default class PoschlTellerPotential extends QuantumPotential {
         this.getMaxSolverEnergy()
       );
     }
-    return result;
   }
 
   public override getMinSolverEnergy(): number {
