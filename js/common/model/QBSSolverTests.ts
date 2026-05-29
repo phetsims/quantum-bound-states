@@ -860,7 +860,7 @@ QUnit.test( 'mass sweep', assert => {
 
   for ( const mass of SWEEP_MASSES ) {
     const potFn = CoulombSolution.createPotentialFunction( {
-      numberOfWells: 1, xOffset: 0, yOffset: yOffset, electricField: 0
+      numberOfWells: 1, xOffset: 0, yOffset: yOffset, wellWidth: 1, electricField: 0
     } );
 
     configs.push( {
@@ -1378,12 +1378,12 @@ QUnit.test( 'energy error < 1% for default Coulomb', assert => {
   const massC = 1;
   const gridC = standardGrid();
   const potFnC = CoulombSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 1, electricField: 0
   } );
 
   const numericalResultC = NumerovSolver.solve( gridC, potFnC, massC, -17.5, 0 );
   const analyticalResultC = CoulombSolution.solve( gridC, {
-    numberOfWells: 1, xOffset: 0, yOffset: 0,
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 1,
     energyMin: -17.5, energyMax: 0, electronMasses: massC, electricField: 0
   } );
 

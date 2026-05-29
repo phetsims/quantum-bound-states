@@ -6,10 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
+import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -20,16 +23,23 @@ import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  wellWidthRange?: RangeWithValue;
+};
 
 export type CoulombPotentialOptions = SelfOptions &
   Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
 
 export default class CoulombPotential extends QuantumPotential {
 
+  public readonly wellWidthProperty: NumberProperty;
+
   public constructor( providedOptions: CoulombPotentialOptions ) {
 
     const options = optionize<CoulombPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
+
+      // SelfOptions
+      wellWidthRange: new RangeWithValue( 0.1, 6, 1 ), // for 1 well
 
       // QuantumPotentialOptions
       energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
@@ -38,6 +48,18 @@ export default class CoulombPotential extends QuantumPotential {
     }, providedOptions );
 
     super( options );
+
+    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
+      units: nanometersUnit,
+      range: options.wellWidthRange,
+      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
+      phetioFeatured: true
+    } );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.wellWidthProperty.reset();
   }
 
   public override toString(): string {
@@ -45,6 +67,7 @@ export default class CoulombPotential extends QuantumPotential {
            `numberOfWells=${this.numberOfWellsProperty.value} ` +
            `electricField=${this.electricFieldProperty.value} ` +
            `yOffset=${this.yOffsetProperty.value} ` +
+           `wellWidth=${this.wellWidthProperty.value} ` +
            ']';
   }
 
@@ -62,6 +85,7 @@ export default class CoulombPotential extends QuantumPotential {
       energyMax: this.getMaxSolverEnergy(),
       xOffset: this.xOffsetProperty.value,
       yOffset: this.yOffsetProperty.value,
+      wellWidth: this.wellWidthProperty.value,
       electronMasses: this.electronMassesProperty.value,
       electricField: this.electricFieldProperty.value
     } );

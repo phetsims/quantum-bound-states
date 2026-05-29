@@ -12,6 +12,7 @@ import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
 import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import WellWidthControl from './WellWidthControl.js';
 import XOffsetControl from './XOffsetControl.js';
 import YOffsetControl from './YOffsetControl.js';
 
@@ -19,7 +20,9 @@ export default class ConfigureCoulombDialog extends ConfigureQuantumPotentialDia
 
   public constructor( potential: CoulombPotential, time: QBSTime ) {
 
-    const controls: Node[] = [];
+    const controls: Node[] = [
+      new WellWidthControl( potential.wellWidthProperty, time )
+    ];
 
     if ( potential.xOffsetProperty.range.getLength() > 0 ) {
       controls.push( new XOffsetControl( potential.xOffsetProperty, time ) );
