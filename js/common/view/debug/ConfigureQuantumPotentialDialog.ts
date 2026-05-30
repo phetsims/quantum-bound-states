@@ -18,17 +18,16 @@ import Dialog from '../../../../../sun/js/Dialog.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import SeparationControl from './SeparationControl.js';
-import SpacingControl from './SpacingControl.js';
-import StepHeightControl from './StepHeightControl.js';
-import WellDepthControl from './WellDepthControl.js';
-import WellWidthControl from './WellWidthControl.js';
-import XOffsetControl from './XOffsetControl.js';
-import YOffsetControl from './YOffsetControl.js';
+import ElectronVoltsControl from './ElectronVoltsControl.js';
+import NanometersControl from './NanometersControl.js';
 
 type SelfOptions = {
+
+  // required
   xOffsetProperty: NumberProperty;
   yOffsetProperty: NumberProperty;
+
+  // optional
   wellWidthProperty?: NumberProperty;
   wellDepthProperty?: NumberProperty;
   stepHeightProperty?: NumberProperty;
@@ -45,31 +44,31 @@ export default class ConfigureQuantumPotentialDialog extends Dialog {
     const controls: Node[] = [];
 
     if ( options.xOffsetProperty && options.xOffsetProperty.range.getLength() > 0 ) {
-      controls.push( new XOffsetControl( options.xOffsetProperty, time ) );
+      controls.push( new NanometersControl( 'xOffsetProperty', options.xOffsetProperty, QBSConstants.X_OFFSET_DECIMAL_PLACES, time ) );
     }
 
     if ( options.yOffsetProperty.range.getLength() > 0 ) {
-      controls.push( new YOffsetControl( options.yOffsetProperty, time ) );
+      controls.push( new ElectronVoltsControl( 'yOffsetProperty', options.yOffsetProperty, QBSConstants.Y_OFFSET_DECIMAL_PLACES, time ) );
     }
 
     if ( options.wellWidthProperty && options.wellWidthProperty.range.getLength() > 0 ) {
-      controls.push( new WellWidthControl( options.wellWidthProperty, time ) );
+      controls.push( new NanometersControl( 'wellWidthProperty', options.wellWidthProperty, QBSConstants.WELL_WIDTH_DECIMAL_PLACES, time ) );
     }
 
     if ( options.wellDepthProperty && options.wellDepthProperty.range.getLength() > 0 ) {
-      controls.push( new WellDepthControl( options.wellDepthProperty, time ) );
+      controls.push( new ElectronVoltsControl( 'wellDepthProperty', options.wellDepthProperty, QBSConstants.WELL_DEPTH_DECIMAL_PLACES, time ) );
     }
 
     if ( options.stepHeightProperty && options.stepHeightProperty.range.getLength() > 0 ) {
-      controls.push( new StepHeightControl( options.stepHeightProperty, time ) );
+      controls.push( new ElectronVoltsControl( 'stepHeightProperty', options.stepHeightProperty, QBSConstants.STEP_HEIGHT_DECIMAL_PLACES, time ) );
     }
 
     if ( options.separationProperty && options.separationProperty.range.getLength() > 0 ) {
-      controls.push( new SeparationControl( options.separationProperty, time ) );
+      controls.push( new NanometersControl( 'separationProperty', options.separationProperty, QBSConstants.SEPARATION_DECIMAL_PLACES, time ) );
     }
 
     if ( options.spacingProperty && options.spacingProperty.range.getLength() > 0 ) {
-      controls.push( new SpacingControl( options.spacingProperty, time ) );
+      controls.push( new NanometersControl( 'spacingProperty', options.spacingProperty, QBSConstants.SPACING_DECIMAL_PLACES, time ) );
     }
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {

@@ -9,10 +9,14 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../dot/js/Range.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
+import NumberControl, { NumberControlMajorTick, NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import QBSTime from '../../common/model/QBSTime.js';
+import QBSConstants from '../QBSConstants.js';
 import { addPauseListeners } from './addPauseListeners.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -37,5 +41,21 @@ export default class QBSNumberControl extends NumberControl {
         'home', 'end'
       ]
     } );
+  }
+
+  /**
+   * Creates major tick marks for min and max values.
+   */
+  public static createMinMaxTicks( range: Range, decimals: number ): NumberControlMajorTick[] {
+    return [
+      {
+        value: toFixedNumber( range.min, decimals ),
+        label: new Text( range.min, QBSConstants.TICK_TEXT_OPTIONS )
+      },
+      {
+        value: toFixedNumber( range.max, decimals ),
+        label: new Text( range.max, QBSConstants.TICK_TEXT_OPTIONS )
+      }
+    ];
   }
 }

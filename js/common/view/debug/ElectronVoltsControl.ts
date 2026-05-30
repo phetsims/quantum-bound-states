@@ -1,37 +1,37 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * StepHeightControl is a control for setting the step height of an Infinite Step potential.
+ * WellDepthControl is a control for setting the well depth.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QBSTime from '../../model/QBSTime.js';
 import { electronVoltsUnit } from '../../model/units/electronVoltsUnit.js';
 import QBSConstants from '../../QBSConstants.js';
 import QBSNumberControl, { QBSNumberControlOptions } from '../QBSNumberControl.js';
-import WellWidthControl from './WellWidthControl.js';
 
-const DECIMALS = QBSConstants.STEP_HEIGHT_DECIMAL_PLACES;
+export default class ElectronVoltsControl extends QBSNumberControl {
 
-export default class StepHeightControl extends QBSNumberControl {
+  public constructor( labelString: string, electronVoltsProperty: NumberProperty, decimalPlaces: number, time: QBSTime ) {
 
-  public constructor( stepHeightProperty: NumberProperty, time: QBSTime ) {
+    affirm( electronVoltsProperty.units === electronVoltsUnit, 'electronVoltsProperty must have electronVoltsUnit' );
 
-    super( 'stepHeightProperty', stepHeightProperty, time,
+    super( labelString, electronVoltsProperty, time,
       combineOptions<QBSNumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: Math.pow( 10, -DECIMALS ),
+        delta: Math.pow( 10, -decimalPlaces ),
         numberDisplayOptions: {
           numberFormatter: value => electronVoltsUnit.getVisualSymbolPatternString( value, {
-            decimalPlaces: DECIMALS,
+            decimalPlaces: decimalPlaces,
             showTrailingZeros: true
           } )
         },
         sliderOptions: {
-          majorTicks: WellWidthControl.createMinMaxTicks( stepHeightProperty.range, DECIMALS )
+          majorTicks: QBSNumberControl.createMinMaxTicks( electronVoltsProperty.range, decimalPlaces )
         },
         tandem: Tandem.OPT_OUT
       } ) );
