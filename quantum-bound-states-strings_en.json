@@ -985,6 +985,9 @@
         },
         "magnitudePhrase": {
           "value": "magnitude is {$value}"
+        },
+        "phasePhrase": {
+          "value": "phase is {$value} radians"
         }
       }
     },

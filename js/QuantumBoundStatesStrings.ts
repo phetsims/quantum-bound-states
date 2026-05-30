@@ -471,6 +471,7 @@ type StringsType = {
         'realPartPhraseStringProperty': LocalizedStringProperty;
         'imaginaryPartPhraseStringProperty': LocalizedStringProperty;
         'magnitudePhraseStringProperty': LocalizedStringProperty;
+        'phasePhraseStringProperty': LocalizedStringProperty;
       }
     };
     'units': {

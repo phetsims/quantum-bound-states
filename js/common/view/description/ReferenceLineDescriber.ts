@@ -61,6 +61,12 @@ export default class ReferenceLineDescriber {
             value: toFixedNumber( this.model.getMagnitudeAt( x ), QBSConstants.MAGNITUDE_DECIMAL_PLACES )
           } ) );
         }
+
+        if ( this.model.waveFunctionGraph.magnitudeVisibleProperty.value && this.model.waveFunctionGraph.phaseVisibleProperty.value ) {
+          phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.phasePhrase.format( {
+            value: toFixedNumber( this.model.getPhaseAt( x ), QBSConstants.PHASE_DECIMAL_PLACES )
+          } ) );
+        }
       }
     }
 

@@ -92,6 +92,7 @@ export default class QBSConstants {
   public static readonly REAL_PART_DECIMAL_PLACES = 2;
   public static readonly IMAGINARY_PART_DECIMAL_PLACES = 2;
   public static readonly MAGNITUDE_DECIMAL_PLACES = 2;
+  public static readonly PHASE_DECIMAL_PLACES = 2;
 
   // Intervals
   public static readonly Y_OFFSET_INTERVAL = Math.pow( 10, -QBSConstants.Y_OFFSET_DECIMAL_PLACES ); // eV

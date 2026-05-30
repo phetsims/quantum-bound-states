@@ -363,6 +363,11 @@ export default class QBSModel implements TModel {
     return this.timeEvolvedSuperpositionProperty.value.magnitudeValues[ index ];
   }
 
+  public getPhaseAt( x: number ): number {
+    const index = this.xGrid.getClosestIndex( x );
+    return this.timeEvolvedSuperpositionProperty.value.phaseValues[ index ];
+  }
+
   /**
    * Determines whether the given energy level index is valid.
    */

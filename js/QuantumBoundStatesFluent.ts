@@ -283,6 +283,7 @@ addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_probabilityDensi
 addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_realPartPhrase', 'a11y.referenceLine.accessibleObjectResponse.realPartPhraseStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_imaginaryPartPhrase', 'a11y.referenceLine.accessibleObjectResponse.imaginaryPartPhraseStringProperty' );
 addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_magnitudePhrase', 'a11y.referenceLine.accessibleObjectResponse.magnitudePhraseStringProperty' );
+addToMapIfDefined( 'a11y_referenceLine_accessibleObjectResponse_phasePhrase', 'a11y.referenceLine.accessibleObjectResponse.phasePhraseStringProperty' );
 addToMapIfDefined( 'a11y_units_electronMasses_accessiblePattern', 'a11y.units.electronMasses.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVolts_accessiblePattern', 'a11y.units.electronVolts.accessiblePatternStringProperty' );
 addToMapIfDefined( 'a11y_units_electronVoltsPerNanometerSquared_accessiblePattern', 'a11y.units.electronVoltsPerNanometerSquared.accessiblePatternStringProperty' );
@@ -844,7 +845,8 @@ const QuantumBoundStatesFluent = {
         probabilityDensityPhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_probabilityDensityPhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.probabilityDensityPhraseStringProperty' ), [{"name":"value"}] ),
         realPartPhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_realPartPhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.realPartPhraseStringProperty' ), [{"name":"value"}] ),
         imaginaryPartPhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_imaginaryPartPhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.imaginaryPartPhraseStringProperty' ), [{"name":"value"}] ),
-        magnitudePhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_magnitudePhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.magnitudePhraseStringProperty' ), [{"name":"value"}] )
+        magnitudePhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_magnitudePhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.magnitudePhraseStringProperty' ), [{"name":"value"}] ),
+        phasePhrase: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_referenceLine_accessibleObjectResponse_phasePhrase', _.get( QuantumBoundStatesStrings, 'a11y.referenceLine.accessibleObjectResponse.phasePhraseStringProperty' ), [{"name":"value"}] )
       }
     },
     _comment_41: new FluentComment( {"comment":"Units","associatedKey":"units"} ),

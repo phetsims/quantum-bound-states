@@ -504,6 +504,7 @@ a11y:
       realPartPhrase:           real part is {$value}
       imaginaryPartPhrase:      imaginary part is {$value}
       magnitudePhrase:          magnitude is {$value}
+      phasePhrase:              phase is {$value} radians
 
   #=======================================================================================================
   # Units
