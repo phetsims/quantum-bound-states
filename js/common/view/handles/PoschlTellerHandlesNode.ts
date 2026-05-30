@@ -14,6 +14,7 @@ import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import PoschlTellerDepthHandleNode from './PoschlTellerDepthHandleNode.js';
 import PoschlTellerWidthHandleNode from './PoschlTellerWidthHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class PoschlTellerHandlesNode extends PotentialHandlesNode {
@@ -24,12 +25,20 @@ export default class PoschlTellerHandlesNode extends PotentialHandlesNode {
                       time: QBSTime,
                       tandem: Tandem ) {
 
+    const handles: PotentialHandleNode<PoschlTellerPotential>[] = [];
+
+    if ( potential.wellWidthProperty.range.getLength() > 0 ) {
+      handles.push( new PoschlTellerWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ) );
+    }
+
+    if ( potential.wellDepthProperty.range.getLength() > 0 ) {
+      handles.push( new PoschlTellerDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) ) );
+    }
+
+    //TODO Add separationHandleNode if potential.numberOfWellsProperty indicates that it is supported.
+
     super( potential, selectedPotentialProperty, {
-      children: [
-        new PoschlTellerWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
-        new PoschlTellerDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
-        //TODO Add separationHandleNode if potential.numberOfWellsProperty indicates that it is supported.
-      ],
+      children: handles,
       tandem: tandem
     } );
   }
