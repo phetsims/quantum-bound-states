@@ -326,7 +326,7 @@
       },
       "manyWellsScreen": {
         "screenButtonsHelpText": {
-          "value": "Explore bound states and band structure in a periodic array of potential potentials."
+          "value": "Explore bound states and band structure in a periodic array of potentials."
         },
         "screenSummary": {
           "playArea": {
