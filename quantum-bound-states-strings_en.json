@@ -345,7 +345,7 @@
       },
       "superpositionScreen": {
         "screenButtonsHelpText": {
-          "value": "Explore superposition states and their time-dependent behavior in various potentials."
+          "value": "Explore superposition states and their time-dependent behavior for various potentials."
         },
         "screenSummary": {
           "playArea": {

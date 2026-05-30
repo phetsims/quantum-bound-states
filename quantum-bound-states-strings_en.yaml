@@ -175,7 +175,7 @@ a11y:
         interactionHint: TODO.manyWellsScreen.screenSummary.interactionHint
 
     superpositionScreen:
-      screenButtonsHelpText: Explore superposition states and their time-dependent behavior in various potentials.
+      screenButtonsHelpText: Explore superposition states and their time-dependent behavior for various potentials.
       screenSummary:
         playArea:        TODO.superpositionScreen.screenSummary.playArea
         controlArea:     TODO.superpositionScreen.screenSummary.controlArea
