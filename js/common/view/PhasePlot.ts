@@ -32,10 +32,10 @@ export default class PhasePlot extends CanvasPainter {
   public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
     super( {
-      visible: waveFunctionGraph.magnitudeVisibleProperty.value && waveFunctionGraph.phaseVisibleProperty.value
+      visible: waveFunctionGraph.magnitudeSelectedProperty.value && waveFunctionGraph.phaseSelectedProperty.value
     } );
 
-    Multilink.multilink( [ waveFunctionGraph.magnitudeVisibleProperty, waveFunctionGraph.phaseVisibleProperty ],
+    Multilink.multilink( [ waveFunctionGraph.magnitudeSelectedProperty, waveFunctionGraph.phaseSelectedProperty ],
       ( magnitudeVisible, phaseVisible ) => {
       this.visible = ( magnitudeVisible && phaseVisible );
       } );

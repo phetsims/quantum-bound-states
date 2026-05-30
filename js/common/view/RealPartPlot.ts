@@ -22,7 +22,7 @@ export default class RealPartPlot extends YCanvasLinePlot {
     super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.timeEvolvedSuperpositionProperty.value.realPartValues, {
       strokeProperty: QBSColors.realPartStrokeProperty,
       lineWidth: 2,
-      visibleProperty: waveFunctionGraph.realPartVisibleProperty
+      visibleProperty: waveFunctionGraph.realPartSelectedProperty
     } );
 
     this.timeEvolvedSuperpositionProperty = waveFunctionGraph.timeEvolvedSuperpositionProperty;

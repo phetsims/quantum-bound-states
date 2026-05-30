@@ -22,7 +22,7 @@ export default class ImaginaryPartPlot extends YCanvasLinePlot {
     super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.timeEvolvedSuperpositionProperty.value.imaginaryPartValues, {
       strokeProperty: QBSColors.imaginaryPartStrokeProperty,
       lineWidth: 2,
-      visibleProperty: waveFunctionGraph.imaginaryPartVisibleProperty
+      visibleProperty: waveFunctionGraph.imaginaryPartSelectedProperty
     } );
 
     this.timeEvolvedSuperpositionProperty = waveFunctionGraph.timeEvolvedSuperpositionProperty;

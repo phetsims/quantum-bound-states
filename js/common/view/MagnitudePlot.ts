@@ -22,7 +22,7 @@ export default class MagnitudePlot extends YCanvasLinePlot {
     super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.timeEvolvedSuperpositionProperty.value.magnitudeValues, {
       strokeProperty: QBSColors.magnitudeStrokeProperty,
       lineWidth: 2,
-      visibleProperty: waveFunctionGraph.magnitudeVisibleProperty
+      visibleProperty: waveFunctionGraph.magnitudeSelectedProperty
     } );
 
     this.timeEvolvedSuperpositionProperty = waveFunctionGraph.timeEvolvedSuperpositionProperty;

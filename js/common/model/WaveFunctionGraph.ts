@@ -26,11 +26,11 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   // y-axis values for plotting components of the time-dependent wave function
   public readonly timeEvolvedSuperpositionProperty: TReadOnlyProperty<TimeEvolvedSuperposition>;
 
-  // Visibility of the wave function components
-  public readonly realPartVisibleProperty: Property<boolean>;
-  public readonly imaginaryPartVisibleProperty: Property<boolean>;
-  public readonly magnitudeVisibleProperty: Property<boolean>;
-  public readonly phaseVisibleProperty: Property<boolean>;
+  // Wave function components that are selected for display. They may or may not be visible based on other settings.
+  public readonly realPartSelectedProperty: Property<boolean>;
+  public readonly imaginaryPartSelectedProperty: Property<boolean>;
+  public readonly magnitudeSelectedProperty: Property<boolean>;
+  public readonly phaseSelectedProperty: Property<boolean>;
 
   // Range for the y-axis
   public readonly yAxisRangeProperty: TReadOnlyProperty<Range>;
@@ -44,23 +44,23 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
 
     this.timeEvolvedSuperpositionProperty = model.timeEvolvedSuperpositionProperty;
 
-    this.realPartVisibleProperty = new BooleanProperty( QBSQueryParameters.realPartVisible, {
-      tandem: tandem.createTandem( 'realPartVisibleProperty' ),
+    this.realPartSelectedProperty = new BooleanProperty( QBSQueryParameters.realPartSelected, {
+      tandem: tandem.createTandem( 'realPartSelectedProperty' ),
       phetioFeatured: true
     } );
 
-    this.imaginaryPartVisibleProperty = new BooleanProperty( QBSQueryParameters.imaginaryPartVisible, {
-      tandem: tandem.createTandem( 'imaginaryPartVisibleProperty' ),
+    this.imaginaryPartSelectedProperty = new BooleanProperty( QBSQueryParameters.imaginaryPartSelected, {
+      tandem: tandem.createTandem( 'imaginaryPartSelectedProperty' ),
       phetioFeatured: true
     } );
 
-    this.magnitudeVisibleProperty = new BooleanProperty( QBSQueryParameters.magnitudeVisible, {
-      tandem: tandem.createTandem( 'magnitudeVisibleProperty' ),
+    this.magnitudeSelectedProperty = new BooleanProperty( QBSQueryParameters.magnitudeSelected, {
+      tandem: tandem.createTandem( 'magnitudeSelectedProperty' ),
       phetioFeatured: true
     } );
 
-    this.phaseVisibleProperty = new BooleanProperty( QBSQueryParameters.phaseVisible, {
-      tandem: tandem.createTandem( 'phaseVisibleProperty' ),
+    this.phaseSelectedProperty = new BooleanProperty( QBSQueryParameters.phaseSelected, {
+      tandem: tandem.createTandem( 'phaseSelectedProperty' ),
       phetioFeatured: true
     } );
 
@@ -83,9 +83,9 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
 
   public override reset(): void {
     super.reset();
-    this.realPartVisibleProperty.reset();
-    this.imaginaryPartVisibleProperty.reset();
-    this.magnitudeVisibleProperty.reset();
-    this.phaseVisibleProperty.reset();
+    this.realPartSelectedProperty.reset();
+    this.imaginaryPartSelectedProperty.reset();
+    this.magnitudeSelectedProperty.reset();
+    this.phaseSelectedProperty.reset();
   }
 }

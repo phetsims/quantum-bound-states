@@ -44,25 +44,25 @@ export default class ReferenceLineDescriber {
       }
       else if ( this.model.selectedGraphProperty.value === this.model.waveFunctionGraph ) {
 
-        if ( this.model.waveFunctionGraph.realPartVisibleProperty.value ) {
+        if ( this.model.waveFunctionGraph.realPartSelectedProperty.value ) {
           phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.realPartPhrase.format( {
             value: toFixedNumber( this.model.getRealPartAt( x ), QBSConstants.REAL_PART_DECIMAL_PLACES )
           } ) );
         }
 
-        if ( this.model.waveFunctionGraph.imaginaryPartVisibleProperty.value ) {
+        if ( this.model.waveFunctionGraph.imaginaryPartSelectedProperty.value ) {
           phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.imaginaryPartPhrase.format( {
             value: toFixedNumber( this.model.getImaginaryPartAt( x ), QBSConstants.IMAGINARY_PART_DECIMAL_PLACES )
           } ) );
         }
 
-        if ( this.model.waveFunctionGraph.magnitudeVisibleProperty.value ) {
+        if ( this.model.waveFunctionGraph.magnitudeSelectedProperty.value ) {
           phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.magnitudePhrase.format( {
             value: toFixedNumber( this.model.getMagnitudeAt( x ), QBSConstants.MAGNITUDE_DECIMAL_PLACES )
           } ) );
         }
 
-        if ( this.model.waveFunctionGraph.magnitudeVisibleProperty.value && this.model.waveFunctionGraph.phaseVisibleProperty.value ) {
+        if ( this.model.waveFunctionGraph.magnitudeSelectedProperty.value && this.model.waveFunctionGraph.phaseSelectedProperty.value ) {
           phrases.push( QuantumBoundStatesFluent.a11y.referenceLine.accessibleObjectResponse.phasePhrase.format( {
             value: toFixedNumber( this.model.getPhaseAt( x ), QBSConstants.PHASE_DECIMAL_PLACES )
           } ) );

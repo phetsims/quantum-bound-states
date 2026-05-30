@@ -43,10 +43,10 @@ export default class WaveFunctionPlotsNode extends ChartCanvasNode {
     waveFunctionGraph.timeEvolvedSuperpositionProperty.lazyLink( () => updatePlots() );
     chartTransform.changedEmitter.addListener( () => updatePlots() );
     Multilink.multilinkAny( [
-      waveFunctionGraph.realPartVisibleProperty,
-      waveFunctionGraph.imaginaryPartVisibleProperty,
-      waveFunctionGraph.magnitudeVisibleProperty,
-      waveFunctionGraph.phaseVisibleProperty,
+      waveFunctionGraph.realPartSelectedProperty,
+      waveFunctionGraph.imaginaryPartSelectedProperty,
+      waveFunctionGraph.magnitudeSelectedProperty,
+      waveFunctionGraph.phaseSelectedProperty,
       ...linePlots.map( plot => plot.strokeProperty )
     ], () => updatePlots() );
   }

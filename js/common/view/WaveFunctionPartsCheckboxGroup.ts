@@ -46,29 +46,29 @@ export default class WaveFunctionPartsCheckboxGroup extends VBox {
     }, providedOptions );
 
     // Real Part
-    const realPartCheckbox = new RealPartCheckbox( waveFunctionGraph.realPartVisibleProperty, {
+    const realPartCheckbox = new RealPartCheckbox( waveFunctionGraph.realPartSelectedProperty, {
       enabledProperty: options.checkboxesEnabledProperty,
       tandem: options.tandem.createTandem( 'realPartCheckbox' )
     } );
 
     // Imaginary Part
-    const imaginaryPartCheckbox = new ImaginaryPartCheckbox( waveFunctionGraph.imaginaryPartVisibleProperty, {
+    const imaginaryPartCheckbox = new ImaginaryPartCheckbox( waveFunctionGraph.imaginaryPartSelectedProperty, {
       enabledProperty: options.checkboxesEnabledProperty,
       tandem: options.tandem.createTandem( 'imaginaryPartCheckbox' )
     } );
 
     // Magnitude
-    const magnitudeCheckbox = new MagnitudeCheckbox( waveFunctionGraph.magnitudeVisibleProperty, {
+    const magnitudeCheckbox = new MagnitudeCheckbox( waveFunctionGraph.magnitudeSelectedProperty, {
       enabledProperty: options.checkboxesEnabledProperty,
       tandem: options.tandem.createTandem( 'magnitudeCheckbox' )
     } );
 
     // Phase
-    const phaseCheckbox = new PhaseCheckbox( waveFunctionGraph.phaseVisibleProperty, {
+    const phaseCheckbox = new PhaseCheckbox( waveFunctionGraph.phaseSelectedProperty, {
       layoutOptions: {
         leftMargin: 25 // indent below magnitudeCheckbox
       },
-      enabledProperty: DerivedProperty.and( [ waveFunctionGraph.magnitudeVisibleProperty, options.checkboxesEnabledProperty ] ),
+      enabledProperty: DerivedProperty.and( [ waveFunctionGraph.magnitudeSelectedProperty, options.checkboxesEnabledProperty ] ),
       tandem: options.tandem.createTandem( 'phaseCheckbox' )
     } );
 

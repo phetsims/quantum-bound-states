@@ -64,25 +64,25 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
   },
 
   // Initial value of the 'Real Part' checkbox
-  realPartVisible: {
+  realPartSelected: {
     type: 'boolean',
     defaultValue: true
   },
 
   // Initial value of the 'Imaginary Part' checkbox
-  imaginaryPartVisible: {
+  imaginaryPartSelected: {
     type: 'boolean',
     defaultValue: true //TODO should be false
   },
 
   // Initial value of the 'Magnitude' checkbox
-  magnitudeVisible: {
+  magnitudeSelected: {
     type: 'boolean',
     defaultValue: true //TODO should be false
   },
 
   // Initial value of the 'Phase' checkbox
-  phaseVisible: {
+  phaseSelected: {
     type: 'boolean',
     defaultValue: false
   },
