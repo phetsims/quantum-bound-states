@@ -14,6 +14,7 @@ import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import MorseDepthHandleNode from './MorseDepthHandleNode.js';
 import MorseWidthHandleNode from './MorseWidthHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class MorseHandlesNode extends PotentialHandlesNode {
@@ -24,11 +25,18 @@ export default class MorseHandlesNode extends PotentialHandlesNode {
                       time: QBSTime,
                       tandem: Tandem ) {
 
+    const handles: PotentialHandleNode<MorsePotential>[] = [];
+
+    if ( potential.wellWidthProperty.range.getLength() > 0 ) {
+      handles.push( new MorseWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ) );
+    }
+
+    if ( potential.wellDepthProperty.range.getLength() > 0 ) {
+      handles.push( new MorseDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) ) );
+    }
+
     super( potential, selectedPotentialProperty, {
-      children: [
-        new MorseWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
-        new MorseDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) )
-      ],
+      children: handles,
       tandem: tandem
     } );
   }

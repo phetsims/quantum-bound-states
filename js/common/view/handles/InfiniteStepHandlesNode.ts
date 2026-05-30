@@ -14,6 +14,7 @@ import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import InfiniteStepHeightHandleNode from './InfiniteStepHeightHandleNode.js';
 import InfiniteStepWidthHandleNode from './InfiniteStepWidthHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class InfiniteStepHandlesNode extends PotentialHandlesNode {
@@ -24,11 +25,19 @@ export default class InfiniteStepHandlesNode extends PotentialHandlesNode {
                       time: QBSTime,
                       tandem: Tandem ) {
 
+    const handles: PotentialHandleNode<InfiniteStepPotential>[] = [];
+
+    if ( potential.wellWidthProperty.range.getLength() > 0 ) {
+      handles.push( new InfiniteStepWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
+      );
+    }
+
+    if ( potential.stepHeightProperty.range.getLength() > 0 ) {
+      handles.push( new InfiniteStepHeightHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'stepHeightHandleNode' ) ) );
+    }
+
     super( potential, selectedPotentialProperty, {
-      children: [
-        new InfiniteStepWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ),
-        new InfiniteStepHeightHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'stepHeightHandleNode' ) )
-      ],
+      children: handles,
       tandem: tandem
     } );
   }

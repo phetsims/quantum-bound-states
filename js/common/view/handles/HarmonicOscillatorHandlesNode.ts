@@ -13,6 +13,7 @@ import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import HarmonicOscillatorWidthHandleNode from './HarmonicOscillatorWidthHandleNode.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
 
 export default class HarmonicOscillatorHandlesNode extends PotentialHandlesNode {
@@ -23,10 +24,14 @@ export default class HarmonicOscillatorHandlesNode extends PotentialHandlesNode 
                       time: QBSTime,
                       tandem: Tandem ) {
 
+    const handles: PotentialHandleNode<HarmonicOscillatorPotential>[] = [];
+
+    if ( potential.wellWidthProperty.range.getLength() > 0 ) {
+      handles.push( new HarmonicOscillatorWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ) );
+    }
+
     super( potential, selectedPotentialProperty, {
-      children: [
-        new HarmonicOscillatorWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
-      ],
+      children: handles,
       tandem: tandem
     } );
   }
