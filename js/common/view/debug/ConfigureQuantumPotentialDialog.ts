@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
@@ -15,11 +16,61 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../../sun/js/Dialog.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
+import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
+import SeparationControl from './SeparationControl.js';
+import SpacingControl from './SpacingControl.js';
+import StepHeightControl from './StepHeightControl.js';
+import WellDepthControl from './WellDepthControl.js';
+import WellWidthControl from './WellWidthControl.js';
+import XOffsetControl from './XOffsetControl.js';
+import YOffsetControl from './YOffsetControl.js';
+
+type SelfOptions = {
+  xOffsetProperty: NumberProperty;
+  yOffsetProperty: NumberProperty;
+  wellWidthProperty?: NumberProperty;
+  wellDepthProperty?: NumberProperty;
+  stepHeightProperty?: NumberProperty;
+  separationProperty?: NumberProperty;
+  spacingProperty?: NumberProperty;
+};
+
+export type ConfigureQuantumPotentialDialogOptions = SelfOptions;
 
 export default class ConfigureQuantumPotentialDialog extends Dialog {
 
-  protected constructor( titleString: string, controls: Node[] ) {
+  protected constructor( titleString: string, time: QBSTime, options: ConfigureQuantumPotentialDialogOptions ) {
+
+    const controls: Node[] = [];
+
+    if ( options.xOffsetProperty && options.xOffsetProperty.range.getLength() > 0 ) {
+      controls.push( new XOffsetControl( options.xOffsetProperty, time ) );
+    }
+
+    if ( options.yOffsetProperty.range.getLength() > 0 ) {
+      controls.push( new YOffsetControl( options.yOffsetProperty, time ) );
+    }
+
+    if ( options.wellWidthProperty && options.wellWidthProperty.range.getLength() > 0 ) {
+      controls.push( new WellWidthControl( options.wellWidthProperty, time ) );
+    }
+
+    if ( options.wellDepthProperty && options.wellDepthProperty.range.getLength() > 0 ) {
+      controls.push( new WellDepthControl( options.wellDepthProperty, time ) );
+    }
+
+    if ( options.stepHeightProperty && options.stepHeightProperty.range.getLength() > 0 ) {
+      controls.push( new StepHeightControl( options.stepHeightProperty, time ) );
+    }
+
+    if ( options.separationProperty && options.separationProperty.range.getLength() > 0 ) {
+      controls.push( new SeparationControl( options.separationProperty, time ) );
+    }
+
+    if ( options.spacingProperty && options.spacingProperty.range.getLength() > 0 ) {
+      controls.push( new SpacingControl( options.spacingProperty, time ) );
+    }
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: controls
