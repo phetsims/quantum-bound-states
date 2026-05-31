@@ -28,7 +28,7 @@ export default class InfiniteStepWidthDragListener extends PotentialDragListener
     const chartTransform = energyDiagramNode.chartTransform;
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
-    // Since we are not providing a transform option value, all drag events (including listener.modelDelta) are in view coordinates.
+    // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
 
@@ -36,7 +36,7 @@ export default class InfiniteStepWidthDragListener extends PotentialDragListener
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
 
-      // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
+      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
         xOffset => new Bounds2(
           chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min ),
@@ -46,7 +46,7 @@ export default class InfiniteStepWidthDragListener extends PotentialDragListener
 
       drag: ( event, listener ) => {
 
-        // Since we are not providing a transform option value, listener.modelDelta is in view coordinates.
+        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
         const viewDeltaX = listener.modelDelta.x;
 
         // Remember the Property's previous value for sound feedback.

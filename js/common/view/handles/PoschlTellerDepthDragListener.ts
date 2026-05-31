@@ -28,7 +28,7 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
     const chartTransform = energyDiagramNode.chartTransform;
     const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
-    // Since we are not providing a transform option value, all drag events (including listener.modelDelta) are in view coordinates.
+    // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
 
@@ -36,7 +36,7 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
       keyboardDragDelta: 0.5, // eV
       keyboardShiftDragDelta: 0.1, // eV
 
-      // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
+      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
         yOffset => new Bounds2(
           energyDiagramRectangleBounds.minX,
@@ -46,7 +46,7 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
 
       drag: ( event, listener ) => {
 
-        // Since we are not providing a transform option value, listener.modelDelta is in view coordinates.
+        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
         const viewDeltaY = listener.modelDelta.y;
 
         // Remember the Property's previous value for sound feedback.

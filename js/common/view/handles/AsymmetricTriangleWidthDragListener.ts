@@ -34,7 +34,7 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
 
-      // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
+      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
         // The handle is to the left of the potential's center, so subtract well width.
         xOffset => new Bounds2(
@@ -45,7 +45,7 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
 
       drag: ( event, listener ) => {
 
-        // Since we are not providing a transform option value, listener.modelDelta is in view coordinates.
+        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
         const viewDeltaX = listener.modelDelta.x;
 
         // Remember the Property's previous value for sound feedback.
