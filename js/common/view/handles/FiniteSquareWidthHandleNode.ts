@@ -41,10 +41,10 @@ export default class FiniteSquareWidthHandleNode extends PotentialHandleNode<Fin
    */
   protected override updatePosition(): void {
     const x = this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2;
-    this.centerX = this.chartTransform.modelToViewX( x );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
-                                                     this.potential.wellDepthProperty.value / 2 +
-                                                     this.potential.getYOffsetForElectricField( x ) );
+    this.x = this.chartTransform.modelToViewX( x );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
+                                               this.potential.wellDepthProperty.value / 2 +
+                                               this.potential.getYOffsetForElectricField( x ) );
   }
 
   /**

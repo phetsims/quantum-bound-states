@@ -38,9 +38,9 @@ export default class MorseDepthHandleNode extends PotentialHandleNode<MorsePoten
    * Position the handle at the bottom of the well.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value );
+    this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value );
     // Subtract wellDepth because depth is downward for Morse.
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value - this.potential.wellDepthProperty.value );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value - this.potential.wellDepthProperty.value );
   }
 
   /**

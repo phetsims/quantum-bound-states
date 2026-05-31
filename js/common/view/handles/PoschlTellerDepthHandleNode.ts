@@ -41,11 +41,11 @@ export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<Pos
    */
   protected override updatePosition(): void {
     const x = this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 - this.potential.wellWidthProperty.value / 2;
-    this.centerX = this.chartTransform.modelToViewX( x );
+    this.x = this.chartTransform.modelToViewX( x );
     // Subtract wellDepth because depth is downward for Poschl-Teller.
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value -
-                                                     this.potential.wellDepthProperty.value +
-                                                     this.potential.getYOffsetForElectricField( x ) );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value -
+                                               this.potential.wellDepthProperty.value +
+                                               this.potential.getYOffsetForElectricField( x ) );
   }
 
   /**

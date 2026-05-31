@@ -38,10 +38,10 @@ export default class InfiniteStepWidthHandleNode extends PotentialHandleNode<Inf
    * Vertically center the handle on the right wall of the well, halfway down to the step.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
-                                                     ( this.potential.energyAxisRange.getLength() / 2 ) +
-                                                     ( this.potential.stepHeightProperty.value / 2 ) );
+    this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
+                                               ( this.potential.energyAxisRange.getLength() / 2 ) +
+                                               ( this.potential.stepHeightProperty.value / 2 ) );
   }
 
   /**

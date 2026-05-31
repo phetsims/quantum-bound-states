@@ -38,8 +38,8 @@ export default class InfiniteStepHeightHandleNode extends PotentialHandleNode<In
    * Horizontally center the handle at the top of the step.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 4 );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.stepHeightProperty.value );
+    this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 4 );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.stepHeightProperty.value );
   }
 
   /**

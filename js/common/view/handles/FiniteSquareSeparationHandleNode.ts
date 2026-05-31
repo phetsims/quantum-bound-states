@@ -53,11 +53,11 @@ export default class FiniteSquareSeparationHandleNode extends PotentialHandleNod
     const x = ( numberOfWells % 2 === 0 ) ?
               this.potential.xOffsetProperty.value + this.potential.separationProperty.value / 2 :
               this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 + this.potential.separationProperty.value;
-    this.centerX = this.chartTransform.modelToViewX( x );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
-                                                     this.potential.wellDepthProperty.value +
-                                                     ENERGY_OFFSET +
-                                                     this.potential.getYOffsetForElectricField( x ) );
+    this.x = this.chartTransform.modelToViewX( x );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
+                                               this.potential.wellDepthProperty.value +
+                                               ENERGY_OFFSET +
+                                               this.potential.getYOffsetForElectricField( x ) );
   }
 
   /**

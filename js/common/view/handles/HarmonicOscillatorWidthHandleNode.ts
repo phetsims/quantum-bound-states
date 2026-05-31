@@ -38,8 +38,8 @@ export default class HarmonicOscillatorWidthHandleNode extends PotentialHandleNo
    * Position the handle on the potential at HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY eV.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY );
+    this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY );
   }
 
   /**

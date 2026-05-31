@@ -42,8 +42,8 @@ export default class CoulombWidthHandleNode extends PotentialHandleNode<CoulombP
    * Position the handle on the potential.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + ENERGY_OFFSET );
+    this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + ENERGY_OFFSET );
   }
 
   /**

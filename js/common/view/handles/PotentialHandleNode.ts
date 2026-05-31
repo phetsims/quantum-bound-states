@@ -2,6 +2,7 @@
 
 /**
  * PotentialHandleNode is the base class for all handles that are used to change some property of a quantum potential.
+ * Origin is at the center of the double-headed arrow.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -41,8 +41,8 @@ export default class AsymmetricTriangleDepthHandleNode extends PotentialHandleNo
    * Position the handle to the right of the well, at the top of the potential.
    */
   protected override updatePosition(): void {
-    this.centerX = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 + HANDLE_X_OFFSET );
-    this.centerY = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.wellDepthProperty.value );
+    this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 + HANDLE_X_OFFSET );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.wellDepthProperty.value );
   }
 
   /**
