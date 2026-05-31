@@ -35,7 +35,6 @@ export default class MorseWidthDragListener extends PotentialDragListener<MorseP
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
 
-      // Adjust drag bounds for xOffset.
       // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
         xOffset => new Bounds2(

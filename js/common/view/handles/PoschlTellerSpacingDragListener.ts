@@ -34,7 +34,7 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
 
-      // Adjust drag bounds. Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
+      // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
         ( xOffset, numberOfWells, wellWidth ) => {
           //TODO https://github.com/phetsims/quantum-bound-states/issues/53 dragBoundsProperty is incorrect. See PoschlTellerSpacingHandleNode.updatePosition

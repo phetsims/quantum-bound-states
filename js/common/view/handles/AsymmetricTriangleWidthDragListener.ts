@@ -34,9 +34,9 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
 
-      // Adjust drag bounds for xOffset. The handle is on the left wall, so mirror the right-wall bounds.
       // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
+        // The handle is to the left of the potential's center, so subtract well width.
         xOffset => new Bounds2(
           chartTransform.modelToViewX( xOffset - wellWidthProperty.range.max ),
           energyDiagramRectangleBounds.minY,
