@@ -55,7 +55,7 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
         // Remember the Property's previous value for sound feedback.
         const previousWellWidth = wellWidthProperty.value;
 
-        // The handle is at getTotalWidth()/2, and each well width contributes numberOfWells times to getTotalWidth.
+        // Compute new value, taking into account the number of wells.
         const deltaWidth = 2 * chartTransform.viewToModelDeltaX( viewDeltaX );
         wellWidthProperty.value = wellWidthProperty.range.constrainValue(
           previousWellWidth + deltaWidth / potential.numberOfWellsProperty.value );
