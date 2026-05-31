@@ -28,6 +28,8 @@ export default class FiniteSquareSeparationHandleNode extends PotentialHandleNod
 
     super( potential, energyDiagramNode.chartTransform, potential.separationProperty, {
       orientation: 'horizontal',
+
+      //TODO Provide a way to hide this handle via PhET-iO?
       visibleProperty: new DerivedProperty( [ potential.numberOfWellsProperty ], numberOfWells => numberOfWells > 1 ),
       accessibleName: QuantumBoundStatesFluent.a11y.handles.finiteSquareSeparationHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.finiteSquareSeparationHandle.accessibleHelpTextStringProperty,
