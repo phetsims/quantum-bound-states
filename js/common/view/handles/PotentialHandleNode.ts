@@ -24,7 +24,7 @@ type SelfOptions = {
 };
 
 export type PotentialHandleNodeOptions = SelfOptions &
-  PickOptional<ArrowNodeOptions, 'accessibleName' | 'accessibleHelpText' | 'accessibleFocusObjectResponse' | 'accessibleParagraphContent'> &
+  PickOptional<ArrowNodeOptions, 'visibleProperty' | 'accessibleName' | 'accessibleHelpText' | 'accessibleFocusObjectResponse' | 'accessibleParagraphContent'> &
   PickRequired<ArrowNodeOptions, 'tandem'>;
 
 export default abstract class PotentialHandleNode<T extends QuantumPotential> extends InteractiveHighlighting( ArrowNode ) {

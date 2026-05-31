@@ -13,6 +13,7 @@ import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareDepthHandleNode from './FiniteSquareDepthHandleNode.js';
+import FiniteSquareSeparationHandleNode from './FiniteSquareSeparationHandleNode.js';
 import FiniteSquareWidthHandleNode from './FiniteSquareWidthHandleNode.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 import PotentialHandlesNode from './PotentialHandlesNode.js';
@@ -37,7 +38,7 @@ export default class FiniteSquareHandlesNode extends PotentialHandlesNode {
     }
 
     if ( potential.separationProperty.range.getLength() > 0 ) {
-      //TODO Add separationHandleNode
+      handles.push( new FiniteSquareSeparationHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'separationHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {
