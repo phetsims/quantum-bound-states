@@ -62,7 +62,7 @@ type PotentialParameters = {
   wellWidth: number; // Width of the well L in nm
   wellDepth: number; // Depth of the well V₀ in eV
   electricField: number; // Electric field in V/nm
-  separation?: number; // Wall-to-wall distance between adjacent wells in nm (default: 0)
+  separation: number; // Wall-to-wall distance between adjacent wells in nm (default: 0)
 };
 
 // Parameters for solve method
@@ -124,7 +124,7 @@ export default class FiniteSquareSolution {
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses, electricField } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses, electricField, separation } = parameters;
     affirm( numberOfWells === 1, 'FiniteSquareSolution does not support multiple wells' );
     affirm( electricField === 0, 'FiniteSquareSolution does not support electric field' );
 
@@ -160,7 +160,8 @@ export default class FiniteSquareSolution {
       yOffset: yOffset,
       wellWidth: wellWidth,
       wellDepth: wellDepth,
-      electricField: electricField
+      electricField: electricField,
+      separation: separation
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 

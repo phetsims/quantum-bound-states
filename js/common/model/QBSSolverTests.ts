@@ -279,7 +279,7 @@ QUnit.test( 'single-well parameter sweep', assert => {
       for ( const mass of masses ) {
         const potFn = FiniteSquareSolution.createPotentialFunction( {
           numberOfWells: 1, xOffset: 0, yOffset: 0,
-          wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+          wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0, separation: 0
         } );
 
         // V_inside = 0, V_outside = wellDepth; bound states in (0, wellDepth).
@@ -582,7 +582,7 @@ QUnit.test( 'single-well parameter sweep', assert => {
         // PoschlTellerSolution.createPotentialFunction only supports single well.
         const potFn = PoschlTellerSolution.createPotentialFunction( {
           numberOfWells: 1, xOffset: 0, yOffset: 0,
-          wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+          wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0, spacing: 0
         } );
 
         configs.push( {
@@ -880,7 +880,7 @@ QUnit.test( 'Finite Square Well (single, centered) parity alternates even/odd', 
   const V0 = 10; // eV
   const mass = 1;
   const potFn = FiniteSquareSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0, separation: 0
   } );
   const result = NumerovSolver.solve( standardGrid(), potFn, mass, 0, V0 );
 
@@ -898,7 +898,7 @@ QUnit.test( 'Poschl-Teller (single, centered) parity alternates even/odd', asser
   const wellDepth = 10;  // eV
   const mass = 1;
   const potFn = PoschlTellerSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0, spacing: 0
   } );
   const result = NumerovSolver.solve( standardGrid(), potFn, mass, -3 * wellDepth, 0 );
 
@@ -1173,13 +1173,13 @@ QUnit.test( 'energy error < 1% for L=2 nm, V₀=10 eV', assert => {
   const mass = 1;
   const grid = standardGrid();
   const potFn = FiniteSquareSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0, separation: 0
   } );
 
   const numericalResult = NumerovSolver.solve( grid, potFn, mass, 0, V0 );
   const analyticalResult = FiniteSquareSolution.solve( grid, {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0,
-    energyMin: 0, energyMax: V0, electronMasses: mass, electricField: 0
+    energyMin: 0, energyMax: V0, electronMasses: mass, electricField: 0, separation: 0
   } );
 
   assert.ok( numericalResult.energies.length >= 2, `Found ${numericalResult.energies.length} numerical states (need ≥ 2)` );
@@ -1197,13 +1197,13 @@ QUnit.test( 'wave-function RMS error < 5% for L=2 nm, V₀=10 eV', assert => {
   const mass = 1;
   const grid = standardGrid();
   const potFn = FiniteSquareSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0, separation: 0
   } );
 
   const numericalResult = NumerovSolver.solve( grid, potFn, mass, 0, V0 );
   const analyticalResult = FiniteSquareSolution.solve( grid, {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0,
-    energyMin: 0, energyMax: V0, electronMasses: mass, electricField: 0
+    energyMin: 0, energyMax: V0, electronMasses: mass, electricField: 0, separation: 0
   } );
 
   const nCompareB1wf = Math.min( numericalResult.waveFunctions.length, analyticalResult.waveFunctions.length, 6 );
@@ -1226,13 +1226,13 @@ QUnit.test( 'energy error < 1% for w=0.5 nm, V₀=10 eV', assert => {
   const massPT = 1;
   const gridPT = standardGrid();
   const potFnPT = PoschlTellerSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT, electricField: 0, spacing: 0
   } );
 
   const numericalResultPT = NumerovSolver.solve( gridPT, potFnPT, massPT, -3 * V0PT, 0 );
   const analyticalResultPT = PoschlTellerSolution.solve( gridPT, {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT,
-    energyMin: -3 * V0PT, energyMax: 0, electronMasses: massPT, electricField: 0
+    energyMin: -3 * V0PT, energyMax: 0, electronMasses: massPT, electricField: 0, spacing: 0
   } );
 
   assert.ok( numericalResultPT.energies.length >= 2, `Found ${numericalResultPT.energies.length} numerical states (need ≥ 2)` );
@@ -1252,13 +1252,13 @@ QUnit.test( 'wave-function RMS error < 5% for w=0.5 nm, V₀=10 eV', assert => {
   const massPT = 1;
   const gridPT = standardGrid();
   const potFnPT = PoschlTellerSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT, electricField: 0, spacing: 0
   } );
 
   const numericalResultPT = NumerovSolver.solve( gridPT, potFnPT, massPT, -3 * V0PT, 0 );
   const analyticalResultPT = PoschlTellerSolution.solve( gridPT, {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT,
-    energyMin: -3 * V0PT, energyMax: 0, electronMasses: massPT, electricField: 0
+    energyMin: -3 * V0PT, energyMax: 0, electronMasses: massPT, electricField: 0, spacing: 0
   } );
 
   const nComparePTwf = Math.min( numericalResultPT.waveFunctions.length, analyticalResultPT.waveFunctions.length, 6 );
@@ -1392,10 +1392,10 @@ QUnit.test( 'all eigenvalues shift by yOffset within 1e-4 eV', assert => {
     const mass = 1;
     const grid = standardGrid();
     const potFn0 = FiniteSquareSolution.createPotentialFunction( {
-      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0
+      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0, separation: 0
     } );
     const potFn1 = FiniteSquareSolution.createPotentialFunction( {
-      numberOfWells: 1, xOffset: 0, yOffset: yShift, wellWidth: L, wellDepth: V0, electricField: 0
+      numberOfWells: 1, xOffset: 0, yOffset: yShift, wellWidth: L, wellDepth: V0, electricField: 0, separation: 0
     } );
     const result0 = NumerovSolver.solve( grid, potFn0, mass, 0, V0 );
     const result1 = NumerovSolver.solve( grid, potFn1, mass, yShift, yShift + V0 );
@@ -1505,7 +1505,7 @@ QUnit.test( 'always finds at least one bound state across parameter space', asse
       for ( const mass of masses ) {
         const potFn = FiniteSquareSolution.createPotentialFunction( {
           numberOfWells: 1, xOffset: 0, yOffset: 0,
-          wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+          wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0, separation: 0
         } );
         const result = NumerovSolver.solve( standardGrid(), potFn, mass, 0, wellDepth );
         assert.ok( result.energies.length >= 1,
@@ -1528,7 +1528,7 @@ QUnit.test( 'Finite Square Well eigenstates are orthogonal', assert => {
   const mass = 1;
   const grid = standardGrid();
   const potFn = FiniteSquareSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: L, wellDepth: V0, electricField: 0, separation: 0
   } );
   const result = NumerovSolver.solve( grid, potFn, mass, 0, V0 );
   assertOrthogonality( assert, result.waveFunctions, grid.dx, 1e-3, 'FSW' );
@@ -1541,7 +1541,7 @@ QUnit.test( 'Poschl-Teller eigenstates are orthogonal', assert => {
   const mass = 1;
   const grid = standardGrid();
   const potFn = PoschlTellerSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: w, wellDepth: V0, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: w, wellDepth: V0, electricField: 0, spacing: 0
   } );
   const result = NumerovSolver.solve( grid, potFn, mass, -3 * V0, 0 );
   assertOrthogonality( assert, result.waveFunctions, grid.dx, 1e-3, 'PT' );
@@ -1577,7 +1577,7 @@ QUnit.test( 'Finite Square Well states decay to < 1% at grid edges', assert => {
 
   const grid = standardGrid();
   const potFn = FiniteSquareSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 2, wellDepth: 10, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 2, wellDepth: 10, electricField: 0, separation: 0
   } );
   const result = NumerovSolver.solve( grid, potFn, 1, 0, 10 );
   assertBoundaryDecay( assert, result.waveFunctions, 0.01, 'FSW' );
@@ -1587,7 +1587,7 @@ QUnit.test( 'Poschl-Teller states decay to < 1% at grid edges', assert => {
 
   const grid = standardGrid();
   const potFn = PoschlTellerSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 0.5, wellDepth: 10, electricField: 0
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 0.5, wellDepth: 10, electricField: 0, spacing: 0
   } );
   const result = NumerovSolver.solve( grid, potFn, 1, -30, 0 );
   assertBoundaryDecay( assert, result.waveFunctions, 0.01, 'PT' );
@@ -1623,7 +1623,7 @@ QUnit.test( 'N_bound = ⌊λ − ½⌋ + 1 where λ = w√(2mV₀)/ℏ', assert 
 
       const potFn = PoschlTellerSolution.createPotentialFunction( {
         numberOfWells: 1, xOffset: 0, yOffset: 0,
-        wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0
+        wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0, spacing: 0
       } );
       const result = NumerovSolver.solve( standardGrid(), potFn, mass, -3 * wellDepth, 0 );
 
@@ -1724,7 +1724,7 @@ QUnit.test( 'soft-wall potentials — ψ and ψ′ continuous everywhere', asser
   {
     const grid = standardGrid();
     const potFn = FiniteSquareSolution.createPotentialFunction( {
-      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 2, wellDepth: 10, electricField: 0
+      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 2, wellDepth: 10, electricField: 0, separation: 0
     } );
     const result = NumerovSolver.solve( grid, potFn, 1, 0, 10 );
     assertWaveFunctionContinuity( assert, result, grid.dx, 0, 'FSW L=2 V₀=10' );
@@ -1776,7 +1776,7 @@ QUnit.test( 'soft-wall potentials — ψ and ψ′ continuous everywhere', asser
   {
     const grid = standardGrid();
     const potFn = PoschlTellerSolution.createPotentialFunction( {
-      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 0.5, wellDepth: 10, electricField: 0
+      numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 0.5, wellDepth: 10, electricField: 0, spacing: 0
     } );
     const result = NumerovSolver.solve( grid, potFn, 1, -30, 0 );
     assertWaveFunctionContinuity( assert, result, grid.dx, 0, 'PT w=0.5 V₀=10' );

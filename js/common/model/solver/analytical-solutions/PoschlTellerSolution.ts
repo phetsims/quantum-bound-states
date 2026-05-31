@@ -59,7 +59,7 @@ type PotentialParameters = {
   wellWidth: number; // Width parameter w in nm
   wellDepth: number; // Well depth V₀ in eV (positive value)
   electricField: number; // Electric field in V/nm
-  spacing?: number; // Center-to-center distance between adjacent wells in nm (default: 0)
+  spacing: number; // Center-to-center distance between adjacent wells in nm (default: 0)
 };
 
 // Parameters for solve method
@@ -92,8 +92,7 @@ export default class PoschlTellerSolution {
    */
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
-    const { numberOfWells, xOffset, yOffset, wellWidth, wellDepth, electricField } = parameters;
-    const spacing = parameters.spacing ?? 0;
+    const { numberOfWells, xOffset, yOffset, wellWidth, wellDepth, electricField, spacing } = parameters;
 
     return ( x: number ) => {
       let potentialEnergy = 0;
@@ -120,7 +119,7 @@ export default class PoschlTellerSolution {
    */
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses, electricField } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, wellDepth, electronMasses, electricField, spacing } = parameters;
     affirm( numberOfWells === 1, 'PoschlTellerSolution does not support multiple wells' );
     affirm( electricField === 0, 'PoschlTellerSolution does not support electric field' );
 
@@ -138,7 +137,8 @@ export default class PoschlTellerSolution {
       yOffset: yOffset,
       wellWidth: wellWidth,
       wellDepth: wellDepth,
-      electricField: electricField
+      electricField: electricField,
+      spacing: spacing
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
