@@ -36,6 +36,7 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: 0.1, // eV
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+      //TODO https://github.com/phetsims/quantum-bound-states/issues/53 dragBoundsProperty is incorrect, does not account for electric field.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
         yOffset => new Bounds2(
           energyDiagramRectangleBounds.minX,
