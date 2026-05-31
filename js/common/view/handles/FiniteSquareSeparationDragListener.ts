@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -35,16 +34,11 @@ export default class FiniteSquareSeparationDragListener extends PotentialDragLis
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
 
-      // Adjust drag bounds for xOffset and the handle position at getTotalWidth()/2.
-      // Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.separationProperty ],
-        ( xOffset, numberOfWells, separation ) => {
-          const totalSeparation = ( numberOfWells - 1 ) * separation;
-          return new Bounds2(
-            chartTransform.modelToViewX( xOffset + ( numberOfWells * separationProperty.range.min + totalSeparation ) / 2 ),
-            energyDiagramRectangleBounds.minY,
-            chartTransform.modelToViewX( xOffset + ( numberOfWells * separationProperty.range.max + totalSeparation ) / 2 ),
-            energyDiagramRectangleBounds.maxY );
+      // Adjust drag bounds. Since we are not providing a transform option value, dragBoundsProperty is in view coordinates.
+      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
+        ( xOffset, numberOfWells, wellWidth ) => {
+          //TODO https://github.com/phetsims/quantum-bound-states/issues/53 dragBoundsProperty is incorrect. See FiniteSquareSeparationHandleNode.updatePosition
+          return energyDiagramRectangleBounds;
         } ),
 
       drag: ( event, listener ) => {
