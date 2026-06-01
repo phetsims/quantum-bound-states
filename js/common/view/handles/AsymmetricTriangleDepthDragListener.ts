@@ -26,7 +26,6 @@ export default class AsymmetricTriangleDepthDragListener extends PotentialDragLi
 
     const wellDepthProperty = potential.wellDepthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
@@ -38,11 +37,16 @@ export default class AsymmetricTriangleDepthDragListener extends PotentialDragLi
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
-        yOffset => new Bounds2(
-          energyDiagramRectangleBounds.minX,
-          chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max ),
-          energyDiagramRectangleBounds.maxX,
-          chartTransform.modelToViewY( yOffset + wellDepthProperty.range.min ) ) ),
+        yOffset => {
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
+          const minY = yOffset + wellDepthProperty.range.min;
+          const maxY = yOffset + wellDepthProperty.range.max;
+          return new Bounds2(
+            energyDiagramRectangleBounds.minX,
+            chartTransform.modelToViewY( maxY ),
+            energyDiagramRectangleBounds.maxX,
+            chartTransform.modelToViewY( minY ) );
+        } ),
 
       drag: ( event, listener ) => {
 
