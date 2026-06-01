@@ -43,11 +43,13 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
         ( numberOfWells, yOffset, wellWidth, separation, electricField ) => {
         const x = handleNode.getModelX();
         const electricFieldOffset = potential.getElectricFieldOffset( x );
+        const minY = yOffset + wellDepthProperty.range.min + electricFieldOffset;
+        const maxY = yOffset + wellDepthProperty.range.max + electricFieldOffset;
         return new Bounds2(
             energyDiagramRectangleBounds.minX,
-            chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max + electricFieldOffset ),
+            chartTransform.modelToViewY( maxY ),
             energyDiagramRectangleBounds.maxX,
-            chartTransform.modelToViewY( yOffset + wellDepthProperty.range.min + electricFieldOffset ) );
+            chartTransform.modelToViewY( minY ) );
         } ),
 
       drag: ( event, listener ) => {
