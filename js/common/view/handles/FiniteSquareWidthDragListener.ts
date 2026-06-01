@@ -38,11 +38,12 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.separationProperty ],
         ( xOffset, numberOfWells, separation ) => {
-          const totalSeparation = ( numberOfWells - 1 ) * separation;
+          const minTotalWidth = ( numberOfWells * wellWidthProperty.range.min ) + ( ( numberOfWells - 1 ) * separation );
+          const maxTotalWidth = ( numberOfWells * wellWidthProperty.range.max ) + ( ( numberOfWells - 1 ) * separation );
           return new Bounds2(
-            chartTransform.modelToViewX( xOffset + ( numberOfWells * wellWidthProperty.range.min + totalSeparation ) / 2 ),
+            chartTransform.modelToViewX( xOffset + minTotalWidth / 2 ),
             energyDiagramRectangleBounds.minY,
-            chartTransform.modelToViewX( xOffset + ( numberOfWells * wellWidthProperty.range.max + totalSeparation ) / 2 ),
+            chartTransform.modelToViewX( xOffset + maxTotalWidth / 2 ),
             energyDiagramRectangleBounds.maxY );
         } ),
 

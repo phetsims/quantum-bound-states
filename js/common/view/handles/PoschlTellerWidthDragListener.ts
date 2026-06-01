@@ -38,11 +38,12 @@ export default class PoschlTellerWidthDragListener extends PotentialDragListener
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.spacingProperty ],
         ( xOffset, numberOfWells, spacing ) => {
-          const totalSpacing = ( numberOfWells - 1 ) * spacing;
+          const minTotalWidth = ( ( numberOfWells - 1 ) * spacing ) + wellWidthProperty.range.min;
+          const maxTotalWidth = ( ( numberOfWells - 1 ) * spacing ) + wellWidthProperty.range.max;
           return new Bounds2(
-            chartTransform.modelToViewX( xOffset + ( numberOfWells * wellWidthProperty.range.min + totalSpacing ) / 2 ),
+            chartTransform.modelToViewX( xOffset + minTotalWidth / 2 ),
             energyDiagramRectangleBounds.minY,
-            chartTransform.modelToViewX( xOffset + ( numberOfWells * wellWidthProperty.range.max + totalSpacing ) / 2 ),
+            chartTransform.modelToViewX( xOffset + maxTotalWidth / 2 ),
             energyDiagramRectangleBounds.maxY );
         } ),
 
