@@ -39,9 +39,9 @@ export default class CoulombWidthDragListener extends PotentialDragListener<Coul
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
         xOffset => new Bounds2(
-          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min ),
+          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min / 2 ),
           energyDiagramRectangleBounds.minY,
-          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.max ),
+          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.max / 2 ),
           energyDiagramRectangleBounds.maxY ) ),
 
       drag: ( event, listener ) => {
