@@ -36,14 +36,13 @@ export default class PoschlTellerWidthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: 0.1, // nm
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      //TODO https://github.com/phetsims/quantum-bound-states/issues/53 dragBoundsProperty is incorrect, does not account for electric field.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.spacingProperty ],
         ( xOffset, numberOfWells, spacing ) => {
           const totalSpacing = ( numberOfWells - 1 ) * spacing;
           return new Bounds2(
-            chartTransform.modelToViewX( xOffset + ( totalSpacing + wellWidthProperty.range.min ) / 2 ),
+            chartTransform.modelToViewX( xOffset + ( numberOfWells * wellWidthProperty.range.min + totalSpacing ) / 2 ),
             energyDiagramRectangleBounds.minY,
-            chartTransform.modelToViewX( xOffset + ( totalSpacing + wellWidthProperty.range.max ) / 2 ),
+            chartTransform.modelToViewX( xOffset + ( numberOfWells * wellWidthProperty.range.max + totalSpacing ) / 2 ),
             energyDiagramRectangleBounds.maxY );
         } ),
 
