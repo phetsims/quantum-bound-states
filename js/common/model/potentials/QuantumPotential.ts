@@ -156,10 +156,11 @@ export default abstract class QuantumPotential extends PhetioObject {
    */
   public abstract getMaxSolverEnergy(): number;
 
+  //TODO Should this be adjusted for xOffsetProperty?
   /**
-   * Gets the contribution that electric field makes to potential energy at a specified position.
+   * Gets the energy offset (in eV) at a specified position due to the electric field.
    */
-  public getYOffsetForElectricField( x: number ): number {
+  public getElectricFieldOffset( x: number ): number {
     return x * this.electricFieldProperty.value;
   }
 

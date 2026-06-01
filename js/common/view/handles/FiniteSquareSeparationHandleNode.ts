@@ -55,7 +55,7 @@ export default class FiniteSquareSeparationHandleNode extends PotentialHandleNod
     this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
                                                this.potential.wellDepthProperty.value +
                                                ENERGY_OFFSET +
-                                               this.potential.getYOffsetForElectricField( x ) );
+                                               this.potential.getElectricFieldOffset( x ) );
   }
 
   /**

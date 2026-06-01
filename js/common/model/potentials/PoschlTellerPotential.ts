@@ -172,7 +172,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     const xMaxAbsolute = Math.max( Math.abs( QBSConstants.ALL_GRAPHS_X_RANGE.min ), Math.abs( QBSConstants.ALL_GRAPHS_X_RANGE.max ) );
 
     // Adjust downward by the largest electric field contribution.
-    return yOffset - Math.abs( this.getYOffsetForElectricField( xMaxAbsolute ) );
+    return yOffset - Math.abs( this.getElectricFieldOffset( xMaxAbsolute ) );
   }
 
   /**

@@ -54,7 +54,7 @@ export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<P
               this.potential.xOffsetProperty.value - this.potential.spacingProperty.value;
     this.x = this.chartTransform.modelToViewX( x );
     this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + ENERGY_OFFSET +
-                                               this.potential.getYOffsetForElectricField( x ) );
+                                               this.potential.getElectricFieldOffset( x ) );
   }
 
   /**

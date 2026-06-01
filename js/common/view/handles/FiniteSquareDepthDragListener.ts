@@ -40,7 +40,7 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
         yOffset => {
         const x = handleNode.getModelX();
-        const electricFieldOffset = potential.getYOffsetForElectricField( x );
+        const electricFieldOffset = potential.getElectricFieldOffset( x );
         return new Bounds2(
             energyDiagramRectangleBounds.minX,
             chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max + electricFieldOffset ),

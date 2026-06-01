@@ -157,7 +157,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
     // The top of the well, adjusted for the electric field at the domain boundaries.
     // With an electric field, the asymptotic potential outside the well is tilted as V(x) = yOffset + wellDepth + electricField * x.
     // Bound states can only exist below the lower of the two asymptotic barriers at the edges of the domain.
-    return yOffset + wellDepth + Math.min( this.getYOffsetForElectricField( xMin ), this.getYOffsetForElectricField( xMax ) );
+    return yOffset + wellDepth + Math.min( this.getElectricFieldOffset( xMin ), this.getElectricFieldOffset( xMax ) );
   }
 
   /**
