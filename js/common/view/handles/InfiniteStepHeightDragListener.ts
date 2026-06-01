@@ -25,7 +25,6 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
 
     const stepHeightProperty = potential.stepHeightProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, stepHeightProperty, chartTransform, time, {
@@ -37,11 +36,16 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
-        yOffset => new Bounds2(
-          energyDiagramRectangleBounds.minX,
-          chartTransform.modelToViewY( yOffset + stepHeightProperty.range.max ),
-          energyDiagramRectangleBounds.maxX,
-          chartTransform.modelToViewY( yOffset + stepHeightProperty.range.min ) ) ),
+        yOffset => {
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
+          const minY = yOffset + stepHeightProperty.range.min;
+          const maxY = yOffset + stepHeightProperty.range.max;
+          return new Bounds2(
+            energyDiagramRectangleBounds.minX,
+            chartTransform.modelToViewY( maxY ),
+            energyDiagramRectangleBounds.maxX,
+            chartTransform.modelToViewY( minY ) );
+        } ),
 
       drag: ( event, listener ) => {
 

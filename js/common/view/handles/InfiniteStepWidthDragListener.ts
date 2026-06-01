@@ -26,7 +26,6 @@ export default class InfiniteStepWidthDragListener extends PotentialDragListener
 
     const wellWidthProperty = potential.wellWidthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellWidthProperty, chartTransform, time, {
@@ -38,11 +37,16 @@ export default class InfiniteStepWidthDragListener extends PotentialDragListener
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
-        xOffset => new Bounds2(
-          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.min / 2 ),
-          energyDiagramRectangleBounds.minY,
-          chartTransform.modelToViewX( xOffset + wellWidthProperty.range.max / 2 ),
-          energyDiagramRectangleBounds.maxY ) ),
+        xOffset => {
+          const minX = xOffset + wellWidthProperty.range.min / 2;
+          const maxX = xOffset + wellWidthProperty.range.max / 2;
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
+          return new Bounds2(
+            chartTransform.modelToViewX( minX ),
+            energyDiagramRectangleBounds.minY,
+            chartTransform.modelToViewX( maxX ),
+            energyDiagramRectangleBounds.maxY );
+        } ),
 
       drag: ( event, listener ) => {
 
