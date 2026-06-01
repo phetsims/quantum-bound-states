@@ -26,7 +26,6 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
 
     const wellDepthProperty = potential.wellDepthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
@@ -42,11 +41,14 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
         [ potential.numberOfWellsProperty, potential.xOffsetProperty, potential.yOffsetProperty,
           potential.wellWidthProperty, potential.separationProperty, potential.electricFieldProperty ],
         () => {
+
           const x = handleNode.getModelX();
           const electricFieldOffset = potential.getElectricFieldOffset( x );
           const yOffset = potential.yOffsetProperty.value;
           const minY = yOffset + wellDepthProperty.range.min + electricFieldOffset;
           const maxY = yOffset + wellDepthProperty.range.max + electricFieldOffset;
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
+
           return new Bounds2(
             energyDiagramRectangleBounds.minX,
             chartTransform.modelToViewY( maxY ),

@@ -25,7 +25,6 @@ export default class FiniteSquareSeparationDragListener extends PotentialDragLis
 
     const separationProperty = potential.separationProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, separationProperty, chartTransform, time, {
@@ -45,6 +44,7 @@ export default class FiniteSquareSeparationDragListener extends PotentialDragLis
           const maxX = ( numberOfWells % 2 === 0 ) ?
                        xOffset + separationProperty.range.max / 2 :
                        xOffset + ( wellWidth / 2 + separationProperty.range.max );
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
           return new Bounds2(
             chartTransform.modelToViewX( minX ),

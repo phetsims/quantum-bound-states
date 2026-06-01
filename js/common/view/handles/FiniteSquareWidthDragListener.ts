@@ -25,7 +25,6 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
 
     const wellWidthProperty = potential.wellWidthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellWidthProperty, chartTransform, time, {
@@ -38,12 +37,17 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.separationProperty ],
         ( xOffset, numberOfWells, separation ) => {
+
           const minTotalWidth = ( numberOfWells * wellWidthProperty.range.min ) + ( ( numberOfWells - 1 ) * separation );
           const maxTotalWidth = ( numberOfWells * wellWidthProperty.range.max ) + ( ( numberOfWells - 1 ) * separation );
+          const minX = xOffset + minTotalWidth / 2;
+          const maxX = xOffset + maxTotalWidth / 2;
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
+
           return new Bounds2(
-            chartTransform.modelToViewX( xOffset + minTotalWidth / 2 ),
+            chartTransform.modelToViewX( minX ),
             energyDiagramRectangleBounds.minY,
-            chartTransform.modelToViewX( xOffset + maxTotalWidth / 2 ),
+            chartTransform.modelToViewX( maxX ),
             energyDiagramRectangleBounds.maxY );
         } ),
 
