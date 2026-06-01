@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -35,10 +36,23 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
       keyboardShiftDragDelta: 0.1, // nm
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
-        ( xOffset, numberOfWells, wellWidth ) => {
-          //TODO https://github.com/phetsims/quantum-bound-states/issues/53 dragBoundsProperty is incorrect. See PoschlTellerSpacingHandleNode.updatePosition
-          return energyDiagramRectangleBounds;
+      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty ],
+        ( xOffset, numberOfWells ) => {
+
+          // Handle is to the left of the potential's center. So subtract from offset and reverse the use of
+          // spacingProperty.range.min and spacingProperty.range.max.
+          const minX = ( numberOfWells % 2 === 0 ) ?
+                       xOffset - spacingProperty.range.max / 2 :
+                       xOffset - spacingProperty.range.max;
+          const maxX = ( numberOfWells % 2 === 0 ) ?
+                       xOffset - spacingProperty.range.min / 2 :
+                       xOffset - spacingProperty.range.min;
+
+          return new Bounds2(
+            chartTransform.modelToViewX( minX ),
+            energyDiagramRectangleBounds.minY,
+            chartTransform.modelToViewX( maxX ),
+            energyDiagramRectangleBounds.maxY );
         } ),
 
       drag: ( event, listener ) => {
@@ -52,9 +66,10 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
         // Compute new value, taking into account the number of wells.
         // deltaSpacing is subtracted because the handle is to the left of the potential's center, so that it does
         // not conflict with the width handle, which is to the right of the potential's center.
-        const deltaSpacing = 2 * chartTransform.viewToModelDeltaX( viewDeltaX );
-        spacingProperty.value = spacingProperty.range.constrainValue(
-          previousSpacing - deltaSpacing / ( potential.numberOfWellsProperty.value - 1 ) );
+        const deltaSpacing = ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
+                             2 * chartTransform.viewToModelDeltaX( viewDeltaX ) :
+                             chartTransform.viewToModelDeltaX( viewDeltaX );
+        spacingProperty.value = spacingProperty.range.constrainValue( previousSpacing - deltaSpacing );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( spacingProperty.value, previousSpacing );
