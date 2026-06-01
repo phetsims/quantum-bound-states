@@ -38,9 +38,9 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
         // The handle is to the left of the potential's center, so subtract well width.
         xOffset => new Bounds2(
-          chartTransform.modelToViewX( xOffset - wellWidthProperty.range.max ),
+          chartTransform.modelToViewX( xOffset - wellWidthProperty.range.max / 2 ),
           energyDiagramRectangleBounds.minY,
-          chartTransform.modelToViewX( xOffset - wellWidthProperty.range.min ),
+          chartTransform.modelToViewX( xOffset - wellWidthProperty.range.min / 2 ),
           energyDiagramRectangleBounds.maxY ) ),
 
       drag: ( event, listener ) => {
