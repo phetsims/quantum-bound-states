@@ -57,7 +57,7 @@ export default class CoulombPotential extends QuantumPotential {
       // as it would change the default coupling and thus the default behavior of the simulation.
       // The Java reference did not have a well width parameter, but the coupling was effectively 1.44 eV·nm, so the default width is set to give that coupling.
       // A more physical model would tune the bohr radius, but this is not a good UI fit for the sim's scale
-      //TODO 0.72 is problematic because we should 1 decimal place for well width. Can we use 0.7?
+      //TODO https://github.com/phetsims/quantum-bound-states/issues/64 0.72 is problematic because we show 1 decimal place for well width. Can we use 0.7?
       wellWidthRange: new RangeWithValue( 0.2, 0.72, 0.72 ),
 
       // QuantumPotentialOptions
