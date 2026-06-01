@@ -39,7 +39,7 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: 0.1, // eV
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
+      dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty, potential.electricFieldProperty ],
         yOffset => {
           const x = handleNode.getModelX();
           const electricFieldOffset = potential.getElectricFieldOffset( x );
