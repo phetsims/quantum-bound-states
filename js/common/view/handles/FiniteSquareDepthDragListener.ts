@@ -37,6 +37,7 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: 0.1, // eV
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+      // Dependencies that appear to be unused are actually used by getModelX and getElectricFieldOffset.
       dragBoundsProperty: new DerivedProperty(
         [ potential.numberOfWellsProperty, potential.yOffsetProperty, potential.wellWidthProperty, potential.separationProperty, potential.electricFieldProperty ],
         ( numberOfWells, yOffset, wellWidth, separation, electricField ) => {
