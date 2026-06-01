@@ -1,7 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/quantum-bound-states/issues/53 Does not drag full range when electric field is non-zero.
-
 //TODO This is identical to MorseDepthDragListener except for the type of @param potential.
 /**
  * MorseDepthDragListener is the drag listener for changing the well depth of a Poschl-Teller potential.
@@ -28,7 +26,6 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
 
     const wellDepthProperty = potential.wellDepthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
@@ -39,15 +36,21 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: 0.1, // eV
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty, potential.electricFieldProperty ],
-        yOffset => {
+      // Dependencies that appear to be unused are actually used by getModelX and getElectricFieldOffset.
+      dragBoundsProperty: new DerivedProperty(
+        [ potential.numberOfWellsProperty, potential.xOffsetProperty, potential.yOffsetProperty,
+          potential.wellWidthProperty, potential.spacingProperty, potential.electricFieldProperty ],
+        () => {
           const x = handleNode.getModelX();
           const electricFieldOffset = potential.getElectricFieldOffset( x );
-          return new Bounds2(
+          const yOffset = potential.yOffsetProperty.value;
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
+          const bounds = new Bounds2(
             energyDiagramRectangleBounds.minX,
-            chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max + electricFieldOffset ),
+            chartTransform.modelToViewY( yOffset - wellDepthProperty.range.min + electricFieldOffset ),
             energyDiagramRectangleBounds.maxX,
-            chartTransform.modelToViewY( yOffset + wellDepthProperty.range.min + electricFieldOffset ) );
+            chartTransform.modelToViewY( yOffset - wellDepthProperty.range.max + electricFieldOffset ) );
+          return bounds;
         } ),
 
       drag: ( event, listener ) => {

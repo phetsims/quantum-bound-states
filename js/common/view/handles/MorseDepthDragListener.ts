@@ -26,7 +26,6 @@ export default class MorseDepthDragListener extends PotentialDragListener<MorseP
 
     const wellDepthProperty = potential.wellDepthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
@@ -38,11 +37,17 @@ export default class MorseDepthDragListener extends PotentialDragListener<MorseP
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
-        yOffset => new Bounds2(
-          energyDiagramRectangleBounds.minX,
-          chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max ),
-          energyDiagramRectangleBounds.maxX,
-          chartTransform.modelToViewY( yOffset + wellDepthProperty.range.min ) ) ),
+        yOffset => {
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
+          // Depth is downward for Morse, so reverse min and max.
+          const minY = yOffset + wellDepthProperty.range.max;
+          const maxY = yOffset + wellDepthProperty.range.min;
+          return new Bounds2(
+            energyDiagramRectangleBounds.minX,
+            chartTransform.modelToViewY( minY ),
+            energyDiagramRectangleBounds.maxX,
+            chartTransform.modelToViewY( maxY ) );
+        } ),
 
       drag: ( event, listener ) => {
 
