@@ -25,7 +25,6 @@ export default class PoschlTellerWidthDragListener extends PotentialDragListener
 
     const wellWidthProperty = potential.wellWidthProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellWidthProperty, chartTransform, time, {
@@ -40,6 +39,7 @@ export default class PoschlTellerWidthDragListener extends PotentialDragListener
         ( xOffset, numberOfWells, spacing ) => {
           const minTotalWidth = ( ( numberOfWells - 1 ) * spacing ) + wellWidthProperty.range.min;
           const maxTotalWidth = ( ( numberOfWells - 1 ) * spacing ) + wellWidthProperty.range.max;
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
           return new Bounds2(
             chartTransform.modelToViewX( xOffset + minTotalWidth / 2 ),
             energyDiagramRectangleBounds.minY,

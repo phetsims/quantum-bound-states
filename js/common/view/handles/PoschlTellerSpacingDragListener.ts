@@ -25,7 +25,6 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
 
     const spacingProperty = potential.spacingProperty;
     const chartTransform = energyDiagramNode.chartTransform;
-    const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, spacingProperty, chartTransform, time, {
@@ -47,6 +46,7 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
           const maxX = ( numberOfWells % 2 === 0 ) ?
                        xOffset - spacingProperty.range.min / 2 :
                        xOffset - spacingProperty.range.min;
+          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
           return new Bounds2(
             chartTransform.modelToViewX( minX ),
