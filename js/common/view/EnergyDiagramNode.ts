@@ -127,7 +127,8 @@ export default class EnergyDiagramNode extends Node {
     const clippedLayer = new Node( {
       clipArea: this.chartRectangle.getShape(),
       children: [
-        energyDiagramPlotsNode
+        energyDiagramPlotsNode,
+        handlesLayer
       ]
     } );
 
@@ -139,7 +140,6 @@ export default class EnergyDiagramNode extends Node {
       this.horizontalGridLines,
       verticalGridLines,
       clippedLayer,
-      handlesLayer,
       selectedEnergyLevelDisplay,
       highlightedEnergyLevelDisplay
     ];
