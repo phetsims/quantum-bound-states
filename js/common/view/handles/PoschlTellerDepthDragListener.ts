@@ -1,5 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/quantum-bound-states/issues/53 Does not drag full range when electric field is non-zero.
+
 //TODO This is identical to MorseDepthDragListener except for the type of @param potential.
 /**
  * MorseDepthDragListener is the drag listener for changing the well depth of a Poschl-Teller potential.
@@ -37,13 +39,16 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: 0.1, // eV
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      //TODO https://github.com/phetsims/quantum-bound-states/issues/53 dragBoundsProperty is incorrect, does not account for electric field.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
-        yOffset => new Bounds2(
-          energyDiagramRectangleBounds.minX,
-          chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max ),
-          energyDiagramRectangleBounds.maxX,
-          chartTransform.modelToViewY( yOffset + wellDepthProperty.range.min ) ) ),
+        yOffset => {
+          const x = handleNode.getModelX();
+          const electricFieldOffset = potential.getYOffsetForElectricField( x );
+          return new Bounds2(
+            energyDiagramRectangleBounds.minX,
+            chartTransform.modelToViewY( yOffset + wellDepthProperty.range.max + electricFieldOffset ),
+            energyDiagramRectangleBounds.maxX,
+            chartTransform.modelToViewY( yOffset + wellDepthProperty.range.min + electricFieldOffset ) );
+        } ),
 
       drag: ( event, listener ) => {
 
