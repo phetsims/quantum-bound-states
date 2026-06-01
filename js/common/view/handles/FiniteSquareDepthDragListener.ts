@@ -39,13 +39,15 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       // Dependencies that appear to be unused are actually used by getModelX and getElectricFieldOffset.
       dragBoundsProperty: new DerivedProperty(
-        [ potential.numberOfWellsProperty, potential.yOffsetProperty, potential.wellWidthProperty, potential.separationProperty, potential.electricFieldProperty ],
-        ( numberOfWells, yOffset, wellWidth, separation, electricField ) => {
-        const x = handleNode.getModelX();
-        const electricFieldOffset = potential.getElectricFieldOffset( x );
-        const minY = yOffset + wellDepthProperty.range.min + electricFieldOffset;
-        const maxY = yOffset + wellDepthProperty.range.max + electricFieldOffset;
-        return new Bounds2(
+        [ potential.numberOfWellsProperty, potential.xOffsetProperty, potential.yOffsetProperty,
+          potential.wellWidthProperty, potential.separationProperty, potential.electricFieldProperty ],
+        () => {
+          const x = handleNode.getModelX();
+          const electricFieldOffset = potential.getElectricFieldOffset( x );
+          const yOffset = potential.yOffsetProperty.value;
+          const minY = yOffset + wellDepthProperty.range.min + electricFieldOffset;
+          const maxY = yOffset + wellDepthProperty.range.max + electricFieldOffset;
+          return new Bounds2(
             energyDiagramRectangleBounds.minX,
             chartTransform.modelToViewY( maxY ),
             energyDiagramRectangleBounds.maxX,
