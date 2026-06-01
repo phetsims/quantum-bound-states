@@ -40,8 +40,6 @@ export default class FiniteSquareSeparationHandleNode extends PotentialHandleNod
     } );
 
     this.addInputListener( new FiniteSquareSeparationDragListener( this, potential, energyDiagramNode, time, tandem ) );
-
-    potential.electricFieldProperty.link( () => this.updatePosition() );
   }
 
   /**

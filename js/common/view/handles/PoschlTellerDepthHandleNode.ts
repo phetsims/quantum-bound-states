@@ -32,8 +32,6 @@ export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<Pos
     } );
 
     this.addInputListener( new PoschlTellerDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
-
-    potential.electricFieldProperty.link( () => this.updatePosition() );
   }
 
   /**

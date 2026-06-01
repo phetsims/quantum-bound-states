@@ -36,8 +36,6 @@ export default class PoschlTellerWidthHandleNode extends PotentialHandleNode<Pos
     } );
 
     this.addInputListener( new PoschlTellerWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
-
-    potential.electricFieldProperty.link( () => this.updatePosition() );
   }
 
   /**

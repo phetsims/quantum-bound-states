@@ -40,8 +40,6 @@ export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<P
     } );
 
     this.addInputListener( new PoschlTellerSpacingDragListener( this, potential, energyDiagramNode, time, tandem ) );
-
-    potential.electricFieldProperty.link( () => this.updatePosition() );
   }
 
   /**

@@ -32,8 +32,6 @@ export default class FiniteSquareWidthHandleNode extends PotentialHandleNode<Fin
     } );
 
     this.addInputListener( new FiniteSquareWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
-
-    potential.electricFieldProperty.link( () => this.updatePosition() );
   }
 
   /**
