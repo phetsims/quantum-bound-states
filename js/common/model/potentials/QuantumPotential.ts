@@ -157,7 +157,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   public abstract getMaxSolverEnergy(): number;
 
   /**
-   * Gets the contribution that electric field makes to y offset.
+   * Gets the contribution that electric field makes to potential energy at a specified position.
    */
   public getYOffsetForElectricField( x: number ): number {
     return x * this.electricFieldProperty.value;
