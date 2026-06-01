@@ -95,14 +95,6 @@ export default class EnergyDiagramNode extends Node {
 
     const energyDiagramPlotsNode = new EnergyDiagramPlotsNode( model, this.chartTransform );
 
-    // Parent for elements that are clipped to the chartRectangle.
-    const clippedLayer = new Node( {
-      clipArea: this.chartRectangle.getShape(),
-      children: [
-        energyDiagramPlotsNode
-      ]
-    } );
-
     model.highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel => {
 
       // Change the cursor to a pointer when an energy level is highlighted.
@@ -129,6 +121,14 @@ export default class EnergyDiagramNode extends Node {
     const highlightedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.highlightedEnergyLevelProperty, this.chartTransform, {
       left: selectedEnergyLevelDisplay.left,
       tandem: tandem.createTandem( 'highlightedEnergyLevelDisplay' )
+    } );
+
+    // Parent for elements that are clipped to the chartRectangle.
+    const clippedLayer = new Node( {
+      clipArea: this.chartRectangle.getShape(),
+      children: [
+        energyDiagramPlotsNode
+      ]
     } );
 
     this.children = [
