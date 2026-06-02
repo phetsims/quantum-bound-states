@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import PoschlTellerWidthDragListener from './PoschlTellerWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -21,11 +21,11 @@ const ENERGY_OFFSET = 1.5; // eV
 export default class PoschlTellerWidthHandleNode extends PotentialHandleNode<PoschlTellerPotential> {
 
   public constructor( potential: PoschlTellerPotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, energyDiagramNode.chartTransform, potential.wellWidthProperty, {
+    super( potential, chartTransform, potential.wellWidthProperty, {
       orientation: 'horizontal',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.poschlTellerWidthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.poschlTellerWidthHandle.accessibleHelpTextStringProperty,
@@ -35,7 +35,7 @@ export default class PoschlTellerWidthHandleNode extends PotentialHandleNode<Pos
       tandem: tandem
     } );
 
-    this.addInputListener( new PoschlTellerWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new PoschlTellerWidthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

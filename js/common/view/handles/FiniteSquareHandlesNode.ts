@@ -7,11 +7,11 @@
  */
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareDepthHandleNode from './FiniteSquareDepthHandleNode.js';
 import FiniteSquareSeparationHandleNode from './FiniteSquareSeparationHandleNode.js';
 import FiniteSquareWidthHandleNode from './FiniteSquareWidthHandleNode.js';
@@ -22,7 +22,7 @@ export default class FiniteSquareHandlesNode extends PotentialHandlesNode {
 
   public constructor( potential: FiniteSquarePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -30,15 +30,15 @@ export default class FiniteSquareHandlesNode extends PotentialHandlesNode {
     const handles: PotentialHandleNode<FiniteSquarePotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new FiniteSquareWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ) );
+      handles.push( new FiniteSquareWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) ) );
     }
 
     if ( potential.wellDepthProperty.range.getLength() > 0 ) {
-      handles.push( new FiniteSquareDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) ) );
+      handles.push( new FiniteSquareDepthHandleNode( potential, chartTransform, time, tandem.createTandem( 'depthHandleNode' ) ) );
     }
 
     if ( potential.separationProperty.range.getLength() > 0 ) {
-      handles.push( new FiniteSquareSeparationHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'separationHandleNode' ) ) );
+      handles.push( new FiniteSquareSeparationHandleNode( potential, chartTransform, time, tandem.createTandem( 'separationHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {

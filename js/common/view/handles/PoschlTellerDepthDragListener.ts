@@ -8,11 +8,11 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import PoschlTellerDepthHandleNode from './PoschlTellerDepthHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
@@ -20,12 +20,11 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
 
   public constructor( handleNode: PoschlTellerDepthHandleNode,
                       potential: PoschlTellerPotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       parentTandem: Tandem ) {
 
     const wellDepthProperty = potential.wellDepthProperty;
-    const chartTransform = energyDiagramNode.chartTransform;
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
@@ -37,7 +36,7 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       // Dependencies that appear to be unused are actually used by getModelX and getElectricFieldOffset.
-      //TODO dragBoundsProperty incorrect and handle does not drag until some other Property is changed.
+      //TODO dragBoundsProperty is incorrect and handle does not drag until some other Property is changed.
       dragBoundsProperty: new DerivedProperty(
         [ potential.numberOfWellsProperty, potential.xOffsetProperty, potential.yOffsetProperty,
           potential.wellWidthProperty, potential.spacingProperty, potential.electricFieldProperty ],
@@ -45,15 +44,10 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
           const x = handleNode.getModelX();
           const electricFieldOffset = potential.getElectricFieldOffset( x );
           const yOffset = potential.yOffsetProperty.value;
-          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
           // Depth is downward for Poschl-Teller, so reverse min and max.
           const minY = yOffset - wellDepthProperty.range.max + electricFieldOffset;
           const maxY = yOffset - wellDepthProperty.range.min + electricFieldOffset;
-          return new Bounds2(
-            energyDiagramRectangleBounds.minX,
-            chartTransform.modelToViewY( maxY ),
-            energyDiagramRectangleBounds.maxX,
-            chartTransform.modelToViewY( minY ) );
+          return new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
         } ),
 
       drag: ( event, listener ) => {

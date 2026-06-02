@@ -7,11 +7,11 @@
  */
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import InfiniteStepHeightHandleNode from './InfiniteStepHeightHandleNode.js';
 import InfiniteStepWidthHandleNode from './InfiniteStepWidthHandleNode.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
@@ -21,19 +21,19 @@ export default class InfiniteStepHandlesNode extends PotentialHandlesNode {
 
   public constructor( potential: InfiniteStepPotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
     const handles: PotentialHandleNode<InfiniteStepPotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new InfiniteStepWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) )
+      handles.push( new InfiniteStepWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) )
       );
     }
 
     if ( potential.stepHeightProperty.range.getLength() > 0 ) {
-      handles.push( new InfiniteStepHeightHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'stepHeightHandleNode' ) ) );
+      handles.push( new InfiniteStepHeightHandleNode( potential, chartTransform, time, tandem.createTandem( 'stepHeightHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {

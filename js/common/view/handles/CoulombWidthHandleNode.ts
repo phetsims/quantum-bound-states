@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import CoulombWidthDragListener from './CoulombWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -21,11 +21,11 @@ const ENERGY_OFFSET = 2; // eV
 export default class CoulombWidthHandleNode extends PotentialHandleNode<CoulombPotential> {
 
   public constructor( potential: CoulombPotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, energyDiagramNode.chartTransform, potential.wellWidthProperty, {
+    super( potential, chartTransform, potential.wellWidthProperty, {
       orientation: 'horizontal',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.coulombWidthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.coulombWidthHandle.accessibleHelpTextStringProperty,
@@ -35,7 +35,7 @@ export default class CoulombWidthHandleNode extends PotentialHandleNode<CoulombP
       tandem: tandem
     } );
 
-    this.addInputListener( new CoulombWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new CoulombWidthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

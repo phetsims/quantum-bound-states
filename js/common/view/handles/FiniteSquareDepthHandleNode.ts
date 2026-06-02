@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareDepthDragListener from './FiniteSquareDepthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -20,11 +20,11 @@ const HANDLE_X_OFFSET = 0.25;
 export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<FiniteSquarePotential> {
 
   public constructor( potential: FiniteSquarePotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, energyDiagramNode.chartTransform, potential.wellDepthProperty, {
+    super( potential, chartTransform, potential.wellDepthProperty, {
       orientation: 'vertical',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.finiteSquareDepthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.finiteSquareDepthHandle.accessibleHelpTextStringProperty,
@@ -34,7 +34,7 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
       tandem: tandem
     } );
 
-    this.addInputListener( new FiniteSquareDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new FiniteSquareDepthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

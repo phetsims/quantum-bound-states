@@ -108,7 +108,7 @@ export default class EnergyDiagramNode extends Node {
     const potentials = model.potentialProperty.validValues!;
     affirm( potentials );
 
-    const handlesLayer = new PotentialHandlesLayer( potentials, model.potentialProperty, this, model.time,
+    const handlesLayer = new PotentialHandlesLayer( potentials, model.potentialProperty, this.chartTransform, model.time,
       tandem.createTandem( 'handlesLayer' ) );
 
     // Displays the selected energy level and its corresponding energy value.

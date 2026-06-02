@@ -7,11 +7,11 @@
  */
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import MorseDepthHandleNode from './MorseDepthHandleNode.js';
 import MorseWidthHandleNode from './MorseWidthHandleNode.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
@@ -21,18 +21,18 @@ export default class MorseHandlesNode extends PotentialHandlesNode {
 
   public constructor( potential: MorsePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
     const handles: PotentialHandleNode<MorsePotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new MorseWidthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'widthHandleNode' ) ) );
+      handles.push( new MorseWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) ) );
     }
 
     if ( potential.wellDepthProperty.range.getLength() > 0 ) {
-      handles.push( new MorseDepthHandleNode( potential, energyDiagramNode, time, tandem.createTandem( 'depthHandleNode' ) ) );
+      handles.push( new MorseDepthHandleNode( potential, chartTransform, time, tandem.createTandem( 'depthHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {

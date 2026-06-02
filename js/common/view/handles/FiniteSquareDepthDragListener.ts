@@ -8,11 +8,11 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareDepthHandleNode from './FiniteSquareDepthHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
@@ -20,12 +20,11 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
 
   public constructor( handleNode: FiniteSquareDepthHandleNode,
                       potential: FiniteSquarePotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       parentTandem: Tandem ) {
 
     const wellDepthProperty = potential.wellDepthProperty;
-    const chartTransform = energyDiagramNode.chartTransform;
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
@@ -41,19 +40,12 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
         [ potential.numberOfWellsProperty, potential.xOffsetProperty, potential.yOffsetProperty,
           potential.wellWidthProperty, potential.separationProperty, potential.electricFieldProperty ],
         () => {
-
           const x = handleNode.getModelX();
           const electricFieldOffset = potential.getElectricFieldOffset( x );
           const yOffset = potential.yOffsetProperty.value;
           const minY = yOffset + wellDepthProperty.range.min + electricFieldOffset;
           const maxY = yOffset + wellDepthProperty.range.max + electricFieldOffset;
-          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
-
-          return new Bounds2(
-            energyDiagramRectangleBounds.minX,
-            chartTransform.modelToViewY( maxY ),
-            energyDiagramRectangleBounds.maxX,
-            chartTransform.modelToViewY( minY ) );
+          return new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
         } ),
 
       drag: ( event, listener ) => {

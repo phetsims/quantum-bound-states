@@ -6,22 +6,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import InfiniteStepWidthDragListener from './InfiniteStepWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
 export default class InfiniteStepWidthHandleNode extends PotentialHandleNode<InfiniteStepPotential> {
 
   public constructor( potential: InfiniteStepPotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, energyDiagramNode.chartTransform, potential.wellWidthProperty, {
+    super( potential, chartTransform, potential.wellWidthProperty, {
       orientation: 'horizontal',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.infiniteStepWidthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.infiniteStepWidthHandle.accessibleHelpTextStringProperty,
@@ -31,7 +31,7 @@ export default class InfiniteStepWidthHandleNode extends PotentialHandleNode<Inf
       tandem: tandem
     } );
 
-    this.addInputListener( new InfiniteStepWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new InfiniteStepWidthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

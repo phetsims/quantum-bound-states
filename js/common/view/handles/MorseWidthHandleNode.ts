@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import MorseWidthDragListener from './MorseWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -21,11 +21,11 @@ const ENERGY_OFFSET = 2; // eV
 export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePotential> {
 
   public constructor( potential: MorsePotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, energyDiagramNode.chartTransform, potential.wellWidthProperty, {
+    super( potential, chartTransform, potential.wellWidthProperty, {
       orientation: 'horizontal',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.morseWidthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.morseWidthHandle.accessibleHelpTextStringProperty,
@@ -35,7 +35,7 @@ export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePoten
       tandem: tandem
     } );
 
-    this.addInputListener( new MorseWidthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new MorseWidthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

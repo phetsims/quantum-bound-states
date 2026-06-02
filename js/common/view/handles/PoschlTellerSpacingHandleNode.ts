@@ -7,11 +7,11 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import PoschlTellerSpacingDragListener from './PoschlTellerSpacingDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -22,11 +22,11 @@ const ENERGY_OFFSET = 3; // eV
 export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<PoschlTellerPotential> {
 
   public constructor( potential: PoschlTellerPotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, energyDiagramNode.chartTransform, potential.spacingProperty, {
+    super( potential, chartTransform, potential.spacingProperty, {
       orientation: 'horizontal',
 
       //TODO Provide a way to hide this handle via PhET-iO?
@@ -39,7 +39,7 @@ export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<P
       tandem: tandem
     } );
 
-    this.addInputListener( new PoschlTellerSpacingDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new PoschlTellerSpacingDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

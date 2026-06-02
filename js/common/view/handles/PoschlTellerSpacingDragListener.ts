@@ -7,11 +7,11 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import PoschlTellerSpacingHandleNode from './PoschlTellerSpacingHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
@@ -19,12 +19,11 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
 
   public constructor( handleNode: PoschlTellerSpacingHandleNode,
                       potential: PoschlTellerPotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       parentTandem: Tandem ) {
 
     const spacingProperty = potential.spacingProperty;
-    const chartTransform = energyDiagramNode.chartTransform;
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, spacingProperty, chartTransform, time, {
@@ -46,14 +45,9 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
           const maxX = ( numberOfWells % 2 === 0 ) ?
                        xOffset - spacingProperty.range.min / 2 :
                        xOffset - spacingProperty.range.min;
-          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
 
-          return new Bounds2(
-            chartTransform.modelToViewX( minX ),
-            energyDiagramRectangleBounds.minY,
-            chartTransform.modelToViewX( maxX ),
-            energyDiagramRectangleBounds.maxY );
-        } ),
+          return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
+      } ),
 
       drag: ( event, listener ) => {
 

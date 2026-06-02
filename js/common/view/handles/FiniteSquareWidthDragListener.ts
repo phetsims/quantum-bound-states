@@ -7,11 +7,11 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareWidthHandleNode from './FiniteSquareWidthHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
@@ -19,12 +19,11 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
 
   public constructor( handleNode: FiniteSquareWidthHandleNode,
                       potential: FiniteSquarePotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       parentTandem: Tandem ) {
 
     const wellWidthProperty = potential.wellWidthProperty;
-    const chartTransform = energyDiagramNode.chartTransform;
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellWidthProperty, chartTransform, time, {
@@ -37,18 +36,11 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.separationProperty ],
         ( xOffset, numberOfWells, separation ) => {
-
           const minTotalWidth = ( numberOfWells * wellWidthProperty.range.min ) + ( ( numberOfWells - 1 ) * separation );
           const maxTotalWidth = ( numberOfWells * wellWidthProperty.range.max ) + ( ( numberOfWells - 1 ) * separation );
           const minX = xOffset + minTotalWidth / 2;
           const maxX = xOffset + maxTotalWidth / 2;
-          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
-
-          return new Bounds2(
-            chartTransform.modelToViewX( minX ),
-            energyDiagramRectangleBounds.minY,
-            chartTransform.modelToViewX( maxX ),
-            energyDiagramRectangleBounds.maxY );
+          return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
         } ),
 
       drag: ( event, listener ) => {

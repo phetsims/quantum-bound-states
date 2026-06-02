@@ -8,6 +8,7 @@
  */
 
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
@@ -20,7 +21,6 @@ import MorsePotential from '../../model/potentials/MorsePotential.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import AsymmetricTriangleHandlesNode from './AsymmetricTriangleHandlesNode.js';
 import CoulombHandlesNode from './CoulombHandlesNode.js';
 import FiniteSquareHandlesNode from './FiniteSquareHandlesNode.js';
@@ -34,7 +34,7 @@ export default class PotentialHandlesLayer extends Node {
 
   public constructor( potentials: readonly QuantumPotential[],
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -45,35 +45,35 @@ export default class PotentialHandlesLayer extends Node {
       const handlesNodeTandem = tandem.createTandem( `${potential.tandemPrefix}HandlesNode` );
 
       if ( potential instanceof InfiniteSquarePotential ) {
-        children.push( new InfiniteSquareHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new InfiniteSquareHandlesNode( potential, selectedPotentialProperty, chartTransform,
           time, handlesNodeTandem ) );
       }
       else if ( potential instanceof FiniteSquarePotential ) {
-        children.push( new FiniteSquareHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new FiniteSquareHandlesNode( potential, selectedPotentialProperty, chartTransform,
           time, handlesNodeTandem ) );
       }
       else if ( potential instanceof InfiniteStepPotential ) {
-        children.push( new InfiniteStepHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new InfiniteStepHandlesNode( potential, selectedPotentialProperty, chartTransform,
           time, handlesNodeTandem ) );
       }
       else if ( potential instanceof AsymmetricTrianglePotential ) {
-        children.push( new AsymmetricTriangleHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new AsymmetricTriangleHandlesNode( potential, selectedPotentialProperty, chartTransform,
           time, handlesNodeTandem ) );
       }
       else if ( potential instanceof HarmonicOscillatorPotential ) {
-        children.push( new HarmonicOscillatorHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new HarmonicOscillatorHandlesNode( potential, selectedPotentialProperty, chartTransform,
           time, handlesNodeTandem ) );
       }
       else if ( potential instanceof PoschlTellerPotential ) {
-        children.push( new PoschlTellerHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new PoschlTellerHandlesNode( potential, selectedPotentialProperty, chartTransform,
           time, handlesNodeTandem ) );
       }
       else if ( potential instanceof MorsePotential ) {
-        children.push( new MorseHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new MorseHandlesNode( potential, selectedPotentialProperty, chartTransform,
           time, handlesNodeTandem ) );
       }
       else if ( potential instanceof CoulombPotential ) {
-        children.push( new CoulombHandlesNode( potential, selectedPotentialProperty, energyDiagramNode,
+        children.push( new CoulombHandlesNode( potential, selectedPotentialProperty, chartTransform,
           time, handlesNodeTandem ) );
       }
     } );

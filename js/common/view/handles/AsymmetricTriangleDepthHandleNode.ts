@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import AsymmetricTriangleDepthDragListener from './AsymmetricTriangleDepthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -20,11 +20,11 @@ const HANDLE_X_OFFSET = 0.25;
 export default class AsymmetricTriangleDepthHandleNode extends PotentialHandleNode<AsymmetricTrianglePotential> {
 
   public constructor( potential: AsymmetricTrianglePotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, energyDiagramNode.chartTransform, potential.wellDepthProperty, {
+    super( potential, chartTransform, potential.wellDepthProperty, {
       orientation: 'vertical',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.asymmetricTriangleDepthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.asymmetricTriangleDepthHandle.accessibleHelpTextStringProperty,
@@ -34,7 +34,7 @@ export default class AsymmetricTriangleDepthHandleNode extends PotentialHandleNo
       tandem: tandem
     } );
 
-    this.addInputListener( new AsymmetricTriangleDepthDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new AsymmetricTriangleDepthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

@@ -7,11 +7,11 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import AsymmetricTriangleWidthHandleNode from './AsymmetricTriangleWidthHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
@@ -19,12 +19,11 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
 
   public constructor( handleNode: AsymmetricTriangleWidthHandleNode,
                       potential: AsymmetricTrianglePotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       parentTandem: Tandem ) {
 
     const wellWidthProperty = potential.wellWidthProperty;
-    const chartTransform = energyDiagramNode.chartTransform;
 
     super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
@@ -39,12 +38,7 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
           // The handle is to the left of the potential's center, so subtract well width.
           const maxX = xOffset - wellWidthProperty.range.min / 2;
           const minX = xOffset - wellWidthProperty.range.max / 2;
-          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
-          return new Bounds2(
-            chartTransform.modelToViewX( minX ),
-            energyDiagramRectangleBounds.minY,
-            chartTransform.modelToViewX( maxX ),
-            energyDiagramRectangleBounds.maxY );
+          return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
         } ),
 
       drag: ( event, listener ) => {

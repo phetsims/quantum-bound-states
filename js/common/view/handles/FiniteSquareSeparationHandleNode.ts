@@ -7,11 +7,11 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import FiniteSquareSeparationDragListener from './FiniteSquareSeparationDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -22,11 +22,11 @@ const ENERGY_OFFSET = 1.5; // eV
 export default class FiniteSquareSeparationHandleNode extends PotentialHandleNode<FiniteSquarePotential> {
 
   public constructor( potential: FiniteSquarePotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, energyDiagramNode.chartTransform, potential.separationProperty, {
+    super( potential, chartTransform, potential.separationProperty, {
       orientation: 'horizontal',
 
       //TODO Provide a way to hide this handle via PhET-iO?
@@ -39,7 +39,7 @@ export default class FiniteSquareSeparationHandleNode extends PotentialHandleNod
       tandem: tandem
     } );
 
-    this.addInputListener( new FiniteSquareSeparationDragListener( this, potential, energyDiagramNode, time, tandem ) );
+    this.addInputListener( new FiniteSquareSeparationDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

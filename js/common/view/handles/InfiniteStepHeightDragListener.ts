@@ -7,11 +7,11 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import EnergyDiagramNode from '../EnergyDiagramNode.js';
 import InfiniteStepHeightHandleNode from './InfiniteStepHeightHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
@@ -19,12 +19,11 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
 
   public constructor( handleNode: InfiniteStepHeightHandleNode,
                       potential: InfiniteStepPotential,
-                      energyDiagramNode: EnergyDiagramNode,
+                      chartTransform: ChartTransform,
                       time: QBSTime,
                       parentTandem: Tandem ) {
 
     const stepHeightProperty = potential.stepHeightProperty;
-    const chartTransform = energyDiagramNode.chartTransform;
 
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, stepHeightProperty, chartTransform, time, {
@@ -37,14 +36,9 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
         yOffset => {
-          const energyDiagramRectangleBounds = energyDiagramNode.getChartRectangleGlobalBounds();
           const minY = yOffset + stepHeightProperty.range.min;
           const maxY = yOffset + stepHeightProperty.range.max;
-          return new Bounds2(
-            energyDiagramRectangleBounds.minX,
-            chartTransform.modelToViewY( maxY ),
-            energyDiagramRectangleBounds.maxX,
-            chartTransform.modelToViewY( minY ) );
+          return new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
         } ),
 
       drag: ( event, listener ) => {
