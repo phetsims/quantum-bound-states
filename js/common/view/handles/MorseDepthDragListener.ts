@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../../axon/js/Property.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -26,23 +26,25 @@ export default class MorseDepthDragListener extends PotentialDragListener<MorseP
 
     const wellDepthProperty = potential.wellDepthProperty;
 
+    const dragBoundsProperty = new Property( new Bounds2( 0, 0, 1, 1 ) );
+
+    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+    const updateDragBounds = () => {
+      const minY = potential.yOffsetProperty.value - wellDepthProperty.range.max;
+      const maxY = potential.yOffsetProperty.value - wellDepthProperty.range.min;
+      dragBoundsProperty.value = new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
+    };
+    potential.changedEmitter.addListener( () => updateDragBounds() );
+    chartTransform.changedEmitter.addListener( () => updateDragBounds() );
+    updateDragBounds();
+
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
-
       orientation: 'vertical',
       keyboardDragDelta: 0.5, // eV
       keyboardShiftDragDelta: 0.1, // eV
-
-      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
-        yOffset => {
-          // Depth is downward for Morse, so reverse min and max.
-          //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Should be subtracting wellDepth here, but that does not work.
-          const minY = yOffset + wellDepthProperty.range.max;
-          const maxY = yOffset + wellDepthProperty.range.min;
-          return new Bounds2( 0, chartTransform.modelToViewY( minY ), 1, chartTransform.modelToViewY( maxY ) );
-        } ),
+      dragBoundsProperty: dragBoundsProperty,
 
       drag: ( event, listener ) => {
 
