@@ -38,6 +38,7 @@ export default class MorseDepthDragListener extends PotentialDragListener<MorseP
       dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
         yOffset => {
           // Depth is downward for Morse, so reverse min and max.
+          //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Should be subtracting wellDepth here, but that does not work.
           const minY = yOffset + wellDepthProperty.range.max;
           const maxY = yOffset + wellDepthProperty.range.min;
           return new Bounds2( 0, chartTransform.modelToViewY( minY ), 1, chartTransform.modelToViewY( maxY ) );
