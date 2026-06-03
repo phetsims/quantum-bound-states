@@ -286,6 +286,7 @@ a11y:
   #=======================================================================================================
 
   handles:
+    accessibleRoleDescription: custom slider
     asymmetricTriangleDepthHandle:
       accessibleName:           depth handle
       accessibleHelpText:       TODO.asymmetricTriangleDepthHandle.accessibleHelpText

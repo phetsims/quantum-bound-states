@@ -165,6 +165,7 @@ addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleName
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_groundState1_accessibleNamePreset4', 'a11y.superpositionCustomComboBox.groundState1.accessibleNamePreset4StringProperty' );
 addToMapIfDefined( 'a11y_probabilityDensityDetailsDialog_accessibleParagraph', 'a11y.probabilityDensityDetailsDialog.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionDetailsDialog_accessibleParagraph', 'a11y.waveFunctionDetailsDialog.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_handles_accessibleRoleDescription', 'a11y.handles.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_handles_asymmetricTriangleDepthHandle_accessibleName', 'a11y.handles.asymmetricTriangleDepthHandle.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_handles_asymmetricTriangleDepthHandle_accessibleHelpText', 'a11y.handles.asymmetricTriangleDepthHandle.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_handles_asymmetricTriangleDepthHandle_accessibleObjectResponse', 'a11y.handles.asymmetricTriangleDepthHandle.accessibleObjectResponseStringProperty' );
@@ -612,6 +613,7 @@ const QuantumBoundStatesFluent = {
     _comment_16: new FluentComment( {"comment":"Handles","associatedKey":"handles"} ),
     _comment_17: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"handles"} ),
     handles: {
+      accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_accessibleRoleDescription', _.get( QuantumBoundStatesStrings, 'a11y.handles.accessibleRoleDescriptionStringProperty' ) ),
       asymmetricTriangleDepthHandle: {
         accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_asymmetricTriangleDepthHandle_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.handles.asymmetricTriangleDepthHandle.accessibleNameStringProperty' ) ),
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_asymmetricTriangleDepthHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.asymmetricTriangleDepthHandle.accessibleHelpTextStringProperty' ) ),

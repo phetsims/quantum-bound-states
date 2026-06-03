@@ -539,6 +539,9 @@
       }
     },
     "handles": {
+      "accessibleRoleDescription": {
+        "value": "custom slider"
+      },
       "asymmetricTriangleDepthHandle": {
         "accessibleName": {
           "value": "depth handle"

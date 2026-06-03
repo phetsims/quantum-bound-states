@@ -260,6 +260,7 @@ type StringsType = {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
     'handles': {
+      'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
       'asymmetricTriangleDepthHandle': {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;

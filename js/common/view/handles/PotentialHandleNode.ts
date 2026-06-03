@@ -51,7 +51,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
         tailWidth: 6,
 
         // As in Calculus Grapher, see https://github.com/phetsims/calculus-grapher/issues/405#issuecomment-4185183008.
-        accessibleRoleDescription: QuantumBoundStatesFluent.a11y.referenceLine.accessibleRoleDescriptionStringProperty,
+        accessibleRoleDescription: QuantumBoundStatesFluent.a11y.handles.accessibleRoleDescriptionStringProperty,
 
         phetioVisiblePropertyInstrumented: true,
         visiblePropertyOptions: { phetioFeatured: true },
