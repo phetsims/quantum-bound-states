@@ -12,9 +12,10 @@ import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import AccessibleDraggableOptions from '../../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
+import AccessibleInteractiveOptions from '../../../../../scenery-phet/js/accessibility/AccessibleInteractiveOptions.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../../scenery-phet/js/ArrowNode.js';
 import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
@@ -39,7 +40,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
                          providedOptions: PotentialHandleNodeOptions ) {
 
     const options = optionize4<PotentialHandleNodeOptions, SelfOptions, ArrowNodeOptions>()(
-      {}, AccessibleDraggableOptions, {
+      {}, AccessibleInteractiveOptions, {
 
         // ArrowNodeOptions
         isDisposable: false,
@@ -48,6 +49,10 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
         headHeight: 11,
         headWidth: 15,
         tailWidth: 6,
+
+        // As in Calculus Grapher, see https://github.com/phetsims/calculus-grapher/issues/405#issuecomment-4185183008.
+        accessibleRoleDescription: QuantumBoundStatesFluent.a11y.referenceLine.accessibleRoleDescriptionStringProperty,
+
         phetioVisiblePropertyInstrumented: true,
         visiblePropertyOptions: { phetioFeatured: true },
         phetioInputEnabledPropertyInstrumented: true
