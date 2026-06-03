@@ -6,11 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
+import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
+import QBSConstants from '../../QBSConstants.js';
 import InfiniteStepWidthDragListener from './InfiniteStepWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -21,7 +25,12 @@ export default class InfiniteStepWidthHandleNode extends PotentialHandleNode<Inf
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, chartTransform, potential.wellWidthProperty, {
+    const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.widthPatternStringProperty, {
+      value: new DerivedStringProperty( [ potential.wellWidthProperty ],
+        wellWidth => toFixed( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) )
+    } );
+
+    super( potential, chartTransform, potential.wellWidthProperty, labelStringProperty, {
       orientation: 'horizontal',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.infiniteStepWidthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.infiniteStepWidthHandle.accessibleHelpTextStringProperty,

@@ -46,6 +46,13 @@ waveFunctionDialogTitle:               Wave Function
 superpositionDetailsDialogTitle:       Superposition Details
 superpositionCustomizationDialogTitle: Superposition Customization
 
+# Handles
+widthPattern:                          'width = {{value}} nm'
+depthPattern:                          'depth = {{value}} eV'
+stepHeightPattern:                     'step height = {{value}} eV'
+spacingPattern:                        'spacing = {{value}} nm'
+separationPattern:                     'separation = {{value}} nm'
+
 # Sliders
 mass:                                  Mass
 numberOfWells:                         Number of Wells

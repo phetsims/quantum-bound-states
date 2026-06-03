@@ -6,11 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
+import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
+import QBSConstants from '../../QBSConstants.js';
 import PoschlTellerWidthDragListener from './PoschlTellerWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -25,7 +29,12 @@ export default class PoschlTellerWidthHandleNode extends PotentialHandleNode<Pos
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, chartTransform, potential.wellWidthProperty, {
+    const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.widthPatternStringProperty, {
+      value: new DerivedStringProperty( [ potential.wellWidthProperty ],
+        wellWidth => toFixed( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) )
+    } );
+
+    super( potential, chartTransform, potential.wellWidthProperty, labelStringProperty, {
       orientation: 'horizontal',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.poschlTellerWidthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.poschlTellerWidthHandle.accessibleHelpTextStringProperty,

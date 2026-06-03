@@ -7,11 +7,15 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
+import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
+import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareSeparationDragListener from './FiniteSquareSeparationDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -26,7 +30,12 @@ export default class FiniteSquareSeparationHandleNode extends PotentialHandleNod
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, chartTransform, potential.separationProperty, {
+    const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.separationPatternStringProperty, {
+      value: new DerivedStringProperty( [ potential.separationProperty ],
+        separation => toFixed( separation, QBSConstants.SEPARATION_DECIMAL_PLACES ) )
+    } );
+
+    super( potential, chartTransform, potential.separationProperty, labelStringProperty, {
       orientation: 'horizontal',
 
       //TODO Provide a way to hide this handle via PhET-iO?

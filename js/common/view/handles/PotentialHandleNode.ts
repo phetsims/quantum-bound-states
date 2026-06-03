@@ -8,6 +8,7 @@
  */
 
 import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
@@ -20,6 +21,7 @@ import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import { HomeEndKeyboardListener } from '../HomeEndKeyboardListener.js';
+import PotentialHandleLabelNode from './PotentialHandleLabelNode.js';
 
 type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
@@ -37,6 +39,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
   protected constructor( potential: T,
                          chartTransform: ChartTransform,
                          rangedProperty: TRangedProperty,
+                         labelStringProperty: TReadOnlyProperty<string>,
                          providedOptions: PotentialHandleNodeOptions ) {
 
     const options = optionize4<PotentialHandleNodeOptions, SelfOptions, ArrowNodeOptions>()(
@@ -86,6 +89,14 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
     potential.changedEmitter.addListener( () => this.updatePosition() );
     this.updatePosition();
+
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Decorating handles may not be the best approach.
+    const labelNode = new PotentialHandleLabelNode( labelStringProperty );
+    this.addChild( labelNode );
+    labelNode.localBoundsProperty.link( () => {
+      labelNode.centerX = 0;
+      labelNode.bottom = ( ( options.orientation === 'horizontal' ) ? -options.headWidth / 2 : -QBSConstants.HANDLE_LENGTH / 2 ) - 3;
+    } );
   }
 
   /**

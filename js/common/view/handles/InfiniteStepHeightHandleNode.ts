@@ -6,11 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
+import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import InfiniteStepPotential from '../../model/potentials/InfiniteStepPotential.js';
 import QBSTime from '../../model/QBSTime.js';
+import QBSConstants from '../../QBSConstants.js';
 import InfiniteStepHeightDragListener from './InfiniteStepHeightDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -21,7 +25,12 @@ export default class InfiniteStepHeightHandleNode extends PotentialHandleNode<In
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, chartTransform, potential.stepHeightProperty, {
+    const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.stepHeightPatternStringProperty, {
+      value: new DerivedStringProperty( [ potential.stepHeightProperty ],
+        stepHeight => toFixed( stepHeight, QBSConstants.STEP_HEIGHT_DECIMAL_PLACES ) )
+    } );
+
+    super( potential, chartTransform, potential.stepHeightProperty, labelStringProperty, {
       orientation: 'vertical',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.infiniteStepHeightHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.infiniteStepHeightHandle.accessibleHelpTextStringProperty,

@@ -26,7 +26,7 @@ export class AngularFrequencyDisplay extends NumberDisplay {
 
     const options = optionize<AngularFrequencyDisplayOptions, SelfOptions, NumberDisplayOptions>()( {
       textOptions: {
-        font: QBSConstants.POTENTIAL_VALUE_FONT
+        font: QBSConstants.ANGULAR_FREQUENCY_FONT
       },
       useRichText: true,
       numberFormatter: angularFrequency => {

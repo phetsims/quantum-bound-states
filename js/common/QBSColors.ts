@@ -263,4 +263,12 @@ export default class QBSColors {
   public static readonly resetEnergyOffsetButtonColorProperty = new ProfileColorProperty( quantumBoundStates, 'resetEnergyOffsetButtonColorProperty', {
     default: ColorConstants.LIGHT_BLUE
   } );
+
+  public static readonly handleLabelFillProperty = new ProfileColorProperty( quantumBoundStates, 'handleLabelFillProperty', {
+    default: 'rgba( 255, 255, 255, 0.8 )'
+  } );
+
+  public static readonly handleLabelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'handleLabelStrokeProperty', {
+    default: 'rgba( 200, 200, 200, 1 )'
+  } );
 }

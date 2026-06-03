@@ -58,7 +58,8 @@ export default class QBSConstants {
   public static readonly TIME_FONT = new PhetFont( { size: 15, family: 'monospace' } );
   public static readonly EQUATION_TERM_FONT = new PhetFont( 18 );
   public static readonly ENERGY_LEVEL_DISPLAY_FONT = new PhetFont( 14 );
-  public static readonly POTENTIAL_VALUE_FONT = new PhetFont( 14 );
+  public static readonly ANGULAR_FREQUENCY_FONT = new PhetFont( 14 );
+  public static readonly HANDLE_FONT = new PhetFont( 14 );
 
   // Energy Diagram & all Quantum State Graphs
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 700;
@@ -78,9 +79,9 @@ export default class QBSConstants {
   public static readonly ELECTRON_MASSES_DECIMAL_PLACES = 2;
   public static readonly X_DECIMAL_PLACES = 2;
   public static readonly ELECTRIC_FIELD_DECIMAL_PLACES = 1;
-  public static readonly WELL_WIDTH_DECIMAL_PLACES = 1;
-  public static readonly WELL_DEPTH_DECIMAL_PLACES = 1;
-  public static readonly STEP_HEIGHT_DECIMAL_PLACES = 1;
+  public static readonly WELL_WIDTH_DECIMAL_PLACES = 2;
+  public static readonly WELL_DEPTH_DECIMAL_PLACES = 2;
+  public static readonly STEP_HEIGHT_DECIMAL_PLACES = 2;
   public static readonly SEPARATION_DECIMAL_PLACES = 2;
   public static readonly SPACING_DECIMAL_PLACES = 2;
   public static readonly X_OFFSET_DECIMAL_PLACES = 1;

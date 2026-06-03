@@ -47,6 +47,11 @@ type StringsType = {
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
   'superpositionDetailsDialogTitleStringProperty': LocalizedStringProperty;
   'superpositionCustomizationDialogTitleStringProperty': LocalizedStringProperty;
+  'widthPatternStringProperty': LocalizedStringProperty;
+  'depthPatternStringProperty': LocalizedStringProperty;
+  'stepHeightPatternStringProperty': LocalizedStringProperty;
+  'spacingPatternStringProperty': LocalizedStringProperty;
+  'separationPatternStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
   'numberOfWellsStringProperty': LocalizedStringProperty;
   'electricFieldStringProperty': LocalizedStringProperty;

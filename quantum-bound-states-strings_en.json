@@ -88,6 +88,21 @@
   "superpositionCustomizationDialogTitle": {
     "value": "Superposition Customization"
   },
+  "widthPattern": {
+    "value": "width = {{value}} nm"
+  },
+  "depthPattern": {
+    "value": "depth = {{value}} eV"
+  },
+  "stepHeightPattern": {
+    "value": "step height = {{value}} eV"
+  },
+  "spacingPattern": {
+    "value": "spacing = {{value}} nm"
+  },
+  "separationPattern": {
+    "value": "separation = {{value}} nm"
+  },
   "mass": {
     "value": "Mass"
   },

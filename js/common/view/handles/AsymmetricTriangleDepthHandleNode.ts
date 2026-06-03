@@ -6,11 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
+import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
+import QBSConstants from '../../QBSConstants.js';
 import AsymmetricTriangleDepthDragListener from './AsymmetricTriangleDepthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
@@ -24,7 +28,12 @@ export default class AsymmetricTriangleDepthHandleNode extends PotentialHandleNo
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( potential, chartTransform, potential.wellDepthProperty, {
+    const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.depthPatternStringProperty, {
+      value: new DerivedStringProperty( [ potential.wellDepthProperty ],
+          wellDepth => toFixed( wellDepth, QBSConstants.WELL_DEPTH_DECIMAL_PLACES ) )
+    } );
+
+    super( potential, chartTransform, potential.wellDepthProperty, labelStringProperty, {
       orientation: 'vertical',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.asymmetricTriangleDepthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.asymmetricTriangleDepthHandle.accessibleHelpTextStringProperty,
