@@ -36,7 +36,7 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
       // Dependencies that appear to be unused are actually used by getModelX and getElectricFieldOffset.
-      //TODO dragBoundsProperty is incorrect and handle does not drag until some other Property is changed.
+      //TODO https://github.com/phetsims/quantum-bound-states/issues/53 dragBoundsProperty is incorrect and handle does not drag until some other Property is changed.
       dragBoundsProperty: new DerivedProperty(
         [ potential.numberOfWellsProperty, potential.xOffsetProperty, potential.yOffsetProperty,
           potential.wellWidthProperty, potential.spacingProperty, potential.electricFieldProperty ],
@@ -47,7 +47,10 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
           // Depth is downward for Poschl-Teller, so reverse min and max.
           const minY = yOffset - wellDepthProperty.range.max + electricFieldOffset;
           const maxY = yOffset - wellDepthProperty.range.min + electricFieldOffset;
-          return new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
+          const dragBounds = new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
+          console.log( 'minY = ' + minY + ', maxY = ' + maxY );
+          console.log( 'dragBounds = ' + dragBounds );
+          return dragBounds;
         } ),
 
       drag: ( event, listener ) => {
