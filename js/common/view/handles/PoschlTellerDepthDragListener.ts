@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../../axon/js/Property.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -26,32 +26,29 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
 
     const wellDepthProperty = potential.wellDepthProperty;
 
+    const dragBoundsProperty = new Property( new Bounds2( 0, 0, 1, 1 ) );
+
+    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+    const updateDragBounds = () => {
+      const x = handleNode.getModelX();
+      const electricFieldOffset = potential.getElectricFieldOffset( x );
+      const yOffset = potential.yOffsetProperty.value;
+      // Depth is downward for Poschl-Teller, so reverse min and max.
+      const minY = yOffset - wellDepthProperty.range.max + electricFieldOffset;
+      const maxY = yOffset - wellDepthProperty.range.min + electricFieldOffset;
+      dragBoundsProperty.value = new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
+    };
+    potential.changedEmitter.addListener( () => updateDragBounds() );
+    chartTransform.changedEmitter.addListener( () => updateDragBounds() );
+    updateDragBounds();
+
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
-
       orientation: 'vertical',
       keyboardDragDelta: 0.5, // eV
       keyboardShiftDragDelta: 0.1, // eV
-
-      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      // Dependencies that appear to be unused are actually used by getModelX and getElectricFieldOffset.
-      //TODO https://github.com/phetsims/quantum-bound-states/issues/53 dragBoundsProperty is incorrect and handle does not drag until some other Property is changed.
-      dragBoundsProperty: new DerivedProperty(
-        [ potential.numberOfWellsProperty, potential.xOffsetProperty, potential.yOffsetProperty,
-          potential.wellWidthProperty, potential.spacingProperty, potential.electricFieldProperty ],
-        () => {
-          const x = handleNode.getModelX();
-          const electricFieldOffset = potential.getElectricFieldOffset( x );
-          const yOffset = potential.yOffsetProperty.value;
-          // Depth is downward for Poschl-Teller, so reverse min and max.
-          const minY = yOffset - wellDepthProperty.range.max + electricFieldOffset;
-          const maxY = yOffset - wellDepthProperty.range.min + electricFieldOffset;
-          const dragBounds = new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
-          console.log( 'minY = ' + minY + ', maxY = ' + maxY );
-          console.log( 'dragBounds = ' + dragBounds );
-          return dragBounds;
-        } ),
+      dragBoundsProperty: dragBoundsProperty,
 
       drag: ( event, listener ) => {
 
