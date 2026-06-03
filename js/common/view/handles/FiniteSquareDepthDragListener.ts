@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../../axon/js/Property.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -26,27 +26,27 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
 
     const wellDepthProperty = potential.wellDepthProperty;
 
+    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+    const dragBoundsProperty = new Property( new Bounds2( 0, 0, 1, 1 ) );
+    const updateDragBounds = () => {
+      const x = handleNode.getModelX();
+      const electricFieldOffset = potential.getElectricFieldOffset( x );
+      const yOffset = potential.yOffsetProperty.value;
+      const minY = yOffset + wellDepthProperty.range.min + electricFieldOffset;
+      const maxY = yOffset + wellDepthProperty.range.max + electricFieldOffset;
+      dragBoundsProperty.value = new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
+    };
+    potential.changedEmitter.addListener( () => updateDragBounds() );
+    chartTransform.changedEmitter.addListener( () => updateDragBounds() );
+    updateDragBounds();
+
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
-
       orientation: 'vertical',
       keyboardDragDelta: 0.5, // eV
       keyboardShiftDragDelta: 0.1, // eV
-
-      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      // Dependencies that appear to be unused are actually used by getModelX and getElectricFieldOffset.
-      dragBoundsProperty: new DerivedProperty(
-        [ potential.numberOfWellsProperty, potential.xOffsetProperty, potential.yOffsetProperty,
-          potential.wellWidthProperty, potential.separationProperty, potential.electricFieldProperty ],
-        () => {
-          const x = handleNode.getModelX();
-          const electricFieldOffset = potential.getElectricFieldOffset( x );
-          const yOffset = potential.yOffsetProperty.value;
-          const minY = yOffset + wellDepthProperty.range.min + electricFieldOffset;
-          const maxY = yOffset + wellDepthProperty.range.max + electricFieldOffset;
-          return new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
-        } ),
+      dragBoundsProperty: dragBoundsProperty,
 
       drag: ( event, listener ) => {
 

@@ -26,9 +26,8 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
 
     const wellDepthProperty = potential.wellDepthProperty;
 
-    const dragBoundsProperty = new Property( new Bounds2( 0, 0, 1, 1 ) );
-
     // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+    const dragBoundsProperty = new Property( new Bounds2( 0, 0, 1, 1 ) );
     const updateDragBounds = () => {
       const x = handleNode.getModelX();
       const electricFieldOffset = potential.getElectricFieldOffset( x );

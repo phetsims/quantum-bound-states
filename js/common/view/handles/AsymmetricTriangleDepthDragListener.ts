@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../../axon/js/Property.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -26,21 +26,24 @@ export default class AsymmetricTriangleDepthDragListener extends PotentialDragLi
 
     const wellDepthProperty = potential.wellDepthProperty;
 
+    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+    const dragBoundsProperty = new Property( new Bounds2( 0, 0, 1, 1 ) );
+    const updateDragBounds = () => {
+      const minY = potential.yOffsetProperty.value + wellDepthProperty.range.min;
+      const maxY = potential.yOffsetProperty.value + wellDepthProperty.range.max;
+      dragBoundsProperty.value = new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
+    };
+    potential.yOffsetProperty.lazyLink( () => updateDragBounds() );
+    chartTransform.changedEmitter.addListener( () => updateDragBounds() );
+    updateDragBounds();
+
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
-
       orientation: 'vertical',
       keyboardDragDelta: 0.5, // eV
       keyboardShiftDragDelta: 0.1, // eV
-
-      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.yOffsetProperty ],
-        yOffset => {
-          const minY = yOffset + wellDepthProperty.range.min;
-          const maxY = yOffset + wellDepthProperty.range.max;
-          return new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
-        } ),
+      dragBoundsProperty: dragBoundsProperty,
 
       drag: ( event, listener ) => {
 
