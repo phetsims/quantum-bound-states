@@ -34,7 +34,7 @@ export default class MorseDepthDragListener extends PotentialDragListener<MorseP
       const maxY = potential.yOffsetProperty.value - wellDepthProperty.range.min;
       dragBoundsProperty.value = new Bounds2( 0, chartTransform.modelToViewY( maxY ), 1, chartTransform.modelToViewY( minY ) );
     };
-    potential.changedEmitter.addListener( () => updateDragBounds() );
+    potential.yOffsetProperty.lazyLink( () => updateDragBounds() );
     chartTransform.changedEmitter.addListener( () => updateDragBounds() );
     updateDragBounds();
 
