@@ -271,4 +271,8 @@ export default class QBSColors {
   public static readonly handleLabelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'handleLabelStrokeProperty', {
     default: 'rgba( 200, 200, 200, 1 )'
   } );
+
+  public static readonly markerLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'markerLinesStrokeProperty', {
+    default: 'rgb( 85, 85, 255 )'
+  } );
 }
