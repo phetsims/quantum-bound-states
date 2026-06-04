@@ -8,6 +8,7 @@
 
 import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -26,6 +27,7 @@ export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePoten
 
   public constructor( potential: MorsePotential,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -34,7 +36,7 @@ export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePoten
         wellWidth => toFixed( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) )
     } );
 
-    super( potential, chartTransform, potential.wellWidthProperty, labelStringProperty, {
+    super( potential, chartTransform, potential.wellWidthProperty, labelStringProperty, valuesVisibleProperty, {
       orientation: 'horizontal',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.morseWidthHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.morseWidthHandle.accessibleHelpTextStringProperty,

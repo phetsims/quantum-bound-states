@@ -23,6 +23,7 @@ export default class FiniteSquareHandlesNode extends PotentialHandlesNode {
   public constructor( potential: FiniteSquarePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -30,15 +31,18 @@ export default class FiniteSquareHandlesNode extends PotentialHandlesNode {
     const handles: PotentialHandleNode<FiniteSquarePotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new FiniteSquareWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) ) );
+      handles.push( new FiniteSquareWidthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'widthHandleNode' ) ) );
     }
 
     if ( potential.wellDepthProperty.range.getLength() > 0 ) {
-      handles.push( new FiniteSquareDepthHandleNode( potential, chartTransform, time, tandem.createTandem( 'depthHandleNode' ) ) );
+      handles.push( new FiniteSquareDepthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'depthHandleNode' ) ) );
     }
 
     if ( potential.separationProperty.range.getLength() > 0 ) {
-      handles.push( new FiniteSquareSeparationHandleNode( potential, chartTransform, time, tandem.createTandem( 'separationHandleNode' ) ) );
+      handles.push( new FiniteSquareSeparationHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'separationHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {

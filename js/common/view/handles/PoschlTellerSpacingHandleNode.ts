@@ -9,6 +9,7 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -27,6 +28,7 @@ export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<P
 
   public constructor( potential: PoschlTellerPotential,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -35,7 +37,7 @@ export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<P
         spacing => toFixed( spacing, QBSConstants.SPACING_DECIMAL_PLACES ) )
     } );
 
-    super( potential, chartTransform, potential.spacingProperty, labelStringProperty, {
+    super( potential, chartTransform, potential.spacingProperty, labelStringProperty, valuesVisibleProperty, {
       orientation: 'horizontal',
 
       //TODO Provide a way to hide this handle via PhET-iO?

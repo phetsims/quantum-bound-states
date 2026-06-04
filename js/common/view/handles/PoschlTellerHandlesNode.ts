@@ -23,21 +23,25 @@ export default class PoschlTellerHandlesNode extends PotentialHandlesNode {
   public constructor( potential: PoschlTellerPotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
     const handles: PotentialHandleNode<PoschlTellerPotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new PoschlTellerWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) ) );
+      handles.push( new PoschlTellerWidthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'widthHandleNode' ) ) );
     }
 
     if ( potential.wellDepthProperty.range.getLength() > 0 ) {
-      handles.push( new PoschlTellerDepthHandleNode( potential, chartTransform, time, tandem.createTandem( 'depthHandleNode' ) ) );
+      handles.push( new PoschlTellerDepthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'depthHandleNode' ) ) );
     }
 
     if ( potential.spacingProperty.range.getLength() > 0 ) {
-      handles.push( new PoschlTellerSpacingHandleNode( potential, chartTransform, time, tandem.createTandem( 'spacingHandleNode' ) ) );
+      handles.push( new PoschlTellerSpacingHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'spacingHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {

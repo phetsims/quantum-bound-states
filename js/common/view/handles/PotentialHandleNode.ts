@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../../axon/js/Multilink.js';
 import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
@@ -40,6 +41,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
                          chartTransform: ChartTransform,
                          rangedProperty: TRangedProperty,
                          labelStringProperty: TReadOnlyProperty<string>,
+                         valuesVisibleProperty: TReadOnlyProperty<boolean>,
                          providedOptions: PotentialHandleNodeOptions ) {
 
     const options = optionize4<PotentialHandleNodeOptions, SelfOptions, ArrowNodeOptions>()(
@@ -97,6 +99,20 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     labelNode.localBoundsProperty.link( () => {
       labelNode.centerX = 0;
       labelNode.bottom = ( ( options.orientation === 'horizontal' ) ? -options.headWidth / 2 : -QBSConstants.HANDLE_LENGTH / 2 ) - 3;
+    } );
+
+    // Show labels if values are visible, or if the handle is focused, or if the pointer is over the handle.
+    //TODO Should labels also be visible while dragging with pointer?
+    Multilink.multilink( [ valuesVisibleProperty, this.focusedProperty ], ( valuesVisible, focused ) => {
+      labelNode.visible = valuesVisible || focused;
+    } );
+    this.addInputListener( {
+      over: () => {
+        labelNode.visible = true;
+      },
+      out: () => {
+        labelNode.visible = valuesVisibleProperty.value || this.focusedProperty.value;
+      }
     } );
   }
 

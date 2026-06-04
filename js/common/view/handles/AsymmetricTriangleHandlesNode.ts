@@ -22,17 +22,20 @@ export default class AsymmetricTriangleHandlesNode extends PotentialHandlesNode 
   public constructor( potential: AsymmetricTrianglePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
     const handles: PotentialHandleNode<AsymmetricTrianglePotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new AsymmetricTriangleWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) ) );
+      handles.push( new AsymmetricTriangleWidthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'widthHandleNode' ) ) );
     }
 
     if ( potential.wellDepthProperty.range.getLength() > 0 ) {
-      handles.push( new AsymmetricTriangleDepthHandleNode( potential, chartTransform, time, tandem.createTandem( 'depthHandleNode' ) ) );
+      handles.push( new AsymmetricTriangleDepthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'depthHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {

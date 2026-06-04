@@ -21,13 +21,15 @@ export default class HarmonicOscillatorHandlesNode extends PotentialHandlesNode 
   public constructor( potential: HarmonicOscillatorPotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
     const handles: PotentialHandleNode<HarmonicOscillatorPotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new HarmonicOscillatorWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) ) );
+      handles.push( new HarmonicOscillatorWidthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'widthHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {

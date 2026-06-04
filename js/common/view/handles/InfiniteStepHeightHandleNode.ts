@@ -8,6 +8,7 @@
 
 import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -22,6 +23,7 @@ export default class InfiniteStepHeightHandleNode extends PotentialHandleNode<In
 
   public constructor( potential: InfiniteStepPotential,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -30,7 +32,7 @@ export default class InfiniteStepHeightHandleNode extends PotentialHandleNode<In
         stepHeight => toFixed( stepHeight, QBSConstants.STEP_HEIGHT_DECIMAL_PLACES ) )
     } );
 
-    super( potential, chartTransform, potential.stepHeightProperty, labelStringProperty, {
+    super( potential, chartTransform, potential.stepHeightProperty, labelStringProperty, valuesVisibleProperty, {
       orientation: 'vertical',
       accessibleName: QuantumBoundStatesFluent.a11y.handles.infiniteStepHeightHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.infiniteStepHeightHandle.accessibleHelpTextStringProperty,

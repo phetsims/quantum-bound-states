@@ -22,17 +22,20 @@ export default class MorseHandlesNode extends PotentialHandlesNode {
   public constructor( potential: MorsePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
     const handles: PotentialHandleNode<MorsePotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new MorseWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) ) );
+      handles.push( new MorseWidthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'widthHandleNode' ) ) );
     }
 
     if ( potential.wellDepthProperty.range.getLength() > 0 ) {
-      handles.push( new MorseDepthHandleNode( potential, chartTransform, time, tandem.createTandem( 'depthHandleNode' ) ) );
+      handles.push( new MorseDepthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'depthHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {

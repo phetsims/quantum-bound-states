@@ -35,6 +35,7 @@ export default class PotentialHandlesLayer extends Node {
   public constructor( potentials: readonly QuantumPotential[],
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -46,35 +47,35 @@ export default class PotentialHandlesLayer extends Node {
 
       if ( potential instanceof InfiniteSquarePotential ) {
         children.push( new InfiniteSquareHandlesNode( potential, selectedPotentialProperty, chartTransform,
-          time, handlesNodeTandem ) );
+          valuesVisibleProperty, time, handlesNodeTandem ) );
       }
       else if ( potential instanceof FiniteSquarePotential ) {
         children.push( new FiniteSquareHandlesNode( potential, selectedPotentialProperty, chartTransform,
-          time, handlesNodeTandem ) );
+          valuesVisibleProperty, time, handlesNodeTandem ) );
       }
       else if ( potential instanceof InfiniteStepPotential ) {
         children.push( new InfiniteStepHandlesNode( potential, selectedPotentialProperty, chartTransform,
-          time, handlesNodeTandem ) );
+          valuesVisibleProperty, time, handlesNodeTandem ) );
       }
       else if ( potential instanceof AsymmetricTrianglePotential ) {
         children.push( new AsymmetricTriangleHandlesNode( potential, selectedPotentialProperty, chartTransform,
-          time, handlesNodeTandem ) );
+          valuesVisibleProperty, time, handlesNodeTandem ) );
       }
       else if ( potential instanceof HarmonicOscillatorPotential ) {
         children.push( new HarmonicOscillatorHandlesNode( potential, selectedPotentialProperty, chartTransform,
-          time, handlesNodeTandem ) );
+          valuesVisibleProperty, time, handlesNodeTandem ) );
       }
       else if ( potential instanceof PoschlTellerPotential ) {
         children.push( new PoschlTellerHandlesNode( potential, selectedPotentialProperty, chartTransform,
-          time, handlesNodeTandem ) );
+          valuesVisibleProperty, time, handlesNodeTandem ) );
       }
       else if ( potential instanceof MorsePotential ) {
         children.push( new MorseHandlesNode( potential, selectedPotentialProperty, chartTransform,
-          time, handlesNodeTandem ) );
+          valuesVisibleProperty, time, handlesNodeTandem ) );
       }
       else if ( potential instanceof CoulombPotential ) {
         children.push( new CoulombHandlesNode( potential, selectedPotentialProperty, chartTransform,
-          time, handlesNodeTandem ) );
+          valuesVisibleProperty, time, handlesNodeTandem ) );
       }
     } );
 

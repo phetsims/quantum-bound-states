@@ -21,13 +21,15 @@ export default class InfiniteSquareHandlesNode extends PotentialHandlesNode {
   public constructor( potential: InfiniteSquarePotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
     const handles: PotentialHandleNode<InfiniteSquarePotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new InfiniteSquareWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) )
+      handles.push( new InfiniteSquareWidthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'widthHandleNode' ) )
       );
     }
 

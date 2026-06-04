@@ -22,18 +22,21 @@ export default class InfiniteStepHandlesNode extends PotentialHandlesNode {
   public constructor( potential: InfiniteStepPotential,
                       selectedPotentialProperty: TReadOnlyProperty<QuantumPotential>,
                       chartTransform: ChartTransform,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       time: QBSTime,
                       tandem: Tandem ) {
 
     const handles: PotentialHandleNode<InfiniteStepPotential>[] = [];
 
     if ( potential.wellWidthProperty.range.getLength() > 0 ) {
-      handles.push( new InfiniteStepWidthHandleNode( potential, chartTransform, time, tandem.createTandem( 'widthHandleNode' ) )
+      handles.push( new InfiniteStepWidthHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'widthHandleNode' ) )
       );
     }
 
     if ( potential.stepHeightProperty.range.getLength() > 0 ) {
-      handles.push( new InfiniteStepHeightHandleNode( potential, chartTransform, time, tandem.createTandem( 'stepHeightHandleNode' ) ) );
+      handles.push( new InfiniteStepHeightHandleNode( potential, chartTransform, valuesVisibleProperty, time,
+        tandem.createTandem( 'stepHeightHandleNode' ) ) );
     }
 
     super( potential, selectedPotentialProperty, {
