@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/quantum-bound-states/issues/53 Does not drag full range when electric field is non-zero.
 /**
  * FiniteSquareDepthDragListener is the drag listener for changing the well depth of a Finite Square potential.
  *
