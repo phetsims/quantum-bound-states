@@ -18,6 +18,7 @@ import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import CoulombMarkersNode from './CoulombMarkersNode.js';
 import FiniteSquareMarkersNode from './FiniteSquareMarkersNode.js';
+import MorseMarkersNode from './MorseMarkersNode.js';
 
 export default class MarkersLayer extends Node {
 
@@ -36,7 +37,7 @@ export default class MarkersLayer extends Node {
         children.push( new FiniteSquareMarkersNode( potential, selectedPotentialProperty, chartTransform, markersNodeTandem ) );
       }
       else if ( potential instanceof MorsePotential ) {
-        //TODO
+        children.push( new MorseMarkersNode( potential, selectedPotentialProperty, chartTransform, markersNodeTandem ) );
       }
       else if ( potential instanceof PoschlTellerPotential ) {
         //TODO
