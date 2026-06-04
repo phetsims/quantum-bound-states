@@ -102,7 +102,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     } );
 
     // Show labels if values are visible, or if the handle is focused, or if the pointer is over the handle.
-    //TODO Should labels also be visible while dragging with pointer?
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Should labels also be visible while dragging with pointer?
     Multilink.multilink( [ valuesVisibleProperty, this.focusedProperty ], ( valuesVisible, focused ) => {
       labelNode.visible = valuesVisible || focused;
     } );
