@@ -29,6 +29,7 @@ import EnergyDiagramPlotsNode from './EnergyDiagramPlotsNode.js';
 import EnergyLevelDisplay from './EnergyLevelDisplay.js';
 import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
 import PotentialHandlesLayer from './handles/PotentialHandlesLayer.js';
+import MarkersLayer from './markers/MarkersLayer.js';
 
 export default class EnergyDiagramNode extends Node {
 
@@ -111,6 +112,9 @@ export default class EnergyDiagramNode extends Node {
     const handlesLayer = new PotentialHandlesLayer( potentials, model.potentialProperty, this.chartTransform,
       model.energyDiagram.valuesVisibleProperty, model.time, tandem.createTandem( 'handlesLayer' ) );
 
+    const markersLayer = new MarkersLayer( potentials, model.potentialProperty, this.chartTransform,
+      tandem.createTandem( 'markersLayer' ) );
+
     // Displays the selected energy level and its corresponding energy value.
     const selectedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.selectedEnergyLevelProperty, this.chartTransform, {
       left: this.chartRectangle.left + 10,
@@ -127,6 +131,7 @@ export default class EnergyDiagramNode extends Node {
     const clippedLayer = new Node( {
       clipArea: this.chartRectangle.getShape(),
       children: [
+        markersLayer,
         energyDiagramPlotsNode
       ]
     } );
