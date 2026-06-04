@@ -92,6 +92,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
 
     //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Decorating handles may not be the best approach.
     const labelNode = new PotentialHandleLabelNode( labelStringProperty );
+    labelNode.pickable = false;
     this.addChild( labelNode );
     labelNode.localBoundsProperty.link( () => {
       labelNode.centerX = 0;
