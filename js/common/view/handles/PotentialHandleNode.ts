@@ -2,7 +2,9 @@
 
 /**
  * PotentialHandleNode is the base class for all handles that are used to change some property of a quantum potential.
- * Origin is at the center of the double-headed arrow.
+ * It consists of a double-head arrow with a label above it. The arrow is interactive, the label is not. The label's
+ * visibility depends on a number of factors - see labelVisibleProperty.
+ * The origin is at the center of the arrow.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,18 +15,30 @@ import Property from '../../../../../axon/js/Property.js';
 import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
+import Shape from '../../../../../kite/js/Shape.js';
 import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import AccessibleInteractiveOptions from '../../../../../scenery-phet/js/accessibility/AccessibleInteractiveOptions.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../../scenery-phet/js/ArrowNode.js';
 import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
+import BooleanIO from '../../../../../tandem/js/types/BooleanIO.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import { HomeEndKeyboardListener } from '../HomeEndKeyboardListener.js';
 import PotentialHandleLabelNode from './PotentialHandleLabelNode.js';
+
+const ARROW_NODE_OPTIONS = {
+  doubleHead: true,
+  headHeight: 11,
+  headWidth: 15,
+  tailWidth: 6
+};
+const HORIZONTAL_ARROW_Y_OFFSET = -( ARROW_NODE_OPTIONS.headWidth / 2 + 3 );
+const VERTICAL_ARROW_Y_OFFSET = -( QBSConstants.HANDLE_LENGTH / 2 + 3 );
 
 type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
@@ -34,7 +48,7 @@ export type PotentialHandleNodeOptions = SelfOptions &
   PickOptional<ArrowNodeOptions, 'visibleProperty' | 'accessibleName' | 'accessibleHelpText' | 'accessibleFocusObjectResponse' | 'accessibleParagraphContent'> &
   PickRequired<ArrowNodeOptions, 'tandem'>;
 
-export default abstract class PotentialHandleNode<T extends QuantumPotential> extends InteractiveHighlighting( ArrowNode ) {
+export default abstract class PotentialHandleNode<T extends QuantumPotential> extends InteractiveHighlighting( Node ) {
 
   // The quantum potential that the handle is associated with.
   protected readonly potential: T;
@@ -58,10 +72,6 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
         // ArrowNodeOptions
         isDisposable: false,
         cursor: 'pointer',
-        doubleHead: true,
-        headHeight: 11,
-        headWidth: 15,
-        tailWidth: 6,
 
         // As in Calculus Grapher, see https://github.com/phetsims/calculus-grapher/issues/405#issuecomment-4185183008.
         accessibleRoleDescription: QuantumBoundStatesFluent.a11y.handles.accessibleRoleDescriptionStringProperty,
@@ -71,46 +81,34 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
         phetioInputEnabledPropertyInstrumented: true
       }, providedOptions );
 
+    super( options );
+
+    this.potential = potential;
+    this.chartTransform = chartTransform;
+
+    // Whether the handle is being dragged, set by PotentialDragListener.
+    this.isDraggingProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'isDraggingProperty' ),
+      phetioDocumentation: 'Indicates whether the handle is being dragged.',
+      phetioReadOnly: true
+    } );
+
     // Set the arrow's tail and tip based on its orientation.
     const tailX = options.orientation === 'horizontal' ? -QBSConstants.HANDLE_LENGTH / 2 : 0;
     const tailY = options.orientation === 'horizontal' ? 0 : -QBSConstants.HANDLE_LENGTH / 2;
     const tipX = options.orientation === 'horizontal' ? QBSConstants.HANDLE_LENGTH / 2 : 0;
     const tipY = options.orientation === 'horizontal' ? 0 : QBSConstants.HANDLE_LENGTH / 2;
 
-    super( tailX, tailY, tipX, tipY, options );
+    const arrowNode = new ArrowNode( tailX, tailY, tipX, tipY, ARROW_NODE_OPTIONS );
+    this.addChild( arrowNode );
 
-    this.potential = potential;
-    this.chartTransform = chartTransform;
-
-    this.isDraggingProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'isDraggingProperty' ),
-      phetioDocumentation: 'Indicates whether the handle is being dragged.'
-    } );
-
-    const pointerArea = this.localBounds.dilatedXY( 5, 5 );
-    this.mouseArea = pointerArea;
-    this.touchArea = pointerArea;
-
-    this.addInputListener( new HomeEndKeyboardListener( rangedProperty, {
-      homeCallback: () => this.describeMoved(),
-      endCallback: () => this.describeMoved(),
-      tandem: options.tandem.createTandem( 'homeEndKeyboardListener' )
-    } ) );
-
-    this.inputEnabledProperty.link( inputEnabled => {
-      this.fill = inputEnabled ? QBSColors.handleFillProperty : QBSColors.handleDisabledFillProperty;
-      this.stroke = inputEnabled ? QBSColors.handleStrokeProperty : QBSColors.handleDisabledStrokeProperty;
-    } );
-
-    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
-    potential.changedEmitter.addListener( () => this.updatePosition() );
-    this.updatePosition();
-
+    // Keep track of whether the pointer is over the arrow. This affects the visibility of the label.
     const isOverProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'isOverProperty' ),
-      phetioDocumentation: 'Indicates whether the pointer is over the handle.'
+      phetioDocumentation: 'Indicates whether the pointer is over the handle.',
+      phetioReadOnly: true
     } );
-    this.addInputListener( {
+    arrowNode.addInputListener( {
       over: () => {
         isOverProperty.value = true;
       },
@@ -119,15 +117,44 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
       }
     } );
 
-    const labelVisibleProperty = DerivedProperty.or( [ valuesVisibleProperty, this.focusedProperty, this.isDraggingProperty, isOverProperty ] );
+    const labelNodeTandem = options.tandem.createTandem( 'labelNode' );
+    const labelVisibleProperty = DerivedProperty.or( [ valuesVisibleProperty, this.focusedProperty, this.isDraggingProperty, isOverProperty ], {
+      tandem: labelNodeTandem.createTandem( 'visibleProperty' ),
+      phetioValueType: BooleanIO
+    } );
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Decorating ArrowNode may not be the best approach.
-    const labelNode = new PotentialHandleLabelNode( labelStringProperty, labelVisibleProperty );
+    const labelNode = new PotentialHandleLabelNode( labelStringProperty, labelVisibleProperty, labelNodeTandem );
     this.addChild( labelNode );
     labelNode.localBoundsProperty.link( () => {
       labelNode.centerX = 0;
-      labelNode.bottom = ( ( options.orientation === 'horizontal' ) ? -options.headWidth / 2 : -QBSConstants.HANDLE_LENGTH / 2 ) - 3;
+      labelNode.bottom = ( options.orientation === 'horizontal' ) ? HORIZONTAL_ARROW_Y_OFFSET : VERTICAL_ARROW_Y_OFFSET;
     } );
+
+    // Pointer area around arrow.
+    const pointerArea = arrowNode.localBounds.dilatedXY( 5, 5 );
+    this.mouseArea = pointerArea;
+    this.touchArea = pointerArea;
+
+    // Set focus highlight explicitly so that it does not include labelNode. Interactive highlight will default to focus highlight.
+    this.setFocusHighlight( Shape.bounds( pointerArea ) );
+
+    // Support for Home/End keyboard shortcuts.
+    this.addInputListener( new HomeEndKeyboardListener( rangedProperty, {
+      homeCallback: () => this.describeMoved(),
+      endCallback: () => this.describeMoved(),
+      tandem: options.tandem.createTandem( 'homeEndKeyboardListener' )
+    } ) );
+
+    // Change the arrow colors to indicate whether the handle is enabled.
+    this.inputEnabledProperty.link( inputEnabled => {
+      arrowNode.fill = inputEnabled ? QBSColors.handleFillProperty : QBSColors.handleDisabledFillProperty;
+      arrowNode.stroke = inputEnabled ? QBSColors.handleStrokeProperty : QBSColors.handleDisabledStrokeProperty;
+    } );
+
+    // When the potential or chartTransform changes, update the position of the handle.
+    potential.changedEmitter.addListener( () => this.updatePosition() );
+    this.chartTransform.changedEmitter.addListener( () => this.updatePosition() );
+    this.updatePosition();
   }
 
   /**
