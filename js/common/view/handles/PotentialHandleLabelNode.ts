@@ -15,13 +15,15 @@ import QBSConstants from '../../QBSConstants.js';
 
 export default class PotentialHandleLabelNode extends BackgroundNode {
 
-  public constructor( labelStringProperty: TReadOnlyProperty<string> ) {
+  public constructor( labelStringProperty: TReadOnlyProperty<string>, visibleProperty: TReadOnlyProperty<boolean> ) {
 
     const labelText = new RichText( labelStringProperty, {
       font: QBSConstants.HANDLE_FONT
     } );
 
     super( labelText, {
+      visibleProperty: visibleProperty,
+      pickable: false,
       xMargin: 6,
       yMargin: 2,
       rectangleOptions: {

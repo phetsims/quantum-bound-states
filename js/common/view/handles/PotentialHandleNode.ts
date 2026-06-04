@@ -7,7 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
+import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../../axon/js/Property.js';
 import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
@@ -36,6 +38,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
 
   protected readonly potential: T;
   protected readonly chartTransform: ChartTransform;
+  public readonly isDraggingProperty: Property<boolean>;
 
   protected constructor( potential: T,
                          chartTransform: ChartTransform,
@@ -73,6 +76,10 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     this.potential = potential;
     this.chartTransform = chartTransform;
 
+    this.isDraggingProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'isDraggingProperty' )
+    } );
+
     const pointerArea = this.localBounds.dilatedXY( 5, 5 );
     this.mouseArea = pointerArea;
     this.touchArea = pointerArea;
@@ -92,27 +99,26 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     potential.changedEmitter.addListener( () => this.updatePosition() );
     this.updatePosition();
 
+    const isOverProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'isOverProperty' )
+    } );
+    this.addInputListener( {
+      over: () => {
+        isOverProperty.value = true;
+      },
+      out: () => {
+        isOverProperty.value = false;
+      }
+    } );
+
+    const labelVisibleProperty = DerivedProperty.or( [ valuesVisibleProperty, this.focusedProperty, this.isDraggingProperty, isOverProperty ] );
+
     //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Decorating handles may not be the best approach.
-    const labelNode = new PotentialHandleLabelNode( labelStringProperty );
-    labelNode.pickable = false;
+    const labelNode = new PotentialHandleLabelNode( labelStringProperty, labelVisibleProperty );
     this.addChild( labelNode );
     labelNode.localBoundsProperty.link( () => {
       labelNode.centerX = 0;
       labelNode.bottom = ( ( options.orientation === 'horizontal' ) ? -options.headWidth / 2 : -QBSConstants.HANDLE_LENGTH / 2 ) - 3;
-    } );
-
-    // Show labels if values are visible, or if the handle is focused, or if the pointer is over the handle.
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Should labels also be visible while dragging with pointer?
-    Multilink.multilink( [ valuesVisibleProperty, this.focusedProperty ], ( valuesVisible, focused ) => {
-      labelNode.visible = valuesVisible || focused;
-    } );
-    this.addInputListener( {
-      over: () => {
-        labelNode.visible = true;
-      },
-      out: () => {
-        labelNode.visible = valuesVisibleProperty.value || this.focusedProperty.value;
-      }
     } );
   }
 
