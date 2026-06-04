@@ -17,6 +17,7 @@ import MorsePotential from '../../model/potentials/MorsePotential.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import CoulombMarkersNode from './CoulombMarkersNode.js';
+import FiniteSquareMarkersNode from './FiniteSquareMarkersNode.js';
 
 export default class MarkersLayer extends Node {
 
@@ -32,7 +33,7 @@ export default class MarkersLayer extends Node {
       const markersNodeTandem = tandem.createTandem( `${potential.tandemPrefix}MarkersNode` );
 
       if ( potential instanceof FiniteSquarePotential ) {
-        //TODO
+        children.push( new FiniteSquareMarkersNode( potential, selectedPotentialProperty, chartTransform, markersNodeTandem ) );
       }
       else if ( potential instanceof MorsePotential ) {
         //TODO

@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * CoulombWidthMarkerNode is the marker (pair of vertical dashed lines) that shows the width of the well.
+ * CoulombWidthMarkerNode is the marker (pair of vertical dashed lines) that shows the well width of a Coulomb potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,13 +12,15 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import PotentialMarkerNode from './PotentialMarkerNode.js';
 
-export default class CoulombWidthMarkerNode extends PotentialMarkerNode {
+export default class CoulombWidthMarkerNode extends PotentialMarkerNode<CoulombPotential> {
 
   public constructor( potential: CoulombPotential,
                       chartTransform: ChartTransform,
                       tandem: Tandem ) {
 
-    super( potential, chartTransform, tandem );
+    super( potential, chartTransform, {
+      tandem: tandem
+    } );
   }
 
   /**

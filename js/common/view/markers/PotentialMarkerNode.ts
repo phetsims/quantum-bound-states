@@ -7,32 +7,42 @@
  */
 
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
-import Path from '../../../../../scenery/js/nodes/Path.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
-import CoulombPotential from '../../model/potentials/CoulombPotential.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import Path, { PathOptions } from '../../../../../scenery/js/nodes/Path.js';
+import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSColors from '../../QBSColors.js';
 
-export default abstract class PotentialMarkerNode extends Path {
+type SelfOptions = EmptySelfOptions;
 
-  protected readonly potential: CoulombPotential;
+export type PotentialMarkerNodeOptions = SelfOptions &
+  PickOptional<PathOptions, 'visibleProperty'> &
+  PickRequired<PathOptions, 'tandem'>;
+
+export default abstract class PotentialMarkerNode<T extends QuantumPotential> extends Path {
+
+  protected readonly potential: T;
   protected readonly chartTransform: ChartTransform;
 
-  protected constructor( potential: CoulombPotential,
+  protected constructor( potential: T,
                          chartTransform: ChartTransform,
-                         tandem: Tandem ) {
+                         providedOptions: PotentialMarkerNodeOptions ) {
 
-    super( null, {
+    const options = optionize<PotentialMarkerNodeOptions, SelfOptions, PathOptions>()( {
       stroke: QBSColors.potentialEnergyColorProperty,
       lineWidth: 1.5,
-      lineDash: [ 6, 6 ],
-      tandem: tandem
-    } );
+      lineDash: [ 6, 6 ]
+    }, providedOptions );
+
+    super( null, options );
 
     this.potential = potential;
     this.chartTransform = chartTransform;
 
-    potential.wellWidthProperty.link( () => this.update() );
+    potential.changedEmitter.addListener( () => this.update() );
     chartTransform.changedEmitter.addListener( () => this.update() );
+    this.update();
   }
 
   /**
