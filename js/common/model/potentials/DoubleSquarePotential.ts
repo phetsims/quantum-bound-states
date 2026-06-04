@@ -9,6 +9,7 @@
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
+import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -38,6 +39,7 @@ export default class DoubleSquarePotential extends FiniteSquarePotential {
 
       // FiniteSquarePotentialOptions
       numberOfWellsProperty: numberOfWellsProperty,
+      separationRange: new RangeWithValue( 0.05, 0.2, 0.1 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.doubleSquareStringProperty,
       tandemPrefix: 'doubleSquarePotential'
     }, providedOptions );
