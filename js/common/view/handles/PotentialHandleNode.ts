@@ -121,7 +121,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
 
     const labelVisibleProperty = DerivedProperty.or( [ valuesVisibleProperty, this.focusedProperty, this.isDraggingProperty, isOverProperty ] );
 
-    //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Decorating handles may not be the best approach.
+    //TODO https://github.com/phetsims/quantum-bound-states/issues/53 Decorating ArrowNode may not be the best approach.
     const labelNode = new PotentialHandleLabelNode( labelStringProperty, labelVisibleProperty );
     this.addChild( labelNode );
     labelNode.localBoundsProperty.link( () => {
