@@ -36,8 +36,13 @@ export type PotentialHandleNodeOptions = SelfOptions &
 
 export default abstract class PotentialHandleNode<T extends QuantumPotential> extends InteractiveHighlighting( ArrowNode ) {
 
+  // The quantum potential that the handle is associated with.
   protected readonly potential: T;
+
+  // The model-view transform for the Energy Diagram.
   protected readonly chartTransform: ChartTransform;
+
+  // Whether the handle is being dragged.
   public readonly isDraggingProperty: Property<boolean>;
 
   protected constructor( potential: T,
@@ -66,6 +71,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
         phetioInputEnabledPropertyInstrumented: true
       }, providedOptions );
 
+    // Set the arrow's tail and tip based on its orientation.
     const tailX = options.orientation === 'horizontal' ? -QBSConstants.HANDLE_LENGTH / 2 : 0;
     const tailY = options.orientation === 'horizontal' ? 0 : -QBSConstants.HANDLE_LENGTH / 2;
     const tipX = options.orientation === 'horizontal' ? QBSConstants.HANDLE_LENGTH / 2 : 0;
