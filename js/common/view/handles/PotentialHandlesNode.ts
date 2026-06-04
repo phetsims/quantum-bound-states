@@ -29,5 +29,9 @@ export default class PotentialHandlesNode extends Node {
     }, providedOptions );
 
     super( options );
+
+    // pdomOrder is determined by the initial order of children. Order of children will later be modified by moving
+    // a handle to the front when interaction begins.
+    this.pdomOrder = options.children;
   }
 }
