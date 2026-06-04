@@ -77,7 +77,8 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     this.chartTransform = chartTransform;
 
     this.isDraggingProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'isDraggingProperty' )
+      tandem: options.tandem.createTandem( 'isDraggingProperty' ),
+      phetioDocumentation: 'Indicates whether the handle is being dragged.'
     } );
 
     const pointerArea = this.localBounds.dilatedXY( 5, 5 );
@@ -100,7 +101,8 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     this.updatePosition();
 
     const isOverProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'isOverProperty' )
+      tandem: options.tandem.createTandem( 'isOverProperty' ),
+      phetioDocumentation: 'Indicates whether the pointer is over the handle.'
     } );
     this.addInputListener( {
       over: () => {
