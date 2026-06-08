@@ -160,34 +160,106 @@ a11y:
     oneWellScreen:
       screenButtonsHelpText: Explore bound states in various single well potentials.
       screenSummary:
-        playArea:        TODO.oneWellScreen.screenSummary.playArea
-        controlArea:     TODO.oneWellScreen.screenSummary.controlArea
-        currentDetails:  TODO.oneWellScreen.screenSummary.currentDetails
-        interactionHint: TODO.oneWellScreen.screenSummary.interactionHint
+        playArea: >-
+                  In the Energy Diagram, observe the energy level structure of the chosen potential well. Adjust the available parameters for each potential well type and explore the changes to the energy levels. Change the potential well type to explore different shapes. You can also change the mass of the system.
+                  
+                  In the Quantum State Graph, you can observe the probability density or wave function for the selected energy level. View the full equation for the given state graph. If viewing the wave function, you can toggle parts of the graph, such as the real or imaginary part. There is also an option to show the magnitude and, if enabled, the phase of the wave function.
+        
+        controlArea:  >- 
+                      There are a few controls for visual inspection of the energy diagram or controlling the speed of the simulation. Toggle the visual labels on the energy diagram. Add a reference line to visually compare the probability density or wave function to the boundaries of the potential well. A magnifier can aid in visually inspecting the splitting between closely space energy levels. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed.
+
+        currentDetails: >-
+                        Currently,
+                          
+                          The potential well type is POTENTIALTYPE.
+                          Well width set to WELLWIDTH nanometers.
+                          Well height set to WELLHEIGHT electron volts. 
+                          Energy level INDEX is at ENERGYLEVEL electron volts.
+                          GRAPHTYPERADIOBUTTON graph displayed for energy level INDEX.
+                          Reference line is added.
+                          Magnifier is added.
+                          Sim speed is set to SIMSPEED.
+
+        interactionHint: Select an energy level or change the properties of the well to begin exploring. 
 
     twoWellsScreen:
       screenButtonsHelpText: Explore bound states and molecular bonding in two closely separated potentials.
       screenSummary:
-        playArea:        TODO.twoWellsScreen.screenSummary.playArea
-        controlArea:     TODO.twoWellsScreen.screenSummary.controlArea
-        currentDetails:  TODO.twoWellsScreen.screenSummary.currentDetails
-        interactionHint: TODO.twoWellsScreen.screenSummary.interactionHint
+        playArea: >-
+                  In the Energy Diagram, observe the energy levels of two closely spaced potential wells, a simple model of a two-atom molecule. Drag the handles on the curve to change the well width, the well height, and the separation between the wells. Watch closely spaced pairs of levels split apart into bonding and antibonding states as the wells move together, and merge back together as the wells move apart. Change the potential well type to explore a different two-well shape.
+
+                  In the Quantum State Graph, you can observe the probability density or wave function for the selected energy level. If viewing the wave function, you can toggle parts of the graph, such as the real or imaginary part, the magnitude, and, if enabled, the phase.
+
+        controlArea: >-
+                     There are tools inspectiing the graphs and options for controlling the speed of the simulation. Toggle the value labels on the Energy Diagram. Add a Reference Line to compare the graphs to the boundaries of the wells. A Magnifier can aid in visually inspecting the splitting between closely spaced energy levels. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed.
+
+        currentDetails: >-
+                        Currently,
+
+                          The potential well type is POTENTIALTYPE.
+                          Well width set to WELLWIDTH nanometers.
+                          Well height set to WELLHEIGHT electron volts.
+                          Well separation set to SEPARATION nanometers.
+                          Energy level INDEX is at ENERGYLEVEL electron volts.
+                          GRAPHTYPERADIOBUTTON graph displayed for energy level INDEX.
+                          Values are shown.
+                          Reference line is added.
+                          Magnifier is added.
+                          Sim speed is set to SIMSPEED.
+
+        interactionHint: Bring the two wells together or move them apart, and watch the energy levels split and merge.
 
     manyWellsScreen:
       screenButtonsHelpText: Explore bound states and band structure in a periodic array of potentials.
       screenSummary:
-        playArea:        TODO.manyWellsScreen.screenSummary.playArea
-        controlArea:     TODO.manyWellsScreen.screenSummary.controlArea
-        currentDetails:  TODO.manyWellsScreen.screenSummary.currentDetails
-        interactionHint: TODO.manyWellsScreen.screenSummary.interactionHint
+        playArea: >-
+                  In the Energy Diagram, observe how a row of identical wells builds a lattice. As you add wells, the discrete energy levels gather into bands separated by gaps. Drag the handles on the curve to change the well width, the well height, and the separation between wells. Apply an electric field to tilt the lattice and distort the bands. Change the potential well type to explore a different lattice shape.
+
+                  In the Quantum State Graph, you can observe the probability density or wave function for the selected energy level, or the average probability density across a whole band.
+
+        controlArea: >-
+                     There are controls for building the lattice and for controlling the speed of the simulation. Set the number of wells in the lattice and apply an electric field. Toggle the value labels on the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy for counting the levels inside a band. Zoom the energy axis in or out. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed.
+
+        currentDetails: >-
+                        Currently,
+
+                          The potential well type is POTENTIALTYPE.
+                          Number of wells set to NUMBEROFWELLS.
+                          Electric field set to ELECTRICFIELD volts per nanometer.
+                          Well width set to WELLWIDTH nanometers.
+                          Well separation set to SEPARATION nanometers.
+                          Energy level INDEX is at ENERGYLEVEL electron volts.
+                          GRAPHTYPERADIOBUTTON graph displayed for energy level INDEX.
+                          Reference line is added.
+                          Magnifier is added.
+                          Sim speed is set to SIMSPEED.
+
+        interactionHint: Add more wells and watch the energy levels gather into bands. Turn on an electric field to tilt the lattice.
 
     superpositionScreen:
       screenButtonsHelpText: Explore superposition states and their time-dependent behavior for various potentials.
       screenSummary:
-        playArea:        TODO.superpositionScreen.screenSummary.playArea
-        controlArea:     TODO.superpositionScreen.screenSummary.controlArea
-        currentDetails:  TODO.superpositionScreen.screenSummary.currentDetails
-        interactionHint: TODO.superpositionScreen.screenSummary.interactionHint
+        playArea: >-
+                  In the Energy Diagram, observe the energy levels of the chosen potential. The levels that contribute to the current superposition are emphasized in proportion to their weight. Change the potential well type to explore a different shape.
+
+                  In the Quantum State Graph, you can observe the probability density or wave function for the current superposition state. Unlike a single energy level, this state evolves in time, so press Play to watch the probability density ripple and beat. Open the Details to view the full equation along with the magnitude and phase of each contributing level.
+
+        controlArea: >-
+                     There are controls for building superpositions and for controlling the speed of the simulation. Switch between curated Preset combinations and your own Custom combinations, and open Customize to set the magnitude and phase of each level. Toggle the value labels on the Energy Diagram, add a Reference Line, and add a Magnifier. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed.
+
+        currentDetails: >-
+                        Currently,
+
+                          The potential well type is POTENTIALTYPE.
+                          Superposition set to SUPERPOSITION.
+                          GRAPHTYPERADIOBUTTON graph displayed.
+                          The system is SIMSTATE.
+                          Elapsed time is TIME femtoseconds.
+                          Reference line is added.
+                          Magnifier is added.
+                          Sim speed is set to SIMSPEED.
+
+        interactionHint: Choose a preset superposition and press Play to watch the probability density evolve in time.
 
   #=======================================================================================================
   # Headings
@@ -262,11 +334,11 @@ a11y:
 
   superpositionPresetComboBox:
     accessibleName:     Superposition Preset
-    accessibleHelpText: TODO.superpositionPresetComboBox.accessibleHelpText
+    accessibleHelpText: Choose a ready-made combination of energy levels to explore as a superposition.
 
   superpositionCustomComboBox:
     accessibleName:     Superposition Custom
-    accessibleHelpText: TODO.superpositionCustomComboBox.accessibleHelpText
+    accessibleHelpText: Choose one of your saved custom superpositions to explore.
     groundState0:
       accessibleNamePreset1: c times psi sub 0 plus c times psi sub 1
       accessibleNamePreset2: c times psi sub 0 plus c times psi sub 2
@@ -283,10 +355,12 @@ a11y:
   #=======================================================================================================
 
   probabilityDensityDetailsDialog:
-    accessibleParagraph: TODO.probabilityDensityDetailsDialog.accessibleParagraph
+    accessibleParagraph: >-
+                         PLACEHOLDER FOR EQUATION The probability density of the selected state equals the magnitude of the wave function squared. For a single energy level this shape is stationary, so it does not change as time evolves.
 
   waveFunctionDetailsDialog:
-    accessibleParagraph: TODO.waveFunctionDetailsDialog.accessibleParagraph
+    accessibleParagraph: >-
+                         PLACEHOLDER FOR EQUATION The wave function of the selected state, psi of x and t, equals psi times exp of negative i E t over h-bar. Its real and imaginary parts oscillate in time at a frequency set by the total energy, while the magnitude stays the same.
 
   #=======================================================================================================
   # Handles
@@ -296,63 +370,63 @@ a11y:
     accessibleRoleDescription: custom slider
     asymmetricTriangleDepthHandle:
       accessibleName:           depth handle
-      accessibleHelpText:       TODO.asymmetricTriangleDepthHandle.accessibleHelpText
+      accessibleHelpText:       Steepen or soften the slope of the triangular well and watch the energy spacing respond.
       accessibleObjectResponse: '{$depth} electron volts'
     asymmetricTriangleWidthHandle:
       accessibleName:           width handle
-      accessibleHelpText:       TODO.asymmetricTriangleWidthHandle.accessibleHelpText
+      accessibleHelpText:       Widen or narrow the triangular well and reshape where the system can be found.
       accessibleObjectResponse: '{$width} nanometers'
     coulombWidthHandle:
       accessibleName:           width handle
-      accessibleHelpText:       TODO.coulombWidthHandle.accessibleHelpText
+      accessibleHelpText:       Scale the Coulomb well and explore its closely spaced ladder of energy levels.
       accessibleObjectResponse: '{$width} nanometers'
     finiteSquareDepthHandle:
       accessibleName:           depth handle
-      accessibleHelpText:       TODO.finiteSquareDepthHandle.accessibleHelpText
+      accessibleHelpText:       Deepen or raise the well wall and change how many energy levels stay bound inside.
       accessibleObjectResponse: '{$depth} electron volts'
     finiteSquareWidthHandle:
       accessibleName:           width handle
-      accessibleHelpText:       TODO.finiteSquareWidthHandle.accessibleHelpText
+      accessibleHelpText:       Widen or narrow the well and watch the energy levels and the spread of the wave function respond.
       accessibleObjectResponse: '{$width} nanometers'
     finiteSquareSeparationHandle:
       accessibleName:           separation handle
-      accessibleHelpText:       TODO.finiteSquareSeparationHandle.accessibleHelpText
+      accessibleHelpText:       Bring the two wells together or apart and watch the bonding and antibonding levels split or merge.
       accessibleObjectResponse: '{$separation} nanometers'
     harmonicOscillatorWidthHandle:
       accessibleName:           width handle
-      accessibleHelpText:       TODO.harmonicOscillatorWidthHandle.accessibleHelpText
+      accessibleHelpText:       Change the spring constant of the parabolic well and reshape its evenly spaced energy ladder.
       accessibleObjectResponse: '{$width} nanometers'
     infiniteSquareWidthHandle:
       accessibleName:           width handle
-      accessibleHelpText:       TODO.infiniteSquareWidthHandle.accessibleHelpText
+      accessibleHelpText:       Widen or narrow the box and watch the energy levels move closer together or farther apart.
       accessibleObjectResponse: '{$width} nanometers'
     infiniteStepWidthHandle:
       accessibleName:           width handle
-      accessibleHelpText:       TODO.infiniteStepWidthHandle.accessibleHelpText
+      accessibleHelpText:       Set how far the low-energy region extends before the step.
       accessibleObjectResponse: '{$width} nanometers'
     infiniteStepHeightHandle:
       accessibleName:           step height handle
-      accessibleHelpText:       TODO.infiniteStepHeightHandle.accessibleHelpText
+      accessibleHelpText:       Raise or lower the step and change which states stay bound.
       accessibleObjectResponse: '{$stepHeight} electron volts'
     morseDepthHandle:
       accessibleName:           depth handle
-      accessibleHelpText:       TODO.morseDepthHandle.accessibleHelpText
+      accessibleHelpText:       Deepen the Morse well and change how many vibrational levels it can hold.
       accessibleObjectResponse: '{$depth} electron volts'
     morseWidthHandle:
       accessibleName:           width handle
-      accessibleHelpText:       TODO.morseWidthHandle.accessibleHelpText
+      accessibleHelpText:       Change the width of the Morse well and reshape its uneven energy spacing.
       accessibleObjectResponse: '{$width} nanometers'
     poschlTellerDepthHandle:
       accessibleName:           depth handle
-      accessibleHelpText:       TODO.poschlTellerDepthHandle.accessibleHelpText
+      accessibleHelpText:       Deepen the anharmonic well and change how many energy levels it can hold.
       accessibleObjectResponse: '{$depth} electron volts'
     poschlTellerWidthHandle:
       accessibleName:           width handle
-      accessibleHelpText:       TODO.poschlTellerWidthHandle.accessibleHelpText
+      accessibleHelpText:       Change the width of the anharmonic well and reshape its energy spacing.
       accessibleObjectResponse: '{$width} nanometers'
     poschlTellerSpacingHandle:
       accessibleName:           spacing handle
-      accessibleHelpText:       TODO.poschlTellerSpacingHandle.accessibleHelpText
+      accessibleHelpText:       Change the separation between the anharmonic wells and watch the levels split or merge.
       accessibleObjectResponse: '{$spacing} nanometers'
 
   #=======================================================================================================
@@ -362,17 +436,20 @@ a11y:
   energyDiagram:
     accessibleHeading: Energy Diagram
     accessibleTemplate:
-      leadingParagraph: TODO.energyDiagram.accessibleTemplate.leadingParagraph
+      leadingParagraph: >-
+                        The Energy Diagram shows the POTENTIALTYPE potential energy curve in purple, with NUMBEROFLEVELS green energy levels. Energy level INDEX is selected at ENERGYLEVEL electron volts.
 
   probabilityDensityGraph:
     accessibleHeading: Probability Density Graph
     accessibleTemplate:
-      leadingParagraph: TODO.probabilityDensityGraph.accessibleTemplate.leadingParagraph
+      leadingParagraph: >-
+                        The Probability Density graph shows the magnitude of the wave function squared for energy level INDEX. The curve has NUMBEROFNODES nodes and keeps the same shape as time evolves.
 
   waveFunctionGraph:
     accessibleHeading: Wave Function Graph
     accessibleTemplate:
-      leadingParagraph: TODO.waveFunctionGraph.accessibleTemplate.leadingParagraph
+      leadingParagraph: >-
+                        The Wave Function graph shows the wave function for energy level INDEX. The real part oscillates purple and the imaginary part in orange, while the magnitude stays steady.
 
   #=======================================================================================================
   # Push Buttons
@@ -380,39 +457,39 @@ a11y:
 
   timeButtonGroup:
     accessibleHeading:  Time Buttons
-    accessibleHelpText: TODO.timeButtonGroup.accessibleHelpText
+    accessibleHelpText: Restart, play, pause, and step the system forward in time to watch how the state evolves.
 
   restartButton:
-    accessibleHelpText:        TODO.restartButton.accessibleHelpText
-    accessibleContextResponse: TODO.restartButton.accessibleContextResponse
+    accessibleHelpText:        Reset the clock to zero without changing any well or energy settings.
+    accessibleContextResponse: Time reset.
 
   playPauseButton:
-    accessibleHelpTextPlaying: TODO.playPauseButton.accessibleHelpTextPlaying
-    accessibleHelpTextPaused:  TODO.playPauseButton.accessibleHelpTextPaused
+    accessibleHelpTextPlaying: Pause to freeze the evolving wave function and inspect it.
+    accessibleHelpTextPaused:  Play to let the wave function evolve in time.
 
   stepForwardButton:
-    accessibleHelpText:        TODO.stepForwardButton.accessibleHelpText
-    accessibleContextResponse: TODO.stepForwardButton.accessibleContextResponse
+    accessibleHelpText:        Step forward time while paused.
+    accessibleContextResponse: Stepped forward.
 
   probabilityDensityDetailsButton:
     accessibleName:            Probability Density Details
-    accessibleHelpText:        TODO.probabilityDensityDetailsButton.accessibleHelpText
-    accessibleContextResponse: TODO.probabilityDensityDetailsButton.accessibleContextResponse
+    accessibleHelpText:        Open the full equation for the probability density of the selected state.
+    accessibleContextResponse: Probability Density equation shown.
 
   waveFunctionDetailsButton:
     accessibleName:            Wave Function Details
-    accessibleHelpText:        TODO.waveFunctionDetailsButton.accessibleHelpText
-    accessibleContextResponse: TODO.waveFunctionDetailsButton.accessibleContextResponse
+    accessibleHelpText:        Open the full equation for the wave function of the selected state.
+    accessibleContextResponse: Wave Function equation shown.
 
   superpositionCustomizationButton:
     accessibleName:            Superposition Customization
-    accessibleHelpText:        TODO.superpositionCustomizationButton.accessibleHelpText
-    accessibleContextResponse: TODO.superpositionCustomizationButton.accessibleContextResponse
+    accessibleHelpText:        Open the Customize Superposition dialog to set the magnitude and phase of each energy level.
+    accessibleContextResponse: Superposition Customization dialog opened.
 
   superpositionDetailsButton:
     accessibleName:            Superposition Details
-    accessibleHelpText:        TODO.superpositionDetailsButton.accessibleHelpText
-    accessibleContextResponse: TODO.superpositionDetailsButton.accessibleContextResponse
+    accessibleHelpText:        Open the full equation and coefficient list for the current superposition state.
+    accessibleContextResponse: Superposition Details dialog opened.
 
   yAxisZoomButtonGroup:
     zoomInButton:
@@ -431,7 +508,7 @@ a11y:
   # Radio buttons for selecting which Quantum State Graph to display below the Energy Diagram.
   quantumStateGraphRadioButtonGroup:
     accessibleName:     Quantum State Graph
-    accessibleHelpText: TODO.quantumStateGraphRadioButtonGroup.accessibleHelpText
+    accessibleHelpText: Choose which representation of the selected state to graph below the Energy Diagram.
 
   #=======================================================================================================
   # Sliders
@@ -439,16 +516,16 @@ a11y:
 
   timeSpeedSlider:
     accessibleName:     Time Speed
-    accessibleHelpText: TODO.timeSpeedSlider.accessibleHelpText
+    accessibleHelpText: Speed up or slow down how fast time evolves, from Slow to Fast. Slow
 
   electronMassesControl:
-    accessibleHelpText: Adjust relative mass of system.
+    accessibleHelpText: Adjust the relative mass of the system and watch the curvature of the wave function and the spacing of the energy levels respond.
 
   numberOfWellsControl:
-    accessibleHelpText: TODO.numberOfWellsControl.accessibleHelpText
+    accessibleHelpText: Add or remove wells in the lattice and watch the discrete levels gather into energy bands.
 
   electricFieldControl:
-    accessibleHelpText: TODO.electricFieldControl.accessibleHelpText
+    accessibleHelpText: Apply an electric field to tilt the lattice and distort the bands.
 
   #=======================================================================================================
   # Spinners
@@ -456,11 +533,11 @@ a11y:
 
   energyLevelSpinner:
     accessibleName:     Energy Level
-    accessibleHelpText: TODO.energyLevelSpinner.accessibleHelpText
+    accessibleHelpText: Step up or down through the energy levels and observe the selected state change in both graphs.
 
   energyOffsetSpinner:
     accessibleName:     Energy Offset
-    accessibleHelpText: TODO.energyOffsetSpinner.accessibleHelpText
+    accessibleHelpText: Shift the zero of the energy scale up or down.
 
   #=======================================================================================================
   # Toggle Buttons and Switches
@@ -469,20 +546,20 @@ a11y:
   timeDisplayToggleButton:
     accessibleNameOn:             Hide Time Display
     accessibleNameOff:            Show Time Display
-    accessibleHelpText:           TODO.timeDisplayToggleButton.accessibleHelpText
+    accessibleHelpText:           Show or hide the elapsed time readout in femtoseconds.
     accessibleContextResponseOn:  Time display shown.
     accessibleContextResponseOff: Time display hidden.
 
   curvesVisibleToggleButton:
     accessibleNameOn:             Hide Curves
     accessibleNameOff:            Show Curves
-    accessibleHelpTextOn:         TODO.curvesVisibleToggleButton.accessibleHelpTextOn
-    accessibleHelpTextOff:        TODO.curvesVisibleToggleButton.accessibleHelpTextOff
-    accessibleContextResponseOn:  TODO.curvesVisibleToggleButton.accessibleContextResponseOn
-    accessibleContextResponseOff: TODO.curvesVisibleToggleButton.accessibleContextResponseOff
+    accessibleHelpTextOn:         Hide the curves to predict their shape, then reveal them to check.
+    accessibleHelpTextOff:        Show the curves to reveal the shape of the state.
+    accessibleContextResponseOn:  Curves shown.
+    accessibleContextResponseOff: Curves hidden.
 
   presetCustomSwitch:
-    accessibleHelpText: TODO.presetCustomSwitch.accessibleHelpText
+    accessibleHelpText: Switch between curated preset superpositions and your own custom superpositions.
 
   #=======================================================================================================
   # Tools
@@ -490,15 +567,15 @@ a11y:
 
   magnifier:
     accessibleHeading:   Magnifier
-    accessibleParagraph: TODO.magnifier.accessibleParagraph
+    accessibleParagraph: The Magnifier shows a zoomed-in view of part of the Energy Diagram, helpful for telling apart closely spaced energy levels.
     probe:
       accessibleName:           Magnifier Probe
-      accessibleHelpText:       TODO.magnifier.probe.accessibleHelpText
-      accessibleObjectResponse: TODO.magnifier.probe.accessibleObjectResponse
+      accessibleHelpText:       Move the probe over the Energy Diagram to choose what the magnifier shows.
+      accessibleObjectResponse: probe centered at POSITION nanometers
     body:
       accessibleName:           Magnifier Body
-      accessibleHelpText:       TODO.magnifier.body.accessibleHelpText
-      accessibleObjectResponse: TODO.magnifier.body.accessibleObjectResponse
+      accessibleHelpText:       Move the magnified view window to a comfortable spot.
+      accessibleObjectResponse: lens at POSITION nanometers
 
   referenceLine:
     accessibleRoleDescription: custom slider
