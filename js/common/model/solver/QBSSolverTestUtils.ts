@@ -241,8 +241,8 @@ export function assertWaveFunctionContinuity(
   // well-resolved but would fail a tight continuity threshold. 
 
   // Threshold for ψ: max change per grid step, normalised by max|ψ|.  For a smooth wave function the
-  // change per step is ~kwave·dx, largest for the highest bound state.  The binding case is the Finite
-  // Square Well (L=2 nm, V₀=10) top state at ≈ 0.037 where the state is very close to unbound.
+  // change per step is ~kwave·dx, largest for the highest bound state.  The binding case among the
+  // retained soft-wall tests is the tilted multi-well Pöschl-Teller regression at ≈ 0.031.
   const PSI_JUMP_THRESHOLD = 0.045;
 
   // Threshold for ψ': max change per grid step in the central-difference derivative, normalised by
