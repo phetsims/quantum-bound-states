@@ -310,7 +310,7 @@
             "value": "In the Energy Diagram, observe the energy level structure of the chosen potential well. Adjust the available parameters for each potential well type and explore the changes to the energy levels. Change the potential well type to explore different shapes. You can also change the mass of the system.\nIn the Quantum State Graph, you can observe the probability density or wave function for the selected energy level. View the full equation for the given state graph. If viewing the wave function, you can toggle parts of the graph, such as the real or imaginary part. There is also an option to show the magnitude and, if enabled, the phase of the wave function."
           },
           "controlArea": {
-            "value": "There are a few controls for visual inspection of the energy diagram or controlling the speed of the simulation. Toggle the visual labels on the energy diagram. Add a reference line to visually compare the probability density or wave function to the boundaries of the potential well. A magnifier can aid in visually inspecting the splitting between closely space energy levels. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed."
+            "value": "There are a few controls for visual inspection of the energy diagram or controlling the speed of the simulation. Toggle the visual labels on the energy diagram. Add a reference line to visually compare the probability density or wave function to the boundaries of the potential well. A magnifier can aid in telling apart closely spaced energy levels. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed."
           },
           "currentDetails": {
             "value": "Currently,\n  \n  The potential well type is POTENTIALTYPE.\n  Well width set to WELLWIDTH nanometers.\n  Well height set to WELLHEIGHT electron volts. \n  Energy level INDEX is at ENERGYLEVEL electron volts.\n  GRAPHTYPERADIOBUTTON graph displayed for energy level INDEX.\n  Reference line is added.\n  Magnifier is added.\n  Sim speed is set to SIMSPEED."
@@ -326,16 +326,16 @@
         },
         "screenSummary": {
           "playArea": {
-            "value": "In the Energy Diagram, observe the energy levels of two closely spaced potential wells, a simple model of a two-atom molecule. Drag the handles on the curve to change the well width, the well height, and the separation between the wells. Watch closely spaced pairs of levels split apart into bonding and antibonding states as the wells move together, and merge back together as the wells move apart. Change the potential well type to explore a different two-well shape.\nIn the Quantum State Graph, you can observe the probability density or wave function for the selected energy level. If viewing the wave function, you can toggle parts of the graph, such as the real or imaginary part, the magnitude, and, if enabled, the phase."
+            "value": "In the Energy Diagram, observe the energy levels of two closely spaced potential wells, a simple model of a two-atom molecule. Drag the handles on the curve to change the well width, the well height, and the separation between the wells, and explore how the energy levels and states respond as the wells move together or apart. Change the potential well type to explore a different two-well shape.\nIn the Quantum State Graph, you can observe the probability density or wave function for the selected energy level. If viewing the wave function, you can toggle parts of the graph, such as the real or imaginary part, the magnitude, and, if enabled, the phase."
           },
           "controlArea": {
-            "value": "There are tools inspectiing the graphs and options for controlling the speed of the simulation. Toggle the value labels on the Energy Diagram. Add a Reference Line to compare the graphs to the boundaries of the wells. A Magnifier can aid in visually inspecting the splitting between closely spaced energy levels. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed."
+            "value": "There are tools for inspecting the graphs and options for controlling the speed of the simulation. Toggle the value labels on the Energy Diagram. Add a Reference Line to compare the graphs to the boundaries of the wells. A Magnifier can aid in telling apart closely spaced energy levels. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed."
           },
           "currentDetails": {
             "value": "Currently,\n\n  The potential well type is POTENTIALTYPE.\n  Well width set to WELLWIDTH nanometers.\n  Well height set to WELLHEIGHT electron volts.\n  Well separation set to SEPARATION nanometers.\n  Energy level INDEX is at ENERGYLEVEL electron volts.\n  GRAPHTYPERADIOBUTTON graph displayed for energy level INDEX.\n  Values are shown.\n  Reference line is added.\n  Magnifier is added.\n  Sim speed is set to SIMSPEED."
           },
           "interactionHint": {
-            "value": "Bring the two wells together or move them apart, and watch the energy levels split and merge."
+            "value": "Bring the two wells together or move them apart, and explore what happens to the energy levels."
           }
         }
       },
@@ -345,16 +345,16 @@
         },
         "screenSummary": {
           "playArea": {
-            "value": "In the Energy Diagram, observe how a row of identical wells builds a lattice. As you add wells, the discrete energy levels gather into bands separated by gaps. Drag the handles on the curve to change the well width, the well height, and the separation between wells. Apply an electric field to tilt the lattice and distort the bands. Change the potential well type to explore a different lattice shape.\nIn the Quantum State Graph, you can observe the probability density or wave function for the selected energy level, or the average probability density across a whole band."
+            "value": "In the Energy Diagram, observe how a row of identical wells builds a lattice. Drag the handles on the curve to change the well width, the well height, and the separation between wells. Add or remove wells and explore how the energy levels respond as the lattice grows. Apply an electric field and explore its effect on the energy levels. Change the potential well type to explore a different lattice shape.\nIn the Quantum State Graph, you can observe the probability density or wave function for the selected energy level, or the average probability density across a whole band."
           },
           "controlArea": {
-            "value": "There are controls for building the lattice and for controlling the speed of the simulation. Set the number of wells in the lattice and apply an electric field. Toggle the value labels on the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy for counting the levels inside a band. Zoom the energy axis in or out. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed."
+            "value": "There are controls for building the lattice and for controlling the speed of the simulation. Set the number of wells in the lattice and apply an electric field. Toggle the value labels on the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy for telling apart closely spaced energy levels. Zoom the energy axis in or out. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed."
           },
           "currentDetails": {
             "value": "Currently,\n\n  The potential well type is POTENTIALTYPE.\n  Number of wells set to NUMBEROFWELLS.\n  Electric field set to ELECTRICFIELD volts per nanometer.\n  Well width set to WELLWIDTH nanometers.\n  Well separation set to SEPARATION nanometers.\n  Energy level INDEX is at ENERGYLEVEL electron volts.\n  GRAPHTYPERADIOBUTTON graph displayed for energy level INDEX.\n  Reference line is added.\n  Magnifier is added.\n  Sim speed is set to SIMSPEED."
           },
           "interactionHint": {
-            "value": "Add more wells and watch the energy levels gather into bands. Turn on an electric field to tilt the lattice."
+            "value": "Add more wells and explore what happens to the energy levels. Turn on an electric field and explore its effect."
           }
         }
       },
@@ -364,7 +364,7 @@
         },
         "screenSummary": {
           "playArea": {
-            "value": "In the Energy Diagram, observe the energy levels of the chosen potential. The levels that contribute to the current superposition are emphasized in proportion to their weight. Change the potential well type to explore a different shape.\nIn the Quantum State Graph, you can observe the probability density or wave function for the current superposition state. Unlike a single energy level, this state evolves in time, so press Play to watch the probability density ripple and beat. Open the Details to view the full equation along with the magnitude and phase of each contributing level."
+            "value": "In the Energy Diagram, observe the energy levels of the chosen potential. The levels that contribute to the current superposition are emphasized in proportion to their weight. Change the potential well type to explore a different shape.\nIn the Quantum State Graph, you can observe the probability density or wave function for the current superposition state. Press Play to explore how this state changes over time. Open the Details to view the full equation along with the magnitude and phase of each contributing level."
           },
           "controlArea": {
             "value": "There are controls for building superpositions and for controlling the speed of the simulation. Switch between curated Preset combinations and your own Custom combinations, and open Customize to set the magnitude and phase of each level. Toggle the value labels on the Energy Diagram, add a Reference Line, and add a Magnifier. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed."
@@ -373,7 +373,7 @@
             "value": "Currently,\n\n  The potential well type is POTENTIALTYPE.\n  Superposition set to SUPERPOSITION.\n  GRAPHTYPERADIOBUTTON graph displayed.\n  The system is SIMSTATE.\n  Elapsed time is TIME femtoseconds.\n  Reference line is added.\n  Magnifier is added.\n  Sim speed is set to SIMSPEED."
           },
           "interactionHint": {
-            "value": "Choose a preset superposition and press Play to watch the probability density evolve in time."
+            "value": "Choose a preset superposition and press Play to explore how it changes over time."
           }
         }
       }
@@ -545,12 +545,12 @@
     },
     "probabilityDensityDetailsDialog": {
       "accessibleParagraph": {
-        "value": "PLACEHOLDER FOR EQUATION The probability density of the selected state equals the magnitude of the wave function squared. For a single energy level this shape is stationary, so it does not change as time evolves."
+        "value": "PLACEHOLDER FOR EQUATION The probability density of the selected state equals the magnitude of the wave function squared."
       }
     },
     "waveFunctionDetailsDialog": {
       "accessibleParagraph": {
-        "value": "PLACEHOLDER FOR EQUATION The wave function of the selected state, psi of x and t, equals psi times exp of negative i E t over h-bar. Its real and imaginary parts oscillate in time at a frequency set by the total energy, while the magnitude stays the same."
+        "value": "PLACEHOLDER FOR EQUATION The wave function of the selected state, psi of x and t, equals psi times exp of negative i E t over h-bar."
       }
     },
     "handles": {
@@ -562,7 +562,7 @@
           "value": "depth handle"
         },
         "accessibleHelpText": {
-          "value": "Steepen or soften the slope of the triangular well and watch the energy spacing respond."
+          "value": "Steepen or soften the slope of the triangular well and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$depth} electron volts"
@@ -573,7 +573,7 @@
           "value": "width handle"
         },
         "accessibleHelpText": {
-          "value": "Widen or narrow the triangular well and reshape where the system can be found."
+          "value": "Widen or narrow the triangular well and observe how the energy levels and wave function respond."
         },
         "accessibleObjectResponse": {
           "value": "{$width} nanometers"
@@ -584,7 +584,7 @@
           "value": "width handle"
         },
         "accessibleHelpText": {
-          "value": "Scale the Coulomb well and explore its closely spaced ladder of energy levels."
+          "value": "Scale the Coulomb well and explore how its energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$width} nanometers"
@@ -595,7 +595,7 @@
           "value": "depth handle"
         },
         "accessibleHelpText": {
-          "value": "Deepen or raise the well wall and change how many energy levels stay bound inside."
+          "value": "Deepen or raise the well wall and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$depth} electron volts"
@@ -606,7 +606,7 @@
           "value": "width handle"
         },
         "accessibleHelpText": {
-          "value": "Widen or narrow the well and watch the energy levels and the spread of the wave function respond."
+          "value": "Widen or narrow the well and observe how the energy levels and wave function respond."
         },
         "accessibleObjectResponse": {
           "value": "{$width} nanometers"
@@ -617,7 +617,7 @@
           "value": "separation handle"
         },
         "accessibleHelpText": {
-          "value": "Bring the two wells together or apart and watch the bonding and antibonding levels split or merge."
+          "value": "Bring the two wells together or apart and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$separation} nanometers"
@@ -628,7 +628,7 @@
           "value": "width handle"
         },
         "accessibleHelpText": {
-          "value": "Change the spring constant of the parabolic well and reshape its evenly spaced energy ladder."
+          "value": "Change the spring constant of the parabolic well and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$width} nanometers"
@@ -639,7 +639,7 @@
           "value": "width handle"
         },
         "accessibleHelpText": {
-          "value": "Widen or narrow the box and watch the energy levels move closer together or farther apart."
+          "value": "Widen or narrow the box and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$width} nanometers"
@@ -650,7 +650,7 @@
           "value": "width handle"
         },
         "accessibleHelpText": {
-          "value": "Set how far the low-energy region extends before the step."
+          "value": "Set how far the low-energy region extends before the step, and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$width} nanometers"
@@ -661,7 +661,7 @@
           "value": "step height handle"
         },
         "accessibleHelpText": {
-          "value": "Raise or lower the step and change which states stay bound."
+          "value": "Raise or lower the step and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$stepHeight} electron volts"
@@ -672,7 +672,7 @@
           "value": "depth handle"
         },
         "accessibleHelpText": {
-          "value": "Deepen the Morse well and change how many vibrational levels it can hold."
+          "value": "Deepen the Morse well and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$depth} electron volts"
@@ -683,7 +683,7 @@
           "value": "width handle"
         },
         "accessibleHelpText": {
-          "value": "Change the width of the Morse well and reshape its uneven energy spacing."
+          "value": "Change the width of the Morse well and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$width} nanometers"
@@ -694,7 +694,7 @@
           "value": "depth handle"
         },
         "accessibleHelpText": {
-          "value": "Deepen the anharmonic well and change how many energy levels it can hold."
+          "value": "Deepen the anharmonic well and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$depth} electron volts"
@@ -705,7 +705,7 @@
           "value": "width handle"
         },
         "accessibleHelpText": {
-          "value": "Change the width of the anharmonic well and reshape its energy spacing."
+          "value": "Change the width of the anharmonic well and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$width} nanometers"
@@ -716,7 +716,7 @@
           "value": "spacing handle"
         },
         "accessibleHelpText": {
-          "value": "Change the separation between the anharmonic wells and watch the levels split or merge."
+          "value": "Change the separation between the anharmonic wells and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$spacing} nanometers"
@@ -739,7 +739,7 @@
       },
       "accessibleTemplate": {
         "leadingParagraph": {
-          "value": "The Probability Density graph shows the magnitude of the wave function squared for energy level INDEX. The curve has NUMBEROFNODES nodes and keeps the same shape as time evolves."
+          "value": "The Probability Density graph shows the probability density across the well for energy level INDEX. The curve has NUMBEROFNODES nodes. Listen to the shape with sonification, or move the Reference Line to read the value at any position."
         }
       }
     },
@@ -749,7 +749,7 @@
       },
       "accessibleTemplate": {
         "leadingParagraph": {
-          "value": "The Wave Function graph shows the wave function for energy level INDEX. The real part oscillates purple and the imaginary part in orange, while the magnitude stays steady."
+          "value": "The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function across the well for energy level INDEX, drawn in purple, orange, and black. Listen to each part with sonification, move the Reference Line to read values, and play time to explore how the parts behave."
         }
       }
     },
@@ -758,7 +758,7 @@
         "value": "Time Buttons"
       },
       "accessibleHelpText": {
-        "value": "Restart, play, pause, and step the system forward in time to watch how the state evolves."
+        "value": "Restart, play, pause, and step the system forward in time."
       }
     },
     "restartButton": {
@@ -771,10 +771,10 @@
     },
     "playPauseButton": {
       "accessibleHelpTextPlaying": {
-        "value": "Pause to freeze the evolving wave function and inspect it."
+        "value": "Pause to stop time and inspect the current state."
       },
       "accessibleHelpTextPaused": {
-        "value": "Play to let the wave function evolve in time."
+        "value": "Play to start time and explore what happens."
       }
     },
     "stepForwardButton": {
@@ -866,22 +866,22 @@
         "value": "Time Speed"
       },
       "accessibleHelpText": {
-        "value": "Speed up or slow down how fast time evolves, from Slow to Fast. Slow"
+        "value": "Speed up or slow down how fast time evolves, from Slow to Fast."
       }
     },
     "electronMassesControl": {
       "accessibleHelpText": {
-        "value": "Adjust the relative mass of the system and watch the curvature of the wave function and the spacing of the energy levels respond."
+        "value": "Adjust the relative mass of the system and explore how the wave function and energy levels respond."
       }
     },
     "numberOfWellsControl": {
       "accessibleHelpText": {
-        "value": "Add or remove wells in the lattice and watch the discrete levels gather into energy bands."
+        "value": "Add or remove wells in the lattice and observe how the energy levels respond."
       }
     },
     "electricFieldControl": {
       "accessibleHelpText": {
-        "value": "Apply an electric field to tilt the lattice and distort the bands."
+        "value": "Apply an electric field and explore its effect on the energy levels."
       }
     },
     "energyLevelSpinner": {
