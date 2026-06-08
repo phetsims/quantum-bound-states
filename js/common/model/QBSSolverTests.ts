@@ -27,11 +27,14 @@
  *
  * Additional tests cover parity, orthogonality, boundary decay, the Pöschl-Teller bound-state count
  * formula, Stark-field parity mixing, a direct comparison against the Pöschl-Teller analytical
- * solution, and wave-function continuity (ψ and ψ′) for the soft-wall Pöschl-Teller potential —
- * including the tilted multi-well matching-point regression.
+ * solution, and wave-function continuity (ψ and ψ′) for both the soft-wall Pöschl-Teller potential
+ * (including the tilted multi-well matching-point regression) and a single finite Square Well.
  *
- * Helper utilities (node-counting, parity, RMS error, continuity checks) live in QBSSolverTestUtils.ts
- * and are shared with testSolvers.ts.
+ * The generic invariant checks for each potential are consolidated into a single 'parameter sweep'
+ * test per module that walks the full Numerov-solved parameter space (wells, separation, depth, width,
+ * mass, electric field) in one pass.
+ *
+ * Helper utilities (node-counting, parity, RMS error, continuity checks) live in QBSSolverTestUtils.ts.
  *
  * Written with the help of Claude
  *
@@ -119,7 +122,7 @@ function assertNodeCounting( assert: Assert, waveFunctions: number[][], maxState
 
 // ─── Sweep parameter sets (sim-valid ranges) ───────────────────────────────────
 
-/** Electron masses — two bookend values cover the sim range [0.5, 1.1] (OneWellModel.ts) without 7× blow-up. */
+/** Electron masses — three values spanning the sim range [0.5, 1.1] (OneWellModel.ts) without a 7× sweep blow-up. */
 const SWEEP_MASSES = [ 0.5, 1.0, 1.1 ];
 
 /** Well widths for Pöschl-Teller — matches PoschlTellerPotential wellWidthRange [0.1, 1] nm. */
@@ -175,8 +178,8 @@ function runSweep( assert: Assert, configs: SweepConfig[] ): void {
     // At least one state must be found for non-degenerate parameter sets.
     // (Some extreme parameter combinations legitimately yield zero states.)
     if ( result.energies.length === 0 ) {
-      // Zero states can be physically correct (e.g., Morse with λ < ½ has no bound states).
-      // Emit a passing assertion so CT records the case without a red flag.
+      // Zero states can be physically correct (e.g., a Pöschl-Teller well tilted by a strong field whose
+      // energy window collapses to nothing). Emit a passing assertion so CT records the case without a red flag.
       assert.ok( true, `${cfg.label}: zero bound states returned (physically valid for this parameter set)` );
       continue;
     }
@@ -199,119 +202,31 @@ function runSweep( assert: Assert, configs: SweepConfig[] ): void {
 
 QUnit.module( 'Finite Square Well' );
 
-QUnit.test( 'multi-well separation sweep', assert => {
+QUnit.test( 'parameter sweep', assert => {
 
-  // Test FiniteSquare multi-well using an inline potential function (analytical
-  // solutions only support single wells, so we replicate the sim's formula directly).
-  const numberOfWellsList = SWEEP_NUMBER_OF_WELLS;
-  const separations = SWEEP_SEPARATIONS;
-  const wellWidths = SWEEP_MULTI_WELL_WIDTHS;
-  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
-  const masses = SWEEP_MASSES;
-
-  const configs: SweepConfig[] = [];
-
-  for ( const nWells of numberOfWellsList ) {
-    for ( const separation of separations ) {
-      for ( const wellWidth of wellWidths ) {
-        for ( const wellDepth of wellDepths ) {
-          for ( const mass of masses ) {
-            const centerSpacing = wellWidth + separation;
-            const potFn = ( x: number ): number => {
-              for ( let i = 1; i <= nWells; i++ ) {
-                const xi = centerSpacing * ( i - ( nWells + 1 ) / 2 );
-                if ( x >= xi - wellWidth / 2 && x <= xi + wellWidth / 2 ) {
-                  return 0;
-                }
-              }
-              return wellDepth;
-            };
-
-            configs.push( {
-              grid: standardGrid(),
-              potFn: potFn,
-              mass: mass,
-              energyMin: 0,
-              energyMax: wellDepth,
-              label: `FSW nWells=${nWells} sep=${separation} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
-
-              // Node counting is reliable up to 5 wells. At 10 wells the lowest miniband is a set of
-              // ~10 near-degenerate levels; any linear combination is also an eigenstate, so the
-              // numerically returned states have scrambled interior-node counts within the band and
-              // no longer match the global quantum number n. See https://github.com/phetsims/quantum-bound-states/issues/43
-              checkNodes: nWells <= 5
-            } );
-          }
-        }
-      }
-    }
-  }
-
-  runSweep( assert, configs );
-} );
-
-QUnit.test( 'electric field sweep', assert => {
-
-  // Finite Square supports electric field in the Many Wells screen.  Replicate the sim formula.
-  const wellWidths = SWEEP_MULTI_WELL_WIDTHS;
-  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
-  const masses = SWEEP_MASSES;
-  const electricFields = SWEEP_ELECTRIC_FIELDS;
+  // One sweep over the full Numerov-solved Finite Square Well parameter space: number of wells,
+  // wall-to-wall separation, well width and depth, particle mass, and electric field. The single-well
+  // and zero-field corners are reached as ordinary points of this sweep (nWells = 1, electricField = 0),
+  // so the three previously-separate "separation", "electric field", and "multi-well electric field"
+  // sweeps — which re-solved overlapping configurations — are folded into this one test. Analytical
+  // solutions support only single wells, so the multi-well potential is built inline from the sim's
+  // formula.
   const xMin = -STANDARD_X_MAX;
   const xMax = STANDARD_X_MAX;
 
   const configs: SweepConfig[] = [];
 
-  for ( const wellWidth of wellWidths ) {
-    for ( const wellDepth of wellDepths ) {
-      for ( const mass of masses ) {
-        for ( const electricField of electricFields ) {
-          const potFn = ( x: number ): number => {
-            if ( x >= -wellWidth / 2 && x <= wellWidth / 2 ) {
-              return electricField * x;
-            }
-            return wellDepth + electricField * x;
-          };
+  for ( const nWells of SWEEP_NUMBER_OF_WELLS ) {
+    for ( const separation of SWEEP_SEPARATIONS ) {
+      for ( const wellWidth of SWEEP_MULTI_WELL_WIDTHS ) {
+        for ( const wellDepth of SWEEP_MULTI_WELL_DEPTHS ) {
+          for ( const electricField of SWEEP_ELECTRIC_FIELDS ) {
 
-          // Same logic as FiniteSquarePotential.getMaxSolverEnergy().
-          const energyMax = wellDepth + Math.min( electricField * xMin, electricField * xMax );
+            // The combined multi-well + field case is the heaviest, so run it at a single representative
+            // mass to avoid a 3× blow-up; the single-well and zero-field cases keep the full mass set.
+            const masses = ( electricField !== 0 && nWells > 1 ) ? SWEEP_MASSES_MULTI : SWEEP_MASSES;
 
-          configs.push( {
-            grid: standardGrid(),
-            potFn: potFn,
-            mass: mass,
-            energyMin: 0,
-            energyMax: energyMax,
-            label: `FSW electricField=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
-            checkNodes: true
-          } );
-        }
-      }
-    }
-  }
-
-  runSweep( assert, configs );
-} );
-
-QUnit.test( 'multi-well electric field sweep', assert => {
-
-  const numberOfWellsList = SWEEP_NUMBER_OF_WELLS;
-  const separations = SWEEP_SEPARATIONS;
-  const wellWidths = SWEEP_MULTI_WELL_WIDTHS;
-  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
-  const masses = SWEEP_MASSES_MULTI;
-  const electricFields = SWEEP_ELECTRIC_FIELDS;
-  const xMin = -STANDARD_X_MAX;
-  const xMax = STANDARD_X_MAX;
-
-  const configs: SweepConfig[] = [];
-
-  for ( const nWells of numberOfWellsList ) {
-    for ( const separation of separations ) {
-      for ( const wellWidth of wellWidths ) {
-        for ( const wellDepth of wellDepths ) {
-          for ( const mass of masses ) {
-            for ( const electricField of electricFields ) {
+            for ( const mass of masses ) {
               const centerSpacing = wellWidth + separation;
               const potFn = ( x: number ): number => {
                 for ( let i = 1; i <= nWells; i++ ) {
@@ -323,6 +238,7 @@ QUnit.test( 'multi-well electric field sweep', assert => {
                 return wellDepth + electricField * x;
               };
 
+              // Same logic as FiniteSquarePotential.getMaxSolverEnergy().
               const energyMax = wellDepth + Math.min( electricField * xMin, electricField * xMax );
 
               configs.push( {
@@ -333,13 +249,13 @@ QUnit.test( 'multi-well electric field sweep', assert => {
                 energyMax: energyMax,
                 label: `FSW nWells=${nWells} sep=${separation} E=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
 
-                // Node counting is left off for the tilted multi-well case. With a non-zero field the
-                // wells sit at different potential offsets, so the eigenstates localize well-by-well on
-                // the downhill side and the energy ordering no longer follows the global interior-node
-                // count (state n need not have n nodes). This breaks down for nWells ≥ 3 with any field,
-                // and at nWells = 10 even with no field (miniband degeneracy, as in the separation sweep).
-                // Energy ordering and normalization still verify the physics. See https://github.com/phetsims/quantum-bound-states/issues/43
-                checkNodes: false
+                // Node counting is reliable only while the interior-node count still tracks the global
+                // quantum number n. With no field the minibands stay resolvable up to 5 wells (at 10 wells
+                // the lowest band is ~10 near-degenerate levels whose linear combinations scramble the node
+                // count); with a field the wells localize at different potential offsets, so only the
+                // single-well case keeps clean ordering. Energy ordering and normalization still verify the
+                // physics in the excluded cases. See https://github.com/phetsims/quantum-bound-states/issues/43
+                checkNodes: electricField === 0 ? nWells <= 5 : nWells === 1
               } );
             }
           }
@@ -351,30 +267,52 @@ QUnit.test( 'multi-well electric field sweep', assert => {
   runSweep( assert, configs );
 } );
 
+QUnit.test( 'ψ and ψ′ continuous everywhere', assert => {
+
+  // A finite square well is a hard-step but finite potential, so ψ and ψ′ are continuous everywhere
+  // (only ψ″ jumps at the step) — this is the numerically-solved counterpart to the Pöschl-Teller
+  // continuity test. It is restricted to a single, moderate-depth well: the highest states of deeper
+  // wells oscillate fast enough that their smooth per-step change ~k·dx approaches the kink threshold,
+  // and the dense minibands of a multi-well return scrambled near-degenerate combinations whose stitched
+  // ψ′ legitimately jumps — neither indicates a solver error. See https://github.com/phetsims/quantum-bound-states/issues/43
+  const wellDepth = 10; // eV
+  for ( const wellWidth of [ 0.5, 1.0 ] ) {
+    for ( const mass of SWEEP_MASSES ) {
+      const grid = standardGrid();
+      const potFn = ( x: number ): number => ( x >= -wellWidth / 2 && x <= wellWidth / 2 ) ? 0 : wellDepth;
+      const result = NumerovSolver.solve( grid, potFn, mass, 0, wellDepth );
+      assertWaveFunctionContinuity( assert, result, grid.dx, `FSW w=${wellWidth} V₀=${wellDepth} m=${mass}` );
+    }
+  }
+} );
+
 // ============================================================================
-// Module: Pöschl-Teller Potential
+// Module: Pöschl-Teller (numerically-solved cases plus single-well analytical anchors)
 // ============================================================================
 
-QUnit.module( 'Poschl-Teller Potential' );
+QUnit.module( 'Poschl-Teller' );
 
-QUnit.test( 'single-well parameter sweep', assert => {
+QUnit.test( 'parameter sweep', assert => {
 
-  const wellWidths = SWEEP_WELL_WIDTHS_PT;
-  const wellDepths = SWEEP_WELL_DEPTHS_15;
-  const masses = SWEEP_MASSES;
-
+  // One sweep over the full Numerov-solved Pöschl-Teller parameter space, folding together what were
+  // four separate sweeps — single-well, multi-well spacing, electric field, and multi-well electric
+  // field. They are presented as one test because they all run the same four invariants (finite,
+  // ordered, normalized, node-count) via runSweep, and the single-well and zero-field corners are just
+  // ordinary points. The four parameter regimes are kept as distinct config builders below because they
+  // probe genuinely different physics: the single-well anchor reaches the shallowest wells (V₀ = 1 eV)
+  // and the widest depth range, while the multi-well regimes sweep the inter-well gap. createPotentialFunction
+  // is single-well only, so the multi-well and tilted potentials are built inline from the sim's formula.
   const configs: SweepConfig[] = [];
 
-  for ( const wellWidth of wellWidths ) {
-    for ( const wellDepth of wellDepths ) {
-      for ( const mass of masses ) {
-
-        // PoschlTellerSolution.createPotentialFunction only supports single well.
+  // Single well, zero field — analytical anchor for the sech² well shape, swept over the full
+  // width/depth/mass range (including the shallow V₀ = 1 eV that the multi-well regimes omit).
+  for ( const wellWidth of SWEEP_WELL_WIDTHS_PT ) {
+    for ( const wellDepth of SWEEP_WELL_DEPTHS_15 ) {
+      for ( const mass of SWEEP_MASSES ) {
         const potFn = PoschlTellerSolution.createPotentialFunction( {
           numberOfWells: 1, xOffset: 0, yOffset: 0,
           wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0, spacing: 0
         } );
-
         configs.push( {
           grid: standardGrid(),
           potFn: potFn,
@@ -388,29 +326,17 @@ QUnit.test( 'single-well parameter sweep', assert => {
     }
   }
 
-  runSweep( assert, configs );
-} );
-
-QUnit.test( 'multi-well spacing sweep', assert => {
-
-  // Multi-well Pöschl-Teller using inline potential (analytical solution is single-well only).
-  const numberOfWellsList = SWEEP_NUMBER_OF_WELLS.filter( n => n <= 3 ); // PT: test 2 and 3 wells
-  // For the Pöschl-Teller multi-well, the n-th band tunnelling splitting scales as
-  // exp(−2κ_n × gap), where κ_n = sqrt(2m|E_n|)/ℏ and gap = spacing − wellWidth.
-  // Use wellWidth + gap so the wall-to-wall gap stays ≤ 0.3 nm across all well widths.
-  const ptGaps = SWEEP_PT_GAPS;
-  const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
-  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
-  const masses = SWEEP_MASSES;
-
-  const configs: SweepConfig[] = [];
-
-  for ( const nWells of numberOfWellsList ) {
-    for ( const wellWidth of wellWidths ) {
-      for ( const gap of ptGaps ) {
+  // Multi-well, zero field. The n-th band's tunnelling splitting scales as exp(−2κ_n × gap), where
+  // κ_n = √(2m|E_n|)/ℏ and gap = spacing − wellWidth; using spacing = wellWidth + gap keeps the
+  // wall-to-wall gap ≤ 0.3 nm across all well widths. Limited to ≤ 3 wells, where the minibands are
+  // not yet dense enough to scramble the interior-node count (node counting still breaks for many
+  // tightly-coupled wells — see https://github.com/phetsims/quantum-bound-states/issues/43).
+  for ( const nWells of SWEEP_NUMBER_OF_WELLS.filter( n => n <= 3 ) ) {
+    for ( const wellWidth of SWEEP_WELL_WIDTHS_PT ) {
+      for ( const gap of SWEEP_PT_GAPS ) {
         const spacing = wellWidth + gap;
-        for ( const wellDepth of wellDepths ) {
-          for ( const mass of masses ) {
+        for ( const wellDepth of SWEEP_MULTI_WELL_DEPTHS ) {
+          for ( const mass of SWEEP_MASSES ) {
             const potFn = ( x: number ): number => {
               let pe = 0;
               for ( let i = 1; i <= nWells; i++ ) {
@@ -420,7 +346,6 @@ QUnit.test( 'multi-well spacing sweep', assert => {
               }
               return pe;
             };
-
             configs.push( {
               grid: standardGrid(),
               potFn: potFn,
@@ -428,11 +353,6 @@ QUnit.test( 'multi-well spacing sweep', assert => {
               energyMin: -3 * wellDepth * nWells,
               energyMax: 0,
               label: `PT nWells=${nWells} spacing=${spacing} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
-
-              // Reliable here because this sweep is limited to ≤ 3 wells, where the minibands are not yet
-              // dense enough to scramble the interior-node count. Node counting still breaks for many
-              // tightly-coupled wells (see the FSW multi-well note and
-              // https://github.com/phetsims/quantum-bound-states/issues/43).
               checkNodes: true
             } );
           }
@@ -441,37 +361,18 @@ QUnit.test( 'multi-well spacing sweep', assert => {
     }
   }
 
-  runSweep( assert, configs );
-} );
-
-QUnit.test( 'electric field sweep', assert => {
-
-  // Pöschl-Teller is the only potential (other than Square Well) that supports a non-zero
-  // electric field in the sim.  The inline potential adds the field contribution.
-  const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
-  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
-  const masses = SWEEP_MASSES;
-  const electricFields = SWEEP_ELECTRIC_FIELDS;
-
-  const configs: SweepConfig[] = [];
-
-  for ( const wellWidth of wellWidths ) {
-    for ( const wellDepth of wellDepths ) {
-      for ( const mass of masses ) {
-        for ( const electricField of electricFields ) {
-
-          // PoschlTellerSolution asserts electricField === 0.  Use an inline function instead.
+  // Single well, electric field. PoschlTellerSolution asserts electricField === 0, so build inline.
+  // With a Stark field the effective barrier drops, so cap the search at energyMax = −|E|·xMax (same
+  // logic as PoschlTellerPotential.getMaxSolverEnergy).
+  for ( const wellWidth of SWEEP_WELL_WIDTHS_PT ) {
+    for ( const wellDepth of SWEEP_MULTI_WELL_DEPTHS ) {
+      for ( const mass of SWEEP_MASSES ) {
+        for ( const electricField of SWEEP_ELECTRIC_FIELDS ) {
           const potFn = ( x: number ): number => {
             const sech = 1 / Math.cosh( x / wellWidth );
             return -wellDepth * sech * sech + electricField * x;
           };
-
-          // With a Stark field the effective barrier is slightly lower.  Use the tilt-corrected
-          // max (same logic as PoschlTellerPotential.getMaxSolverEnergy):
-          //   energyMax = 0 − |electricField| * xMaxAbsolute
-          const xMaxAbsolute = STANDARD_X_MAX; // matches standardGrid() xMax
-          const energyMax = -Math.abs( electricField * xMaxAbsolute );
-
+          const energyMax = -Math.abs( electricField * STANDARD_X_MAX );
           configs.push( {
             grid: standardGrid(),
             potFn: potFn,
@@ -486,28 +387,15 @@ QUnit.test( 'electric field sweep', assert => {
     }
   }
 
-  runSweep( assert, configs );
-} );
-
-QUnit.test( 'multi-well electric field sweep', assert => {
-
-  const numberOfWellsList = SWEEP_NUMBER_OF_WELLS.filter( n => n <= 3 );
-  const ptGaps = SWEEP_PT_GAPS;
-  const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
-  const wellDepths = SWEEP_MULTI_WELL_DEPTHS;
-  const masses = SWEEP_MASSES_MULTI;
-  const electricFields = SWEEP_ELECTRIC_FIELDS;
-  const xMaxAbsolute = STANDARD_X_MAX;
-
-  const configs: SweepConfig[] = [];
-
-  for ( const nWells of numberOfWellsList ) {
-    for ( const wellWidth of wellWidths ) {
-      for ( const gap of ptGaps ) {
+  // Multi-well + electric field — the heaviest case, run at a single representative mass. Limited to
+  // ≤ 3 wells as in the zero-field multi-well sweep above.
+  for ( const nWells of SWEEP_NUMBER_OF_WELLS.filter( n => n <= 3 ) ) {
+    for ( const wellWidth of SWEEP_WELL_WIDTHS_PT ) {
+      for ( const gap of SWEEP_PT_GAPS ) {
         const spacing = wellWidth + gap;
-        for ( const wellDepth of wellDepths ) {
-          for ( const mass of masses ) {
-            for ( const electricField of electricFields ) {
+        for ( const wellDepth of SWEEP_MULTI_WELL_DEPTHS ) {
+          for ( const mass of SWEEP_MASSES_MULTI ) {
+            for ( const electricField of SWEEP_ELECTRIC_FIELDS ) {
               const potFn = ( x: number ): number => {
                 let pe = 0;
                 for ( let i = 1; i <= nWells; i++ ) {
@@ -517,9 +405,7 @@ QUnit.test( 'multi-well electric field sweep', assert => {
                 }
                 return pe + electricField * x;
               };
-
-              const energyMax = -Math.abs( electricField * xMaxAbsolute );
-
+              const energyMax = -Math.abs( electricField * STANDARD_X_MAX );
               configs.push( {
                 grid: standardGrid(),
                 potFn: potFn,
@@ -527,8 +413,6 @@ QUnit.test( 'multi-well electric field sweep', assert => {
                 energyMin: -3 * wellDepth * nWells,
                 energyMax: energyMax,
                 label: `PT nWells=${nWells} spacing=${spacing} E=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
-
-                // Reliable for this ≤ 3-well sweep; see the 'multi-well spacing sweep' note above.
                 checkNodes: true
               } );
             }
@@ -578,19 +462,15 @@ QUnit.test( 'tilted multi-well stitches without a matching-point kink (regressio
     assert.ok( result.energies.length > 0, `${label}: expected at least one bound state` );
     assertAllFinite( assert, result, label );
 
-    // Pöschl-Teller is a soft-wall potential, so ψ and ψ' are continuous everywhere (skipEdgePoints = 0).
+    // Pöschl-Teller is a soft-wall potential, so ψ and ψ' are continuous everywhere.
     // This is the assertion that fails with center-stitching and passes with main-lobe stitching.
-    assertWaveFunctionContinuity( assert, result, grid.dx, 0, label );
+    assertWaveFunctionContinuity( assert, result, grid.dx, label );
   }
 } );
 
-// ============================================================================
-// Module: Parity — Pöschl-Teller (single, centered, analytical anchor)
-// ============================================================================
+// ─── Parity (single, centered — analytical anchor) ──────────────────────────────
 
-QUnit.module( 'Parity' );
-
-QUnit.test( 'Poschl-Teller (single, centered) parity alternates even/odd', assert => {
+QUnit.test( 'parity alternates even/odd (single, centered)', assert => {
 
   const wellWidth = 0.5; // nm
   const wellDepth = 10;  // eV
@@ -608,11 +488,7 @@ QUnit.test( 'Poschl-Teller (single, centered) parity alternates even/odd', asser
   }
 } );
 
-// ============================================================================
-// Module: Orthogonality — Pöschl-Teller (analytical anchor)
-// ============================================================================
-
-QUnit.module( 'Orthogonality' );
+// ─── Orthogonality (analytical anchor) ──────────────────────────────────────────
 
 /**
  * Assert that pairs of eigenstates are mutually orthogonal within the given tolerance.
@@ -627,7 +503,7 @@ function assertOrthogonality( assert: Assert, waveFunctions: number[][], dx: num
   }
 }
 
-QUnit.test( 'Poschl-Teller eigenstates are orthogonal', assert => {
+QUnit.test( 'eigenstates are orthogonal', assert => {
 
   const w = 0.5;
   const V0 = 10;
@@ -640,68 +516,83 @@ QUnit.test( 'Poschl-Teller eigenstates are orthogonal', assert => {
   assertOrthogonality( assert, result.waveFunctions, grid.dx, 1e-3, 'PT' );
 } );
 
-// ============================================================================
-// Module: Analytical comparison — Poschl-Teller
-// ============================================================================
+// ─── Analytical comparison vs PoschlTellerSolution ──────────────────────────────
 
-QUnit.module( 'Analytical comparison — Poschl-Teller' );
+// (w, V₀) grid for the analytical comparison, swept at mass = 1. It is restricted to the regime
+// the standard 3001-point grid (dx ≈ 0.0023 nm) resolves accurately: w ≥ 0.5 nm keeps the sech²
+// well well-sampled, and V₀ ≥ 5 eV makes every well hold ≥ 6 bound states, so the lowest
+// PT_ANALYTICAL_STATES compared states sit deep in the well. Narrow/shallow wells and the
+// barely-bound top states are deliberately excluded: there the evanescent tail leaks past the
+// ±3.5 nm grid edge and E_n → 0 makes the *relative* energy error blow up — a grid-resolution
+// limit, not a solver error. Measured worst case over this grid: energy error ≈ 1.35 %,
+// wave-function RMS error ≈ 0.51 % (hence the 1.5 % / 1 % tolerances below).
+const PT_ANALYTICAL_WIDTHS = [ 0.5, 0.6, 0.7, 0.8, 1.0 ]; // nm
+const PT_ANALYTICAL_DEPTHS = [ 5, 8, 10, 12, 15 ];        // eV
+const PT_ANALYTICAL_MASS = 1;                             // electron masses
+const PT_ANALYTICAL_STATES = 3;                           // compare the lowest 3 (deeply-bound) states
 
-QUnit.test( 'energy error < 1% for w=0.5 nm, V₀=10 eV', assert => {
-
-  const wPT = 0.5;
-  const V0PT = 10;
-  const massPT = 1;
-  const gridPT = standardGrid();
-  const potFnPT = PoschlTellerSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT, electricField: 0, spacing: 0
+/**
+ * Solve a single-well Pöschl-Teller potential on the standard grid both numerically (NumerovSolver)
+ * and analytically (PoschlTellerSolution), for the analytical-comparison sweep.
+ */
+function solvePoschlTellerPair( wellWidth: number, wellDepth: number ): {
+  grid: XGrid;
+  numerical: { energies: number[]; waveFunctions: number[][] };
+  analytical: { energies: number[]; waveFunctions: number[][] };
+} {
+  const grid = standardGrid();
+  const potFn = PoschlTellerSolution.createPotentialFunction( {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0, spacing: 0
   } );
-
-  const numericalResultPT = NumerovSolver.solve( gridPT, potFnPT, massPT, -3 * V0PT, 0 );
-  const analyticalResultPT = PoschlTellerSolution.solve( gridPT, {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT,
-    energyMin: -3 * V0PT, energyMax: 0, electronMasses: massPT, electricField: 0, spacing: 0
+  const numerical = NumerovSolver.solve( grid, potFn, PT_ANALYTICAL_MASS, -3 * wellDepth, 0 );
+  const analytical = PoschlTellerSolution.solve( grid, {
+    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wellWidth, wellDepth: wellDepth,
+    energyMin: -3 * wellDepth, energyMax: 0, electronMasses: PT_ANALYTICAL_MASS, electricField: 0, spacing: 0
   } );
+  return { grid: grid, numerical: numerical, analytical: analytical };
+}
 
-  assert.ok( numericalResultPT.energies.length >= 2, `Found ${numericalResultPT.energies.length} numerical states (need ≥ 2)` );
-  // Use 2% tolerance: higher PT states (n ≥ 5) on the standard 3001-point grid show
-  // ~1–2% error due to the narrow sech² well shape requiring finer dx near the peak.
-  const nComparePT = Math.min( numericalResultPT.energies.length, analyticalResultPT.energies.length, 6 );
-  for ( let i = 0; i < nComparePT; i++ ) {
-    const relErr = Math.abs( numericalResultPT.energies[ i ] - analyticalResultPT.energies[ i ] ) / Math.abs( analyticalResultPT.energies[ i ] );
-    assert.ok( relErr < 0.02, `PT n=${i}: energy error = ${toFixed( relErr * 100, 3 )} % (must be < 2 %)` );
+QUnit.test( 'energy error < 1.5% vs analytical across (w, V₀) grid', assert => {
+
+  for ( const wellWidth of PT_ANALYTICAL_WIDTHS ) {
+    for ( const wellDepth of PT_ANALYTICAL_DEPTHS ) {
+      const { numerical, analytical } = solvePoschlTellerPair( wellWidth, wellDepth );
+
+      assert.ok(
+        numerical.energies.length >= PT_ANALYTICAL_STATES && analytical.energies.length >= PT_ANALYTICAL_STATES,
+        `PT w=${wellWidth} V₀=${wellDepth}: expected ≥ ${PT_ANALYTICAL_STATES} bound states ` +
+        `(got ${numerical.energies.length} numerical, ${analytical.energies.length} analytical)`
+      );
+
+      const nCompare = Math.min( numerical.energies.length, analytical.energies.length, PT_ANALYTICAL_STATES );
+      for ( let i = 0; i < nCompare; i++ ) {
+        const relErr = Math.abs( numerical.energies[ i ] - analytical.energies[ i ] ) / Math.abs( analytical.energies[ i ] );
+        assert.ok( relErr < 0.015,
+          `PT w=${wellWidth} V₀=${wellDepth} n=${i}: energy error = ${toFixed( relErr * 100, 3 )} % (must be < 1.5 %)` );
+      }
+    }
   }
 } );
 
-QUnit.test( 'wave-function RMS error < 5% for w=0.5 nm, V₀=10 eV', assert => {
+QUnit.test( 'wave-function RMS error < 1% vs analytical across (w, V₀) grid', assert => {
 
-  const wPT = 0.5;
-  const V0PT = 10;
-  const massPT = 1;
-  const gridPT = standardGrid();
-  const potFnPT = PoschlTellerSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT, electricField: 0, spacing: 0
-  } );
+  for ( const wellWidth of PT_ANALYTICAL_WIDTHS ) {
+    for ( const wellDepth of PT_ANALYTICAL_DEPTHS ) {
+      const { grid, numerical, analytical } = solvePoschlTellerPair( wellWidth, wellDepth );
 
-  const numericalResultPT = NumerovSolver.solve( gridPT, potFnPT, massPT, -3 * V0PT, 0 );
-  const analyticalResultPT = PoschlTellerSolution.solve( gridPT, {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wPT, wellDepth: V0PT,
-    energyMin: -3 * V0PT, energyMax: 0, electronMasses: massPT, electricField: 0, spacing: 0
-  } );
-
-  const nComparePTwf = Math.min( numericalResultPT.waveFunctions.length, analyticalResultPT.waveFunctions.length, 6 );
-  for ( let i = 0; i < nComparePTwf; i++ ) {
-    const rms = waveFunctionRMSError( numericalResultPT.waveFunctions[ i ], analyticalResultPT.waveFunctions[ i ], gridPT.dx );
-    assert.ok( rms < 0.05, `PT n=${i}: WF RMS error = ${toFixed( rms * 100, 3 )} % (must be < 5 %)` );
+      const nCompare = Math.min( numerical.waveFunctions.length, analytical.waveFunctions.length, PT_ANALYTICAL_STATES );
+      for ( let i = 0; i < nCompare; i++ ) {
+        const rms = waveFunctionRMSError( numerical.waveFunctions[ i ], analytical.waveFunctions[ i ], grid.dx );
+        assert.ok( rms < 0.01,
+          `PT w=${wellWidth} V₀=${wellDepth} n=${i}: WF RMS error = ${toFixed( rms * 100, 3 )} % (must be < 1 %)` );
+      }
+    }
   }
 } );
 
-// ============================================================================
-// Module: Poschl-Teller — state count formula
-// ============================================================================
+// ─── Bound-state count formula ──────────────────────────────────────────────────
 
-QUnit.module( 'Poschl-Teller — state count formula' );
-
-QUnit.test( 'N_bound = ⌊λ − ½⌋ + 1 where λ = w√(2mV₀)/ℏ', assert => {
+QUnit.test( 'bound-state count = ⌊λ − ½⌋ + 1 (λ = w√(2mV₀)/ℏ)', assert => {
 
   const wellWidths = [ 0.1, 0.3, 0.5, 1.0 ];
   const wellDepths = [ 2.0, 5.0, 10.0, 15.0 ];
@@ -726,17 +617,13 @@ QUnit.test( 'N_bound = ⌊λ − ½⌋ + 1 where λ = w√(2mV₀)/ℏ', assert 
   }
 } );
 
-// ============================================================================
-// Module: Electric field breaks parity
-// ============================================================================
+// ─── Electric field breaks parity ───────────────────────────────────────────────
 
-QUnit.module( 'Electric field breaks parity' );
-
-QUnit.test( 'Poschl-Teller with E-field has mixed-parity states', assert => {
+QUnit.test( 'electric field breaks parity (mixed-parity states)', assert => {
 
   // A Stark field tilts the symmetric well; eigenstates no longer have definite parity.
   // We decompose each ψ into even and odd components and verify both are non-negligible.
-  const wellWidths = SWEEP_WELL_WIDTHS_PT.filter( w => w <= 1.0 );
+  const wellWidths = SWEEP_WELL_WIDTHS_PT;
 
   // TODO: Restore V=15 eV once the threshold is made field-normalized.  For deep narrow wells
   // (V=15 eV, w=0.2–0.5 nm) the perturbative mixing scales as (E·w/V)², which falls below
@@ -803,11 +690,7 @@ QUnit.test( 'Poschl-Teller with E-field has mixed-parity states', assert => {
   }
 } );
 
-// ============================================================================
-// Module: Wavefunction boundary decay
-// ============================================================================
-
-QUnit.module( 'Wavefunction boundary decay' );
+// ─── Wave-function boundary decay ───────────────────────────────────────────────
 
 /**
  * Assert that bound-state wave functions are negligibly small at both grid edges,
@@ -829,7 +712,7 @@ function assertBoundaryDecay( assert: Assert, waveFunctions: number[][], thresho
   }
 }
 
-QUnit.test( 'Poschl-Teller states decay to < 1% at grid edges', assert => {
+QUnit.test( 'states decay to < 1% at grid edges', assert => {
 
   const grid = standardGrid();
   const potFn = PoschlTellerSolution.createPotentialFunction( {
@@ -839,26 +722,23 @@ QUnit.test( 'Poschl-Teller states decay to < 1% at grid edges', assert => {
   assertBoundaryDecay( assert, result.waveFunctions, 0.01, 'PT' );
 } );
 
-// ============================================================================
-// Module: Wavefunction continuity
-// ============================================================================
+// ─── Wave-function continuity ───────────────────────────────────────────────────
 
-QUnit.module( 'Wavefunction continuity' );
+QUnit.test( 'ψ and ψ′ continuous everywhere', assert => {
 
-QUnit.test( 'Poschl-Teller — ψ and ψ′ continuous everywhere', assert => {
-
-  // Pöschl-Teller is a soft-wall potential, so ψ and ψ′ are continuous everywhere (skipEdgePoints = 0).
+  // Pöschl-Teller is a soft-wall potential, so ψ and ψ′ are continuous everywhere.
   const grid = standardGrid();
   const potFn = PoschlTellerSolution.createPotentialFunction( {
     numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 0.5, wellDepth: 10, electricField: 0, spacing: 0
   } );
   const result = NumerovSolver.solve( grid, potFn, 1, -30, 0 );
-  assertWaveFunctionContinuity( assert, result, grid.dx, 0, 'PT w=0.5 V₀=10' );
+  assertWaveFunctionContinuity( assert, result, grid.dx, 'PT w=0.5 V₀=10' );
 
-  // The tilted multi-well Pöschl-Teller continuity case — the regression that motivates the ψ′ threshold —
-  // is exercised by the 'tilted multi-well stitches without a matching-point kink' test in the
-  // Pöschl-Teller module. Continuity is intentionally NOT asserted for the numerically-solved Finite
-  // Square multi-well (with or without a field): its dense minibands are near-degenerate, so the solver
+  // The single finite Square Well is checked separately in the Finite Square Well module ('ψ and ψ′
+  // continuous everywhere'). Continuity is intentionally NOT asserted for the numerically-solved Finite
+  // Square *multi-well* (with or without a field): its dense minibands are near-degenerate, so the solver
   // returns scrambled linear combinations whose stitched ψ/ψ′ legitimately show grid-scale jumps that do
-  // not indicate a solver error. See https://github.com/phetsims/quantum-bound-states/issues/43
+  // not indicate a solver error. The tilted multi-well Pöschl-Teller continuity case — the regression that
+  // motivates the ψ′ threshold — is exercised by the 'tilted multi-well stitches without a matching-point
+  // kink' test in the Pöschl-Teller module. See https://github.com/phetsims/quantum-bound-states/issues/43
 } );

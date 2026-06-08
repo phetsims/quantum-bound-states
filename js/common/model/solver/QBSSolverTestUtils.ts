@@ -1,9 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Shared utility functions for testing the Numerov solver.
- * These functions are used by both testSolvers.ts (query-parameter tests) and
- * QBSSolverTests.ts (QUnit / Continuous-Testing tests).
+ * Shared utility functions for testing the Numerov solver, used by QBSSolverTests.ts
+ * (QUnit / Continuous-Testing tests).
  *
  * All functions are pure math with no browser dependencies.
  *
@@ -216,51 +215,51 @@ export function maxDPsiJump( psi: number[], dx: number, jStart: number, jEnd: nu
 }
 
 /**
- * Assert that every bound state returned by the solver is continuous in ψ and ψ'.
+ * Assert that every bound state returned by the solver is continuous in ψ and ψ' across the full grid.
  *
  * @param assert - QUnit assert object
  * @param result - Solver result containing waveFunctions array
  * @param dx - Grid spacing in nm
- * @param skipEdgePoints - number of grid points to exclude at each end.
- *   Pass 1 for infinite-wall potentials (ISW, ISP) whose Dirichlet boundary makes
- *   ψ' physically discontinuous at the hard wall, which is the grid edge.
- *   Pass 0 for soft-wall potentials where ψ and ψ' are continuous everywhere.
  * @param label - label used in assertion messages
  */
 export function assertWaveFunctionContinuity(
   assert: Assert,
   result: { waveFunctions: number[][] },
   dx: number,
-  skipEdgePoints: number,
   label: string
 ): void {
 
-  // Continuity is checked only for the genuinely-smooth, well-resolved soft-wall potentials.  Cases
-  // that arer solved exactly or nearly exactly (e.g. ISW, ISP, Harmonic Oscillator) can have true discontinuities in ψ and ψ' at the grid scale due to the nature of the solution, 
-  // not solver error.  Cases with very sharp features (e.g. Coulomb) can have large jumps that are physical and 
-  // well-resolved but would fail a tight continuity threshold. 
+  // Continuity is asserted for potentials whose true ψ and ψ' are genuinely continuous and well-resolved:
+  // the soft-wall Pöschl-Teller well, and the finite (hard-step) Square Well — a finite step leaves ψ and
+  // ψ' continuous and only jumps ψ''. It is NOT asserted for *infinite*-wall potentials (Infinite Square
+  // Well, Infinite Step), which have a true ψ' discontinuity at the Dirichlet boundary, for cusped
+  // potentials (Coulomb), which have large but physical jumps at the origin, or for dense multi-wells,
+  // whose near-degenerate minibands return scrambled linear combinations — all would fail a tight
+  // continuity threshold without indicating a solver error.
 
   // Threshold for ψ: max change per grid step, normalised by max|ψ|.  For a smooth wave function the
-  // change per step is ~kwave·dx, largest for the highest bound state.  The binding case among the
-  // retained soft-wall tests is the tilted multi-well Pöschl-Teller regression at ≈ 0.031.
+  // change per step is ~kwave·dx, largest for the highest bound state — so the binding case is the
+  // potential whose retained states reach the highest wavenumber.  Measured worst cases: the single
+  // finite Square Well (V₀ = 10 eV) at ≈ 0.038, and the tilted multi-well Pöschl-Teller regression at
+  // ≈ 0.031.  We set 0.045, which clears both with margin while still catching a genuine jump.
   const PSI_JUMP_THRESHOLD = 0.045;
 
   // Threshold for ψ': max change per grid step in the central-difference derivative, normalised by
   // max|ψ'|.  The binding case is the tilted multi-well Pöschl-Teller regression scenario (the bug this
-  // metric guards) at ≈ 0.040.  We set 0.05 — tight enough to catch any genuine kink while clearing
-  // that worst-case high state.
+  // metric guards) at ≈ 0.040, with the single finite Square Well close behind at ≈ 0.038.  We set 0.05 —
+  // tight enough to catch any genuine kink while clearing those worst-case high states.
   const DPSI_JUMP_THRESHOLD = 0.05;
 
   for ( let n = 0; n < result.waveFunctions.length; n++ ) {
     const psi = result.waveFunctions[ n ];
     const N = psi.length;
 
-    const psiJump = maxPsiJump( psi, skipEdgePoints, N - 1 - skipEdgePoints );
+    const psiJump = maxPsiJump( psi, 0, N - 1 );
     assert.ok( psiJump < PSI_JUMP_THRESHOLD,
       `${label} state ${n}: ψ jump = ${psiJump.toExponential( 2 )} must be < ${PSI_JUMP_THRESHOLD}` );
 
-    // Derivative array has N-2 elements (interior points); skip skipEdgePoints at each end.
-    const dPsiJump = maxDPsiJump( psi, dx, skipEdgePoints, N - 2 - skipEdgePoints );
+    // Derivative array has N-2 elements (interior points).
+    const dPsiJump = maxDPsiJump( psi, dx, 0, N - 2 );
     assert.ok( dPsiJump < DPSI_JUMP_THRESHOLD,
       `${label} state ${n}: ψ' jump = ${dPsiJump.toExponential( 2 )} must be < ${DPSI_JUMP_THRESHOLD}` );
   }
