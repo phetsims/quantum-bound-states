@@ -17,12 +17,15 @@
  * for the finite-grid Dirichlet problem. Bisecting on this integer node count isolates each state
  * by index, so closely spaced multi-well levels do not depend on fixed energy sampling.
  *
- * The bracket is then refined to the eigenvalue using a mismatch at the center grid point m.
+ * The bracket is then refined to the eigenvalue using a mismatch at a meeting grid point m.
  * For **non-symmetric** potentials this is the log-derivative mismatch
  * (ψ_L'/ψ_L)|_m - (ψ_R'/ψ_R)|_m, multiplied through by ψ_L·ψ_R so it remains bounded when ψ
  * has a node at m. Each side is rescaled to its peak amplitude before forming the mismatch so the
  * magnitude is O(1) even when a trial solution grows exponentially in classically forbidden
- * regions.
+ * regions. The meeting point is chosen per state at the eigenstate's main lobe (where |ψ_L|·|ψ_R|
+ * is largest) rather than at the geometric center, so a state localized far from x = 0 — such as a
+ * lower level of an electric-field-tilted multi-well — is stitched where both sweeps are still
+ * physical instead of inside ψ_L's spurious growing tail (see getMatchingPointIndex).
  *
  * For **symmetric** potentials (V(-x) = V(x)) the Sturm-Liouville theorem guarantees that
  * eigenfunctions alternate between even (ψ(-x) = ψ(x)) and odd (ψ(-x) = -ψ(x)) with increasing
@@ -247,9 +250,13 @@ export default class NumerovSolver {
       waveFunction = this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() );
     }
     else {
-      const { mismatchFunction, getLastPsiLeft, getLastPsiRight } = this.makeLogDerivativeMismatch( solverV, xGrid, meetingIndex );
+
+      // Stitch at this state's main lobe (not the fixed center) so a state localized far from x = 0
+      // is joined where both sweeps are physical. See getMatchingPointIndex.
+      const matchIndex = this.getMatchingPointIndex( 0.5 * ( bracket.lowerEnergy + bracket.upperEnergy ), solverV, xGrid );
+      const { mismatchFunction, getLastPsiLeft, getLastPsiRight } = this.makeLogDerivativeMismatch( solverV, xGrid, matchIndex );
       energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFunction );
-      waveFunction = this.computeWaveFunction( energy, solverV, xGrid, meetingIndex, getLastPsiLeft(), getLastPsiRight() );
+      waveFunction = this.computeWaveFunction( energy, solverV, xGrid, matchIndex, getLastPsiLeft(), getLastPsiRight() );
     }
 
     return { energy: energy, waveFunction: waveFunction };
@@ -264,10 +271,10 @@ export default class NumerovSolver {
    *   2. For each state index in that range, bisect on the integer node count to isolate E_n.
    *   3. Refine the bracket to the eigenvalue:
    *      - Symmetric potential: parity-specific center-BC mismatch (forward integration only).
-   *      - General potential: log-derivative mismatch at the middle grid point.
+   *      - General potential: log-derivative mismatch at the per-state main-lobe meeting point.
    *   4. Build the normalized wave function:
    *      - Symmetric potential: reflect the left half.
-   *      - General potential: stitch ψ_L and ψ_R at the middle grid point.
+   *      - General potential: stitch ψ_L and ψ_R at the per-state main-lobe meeting point.
    */
   private findBoundStates(
     potentialFunction: PotentialFunction,
@@ -284,10 +291,6 @@ export default class NumerovSolver {
     // integrator (which sweeps the entire grid) does not propagate any tail asymmetry that
     // arose from 1-ulp floating-point boundary effects when V was discretized.
     const solverV = isSymmetric ? this.symmetrize( V, meetingIndex ) : V;
-
-    // For non-symmetric potentials, build the log-derivative mismatch once and reuse it.
-    // The closure caches the last psi arrays so computeWaveFunction can skip re-integration.
-    const sharedMismatch = isSymmetric ? null : this.makeLogDerivativeMismatch( solverV, xGrid, meetingIndex );
 
     // States E_n with n in [lowestStateIndex, highestStateIndexExclusive) lie in the requested energy window.
     const lowestStateIndex = this.countNodesAtEnergy( energyMin, solverV, xGrid );
@@ -310,9 +313,17 @@ export default class NumerovSolver {
         waveFunctions.push( this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() ) );
       }
       else {
-        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, sharedMismatch!.mismatchFunction );
+
+        // Stitch each state at its own main lobe rather than at the fixed center, so a state
+        // localized far from x = 0 (e.g. a lower level of an electric-field-tilted multi-well) is
+        // joined where both sweeps are still physical. Matching at the center would stitch into
+        // ψ_L's spurious growing tail and leave a kink. The closure caches its last psi arrays so
+        // computeWaveFunction can skip re-integration. See getMatchingPointIndex.
+        const matchIndex = this.getMatchingPointIndex( 0.5 * ( bracket.lowerEnergy + bracket.upperEnergy ), solverV, xGrid );
+        const { mismatchFunction, getLastPsiLeft, getLastPsiRight } = this.makeLogDerivativeMismatch( solverV, xGrid, matchIndex );
+        const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFunction );
         energies.push( energy );
-        waveFunctions.push( this.computeWaveFunction( energy, solverV, xGrid, meetingIndex, sharedMismatch!.getLastPsiLeft(), sharedMismatch!.getLastPsiRight() ) );
+        waveFunctions.push( this.computeWaveFunction( energy, solverV, xGrid, matchIndex, getLastPsiLeft(), getLastPsiRight() ) );
       }
     }
 
@@ -633,11 +644,60 @@ export default class NumerovSolver {
    * this index (see symmetrize), so the center index becomes the true axis of symmetry for
    * the forward integration as well.
    *
-   * For the general (non-symmetric) case the midpoint is still a reasonable meeting point
-   * for the log-derivative mismatch, independent of potential shape.
+   * This center index is used by the symmetric path only. The general (non-symmetric) path stitches
+   * at a state-dependent main-lobe index instead (see getMatchingPointIndex), because the center
+   * can fall deep in a classically forbidden region for an off-center state.
    */
   private getMeetingPointIndex( xGrid: XGrid ): number {
     return xGrid.getClosestIndex( ( xGrid.xMin + xGrid.xMax ) / 2 );
+  }
+
+  /**
+   * Grid index at which to stitch ψ_L (forward) and ψ_R (backward) for a non-symmetric potential,
+   * chosen from a trial energy near the eigenvalue.
+   *
+   * The fixed geometric center is a poor stitch point whenever the eigenstate is localized far from
+   * x = 0 — for example a multi-well potential tilted by an electric field, whose lower states sit
+   * in the deepest well on the downhill side. There the center lies deep in a classically forbidden
+   * region where ψ_L (integrated left→right) has decayed and been overtaken by the spurious
+   * growing-exponential mode, so its value and slope at the center are numerical noise. Stitching
+   * ψ_L to ψ_R there matches the value but not the slope, leaving a visible kink at x = 0 and a
+   * wave function that is many orders of magnitude too large in the tail.
+   *
+   * The remedy is to stitch where both sweeps are still dominated by the true solution: the
+   * eigenstate's main lobe. Each sweep is reliable from its own boundary up to the localization
+   * region (ψ_L while its envelope grows left→right, ψ_R while it grows right→left), so the index
+   * that maximizes the overlap |ψ_L|·|ψ_R| (each normalized to its own peak) lands on an antinode of
+   * the main lobe. There ψ_L and ψ_R are both large and physical, the stitch scale is
+   * well-conditioned, and the joined wave function is smooth. A spurious-growth tail inflates only
+   * one factor of the product while the other has already decayed, so it never wins the maximum.
+   *
+   * @param energy - Trial energy near the eigenvalue (eV), e.g. the midpoint of the node-count bracket
+   * @param V - Discretized potential energy array on xGrid (eV)
+   * @param xGrid - uniformly spaced x-coordinates in nm
+   * @returns Interior grid index, valid for the 5-point slope stencil (m±2) and stitch neighbors (m±1)
+   */
+  private getMatchingPointIndex( energy: number, V: number[], xGrid: XGrid ): number {
+    const psiL = this.integrator.integrate( energy, V, xGrid );
+    const psiR = this.integrator.integrateBackward( energy, V, xGrid );
+    const peakL = NumerovSolver.getPeak( psiL );
+    const peakR = NumerovSolver.getPeak( psiR );
+
+    // Default to the center so the result is well-defined even if no overlap is found.
+    let bestIndex = this.getMeetingPointIndex( xGrid );
+    let bestOverlap = -1;
+
+    // Restrict to interior indices where the 5-point slope stencil (m±2) and the stitch neighbors
+    // (m±1) are all in range.
+    for ( let i = 2; i < psiL.length - 2; i++ ) {
+      const overlap = Math.abs( psiL[ i ] / peakL ) * Math.abs( psiR[ i ] / peakR );
+      if ( overlap > bestOverlap ) {
+        bestOverlap = overlap;
+        bestIndex = i;
+      }
+    }
+
+    return bestIndex;
   }
 
   /**
