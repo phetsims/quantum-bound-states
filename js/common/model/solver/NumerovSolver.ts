@@ -97,7 +97,12 @@ export default class NumerovSolver {
   // Stop node-count bisection when the bracket is this small relative to the initial energy
   // window and the upper endpoint has crossed only the requested state. The EnergyRefiner then
   // uses the continuous log-derivative mismatch within that bracket.
-  private static readonly NODE_BRACKET_RELATIVE_TOLERANCE = 1e-5;
+  //
+  // This must be well below the intra-band level spacing of the densest multi-well miniband the sim
+  // solves. Measured worst case (10 finite square wells, wide and deep, small wall gap) has adjacent
+  // levels ~5×10⁻⁴ eV apart on a ~15 eV window, i.e. a relative gap ~3×10⁻⁵. 1×10⁻⁷ keeps the bracket ≪ the gap; the extra
+  // halvings are cheap (MAX_NODE_BISECTION_ITERATIONS already allows 200).
+  private static readonly NODE_BRACKET_RELATIVE_TOLERANCE = 1e-7;
 
   /**
    * Returns the peak absolute amplitude of psi, or 1 if psi is identically zero.
