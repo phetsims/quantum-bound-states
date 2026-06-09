@@ -38,6 +38,13 @@
  *   3. **Wave function** — ψ on [0, x_max] is the mirror image of ψ_L, giving exact symmetry in
  *        the output and halving the integration work.
  *
+ * **Eigenvector refinement.** The shooting/mirror construction produces the right gross shape and
+ * node count for well-separated levels, but for a dense multi-well miniband — where many levels lie
+ * the forward/backward sweeps cannot distinguish near-degenerate states, so the stitched (or mirrored)
+ * wavefunction is a scrambled linear combination with the wrong node count and a kink at
+ * the join. To remove this, each wave function is finalized by a couple of steps of inverse
+ * iteration on the Numerov generalized eigenproblem H ψ = E ψ. See inverseIteration.
+ *
  * @author Martin Veillette
  */
 
@@ -104,6 +111,19 @@ export default class NumerovSolver {
   // halvings are cheap (MAX_NODE_BISECTION_ITERATIONS already allows 200).
   private static readonly NODE_BRACKET_RELATIVE_TOLERANCE = 1e-7;
 
+  // Number of inverse-iteration steps used to turn each shooting/mirror wave function into the true
+  // discrete Numerov eigenvector (see inverseIteration). Because the refined energy already sits
+  // within machine precision of an eigenvalue, one step amplifies the matching eigenvector by
+  // ~1/(E−λ) ≫ 1; a second step makes the result insensitive even to a badly scrambled
+  // near-degenerate seed (the densest minibands), at negligible cost (two O(N) tridiagonal solves).
+  private static readonly INVERSE_ITERATION_STEPS = 2;
+
+  // Floor for tridiagonal pivots during inverse iteration. The shifted matrix (H − E·B) is singular
+  // exactly at an eigenvalue, so a refined E landing on a pivot would divide by zero in the Thomas
+  // elimination. Flooring keeps the solve finite; the resulting large amplitude is removed by the
+  // subsequent peak rescale, leaving the eigenvector direction unchanged.
+  private static readonly INVERSE_ITERATION_PIVOT_FLOOR = 1e-30;
+
   /**
    * Returns the peak absolute amplitude of psi, or 1 if psi is identically zero.
    * Used to normalize mismatch magnitudes so they remain O(1) across all trial energies.
@@ -165,12 +185,14 @@ export default class NumerovSolver {
   private readonly integrator: NumerovIntegrator;
   private readonly energyRefiner: EnergyRefiner;
   private readonly normalizer: WaveFunctionNormalizer;
+  private readonly mass: number;
 
   /**
    * @param mass - Particle mass in electron masses
    * @param options - Optional solver configuration
    */
   public constructor( mass: number, options?: NumerovSolverOptions ) {
+    this.mass = mass;
     this.integrator = new NumerovIntegrator( mass );
 
     // If energyTolerance is provided, it's absolute (in eV); otherwise use default relative tolerance
@@ -252,7 +274,10 @@ export default class NumerovSolver {
       const parity: 'even' | 'odd' = stateIndex % 2 === 0 ? 'even' : 'odd';
       const { mismatchFunction, getLastPsiL } = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
       energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFunction );
-      waveFunction = this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() );
+
+      const seed = this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() );
+      const refined = this.projectParity( this.inverseIteration( energy, solverV, xGrid, seed ), meetingIndex, parity );
+      waveFunction = this.normalizer.normalize( refined, xGrid.dx );
     }
     else {
 
@@ -261,7 +286,9 @@ export default class NumerovSolver {
       const matchIndex = this.getMatchingPointIndex( 0.5 * ( bracket.lowerEnergy + bracket.upperEnergy ), solverV, xGrid );
       const { mismatchFunction, getLastPsiLeft, getLastPsiRight } = this.makeLogDerivativeMismatch( solverV, xGrid, matchIndex );
       energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFunction );
-      waveFunction = this.computeWaveFunction( energy, solverV, xGrid, matchIndex, getLastPsiLeft(), getLastPsiRight() );
+
+      const seed = this.computeWaveFunction( energy, solverV, xGrid, matchIndex, getLastPsiLeft(), getLastPsiRight() );
+      waveFunction = this.normalizer.normalize( this.inverseIteration( energy, solverV, xGrid, seed ), xGrid.dx );
     }
 
     return { energy: energy, waveFunction: waveFunction };
@@ -315,7 +342,12 @@ export default class NumerovSolver {
         const { mismatchFunction, getLastPsiL } = this.makeSymmetricMismatch( solverV, xGrid, meetingIndex, parity );
         const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFunction );
         energies.push( energy );
-        waveFunctions.push( this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() ) );
+
+        // Seed inverse iteration with the mirror construction (correct parity and gross shape), then
+        // project the refined vector back onto the parity subspace so the output is exactly symmetric.
+        const seed = this.computeSymmetricWaveFunction( energy, solverV, xGrid, meetingIndex, parity, getLastPsiL() );
+        const refined = this.projectParity( this.inverseIteration( energy, solverV, xGrid, seed ), meetingIndex, parity );
+        waveFunctions.push( this.normalizer.normalize( refined, xGrid.dx ) );
       }
       else {
 
@@ -328,7 +360,11 @@ export default class NumerovSolver {
         const { mismatchFunction, getLastPsiLeft, getLastPsiRight } = this.makeLogDerivativeMismatch( solverV, xGrid, matchIndex );
         const energy = this.energyRefiner.refine( bracket.lowerEnergy, bracket.upperEnergy, mismatchFunction );
         energies.push( energy );
-        waveFunctions.push( this.computeWaveFunction( energy, solverV, xGrid, matchIndex, getLastPsiLeft(), getLastPsiRight() ) );
+
+        // Seed inverse iteration with the stitched solution; the refinement removes the join kink and
+        // resolves scrambled near-degenerate combinations into the single true eigenvector.
+        const seed = this.computeWaveFunction( energy, solverV, xGrid, matchIndex, getLastPsiLeft(), getLastPsiRight() );
+        waveFunctions.push( this.normalizer.normalize( this.inverseIteration( energy, solverV, xGrid, seed ), xGrid.dx ) );
       }
     }
 
@@ -787,6 +823,151 @@ export default class NumerovSolver {
     }
 
     return stitched;
+  }
+
+  /**
+   * Refine a trial wave function into the true discrete Numerov eigenvector at the given energy by a
+   * few steps of inverse iteration.
+   *
+   * The Numerov recurrence (1 + f_{j+1})ψ_{j+1} − (2 − 10 f_j)ψ_j + (1 + f_{j-1})ψ_{j-1} = 0, with
+   * f_j = (dx²/12)·(2m/ℏ²)(E − V_j), is exactly the tridiagonal matrix pencil H ψ = E B ψ where (with
+   * invC = 6ℏ²/(m·dx²))
+   *
+   *     H_{j,j}   = 2·invC + 10·V_j        B_{j,j}   = 10
+   *     H_{j,j±1} = V_{j±1} − invC         B_{j,j±1} = 1
+   *
+   * Its eigenvalues are the Numerov shooting eigenvalues to machine precision, so the refined energy E
+   * is an extremely accurate shift. Each inverse-iteration step solves the shifted system
+   *
+   *     (H − E B) ψ_new = B ψ_old
+   *
+   * which amplifies the component of ψ_old along the eigenvector whose eigenvalue is nearest E by
+   * ~1/(E − λ). With E within ~10⁻¹² eV of λ and the next-nearest level ~10⁻⁴ eV away, a single step
+   * boosts the target eigenvector by ~10⁸ relative to every other, so the iterate collapses onto the
+   * one true discrete eigenstate even when the seed is a scrambled near-degenerate mixture. The result
+   * is smooth by construction — it is an actual eigenvector of the discrete operator, with no stitch
+   * point or mirror seam to leave a kink.
+   *
+   * (H − E B) is tridiagonal, so each step is one O(N) solve. Dirichlet boundaries ψ_0 =
+   * ψ_{N−1} = 0 leave the interior indices 1 … N−2 as the unknowns. The iterate is rescaled to unit
+   * peak each step to keep magnitudes O(1) through the near-singular solve.
+   *
+   * @param energy - Refined eigenvalue used as the inverse-iteration shift (eV)
+   * @param V - Discretized potential energy array on xGrid (eV); the same array the integrator saw
+   * @param xGrid - uniformly spaced x-coordinates in nm
+   * @param seed - Shooting/mirror wave function providing the starting direction (need only overlap
+   *               the target eigenvector; its scale is irrelevant)
+   * @returns Refined wave function (unit peak, not yet area-normalized)
+   */
+  private inverseIteration( energy: number, V: number[], xGrid: XGrid, seed: number[] ): number[] {
+    const N = V.length;
+    const invC = 6 * NumerovSolver.HBAR * NumerovSolver.HBAR / ( this.mass * xGrid.dx * xGrid.dx );
+
+    // Tridiagonal entries of M = H − E·B over the interior indices 1 … N−2 (rows 0 and N−1 are pinned
+    // to ψ = 0 by the Dirichlet boundary and drop out of the system).
+    //   lower[j] · ψ_{j−1} + diag[j] · ψ_j + upper[j] · ψ_{j+1}
+    const lower = new Array<number>( N );
+    const diag = new Array<number>( N );
+    const upper = new Array<number>( N );
+    for ( let j = 1; j < N - 1; j++ ) {
+      lower[ j ] = V[ j - 1 ] - invC - energy;
+      diag[ j ] = 2 * invC + 10 * ( V[ j ] - energy );
+      upper[ j ] = V[ j + 1 ] - invC - energy;
+    }
+
+    let psi = seed.slice();
+    NumerovSolver.scaleToUnitPeak( psi );
+
+    const cp = new Array<number>( N ); // Thomas forward-sweep super-diagonal coefficients
+
+    for ( let step = 0; step < NumerovSolver.INVERSE_ITERATION_STEPS; step++ ) {
+
+      // Right-hand side d = B ψ over the interior (ψ_0 = ψ_{N−1} = 0).
+      const d = new Array<number>( N );
+      for ( let j = 1; j < N - 1; j++ ) {
+        d[ j ] = psi[ j + 1 ] + 10 * psi[ j ] + psi[ j - 1 ];
+      }
+
+      // Thomas algorithm: solve M ψ_new = d for the interior. The result overwrites `next`.
+      const next = new Array<number>( N ).fill( 0 );
+      let beta = NumerovSolver.guardPivot( diag[ 1 ] );
+      cp[ 1 ] = upper[ 1 ] / beta;
+      next[ 1 ] = d[ 1 ] / beta;
+      for ( let j = 2; j < N - 1; j++ ) {
+        beta = NumerovSolver.guardPivot( diag[ j ] - lower[ j ] * cp[ j - 1 ] );
+        cp[ j ] = upper[ j ] / beta;
+        next[ j ] = ( d[ j ] - lower[ j ] * next[ j - 1 ] ) / beta;
+      }
+      for ( let j = N - 3; j >= 1; j-- ) {
+        next[ j ] -= cp[ j ] * next[ j + 1 ];
+      }
+
+      // A non-finite result means E landed essentially on a singular pivot; keep the prior iterate
+      // (already a valid, correctly-shaped wave function) rather than returning NaN.
+      if ( !NumerovSolver.allFinite( next ) ) {
+        break;
+      }
+      NumerovSolver.scaleToUnitPeak( next );
+      psi = next;
+    }
+
+    return psi;
+  }
+
+  /**
+   * Project psi onto the even or odd subspace about centerIndex by mirror-averaging, restoring the
+   * bit-exact spatial symmetry that the (direction-dependent) tridiagonal solve in inverseIteration
+   * perturbs at the roundoff level. Because the true eigenvector already lies in this subspace, the
+   * projection only removes roundoff-level contamination of the opposite parity.
+   *
+   *   even: ψ[c+k] = ψ[c−k]            odd: ψ[c+k] = −ψ[c−k], ψ[c] = 0
+   *
+   * Indices with no in-range mirror partner are set to zero, matching computeSymmetricWaveFunction.
+   */
+  private projectParity( psi: number[], centerIndex: number, parity: 'even' | 'odd' ): number[] {
+    const N = psi.length;
+    const sign = parity === 'even' ? 1 : -1;
+    const out = new Array<number>( N ).fill( 0 );
+    for ( let i = 0; i < N; i++ ) {
+      const mirror = 2 * centerIndex - i;
+      if ( mirror >= 0 && mirror < N ) {
+        out[ i ] = 0.5 * ( psi[ i ] + sign * psi[ mirror ] );
+      }
+    }
+    return out;
+  }
+
+  /**
+   * Floor a Thomas-algorithm pivot away from zero (sign-preserving) so a shift that lands on the
+   * singular eigenvalue cannot divide by zero. See INVERSE_ITERATION_PIVOT_FLOOR.
+   */
+  private static guardPivot( pivot: number ): number {
+    if ( Math.abs( pivot ) < NumerovSolver.INVERSE_ITERATION_PIVOT_FLOOR ) {
+      return pivot < 0 ? -NumerovSolver.INVERSE_ITERATION_PIVOT_FLOOR : NumerovSolver.INVERSE_ITERATION_PIVOT_FLOOR;
+    }
+    return pivot;
+  }
+
+  /**
+   * Rescale psi in place so its peak absolute value is 1 (no-op for an all-zero vector).
+   */
+  private static scaleToUnitPeak( psi: number[] ): void {
+    const peak = NumerovSolver.getPeak( psi );
+    for ( let i = 0; i < psi.length; i++ ) {
+      psi[ i ] /= peak;
+    }
+  }
+
+  /**
+   * Whether every element of the array is a finite number.
+   */
+  private static allFinite( values: number[] ): boolean {
+    for ( let i = 0; i < values.length; i++ ) {
+      if ( !Number.isFinite( values[ i ] ) ) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
