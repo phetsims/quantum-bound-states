@@ -101,6 +101,14 @@ export default class QBSConstants {
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_POTENTIAL_ENERGY = 1000; // eV
 
+  // Upper bound (eV above the well bottom) of the energy window searched by the bound-state solver, for
+  // potentials that have infinitely many bound states (infinite square well, harmonic oscillator, infinite step).
+  // These have no physical maximum energy, so the search is capped at a fixed energy. This is deliberately
+  // decoupled from the Energy diagram's viewport (yRange) so that the set of computed states - and each state's
+  // energy, wave function, and node count - stays stable when the y-axis is zoomed.
+  // See https://github.com/phetsims/quantum-bound-states/issues/63
+  public static readonly MAX_SOLVER_ENERGY_ABOVE_WELL = 30; // eV
+
   //TODO from BSConstants.java, are these compatible with values and units in new code?
   public static readonly ELECTRON_MASS = 5.68; // eV/c^2
   public static readonly KE2 = 1.44; // ke^2, eV nm

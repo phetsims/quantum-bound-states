@@ -16,6 +16,7 @@ import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersU
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
+import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import InfiniteStepSolution from '../solver/analytical-solutions/InfiniteStepSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
@@ -118,7 +119,10 @@ export default class InfiniteStepPotential extends QuantumPotential {
   }
 
   public override getMaxSolverEnergy(): number {
-    return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
+
+    // The infinite step well has infinitely many bound states, so there is no physical maximum energy.
+    // Cap the search at a fixed energy above the well bottom, independent of the Energy diagram's viewport.
+    return QBSConstants.MAX_SOLVER_ENERGY_ABOVE_WELL + this.yOffsetProperty.value;
   }
 
   /**

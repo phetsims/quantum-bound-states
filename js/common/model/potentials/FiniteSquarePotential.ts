@@ -145,7 +145,15 @@ export default class FiniteSquarePotential extends QuantumPotential {
   }
 
   public override getMinSolverEnergy(): number {
-    return this.yOffsetProperty.value; // bottom of the well
+    const yOffset = this.yOffsetProperty.value;
+    const xMin = QBSConstants.ALL_GRAPHS_X_RANGE.min;
+    const xMax = QBSConstants.ALL_GRAPHS_X_RANGE.max;
+
+    // The bottom of the well, adjusted for the electric field at the domain boundaries.
+    // With an electric field, the well bottom is tilted as V(x) = yOffset + electricField * x, so the deepest
+    // point is lowered by the most negative field offset at the edges of the domain. Without a field this
+    // reduces to yOffset.
+    return yOffset + Math.min( this.getElectricFieldOffset( xMin ), this.getElectricFieldOffset( xMax ) );
   }
 
   public override getMaxSolverEnergy(): number {

@@ -41,6 +41,14 @@ export default class CoulombPotential extends QuantumPotential {
   // full width w = 2r, so coupling = w * WIDTH_HANDLE_ENERGY / 2.
   public static readonly WIDTH_HANDLE_ENERGY = 4; // eV
 
+  // Lower bound (eV below the dissociation limit) of the energy window searched by the bound-state solver.
+  // The Coulomb potential has infinitely many bound states that accumulate toward the dissociation limit from
+  // below, so there is no physical minimum energy. The search is capped at a fixed depth below the limit, deep
+  // enough to include the ground state (E_1 = -13.6 eV for the default coupling) with generous margin. This is
+  // deliberately decoupled from the Energy diagram's viewport so the set of computed states stays stable when
+  // the y-axis is zoomed. See https://github.com/phetsims/quantum-bound-states/issues/63
+  public static readonly MIN_SOLVER_ENERGY_BELOW_LIMIT = 60; // eV
+
   public readonly wellWidthProperty: NumberProperty;
   private readonly couplingProperty: TReadOnlyProperty<number>;
 
@@ -123,7 +131,10 @@ export default class CoulombPotential extends QuantumPotential {
   }
 
   public override getMinSolverEnergy(): number {
-    return this.energyAxisRange.min + this.yOffsetProperty.value; // bottom of the y-axis range
+
+    // States accumulate toward the dissociation limit (yOffset) from below, so there is no physical minimum
+    // energy. Search down to a fixed depth below the limit, independent of the Energy diagram's viewport.
+    return this.yOffsetProperty.value - CoulombPotential.MIN_SOLVER_ENERGY_BELOW_LIMIT;
   }
 
   public override getMaxSolverEnergy(): number {

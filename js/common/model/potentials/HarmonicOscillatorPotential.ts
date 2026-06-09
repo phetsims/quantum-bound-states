@@ -153,7 +153,10 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
   }
 
   public override getMaxSolverEnergy(): number {
-    return this.energyAxisRange.max + this.yOffsetProperty.value; // top of the y-axis range
+
+    // The harmonic oscillator has infinitely many bound states, so there is no physical maximum energy.
+    // Cap the search at a fixed energy above the well bottom, independent of the Energy diagram's viewport.
+    return QBSConstants.MAX_SOLVER_ENERGY_ABOVE_WELL + this.yOffsetProperty.value;
   }
 
   public override createIcon(): Node {
