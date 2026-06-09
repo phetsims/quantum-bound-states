@@ -4,19 +4,22 @@ A holistic view of the Parallel DOM (PDOM) and Interactive Description for Quant
 This document reflects the strings currently in
 [`quantum-bound-states-strings_en.yaml`](../quantum-bound-states-strings_en.yaml) (the `a11y:` block)
 **plus** recommended additions that close the remaining gaps between what is shown visually and what
-is communicated non-visually.
+is communicated non-visually. The implemented-vs-recommended status and the model-property notes have been
+**cross-checked against the simulation code** (`js/`), with `file:line` anchors throughout and in the maintainer
+notes.
 
-It is meant to be read alongside the
-[Quantum Bound States HTML5 Design Doc](./Quantum%20Bound%20States%20HTML5%20Design%20Doc.pdf) and PhET's
+It is meant to be read alongside the Quantum Bound States HTML5 Design Doc and PhET's
 Description Design Guide (Core).
 
 ## Conventions used in this document
 
-- **Static preview notation.** This sim is currently being previewed with **static** description content.
-  Wherever a dynamic value would normally be injected, the strings use an **ALL-CAPS token** (for example
-  `POTENTIALTYPE`, `WELLWIDTH`, `INDEX`, `ENERGYLEVEL`, `TIME`). These render literally in the preview and
-  do **not** require any Fluent wiring or new model code. The eventual production version would replace each
-  token with a Fluent `{ $variable }` backed by a model Property.
+- **Static preview notation — but not everywhere.** Much of the sim is previewed with **static** content:
+  wherever a dynamic value would normally be injected, those strings use an **ALL-CAPS token** (for example
+  `POTENTIALTYPE`, `WELLWIDTH`, `INDEX`, `ENERGYLEVEL`, `TIME`) that renders literally and needs no Fluent
+  wiring. This applies to the **screen summaries, the graph leading paragraphs, and the magnifier object
+  responses**. **Two surfaces are already fully dynamic and production-wired, however** — the **potential drag
+  handles** and the **Reference Line** emit live model values today (see §5.5 and §6.4). The eventual production
+  version replaces each *remaining* ALL-CAPS token with a Fluent `{ $variable }` backed by a model Property.
 - **Terminology (per Design Doc §2.1).** The word *particle* is intentionally avoided. The non-visual noun is
   *system*. *Particle Energy* is *Total Energy* everywhere.
 - **Units.** Energy in electron volts (eV), mass in electron masses (mₑ), time in femtoseconds (fs), position
@@ -24,21 +27,6 @@ Description Design Guide (Core).
 - **Status legend.** ✅ = implemented in the YAML today. 💡 = recommended addition (see §8). ✅↺ = a string
   that previously **revealed a phenomenon** and has now been **revised** for discovery (the change is recorded
   in §8.0).
-
-## Contents
-
-- §1 — [Sim-wide learning goals the PDOM must serve](#1-sim-wide-learning-goals-the-pdom-must-serve)
-- ★ — [Design philosophy: enable discovery, don't give it away](#design-philosophy-enable-discovery-dont-give-it-away) *(read before §7 and §8)*
-- §2 — [PDOM heading structure](#2-pdom-heading-structure)
-- §3 — [Screen summaries (all four screens)](#3-screen-summaries-all-four-screens)
-- §4 — [Home-screen button help text](#4-home-screen-button-help-text)
-- §5 — [Play Area — interactive objects](#5-play-area--interactive-objects)
-- §6 — [Control Area — interactive objects](#6-control-area--interactive-objects)
-- §7 — [Graph state descriptions and dialogs](#7-graph-state-descriptions-and-dialogs)
-- §8 — [Recommended additions](#8-recommended-additions)
-- §9 — [Model properties the descriptions depend on](#9-model-properties-the-descriptions-depend-on)
-
----
 
 ## 1. Sim-wide learning goals the PDOM must serve
 
@@ -128,7 +116,7 @@ usable and to reason about what they are exploring:
 
 Headings create the navigable information relationships (WCAG 1.3.1 / 2.4.6). Current heading content:
 
-```
+```text
 H1  {Screen Name}                         (joist screen)
   Screen Summary                          (joist)
     Play Area  / Control Area             (joist boiler-plate)
@@ -290,8 +278,13 @@ function"). Several earlier phrasings stated the answer (e.g., "evenly spaced en
 ladder", "levels split or merge", "change how many levels stay bound", "reshape its energy spacing") and were
 removed. See §8.0 for the before/after.
 
-> The handle object responses are the one place in the file that already use live Fluent `{value}` tokens (they
-> are wired through the slider's `aria-valuetext`). Everything else is currently static preview text.
+> The handle object responses are **already live and dynamic** (not preview): each handle reads the current
+> model value through `.createProperty(...)`. The mechanism is **not** `aria-valuetext` — handles are custom
+> `InteractiveHighlighting(Node)` objects (`PotentialHandleNode.ts`) driven by `PotentialDragListener`
+> (a `RichDragListener`), keyboard-operable with Home/End and with `ValueChangeSoundPlayer` feedback; the value
+> is announced via `accessibleFocusObjectResponse` (on focus) and `addAccessibleObjectResponse()` (on move). The
+> **Reference Line** is the other already-dynamic surface (§6.4); the screen summaries, graph leading
+> paragraphs, and magnifier responses are the static-preview ones.
 
 ### 5.6 Many Wells extras ✅↺
 
@@ -332,33 +325,52 @@ removed. See §8.0 for the before/after.
 - **`superpositionDetailsButton`** — name "Superposition Details"; opens the full-equation dialog; context
   response "Superposition Details dialog opened."
 
-### 6.3 Details buttons — Screens 1–3
+### 6.3 Equation details — inline label vs. dialog (corrected against code)
 
-`probabilityDensityDetailsButton` and `waveFunctionDetailsButton` have accessible names, help text, and
-context responses in the YAML. **Per Design Doc §3.16 / §9.21 these buttons and their dialogs are retired on
-Screens 1–3** in favor of a static inline equation label; the strings remain only as candidates for that inline
-label or for cleanup. Only the Superposition Details button survives as an actual dialog opener.
+The implementation chooses per screen (`QuantumStateGraphNode` accepts an inline label *or* a details button,
+never both):
+
+- **One Well & Two Wells** show a static **inline equation label** (`EquationTermNode`) on the graph — no
+  details button. ✅
+- **Superposition** *does* use `ProbabilityDensityDetailsButton` + `WaveFunctionDetailsButton`
+  (`SuperpositionScreenView.ts:32-33`), which open `ProbabilityDensityDetailsDialog` /
+  `WaveFunctionDetailsDialog`. So these buttons and dialogs are **active, not retired** — and their
+  `accessibleParagraph` equation strings (§7.2) **are consumed** on this screen.
+- `SuperpositionDetailsButton` (summed equation + coefficient list) and `SuperpositionCustomizationButton` open
+  dialogs that are still **"Under Construction"** placeholders (`SuperpositionDetailsDialog.ts:25`,
+  `SuperpositionCustomizationDialog.ts:25`), though the buttons' names and "dialog opened" context responses are
+  wired.
+
+*(Minor: `EquationTermNode.waveFunctionTerm()` has a double-nested `<sub><sub>` — likely a typo to fix.)*
 
 ### 6.4 Tools ✅
 
 - **`magnifierCheckbox`** — help text "Show or hide magnifier."; responses "Magnifier shown." / "hidden."
 - **Magnifier** (when present) — heading "Magnifier"; accessible paragraph "The Magnifier shows a zoomed-in
-  view of part of the Energy Diagram, helpful for telling apart closely spaced energy levels."
+  view of part of the Energy Diagram, helpful for telling apart closely spaced energy levels." The probe and
+  body are keyboard-draggable with sound (`SoundRichDragListener`), but their **object responses are
+  static-preview** — `probe centered at POSITION nanometers` / `lens at POSITION nanometers` render the literal
+  `POSITION` token. 💡 To make them live, wire `Magnifier.probePositionProperty` / `bodyPositionProperty` into
+  the response.
   - **Probe** — name "Magnifier Probe"; help text "Move the probe over the Energy Diagram to choose what the
-    magnifier shows."; object response `probe centered at POSITION nanometers`.
-  - **Body** — name "Magnifier Body"; help text "Move the magnified view window to a comfortable spot.";
-    object response `lens at POSITION nanometers`.
+    magnifier shows."
+  - **Body** — name "Magnifier Body"; help text "Move the magnified view window to a comfortable spot."
 - **`referenceLineCheckbox`** — help text "Show or hide vertical Reference Line across Energy Diagram and
   Quantum State Graph."; responses "Reference Line shown." / "hidden."
-- **Reference Line** ✅ — role description "custom slider"; name "Reference Line"; help text "Move across
-  graphs to set a reference position." Rich object response joins phrases for position and whichever curves are
-  visible: `at {value} nanometers`, `potential energy is {value} electron volts`, `probability density is
-  {value}`, `real part / imaginary part / magnitude is {value}`, `phase is {value} radians`.
+- **Reference Line** ✅ **(fully dynamic, production-wired)** — role description "custom slider"; name
+  "Reference Line"; help text "Move across graphs to set a reference position." `ReferenceLineDescriber.ts`
+  builds a **live** object response from model values — position and potential energy always, plus probability
+  density / real / imaginary / magnitude / phase conditionally on the selected graph and visible curves
+  (`at {value} nanometers`, `potential energy is {value} electron volts`, …). It is keyboard-operable with
+  `ValueChangeSoundPlayer` feedback and has an **Alt+R "read values"** hotkey (`ReferenceLineReadValuesListener.ts`).
+  *(Two things to verify with the team: `ReferenceLineNode.ts:70` sources `accessibleHeading` from the
+  `referenceLine.accessibleName` string — likely should be `accessibleName` for a custom slider; and the
+  read-values hotkey is **Alt+R** in code vs. **Option/Shift+C** in design doc §3.11.)*
 
-  > **The Reference Line is the primary non-visual measurement tool.** It is how a learner reads quantitative
-  > values off a graph one point at a time. Graph state descriptions (§7, §8) should therefore *point to it*
-  > rather than enumerate values — and should not pre-compute the trend the learner would assemble from those
-  > readings.
+  > **The Reference Line is the primary non-visual measurement tool, and it is fully implemented.** It is how a
+  > learner reads quantitative values off a graph one point at a time. Graph state descriptions (§7, §8) should
+  > therefore *point to it* rather than enumerate values — and should not pre-compute the trend the learner
+  > would assemble from those readings.
 
 ### 6.5 Time controls ✅↺
 
@@ -383,19 +395,27 @@ Standard PhET common-code component; always last in the Control Area.
 
 ## 7. Graph state descriptions and dialogs
 
-### 7.1 Graph leading paragraphs ✅↺
+### 7.1 Graph leading paragraphs ✅↺ (describers are stubs)
 
-- **Energy Diagram** — `The Energy Diagram shows the POTENTIALTYPE potential energy curve in purple, with
-  NUMBEROFLEVELS green energy levels. Energy level INDEX is selected at ENERGYLEVEL electron volts.`
-  *Good altitude: structure + count + current selection, no trend.*
+The three graph describers — `EnergyDiagramDescriber`, `ProbabilityDensityGraphDescriber`,
+`WaveFunctionGraphDescriber` — currently render the leading paragraph below but are otherwise **TODO stubs**
+(placeholder `TODO list item`s). The §8.1 recommended content is what should fill them. Also note **graph
+sonification is not yet implemented** (only control-feedback sounds exist — drag / keyboard / Home-End); the
+"listen to the shape" pointers are design-ahead, matching the philosophy section's "(planned)."
+
+- **Energy Diagram** — `The Energy Diagram shows the POTENTIALTYPE potential energy curve in blue, with
+  NUMBEROFLEVELS green energy levels. Energy level INDEX is selected at ENERGYLEVEL electron volts.` *(Color
+  corrected: per `QBSColors.ts` the potential-energy curve is blue `rgb(85,85,255)`, not purple. Good altitude
+  otherwise: structure + count + selection, no trend.)*
 - **Probability Density Graph** — `The Probability Density graph shows the probability density across the well
   for energy level INDEX. The curve has NUMBEROFNODES nodes. Listen to the shape with sonification, or move the
   Reference Line to read the value at any position.` (The "keeps the same shape as time evolves" clause — a G6
   giveaway — was removed; the paragraph now points to the discovery channels.)
 - **Wave Function Graph** — `The Wave Function graph shows the real, imaginary, and magnitude parts of the wave
-  function across the well for energy level INDEX, drawn in purple, orange, and black. Listen to each part with
-  sonification, move the Reference Line to read values, and play time to explore how the parts behave.` (The
-  "oscillates … while the magnitude stays steady" clause — a G6 giveaway — was removed.)
+  function across the well for energy level INDEX, drawn in magenta, orange, and black. Listen to each part with
+  sonification, move the Reference Line to read values, and play time to explore how the parts behave.` *(Color
+  corrected: per `QBSColors.ts` the real part is magenta `rgb(166,12,137)` — not purple; imaginary orange,
+  magnitude black. The "oscillates … while the magnitude stays steady" G6 giveaway was removed.)*
 
 ### 7.2 Dialogs ✅↺
 
@@ -412,7 +432,8 @@ same opt-in dialog sees it):
   in time … while the magnitude stays the same.")
 
 A learner can derive the time behavior from the equation; the trimmed glosses let them do so rather than
-pre-stating it. (Lower stakes regardless, since these dialogs are retired on Screens 1–3, §6.3.)
+pre-stating it. **These dialogs are active on the Superposition screen** (§6.3), so the strings are consumed —
+not lower-stakes.
 
 ---
 
@@ -484,8 +505,9 @@ energyDiagram:
 ```
 
 **Quantum State Graph — node count + pointers to the discovery tools.** Keep the node *count* (a discrete
-observation); drop shape narration (sonification) and any time-behavior claim (G6). *(The implemented graph
-leading paragraphs in §7.1 already follow this; these `accessibleParagraph`s would be the fuller versions.)*
+observation); drop shape narration (sonification) and any time-behavior claim (G6). *(The §7.1 leading
+paragraphs already follow this; these fuller `accessibleParagraph`s would replace the TODO list items in the
+stubbed describers. The node count can wrap `countNodes()` from `QBSSolverTestUtils.ts:20-71`.)*
 
 ```yaml
 probabilityDensityGraph:
@@ -496,7 +518,7 @@ probabilityDensityGraph:
 waveFunctionGraph:
   accessibleParagraph: >-
     The real, imaginary, and magnitude parts of the wave function across the well for energy level INDEX,
-    drawn in purple, orange, and black. Listen to each part with sonification, move the Reference Line to read
+    drawn in magenta, orange, and black. Listen to each part with sonification, move the Reference Line to read
     values, and play time to explore how the parts behave.
 ```
 
@@ -555,42 +577,68 @@ observation, the new count) and stop there.
 
 ## 9. Model properties the descriptions depend on
 
-The recommended descriptions need read-only Properties. Design Doc §3.20 already plans or lists several as TBD;
-the highest-priority gap is flagged.
+A code review shows **most of these already exist** (or are trivially derivable from `boundStateResultProperty`).
+The doc previously treated them as design-doc §3.20 "planned/TBD," but the data is in the model today — only a
+few items are genuinely absent.
 
-| Property | Used by | Status |
+| Property | Used by | Status (from code) |
 |---|---|---|
-| Total number of energy levels | Energy Diagram paragraph; potential/handle/well-count context responses | §3.20 planned |
-| Current energy index | Energy Diagram leading paragraph; energy-level response | §3.20 planned |
-| Lowest / highest energy (eV) | Energy Diagram paragraph | §3.20 planned |
-| Lowest / highest energy level index | Spinner bounds | §3.20 planned |
-| Reference-line position (nm) + value at line | Reference Line object response (the measurement tool) | §3.20 (value-at-line **TBD**) |
-| **Number of nodes of selected eigenstate** | Wave Function & Probability Density paragraphs; energy-level response | §3.20 **TBD — prioritize** |
-| Per-level energy list | Energy Diagram level list (lets the learner derive spacing) | derivable from the spectrum |
-| Band count (eigenvalue clustering) | *Not used for a context response* (would name the G8 concept). Reserve for an opt-in deeper detail only. | §7.5 clustering |
-| Is-playing / elapsed time | Time status paragraph | exists |
+| Eigenvalue array `boundStateResultProperty.value.energies` (`QBSModel.ts:75`) | total count, lowest/highest energy, per-level list — all derivable | **Exists** — derive a small read-only Property |
+| Selected energy index `selectedEnergyLevelProperty` (`QBSModel.ts:85`) | Energy Diagram paragraph; energy-level response | **Exists** |
+| Reference-line position + value-at-line (`referenceLine.xProperty`, `getPotentialEnergyAt/getProbabilityDensityAt/getRealPartAt/…`) | Reference Line object response | **Done** — used by `ReferenceLineDescriber` |
+| **Number of nodes of selected eigenstate** | Wave Function & Probability Density paragraphs; energy-level response | **Computation exists** (`countNodes()`, `QBSSolverTestUtils.ts:20-71`), not yet exposed — **wrap as a DerivedProperty; prioritize** |
+| Is-playing / elapsed time (`time.isPlayingProperty`, `currentTimeProperty`, `QBSTime.ts`) | Time status paragraph | **Exists** |
+| Lowest / highest potential energy (eV) | Energy Diagram paragraph | derivable (`Math.min/max` on `boundStateResultProperty.value.potentials`) |
+| Band count (eigenvalue clustering) | Many Wells; not a context response (would name the G8 concept) | **Absent** — needs new model work |
+| Off-screen-states indicator (states above the display cap) | §8.1 status message | **Absent** — derive by comparing max eigenvalue to `energyDiagram.yRange` |
+| Invalid-superposition flag; superposition coefficients + phase | §8.1 warning; §8.2 superposition responses | **Absent / incomplete** — coefficients live in `SuperpositionCoefficients` (methods, not Properties); phase is a TODO; the Customize dialog is Under Construction |
 
-**Node count** is the single most valuable addition: it is a discrete observation a sighted learner reads at a
-glance, it is poorly served by sonification (shape) or the Reference Line (one point at a time), and providing
-it *enables* the wave-function inquiry (G2/G7) without revealing the relationship. A **qualitative spacing /
-splitting descriptor is intentionally not recommended** as a default description — it would state the very
-trend (G3/G7/G8) the learner should discover; the per-level energy list is preferred instead.
+**Node count** is the single most valuable addition — and the computation already exists, so it only needs
+exposing. It is a discrete observation a sighted learner reads at a glance, poorly served by sonification
+(shape) or the Reference Line (one point at a time), and providing it *enables* the wave-function inquiry
+(G2/G7) without revealing the relationship. A **qualitative spacing / splitting descriptor is intentionally not
+recommended** as a default — it would state the very trend (G3/G7/G8) the learner should discover; the
+per-level energy list is preferred. The **band count, off-screen indicator, invalid-superposition flag, and
+superposition phase/coefficients are the only genuinely missing model state** behind the §8 recommendations.
 
 ---
 
-*Maintainer notes:*
+**Maintainer notes** — items 1–8 are code-review findings cross-checked against the implementation; 9–11 are
+editing history / production.
 
-1. **Discovery-philosophy pass — applied file-wide (§8.0).** Screen summaries and hints, the mass/number-of-
-   wells/electric-field help texts, every potential drag-handle help text, the two graph leading paragraphs,
+1. **QBS a11y is largely production-wired** — unlike a pure preview, the screen summaries (four
+   `ScreenSummaryContent` classes), `pdomOrder`, all control names/help, control-panel headings, the **potential
+   drag handles** (dynamic, keyboard, sound), the **Reference Line** (dynamic via `ReferenceLineDescriber`,
+   Alt+R, sound), the **magnifier** (keyboard + sound), and the time controls are all implemented. The main open
+   *description* work is the three stubbed graph describers and the node count.
+2. **Graph describers are stubs.** `EnergyDiagramDescriber` / `ProbabilityDensityGraphDescriber` /
+   `WaveFunctionGraphDescriber` render the leading paragraph but contain placeholder `TODO list item`s — §8.1 is
+   what fills them.
+3. **Colors resolved (supersedes the old "still open" note).** `QBSColors.ts`: Potential Energy = blue
+   `rgb(85,85,255)`, Total Energy = green, real part = magenta `rgb(166,12,137)`, imaginary = orange, magnitude
+   & probability density = black. There is **no purple/purple clash**; the §7.1 strings were corrected to
+   blue / magenta. Still don't rely on color alone (WCAG 1.4.1) — the part *names* carry the identification.
+4. **Details buttons/dialogs are active on Superposition, not retired** (§6.3): inline `EquationTermNode` on One
+   Well / Two Wells; `ProbabilityDensityDetailsButton` + `WaveFunctionDetailsButton` → equation dialogs on
+   Superposition (`SuperpositionScreenView.ts:32-33`). `SuperpositionDetailsDialog` /
+   `SuperpositionCustomizationDialog` are "Under Construction."
+5. **Graph sonification is not implemented** (only control-feedback sounds — drag / keyboard / Home-End). The
+   "listen to the shape" pointers are design-ahead, matching the philosophy section's "(planned)."
+6. **Magnifier object response is static-preview** (`POSITION` token); wire `Magnifier.probePositionProperty` /
+   `bodyPositionProperty` to make it live.
+7. **Dangling / stubbed strings:** `a11y.adjustEnergyOffsetCheckbox.*` is unused (energy offset is the
+   `EnergyOffsetControl` spinner, not a checkbox); the `yAxisZoomButtonGroup` zoom context responses use TODO
+   placeholder `{min}/{max}` values.
+8. **Verify with the team:** `ReferenceLineNode.ts:70` sources `accessibleHeading` from the
+   `referenceLine.accessibleName` string (likely should be `accessibleName`); the read-values hotkey is **Alt+R**
+   in code vs. **Option/Shift+C** in design doc §3.11; and `EquationTermNode.waveFunctionTerm()` has a
+   double-nested `<sub><sub>`.
+9. **Discovery-philosophy pass — applied file-wide (§8.0).** Screen summaries and hints, the mass / number-of-
+   wells / electric-field help texts, every potential drag-handle help text, the two graph leading paragraphs,
    the equation-dialog glosses, the time-button-group and play/pause help texts, and the magnifier mentions were
-   all revised to invite observation instead of stating the outcome. The YAML was re-generated (`modulify`) and
-   type-checks.
-2. **Typos fixed:** Two Wells controlArea "inspectiing" → "for inspecting"; One Well controlArea "closely
-   space" → "closely spaced"; `timeSpeedSlider` trailing "Slow" removed.
-3. **Color naming — still open:** the Energy Diagram paragraph calls the Potential Energy curve "purple" and the
-   Wave Function paragraph calls the real part "purple" as well; the design doc's color tokens / color-editor
-   overrides do not clearly agree. Reconcile color names against `QBSColors`, and do not rely on color alone to
-   distinguish curves (WCAG 1.4.1).
-4. When moving from static preview to production, replace each ALL-CAPS token with a Fluent `{ $variable }` and
-   wire the corresponding Property from §9, then run
-   `npm run grunt -- modulify --targets=strings --repo=quantum-bound-states` and type-check.
+   revised to invite observation instead of stating the outcome. YAML re-generated (`modulify`) and type-checks.
+10. **Typos fixed:** Two Wells controlArea "inspectiing" → "for inspecting"; One Well controlArea "closely
+    space" → "closely spaced"; `timeSpeedSlider` trailing "Slow" removed.
+11. **To production:** replace each *remaining* ALL-CAPS token (screen summaries, graph paragraphs, magnifier)
+    with a Fluent `{ $variable }` wired to the §9 property, then run
+    `npm run grunt -- modulify --targets=strings --repo=quantum-bound-states` and type-check.
