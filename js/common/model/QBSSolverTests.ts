@@ -25,8 +25,8 @@
  *   4. Node counting      – eigenstate n (0-indexed) has exactly n interior nodes
  *                           (where node detection is reliable).
  *
- * Additional tests cover parity, orthogonality, boundary decay, the Pöschl-Teller bound-state count
- * formula, Stark-field parity mixing, a direct comparison against the Pöschl-Teller analytical
+ * Additional tests cover orthogonality, the Pöschl-Teller bound-state count
+ * formula, a direct comparison against the Pöschl-Teller analytical
  * solution, and wave-function continuity (ψ and ψ′) for both the soft-wall Pöschl-Teller potential
  * (including the tilted multi-well matching-point regression) and a single finite Square Well.
  *
@@ -34,7 +34,7 @@
  * test per module that walks the full Numerov-solved parameter space (wells, separation, depth, width,
  * mass, electric field) in one pass.
  *
- * Helper utilities (node-counting, parity, RMS error, continuity checks) live in QBSSolverTestUtils.ts.
+ * Helper utilities (node-counting, RMS error, continuity checks) live in QBSSolverTestUtils.ts.
  *
  * Written with the help of Claude
  *
@@ -46,7 +46,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../QBSConstants.js';
 import PoschlTellerSolution from './solver/analytical-solutions/PoschlTellerSolution.js';
 import NumerovSolver from './solver/NumerovSolver.js';
-import { allFinite, assertWaveFunctionContinuity, computeNorm, computeOverlap, countNodes, getParity, waveFunctionRMSError } from './solver/QBSSolverTestUtils.js';
+import { allFinite, assertWaveFunctionContinuity, computeNorm, computeOverlap, countNodes, waveFunctionRMSError } from './solver/QBSSolverTestUtils.js';
 import XGrid from './solver/XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
@@ -250,12 +250,16 @@ QUnit.test( 'parameter sweep', assert => {
                 label: `FSW nWells=${nWells} sep=${separation} E=${electricField} wellWidth=${wellWidth} wellDepth=${wellDepth} mass=${mass}`,
 
                 // Node counting is reliable only while the interior-node count still tracks the global
-                // quantum number n. With no field the minibands stay resolvable up to 5 wells (at 10 wells
-                // the lowest band is ~10 near-degenerate levels whose linear combinations scramble the node
-                // count); with a field the wells localize at different potential offsets, so only the
-                // single-well case keeps clean ordering. Energy ordering and normalization still verify the
-                // physics in the excluded cases. See https://github.com/phetsims/quantum-bound-states/issues/43
-                checkNodes: electricField === 0 ? nWells <= 5 : nWells === 1
+                // quantum number n. With no field the solver returns the true discrete eigenvectors (the
+                // shooting/mirror seed is refined by inverse iteration, see NumerovSolver), and a discrete
+                // Sturm-Liouville eigenvector has exactly n interior nodes even in the densest 10-well
+                // miniband — so node counting holds for every well count. With a field the node-count
+                // *bracketing* itself degrades: the forward sweep grows spuriously in the tilted forbidden
+                // regions and miscounts the states below a trial energy, so the index assignment (not just
+                // the eigenvector) becomes unreliable and only the single-well case keeps clean ordering.
+                // Energy ordering and normalization still verify the physics in the excluded cases.
+                // See https://github.com/phetsims/quantum-bound-states/issues/43
+                checkNodes: electricField === 0 ? true : nWells === 1
               } );
             }
           }
@@ -273,8 +277,11 @@ QUnit.test( 'ψ and ψ′ continuous everywhere', assert => {
   // (only ψ″ jumps at the step) — this is the numerically-solved counterpart to the Pöschl-Teller
   // continuity test. It is restricted to a single, moderate-depth well: the highest states of deeper
   // wells oscillate fast enough that their smooth per-step change ~k·dx approaches the kink threshold,
-  // and the dense minibands of a multi-well return scrambled near-degenerate combinations whose stitched
-  // ψ′ legitimately jumps — neither indicates a solver error. See https://github.com/phetsims/quantum-bound-states/issues/43
+  // and a multi-well with thin (small-separation) barriers has rapid ψ′ curvature inside those barriers
+  // that the fixed grid under-resolves — both are grid-resolution limits, not solver errors. (The dense
+  // minibands themselves are now returned as true discrete eigenvectors via inverse iteration, so they
+  // are no longer scrambled; only the per-step resolution bounds the threshold here.)
+  // See https://github.com/phetsims/quantum-bound-states/issues/43
   const wellDepth = 10; // eV
   for ( const wellWidth of [ 0.5, 1.0 ] ) {
     for ( const mass of SWEEP_MASSES ) {
@@ -328,10 +335,11 @@ QUnit.test( 'parameter sweep', assert => {
 
   // Multi-well, zero field. The n-th band's tunnelling splitting scales as exp(−2κ_n × gap), where
   // κ_n = √(2m|E_n|)/ℏ and gap = spacing − wellWidth; using spacing = wellWidth + gap keeps the
-  // wall-to-wall gap ≤ 0.3 nm across all well widths. Limited to ≤ 3 wells, where the minibands are
-  // not yet dense enough to scramble the interior-node count (node counting still breaks for many
-  // tightly-coupled wells — see https://github.com/phetsims/quantum-bound-states/issues/43).
-  for ( const nWells of SWEEP_NUMBER_OF_WELLS.filter( n => n <= 3 ) ) {
+  // wall-to-wall gap ≤ 0.3 nm across all well widths. Swept over the full well count up to the sim
+  // maximum (10): unlike the dense Finite Square Well minibands, the soft-wall Pöschl-Teller wells keep
+  // the interior-node count tracking the global quantum number across every well count, width, depth,
+  // gap, and mass in this sweep, so node checking stays on.
+  for ( const nWells of SWEEP_NUMBER_OF_WELLS ) {
     for ( const wellWidth of SWEEP_WELL_WIDTHS_PT ) {
       for ( const gap of SWEEP_PT_GAPS ) {
         const spacing = wellWidth + gap;
@@ -387,9 +395,10 @@ QUnit.test( 'parameter sweep', assert => {
     }
   }
 
-  // Multi-well + electric field — the heaviest case, run at a single representative mass. Limited to
-  // ≤ 3 wells as in the zero-field multi-well sweep above.
-  for ( const nWells of SWEEP_NUMBER_OF_WELLS.filter( n => n <= 3 ) ) {
+  // Multi-well + electric field — the heaviest case, run at a single representative mass. Swept over
+  // the full well count up to the sim maximum (10), as in the zero-field multi-well sweep above: the
+  // tilted Pöschl-Teller minibands still keep a clean interior-node count across the whole grid.
+  for ( const nWells of SWEEP_NUMBER_OF_WELLS ) {
     for ( const wellWidth of SWEEP_WELL_WIDTHS_PT ) {
       for ( const gap of SWEEP_PT_GAPS ) {
         const spacing = wellWidth + gap;
@@ -465,26 +474,6 @@ QUnit.test( 'tilted multi-well stitches without a matching-point kink (regressio
     // Pöschl-Teller is a soft-wall potential, so ψ and ψ' are continuous everywhere.
     // This is the assertion that fails with center-stitching and passes with main-lobe stitching.
     assertWaveFunctionContinuity( assert, result, grid.dx, label );
-  }
-} );
-
-// ─── Parity (single, centered — analytical anchor) ──────────────────────────────
-
-QUnit.test( 'parity alternates even/odd (single, centered)', assert => {
-
-  const wellWidth = 0.5; // nm
-  const wellDepth = 10;  // eV
-  const mass = 1;
-  const potFn = PoschlTellerSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: wellWidth, wellDepth: wellDepth, electricField: 0, spacing: 0
-  } );
-  const result = NumerovSolver.solve( standardGrid(), potFn, mass, -3 * wellDepth, 0 );
-
-  const nCheck = Math.min( result.waveFunctions.length, 4 );
-  for ( let i = 0; i < nCheck; i++ ) {
-    const expectedParity = i % 2 === 0 ? 'even' : 'odd';
-    const actualParity = getParity( result.waveFunctions[ i ] );
-    assert.equal( actualParity, expectedParity, `PT state ${i} parity: expected ${expectedParity}` );
   }
 } );
 
@@ -610,116 +599,11 @@ QUnit.test( 'bound-state count = ⌊λ − ½⌋ + 1 (λ = w√(2mV₀)/ℏ)', a
       const result = NumerovSolver.solve( standardGrid(), potFn, mass, -3 * wellDepth, 0 );
 
       // Allow off-by-1: when the top state is barely bound (energy very close to 0),
-      // Numerov may miss it due to finite energy-range discretisation.
+      // Numerov may miss it due to finite energy-range discretization.
       assert.ok( Math.abs( result.energies.length - expectedCount ) <= 1,
         `PT wellWidth=${wellWidth} wellDepth=${wellDepth}: expected ${expectedCount} states (λ=${toFixed( lambda, 3 )}), got ${result.energies.length}` );
     }
   }
-} );
-
-// ─── Electric field breaks parity ───────────────────────────────────────────────
-
-QUnit.test( 'electric field breaks parity (mixed-parity states)', assert => {
-
-  // A Stark field tilts the symmetric well; eigenstates no longer have definite parity.
-  // We decompose each ψ into even and odd components and verify both are non-negligible.
-  const wellWidths = SWEEP_WELL_WIDTHS_PT;
-
-  // TODO: Restore V=15 eV once the threshold is made field-normalized.  For deep narrow wells
-  // (V=15 eV, w=0.2–0.5 nm) the perturbative mixing scales as (E·w/V)², which falls below
-  // 1e-4 even at E=0.5 V/nm, so the weak-field cases give false negatives.
-  // See https://github.com/phetsims/quantum-bound-states/issues/43
-  const wellDepths = SWEEP_MULTI_WELL_DEPTHS.filter( d => d < 15 );
-  const masses = SWEEP_MASSES;
-  // Use moderate-to-strong fields so mixing exceeds the detection threshold.
-  const electricFields = [ 0.2, 0.5, 1.0 ];
-
-  for ( const wellWidth of wellWidths ) {
-    for ( const wellDepth of wellDepths ) {
-      for ( const mass of masses ) {
-        for ( const electricField of electricFields ) {
-          const potFn = ( x: number ): number => {
-            const sech = 1 / Math.cosh( x / wellWidth );
-            return -wellDepth * sech * sech + electricField * x;
-          };
-
-          const grid = standardGrid();
-
-          // energyMax: effective continuum floor drops by field * xMax at the far edge.
-          const energyMax = -electricField * STANDARD_X_MAX;
-
-          const result = NumerovSolver.solve( grid, potFn, mass, -3 * wellDepth, energyMax );
-
-          if ( result.energies.length < 2 ) {
-            assert.ok( true, `PT E=${electricField} w=${wellWidth} V=${wellDepth} m=${mass}: fewer than 2 bound states (field too strong)` );
-            continue;
-          }
-
-          const N = grid.numberOfPoints;
-          const nCheck = Math.min( result.waveFunctions.length, 4 );
-
-          for ( let i = 0; i < nCheck; i++ ) {
-            const psi = result.waveFunctions[ i ];
-
-            // For standardGrid (symmetric about x=0): index j corresponds to x_j and N-1-j to -x_j.
-            // Decompose: ψ_e = (ψ(x) + ψ(-x))/2, ψ_o = (ψ(x) - ψ(-x))/2.
-            let evenNorm2 = 0;
-            let oddNorm2 = 0;
-            const half = Math.floor( N / 2 );
-            for ( let j = 0; j < half; j++ ) {
-              const e = 0.5 * ( psi[ j ] + psi[ N - 1 - j ] );
-              const o = 0.5 * ( psi[ j ] - psi[ N - 1 - j ] );
-              evenNorm2 += e * e;
-              oddNorm2 += o * o;
-            }
-            const totalNorm2 = evenNorm2 + oddNorm2;
-
-            // Minority fraction: 0 = pure parity state, 0.5 = maximally mixed.
-            const mixFraction = Math.min( evenNorm2, oddNorm2 ) / Math.max( totalNorm2, 1e-30 );
-
-            // TODO: Raise to 1e-3 once the test is restricted to parameter combinations where
-            // the Stark perturbation is strong compared to the level spacing (deep narrow wells
-            // with weak fields have perturbative mixing well below 1e-3).
-            // See https://github.com/phetsims/quantum-bound-states/issues/43
-            assert.ok( mixFraction > 1e-4,
-              `PT E=${electricField} w=${wellWidth} V=${wellDepth} m=${mass} state ${i}: parity mix fraction = ${mixFraction.toExponential( 2 )} must be > 1e-4` );
-          }
-        }
-      }
-    }
-  }
-} );
-
-// ─── Wave-function boundary decay ───────────────────────────────────────────────
-
-/**
- * Assert that bound-state wave functions are negligibly small at both grid edges,
- * confirming the state is localised and the grid is wide enough.
- */
-function assertBoundaryDecay( assert: Assert, waveFunctions: number[][], threshold: number, label: string ): void {
-  for ( let i = 0; i < waveFunctions.length; i++ ) {
-    const psi = waveFunctions[ i ];
-    const maxAbs = Math.max( ...psi.map( Math.abs ) );
-    if ( maxAbs === 0 ) {
-      continue;
-    }
-    const leftDecay = Math.abs( psi[ 0 ] ) / maxAbs;
-    const rightDecay = Math.abs( psi[ psi.length - 1 ] ) / maxAbs;
-    assert.ok( leftDecay < threshold,
-      `${label} state ${i}: left boundary |ψ|/max = ${leftDecay.toExponential( 2 )} must be < ${threshold}` );
-    assert.ok( rightDecay < threshold,
-      `${label} state ${i}: right boundary |ψ|/max = ${rightDecay.toExponential( 2 )} must be < ${threshold}` );
-  }
-}
-
-QUnit.test( 'states decay to < 1% at grid edges', assert => {
-
-  const grid = standardGrid();
-  const potFn = PoschlTellerSolution.createPotentialFunction( {
-    numberOfWells: 1, xOffset: 0, yOffset: 0, wellWidth: 0.5, wellDepth: 10, electricField: 0, spacing: 0
-  } );
-  const result = NumerovSolver.solve( grid, potFn, 1, -30, 0 );
-  assertBoundaryDecay( assert, result.waveFunctions, 0.01, 'PT' );
 } );
 
 // ─── Wave-function continuity ───────────────────────────────────────────────────

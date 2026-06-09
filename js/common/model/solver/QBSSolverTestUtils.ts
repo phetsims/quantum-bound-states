@@ -233,9 +233,9 @@ export function assertWaveFunctionContinuity(
   // the soft-wall Pöschl-Teller well, and the finite (hard-step) Square Well — a finite step leaves ψ and
   // ψ' continuous and only jumps ψ''. It is NOT asserted for *infinite*-wall potentials (Infinite Square
   // Well, Infinite Step), which have a true ψ' discontinuity at the Dirichlet boundary, for cusped
-  // potentials (Coulomb), which have large but physical jumps at the origin, or for dense multi-wells,
-  // whose near-degenerate minibands return scrambled linear combinations — all would fail a tight
-  // continuity threshold without indicating a solver error.
+  // potentials (Coulomb), which have large but physical jumps at the origin, or for multi-wells with thin
+  // barriers, whose rapid inter-barrier ψ' curvature is under-resolved on the fixed grid — all would fail
+  // a tight continuity threshold without indicating a solver error.
 
   // Threshold for ψ: max change per grid step, normalised by max|ψ|.  For a smooth wave function the
   // change per step is ~kwave·dx, largest for the highest bound state — so the binding case is the
