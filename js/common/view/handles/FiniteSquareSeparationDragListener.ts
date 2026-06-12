@@ -38,10 +38,10 @@ export default class FiniteSquareSeparationDragListener extends PotentialDragLis
         ( xOffset, numberOfWells, wellWidth ) => {
           const minX = ( numberOfWells % 2 === 0 ) ?
                        xOffset + separationProperty.range.min / 2 :
-                       xOffset + ( wellWidth / 2 + separationProperty.range.min );
+                       xOffset + wellWidth / 2 + separationProperty.range.min;
           const maxX = ( numberOfWells % 2 === 0 ) ?
                        xOffset + separationProperty.range.max / 2 :
-                       xOffset + ( wellWidth / 2 + separationProperty.range.max );
+                       xOffset + wellWidth / 2 + separationProperty.range.max;
           return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
         } ),
 
@@ -53,10 +53,11 @@ export default class FiniteSquareSeparationDragListener extends PotentialDragLis
         // Remember the Property's previous value for sound feedback.
         const previousSeparation = separationProperty.value;
 
-        // Compute new value, taking into account the number of wells.
-        const deltaSeparation = 2 * chartTransform.viewToModelDeltaX( viewDeltaX );
-        separationProperty.value = separationProperty.range.constrainValue(
-          previousSeparation + deltaSeparation / ( potential.numberOfWellsProperty.value - 1 ) );
+        // Compute new value.
+        const deltaSeparation = ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
+                                2 * chartTransform.viewToModelDeltaX( viewDeltaX ) :
+                                chartTransform.viewToModelDeltaX( viewDeltaX );
+        separationProperty.value = separationProperty.range.constrainValue( previousSeparation + deltaSeparation );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( separationProperty.value, previousSeparation );
