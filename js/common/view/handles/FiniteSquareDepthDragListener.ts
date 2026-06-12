@@ -12,6 +12,7 @@ import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
+import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareDepthHandleNode from './FiniteSquareDepthHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
@@ -42,8 +43,8 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
     super( handleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'vertical',
-      keyboardDragDelta: 0.5, // eV
-      keyboardShiftDragDelta: 0.1, // eV
+      keyboardDragDelta: QBSConstants.DEPTH_KEYBOARD_DRAG_DELTA, // eV
+      keyboardShiftDragDelta: QBSConstants.DEPTH_KEYBOARD_SHIFT_DRAG_DELTA, // eV
       dragBoundsProperty: dragBoundsProperty,
 
       // Update the Property while dragging.

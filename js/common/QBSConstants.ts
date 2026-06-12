@@ -99,6 +99,18 @@ export default class QBSConstants {
   // Intervals
   public static readonly Y_OFFSET_INTERVAL = Math.pow( 10, -QBSConstants.Y_OFFSET_DECIMAL_PLACES ); // eV
 
+  // Keyboard steps. NOTE: If you change decimal places, you should change these!
+  public static readonly WIDTH_KEYBOARD_DRAG_DELTA = 0.5; // nm
+  public static readonly WIDTH_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // nm
+  public static readonly DEPTH_KEYBOARD_DRAG_DELTA = 0.5; // eV
+  public static readonly DEPTH_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // eV
+  public static readonly SEPARATION_KEYBOARD_DRAG_DELTA = 0.5; // nm
+  public static readonly SEPARATION_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // nm
+  public static readonly SPACING_KEYBOARD_DRAG_DELTA = 0.5; // nm
+  public static readonly SPACING_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // nm
+  public static readonly STEP_HEIGHT_KEYBOARD_DRAG_DELTA = 0.5; // eV
+  public static readonly STEP_HEIGHT_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // eV
+
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_POTENTIAL_ENERGY = 1000; // eV
 

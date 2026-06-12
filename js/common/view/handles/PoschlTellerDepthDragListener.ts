@@ -13,6 +13,7 @@ import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
+import QBSConstants from '../../QBSConstants.js';
 import PoschlTellerDepthHandleNode from './PoschlTellerDepthHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
@@ -45,8 +46,8 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
     super( handleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'vertical',
-      keyboardDragDelta: 0.5, // eV
-      keyboardShiftDragDelta: 0.1, // eV
+      keyboardDragDelta: QBSConstants.DEPTH_KEYBOARD_DRAG_DELTA, // eV
+      keyboardShiftDragDelta: QBSConstants.DEPTH_KEYBOARD_SHIFT_DRAG_DELTA, // eV
       dragBoundsProperty: dragBoundsProperty,
 
       // Update the Property while dragging.
