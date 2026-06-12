@@ -25,40 +25,28 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
 
     const wellWidthProperty = potential.wellWidthProperty;
 
+    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+    const dragBoundsProperty = new DerivedProperty( [ potential.xOffsetProperty ],
+      xOffset => {
+        // The handle is to the left of the potential's center, so subtract from xOffset.
+        const maxX = xOffset - wellWidthProperty.range.min / 2;
+        const minX = xOffset - wellWidthProperty.range.max / 2;
+        return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
+      } );
+
     super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
-
       orientation: 'horizontal',
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
+      dragBoundsProperty: dragBoundsProperty,
 
-      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
-        xOffset => {
-          // The handle is to the left of the potential's center, so subtract well width.
-          const maxX = xOffset - wellWidthProperty.range.min / 2;
-          const minX = xOffset - wellWidthProperty.range.max / 2;
-          return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
-        } ),
+      // Update the Property while dragging.
+      updateProperty: viewDelta => {
 
-      drag: ( event, listener ) => {
-
-        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
-        const viewDeltaX = listener.modelDelta.x;
-
-        // Remember the Property's previous value for sound feedback.
-        const previousWellWidth = wellWidthProperty.value;
-
-        // Update the Property. The handle is on the left wall (xOffset - wellWidth/2), so invert the sign used
-        // by right-wall width handles (xOffset + wellWidth/2).
-        const deltaWidth = -2 * chartTransform.viewToModelDeltaX( viewDeltaX );
-        wellWidthProperty.value = wellWidthProperty.range.constrainValue( previousWellWidth + deltaWidth );
-
-        // Play sound to communicate how the Property changed.
-        this.playSoundForValueChange( wellWidthProperty.value, previousWellWidth );
-
-        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
-        event.handle();
+        // The handle is on the left wall, so invert the sign of deltaWidth.
+        const deltaWidth = -2 * chartTransform.viewToModelDeltaX( viewDelta.x );
+        wellWidthProperty.value = wellWidthProperty.range.constrainValue( wellWidthProperty.value + deltaWidth );
       }
     } );
   }

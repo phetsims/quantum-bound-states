@@ -25,39 +25,26 @@ export default class MorseWidthDragListener extends PotentialDragListener<MorseP
 
     const wellWidthProperty = potential.wellWidthProperty;
 
+    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+    const dragBoundsProperty = new DerivedProperty( [ potential.xOffsetProperty ],
+      xOffset => {
+        const minX = xOffset + wellWidthProperty.range.min / 2;
+        const maxX = xOffset + wellWidthProperty.range.max / 2;
+        return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
+      } );
+
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
-
       orientation: 'horizontal',
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
+      dragBoundsProperty: dragBoundsProperty,
 
-      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty ],
-        xOffset => {
-          const minX = xOffset + wellWidthProperty.range.min / 2;
-          const maxX = xOffset + wellWidthProperty.range.max / 2;
-          return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
-        } ),
-
-      drag: ( event, listener ) => {
-
-        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
-        const viewDeltaX = listener.modelDelta.x;
-
-        // Remember the Property's previous value for sound feedback.
-        const previousWellWidth = wellWidthProperty.value;
-
-        // Update the Property.
-        const deltaWidth = 2 * chartTransform.viewToModelDeltaX( viewDeltaX );
-        wellWidthProperty.value = wellWidthProperty.range.constrainValue( previousWellWidth + deltaWidth );
-
-        // Play sound to communicate how the Property changed.
-        this.playSoundForValueChange( wellWidthProperty.value, previousWellWidth );
-
-        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
-        event.handle();
+      // Update the Property while dragging.
+      updateProperty: viewDelta => {
+        const deltaWidth = 2 * chartTransform.viewToModelDeltaX( viewDelta.x );
+        wellWidthProperty.value = wellWidthProperty.range.constrainValue( wellWidthProperty.value + deltaWidth );
       }
     } );
   }

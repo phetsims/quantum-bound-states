@@ -49,23 +49,12 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: 0.1, // eV
       dragBoundsProperty: dragBoundsProperty,
 
-      drag: ( event, listener ) => {
+      // Update the Property while dragging.
+      updateProperty: viewDelta => {
 
-        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
-        const viewDeltaY = listener.modelDelta.y;
-
-        // Remember the Property's previous value for sound feedback.
-        const previousWellDepth = wellDepthProperty.value;
-
-        // Update the Property.
-        const deltaDepth = chartTransform.viewToModelDeltaY( -viewDeltaY ); // Negative because depth is downward for Poschl-Teller.
-        wellDepthProperty.value = wellDepthProperty.range.constrainValue( previousWellDepth + deltaDepth );
-
-        // Play sound to communicate how the Property changed.
-        this.playSoundForValueChange( wellDepthProperty.value, previousWellDepth );
-
-        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
-        event.handle();
+        // Depth is downward for Poschl-Teller, so invert the sign of deltaDepth.
+        const deltaDepth = -chartTransform.viewToModelDeltaY( viewDelta.y );
+        wellDepthProperty.value = wellDepthProperty.range.constrainValue( wellDepthProperty.value + deltaDepth );
       }
     } );
   }

@@ -21,12 +21,17 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 
 type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
+
+  // Given the drag delta in view coordinates, update the Property value.
+  updateProperty: ( viewDelta: Vector2 ) => void;
+
+  // Keyboard options
   keyboardDragDelta: number; // in model units
   keyboardShiftDragDelta: number; // in model units
 };
 
 export type PotentialHandleDragListenerOptions = SelfOptions &
-  StrictOmit<RichDragListenerOptions, 'positionProperty' | 'transform' | 'keyboardDragListenerOptions' | 'start' | 'end'>;
+  StrictOmit<RichDragListenerOptions, 'positionProperty' | 'transform' | 'keyboardDragListenerOptions' | 'start' | 'drag' | 'end'>;
 
 export default class PotentialDragListener<T extends QuantumPotential> extends RichDragListener {
 
@@ -76,6 +81,21 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
         wasPlaying = time.isPlayingProperty.value;
         time.isPlayingProperty.value = false;
         time.restart();
+      },
+
+      drag: ( event, listener ) => {
+
+        // Remember the Property's previous value for sound feedback.
+        const previousValue = rangedProperty.value;
+
+        // Since we are not providing options.transform, listener.modelDelta is actually in view coordinates.
+        options.updateProperty( listener.modelDelta );
+
+        // Play sound to communicate how the Property changed.
+        this.playSoundForValueChange( rangedProperty.value, previousValue );
+
+        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
+        event.handle();
       },
 
       // When the drag ends, describe the new state of the sim and restart the sim.

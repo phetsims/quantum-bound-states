@@ -39,7 +39,6 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
     chartTransform.changedEmitter.addListener( () => updateDragBounds() );
     updateDragBounds();
 
-    // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellDepthProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'vertical',
@@ -47,23 +46,10 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: 0.1, // eV
       dragBoundsProperty: dragBoundsProperty,
 
-      drag: ( event, listener ) => {
-
-        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
-        const viewDeltaY = listener.modelDelta.y;
-
-        // Remember the Property's previous value for sound feedback.
-        const previousWellDepth = wellDepthProperty.value;
-
-        // Update the Property.
-        const deltaDepth = chartTransform.viewToModelDeltaY( viewDeltaY );
-        wellDepthProperty.value = wellDepthProperty.range.constrainValue( previousWellDepth + deltaDepth );
-
-        // Play sound to communicate how the Property changed.
-        this.playSoundForValueChange( wellDepthProperty.value, previousWellDepth );
-
-        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
-        event.handle();
+      // Update the Property while dragging.
+      updateProperty: viewDelta => {
+        const deltaDepth = chartTransform.viewToModelDeltaY( viewDelta.y );
+        wellDepthProperty.value = wellDepthProperty.range.constrainValue( wellDepthProperty.value + deltaDepth );
       }
     } );
   }

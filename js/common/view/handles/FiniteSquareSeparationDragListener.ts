@@ -25,45 +25,32 @@ export default class FiniteSquareSeparationDragListener extends PotentialDragLis
 
     const separationProperty = potential.separationProperty;
 
-    // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
+    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+    const dragBoundsProperty = new DerivedProperty(
+      [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
+      ( xOffset, numberOfWells, wellWidth ) => {
+        const minX = ( numberOfWells % 2 === 0 ) ?
+                     xOffset + separationProperty.range.min / 2 :
+                     xOffset + wellWidth / 2 + separationProperty.range.min;
+        const maxX = ( numberOfWells % 2 === 0 ) ?
+                     xOffset + separationProperty.range.max / 2 :
+                     xOffset + wellWidth / 2 + separationProperty.range.max;
+        return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
+      } );
+
     super( handleNode, separationProperty, chartTransform, time, {
       tandem: parentTandem,
-
       orientation: 'horizontal',
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
+      dragBoundsProperty: dragBoundsProperty,
 
-      // Adjust drag bounds. Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
-        ( xOffset, numberOfWells, wellWidth ) => {
-          const minX = ( numberOfWells % 2 === 0 ) ?
-                       xOffset + separationProperty.range.min / 2 :
-                       xOffset + wellWidth / 2 + separationProperty.range.min;
-          const maxX = ( numberOfWells % 2 === 0 ) ?
-                       xOffset + separationProperty.range.max / 2 :
-                       xOffset + wellWidth / 2 + separationProperty.range.max;
-          return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
-        } ),
-
-      drag: ( event, listener ) => {
-
-        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
-        const viewDeltaX = listener.modelDelta.x;
-
-        // Remember the Property's previous value for sound feedback.
-        const previousSeparation = separationProperty.value;
-
-        // Compute new value.
+      // Update the Property while dragging.
+      updateProperty: viewDelta => {
         const deltaSeparation = ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
-                                2 * chartTransform.viewToModelDeltaX( viewDeltaX ) :
-                                chartTransform.viewToModelDeltaX( viewDeltaX );
-        separationProperty.value = separationProperty.range.constrainValue( previousSeparation + deltaSeparation );
-
-        // Play sound to communicate how the Property changed.
-        this.playSoundForValueChange( separationProperty.value, previousSeparation );
-
-        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
-        event.handle();
+                                2 * chartTransform.viewToModelDeltaX( viewDelta.x ) :
+                                chartTransform.viewToModelDeltaX( viewDelta.x );
+        separationProperty.value = separationProperty.range.constrainValue( separationProperty.value + deltaSeparation );
       }
     } );
   }

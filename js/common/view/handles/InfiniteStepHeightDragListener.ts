@@ -44,23 +44,10 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
       keyboardShiftDragDelta: 0.1, // eV
       dragBoundsProperty: dragBoundsProperty,
 
-      drag: ( event, listener ) => {
-
-        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
-        const viewDeltaY = listener.modelDelta.y;
-
-        // Remember the Property's previous value for sound feedback.
-        const previousStepHeight = stepHeightProperty.value;
-
-        // Update the Property.
-        const deltaStepHeight = chartTransform.viewToModelDeltaY( viewDeltaY );
-        stepHeightProperty.value = stepHeightProperty.range.constrainValue( previousStepHeight + deltaStepHeight );
-
-        // Play sound to communicate how the Property changed.
-        this.playSoundForValueChange( stepHeightProperty.value, previousStepHeight );
-
-        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
-        event.handle();
+      // Update the Property while dragging.
+      updateProperty: viewDelta => {
+        const deltaStepHeight = chartTransform.viewToModelDeltaY( viewDelta.y );
+        stepHeightProperty.value = stepHeightProperty.range.constrainValue( stepHeightProperty.value + deltaStepHeight );
       }
     } );
   }

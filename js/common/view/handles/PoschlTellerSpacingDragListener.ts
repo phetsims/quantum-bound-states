@@ -25,47 +25,34 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
 
     const spacingProperty = potential.spacingProperty;
 
+    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
+    const dragBoundsProperty = new DerivedProperty(
+      [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
+      ( xOffset, numberOfWells, wellWidth ) => {
+        const minX = ( numberOfWells % 2 === 0 ) ?
+                     xOffset + spacingProperty.range.min / 2 :
+                     xOffset + wellWidth / 2 + spacingProperty.range.min;
+        const maxX = ( numberOfWells % 2 === 0 ) ?
+                     xOffset + spacingProperty.range.max / 2 :
+                     xOffset + wellWidth / 2 + spacingProperty.range.max;
+
+        return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
+      } );
+
     // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, spacingProperty, chartTransform, time, {
       tandem: parentTandem,
-
       orientation: 'horizontal',
       keyboardDragDelta: 0.5, // nm
       keyboardShiftDragDelta: 0.1, // nm
+      dragBoundsProperty: dragBoundsProperty,
 
-      // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty(
-        [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
-        ( xOffset, numberOfWells, wellWidth ) => {
-          const minX = ( numberOfWells % 2 === 0 ) ?
-                       xOffset + spacingProperty.range.min / 2 :
-                       xOffset + wellWidth / 2 + spacingProperty.range.min;
-          const maxX = ( numberOfWells % 2 === 0 ) ?
-                       xOffset + spacingProperty.range.max / 2 :
-                       xOffset + wellWidth / 2 + spacingProperty.range.max;
-
-          return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
-      } ),
-
-      drag: ( event, listener ) => {
-
-        // Since we are not providing options.transform, listener.modelDelta is in view coordinates.
-        const viewDeltaX = listener.modelDelta.x;
-
-        // Remember the Property's previous value for sound feedback.
-        const previousSpacing = spacingProperty.value;
-
-        // Compute new value.
+      // Update the Property while dragging.
+      updateProperty: viewDelta => {
         const deltaSpacing = ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
-                             2 * chartTransform.viewToModelDeltaX( viewDeltaX ) :
-                             chartTransform.viewToModelDeltaX( viewDeltaX );
-        spacingProperty.value = spacingProperty.range.constrainValue( previousSpacing + deltaSpacing );
-
-        // Play sound to communicate how the Property changed.
-        this.playSoundForValueChange( spacingProperty.value, previousSpacing );
-
-        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
-        event.handle();
+                             2 * chartTransform.viewToModelDeltaX( viewDelta.x ) :
+                             chartTransform.viewToModelDeltaX( viewDelta.x );
+        spacingProperty.value = spacingProperty.range.constrainValue( spacingProperty.value + deltaSpacing );
       }
     } );
   }
