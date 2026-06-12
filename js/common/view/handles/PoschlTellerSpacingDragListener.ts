@@ -34,17 +34,15 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
       keyboardShiftDragDelta: 0.1, // nm
 
       // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-      dragBoundsProperty: new DerivedProperty( [ potential.xOffsetProperty, potential.numberOfWellsProperty ],
-        ( xOffset, numberOfWells ) => {
-
-          // Handle is to the left of the potential's center. So subtract from offset and reverse the use of
-          // spacingProperty.range.min and spacingProperty.range.max.
+      dragBoundsProperty: new DerivedProperty(
+        [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
+        ( xOffset, numberOfWells, wellWidth ) => {
           const minX = ( numberOfWells % 2 === 0 ) ?
-                       xOffset - spacingProperty.range.max / 2 :
-                       xOffset - spacingProperty.range.max;
+                       xOffset + spacingProperty.range.min / 2 :
+                       xOffset + wellWidth / 2 + spacingProperty.range.min;
           const maxX = ( numberOfWells % 2 === 0 ) ?
-                       xOffset - spacingProperty.range.min / 2 :
-                       xOffset - spacingProperty.range.min;
+                       xOffset + spacingProperty.range.max / 2 :
+                       xOffset + wellWidth / 2 + spacingProperty.range.max;
 
           return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
       } ),
@@ -57,13 +55,11 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
         // Remember the Property's previous value for sound feedback.
         const previousSpacing = spacingProperty.value;
 
-        // Compute new value, taking into account the number of wells.
-        // deltaSpacing is subtracted because the handle is to the left of the potential's center, so that it does
-        // not conflict with the width handle, which is to the right of the potential's center.
+        // Compute new value.
         const deltaSpacing = ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
                              2 * chartTransform.viewToModelDeltaX( viewDeltaX ) :
                              chartTransform.viewToModelDeltaX( viewDeltaX );
-        spacingProperty.value = spacingProperty.range.constrainValue( previousSpacing - deltaSpacing );
+        spacingProperty.value = spacingProperty.range.constrainValue( previousSpacing + deltaSpacing );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( spacingProperty.value, previousSpacing );

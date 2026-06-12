@@ -31,14 +31,12 @@ export default class PoschlTellerSpacingMarkerNode extends PotentialMarkerNode<P
    */
   protected override update(): void {
 
-    // Spacing is subtracted because the handle is to the left of the potential's center, so that it does
-    // not conflict with the width handle, which is to the right of the potential's center.
     const xHandle = ( this.potential.numberOfWellsProperty.value % 2 === 0 ) ?
-              this.potential.xOffsetProperty.value - this.potential.spacingProperty.value / 2 :
-              this.potential.xOffsetProperty.value - this.potential.spacingProperty.value;
+              this.potential.xOffsetProperty.value + this.potential.spacingProperty.value / 2 :
+              this.potential.xOffsetProperty.value + this.potential.spacingProperty.value;
 
     const xMax = this.chartTransform.modelToViewX( xHandle );
-    const xMin = xMax + this.chartTransform.modelToViewDeltaX( this.potential.spacingProperty.value );
+    const xMin = xMax - this.chartTransform.modelToViewDeltaX( this.potential.spacingProperty.value );
     const yMin = 0;
     const yMax = this.chartTransform.viewHeight;
     const shape = new Shape()

@@ -54,15 +54,13 @@ export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<P
   }
 
   /**
-   * Position the handle above the potential, at the center of the well that is left of the potential's center.
+   * Position the handle above the potential. If the number of wells is even, the handle is placed on the spacing
+   * that is in the middle of the potential. Otherwise, it is placed on the spacing that is just right of center.
    */
   protected override updatePosition(): void {
-    const numberOfWells = this.potential.numberOfWellsProperty.value;
-    // Spacing is subtracted because the handle is to the left of the potential's center, so that it does
-    // not conflict with the width handle, which is to the right of the potential's center.
-    const x = ( numberOfWells % 2 === 0 ) ?
-              this.potential.xOffsetProperty.value - this.potential.spacingProperty.value / 2 :
-              this.potential.xOffsetProperty.value - this.potential.spacingProperty.value;
+    const x = ( this.potential.numberOfWellsProperty.value % 2 === 0 ) ?
+              this.potential.xOffsetProperty.value + this.potential.spacingProperty.value / 2 :
+              this.potential.xOffsetProperty.value + this.potential.spacingProperty.value;
     this.x = this.chartTransform.modelToViewX( x );
     this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + ENERGY_OFFSET +
                                                this.potential.getElectricFieldOffset( x ) );
