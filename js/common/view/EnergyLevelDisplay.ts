@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Change to EnergyLevelDisplay extends NumberDisplay
 /**
  * EnergyLevelDisplay displays an energy level identifier (E1, E2, etc.) and the corresponding energy value in eV.
  *
@@ -33,7 +32,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
 
   //TODO Reduce coupling to QBSModel
   public constructor( model: QBSModel,
-                      selectedEnergyLevelProperty: TReadOnlyProperty<number | null>,
+                      energyLevelProperty: TReadOnlyProperty<number | null>,
                       chartTransform: ChartTransform,
                       providedOptions: EnergyLevelDisplayOptions ) {
 
@@ -48,19 +47,19 @@ export default class EnergyLevelDisplay extends BackgroundNode {
         stroke: QBSColors.energyLevelDisplayBackgroundStrokeProperty,
         opacity: 1 // use alpha in fill
       },
-      visibleProperty: new DerivedProperty( [ model.energyDiagram.valuesVisibleProperty, selectedEnergyLevelProperty ],
-        ( valuesVisible, selectedEnergyLevel ) => valuesVisible && selectedEnergyLevel !== null )
+      visibleProperty: new DerivedProperty( [ model.energyDiagram.valuesVisibleProperty, energyLevelProperty ],
+        ( valuesVisible, energyLevel ) => valuesVisible && energyLevel !== null )
     }, providedOptions );
 
     const stringProperty = new DerivedStringProperty(
-      [ selectedEnergyLevelProperty, model.boundStateResultProperty ],
-      ( selectedEnergyLevel, boundStateResult ) => {
-        if ( selectedEnergyLevel === null ) {
+      [ energyLevelProperty, model.boundStateResultProperty ],
+      ( energyLevel, boundStateResult ) => {
+        if ( energyLevel === null ) {
           return '';
         }
         else {
-          const energy = toFixed( model.getEnergyAtEnergyLevel( selectedEnergyLevel ), QBSConstants.ENERGY_LEVEL_DECIMALS );
-          return `E<sub>${selectedEnergyLevel}</sub> = ${energy} eV`;
+          const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevel ), QBSConstants.ENERGY_LEVEL_DECIMALS );
+          return `E<sub>${energyLevel}</sub> = ${energy} eV`;
         }
       } );
 
@@ -71,14 +70,14 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     super( content, options );
 
     const updatePosition = () => {
-      if ( selectedEnergyLevelProperty.value !== null ) {
-        const energy = model.getEnergyAtEnergyLevel( selectedEnergyLevelProperty.value );
+      if ( energyLevelProperty.value !== null ) {
+        const energy = model.getEnergyAtEnergyLevel( energyLevelProperty.value );
         this.bottom = chartTransform.modelToViewY( energy ) - 3;
       }
     };
 
     Multilink.multilink(
-      [ selectedEnergyLevelProperty, model.boundStateResultProperty, model.energyDiagram.yRangeProperty ],
+      [ energyLevelProperty, model.boundStateResultProperty, model.energyDiagram.yRangeProperty ],
       () => {
         if ( !isSettingPhetioStateProperty.value ) {
           updatePosition();
