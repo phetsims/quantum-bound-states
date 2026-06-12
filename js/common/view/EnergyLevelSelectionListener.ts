@@ -34,9 +34,9 @@ export default class EnergyLevelSelectionListener extends PressListener {
 
     super( {
       tandem: tandem,
-      press: event => {
 
-        // Select the highlighted energy level.
+      // Press to select the highlighted energy level.
+      press: event => {
         if ( model.highlightedEnergyLevelProperty.value !== null ) {
           model.selectedEnergyLevelProperty.value = model.highlightedEnergyLevelProperty.value;
           soundPlayer.play();
