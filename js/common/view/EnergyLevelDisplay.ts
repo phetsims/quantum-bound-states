@@ -18,6 +18,9 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import BackgroundNode, { BackgroundNodeOptions } from '../../../../scenery-phet/js/BackgroundNode.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
@@ -30,7 +33,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
 
   //TODO Reduce coupling to QBSModel
   public constructor( model: QBSModel,
-                      energyLevelProperty: TReadOnlyProperty<number | null>,
+                      selectedEnergyLevelProperty: TReadOnlyProperty<number | null>,
                       chartTransform: ChartTransform,
                       providedOptions: EnergyLevelDisplayOptions ) {
 
@@ -45,19 +48,19 @@ export default class EnergyLevelDisplay extends BackgroundNode {
         stroke: QBSColors.energyLevelDisplayBackgroundStrokeProperty,
         opacity: 1 // use alpha in fill
       },
-      visibleProperty: new DerivedProperty( [ model.energyDiagram.valuesVisibleProperty, energyLevelProperty ],
-        ( valuesVisible, energyLevel ) => valuesVisible && energyLevel !== null )
+      visibleProperty: new DerivedProperty( [ model.energyDiagram.valuesVisibleProperty, selectedEnergyLevelProperty ],
+        ( valuesVisible, selectedEnergyLevel ) => valuesVisible && selectedEnergyLevel !== null )
     }, providedOptions );
 
     const stringProperty = new DerivedStringProperty(
-      [ energyLevelProperty, model.boundStateResultProperty ],
-      ( energyLevel, boundStateResult ) => {
-        if ( energyLevel === null ) {
+      [ selectedEnergyLevelProperty, model.boundStateResultProperty ],
+      ( selectedEnergyLevel, boundStateResult ) => {
+        if ( selectedEnergyLevel === null ) {
           return '';
         }
         else {
-          const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevel ), QBSConstants.ENERGY_LEVEL_DECIMALS );
-          return `E<sub>${energyLevel}</sub> = ${energy} eV`;
+          const energy = toFixed( model.getEnergyAtEnergyLevel( selectedEnergyLevel ), QBSConstants.ENERGY_LEVEL_DECIMALS );
+          return `E<sub>${selectedEnergyLevel}</sub> = ${energy} eV`;
         }
       } );
 
@@ -67,14 +70,24 @@ export default class EnergyLevelDisplay extends BackgroundNode {
 
     super( content, options );
 
+    const updatePosition = () => {
+      if ( selectedEnergyLevelProperty.value !== null ) {
+        const energy = model.getEnergyAtEnergyLevel( selectedEnergyLevelProperty.value );
+        this.bottom = chartTransform.modelToViewY( energy ) - 3;
+      }
+    };
+
     Multilink.multilink(
-      [ energyLevelProperty, model.boundStateResultProperty, model.energyDiagram.yRangeProperty ],
-      ( energyLevel, boundStateResult, yRange ) => {
-        //TODO https://github.com/phetsims/quantum-bound-states/issues/40 Temporary patch
-        if ( energyLevel !== null && model.selectedEnergyLevelProperty.range.min === model.potentialProperty.value.groundStateIndex ) {
-          const energy = model.getEnergyAtEnergyLevel( energyLevel );
-          this.bottom = chartTransform.modelToViewY( energy ) - 3;
+      [ selectedEnergyLevelProperty, model.boundStateResultProperty, model.energyDiagram.yRangeProperty ],
+      () => {
+        if ( !isSettingPhetioStateProperty.value ) {
+          updatePosition();
         }
       } );
+
+    // When PhET-iO state has been fully restored, position the display.
+    if ( Tandem.PHET_IO_ENABLED ) {
+      phetioStateSetEmitter.addListener( () => updatePosition() );
+    }
   }
 }
