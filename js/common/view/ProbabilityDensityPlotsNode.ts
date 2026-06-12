@@ -7,8 +7,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
 import ProbabilityDensityPlot from './ProbabilityDensityPlot.js';
 
@@ -26,9 +30,18 @@ export default class ProbabilityDensityPlotsNode extends ChartCanvasNode {
       this.update();
     };
 
-    // Update when the time-evolved state changes or the chartTransform changes.
-    probabilityDensityGraph.timeEvolvedSuperpositionProperty.lazyLink( () => updatePlots() );
     chartTransform.changedEmitter.addListener( () => updatePlots() );
-    probabilityDensityPlot.strokeProperty.lazyLink( () => this.update() );
+
+    Multilink.multilink( [ probabilityDensityGraph.timeEvolvedSuperpositionProperty, probabilityDensityPlot.strokeProperty ],
+      () => {
+        if ( !isSettingPhetioStateProperty.value ) {
+          updatePlots();
+        }
+      } );
+
+    // When PhET-iO state has been fully restored, update plots.
+    if ( Tandem.PHET_IO_ENABLED ) {
+      phetioStateSetEmitter.addListener( () => updatePlots() );
+    }
   }
 }

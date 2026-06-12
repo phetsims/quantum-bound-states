@@ -9,6 +9,10 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import QBSPreferences from '../model/QBSPreferences.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import ImaginaryPartPlot from './ImaginaryPartPlot.js';
 import MagnitudePlot from './MagnitudePlot.js';
@@ -39,15 +43,25 @@ export default class WaveFunctionPlotsNode extends ChartCanvasNode {
       this.update();
     };
 
-    // Update when the time-evolved state changes, the chartTransform changes, or the visibility of plots changes.
-    waveFunctionGraph.timeEvolvedSuperpositionProperty.lazyLink( () => updatePlots() );
     chartTransform.changedEmitter.addListener( () => updatePlots() );
+
     Multilink.multilinkAny( [
+      waveFunctionGraph.timeEvolvedSuperpositionProperty,
       waveFunctionGraph.realPartSelectedProperty,
       waveFunctionGraph.imaginaryPartSelectedProperty,
       waveFunctionGraph.magnitudeSelectedProperty,
       waveFunctionGraph.phaseSelectedProperty,
+      QBSPreferences.phaseCheckboxVisibleProperty,
       ...linePlots.map( plot => plot.strokeProperty )
-    ], () => updatePlots() );
+    ], () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        updatePlots();
+      }
+    } );
+
+    // When PhET-iO state has been fully restored, update plots.
+    if ( Tandem.PHET_IO_ENABLED ) {
+      phetioStateSetEmitter.addListener( () => updatePlots() );
+    }
   }
 }

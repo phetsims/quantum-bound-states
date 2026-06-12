@@ -9,6 +9,9 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
@@ -74,14 +77,23 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
       this.update();
     };
 
-    // Update when the model changes, stroke colors change, or chartTransform changes.
+    chartTransform.changedEmitter.addListener( () => updatePlots() );
+
     Multilink.multilinkAny( [
         model.boundStateResultProperty,
         model.selectedEnergyLevelProperty,
         model.highlightedEnergyLevelProperty,
         ...plots.map( plot => plot.strokeProperty )
       ],
-      () => updatePlots() );
-    chartTransform.changedEmitter.addListener( () => updatePlots() );
+      () => {
+        if ( !isSettingPhetioStateProperty.value ) {
+          updatePlots();
+        }
+      } );
+
+    // When PhET-iO state has been completely restored, update plots.
+    if ( Tandem.PHET_IO_ENABLED ) {
+      phetioStateSetEmitter.addListener( () => updatePlots() );
+    }
   }
 }
