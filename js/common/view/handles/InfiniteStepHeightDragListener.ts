@@ -58,6 +58,9 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( stepHeightProperty.value, previousStepHeight );
+
+        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
+        event.handle();
       }
     } );
   }

@@ -59,6 +59,9 @@ export default class AsymmetricTriangleDepthDragListener extends PotentialDragLi
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( wellDepthProperty.value, previousWellDepth );
+
+        // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
+        event.handle();
       }
     } );
   }
