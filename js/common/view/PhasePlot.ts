@@ -16,6 +16,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import CanvasPainter from '../../../../bamboo/js/CanvasPainter.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import QBSPreferences from '../model/QBSPreferences.js';
 import { TimeEvolvedSuperposition } from '../model/TimeEvolvedSuperposition.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
@@ -32,12 +33,15 @@ export default class PhasePlot extends CanvasPainter {
   public constructor( waveFunctionGraph: WaveFunctionGraph, chartTransform: ChartTransform ) {
 
     super( {
-      visible: waveFunctionGraph.magnitudeSelectedProperty.value && waveFunctionGraph.phaseSelectedProperty.value
+      visible: QBSPreferences.phaseCheckboxVisibleProperty.value &&
+               waveFunctionGraph.phaseSelectedProperty.value &&
+               waveFunctionGraph.magnitudeSelectedProperty.value
     } );
 
-    Multilink.multilink( [ waveFunctionGraph.magnitudeSelectedProperty, waveFunctionGraph.phaseSelectedProperty ],
-      ( magnitudeVisible, phaseVisible ) => {
-      this.visible = ( magnitudeVisible && phaseVisible );
+    Multilink.multilink(
+      [ QBSPreferences.phaseCheckboxVisibleProperty, waveFunctionGraph.phaseSelectedProperty, waveFunctionGraph.magnitudeSelectedProperty ],
+      ( phaseCheckboxVisible, phaseSelected, magnitudeSelected ) => {
+        this.visible = ( phaseCheckboxVisible && phaseSelected && magnitudeSelected );
       } );
 
     this.chartTransform = chartTransform;
