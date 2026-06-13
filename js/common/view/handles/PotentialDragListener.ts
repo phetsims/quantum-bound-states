@@ -75,10 +75,13 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
         moveOnHoldInterval: 20
       },
 
-      // When the drag starts, pause the sim.
       start: ( event, listener ) => {
         handleNode.isDraggingProperty.value = true;
+
+        // Move the handle to the front so that it renders on top of other handles.
         handleNode.moveToFront();
+
+        // Pause the sim and restart time.
         wasPlaying = time.isPlayingProperty.value;
         time.isPlayingProperty.value = false;
         time.restart();
@@ -101,10 +104,13 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
         event.handle();
       },
 
-      // When the drag ends, describe the new state of the sim and restart the sim.
       end: ( event, listener ) => {
         handleNode.isDraggingProperty.value = false;
+
+        // Describe the new state.
         handleNode.describeMoved();
+
+        // Resume playing if the sim was playing when the drag started.
         time.isPlayingProperty.value = wasPlaying;
       }
     }, providedOptions );
