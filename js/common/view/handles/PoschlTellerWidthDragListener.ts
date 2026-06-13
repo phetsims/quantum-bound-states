@@ -46,9 +46,13 @@ export default class PoschlTellerWidthDragListener extends PotentialDragListener
       dragBoundsProperty: dragBoundsProperty,
 
       // Transform from view to model coordinates while dragging.
-      viewToModelDelta: viewDelta => {
-        const deltaWidth = 2 * chartTransform.viewToModelDeltaX( viewDelta.x );
-        return wellWidthProperty.value + deltaWidth;
+      viewToModelDelta: ( viewDelta, isFromPDOM ) => {
+        if ( isFromPDOM ) {
+          return chartTransform.viewToModelDeltaX( viewDelta.x );
+        }
+        else {
+          return 2 * chartTransform.viewToModelDeltaX( viewDelta.x );
+        }
       }
     } );
   }

@@ -52,7 +52,7 @@ export default class PoschlTellerDepthDragListener extends PotentialDragListener
 
       // Transform from view to model coordinates while dragging.
       // Depth is downward for Poschl-Teller, so invert the sign of the delta.
-      viewToModelDelta: viewDelta => -chartTransform.viewToModelDeltaY( viewDelta.y )
+      viewToModelDelta: ( viewDelta, isFromPDOM ) => -chartTransform.viewToModelDeltaY( viewDelta.y )
     } );
   }
 }

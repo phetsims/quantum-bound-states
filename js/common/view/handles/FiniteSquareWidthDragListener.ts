@@ -45,9 +45,15 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
       dragBoundsProperty: dragBoundsProperty,
 
       // Transform from view to model coordinates while dragging.
-      //TODO Is this correct?
-      viewToModelDelta: viewDelta =>
-        2 * chartTransform.viewToModelDeltaX( viewDelta.x ) / potential.numberOfWellsProperty.value
+      viewToModelDelta: ( viewDelta, isFromPDOM ) => {
+        if ( isFromPDOM ) {
+          return chartTransform.viewToModelDeltaX( viewDelta.x );
+        }
+        else {
+          //TODO Is this correct?
+          return 2 * chartTransform.viewToModelDeltaX( viewDelta.x ) / potential.numberOfWellsProperty.value;
+        }
+        }
     } );
   }
 }

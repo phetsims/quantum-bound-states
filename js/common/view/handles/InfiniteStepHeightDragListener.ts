@@ -46,7 +46,7 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
       dragBoundsProperty: dragBoundsProperty,
 
       // Transform from view to model coordinates while dragging.
-      viewToModelDelta: viewDelta => chartTransform.viewToModelDeltaY( viewDelta.y )
+      viewToModelDelta: ( viewDelta, isFromPDOM ) => chartTransform.viewToModelDeltaY( viewDelta.y )
     } );
   }
 }

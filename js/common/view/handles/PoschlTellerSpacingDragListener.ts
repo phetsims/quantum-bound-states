@@ -49,8 +49,8 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
       dragBoundsProperty: dragBoundsProperty,
 
       // Transform from view to model coordinates while dragging.
-      viewToModelDelta: viewDelta => {
-        return ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
+      viewToModelDelta: ( viewDelta, isFromPDOM ) => {
+        return ( potential.numberOfWellsProperty.value % 2 === 0 && !isFromPDOM ) ?
                2 * chartTransform.viewToModelDeltaX( viewDelta.x ) :
                chartTransform.viewToModelDeltaX( viewDelta.x );
       }

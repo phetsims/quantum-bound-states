@@ -23,7 +23,7 @@ type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
 
   // Converts the drag delta from view coordinates to model coordinates.
-  viewToModelDelta: ( viewDelta: Vector2 ) => number;
+  viewToModelDelta: ( viewDelta: Vector2, isFromPDOM: boolean ) => number;
 
   // Keyboard options
   keyboardDragDelta: number; // in model units
@@ -90,7 +90,7 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
 
         // Based on the drag delta in view coordinates, compute the new value.
         // Since we are not providing options.transform, listener.modelDelta is actually in view coordinates.
-        const modelDelta = options.viewToModelDelta( listener.modelDelta );
+        const modelDelta = options.viewToModelDelta( listener.modelDelta, event.isFromPDOM() );
         rangedProperty.value = rangedProperty.range.constrainValue( rangedProperty.value + modelDelta );
 
         // Play sound to communicate how the Property changed.

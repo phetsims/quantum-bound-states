@@ -102,12 +102,12 @@ export default class QBSConstants {
   // Keyboard steps. NOTE: If you change decimal places, you should change these!
   public static readonly WIDTH_KEYBOARD_DRAG_DELTA = 0.5; // nm
   public static readonly WIDTH_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // nm
+  public static readonly SEPARATION_KEYBOARD_DRAG_DELTA = 0.05; // nm
+  public static readonly SEPARATION_KEYBOARD_SHIFT_DRAG_DELTA = 0.01; // nm
+  public static readonly SPACING_KEYBOARD_DRAG_DELTA = 0.05; // nm
+  public static readonly SPACING_KEYBOARD_SHIFT_DRAG_DELTA = 0.01; // nm
   public static readonly DEPTH_KEYBOARD_DRAG_DELTA = 0.5; // eV
   public static readonly DEPTH_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // eV
-  public static readonly SEPARATION_KEYBOARD_DRAG_DELTA = 0.5; // nm
-  public static readonly SEPARATION_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // nm
-  public static readonly SPACING_KEYBOARD_DRAG_DELTA = 0.5; // nm
-  public static readonly SPACING_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // nm
   public static readonly STEP_HEIGHT_KEYBOARD_DRAG_DELTA = 0.5; // eV
   public static readonly STEP_HEIGHT_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // eV
 

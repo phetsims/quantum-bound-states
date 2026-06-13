@@ -44,7 +44,14 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
 
       // Transform from view to model coordinates while dragging.
       // The handle is on the left wall, so invert the sign.
-      viewToModelDelta: viewDelta => -2 * chartTransform.viewToModelDeltaX( viewDelta.x )
+      viewToModelDelta: ( viewDelta, isFromPDOM ) => {
+        if ( isFromPDOM ) {
+          return -chartTransform.viewToModelDeltaX( viewDelta.x );
+        }
+        else {
+          return -2 * chartTransform.viewToModelDeltaX( viewDelta.x );
+        }
+      }
     } );
   }
 }
