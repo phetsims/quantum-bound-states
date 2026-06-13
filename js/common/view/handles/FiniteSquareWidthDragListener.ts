@@ -50,7 +50,6 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
           return chartTransform.viewToModelDeltaX( viewDelta.x );
         }
         else {
-          //TODO Is this correct?
           return 2 * chartTransform.viewToModelDeltaX( viewDelta.x ) / potential.numberOfWellsProperty.value;
         }
         }
