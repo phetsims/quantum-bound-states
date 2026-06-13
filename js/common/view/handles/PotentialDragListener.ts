@@ -93,12 +93,12 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
         const previousValue = rangedProperty.value;
 
         // Based on the drag delta in view coordinates, compute the new value.
-        // Since we are not providing options.transform, listener.modelDelta is actually in view coordinates.
+        // Since we are not providing options.transform, listener.modelDelta is (confusingly) in view coordinates.
         const modelDelta = options.viewToModelDelta( listener.modelDelta, event.isFromPDOM() );
         rangedProperty.value = rangedProperty.range.constrainValue( rangedProperty.value + modelDelta );
 
         // Play sound to communicate how the Property changed.
-        this.playSoundForValueChange( rangedProperty.value, previousValue );
+        this.valueChangeSoundPlayer.playSoundForValueChange( rangedProperty.value, previousValue );
 
         // Mark the event as handled so that it does not bubble up and cause highlighting of energy levels.
         event.handle();
@@ -120,12 +120,5 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
     this.valueChangeSoundPlayer = new ValueChangeSoundPlayer( rangedProperty.rangeProperty, {
       minimumInterMiddleSoundTime: 0.1 // seconds
     } );
-  }
-
-  /**
-   * Subclasses should call this method when they change the value of the associated Property.
-   */
-  protected playSoundForValueChange( newValue: number, oldValue: number ): void {
-    this.valueChangeSoundPlayer.playSoundForValueChange( newValue, oldValue );
   }
 }
