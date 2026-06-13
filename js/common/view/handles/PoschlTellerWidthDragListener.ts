@@ -51,7 +51,7 @@ export default class PoschlTellerWidthDragListener extends PotentialDragListener
           return chartTransform.viewToModelDeltaX( viewDelta.x );
         }
         else {
-          return 2 * chartTransform.viewToModelDeltaX( viewDelta.x );
+          return 2 * chartTransform.viewToModelDeltaX( viewDelta.x ) / potential.numberOfWellsProperty.value;
         }
       }
     } );
