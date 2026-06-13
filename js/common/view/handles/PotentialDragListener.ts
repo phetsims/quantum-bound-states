@@ -23,6 +23,7 @@ type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
 
   // Converts the drag delta from view coordinates to model coordinates.
+  // isFromPDOM is true if the drag event is from the keyboard.
   viewToModelDelta: ( viewDelta: Vector2, isFromPDOM: boolean ) => number;
 
   // Keyboard options
