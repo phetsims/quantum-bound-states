@@ -183,12 +183,12 @@ export default class QBSScreenView extends ScreenView {
     this.screenViewRootNode = new Node( {
       children: [
         legendPanel,
-        curvesVisibleToggleButton,
         energyDiagramControlPanel,
         quantumStateGraphControlPanel,
         energyDiagramNode,
         probabilityDensityGraphNode,
         waveFunctionGraphNode,
+        curvesVisibleToggleButton,
         toolsPanel,
         referenceLineWrapper,
         magnifierWrapper,
