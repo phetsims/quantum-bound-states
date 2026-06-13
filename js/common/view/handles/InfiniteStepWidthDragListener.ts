@@ -42,11 +42,8 @@ export default class InfiniteStepWidthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: QBSConstants.WIDTH_KEYBOARD_SHIFT_DRAG_DELTA, // nm
       dragBoundsProperty: dragBoundsProperty,
 
-      // Update the Property while dragging.
-      updateProperty: viewDelta => {
-        const deltaWidth = 2 * chartTransform.viewToModelDeltaX( viewDelta.x );
-        wellWidthProperty.value = wellWidthProperty.range.constrainValue( wellWidthProperty.value + deltaWidth );
-      }
+      // Transform from view to model coordinates while dragging.
+      viewToModelDelta: viewDelta => 2 * chartTransform.viewToModelDeltaX( viewDelta.x )
     } );
   }
 }

@@ -47,11 +47,8 @@ export default class FiniteSquareDepthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: QBSConstants.DEPTH_KEYBOARD_SHIFT_DRAG_DELTA, // eV
       dragBoundsProperty: dragBoundsProperty,
 
-      // Update the Property while dragging.
-      updateProperty: viewDelta => {
-        const deltaDepth = chartTransform.viewToModelDeltaY( viewDelta.y );
-        wellDepthProperty.value = wellDepthProperty.range.constrainValue( wellDepthProperty.value + deltaDepth );
-      }
+      // Transform from view to model coordinates while dragging.
+      viewToModelDelta: viewDelta => chartTransform.viewToModelDeltaY( viewDelta.y )
     } );
   }
 }

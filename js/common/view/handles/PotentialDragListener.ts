@@ -22,8 +22,8 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
 
-  // Given the drag delta in view coordinates, update the Property value.
-  updateProperty: ( viewDelta: Vector2 ) => void;
+  // Converts the drag delta from view coordinates to model coordinates.
+  viewToModelDelta: ( viewDelta: Vector2 ) => number;
 
   // Keyboard options
   keyboardDragDelta: number; // in model units
@@ -88,8 +88,10 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
         // Remember the Property's previous value for sound feedback.
         const previousValue = rangedProperty.value;
 
+        // Based on the drag delta in view coordinates, compute the new value.
         // Since we are not providing options.transform, listener.modelDelta is actually in view coordinates.
-        options.updateProperty( listener.modelDelta );
+        const modelDelta = options.viewToModelDelta( listener.modelDelta );
+        rangedProperty.value = rangedProperty.range.constrainValue( rangedProperty.value + modelDelta );
 
         // Play sound to communicate how the Property changed.
         this.playSoundForValueChange( rangedProperty.value, previousValue );

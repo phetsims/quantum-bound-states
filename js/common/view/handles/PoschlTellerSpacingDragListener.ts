@@ -48,12 +48,11 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
       keyboardShiftDragDelta: QBSConstants.SPACING_KEYBOARD_SHIFT_DRAG_DELTA, // nm
       dragBoundsProperty: dragBoundsProperty,
 
-      // Update the Property while dragging.
-      updateProperty: viewDelta => {
-        const deltaSpacing = ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
-                             2 * chartTransform.viewToModelDeltaX( viewDelta.x ) :
-                             chartTransform.viewToModelDeltaX( viewDelta.x );
-        spacingProperty.value = spacingProperty.range.constrainValue( spacingProperty.value + deltaSpacing );
+      // Transform from view to model coordinates while dragging.
+      viewToModelDelta: viewDelta => {
+        return ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
+               2 * chartTransform.viewToModelDeltaX( viewDelta.x ) :
+               chartTransform.viewToModelDeltaX( viewDelta.x );
       }
     } );
   }

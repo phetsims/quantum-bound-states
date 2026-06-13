@@ -46,12 +46,11 @@ export default class FiniteSquareSeparationDragListener extends PotentialDragLis
       keyboardShiftDragDelta: QBSConstants.SEPARATION_KEYBOARD_SHIFT_DRAG_DELTA, // nm
       dragBoundsProperty: dragBoundsProperty,
 
-      // Update the Property while dragging.
-      updateProperty: viewDelta => {
-        const deltaSeparation = ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
-                                2 * chartTransform.viewToModelDeltaX( viewDelta.x ) :
-                                chartTransform.viewToModelDeltaX( viewDelta.x );
-        separationProperty.value = separationProperty.range.constrainValue( separationProperty.value + deltaSeparation );
+      // Transform from view to model coordinates while dragging.
+      viewToModelDelta: viewDelta => {
+        return ( potential.numberOfWellsProperty.value % 2 === 0 ) ?
+               2 * chartTransform.viewToModelDeltaX( viewDelta.x ) :
+               chartTransform.viewToModelDeltaX( viewDelta.x );
       }
     } );
   }

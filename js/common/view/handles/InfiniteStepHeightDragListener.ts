@@ -45,11 +45,8 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
       keyboardShiftDragDelta: QBSConstants.STEP_HEIGHT_KEYBOARD_SHIFT_DRAG_DELTA, // eV
       dragBoundsProperty: dragBoundsProperty,
 
-      // Update the Property while dragging.
-      updateProperty: viewDelta => {
-        const deltaStepHeight = chartTransform.viewToModelDeltaY( viewDelta.y );
-        stepHeightProperty.value = stepHeightProperty.range.constrainValue( stepHeightProperty.value + deltaStepHeight );
-      }
+      // Transform from view to model coordinates while dragging.
+      viewToModelDelta: viewDelta => chartTransform.viewToModelDeltaY( viewDelta.y )
     } );
   }
 }

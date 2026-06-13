@@ -42,13 +42,9 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
       keyboardShiftDragDelta: QBSConstants.WIDTH_KEYBOARD_SHIFT_DRAG_DELTA, // nm
       dragBoundsProperty: dragBoundsProperty,
 
-      // Update the Property while dragging.
-      updateProperty: viewDelta => {
-
-        // The handle is on the left wall, so invert the sign of deltaWidth.
-        const deltaWidth = -2 * chartTransform.viewToModelDeltaX( viewDelta.x );
-        wellWidthProperty.value = wellWidthProperty.range.constrainValue( wellWidthProperty.value + deltaWidth );
-      }
+      // Transform from view to model coordinates while dragging.
+      // The handle is on the left wall, so invert the sign.
+      viewToModelDelta: viewDelta => -2 * chartTransform.viewToModelDeltaX( viewDelta.x )
     } );
   }
 }

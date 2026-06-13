@@ -45,10 +45,10 @@ export default class PoschlTellerWidthDragListener extends PotentialDragListener
       keyboardShiftDragDelta: QBSConstants.WIDTH_KEYBOARD_SHIFT_DRAG_DELTA, // nm
       dragBoundsProperty: dragBoundsProperty,
 
-      // Update the Property while dragging.
-      updateProperty: viewDelta => {
+      // Transform from view to model coordinates while dragging.
+      viewToModelDelta: viewDelta => {
         const deltaWidth = 2 * chartTransform.viewToModelDeltaX( viewDelta.x );
-        wellWidthProperty.value = wellWidthProperty.range.constrainValue( wellWidthProperty.value + deltaWidth );
+        return wellWidthProperty.value + deltaWidth;
       }
     } );
   }
