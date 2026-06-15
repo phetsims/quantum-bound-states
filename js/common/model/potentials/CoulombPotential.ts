@@ -32,7 +32,7 @@ type SelfOptions = {
 };
 
 export type CoulombPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class CoulombPotential extends QuantumPotential {
 

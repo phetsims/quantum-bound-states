@@ -35,7 +35,7 @@ type SelfOptions = {
 };
 
 export type PoschlTellerPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class PoschlTellerPotential extends QuantumPotential {
 

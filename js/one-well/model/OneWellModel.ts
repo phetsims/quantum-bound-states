@@ -60,7 +60,6 @@ export default class OneWellModel extends QBSModel {
       phetioReadOnly: true
     } );
 
-    const xOffsetRange = new RangeWithValue( -3, 3, 0 ); //TODO For development experimentation
     const yOffsetRange = new RangeWithValue( -10, 10, 0 ); //TODO This assumes that all potentials have energyAxisRange.getLength() === 20
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
@@ -69,7 +68,6 @@ export default class OneWellModel extends QBSModel {
       numberOfWellsProperty: numberOfWellsProperty,
       electronMassesProperty: electronMassesProperty,
       electricFieldProperty: electricFieldProperty,
-      xOffsetRange: xOffsetRange,
       yOffsetRange: yOffsetRange,
       tandem: potentialsTandem.createTandem( 'harmonicOscillatorPotential' )
     } );
@@ -80,7 +78,6 @@ export default class OneWellModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        xOffsetRange: xOffsetRange,
         yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'infiniteSquarePotential' )
       } ),
@@ -88,7 +85,6 @@ export default class OneWellModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        xOffsetRange: xOffsetRange,
         yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
@@ -96,7 +92,6 @@ export default class OneWellModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        xOffsetRange: xOffsetRange,
         yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'infiniteStepPotential' )
       } ),
@@ -104,7 +99,6 @@ export default class OneWellModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        xOffsetRange: xOffsetRange,
         yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'asymmetricTrianglePotential' )
       } ),
@@ -113,7 +107,6 @@ export default class OneWellModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        xOffsetRange: xOffsetRange,
         yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
       } ),
@@ -121,7 +114,6 @@ export default class OneWellModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        xOffsetRange: new RangeWithValue( -3, 3, -2 ), // shift left so that more of the potential's tail is visible
         yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'morsePotential' )
       } ),
@@ -129,7 +121,6 @@ export default class OneWellModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        xOffsetRange: xOffsetRange,
         yOffsetRange: yOffsetRange,
         tandem: potentialsTandem.createTandem( 'coulombPotential' )
       } )

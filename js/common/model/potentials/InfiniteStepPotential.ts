@@ -30,7 +30,7 @@ type SelfOptions = {
 };
 
 export type InfiniteStepPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class InfiniteStepPotential extends QuantumPotential {
 

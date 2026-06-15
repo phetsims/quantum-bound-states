@@ -32,7 +32,7 @@ type SelfOptions = {
 };
 
 export type MorsePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class MorsePotential extends QuantumPotential {
 
@@ -49,6 +49,7 @@ export default class MorsePotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
+      xOffsetRange: RangeWithValue.fromRange( QBSConstants.ALL_GRAPHS_X_RANGE, -2 ), // shift left so that more of the potential's tail is visible
       energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
       tandemPrefix: 'morsePotential'

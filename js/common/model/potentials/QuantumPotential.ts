@@ -12,6 +12,7 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
+import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
@@ -21,6 +22,8 @@ import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhet
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
+import QBSConstants from '../../QBSConstants.js';
+import QBSQueryParameters from '../../QBSQueryParameters.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
@@ -78,7 +81,13 @@ export default abstract class QuantumPotential extends PhetioObject {
 
       // SelfOptions
       groundStateIndex: 1,
-      xOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant
+
+      // If the testXOffset query parameter is present, provide the ability to change x-offset for development purposes.
+      // While the UI does not provide a way to change x-offset, the model should be generalized to handle a non-zero x-offset.
+      xOffsetRange: QBSQueryParameters.testXOffset ?
+                    RangeWithValue.fromRange( QBSConstants.ALL_GRAPHS_X_RANGE, 0 ) :
+                    new RangeWithValue( 0, 0, 0 ), // effectively constant
+
       yOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant
       energyAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
       accessibleNameProperty: providedOptions.visualNameProperty,
@@ -88,6 +97,9 @@ export default abstract class QuantumPotential extends PhetioObject {
       tandemNameSuffix: 'Potential',
       phetioState: false // because QuantumPotentialIO implements reference-type serialization.
     }, providedOptions );
+
+    affirm( QBSConstants.ALL_GRAPHS_X_RANGE.containsRange( options.xOffsetRange ),
+      `invalid xOffsetRange: ${options.xOffsetRange}` );
 
     super( options );
 
@@ -100,7 +112,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.xOffsetProperty = new NumberProperty( options.xOffsetRange.defaultValue, {
       units: nanometersUnit,
       range: options.xOffsetRange
-      // Do not instrument for PhET-iO.
+      // This is a Property for development purposes only. Do not instrument for PhET-iO.
     } );
 
     this.yOffsetProperty = new NumberProperty( options.yOffsetRange.defaultValue, {

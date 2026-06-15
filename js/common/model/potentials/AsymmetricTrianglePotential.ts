@@ -31,7 +31,7 @@ type SelfOptions = {
 };
 
 export type AsymmetricTrianglePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'xOffsetRange' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class AsymmetricTrianglePotential extends QuantumPotential {
 
