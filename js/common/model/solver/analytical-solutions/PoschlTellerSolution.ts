@@ -101,7 +101,7 @@ export default class PoschlTellerSolution {
         const sech = 1 / Math.cosh( ( x - xi ) / wellWidth );
         potentialEnergy += -wellDepth * sech * sech;
       }
-      potentialEnergy += yOffset + electricField * x;
+      potentialEnergy += yOffset + electricField * ( x - xOffset );
 
       affirm( potentialEnergy < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
       return potentialEnergy;
