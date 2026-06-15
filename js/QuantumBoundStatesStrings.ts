@@ -241,11 +241,6 @@ type StringsType = {
       'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
       'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     };
-    'adjustEnergyOffsetCheckbox': {
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
-    };
     'potentialComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

@@ -500,17 +500,6 @@
         "value": "Reference Line hidden."
       }
     },
-    "adjustEnergyOffsetCheckbox": {
-      "accessibleHelpText": {
-        "value": "Show or hide drag handle for adjusting energy offset on Energy Diagram."
-      },
-      "accessibleContextResponseChecked": {
-        "value": "Energy Offset drag handle shown."
-      },
-      "accessibleContextResponseUnchecked": {
-        "value": "Energy Offset drag handle hidden."
-      }
-    },
     "potentialComboBox": {
       "accessibleName": {
         "value": "Potential"

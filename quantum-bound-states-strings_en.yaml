@@ -357,11 +357,6 @@ a11y:
     accessibleContextResponseChecked:   Reference Line shown.
     accessibleContextResponseUnchecked: Reference Line hidden.
 
-  adjustEnergyOffsetCheckbox:
-    accessibleHelpText:                 Show or hide drag handle for adjusting energy offset on Energy Diagram.
-    accessibleContextResponseChecked:   Energy Offset drag handle shown.
-    accessibleContextResponseUnchecked: Energy Offset drag handle hidden.
-
   #=======================================================================================================
   # ComboBoxes
   #=======================================================================================================
