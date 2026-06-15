@@ -21,7 +21,7 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 
 // The width handle will be places this many eV above the potential's energy offset.
 // Vertical marker lines will indicate where the width is measured.
-const ENERGY_OFFSET = 2; // eV
+const ENERGY_OFFSET = 1; // eV
 
 export default class CoulombWidthHandleNode extends PotentialHandleNode<CoulombPotential> {
 

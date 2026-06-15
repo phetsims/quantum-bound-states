@@ -21,7 +21,7 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 
 // The width handle will be placed this many eV above the potential's energy offset.
 // Vertical marker lines indicate where the width is measured.
-const ENERGY_OFFSET = 1.5; // eV
+const ENERGY_OFFSET = 1; // eV
 
 export default class PoschlTellerWidthHandleNode extends PotentialHandleNode<PoschlTellerPotential> {
 
