@@ -1,4 +1,4 @@
-# {{SIM_TITLE}} - Release Notes
+# Quantum Bound States - Release Notes
 <!-- 
 Instructions:
 * Replace {{SIM_TITLE}} with the simulation title.
