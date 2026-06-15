@@ -12,7 +12,6 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
-import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
@@ -23,7 +22,6 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/Phet
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
 import QBSConstants from '../../QBSConstants.js';
-import QBSQueryParameters from '../../QBSQueryParameters.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
@@ -37,7 +35,7 @@ type SelfOptions = {
 
   // Attributes that are specific to a particular QuantumPotential instance.
   groundStateIndex?: number;
-  xOffsetRange?: RangeWithValue;
+  xOffset?: number;
   yOffsetRange?: RangeWithValue;
   energyAxisRange?: Range; // range of the energy axis (y-axis) when yOffsetProperty is at its initial value
   visualNameProperty: TReadOnlyProperty<string>;
@@ -56,9 +54,9 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   public readonly groundStateIndex: number;
 
-  // Horizontal offset of the potential from x=0 nm. This Property is not exposed in the UI or PhET-iO, and is
-  // currently problematic if the value is not zero, causing some parts of the model to fail. It is provided solely
-  // for development and testing and can be set via the subclasses of ConfigureQuantumPotentialDialog.
+  // Horizontal offset of the potential from x=0 nm. While the UI does not provide a way to change x-offset, the model
+  // should handle a non-zero x-offset. So this is a Property for development purposes only, and can be changed via
+  // the subclasses of ConfigureQuantumPotentialDialog.
   //TODO Rename to positionOffsetProperty?
   public readonly xOffsetProperty: NumberProperty;
 
@@ -84,9 +82,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
       // If the testXOffset query parameter is present, provide the ability to change x-offset for development purposes.
       // While the UI does not provide a way to change x-offset, the model should be generalized to handle a non-zero x-offset.
-      xOffsetRange: QBSQueryParameters.testXOffset ?
-                    RangeWithValue.fromRange( QBSConstants.ALL_GRAPHS_X_RANGE, 0 ) :
-                    new RangeWithValue( 0, 0, 0 ), // effectively constant
+      xOffset: 0, // effectively constant
 
       yOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant
       energyAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
@@ -98,9 +94,6 @@ export default abstract class QuantumPotential extends PhetioObject {
       phetioState: false // because QuantumPotentialIO implements reference-type serialization.
     }, providedOptions );
 
-    affirm( QBSConstants.ALL_GRAPHS_X_RANGE.containsRange( options.xOffsetRange ),
-      `invalid xOffsetRange: ${options.xOffsetRange}` );
-
     super( options );
 
     this.numberOfWellsProperty = options.numberOfWellsProperty;
@@ -109,9 +102,9 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     this.groundStateIndex = options.groundStateIndex;
 
-    this.xOffsetProperty = new NumberProperty( options.xOffsetRange.defaultValue, {
+    this.xOffsetProperty = new NumberProperty( options.xOffset, {
       units: nanometersUnit,
-      range: options.xOffsetRange
+      range: QBSConstants.ALL_GRAPHS_X_RANGE
       // This is a Property for development purposes only. Do not instrument for PhET-iO.
     } );
 
