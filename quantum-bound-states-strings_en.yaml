@@ -160,15 +160,26 @@ a11y:
     oneWellScreen:
       screenButtonsHelpText: Explore bound states in various single well potentials.
       screenSummary:
-        playArea:        >-
-                         In the Energy Diagram, observe the energy level structure of the chosen potential well. Adjust the available parameters for each potential well type and explore the changes to the energy levels. Change the potential well type to explore different shapes. You can also change the mass of the system.
+        playArea:        |-
+                         In the Energy Diagram, observe the energy level structure of the chosen potential well.
+                         Adjust the available parameters for each potential well type and explore the changes to
+                         the energy levels. Change the potential well type to explore different shapes. You can
+                         also change the mass of the system.
                          
-                         In the Quantum State Graph, you can observe the probability density or wave function for the selected energy level. View the full equation for the given state graph. If viewing the wave function, you can toggle parts of the graph, such as the real or imaginary part. There is also an option to show the magnitude and, if enabled, the phase of the wave function.
+                         In the Quantum State Graph, you can observe the probability density or wave function for
+                         the selected energy level. View the full equation for the given state graph. If viewing
+                         the wave function, you can toggle parts of the graph, such as the real or imaginary part.
+                         There is also an option to show the magnitude and, if enabled, the phase of the wave function.
 
         controlArea:     |-
-                         There are a few controls for visual inspection of the energy diagram or controlling the speed of the simulation. Toggle the visual labels on the energy diagram. Add a reference line to visually compare the probability density or wave function to the boundaries of the potential well. A magnifier can aid in telling apart closely spaced energy levels. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed.
+                         There are a few controls for visual inspection of the energy diagram or controlling the speed
+                         of the simulation. Toggle the visual labels on the energy diagram. Add a reference line to 
+                         visually compare the probability density or wave function to the boundaries of the potential
+                         well. A magnifier can aid in telling apart closely spaced energy levels. You can track the
+                         time the system has been evolving or hide it. There are controls to pause, step through, or 
+                         restart the system. For slowly evolving states, you can increase the sim speed.
 
-        currentDetails:  >-
+        currentDetails:  |-
                          Currently,
                          
                            The potential well type is POTENTIALTYPE.
@@ -185,15 +196,26 @@ a11y:
     twoWellsScreen:
       screenButtonsHelpText: Explore bound states and molecular bonding in two closely separated potentials.
       screenSummary:
-        playArea:        >-
-                         In the Energy Diagram, observe the energy levels of two closely spaced potential wells, a simple model of a two-atom molecule. Drag the handles on the curve to change the well width, the well height, and the separation between the wells, and explore how the energy levels and states respond as the wells move together or apart. Change the potential well type to explore a different two-well shape.
+        playArea:        |-
+                         In the Energy Diagram, observe the energy levels of two closely spaced potential wells,
+                         a simple model of a two-atom molecule. Drag the handles on the curve to change the well width,
+                         the well height, and the separation between the wells, and explore how the energy levels and
+                         states respond as the wells move together or apart. Change the potential well type to explore
+                         a different two-well shape.
                          
-                         In the Quantum State Graph, you can observe the probability density or wave function for the selected energy level. If viewing the wave function, you can toggle parts of the graph, such as the real or imaginary part, the magnitude, and, if enabled, the phase.
+                         In the Quantum State Graph, you can observe the probability density or wave function for the 
+                         selected energy level. If viewing the wave function, you can toggle parts of the graph, such
+                         as the real or imaginary part, the magnitude, and, if enabled, the phase.
 
-        controlArea:     >-
-                         There are tools for inspecting the graphs and options for controlling the speed of the simulation. Toggle the value labels on the Energy Diagram. Add a Reference Line to compare the graphs to the boundaries of the wells. A Magnifier can aid in telling apart closely spaced energy levels. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed.
+        controlArea:     |-
+                         There are tools for inspecting the graphs and options for controlling the speed of the
+                         simulation. Toggle the value labels on the Energy Diagram. Add a Reference Line to compare
+                         the graphs to the boundaries of the wells. A Magnifier can aid in telling apart closely 
+                         spaced energy levels. You can track the time the system has been evolving or hide it.
+                         There are controls to pause, step through, or restart the system. For slowly evolving states,
+                         you can increase the sim speed.
 
-        currentDetails:  >-
+        currentDetails:  |-
                          Currently,
                          
                            The potential well type is POTENTIALTYPE.
@@ -212,15 +234,25 @@ a11y:
     manyWellsScreen:
       screenButtonsHelpText: Explore bound states and band structure in a periodic array of potentials.
       screenSummary:
-        playArea:        >-
-                         In the Energy Diagram, observe how a row of identical wells builds a lattice. Drag the handles on the curve to change the well width, the well height, and the separation between wells. Add or remove wells and explore how the energy levels respond as the lattice grows. Apply an electric field and explore its effect on the energy levels. Change the potential well type to explore a different lattice shape.
+        playArea:        |-
+                         In the Energy Diagram, observe how a row of identical wells builds a lattice. Drag the handles
+                         on the curve to change the well width, the well height, and the separation between wells. Add
+                         or remove wells and explore how the energy levels respond as the lattice grows. Apply an
+                         electric field and explore its effect on the energy levels. Change the potential well type to
+                         explore a different lattice shape.
                          
-                         In the Quantum State Graph, you can observe the probability density or wave function for the selected energy level, or the average probability density across a whole band.
+                         In the Quantum State Graph, you can observe the probability density or wave function for the
+                         selected energy level, or the average probability density across a whole band.
 
-        controlArea:     >-
-                         There are controls for building the lattice and for controlling the speed of the simulation. Set the number of wells in the lattice and apply an electric field. Toggle the value labels on the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy for telling apart closely spaced energy levels. Zoom the energy axis in or out. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed.
+        controlArea:     |-
+                         There are controls for building the lattice and for controlling the speed of the simulation.
+                         Set the number of wells in the lattice and apply an electric field. Toggle the value labels
+                         on the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy
+                         for telling apart closely spaced energy levels. Zoom the energy axis in or out. You can track
+                         the time the system has been evolving or hide it. There are controls to pause, step through,
+                         or restart the system. For slowly evolving states, you can increase the sim speed.
 
-        currentDetails:  >-
+        currentDetails:  |-
                          Currently,
                          
                            The potential well type is POTENTIALTYPE.
@@ -239,15 +271,24 @@ a11y:
     superpositionScreen:
       screenButtonsHelpText: Explore superposition states and their time-dependent behavior for various potentials.
       screenSummary:
-        playArea:        >-
-                         In the Energy Diagram, observe the energy levels of the chosen potential. The levels that contribute to the current superposition are emphasized in proportion to their weight. Change the potential well type to explore a different shape.
+        playArea:        |-
+                         In the Energy Diagram, observe the energy levels of the chosen potential. The levels that
+                         contribute to the current superposition are emphasized in proportion to their weight. Change
+                         the potential well type to explore a different shape.
                          
-                         In the Quantum State Graph, you can observe the probability density or wave function for the current superposition state. Press Play to explore how this state changes over time. Open the Details to view the full equation along with the magnitude and phase of each contributing level.
+                         In the Quantum State Graph, you can observe the probability density or wave function for the
+                         current superposition state. Press Play to explore how this state changes over time. Open the
+                         Details to view the full equation along with the magnitude and phase of each contributing level.
 
-        controlArea:     >-
-                         There are controls for building superpositions and for controlling the speed of the simulation. Switch between curated Preset combinations and your own Custom combinations, and open Customize to set the magnitude and phase of each level. Toggle the value labels on the Energy Diagram, add a Reference Line, and add a Magnifier. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed.
+        controlArea:     |-
+                         There are controls for building superpositions and for controlling the speed of the simulation.
+                         Switch between curated Preset combinations and your own Custom combinations, and open Customize
+                         to set the magnitude and phase of each level. Toggle the value labels on the Energy Diagram,
+                         add a Reference Line, and add a Magnifier. You can track the time the system has been evolving
+                         or hide it. There are controls to pause, step through, or restart the system. For slowly
+                         evolving states, you can increase the sim speed.
 
-        currentDetails:  >-
+        currentDetails:  |-
                          Currently,
                          
                            The potential well type is POTENTIALTYPE.
@@ -355,12 +396,14 @@ a11y:
   #=======================================================================================================
 
   probabilityDensityDetailsDialog:
-    accessibleParagraph: >-
-                         PLACEHOLDER FOR EQUATION The probability density of the selected state equals the magnitude of the wave function squared.
+    accessibleParagraph: |-
+                         PLACEHOLDER FOR EQUATION The probability density of the selected state equals the magnitude
+                         of the wave function squared.
 
   waveFunctionDetailsDialog:
-    accessibleParagraph: >-
-                         PLACEHOLDER FOR EQUATION The wave function of the selected state, psi of x and t, equals psi times exp of negative i E t over h-bar.
+    accessibleParagraph: |-
+                         PLACEHOLDER FOR EQUATION The wave function of the selected state, psi of x and t, equals
+                         psi times exp of negative i E t over h-bar.
 
   #=======================================================================================================
   # Handles
@@ -436,20 +479,27 @@ a11y:
   energyDiagram:
     accessibleHeading: Energy Diagram
     accessibleTemplate:
-      leadingParagraph: >-
-                        The Energy Diagram shows the POTENTIALTYPE potential energy curve in blue, with NUMBEROFLEVELS green energy levels. Energy level INDEX is selected at ENERGYLEVEL electron volts.
+      leadingParagraph: |-
+                        The Energy Diagram shows the POTENTIALTYPE potential energy curve in blue, 
+                        with NUMBEROFLEVELS green energy levels. Energy level INDEX is selected at
+                        ENERGYLEVEL electron volts.
 
   probabilityDensityGraph:
     accessibleHeading: Probability Density Graph
     accessibleTemplate:
-      leadingParagraph: >-
-                        The Probability Density graph shows the probability density across the well for energy level INDEX. The curve has NUMBEROFNODES nodes. Listen to the shape with sonification, or move the Reference Line to read the value at any position.
+      leadingParagraph: |-
+                        The Probability Density graph shows the probability density across the well
+                        for energy level INDEX. The curve has NUMBEROFNODES nodes. Listen to the shape
+                        with sonification, or move the Reference Line to read the value at any position.
 
   waveFunctionGraph:
     accessibleHeading: Wave Function Graph
     accessibleTemplate:
-      leadingParagraph: >-
-                        The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function across the well for energy level INDEX, drawn in magenta, orange, and black. Listen to each part with sonification, move the Reference Line to read values, and play time to explore how the parts behave.
+      leadingParagraph: |-
+                        The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function
+                        across the well for energy level INDEX, drawn in magenta, orange, and black. Listen to each
+                        part with sonification, move the Reference Line to read values, and play time to explore
+                        how the parts behave.
 
   #=======================================================================================================
   # Push Buttons
