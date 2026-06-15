@@ -29,4 +29,12 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 *
 -->
 
-## 1.0 ({{PUBLICATION_DATE}})
+## 1.0 (in progress)
+
+### Features
+* Alternative Input
+* Interactive Highlights: see _Preferences > Visual > Interactive Highlights_
+* Basic Sound
+* Sonification of curve shapes
+* Core Description
+* PhET-iO
