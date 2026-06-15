@@ -477,16 +477,16 @@ a11y:
     accessibleHeading: Energy Diagram
     accessibleTemplate:
       leadingParagraph: |-
-                        The Energy Diagram shows the POTENTIALTYPE potential energy curve in blue, 
-                        with NUMBEROFLEVELS green energy levels. Energy level INDEX is selected at
-                        ENERGYLEVEL electron volts.
+                        The Energy Diagram shows the POTENTIAL_TYPE potential energy curve in blue, 
+                        with NUMBER_OF_LEVELS green energy levels. Energy level INDEX is selected at
+                        ENERGY_LEVEL electron volts.
 
   probabilityDensityGraph:
     accessibleHeading: Probability Density Graph
     accessibleTemplate:
       leadingParagraph: |-
                         The Probability Density graph shows the probability density across the well
-                        for energy level INDEX. The curve has NUMBEROFNODES nodes. Listen to the shape
+                        for energy level INDEX. The curve has NUMBER_OF_NODES nodes. Listen to the shape
                         with sonification, or move the Reference Line to read the value at any position.
 
   waveFunctionGraph:

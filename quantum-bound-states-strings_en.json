@@ -749,7 +749,7 @@
       },
       "accessibleTemplate": {
         "leadingParagraph": {
-          "value": "The Energy Diagram shows the POTENTIALTYPE potential energy curve in blue, \nwith NUMBEROFLEVELS green energy levels. Energy level INDEX is selected at\nENERGYLEVEL electron volts."
+          "value": "The Energy Diagram shows the POTENTIAL_TYPE potential energy curve in blue, \nwith NUMBER_OF_LEVELS green energy levels. Energy level INDEX is selected at\nENERGY_LEVEL electron volts."
         }
       }
     },
@@ -759,7 +759,7 @@
       },
       "accessibleTemplate": {
         "leadingParagraph": {
-          "value": "The Probability Density graph shows the probability density across the well\nfor energy level INDEX. The curve has NUMBEROFNODES nodes. Listen to the shape\nwith sonification, or move the Reference Line to read the value at any position."
+          "value": "The Probability Density graph shows the probability density across the well\nfor energy level INDEX. The curve has NUMBER_OF_NODES nodes. Listen to the shape\nwith sonification, or move the Reference Line to read the value at any position."
         }
       }
     },
