@@ -10,7 +10,6 @@
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
-import { toFixedNumber } from '../../../../../dot/js/util/toFixedNumber.js';
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import { NumberControlMajorTick } from '../../../../../scenery-phet/js/NumberControl.js';
@@ -52,11 +51,11 @@ export default class PotentialPropertyControl extends QBSNumberControl {
 function createMinMaxTicks( range: Range, decimals: number ): NumberControlMajorTick[] {
   return [
     {
-      value: toFixedNumber( range.min, decimals ),
+      value: range.min,
       label: new Text( range.min, QBSConstants.TICK_TEXT_OPTIONS )
     },
     {
-      value: toFixedNumber( range.max, decimals ),
+      value: range.max,
       label: new Text( range.max, QBSConstants.TICK_TEXT_OPTIONS )
     }
   ];
