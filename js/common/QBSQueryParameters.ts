@@ -37,7 +37,7 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
     type: 'flag'
   },
 
-  // Adds an x-offset control to ConfigureQuantumPotentialDialog subclasses. While the UI does not provide a way to
+  // Adds an x-offset control to ConfigurePotentialDialog subclasses. While the UI does not provide a way to
   // change x-offset, the model should be generalized to handle a non-zero x-offset.
   testXOffset: {
     type: 'flag'

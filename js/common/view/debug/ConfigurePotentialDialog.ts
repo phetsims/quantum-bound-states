@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ConfigureQuantumPotentialDialog is the base class for all dialogs used to configure a Quantum Potential.
+ * ConfigurePotentialDialog is the base class for all dialogs used to configure a Quantum Potential.
  * These dialogs are for development purposes only and do NOT support core PhET features (localization, dynamic layout,
  * alt input, core description, PhET-iO, etc.)
  *
@@ -36,7 +36,7 @@ type SelfOptions = {
 
 export type ConfigureQuantumPotentialDialogOptions = SelfOptions;
 
-export default class ConfigureQuantumPotentialDialog extends Dialog {
+export default class ConfigurePotentialDialog extends Dialog {
 
   protected constructor( titleString: string, time: QBSTime, options: ConfigureQuantumPotentialDialogOptions ) {
 

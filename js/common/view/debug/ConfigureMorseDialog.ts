@@ -8,9 +8,9 @@
 
 import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 
-export default class ConfigureMorseDialog extends ConfigureQuantumPotentialDialog {
+export default class ConfigureMorseDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: MorsePotential, time: QBSTime ) {
 

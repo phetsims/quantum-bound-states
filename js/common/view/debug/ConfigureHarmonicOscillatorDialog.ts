@@ -8,9 +8,9 @@
 
 import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 
-export default class ConfigureHarmonicOscillatorDialog extends ConfigureQuantumPotentialDialog {
+export default class ConfigureHarmonicOscillatorDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: HarmonicOscillatorPotential, time: QBSTime ) {
 

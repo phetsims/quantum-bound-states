@@ -57,7 +57,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   // Horizontal offset of the potential from x=0 nm. While the UI does not provide a way to change x-offset, the model
   // should handle a non-zero x-offset. So this is a Property for development purposes only, and can be changed via
-  // the subclasses of ConfigureQuantumPotentialDialog.
+  // the subclasses of ConfigurePotentialDialog.
   //TODO Rename to positionOffsetProperty?
   public readonly xOffsetProperty: NumberProperty;
 

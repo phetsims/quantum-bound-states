@@ -8,9 +8,9 @@
 
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 
-export default class ConfigureAsymmetricTriangleDialog extends ConfigureQuantumPotentialDialog {
+export default class ConfigureAsymmetricTriangleDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: AsymmetricTrianglePotential, time: QBSTime ) {
 

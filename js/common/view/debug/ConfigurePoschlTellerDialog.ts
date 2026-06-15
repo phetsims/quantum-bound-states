@@ -8,9 +8,9 @@
 
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 
-export default class ConfigurePoschlTellerDialog extends ConfigureQuantumPotentialDialog {
+export default class ConfigurePoschlTellerDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: PoschlTellerPotential, time: QBSTime ) {
 

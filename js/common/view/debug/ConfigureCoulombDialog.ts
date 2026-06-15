@@ -8,9 +8,9 @@
 
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 
-export default class ConfigureCoulombDialog extends ConfigureQuantumPotentialDialog {
+export default class ConfigureCoulombDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: CoulombPotential, time: QBSTime ) {
 

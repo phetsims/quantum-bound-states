@@ -8,9 +8,9 @@
 
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import ConfigureQuantumPotentialDialog from './ConfigureQuantumPotentialDialog.js';
+import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 
-export default class ConfigureInfiniteSquareDialog extends ConfigureQuantumPotentialDialog {
+export default class ConfigureInfiniteSquareDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: InfiniteSquarePotential, time: QBSTime ) {
 
