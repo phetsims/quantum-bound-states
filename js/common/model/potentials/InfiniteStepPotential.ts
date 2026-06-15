@@ -8,11 +8,9 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
@@ -25,7 +23,6 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
   stepHeightRange?: RangeWithValue;
 };
 
@@ -33,8 +30,6 @@ export type InfiniteStepPotentialOptions = SelfOptions &
   Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class InfiniteStepPotential extends QuantumPotential {
-
-  public readonly wellWidthProperty: NumberProperty;
 
   // Height of the potential step V₀ in eV, applies to the right half of the well.
   public readonly stepHeightProperty: NumberProperty;
@@ -44,24 +39,15 @@ export default class InfiniteStepPotential extends QuantumPotential {
     const options = optionize<InfiniteStepPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
       stepHeightRange: new RangeWithValue( 0, 17, 3 ), // for 1 well
 
       // QuantumPotentialOptions
+      wellWidthRange: new RangeWithValue( 0.2, 6, 1 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
       tandemPrefix: 'infiniteStepPotential'
     }, providedOptions );
 
     super( options );
-
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
-      units: nanometersUnit,
-      //TODO range.min should be 0.1, but wellWidth < 0.2 causes assertion failure, no eigenvalues
-      // range: options.wellWidthRange
-      range: new Range( 0.2, 6 ),
-      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
-      phetioFeatured: true
-    } );
 
     this.stepHeightProperty = new NumberProperty( options.stepHeightRange.defaultValue, {
       units: electronVoltsUnit,
@@ -71,7 +57,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty, this.stepHeightProperty ], () => {
+    Multilink.multilink( [ this.stepHeightProperty ], () => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.changedEmitter.emit();
       }
@@ -80,7 +66,6 @@ export default class InfiniteStepPotential extends QuantumPotential {
 
   public override reset(): void {
     super.reset();
-    this.wellWidthProperty.reset();
     this.stepHeightProperty.reset();
   }
 

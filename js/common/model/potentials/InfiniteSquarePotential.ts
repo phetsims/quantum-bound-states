@@ -6,15 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
-import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
@@ -23,51 +18,24 @@ import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
-};
+type SelfOptions = EmptySelfOptions;
 
 export type InfiniteSquarePotentialOptions = SelfOptions &
   Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
 export default class InfiniteSquarePotential extends QuantumPotential {
 
-  public readonly wellWidthProperty: NumberProperty;
-
   public constructor( providedOptions: InfiniteSquarePotentialOptions ) {
 
     const options = optionize<InfiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
-      // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
-
       // QuantumPotentialOptions
+      wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteSquareStringProperty,
       tandemPrefix: 'infiniteSquarePotential'
     }, providedOptions );
 
     super( options );
-
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
-      units: nanometersUnit,
-      //TODO range.min should be 0.1, but wellWidth < 0.2 causes assertion failure, no eigenvalues
-      // range: options.wellWidthRange,
-      range: new Range( 0.2, 6 ),
-      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
-      phetioFeatured: true
-    } );
-
-    // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty ], () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.changedEmitter.emit();
-      }
-    } );
-  }
-
-  public override reset(): void {
-    super.reset();
-    this.wellWidthProperty.reset();
   }
 
   public override toString(): string {

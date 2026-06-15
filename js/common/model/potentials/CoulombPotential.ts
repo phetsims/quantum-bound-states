@@ -7,18 +7,14 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import Multilink from '../../../../../axon/js/Multilink.js';
-import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
@@ -27,9 +23,7 @@ import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
-type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
-};
+type SelfOptions = EmptySelfOptions;
 
 export type CoulombPotentialOptions = SelfOptions &
   Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
@@ -49,7 +43,6 @@ export default class CoulombPotential extends QuantumPotential {
   // the y-axis is zoomed. See https://github.com/phetsims/quantum-bound-states/issues/63
   public static readonly MIN_SOLVER_ENERGY_BELOW_LIMIT = 60; // eV
 
-  public readonly wellWidthProperty: NumberProperty;
   private readonly couplingProperty: TReadOnlyProperty<number>;
 
   public constructor( providedOptions: CoulombPotentialOptions ) {
@@ -76,29 +69,10 @@ export default class CoulombPotential extends QuantumPotential {
 
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
-      units: nanometersUnit,
-      range: options.wellWidthRange,
-      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
-      phetioFeatured: true
-    } );
-
     // coupling K = w * E_ref / 2, where w is the well width and E_ref = WIDTH_HANDLE_ENERGY.
     this.couplingProperty = new DerivedProperty( [ this.wellWidthProperty ],
       wellWidth => wellWidth * CoulombPotential.WIDTH_HANDLE_ENERGY / 2
     );
-
-    // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty ], () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.changedEmitter.emit();
-      }
-    } );
-  }
-
-  public override reset(): void {
-    super.reset();
-    this.wellWidthProperty.reset();
   }
 
   public override toString(): string {

@@ -12,7 +12,6 @@ import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
@@ -26,7 +25,6 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
   wellDepthRange?: RangeWithValue;
 };
 
@@ -35,7 +33,7 @@ export type AsymmetricTrianglePotentialOptions = SelfOptions &
 
 export default class AsymmetricTrianglePotential extends QuantumPotential {
 
-  public readonly wellWidthProperty: NumberProperty;
+  // Uniform depth of all wells, in eV.
   public readonly wellDepthProperty: NumberProperty;
 
   public constructor( providedOptions: AsymmetricTrianglePotentialOptions ) {
@@ -53,13 +51,6 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
 
     super( options );
 
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
-      units: nanometersUnit,
-      range: options.wellWidthRange,
-      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
-      phetioFeatured: true
-    } );
-
     this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
       units: electronVoltsUnit,
       range: options.wellDepthRange,
@@ -68,7 +59,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty ], () => {
+    Multilink.multilink( [ this.wellDepthProperty ], () => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.changedEmitter.emit();
       }
@@ -77,7 +68,6 @@ export default class AsymmetricTrianglePotential extends QuantumPotential {
 
   public override reset(): void {
     super.reset();
-    this.wellWidthProperty.reset();
     this.wellDepthProperty.reset();
   }
 

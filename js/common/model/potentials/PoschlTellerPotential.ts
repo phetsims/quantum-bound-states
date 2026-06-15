@@ -13,6 +13,7 @@ import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
+import WithOptional from '../../../../../phet-core/js/types/WithOptional.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
@@ -29,44 +30,38 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
   wellDepthRange?: RangeWithValue;
   spacingRange?: RangeWithValue;
 };
 
 export type PoschlTellerPotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+  WithOptional<QuantumPotentialOptions, 'wellWidthRange' | 'visualNameProperty' | 'tandemPrefix'>;
 
 export default class PoschlTellerPotential extends QuantumPotential {
 
-  public readonly wellWidthProperty: NumberProperty;
+  // Uniform depth of all wells, in eV.
   public readonly wellDepthProperty: NumberProperty;
-  public readonly spacingProperty: NumberProperty; // distance between centers of adjacent wells
+
+  // Uniform spacing between centers of wells, in nm.
+  public readonly spacingProperty: NumberProperty;
 
   public constructor( providedOptions: PoschlTellerPotentialOptions ) {
 
     const options = optionize<PoschlTellerPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.1, 1, 1 ), // for 1 well
       wellDepthRange: new RangeWithValue( 1, 15, 10 ), // for 1 well
       spacingRange: new RangeWithValue( 0, 0, 0 ), // for 1 well, effectively constant zero
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
       energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
+      wellWidthRange: new RangeWithValue( 0.1, 1, 1 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.poschlTellerStringProperty,
       tandemPrefix: 'poschlTellerPotential' //TODO rename to 'anharmonicOscillatorPotential'?
     }, providedOptions );
 
     super( options );
-
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
-      units: nanometersUnit,
-      range: options.wellWidthRange,
-      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
-      phetioFeatured: true
-    } );
 
     this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
       units: electronVoltsUnit,
@@ -83,7 +78,7 @@ export default class PoschlTellerPotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty, this.spacingProperty ], () => {
+    Multilink.multilink( [ this.wellDepthProperty, this.spacingProperty ], () => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.changedEmitter.emit();
       }
@@ -92,7 +87,6 @@ export default class PoschlTellerPotential extends QuantumPotential {
 
   public override reset(): void {
     super.reset();
-    this.wellWidthProperty.reset();
     this.wellDepthProperty.reset();
     this.spacingProperty.reset();
   }

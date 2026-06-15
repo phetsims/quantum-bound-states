@@ -13,7 +13,6 @@ import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
@@ -27,7 +26,6 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
   wellDepthRange?: RangeWithValue;
 };
 
@@ -36,7 +34,7 @@ export type MorsePotentialOptions = SelfOptions &
 
 export default class MorsePotential extends QuantumPotential {
 
-  public readonly wellWidthProperty: NumberProperty;
+  // Uniform depth of all wells, in eV.
   public readonly wellDepthProperty: NumberProperty;
 
   public constructor( providedOptions: MorsePotentialOptions ) {
@@ -44,25 +42,18 @@ export default class MorsePotential extends QuantumPotential {
     const options = optionize<MorsePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.1, 1, 1 ), // for 1 well
       wellDepthRange: new RangeWithValue( 1.5, 15, 10 ), // for 1 well
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
       xOffset: -2, // shift left so that more of the potential's tail is visible
       energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
+      wellWidthRange: new RangeWithValue( 0.1, 1, 1 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
       tandemPrefix: 'morsePotential'
     }, providedOptions );
 
     super( options );
-
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
-      units: nanometersUnit,
-      range: options.wellWidthRange,
-      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
-      phetioFeatured: true
-    } );
 
     this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
       units: electronVoltsUnit,
@@ -72,7 +63,7 @@ export default class MorsePotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty ], () => {
+    Multilink.multilink( [ this.wellDepthProperty ], () => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.changedEmitter.emit();
       }
@@ -81,7 +72,6 @@ export default class MorsePotential extends QuantumPotential {
 
   public override reset(): void {
     super.reset();
-    this.wellWidthProperty.reset();
     this.wellDepthProperty.reset();
   }
 

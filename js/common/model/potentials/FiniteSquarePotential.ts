@@ -26,42 +26,36 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
-  wellWidthRange?: RangeWithValue;
   wellDepthRange?: RangeWithValue;
   separationRange?: RangeWithValue;
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
-  WithOptional<QuantumPotentialOptions, 'visualNameProperty' | 'tandemPrefix'>;
+  WithOptional<QuantumPotentialOptions, 'wellWidthRange' | 'visualNameProperty' | 'tandemPrefix'>;
 
 export default class FiniteSquarePotential extends QuantumPotential {
 
-  public readonly wellWidthProperty: NumberProperty;
+  // Uniform depth of all wells, in eV.
   public readonly wellDepthProperty: NumberProperty;
-  public readonly separationProperty: NumberProperty; // distance between walls of adjacent wells
+
+  // Distance between walls of adjacent wells, in nm.
+  public readonly separationProperty: NumberProperty;
 
   public constructor( providedOptions: FiniteSquarePotentialOptions ) {
 
     const options = optionize<FiniteSquarePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
       // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
       wellDepthRange: new RangeWithValue( 1, 20, 10 ), // for 1 well
       separationRange: new RangeWithValue( 0, 0, 0 ), // for 1 well, effectively constant zero
 
       // QuantumPotentialOptions
+      wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
       tandemPrefix: 'finiteSquarePotential'
     }, providedOptions );
 
     super( options );
-
-    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
-      units: nanometersUnit,
-      range: options.wellWidthRange,
-      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
-      phetioFeatured: true
-    } );
 
     this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
       units: electronVoltsUnit,
@@ -78,7 +72,7 @@ export default class FiniteSquarePotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellWidthProperty, this.wellDepthProperty, this.separationProperty ], () => {
+    Multilink.multilink( [ this.wellDepthProperty, this.separationProperty ], () => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.changedEmitter.emit();
       }
@@ -87,7 +81,6 @@ export default class FiniteSquarePotential extends QuantumPotential {
 
   public override reset(): void {
     super.reset();
-    this.wellWidthProperty.reset();
     this.wellDepthProperty.reset();
     this.separationProperty.reset();
   }

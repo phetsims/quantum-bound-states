@@ -38,6 +38,7 @@ type SelfOptions = {
   xOffset?: number;
   yOffsetRange?: RangeWithValue;
   energyAxisRange?: Range; // range of the energy axis (y-axis) when yOffsetProperty is at its initial value
+  wellWidthRange: RangeWithValue;
   visualNameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
   tandemPrefix: string;
@@ -63,6 +64,9 @@ export default abstract class QuantumPotential extends PhetioObject {
   // Vertical offset of the potential from y=0 eV.
   //TODO Renamed to energyOffsetProperty?
   public readonly yOffsetProperty: NumberProperty;
+
+  // Uniform width of all wells, in nm.
+  public readonly wellWidthProperty: NumberProperty;
 
   // Fires when the quantum potential has changed and the BoundStateResult needs to be recomputed.
   public readonly changedEmitter: Emitter;
@@ -117,6 +121,13 @@ export default abstract class QuantumPotential extends PhetioObject {
       //TODO should this be phetioReadOnly: true?
     } );
 
+    this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
+      units: nanometersUnit,
+      range: options.wellWidthRange,
+      tandem: options.tandem.createTandem( 'wellWidthProperty' ),
+      phetioFeatured: true
+    } );
+
     this.changedEmitter = new Emitter(); //TODO PhET-iO?
 
     this.energyAxisRange = options.energyAxisRange;
@@ -124,7 +135,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     // Changes to global Properties or Properties instantiated by this class trigger notification.
     //TODO Does energyAxisRangeProperty need to be included here? If not, document why not.
     Multilink.multilink( [ this.numberOfWellsProperty, this.electronMassesProperty, this.electricFieldProperty,
-        this.xOffsetProperty, this.yOffsetProperty ],
+        this.xOffsetProperty, this.yOffsetProperty, this.wellWidthProperty ],
       () => {
         if ( !isSettingPhetioStateProperty.value ) {
           this.changedEmitter.emit();
@@ -139,6 +150,7 @@ export default abstract class QuantumPotential extends PhetioObject {
   public reset(): void {
     this.xOffsetProperty.reset();
     this.yOffsetProperty.reset();
+    this.wellWidthProperty.reset();
   }
 
   /**
