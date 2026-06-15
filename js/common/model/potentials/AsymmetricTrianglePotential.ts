@@ -6,69 +6,39 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
-import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import AsymmetricTriangleSolution from '../solver/analytical-solutions/AsymmetricTriangleSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
-import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
-import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
+import QuantumPotentialDepth, { QuantumPotentialDepthOptions } from './QuantumPotentialDepth.js';
 
-type SelfOptions = {
-  wellDepthRange?: RangeWithValue;
-};
+type SelfOptions = EmptySelfOptions;
 
-export type AsymmetricTrianglePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+type AsymmetricTrianglePotentialOptions = SelfOptions &
+  Pick<QuantumPotentialDepthOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
-export default class AsymmetricTrianglePotential extends QuantumPotential {
-
-  // Uniform depth of all wells, in eV.
-  public readonly wellDepthProperty: NumberProperty;
+export default class AsymmetricTrianglePotential extends QuantumPotentialDepth {
 
   public constructor( providedOptions: AsymmetricTrianglePotentialOptions ) {
 
-    const options = optionize<AsymmetricTrianglePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
-
-      // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
-      wellDepthRange: new RangeWithValue( 1, 20, 10 ), // for 1 well
+    const options = optionize<AsymmetricTrianglePotentialOptions, SelfOptions, QuantumPotentialDepthOptions>()( {
 
       // QuantumPotentialOptions
+      wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
+      wellDepthRange: new RangeWithValue( 1, 20, 10 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.asymmetricTriangleStringProperty,
       tandemPrefix: 'asymmetricTrianglePotential'
     }, providedOptions );
 
     super( options );
-
-    this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
-      units: electronVoltsUnit,
-      range: options.wellDepthRange,
-      tandem: options.tandem.createTandem( 'wellDepthProperty' ),
-      phetioFeatured: true
-    } );
-
-    // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellDepthProperty ], () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.changedEmitter.emit();
-      }
-    } );
-  }
-
-  public override reset(): void {
-    super.reset();
-    this.wellDepthProperty.reset();
   }
 
   public override toString(): string {

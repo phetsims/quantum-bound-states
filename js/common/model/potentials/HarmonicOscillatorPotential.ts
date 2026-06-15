@@ -46,11 +46,9 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
     const options = optionize<HarmonicOscillatorPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
-      // SelfOptions
-      wellWidthRange: new RangeWithValue( 0.1, 3, 1 ), // for 1 well
-
       // QuantumPotentialOptions
       groundStateIndex: 0,
+      wellWidthRange: new RangeWithValue( 0.1, 3, 1 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.harmonicOscillatorStringProperty,
       tandemPrefix: 'harmonicOscillatorPotential'
     }, providedOptions );

@@ -49,20 +49,19 @@ export default class CoulombPotential extends QuantumPotential {
 
     const options = optionize<CoulombPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
 
-      // SelfOptions
-      // Range of well widths, in nanometemers. Default width gives coupling = 0.72 * 4 / 2 = 1.44 eV·nm (the physical ke²).
-      // It is worth noting that the coupling is proportional to the well width, so the range of well widths corresponds 
-      // to a range of couplings. For example, the default width of 0.72 nm gives a coupling of 1.44 eV·nm, 
-      // which is the physical value of ke² and reproduces the standard behavior. (E_1 =-13.6 eV, E_2 =-3.4 eV, etc) 
+      // QuantumPotentialOptions
+      energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
+
+      // Range of well widths, in nm. Default width gives coupling = 0.72 * 4 / 2 = 1.44 eV·nm (the physical ke²).
+      // It is worth noting that the coupling is proportional to the well width, so the range of well widths corresponds
+      // to a range of couplings. For example, the default width of 0.72 nm gives a coupling of 1.44 eV·nm,
+      // which is the physical value of ke² and reproduces the standard behavior. (E_1 =-13.6 eV, E_2 =-3.4 eV, etc)
       // Therefore do not change the default without talking to a designer,
       // as it would change the default coupling and thus the default behavior of the simulation.
       // The Java reference did not have a well width parameter, but the coupling was effectively 1.44 eV·nm, so the default width is set to give that coupling.
       // A more physical model would tune the bohr radius, but this is not a good UI fit for the sim's scale
       //TODO https://github.com/phetsims/quantum-bound-states/issues/64 0.72 is problematic because we show 1 decimal place for well width. Can we use 0.7?
       wellWidthRange: new RangeWithValue( 0.2, 0.72, 0.72 ),
-
-      // QuantumPotentialOptions
-      energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.coulombStringProperty,
       tandemPrefix: 'coulombPotential'
     }, providedOptions );

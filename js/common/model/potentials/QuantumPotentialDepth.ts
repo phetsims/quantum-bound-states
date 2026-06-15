@@ -1,0 +1,53 @@
+// Copyright 2026, University of Colorado Boulder
+
+/**
+ * QuantumPotentialDepth extends the QuantumPotential base class by adding wellDepthProperty,
+ * a Property that is common to half of the quantum potential types.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import Multilink from '../../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
+import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
+import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
+import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
+
+type SelfOptions = {
+  wellDepthRange: RangeWithValue;
+};
+
+export type QuantumPotentialDepthOptions = SelfOptions & QuantumPotentialOptions;
+
+export default abstract class QuantumPotentialDepth extends QuantumPotential {
+
+  // Uniform depth of all wells, in eV.
+  public readonly wellDepthProperty: NumberProperty;
+
+  public constructor( providedOptions: QuantumPotentialDepthOptions ) {
+
+    const options = providedOptions;
+
+    super( options );
+
+    this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
+      units: electronVoltsUnit,
+      range: options.wellDepthRange,
+      tandem: options.tandem.createTandem( 'wellDepthProperty' ),
+      phetioFeatured: true
+    } );
+
+    // Changes to Properties instantiated by this class trigger notification.
+    Multilink.multilink( [ this.wellDepthProperty ], () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.changedEmitter.emit();
+      }
+    } );
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.wellDepthProperty.reset();
+  }
+}

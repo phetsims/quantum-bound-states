@@ -6,73 +6,43 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../../axon/js/Multilink.js';
-import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import MorseSolution from '../solver/analytical-solutions/MorseSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
-import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
-import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
+import QuantumPotentialDepth, { QuantumPotentialDepthOptions } from './QuantumPotentialDepth.js';
 
-type SelfOptions = {
-  wellDepthRange?: RangeWithValue;
-};
+type SelfOptions = EmptySelfOptions;
 
 export type MorsePotentialOptions = SelfOptions &
-  Pick<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
+  Pick<QuantumPotentialDepthOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'yOffsetRange' | 'tandem'>;
 
-export default class MorsePotential extends QuantumPotential {
-
-  // Uniform depth of all wells, in eV.
-  public readonly wellDepthProperty: NumberProperty;
+export default class MorsePotential extends QuantumPotentialDepth {
 
   public constructor( providedOptions: MorsePotentialOptions ) {
 
-    const options = optionize<MorsePotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
-
-      // SelfOptions
-      wellDepthRange: new RangeWithValue( 1.5, 15, 10 ), // for 1 well
+    const options = optionize<MorsePotentialOptions, SelfOptions, QuantumPotentialDepthOptions>()( {
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
       xOffset: -2, // shift left so that more of the potential's tail is visible
       energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
       wellWidthRange: new RangeWithValue( 0.1, 1, 1 ), // for 1 well
+      wellDepthRange: new RangeWithValue( 1.5, 15, 10 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.morseStringProperty,
       tandemPrefix: 'morsePotential'
     }, providedOptions );
 
     super( options );
-
-    this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
-      units: electronVoltsUnit,
-      range: options.wellDepthRange,
-      tandem: options.tandem.createTandem( 'wellDepthProperty' ),
-      phetioFeatured: true
-    } );
-
-    // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellDepthProperty ], () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.changedEmitter.emit();
-      }
-    } );
-  }
-
-  public override reset(): void {
-    super.reset();
-    this.wellDepthProperty.reset();
   }
 
   public override toString(): string {
