@@ -15,7 +15,10 @@ export default class SuperpositionScreenSummaryContent extends ScreenSummaryCont
 
     super( {
       isDisposable: false,
-      playAreaContent: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.playAreaStringProperty,
+      playAreaContent: [
+        QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.playArea.energyDiagramStringProperty,
+        QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.playArea.quantumStateGraphStringProperty
+      ],
       controlAreaContent: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.controlAreaStringProperty,
       currentDetailsContent: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.currentDetailsStringProperty,
       interactionHintContent: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty

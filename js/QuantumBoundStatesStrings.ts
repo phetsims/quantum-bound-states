@@ -145,7 +145,10 @@ type StringsType = {
       'oneWellScreen': {
         'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
         'screenSummary': {
-          'playAreaStringProperty': LocalizedStringProperty;
+          'playArea': {
+            'energyDiagramStringProperty': LocalizedStringProperty;
+            'quantumStateGraphStringProperty': LocalizedStringProperty;
+          };
           'controlAreaStringProperty': LocalizedStringProperty;
           'currentDetailsStringProperty': LocalizedStringProperty;
           'interactionHintStringProperty': LocalizedStringProperty;
@@ -154,7 +157,10 @@ type StringsType = {
       'twoWellsScreen': {
         'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
         'screenSummary': {
-          'playAreaStringProperty': LocalizedStringProperty;
+          'playArea': {
+            'energyDiagramStringProperty': LocalizedStringProperty;
+            'quantumStateGraphStringProperty': LocalizedStringProperty;
+          };
           'controlAreaStringProperty': LocalizedStringProperty;
           'currentDetailsStringProperty': LocalizedStringProperty;
           'interactionHintStringProperty': LocalizedStringProperty;
@@ -163,7 +169,10 @@ type StringsType = {
       'manyWellsScreen': {
         'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
         'screenSummary': {
-          'playAreaStringProperty': LocalizedStringProperty;
+          'playArea': {
+            'energyDiagramStringProperty': LocalizedStringProperty;
+            'quantumStateGraphStringProperty': LocalizedStringProperty;
+          };
           'controlAreaStringProperty': LocalizedStringProperty;
           'currentDetailsStringProperty': LocalizedStringProperty;
           'interactionHintStringProperty': LocalizedStringProperty;
@@ -172,7 +181,10 @@ type StringsType = {
       'superpositionScreen': {
         'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
         'screenSummary': {
-          'playAreaStringProperty': LocalizedStringProperty;
+          'playArea': {
+            'energyDiagramStringProperty': LocalizedStringProperty;
+            'quantumStateGraphStringProperty': LocalizedStringProperty;
+          };
           'controlAreaStringProperty': LocalizedStringProperty;
           'currentDetailsStringProperty': LocalizedStringProperty;
           'interactionHintStringProperty': LocalizedStringProperty;

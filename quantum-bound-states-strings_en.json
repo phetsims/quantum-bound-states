@@ -307,7 +307,12 @@
         },
         "screenSummary": {
           "playArea": {
-            "value": "In the Energy Diagram, observe the energy level structure of the chosen potential well.\nAdjust the available parameters for each potential well type and explore the changes to\nthe energy levels. Change the potential well type to explore different shapes. You can\nalso change the mass of the system.\n\nIn the Quantum State Graph, you can observe the probability density or wave function for\nthe selected energy level. View the full equation for the given state graph. If viewing\nthe wave function, you can toggle parts of the graph, such as the real or imaginary part.\nThere is also an option to show the magnitude and, if enabled, the phase of the wave function."
+            "energyDiagram": {
+              "value": "In the Energy Diagram, observe the energy level structure of the chosen potential well.\nAdjust the available parameters for each potential well type and explore the changes to\nthe energy levels. Change the potential well type to explore different shapes. You can\nalso change the mass of the system."
+            },
+            "quantumStateGraph": {
+              "value": "In the Quantum State Graph, you can observe the probability density or wave function for\nthe selected energy level. View the full equation for the given state graph. If viewing\nthe wave function, you can toggle parts of the graph, such as the real or imaginary part.\nThere is also an option to show the magnitude and, if enabled, the phase of the wave function."
+            }
           },
           "controlArea": {
             "value": "There are a few controls for visual inspection of the energy diagram or controlling the speed\nof the simulation. Toggle the visual labels on the energy diagram. Add a reference line to \nvisually compare the probability density or wave function to the boundaries of the potential\nwell. A magnifier can aid in telling apart closely spaced energy levels. You can track the\ntime the system has been evolving or hide it. There are controls to pause, step through, or \nrestart the system. For slowly evolving states, you can increase the sim speed."
@@ -326,7 +331,12 @@
         },
         "screenSummary": {
           "playArea": {
-            "value": "In the Energy Diagram, observe the energy levels of two closely spaced potential wells,\na simple model of a two-atom molecule. Drag the handles on the curve to change the well width,\nthe well height, and the separation between the wells, and explore how the energy levels and\nstates respond as the wells move together or apart. Change the potential well type to explore\na different two-well shape.\n\nIn the Quantum State Graph, you can observe the probability density or wave function for the \nselected energy level. If viewing the wave function, you can toggle parts of the graph, such\nas the real or imaginary part, the magnitude, and, if enabled, the phase."
+            "energyDiagram": {
+              "value": "In the Energy Diagram, observe the energy levels of two closely spaced potential wells,\na simple model of a two-atom molecule. Drag the handles on the curve to change the well width,\nthe well height, and the separation between the wells, and explore how the energy levels and\nstates respond as the wells move together or apart. Change the potential well type to explore\na different two-well shape."
+            },
+            "quantumStateGraph": {
+              "value": "In the Quantum State Graph, you can observe the probability density or wave function for the \nselected energy level. If viewing the wave function, you can toggle parts of the graph, such\nas the real or imaginary part, the magnitude, and, if enabled, the phase."
+            }
           },
           "controlArea": {
             "value": "There are tools for inspecting the graphs and options for controlling the speed of the\nsimulation. Toggle the value labels on the Energy Diagram. Add a Reference Line to compare\nthe graphs to the boundaries of the wells. A Magnifier can aid in telling apart closely \nspaced energy levels. You can track the time the system has been evolving or hide it.\nThere are controls to pause, step through, or restart the system. For slowly evolving states,\nyou can increase the sim speed."
@@ -345,7 +355,12 @@
         },
         "screenSummary": {
           "playArea": {
-            "value": "In the Energy Diagram, observe how a row of identical wells builds a lattice. Drag the handles\non the curve to change the well width, the well height, and the separation between wells. Add\nor remove wells and explore how the energy levels respond as the lattice grows. Apply an\nelectric field and explore its effect on the energy levels. Change the potential well type to\nexplore a different lattice shape.\n\nIn the Quantum State Graph, you can observe the probability density or wave function for the\nselected energy level, or the average probability density across a whole band."
+            "energyDiagram": {
+              "value": "In the Energy Diagram, observe how a row of identical wells builds a lattice. Drag the handles\non the curve to change the well width, the well height, and the separation between wells. Add\nor remove wells and explore how the energy levels respond as the lattice grows. Apply an\nelectric field and explore its effect on the energy levels. Change the potential well type to\nexplore a different lattice shape."
+            },
+            "quantumStateGraph": {
+              "value": "In the Quantum State Graph, you can observe the probability density or wave function for the\nselected energy level, or the average probability density across a whole band."
+            }
           },
           "controlArea": {
             "value": "There are controls for building the lattice and for controlling the speed of the simulation.\nSet the number of wells in the lattice and apply an electric field. Toggle the value labels\non the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy\nfor telling apart closely spaced energy levels. Zoom the energy axis in or out. You can track\nthe time the system has been evolving or hide it. There are controls to pause, step through,\nor restart the system. For slowly evolving states, you can increase the sim speed."
@@ -364,7 +379,12 @@
         },
         "screenSummary": {
           "playArea": {
-            "value": "In the Energy Diagram, observe the energy levels of the chosen potential. The levels that\ncontribute to the current superposition are emphasized in proportion to their weight. Change\nthe potential well type to explore a different shape.\n\nIn the Quantum State Graph, you can observe the probability density or wave function for the\ncurrent superposition state. Press Play to explore how this state changes over time. Open the\nDetails to view the full equation along with the magnitude and phase of each contributing level."
+            "energyDiagram": {
+              "value": "In the Energy Diagram, observe the energy levels of the chosen potential. The levels that\ncontribute to the current superposition are emphasized in proportion to their weight. Change\nthe potential well type to explore a different shape."
+            },
+            "quantumStateGraph": {
+              "value": "In the Quantum State Graph, you can observe the probability density or wave function for the\ncurrent superposition state. Press Play to explore how this state changes over time. Open the\nDetails to view the full equation along with the magnitude and phase of each contributing level."
+            }
           },
           "controlArea": {
             "value": "There are controls for building superpositions and for controlling the speed of the simulation.\nSwitch between curated Preset combinations and your own Custom combinations, and open Customize\nto set the magnitude and phase of each level. Toggle the value labels on the Energy Diagram,\nadd a Reference Line, and add a Magnifier. You can track the time the system has been evolving\nor hide it. There are controls to pause, step through, or restart the system. For slowly\nevolving states, you can increase the sim speed."

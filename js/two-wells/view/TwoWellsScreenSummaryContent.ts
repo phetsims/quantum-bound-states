@@ -15,7 +15,10 @@ export default class TwoWellsScreenSummaryContent extends ScreenSummaryContent {
 
     super( {
       isDisposable: false,
-      playAreaContent: QuantumBoundStatesFluent.a11y.screens.twoWellsScreen.screenSummary.playAreaStringProperty,
+      playAreaContent: [
+        QuantumBoundStatesFluent.a11y.screens.twoWellsScreen.screenSummary.playArea.energyDiagramStringProperty,
+        QuantumBoundStatesFluent.a11y.screens.twoWellsScreen.screenSummary.playArea.quantumStateGraphStringProperty
+        ],
       controlAreaContent: QuantumBoundStatesFluent.a11y.screens.twoWellsScreen.screenSummary.controlAreaStringProperty,
       currentDetailsContent: QuantumBoundStatesFluent.a11y.screens.twoWellsScreen.screenSummary.currentDetailsStringProperty,
       interactionHintContent: QuantumBoundStatesFluent.a11y.screens.twoWellsScreen.screenSummary.interactionHintStringProperty

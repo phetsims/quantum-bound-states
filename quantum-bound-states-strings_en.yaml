@@ -160,17 +160,17 @@ a11y:
     oneWellScreen:
       screenButtonsHelpText: Explore bound states in various single well potentials.
       screenSummary:
-        playArea:        |-
-                         In the Energy Diagram, observe the energy level structure of the chosen potential well.
-                         Adjust the available parameters for each potential well type and explore the changes to
-                         the energy levels. Change the potential well type to explore different shapes. You can
-                         also change the mass of the system.
-                         
-                         In the Quantum State Graph, you can observe the probability density or wave function for
-                         the selected energy level. View the full equation for the given state graph. If viewing
-                         the wave function, you can toggle parts of the graph, such as the real or imaginary part.
-                         There is also an option to show the magnitude and, if enabled, the phase of the wave function.
-
+        playArea:
+          energyDiagram:     |-
+                             In the Energy Diagram, observe the energy level structure of the chosen potential well.
+                             Adjust the available parameters for each potential well type and explore the changes to
+                             the energy levels. Change the potential well type to explore different shapes. You can
+                             also change the mass of the system.
+          quantumStateGraph: |-
+                             In the Quantum State Graph, you can observe the probability density or wave function for
+                             the selected energy level. View the full equation for the given state graph. If viewing
+                             the wave function, you can toggle parts of the graph, such as the real or imaginary part.
+                             There is also an option to show the magnitude and, if enabled, the phase of the wave function.
         controlArea:     |-
                          There are a few controls for visual inspection of the energy diagram or controlling the speed
                          of the simulation. Toggle the visual labels on the energy diagram. Add a reference line to 
@@ -196,17 +196,17 @@ a11y:
     twoWellsScreen:
       screenButtonsHelpText: Explore bound states and molecular bonding in two closely separated potentials.
       screenSummary:
-        playArea:        |-
-                         In the Energy Diagram, observe the energy levels of two closely spaced potential wells,
-                         a simple model of a two-atom molecule. Drag the handles on the curve to change the well width,
-                         the well height, and the separation between the wells, and explore how the energy levels and
-                         states respond as the wells move together or apart. Change the potential well type to explore
-                         a different two-well shape.
-                         
-                         In the Quantum State Graph, you can observe the probability density or wave function for the 
-                         selected energy level. If viewing the wave function, you can toggle parts of the graph, such
-                         as the real or imaginary part, the magnitude, and, if enabled, the phase.
-
+        playArea:
+          energyDiagram:     |-
+                             In the Energy Diagram, observe the energy levels of two closely spaced potential wells,
+                             a simple model of a two-atom molecule. Drag the handles on the curve to change the well width,
+                             the well height, and the separation between the wells, and explore how the energy levels and
+                             states respond as the wells move together or apart. Change the potential well type to explore
+                             a different two-well shape.
+          quantumStateGraph: |-
+                             In the Quantum State Graph, you can observe the probability density or wave function for the 
+                             selected energy level. If viewing the wave function, you can toggle parts of the graph, such
+                             as the real or imaginary part, the magnitude, and, if enabled, the phase.
         controlArea:     |-
                          There are tools for inspecting the graphs and options for controlling the speed of the
                          simulation. Toggle the value labels on the Energy Diagram. Add a Reference Line to compare
@@ -234,16 +234,16 @@ a11y:
     manyWellsScreen:
       screenButtonsHelpText: Explore bound states and band structure in a periodic array of potentials.
       screenSummary:
-        playArea:        |-
-                         In the Energy Diagram, observe how a row of identical wells builds a lattice. Drag the handles
-                         on the curve to change the well width, the well height, and the separation between wells. Add
-                         or remove wells and explore how the energy levels respond as the lattice grows. Apply an
-                         electric field and explore its effect on the energy levels. Change the potential well type to
-                         explore a different lattice shape.
-                         
-                         In the Quantum State Graph, you can observe the probability density or wave function for the
-                         selected energy level, or the average probability density across a whole band.
-
+        playArea:
+          energyDiagram:     |-
+                             In the Energy Diagram, observe how a row of identical wells builds a lattice. Drag the handles
+                             on the curve to change the well width, the well height, and the separation between wells. Add
+                             or remove wells and explore how the energy levels respond as the lattice grows. Apply an
+                             electric field and explore its effect on the energy levels. Change the potential well type to
+                             explore a different lattice shape.
+          quantumStateGraph: |-
+                             In the Quantum State Graph, you can observe the probability density or wave function for the
+                             selected energy level, or the average probability density across a whole band.
         controlArea:     |-
                          There are controls for building the lattice and for controlling the speed of the simulation.
                          Set the number of wells in the lattice and apply an electric field. Toggle the value labels
@@ -271,14 +271,15 @@ a11y:
     superpositionScreen:
       screenButtonsHelpText: Explore superposition states and their time-dependent behavior for various potentials.
       screenSummary:
-        playArea:        |-
-                         In the Energy Diagram, observe the energy levels of the chosen potential. The levels that
-                         contribute to the current superposition are emphasized in proportion to their weight. Change
-                         the potential well type to explore a different shape.
-                         
-                         In the Quantum State Graph, you can observe the probability density or wave function for the
-                         current superposition state. Press Play to explore how this state changes over time. Open the
-                         Details to view the full equation along with the magnitude and phase of each contributing level.
+        playArea:
+          energyDiagram:     |-
+                             In the Energy Diagram, observe the energy levels of the chosen potential. The levels that
+                             contribute to the current superposition are emphasized in proportion to their weight. Change
+                             the potential well type to explore a different shape.
+          quantumStateGraph: |-
+                             In the Quantum State Graph, you can observe the probability density or wave function for the
+                             current superposition state. Press Play to explore how this state changes over time. Open the
+                             Details to view the full equation along with the magnitude and phase of each contributing level.
 
         controlArea:     |-
                          There are controls for building superpositions and for controlling the speed of the simulation.

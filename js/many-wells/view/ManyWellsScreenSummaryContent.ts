@@ -15,7 +15,10 @@ export default class ManyWellsScreenSummaryContent extends ScreenSummaryContent 
 
     super( {
       isDisposable: false,
-      playAreaContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.playAreaStringProperty,
+      playAreaContent: [
+        QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.playArea.energyDiagramStringProperty,
+        QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.playArea.quantumStateGraphStringProperty
+      ],
       controlAreaContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.controlAreaStringProperty,
       currentDetailsContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.currentDetailsStringProperty,
       interactionHintContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.interactionHintStringProperty
