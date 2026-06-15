@@ -313,7 +313,7 @@
             "value": "There are a few controls for visual inspection of the energy diagram or controlling the speed of the simulation. Toggle the visual labels on the energy diagram. Add a reference line to visually compare the probability density or wave function to the boundaries of the potential well. A magnifier can aid in telling apart closely spaced energy levels. You can track the time the system has been evolving or hide it. There are controls to pause, step through, or restart the system. For slowly evolving states, you can increase the sim speed."
           },
           "currentDetails": {
-            "value": "Currently,\n  \n  The potential well type is POTENTIALTYPE.\n  Well width set to WELLWIDTH nanometers.\n  Well height set to WELLHEIGHT electron volts. \n  Energy level INDEX is at ENERGYLEVEL electron volts.\n  GRAPHTYPERADIOBUTTON graph displayed for energy level INDEX.\n  Reference line is added.\n  Magnifier is added.\n  Sim speed is set to SIMSPEED."
+            "value": "Currently,\n\n  The potential well type is POTENTIALTYPE.\n  Well width set to WELLWIDTH nanometers.\n  Well height set to WELLHEIGHT electron volts. \n  Energy level INDEX is at ENERGYLEVEL electron volts.\n  GRAPHTYPERADIOBUTTON graph displayed for energy level INDEX.\n  Reference line is added.\n  Magnifier is added.\n  Sim speed is set to SIMSPEED."
           },
           "interactionHint": {
             "value": "Select an energy level or change the properties of the well to begin exploring."
