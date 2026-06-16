@@ -229,31 +229,35 @@
     }
   },
   "superpositionConfigurations": {
-    "groundState0": {
-      "preset1": {
+    "preset1": {
+      "groundState0": {
         "value": "cΨ<sub>0</sub> + cΨ<sub>1</sub>"
       },
-      "preset2": {
-        "value": "cΨ<sub>0</sub> + cΨ<sub>2</sub>"
-      },
-      "preset3": {
-        "value": "cΨ<sub>0</sub> - cΨ<sub>1</sub>"
-      },
-      "preset4": {
-        "value": "cΨ<sub>0</sub> + cΨ<sub>1</sub> + cΨ<sub>2</sub>"
+      "groundState1": {
+        "value": "cΨ<sub>1</sub> + cΨ<sub>2</sub>"
       }
     },
-    "groundState1": {
-      "preset1": {
-        "value": "cΨ<sub>1</sub> + cΨ<sub>2</sub>"
+    "preset2": {
+      "groundState0": {
+        "value": "cΨ<sub>0</sub> + cΨ<sub>2</sub>"
       },
-      "preset2": {
+      "groundState1": {
         "value": "cΨ<sub>1</sub> + cΨ<sub>3</sub>"
+      }
+    },
+    "preset3": {
+      "groundState0": {
+        "value": "cΨ<sub>0</sub> - cΨ<sub>1</sub>"
       },
-      "preset3": {
+      "groundState1": {
         "value": "cΨ<sub>1</sub> - cΨ<sub>2</sub>"
+      }
+    },
+    "preset4": {
+      "groundState0": {
+        "value": "cΨ<sub>0</sub> + cΨ<sub>1</sub> + cΨ<sub>2</sub>"
       },
-      "preset4": {
+      "groundState1": {
         "value": "cΨ<sub>1</sub> + cΨ<sub>2</sub> + cΨ<sub>3</sub>"
       }
     },

@@ -123,11 +123,10 @@ export default class SuperpositionModel extends QBSModel {
     const superpositionPresets: SuperpositionPreset[] = [
       new SuperpositionPreset( {
         nameProperty: new DerivedStringProperty( [
-          this.potentialProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset1StringProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset1StringProperty
-        ], ( potential, groundState0String, groundState1String ) =>
-          potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
+          groundStateIndexProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.preset1.groundState0StringProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.preset1.groundState1StringProperty
+        ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
         accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset1.createProperty( {
           groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
         } ),
@@ -135,11 +134,10 @@ export default class SuperpositionModel extends QBSModel {
       } ),
       new SuperpositionPreset( {
         nameProperty: new DerivedStringProperty( [
-          this.potentialProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset2StringProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset2StringProperty
-        ], ( potential, groundState0String, groundState1String ) =>
-          potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
+          groundStateIndexProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.preset2.groundState0StringProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.preset2.groundState1StringProperty
+        ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
         accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset2.createProperty( {
           groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
         } ),
@@ -147,11 +145,10 @@ export default class SuperpositionModel extends QBSModel {
       } ),
       new SuperpositionPreset( {
         nameProperty: new DerivedStringProperty( [
-          this.potentialProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset3StringProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset3StringProperty
-        ], ( potential, groundState0String, groundState1String ) =>
-          potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
+          groundStateIndexProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.preset3.groundState0StringProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.preset3.groundState1StringProperty
+        ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
         accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset3.createProperty( {
           groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
         } ),
@@ -159,11 +156,10 @@ export default class SuperpositionModel extends QBSModel {
       } ),
       new SuperpositionPreset( {
         nameProperty: new DerivedStringProperty( [
-          this.potentialProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset4StringProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset4StringProperty
-        ], ( potential, groundState0String, groundState1String ) =>
-          potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
+          groundStateIndexProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.preset4.groundState0StringProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.preset4.groundState1StringProperty
+        ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
         accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset4.createProperty( {
           groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
         } ),

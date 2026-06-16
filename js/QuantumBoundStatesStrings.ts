@@ -108,17 +108,21 @@ type StringsType = {
     'infiniteStepStringProperty': LocalizedStringProperty;
   };
   'superpositionConfigurations': {
-    'groundState0': {
-      'preset1StringProperty': LocalizedStringProperty;
-      'preset2StringProperty': LocalizedStringProperty;
-      'preset3StringProperty': LocalizedStringProperty;
-      'preset4StringProperty': LocalizedStringProperty;
+    'preset1': {
+      'groundState0StringProperty': LocalizedStringProperty;
+      'groundState1StringProperty': LocalizedStringProperty;
     };
-    'groundState1': {
-      'preset1StringProperty': LocalizedStringProperty;
-      'preset2StringProperty': LocalizedStringProperty;
-      'preset3StringProperty': LocalizedStringProperty;
-      'preset4StringProperty': LocalizedStringProperty;
+    'preset2': {
+      'groundState0StringProperty': LocalizedStringProperty;
+      'groundState1StringProperty': LocalizedStringProperty;
+    };
+    'preset3': {
+      'groundState0StringProperty': LocalizedStringProperty;
+      'groundState1StringProperty': LocalizedStringProperty;
+    };
+    'preset4': {
+      'groundState0StringProperty': LocalizedStringProperty;
+      'groundState1StringProperty': LocalizedStringProperty;
     };
     'preset5StringProperty': LocalizedStringProperty;
     'custom1StringProperty': LocalizedStringProperty;

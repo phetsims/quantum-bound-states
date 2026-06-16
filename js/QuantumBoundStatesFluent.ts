@@ -83,14 +83,14 @@ addToMapIfDefined( 'potentialWells_poschlTeller', 'potentialWells.poschlTellerSt
 addToMapIfDefined( 'potentialWells_morse', 'potentialWells.morseStringProperty' );
 addToMapIfDefined( 'potentialWells_coulomb', 'potentialWells.coulombStringProperty' );
 addToMapIfDefined( 'potentialWells_infiniteStep', 'potentialWells.infiniteStepStringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_groundState0_preset1', 'superpositionConfigurations.groundState0.preset1StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_groundState0_preset2', 'superpositionConfigurations.groundState0.preset2StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_groundState0_preset3', 'superpositionConfigurations.groundState0.preset3StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_groundState0_preset4', 'superpositionConfigurations.groundState0.preset4StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_groundState1_preset1', 'superpositionConfigurations.groundState1.preset1StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_groundState1_preset2', 'superpositionConfigurations.groundState1.preset2StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_groundState1_preset3', 'superpositionConfigurations.groundState1.preset3StringProperty' );
-addToMapIfDefined( 'superpositionConfigurations_groundState1_preset4', 'superpositionConfigurations.groundState1.preset4StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_preset1_groundState0', 'superpositionConfigurations.preset1.groundState0StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_preset1_groundState1', 'superpositionConfigurations.preset1.groundState1StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_preset2_groundState0', 'superpositionConfigurations.preset2.groundState0StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_preset2_groundState1', 'superpositionConfigurations.preset2.groundState1StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_preset3_groundState0', 'superpositionConfigurations.preset3.groundState0StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_preset3_groundState1', 'superpositionConfigurations.preset3.groundState1StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_preset4_groundState0', 'superpositionConfigurations.preset4.groundState0StringProperty' );
+addToMapIfDefined( 'superpositionConfigurations_preset4_groundState1', 'superpositionConfigurations.preset4.groundState1StringProperty' );
 addToMapIfDefined( 'superpositionConfigurations_preset5', 'superpositionConfigurations.preset5StringProperty' );
 addToMapIfDefined( 'superpositionConfigurations_custom1', 'superpositionConfigurations.custom1StringProperty' );
 addToMapIfDefined( 'superpositionConfigurations_custom2', 'superpositionConfigurations.custom2StringProperty' );
@@ -448,17 +448,21 @@ const QuantumBoundStatesFluent = {
   _comment_26: new FluentComment( {"comment":"Superposition Configurations","associatedKey":"superpositionConfigurations"} ),
   _comment_27: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"superpositionConfigurations"} ),
   superpositionConfigurations: {
-    groundState0: {
-      preset1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState0.preset1StringProperty' ),
-      preset2StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState0.preset2StringProperty' ),
-      preset3StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState0.preset3StringProperty' ),
-      preset4StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState0.preset4StringProperty' )
+    preset1: {
+      groundState0StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset1.groundState0StringProperty' ),
+      groundState1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset1.groundState1StringProperty' )
     },
-    groundState1: {
-      preset1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState1.preset1StringProperty' ),
-      preset2StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState1.preset2StringProperty' ),
-      preset3StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState1.preset3StringProperty' ),
-      preset4StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.groundState1.preset4StringProperty' )
+    preset2: {
+      groundState0StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset2.groundState0StringProperty' ),
+      groundState1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset2.groundState1StringProperty' )
+    },
+    preset3: {
+      groundState0StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset3.groundState0StringProperty' ),
+      groundState1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset3.groundState1StringProperty' )
+    },
+    preset4: {
+      groundState0StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset4.groundState0StringProperty' ),
+      groundState1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset4.groundState1StringProperty' )
     },
     preset5StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.preset5StringProperty' ),
     custom1StringProperty: _.get( QuantumBoundStatesStrings, 'superpositionConfigurations.custom1StringProperty' ),
