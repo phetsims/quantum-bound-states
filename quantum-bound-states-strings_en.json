@@ -313,7 +313,7 @@
                   "value": "The potential well type is {$potentialName}."
                 },
                 "selectedGraph": {
-                  "value": "{ $graphName } displayed for energy level { $energyLevelIndex }."
+                  "value": "{ $graphName } displayed for energy level { $index }."
                 },
                 "referenceLineIsAdded": {
                   "value": "Reference Line is added."

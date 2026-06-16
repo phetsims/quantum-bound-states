@@ -165,7 +165,7 @@ a11y:
             leadingParagraph: Currently,
             listItems:
               selectedPotential:    The potential well type is {$potentialName}.
-              selectedGraph:        '{ $graphName } displayed for energy level { $energyLevelIndex }.'
+              selectedGraph:        '{ $graphName } displayed for energy level { $index }.'
               referenceLineIsAdded: Reference Line is added.
               magnifierIsAdded:     Magnifier is added.
               simState:
