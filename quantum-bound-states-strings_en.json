@@ -420,7 +420,11 @@
             "value": "There are controls for building superpositions and for controlling the speed of the simulation.\nSwitch between curated Preset combinations and your own Custom combinations, and open Customize\nto set the magnitude and phase of each level. Toggle the value labels on the Energy Diagram,\nadd a Reference Line, and add a Magnifier. You can track the time the system has been evolving\nor hide it. There are controls to pause, step through, or restart the system. For slowly\nevolving states, you can increase the sim speed."
           },
           "currentDetails": {
-            "value": "Currently,\n  The potential well type is POTENTIAL_TYPE.\n  Superposition set to preset SUPERPOSITION_ACCORDION_BOX_OPTION.\n  GRAPH_TYPE_RADIO_BUTTON graph displayed.\n  Reference line is added.\n  Magnifier is added.\n  The system is SIM_STATE.\n  Sim speed is set to SIM_SPEED."
+            "listItems": {
+              "superPosition": {
+                "value": "{ $type ->\n  [preset] Superposition is set to preset { $name }.\n  *[custom] Superposition is set to { $name }.\n}"
+              }
+            }
           },
           "interactionHint": {
             "value": "Choose a preset superposition and press Play to explore how it changes over time."

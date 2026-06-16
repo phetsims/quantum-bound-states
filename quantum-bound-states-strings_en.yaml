@@ -270,15 +270,12 @@ a11y:
                          or hide it. There are controls to pause, step through, or restart the system. For slowly
                          evolving states, you can increase the sim speed.
 
-        currentDetails:  |-
-                         Currently,
-                           The potential well type is POTENTIAL_TYPE.
-                           Superposition set to preset SUPERPOSITION_ACCORDION_BOX_OPTION.
-                           GRAPH_TYPE_RADIO_BUTTON graph displayed.
-                           Reference line is added.
-                           Magnifier is added.
-                           The system is SIM_STATE.
-                           Sim speed is set to SIM_SPEED.
+        currentDetails:
+          listItems:
+            superPosition:
+              select_type:
+                preset: Superposition is set to preset { $name }.
+                custom: Superposition is set to { $name }.
 
         interactionHint: Choose a preset superposition and press Play to explore how it changes over time.
 

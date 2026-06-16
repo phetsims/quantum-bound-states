@@ -129,7 +129,7 @@ addToMapIfDefined( 'a11y_screens_superpositionScreen_screenButtonsHelpText', 'a1
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_playArea_energyDiagram', 'a11y.screens.superpositionScreen.screenSummary.playArea.energyDiagramStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_playArea_quantumStateGraph', 'a11y.screens.superpositionScreen.screenSummary.playArea.quantumStateGraphStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_controlArea', 'a11y.screens.superpositionScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_currentDetails', 'a11y.screens.superpositionScreen.screenSummary.currentDetailsStringProperty' );
+addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_currentDetails_listItems_superPosition', 'a11y.screens.superpositionScreen.screenSummary.currentDetails.listItems.superPositionStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_interactionHint', 'a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagramControls_accessibleHeading', 'a11y.energyDiagramControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphControls_accessibleHeading', 'a11y.quantumStateGraphControls.accessibleHeadingStringProperty' );
@@ -564,7 +564,11 @@ const QuantumBoundStatesFluent = {
             quantumStateGraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_playArea_quantumStateGraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.playArea.quantumStateGraphStringProperty' ) )
           },
           controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.controlAreaStringProperty' ) ),
-          currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.currentDetailsStringProperty' ) ),
+          currentDetails: {
+            listItems: {
+              superPosition: new FluentPattern<{ name: FluentVariable, type: 'preset' | 'custom' | TReadOnlyProperty<'preset' | 'custom'> }>( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_currentDetails_listItems_superPosition', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.currentDetails.listItems.superPositionStringProperty' ), [{"name":"name"},{"name":"type","variants":["preset","custom"]}] )
+            }
+          },
           interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty' ) )
         }
       }

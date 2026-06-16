@@ -204,7 +204,11 @@ type StringsType = {
             'quantumStateGraphStringProperty': LocalizedStringProperty;
           };
           'controlAreaStringProperty': LocalizedStringProperty;
-          'currentDetailsStringProperty': LocalizedStringProperty;
+          'currentDetails': {
+            'listItems': {
+              'superPositionStringProperty': LocalizedStringProperty;
+            }
+          };
           'interactionHintStringProperty': LocalizedStringProperty;
         }
       }
