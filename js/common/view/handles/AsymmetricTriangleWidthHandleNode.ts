@@ -19,6 +19,10 @@ import QBSConstants from '../../QBSConstants.js';
 import AsymmetricTriangleWidthDragListener from './AsymmetricTriangleWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 
+// The width handle will be places this many eV above the potential's energy offset.
+// Vertical marker lines indicate where the width is measured.
+const ENERGY_OFFSET = 1;
+
 export default class AsymmetricTriangleWidthHandleNode extends PotentialHandleNode<AsymmetricTrianglePotential> {
 
   public constructor( potential: AsymmetricTrianglePotential,
@@ -46,11 +50,11 @@ export default class AsymmetricTriangleWidthHandleNode extends PotentialHandleNo
   }
 
   /**
-   * Vertically center the handle on the left wall.
+   * Position the handle on the marker line that defines the right edge of the width interval.
    */
   protected override updatePosition(): void {
-    this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value - this.potential.wellWidthProperty.value / 2 );
-    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.wellDepthProperty.value / 2 );
+    this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.wellDepthProperty.value + ENERGY_OFFSET );
   }
 
   /**

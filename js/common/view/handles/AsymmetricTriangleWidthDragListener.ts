@@ -29,12 +29,12 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
     // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
     const dragBoundsProperty = new DerivedProperty( [ potential.xOffsetProperty ],
       xOffset => {
-        // The handle is to the left of the potential's center, so subtract from xOffset.
-        const maxX = xOffset - wellWidthProperty.range.min / 2;
-        const minX = xOffset - wellWidthProperty.range.max / 2;
+        const minX = xOffset + wellWidthProperty.range.min / 2;
+        const maxX = xOffset + wellWidthProperty.range.max / 2;
         return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
       } );
 
+    // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'horizontal',
@@ -43,13 +43,12 @@ export default class AsymmetricTriangleWidthDragListener extends PotentialDragLi
       dragBoundsProperty: dragBoundsProperty,
 
       // Transform from view to model coordinates while dragging.
-      // The handle is on the left wall, so invert the sign.
       viewToModelDelta: ( viewDelta, isFromPDOM ) => {
         if ( isFromPDOM ) {
-          return -chartTransform.viewToModelDeltaX( viewDelta.x );
+          return chartTransform.viewToModelDeltaX( viewDelta.x );
         }
         else {
-          return -2 * chartTransform.viewToModelDeltaX( viewDelta.x );
+          return 2 * chartTransform.viewToModelDeltaX( viewDelta.x );
         }
       }
     } );
