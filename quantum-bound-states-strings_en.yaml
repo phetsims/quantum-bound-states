@@ -271,7 +271,6 @@ a11y:
                          add a Reference Line, and add a Magnifier. You can track the time the system has been evolving
                          or hide it. There are controls to pause, step through, or restart the system. For slowly
                          evolving states, you can increase the sim speed.
-
         currentDetails:
           accessibleTemplate:
             listItems:
@@ -386,62 +385,77 @@ a11y:
 
   handles:
     accessibleRoleDescription: custom slider
+
     asymmetricTriangleDepthHandle:
       accessibleName:           depth handle
       accessibleHelpText:       Steepen or soften the slope of the triangular well and observe how the energy levels respond.
       accessibleObjectResponse: '{$depth} electron volts'
+
     asymmetricTriangleWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       Widen or narrow the triangular well and observe how the energy levels and wave function respond.
       accessibleObjectResponse: '{$width} nanometers'
+
     coulombWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       Scale the Coulomb well and explore how its energy levels respond.
       accessibleObjectResponse: '{$width} nanometers'
+
     finiteSquareDepthHandle:
       accessibleName:           depth handle
       accessibleHelpText:       Deepen or raise the well wall and observe how the energy levels respond.
       accessibleObjectResponse: '{$depth} electron volts'
+
     finiteSquareWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       Widen or narrow the well and observe how the energy levels and wave function respond.
       accessibleObjectResponse: '{$width} nanometers'
+
     finiteSquareSeparationHandle:
       accessibleName:           separation handle
       accessibleHelpText:       Bring the two wells together or apart and observe how the energy levels respond.
       accessibleObjectResponse: '{$separation} nanometers'
+
     harmonicOscillatorWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       Change the spring constant of the parabolic well and observe how the energy levels respond.
       accessibleObjectResponse: '{$width} nanometers'
+
     infiniteSquareWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       Widen or narrow the box and observe how the energy levels respond.
       accessibleObjectResponse: '{$width} nanometers'
+
     infiniteStepWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       Set how far the low-energy region extends before the step, and observe how the energy levels respond.
       accessibleObjectResponse: '{$width} nanometers'
+
     infiniteStepHeightHandle:
       accessibleName:           step height handle
       accessibleHelpText:       Raise or lower the step and observe how the energy levels respond.
       accessibleObjectResponse: '{$stepHeight} electron volts'
+
     morseDepthHandle:
       accessibleName:           depth handle
       accessibleHelpText:       Deepen the Morse well and observe how the energy levels respond.
       accessibleObjectResponse: '{$depth} electron volts'
+
     morseWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       Change the width of the Morse well and observe how the energy levels respond.
       accessibleObjectResponse: '{$width} nanometers'
+
     poschlTellerDepthHandle:
       accessibleName:           depth handle
       accessibleHelpText:       Deepen the anharmonic well and observe how the energy levels respond.
       accessibleObjectResponse: '{$depth} electron volts'
+
     poschlTellerWidthHandle:
       accessibleName:           width handle
       accessibleHelpText:       Change the width of the anharmonic well and observe how the energy levels respond.
       accessibleObjectResponse: '{$width} nanometers'
+
     poschlTellerSpacingHandle:
       accessibleName:           spacing handle
       accessibleHelpText:       Change the separation between the anharmonic wells and observe how the energy levels respond.
