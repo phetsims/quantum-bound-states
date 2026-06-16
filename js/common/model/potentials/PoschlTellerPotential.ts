@@ -82,6 +82,7 @@ export default class PoschlTellerPotential extends QuantumPotentialDepth {
     return `${this.tandemPrefix}[ ` +
            `numberOfWells=${this.numberOfWellsProperty.value} ` +
            `electricField=${this.electricFieldProperty.value} ` +
+           `xOffset=${this.xOffsetProperty.value} ` +
            `yOffset=${this.yOffsetProperty.value} ` +
            `wellWidth=${this.wellWidthProperty.value} ` +
            `wellDepth=${this.wellDepthProperty.value} ` +
