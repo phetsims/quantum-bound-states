@@ -460,21 +460,19 @@ a11y:
                         ENERGY_LEVEL electron volts.
 
   probabilityDensityGraph:
-    accessibleHeading: Probability Density Graph
-    accessibleTemplate:
-      leadingParagraph: |-
-                        The Probability Density graph shows the probability density across the well
-                        for energy level INDEX. The curve has NUMBER_OF_NODES nodes. Listen to the shape
-                        with sonification, or move the Reference Line to read the value at any position.
+    accessibleHeading:   Probability Density Graph
+    accessibleParagraph: |-
+                         The Probability Density graph shows the probability density across the well
+                         for energy level { $index }. The curve has { $numberOfNodes } nodes. Listen to the shape
+                         with sonification, or move the Reference Line to read the value at any position.
 
   waveFunctionGraph:
-    accessibleHeading: Wave Function Graph
-    accessibleTemplate:
-      leadingParagraph: |-
-                        The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function
-                        across the well for energy level INDEX, drawn in magenta, orange, and black. Listen to each
-                        part with sonification, move the Reference Line to read values, and play time to explore
-                        how the parts behave.
+    accessibleHeading:   Wave Function Graph
+    accessibleParagraph: |-
+                         The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function
+                         across the well for energy level { $index }, drawn in magenta, orange, and black. Listen to each
+                         part with sonification, move the Reference Line to read values, and play time to explore
+                         how the parts behave.
 
   #=======================================================================================================
   # Push Buttons

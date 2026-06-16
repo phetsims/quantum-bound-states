@@ -385,15 +385,11 @@ type StringsType = {
     };
     'probabilityDensityGraph': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleTemplate': {
-        'leadingParagraphStringProperty': LocalizedStringProperty;
-      }
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
     'waveFunctionGraph': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleTemplate': {
-        'leadingParagraphStringProperty': LocalizedStringProperty;
-      }
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
     'timeButtonGroup': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;

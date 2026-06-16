@@ -13,7 +13,6 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QuantumStateGraph from '../model/QuantumStateGraph.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import QBSConstants from '../QBSConstants.js';
-import WaveFunctionGraphDescriber from './description/WaveFunctionGraphDescriber.js';
 import EquationTermNode from './EquationTermNode.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 import WaveFunctionPlotsNode from './WaveFunctionPlotsNode.js';
@@ -25,7 +24,6 @@ type WaveFunctionGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNodeOpti
 export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
   public constructor( waveFunctionGraph: WaveFunctionGraph,
-                      describer: WaveFunctionGraphDescriber,
                       quantumStateGraphProperty: TReadOnlyProperty<QuantumStateGraph>,
                       selectedEnergyLevelProperty: TReadOnlyProperty<number>,
                       curvesVisibleProperty: TReadOnlyProperty<boolean>,
@@ -45,7 +43,10 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       visibleProperty: new DerivedProperty( [ quantumStateGraphProperty ], graph => graph === waveFunctionGraph ),
 
       // Core-description options for this graph.
-      accessibleHeading: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleHeadingStringProperty
+      accessibleHeading: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleHeadingStringProperty,
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleParagraph.createProperty( {
+        index: selectedEnergyLevelProperty
+      } )
     }, providedOptions );
 
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
@@ -64,7 +65,5 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       this.setYRange( yAxisRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( yAxisRange.max );
     } );
-
-    this.setAccessibleTemplate( describer.getAccessibleTemplate() );
   }
 }

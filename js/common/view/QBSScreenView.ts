@@ -33,9 +33,7 @@ import QBSModel from '../model/QBSModel.js';
 import CurvesVisibleToggleButton from './CurvesVisibleToggleButton.js';
 import ConfigurePotentialButton from './debug/ConfigurePotentialButton.js';
 import EnergyDiagramDescriber from './description/EnergyDiagramDescriber.js';
-import ProbabilityDensityGraphDescriber from './description/ProbabilityDensityGraphDescriber.js';
 import ReferenceLineDescriber from './description/ReferenceLineDescriber.js';
-import WaveFunctionGraphDescriber from './description/WaveFunctionGraphDescriber.js';
 import ProbabilityDensityGraphNode from './ProbabilityDensityGraphNode.js';
 import QuantumStateGraphNode from './QuantumStateGraphNode.js';
 import WaveFunctionGraphNode from './WaveFunctionGraphNode.js';
@@ -77,14 +75,13 @@ export default class QBSScreenView extends ScreenView {
     const quantumStateGraphNodes: QuantumStateGraphNode[] = [];
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model.probabilityDensityGraph,
-      new ProbabilityDensityGraphDescriber( model ), model.selectedGraphProperty, model.selectedEnergyLevelProperty,
-      model.curvesVisibleProperty, {
+      model.selectedGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createProbabilityDensityDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'probabilityDensityGraphNode' )
       } );
     quantumStateGraphNodes.push( probabilityDensityGraphNode );
 
-    const waveFunctionGraphNode = new WaveFunctionGraphNode( model.waveFunctionGraph, new WaveFunctionGraphDescriber( model ),
+    const waveFunctionGraphNode = new WaveFunctionGraphNode( model.waveFunctionGraph,
       model.selectedGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createWaveFunctionDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'waveFunctionGraphNode' )

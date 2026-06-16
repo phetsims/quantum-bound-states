@@ -55,7 +55,7 @@ type SelfOptions = {
 
 export type QuantumStateGraphNodeOptions = SelfOptions &
   PickOptional<NodeOptions, 'visibleProperty'> &
-  PickRequired<NodeOptions, 'tandem' | 'accessibleHeading'>;
+  PickRequired<NodeOptions, 'tandem' | 'accessibleHeading' | 'accessibleParagraph'>;
 
 export default class QuantumStateGraphNode extends Node {
 
