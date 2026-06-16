@@ -54,7 +54,7 @@ export default class TwoWellsModel extends QBSModel {
         electricFieldProperty: electricFieldProperty,
         wellWidthRange: new RangeWithValue( 0.5, 3, 1 ),
         wellDepthRange: new RangeWithValue( 1, 20, 10 ),
-        separationRange: new RangeWithValue( 0.05, 0.2, 0.1 ),
+        separationRange: new RangeWithValue( 0.05, 0.7, 0.1 ),
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new PoschlTellerPotential( {
