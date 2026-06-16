@@ -181,13 +181,11 @@ a11y:
 
         currentDetails:  |-
                          Currently,
-                           The potential well type is POTENTIAL_TYPE.
-                           Well width set to WELL_WIDTH nanometers.
-                           Well height set to WELL_HEIGHT electron volts. 
-                           Energy level INDEX is at ENERGY_LEVEL electron volts.
+                           The potential well type is POTENTIAL_TYPE. 
                            GRAPH_TYPE_RADIO_BUTTON graph displayed for energy level INDEX.
                            Reference line is added.
                            Magnifier is added.
+                           The sim is SIM_PLAY_STATE.
                            Sim speed is set to SIM_SPEED.
 
         interactionHint: Select an energy level or change the properties of the well to begin exploring.
@@ -217,14 +215,10 @@ a11y:
         currentDetails:  |-
                          Currently,
                            The potential well type is POTENTIAL_TYPE.
-                           Well width set to WELL_WIDTH nanometers.
-                           Well height set to WELL_HEIGHT electron volts.
-                           Well separation set to SEPARATION nanometers.
-                           Energy level INDEX is at ENERGY_LEVEL electron volts.
                            GRAPH_TYPE_RADIO_BUTTON graph displayed for energy level INDEX.
-                           Values are shown.
                            Reference line is added.
                            Magnifier is added.
+                           The system is SIM_STATE.
                            Sim speed is set to SIM_SPEED.
 
         interactionHint: Bring the two wells together or move them apart, and explore what happens to the energy levels.
@@ -255,12 +249,10 @@ a11y:
                            The potential well type is POTENTIAL_TYPE.
                            Number of wells set to NUMBER_OF_WELLS.
                            Electric field set to ELECTRIC_FIELD volts per nanometer.
-                           Well width set to WELL_WIDTH nanometers.
-                           Well separation set to SEPARATION nanometers.
-                           Energy level INDEX is at ENERGY_LEVEL electron volts.
                            GRAPH_TYPE_RADIO_BUTTON graph displayed for energy level INDEX.
                            Reference line is added.
                            Magnifier is added.
+                           The system is SIM_STATE.
                            Sim speed is set to SIM_SPEED.
 
         interactionHint: Add more wells and explore what happens to the energy levels. Turn on an electric field and explore its effect.
@@ -289,12 +281,11 @@ a11y:
         currentDetails:  |-
                          Currently,
                            The potential well type is POTENTIAL_TYPE.
-                           Superposition set to SUPERPOSITION.
+                           Superposition set to preset SUPERPOSITION_ACCORDION_BOX_OPTION.
                            GRAPH_TYPE_RADIO_BUTTON graph displayed.
-                           The system is SIM_STATE.
-                           Elapsed time is TIME femtoseconds.
                            Reference line is added.
                            Magnifier is added.
+                           The system is SIM_STATE.
                            Sim speed is set to SIM_SPEED.
 
         interactionHint: Choose a preset superposition and press Play to explore how it changes over time.
