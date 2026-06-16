@@ -30,7 +30,7 @@ export default class ManyWellsScreenView extends QBSScreenView {
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, listboxParent, energyDiagramControlPanel, {
-      screenSummaryContent: new ManyWellsScreenSummaryContent(),
+      screenSummaryContent: new ManyWellsScreenSummaryContent( model ),
       tandem: tandem
     } );
 

@@ -8,10 +8,11 @@
 
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import SuperpositionModel from '../model/SuperpositionModel.js';
 
 export default class SuperpositionScreenSummaryContent extends ScreenSummaryContent {
 
-  public constructor() {
+  public constructor( model: SuperpositionModel ) {
 
     super( {
       isDisposable: false,

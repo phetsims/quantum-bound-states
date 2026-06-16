@@ -8,10 +8,11 @@
 
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import ManyWellsModel from '../model/ManyWellsModel.js';
 
 export default class ManyWellsScreenSummaryContent extends ScreenSummaryContent {
 
-  public constructor() {
+  public constructor( model: ManyWellsModel ) {
 
     super( {
       isDisposable: false,
