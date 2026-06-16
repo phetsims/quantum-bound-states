@@ -483,9 +483,8 @@ a11y:
     accessibleHeading:   Wave Function Graph
     accessibleParagraph: |-
                          The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function
-                         across the well for energy level { $index }, drawn in magenta, orange, and black. Listen to each
-                         part with sonification, move the Reference Line to read values, and play time to explore
-                         how the parts behave.
+                         across the well for energy level { $index }. Listen to each part with sonification, move the
+                         Reference Line to read values, and play time to explore how the parts behave.
 
   #=======================================================================================================
   # Push Buttons

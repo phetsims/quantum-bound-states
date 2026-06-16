@@ -795,7 +795,7 @@
         "value": "Wave Function Graph"
       },
       "accessibleParagraph": {
-        "value": "The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function\nacross the well for energy level { $index }, drawn in magenta, orange, and black. Listen to each\npart with sonification, move the Reference Line to read values, and play time to explore\nhow the parts behave."
+        "value": "The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function\nacross the well for energy level { $index }. Listen to each part with sonification, move the\nReference Line to read values, and play time to explore how the parts behave."
       }
     },
     "timeButtonGroup": {
