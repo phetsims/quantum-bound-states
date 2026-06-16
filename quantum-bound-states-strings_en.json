@@ -322,7 +322,7 @@
                   "value": "Magnifier is added."
                 },
                 "simState": {
-                  "value": "{ $isPlaying ->\n  [true] The sim is playing.\n  *[false] The sim is paused.\n}"
+                  "value": "{ $isPlaying ->\n  [true] Sim is playing.\n  *[false] Sim is paused.\n}"
                 },
                 "simSpeed": {
                   "value": "Sim speed is set to SIM_SPEED."

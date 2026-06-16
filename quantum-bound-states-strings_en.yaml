@@ -170,8 +170,8 @@ a11y:
               magnifierIsAdded:     Magnifier is added.
               simState:
                 select_isPlaying:
-                  true:  The sim is playing.
-                  false: The sim is paused.
+                  true:  Sim is playing.
+                  false: Sim is paused.
               simSpeed:             Sim speed is set to SIM_SPEED.
 
     oneWellScreen:
