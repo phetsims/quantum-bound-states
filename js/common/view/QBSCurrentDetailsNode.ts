@@ -2,7 +2,7 @@
 
 /**
  * QBSCurrentDetailsNode is the base class for the 'current details' part of the screen summary.
- * It contains static methods for creating content that is common to one or more screens.
+ * It contains static methods for creating AccessibleListItems that are common to two or more screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
