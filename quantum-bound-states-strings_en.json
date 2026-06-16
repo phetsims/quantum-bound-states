@@ -301,6 +301,35 @@
   },
   "a11y": {
     "screens": {
+      "defaults": {
+        "screenSummary": {
+          "currentDetails": {
+            "leadingParagraph": {
+              "value": "Currently,"
+            },
+            "listItems": {
+              "selectedPotential": {
+                "value": "The potential well type is {$potentialName}."
+              },
+              "selectedGraph": {
+                "value": "{ $graphName } displayed for energy level { $energyLevelIndex }."
+              },
+              "referenceLineIsAdded": {
+                "value": "Reference Line is added."
+              },
+              "magnifierIsAdded": {
+                "value": "Magnifier is added."
+              },
+              "simState": {
+                "value": "{ $isPlaying ->\n  [true] The sim is playing.\n  *[false] The sim is paused.\n}"
+              },
+              "simSpeed": {
+                "value": "Sim speed is set to SIM_SPEED."
+              }
+            }
+          }
+        }
+      },
       "oneWellScreen": {
         "screenButtonsHelpText": {
           "value": "Explore bound states in various single well potentials."
@@ -316,9 +345,6 @@
           },
           "controlArea": {
             "value": "There are a few controls for visual inspection of the energy diagram or controlling the speed\nof the simulation. Toggle the visual labels on the energy diagram. Add a reference line to \nvisually compare the probability density or wave function to the boundaries of the potential\nwell. A magnifier can aid in telling apart closely spaced energy levels. You can track the\ntime the system has been evolving or hide it. There are controls to pause, step through, or \nrestart the system. For slowly evolving states, you can increase the sim speed."
-          },
-          "currentDetails": {
-            "value": "Currently,\n  The potential well type is POTENTIAL_TYPE. \n  GRAPH_TYPE_RADIO_BUTTON graph displayed for energy level INDEX.\n  Reference line is added.\n  Magnifier is added.\n  The sim is SIM_PLAY_STATE.\n  Sim speed is set to SIM_SPEED."
           },
           "interactionHint": {
             "value": "Select an energy level or change the properties of the well to begin exploring."

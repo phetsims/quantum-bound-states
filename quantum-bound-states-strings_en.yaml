@@ -157,6 +157,22 @@ a11y:
 
   screens:
 
+    # Defaults for all screens
+    defaults:
+      screenSummary:
+        currentDetails:
+          leadingParagraph: Currently,
+          listItems:
+            selectedPotential:    The potential well type is {$potentialName}.
+            selectedGraph:        '{ $graphName } displayed for energy level { $energyLevelIndex }.'
+            referenceLineIsAdded: Reference Line is added.
+            magnifierIsAdded:     Magnifier is added.
+            simState:
+              select_isPlaying:
+                true:  The sim is playing.
+                false: The sim is paused.
+            simSpeed:             Sim speed is set to SIM_SPEED.
+
     oneWellScreen:
       screenButtonsHelpText: Explore bound states in various single well potentials.
       screenSummary:
@@ -178,15 +194,6 @@ a11y:
                          well. A magnifier can aid in telling apart closely spaced energy levels. You can track the
                          time the system has been evolving or hide it. There are controls to pause, step through, or 
                          restart the system. For slowly evolving states, you can increase the sim speed.
-
-        currentDetails:  |-
-                         Currently,
-                           The potential well type is POTENTIAL_TYPE. 
-                           GRAPH_TYPE_RADIO_BUTTON graph displayed for energy level INDEX.
-                           Reference line is added.
-                           Magnifier is added.
-                           The sim is SIM_PLAY_STATE.
-                           Sim speed is set to SIM_SPEED.
 
         interactionHint: Select an energy level or change the properties of the well to begin exploring.
 

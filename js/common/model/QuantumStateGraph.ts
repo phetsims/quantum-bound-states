@@ -6,22 +6,37 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 
+type SelfOptions = {
+  accessibleNameProperty: TReadOnlyProperty<string>;
+};
+
+export type QuantumStateGraphOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+
 export default class QuantumStateGraph extends PhetioObject {
 
-  protected constructor( tandem: Tandem ) {
+  public readonly accessibleNameProperty: TReadOnlyProperty<string>;
 
-    super( {
+  protected constructor( providedOptions: QuantumStateGraphOptions ) {
+
+    const options = optionize<QuantumStateGraphOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // PhetioObjectOptions
       isDisposable: false,
-      tandem: tandem,
       tandemNameSuffix: 'Graph',
       phetioState: false,
       phetioType: QuantumStateGraph.QuantumStateGraphIO
-    } );
+    }, providedOptions );
+
+    super( options );
+
+    this.accessibleNameProperty = options.accessibleNameProperty;
   }
 
   public reset(): void {

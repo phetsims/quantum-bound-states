@@ -12,6 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
@@ -38,7 +39,10 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
 
-    super( tandem );
+    super( {
+      accessibleNameProperty: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleHeadingStringProperty,
+      tandem: tandem
+    } );
 
     this.xGrid = model.xGrid;
 

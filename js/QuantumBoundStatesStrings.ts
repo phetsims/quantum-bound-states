@@ -142,6 +142,21 @@ type StringsType = {
   };
   'a11y': {
     'screens': {
+      'defaults': {
+        'screenSummary': {
+          'currentDetails': {
+            'leadingParagraphStringProperty': LocalizedStringProperty;
+            'listItems': {
+              'selectedPotentialStringProperty': LocalizedStringProperty;
+              'selectedGraphStringProperty': LocalizedStringProperty;
+              'referenceLineIsAddedStringProperty': LocalizedStringProperty;
+              'magnifierIsAddedStringProperty': LocalizedStringProperty;
+              'simStateStringProperty': LocalizedStringProperty;
+              'simSpeedStringProperty': LocalizedStringProperty;
+            }
+          }
+        }
+      };
       'oneWellScreen': {
         'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
         'screenSummary': {
@@ -150,7 +165,6 @@ type StringsType = {
             'quantumStateGraphStringProperty': LocalizedStringProperty;
           };
           'controlAreaStringProperty': LocalizedStringProperty;
-          'currentDetailsStringProperty': LocalizedStringProperty;
           'interactionHintStringProperty': LocalizedStringProperty;
         }
       };
