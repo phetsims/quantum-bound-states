@@ -310,10 +310,10 @@
               },
               "listItems": {
                 "selectedPotential": {
-                  "value": "The potential well type is {$potentialName}."
+                  "value": "Potential well type is {$potentialName}."
                 },
                 "selectedGraph": {
-                  "value": "{ $graphName } displayed for energy level { $index }."
+                  "value": "{ $graphName } is displayed for energy level { $index }."
                 },
                 "referenceLineIsAdded": {
                   "value": "Reference Line is added."
