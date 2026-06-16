@@ -354,16 +354,6 @@ a11y:
   superpositionCustomComboBox:
     accessibleName:     Superposition Custom
     accessibleHelpText: Choose one of your saved custom superpositions to explore.
-    groundState0:
-      accessibleNamePreset1: c times psi sub 0 plus c times psi sub 1
-      accessibleNamePreset2: c times psi sub 0 plus c times psi sub 2
-      accessibleNamePreset3: c times psi sub 0 minus c times psi sub 1
-      accessibleNamePreset4: c times psi sub 0 plus c times psi sub 1 plus c times psi sub 2
-    groundState1:
-      accessibleNamePreset1: c times psi sub 1 plus c times psi sub 2
-      accessibleNamePreset2: c times psi sub 1 plus c times psi sub 3
-      accessibleNamePreset3: c times psi sub 1 minus c times psi sub 2
-      accessibleNamePreset4: c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3
 
   #=======================================================================================================
   # Dialogs
@@ -573,6 +563,28 @@ a11y:
   energyOffsetSpinner:
     accessibleName:     Energy Offset
     accessibleHelpText: Shift the zero of the energy scale up or down.
+
+  #=======================================================================================================
+  # Superposition Configurations
+  #=======================================================================================================
+
+  superpositionConfigurations:
+    preset1:
+      select_groundStateIndex:
+        0: c times psi sub 0 plus c times psi sub 1
+        1: c times psi sub 1 plus c times psi sub 2
+    preset2:
+      select_groundStateIndex:
+        0: c times psi sub 0 plus c times psi sub 2
+        1: c times psi sub 1 plus c times psi sub 3
+    preset3:
+      select_groundStateIndex:
+          0: c times psi sub 0 minus c times psi sub 1
+          1: c times psi sub 1 minus c times psi sub 2
+    preset4:
+      select_groundStateIndex:
+         0: c times psi sub 0 plus c times psi sub 1 plus c times psi sub 2
+         1: c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3
 
   #=======================================================================================================
   # Toggle Buttons and Switches

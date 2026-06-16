@@ -562,34 +562,6 @@
       },
       "accessibleHelpText": {
         "value": "Choose one of your saved custom superpositions to explore."
-      },
-      "groundState0": {
-        "accessibleNamePreset1": {
-          "value": "c times psi sub 0 plus c times psi sub 1"
-        },
-        "accessibleNamePreset2": {
-          "value": "c times psi sub 0 plus c times psi sub 2"
-        },
-        "accessibleNamePreset3": {
-          "value": "c times psi sub 0 minus c times psi sub 1"
-        },
-        "accessibleNamePreset4": {
-          "value": "c times psi sub 0 plus c times psi sub 1 plus c times psi sub 2"
-        }
-      },
-      "groundState1": {
-        "accessibleNamePreset1": {
-          "value": "c times psi sub 1 plus c times psi sub 2"
-        },
-        "accessibleNamePreset2": {
-          "value": "c times psi sub 1 plus c times psi sub 3"
-        },
-        "accessibleNamePreset3": {
-          "value": "c times psi sub 1 minus c times psi sub 2"
-        },
-        "accessibleNamePreset4": {
-          "value": "c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3"
-        }
       }
     },
     "probabilityDensityDetailsDialog": {
@@ -943,6 +915,20 @@
       },
       "accessibleHelpText": {
         "value": "Shift the zero of the energy scale up or down."
+      }
+    },
+    "superpositionConfigurations": {
+      "preset1": {
+        "value": "{ $groundStateIndex ->\n  [0] c times psi sub 0 plus c times psi sub 1\n  *[1] c times psi sub 1 plus c times psi sub 2\n}"
+      },
+      "preset2": {
+        "value": "{ $groundStateIndex ->\n  [0] c times psi sub 0 plus c times psi sub 2\n  *[1] c times psi sub 1 plus c times psi sub 3\n}"
+      },
+      "preset3": {
+        "value": "{ $groundStateIndex ->\n  [0] c times psi sub 0 minus c times psi sub 1\n  *[1] c times psi sub 1 minus c times psi sub 2\n}"
+      },
+      "preset4": {
+        "value": "{ $groundStateIndex ->\n  [0] c times psi sub 0 plus c times psi sub 1 plus c times psi sub 2\n  *[1] c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3\n}"
       }
     },
     "timeDisplayToggleButton": {

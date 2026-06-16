@@ -280,18 +280,6 @@ type StringsType = {
     'superpositionCustomComboBox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'groundState0': {
-        'accessibleNamePreset1StringProperty': LocalizedStringProperty;
-        'accessibleNamePreset2StringProperty': LocalizedStringProperty;
-        'accessibleNamePreset3StringProperty': LocalizedStringProperty;
-        'accessibleNamePreset4StringProperty': LocalizedStringProperty;
-      };
-      'groundState1': {
-        'accessibleNamePreset1StringProperty': LocalizedStringProperty;
-        'accessibleNamePreset2StringProperty': LocalizedStringProperty;
-        'accessibleNamePreset3StringProperty': LocalizedStringProperty;
-        'accessibleNamePreset4StringProperty': LocalizedStringProperty;
-      }
     };
     'probabilityDensityDetailsDialog': {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
@@ -463,6 +451,12 @@ type StringsType = {
     'energyOffsetSpinner': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'superpositionConfigurations': {
+      'preset1StringProperty': LocalizedStringProperty;
+      'preset2StringProperty': LocalizedStringProperty;
+      'preset3StringProperty': LocalizedStringProperty;
+      'preset4StringProperty': LocalizedStringProperty;
     };
     'timeDisplayToggleButton': {
       'accessibleNameOnStringProperty': LocalizedStringProperty;
