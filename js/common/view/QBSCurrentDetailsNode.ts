@@ -18,7 +18,6 @@ import Magnifier from '../model/Magnifier.js';
 import QBSTime from '../model/QBSTime.js';
 import ReferenceLine from '../model/ReferenceLine.js';
 
-
 export default class QBSCurrentDetailsNode extends Node {
 
   public constructor( listItems: AccessibleListItem[] ) {
@@ -44,7 +43,7 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Identify the selected quantum state graph and energy level.
+   * Identify the selected quantum state graph and selected energy level.
    */
   public static createSelectedGraphItem( selectedGraphProperty: TReadOnlyProperty<QuantumStateGraph>, energyLevelProperty: TReadOnlyProperty<number> ): AccessibleListItem {
     return {
@@ -58,7 +57,7 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Note if Reference Line is visible.
+   * Note if the Reference Line is visible.
    */
   public static createReferenceLineItem( referenceLine: ReferenceLine ): AccessibleListItem {
     return {
@@ -68,7 +67,7 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Note if Magnifier is visible.
+   * Note if the Magnifier is visible.
    */
   public static createMagnifierItem( magnifier: Magnifier ): AccessibleListItem {
     return {
@@ -78,7 +77,7 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Notes whether sim is playing or paused.
+   * Note whether the sim is playing or paused.
    */
   public static createTimeStateItem( isPlayingProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
     return {
