@@ -464,7 +464,7 @@ a11y:
     accessibleParagraph: |-
                          The Probability Density graph shows the probability density across the well
                          for energy level { $index }. The curve has { $numberOfNodes } nodes. Listen to the shape
-                         with sonification, or move the Reference Line to read the value at any position.
+                         with sonification, or move the Reference Line to read the potential value at any position.
 
   waveFunctionGraph:
     accessibleHeading:   Wave Function Graph
