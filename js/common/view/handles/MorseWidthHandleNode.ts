@@ -21,7 +21,7 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 
 // The width handle will be places this many eV above the potential's energy offset.
 // Vertical marker lines indicate where the width is measured.
-const ENERGY_OFFSET = 1; // eV
+const ENERGY_OFFSET = 1;
 
 export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePotential> {
 
@@ -50,7 +50,7 @@ export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePoten
   }
 
   /**
-   * Vertically center the handle on the right wall of the well, halfway down to the step.
+   * Position the handle on the marker line that defines the right edge of the width interval.
    */
   protected override updatePosition(): void {
     this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
