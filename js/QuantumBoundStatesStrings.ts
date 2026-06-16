@@ -176,7 +176,6 @@ type StringsType = {
             'quantumStateGraphStringProperty': LocalizedStringProperty;
           };
           'controlAreaStringProperty': LocalizedStringProperty;
-          'currentDetailsStringProperty': LocalizedStringProperty;
           'interactionHintStringProperty': LocalizedStringProperty;
         }
       };

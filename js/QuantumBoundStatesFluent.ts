@@ -117,7 +117,6 @@ addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenButtonsHelpText', 'a11y.sc
 addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenSummary_playArea_energyDiagram', 'a11y.screens.twoWellsScreen.screenSummary.playArea.energyDiagramStringProperty' );
 addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenSummary_playArea_quantumStateGraph', 'a11y.screens.twoWellsScreen.screenSummary.playArea.quantumStateGraphStringProperty' );
 addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenSummary_controlArea', 'a11y.screens.twoWellsScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenSummary_currentDetails', 'a11y.screens.twoWellsScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_screens_twoWellsScreen_screenSummary_interactionHint', 'a11y.screens.twoWellsScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenButtonsHelpText', 'a11y.screens.manyWellsScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_playArea_energyDiagram', 'a11y.screens.manyWellsScreen.screenSummary.playArea.energyDiagramStringProperty' );
@@ -530,7 +529,6 @@ const QuantumBoundStatesFluent = {
             quantumStateGraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_twoWellsScreen_screenSummary_playArea_quantumStateGraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.twoWellsScreen.screenSummary.playArea.quantumStateGraphStringProperty' ) )
           },
           controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_twoWellsScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.twoWellsScreen.screenSummary.controlAreaStringProperty' ) ),
-          currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_twoWellsScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.screens.twoWellsScreen.screenSummary.currentDetailsStringProperty' ) ),
           interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_twoWellsScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.screens.twoWellsScreen.screenSummary.interactionHintStringProperty' ) )
         }
       },

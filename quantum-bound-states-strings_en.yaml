@@ -219,15 +219,6 @@ a11y:
                          There are controls to pause, step through, or restart the system. For slowly evolving states,
                          you can increase the sim speed.
 
-        currentDetails:  |-
-                         Currently,
-                           The potential well type is POTENTIAL_TYPE.
-                           GRAPH_TYPE_RADIO_BUTTON graph displayed for energy level INDEX.
-                           Reference line is added.
-                           Magnifier is added.
-                           The system is SIM_STATE.
-                           Sim speed is set to SIM_SPEED.
-
         interactionHint: Bring the two wells together or move them apart, and explore what happens to the energy levels.
 
     manyWellsScreen:
