@@ -778,7 +778,7 @@
       },
       "accessibleTemplate": {
         "leadingParagraph": {
-          "value": "The Energy Diagram shows the POTENTIAL_TYPE potential energy curve in blue, \nwith NUMBER_OF_LEVELS green energy levels. Energy level INDEX is selected at\nENERGY_LEVEL electron volts."
+          "value": "The Energy Diagram shows the potential energy curve and energy levels for the selected \npotential well type. Currently,"
         }
       }
     },

@@ -455,9 +455,8 @@ a11y:
     accessibleHeading: Energy Diagram
     accessibleTemplate:
       leadingParagraph: |-
-                        The Energy Diagram shows the POTENTIAL_TYPE potential energy curve in blue, 
-                        with NUMBER_OF_LEVELS green energy levels. Energy level INDEX is selected at
-                        ENERGY_LEVEL electron volts.
+                        The Energy Diagram shows the potential energy curve and energy levels for the selected 
+                        potential well type. Currently,
 
   probabilityDensityGraph:
     accessibleHeading:   Probability Density Graph
