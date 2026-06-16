@@ -9,7 +9,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
@@ -27,6 +26,8 @@ import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
+import SuperpositionCustom from '../model/SuperpositionCustom.js';
+import SuperpositionPreset from '../model/SuperpositionPreset.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
 import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
 import SuperpositionCustomizationButton from './SuperpositionCustomizationButton.js';
@@ -43,7 +44,8 @@ export class SuperpositionControlPanel extends Panel {
   public constructor( listboxParent: Node,
                       potentialProperty: Property<QuantumPotential>,
                       superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>,
-                      superpositionPresetProperty: NumberProperty,
+                      superpositionPresetProperty: Property<SuperpositionPreset>,
+                      superpositionCustomProperty: Property<SuperpositionCustom>,
                       tandem: Tandem ) {
 
     const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
@@ -68,8 +70,8 @@ export class SuperpositionControlPanel extends Panel {
     // This is a workaround for the lack of dynamic layout support in ComboBox.
     const comboBoxItemAlignGroup = new AlignGroup();
 
-    const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, potentialProperty,
-      listboxParent, comboBoxItemAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
+    const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent,
+      comboBoxItemAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
 
     const superpositionDetailsButton = new SuperpositionDetailsButton( {
       listener: () => new SuperpositionDetailsDialog().show(),
@@ -82,7 +84,7 @@ export class SuperpositionControlPanel extends Panel {
       visibleProperty: new DerivedProperty( [ superpositionConfigurationTypeProperty ], type => type === 'preset' )
     } );
 
-    const customComboBox = new SuperpositionCustomComboBox( superpositionPresetProperty, listboxParent,
+    const customComboBox = new SuperpositionCustomComboBox( superpositionCustomProperty, listboxParent,
       comboBoxItemAlignGroup, tandem.createTandem( 'customComboBox' ) );
 
     const superpositionCustomizationButton = new SuperpositionCustomizationButton( {

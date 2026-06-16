@@ -570,7 +570,7 @@ const QuantumBoundStatesFluent = {
           currentDetails: {
             accessibleTemplate: {
               listItems: {
-                superPosition: new FluentPattern<{ name: FluentVariable, type: 'preset' | 'custom' | TReadOnlyProperty<'preset' | 'custom'> }>( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_currentDetails_accessibleTemplate_listItems_superPosition', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.currentDetails.accessibleTemplate.listItems.superPositionStringProperty' ), [{"name":"name"},{"name":"type","variants":["preset","custom"]}] )
+                superPosition: new FluentPattern<{ customName: FluentVariable, presetName: FluentVariable, type: 'preset' | 'custom' | TReadOnlyProperty<'preset' | 'custom'> }>( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_currentDetails_accessibleTemplate_listItems_superPosition', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.currentDetails.accessibleTemplate.listItems.superPositionStringProperty' ), [{"name":"customName"},{"name":"presetName"},{"name":"type","variants":["preset","custom"]}] )
               }
             }
           },

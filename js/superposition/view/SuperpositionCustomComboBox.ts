@@ -6,7 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -15,15 +16,17 @@ import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import SuperpositionCustom from '../model/SuperpositionCustom.js';
 
-export default class SuperpositionCustomComboBox extends ComboBox<number> {
+export default class SuperpositionCustomComboBox extends ComboBox<SuperpositionCustom> {
 
-  public constructor( superpositionCustomProperty: NumberProperty,
+  public constructor( superpositionCustomProperty: Property<SuperpositionCustom>,
                       listboxParent: Node,
                       alignGroup: AlignGroup,
                       tandem: Tandem ) {
 
-    const range = superpositionCustomProperty.range;
+    const validValues = superpositionCustomProperty.validValues;
+    affirm( validValues );
 
     const richTextOptions = {
       font: QBSConstants.CONTROL_FONT,
@@ -36,45 +39,14 @@ export default class SuperpositionCustomComboBox extends ComboBox<number> {
       xAlign: 'left'
     };
 
-    //TODO These items are temporary. Info needs to come from a richer data type and be localized.
-    let index = range.min;
-    const items: ComboBoxItem<number>[] = [
-      {
-        value: index++,
-        tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox(
-          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom1StringProperty, richTextOptions ),
-          alignBoxOptions )
-      },
-      {
-        value: index++,
-        tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox(
-          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom2StringProperty, richTextOptions ),
-          alignBoxOptions )
-      },
-      {
-        value: index++,
-        tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox(
-          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom3StringProperty, richTextOptions ),
-          alignBoxOptions )
-      },
-      {
-        value: index++,
-        tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox(
-          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom4StringProperty, richTextOptions ),
-          alignBoxOptions )
-      },
-      {
-        value: index++,
-        tandemName: `custom${index}Item`,
-        createNode: () => alignGroup.createBox(
-          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.custom5StringProperty, richTextOptions ),
-          alignBoxOptions )
-      }
-    ];
+    const items: ComboBoxItem<SuperpositionCustom>[] = superpositionCustomProperty.validValues.map( superpositionCustom => {
+      return {
+        value: superpositionCustom,
+        accessibleName: superpositionCustom.nameProperty,
+        createNode: () => alignGroup.createBox( new RichText( superpositionCustom.nameProperty, richTextOptions ), alignBoxOptions ),
+        tandemName: `${superpositionCustom.tandemPrefix}Item`
+      };
+    } );
 
     super( superpositionCustomProperty, items, listboxParent, {
       isDisposable: false,

@@ -276,8 +276,8 @@ a11y:
             listItems:
               superPosition:
                 select_type:
-                  preset: Superposition is set to preset { $name }.
-                  custom: Superposition is set to { $name }.
+                  preset: Superposition is set to preset { $presetName }.
+                  custom: Superposition is set to { $customName }.
 
         interactionHint: Choose a preset superposition and press Play to explore how it changes over time.
 

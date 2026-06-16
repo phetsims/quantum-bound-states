@@ -6,27 +6,28 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import { AlignBoxOptions } from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import SuperpositionCustom from '../model/SuperpositionCustom.js';
+import SuperpositionPreset from '../model/SuperpositionPreset.js';
 
-export default class SuperpositionPresetComboBox extends ComboBox<number> {
+export default class SuperpositionPresetComboBox extends ComboBox<SuperpositionPreset> {
 
-  public constructor( superpositionPresetProperty: NumberProperty,
-                      potentialProperty: TReadOnlyProperty<QuantumPotential>,
+  public constructor( superpositionPresetProperty: Property<SuperpositionPreset>,
                       listboxParent: Node,
                       alignGroup: AlignGroup,
                       tandem: Tandem ) {
+
+    const validValues = superpositionPresetProperty.validValues;
+    affirm( validValues );
 
     const richTextOptions = {
       font: QBSConstants.CONTROL_FONT,
@@ -37,90 +38,14 @@ export default class SuperpositionPresetComboBox extends ComboBox<number> {
       xAlign: 'left'
     };
 
-    const groundStateIndexProperty = new DerivedProperty( [ potentialProperty ], potential => potential.groundStateIndex );
-
-    //TODO These items are temporary. Info needs to come from a richer data type.
-    let index = superpositionPresetProperty.range.min;
-    const items: ComboBoxItem<number>[] = [
-
-      // Preset 1
-      {
-        value: index++,
-        accessibleName: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset1.createProperty( {
-          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
-        } ),
-        tandemName: `preset${index}Item`,
-        createNode: () => alignGroup.createBox(
-          new RichText( new DerivedStringProperty( [
-            potentialProperty,
-            QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset1StringProperty,
-            QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset1StringProperty
-          ], ( potential, groundState0String, groundState1String ) =>
-            potential.groundStateIndex === 0 ? groundState0String : groundState1String ), richTextOptions ),
-          alignBoxOptions )
-      },
-
-      // Preset 2
-      {
-        value: index++,
-        accessibleName: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset2.createProperty( {
-          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
-        } ),
-        tandemName: `preset${index}Item`,
-        createNode: () => alignGroup.createBox(
-          new RichText( new DerivedStringProperty( [
-            potentialProperty,
-            QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset2StringProperty,
-            QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset2StringProperty
-          ], ( potential, groundState0String, groundState1String ) =>
-            potential.groundStateIndex === 0 ? groundState0String : groundState1String ), richTextOptions ),
-          alignBoxOptions )
-      },
-
-      // Preset 3
-      {
-        value: index++,
-        accessibleName: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset3.createProperty( {
-          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
-        } ),
-        tandemName: `preset${index}Item`,
-        createNode: () => alignGroup.createBox(
-          new RichText( new DerivedStringProperty( [
-            potentialProperty,
-            QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset3StringProperty,
-            QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset3StringProperty
-          ], ( potential, groundState0String, groundState1String ) =>
-            potential.groundStateIndex === 0 ? groundState0String : groundState1String ), richTextOptions ),
-          alignBoxOptions )
-      },
-
-      // Preset 4
-      {
-        value: index++,
-        accessibleName: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset4.createProperty( {
-          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
-        } ),
-        tandemName: `preset${index}Item`,
-        createNode: () => alignGroup.createBox(
-          new RichText( new DerivedStringProperty( [
-            potentialProperty,
-            QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset4StringProperty,
-            QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset4StringProperty
-          ], ( potential, groundState0String, groundState1String ) =>
-            potential.groundStateIndex === 0 ? groundState0String : groundState1String ), richTextOptions ),
-          alignBoxOptions )
-      },
-
-      // Preset 5
-      {
-        value: index++,
-        tandemName: `preset${index}Item`,
-        // accessibleName is discoverable from visual string.
-        createNode: () => alignGroup.createBox(
-          new RichText( QuantumBoundStatesFluent.superpositionConfigurations.preset5StringProperty, richTextOptions ),
-          alignBoxOptions )
-      }
-    ];
+    const items: ComboBoxItem<SuperpositionCustom>[] = superpositionPresetProperty.validValues.map( superpositionPreset => {
+      return {
+        value: superpositionPreset,
+        accessibleName: superpositionPreset.nameProperty,
+        createNode: () => alignGroup.createBox( new RichText( superpositionPreset.nameProperty, richTextOptions ), alignBoxOptions ),
+        tandemName: `${superpositionPreset.tandemPrefix}Item`
+      };
+    } );
 
     super( superpositionPresetProperty, items, listboxParent, {
       isDisposable: false,

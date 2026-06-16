@@ -427,7 +427,7 @@
             "accessibleTemplate": {
               "listItems": {
                 "superPosition": {
-                  "value": "{ $type ->\n  [preset] Superposition is set to preset { $name }.\n  *[custom] Superposition is set to { $name }.\n}"
+                  "value": "{ $type ->\n  [preset] Superposition is set to preset { $presetName }.\n  *[custom] Superposition is set to { $customName }.\n}"
                 }
               }
             }

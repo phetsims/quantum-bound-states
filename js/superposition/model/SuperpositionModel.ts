@@ -6,6 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
@@ -20,13 +22,17 @@ import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPot
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
 import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
+import SuperpositionConfiguration from './SuperpositionConfiguration.js';
 import { SuperpositionConfigurationType, SuperpositionConfigurationTypeValues } from './SuperpositionConfigurationType.js';
+import SuperpositionCustom from './SuperpositionCustom.js';
+import SuperpositionPreset from './SuperpositionPreset.js';
 
 export default class SuperpositionModel extends QBSModel {
 
   public readonly superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>;
-  public readonly superpositionPresetProperty: NumberProperty;
-  public readonly superpositionCustomProperty: NumberProperty;
+  public readonly superpositionPresetProperty: Property<SuperpositionPreset>;
+  public readonly superpositionCustomProperty: Property<SuperpositionCustom>;
 
   public constructor( tandem: Tandem ) {
 
@@ -110,20 +116,102 @@ export default class SuperpositionModel extends QBSModel {
       phetioFeatured: true
     } );
 
-    //TODO Using a number is temporary. This needs to be a richer type.
-    this.superpositionPresetProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: new Range( 1, 5 ),
+    const groundStateIndexProperty = new DerivedProperty( [ this.potentialProperty ], potential => potential.groundStateIndex );
+
+    //TODO Make this mess go away.
+    let presetIndex = 1;
+    const superpositionPresets: SuperpositionPreset[] = [
+      new SuperpositionPreset( {
+        nameProperty: new DerivedStringProperty( [
+          this.potentialProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset1StringProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset1StringProperty
+        ], ( potential, groundState0String, groundState1String ) =>
+          potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
+        accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset1.createProperty( {
+          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
+        } ),
+        tandemPrefix: `preset${presetIndex++}`
+      } ),
+      new SuperpositionPreset( {
+        nameProperty: new DerivedStringProperty( [
+          this.potentialProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset2StringProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset2StringProperty
+        ], ( potential, groundState0String, groundState1String ) =>
+          potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
+        accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset2.createProperty( {
+          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
+        } ),
+        tandemPrefix: `preset${presetIndex++}`
+      } ),
+      new SuperpositionPreset( {
+        nameProperty: new DerivedStringProperty( [
+          this.potentialProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset3StringProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset3StringProperty
+        ], ( potential, groundState0String, groundState1String ) =>
+          potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
+        accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset3.createProperty( {
+          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
+        } ),
+        tandemPrefix: `preset${presetIndex++}`
+      } ),
+      new SuperpositionPreset( {
+        nameProperty: new DerivedStringProperty( [
+          this.potentialProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.groundState0.preset4StringProperty,
+          QuantumBoundStatesFluent.superpositionConfigurations.groundState1.preset4StringProperty
+        ], ( potential, groundState0String, groundState1String ) =>
+          potential.groundStateIndex === 0 ? groundState0String : groundState1String ),
+        accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset4.createProperty( {
+          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
+        } ),
+        tandemPrefix: `preset${presetIndex++}`
+      } ),
+      new SuperpositionPreset( {
+        nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.preset5StringProperty,
+        tandemPrefix: `preset${presetIndex++}`
+      } )
+    ];
+
+    //TODO Make this mess go away.
+    let customIndex = 1;
+    const superpositionCustoms: SuperpositionCustom[] = [
+      new SuperpositionCustom( {
+        nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom1StringProperty,
+        tandemPrefix: `custom${customIndex++}`
+      } ),
+      new SuperpositionCustom( {
+        nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom2StringProperty,
+        tandemPrefix: `custom${customIndex++}`
+      } ),
+      new SuperpositionCustom( {
+        nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom3StringProperty,
+        tandemPrefix: `custom${customIndex++}`
+      } ),
+      new SuperpositionCustom( {
+        nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom4StringProperty,
+        tandemPrefix: `custom${customIndex++}`
+      } ),
+      new SuperpositionCustom( {
+        nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom5StringProperty,
+        tandemPrefix: `custom${customIndex++}`
+      } )
+    ];
+
+    this.superpositionPresetProperty = new Property<SuperpositionPreset>( superpositionPresets[ 0 ], {
+      validValues: superpositionPresets,
       tandem: tandem.createTandem( 'superpositionPresetProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO
     } );
 
-    //TODO Using a number is temporary. This needs to be a richer type.
-    this.superpositionCustomProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: new Range( 1, 5 ),
+    this.superpositionCustomProperty = new Property<SuperpositionCustom>( superpositionCustoms[ 0 ], {
+      validValues: superpositionCustoms,
       tandem: tandem.createTandem( 'superpositionCustomProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO
     } );
   }
 
