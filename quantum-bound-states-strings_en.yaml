@@ -242,16 +242,10 @@ a11y:
                          the time the system has been evolving or hide it. There are controls to pause, step through,
                          or restart the system. For slowly evolving states, you can increase the sim speed.
 
-        currentDetails:  |-
-                         Currently,
-                           The potential well type is POTENTIAL_TYPE.
-                           Number of wells set to NUMBER_OF_WELLS.
-                           Electric field set to ELECTRIC_FIELD volts per nanometer.
-                           GRAPH_TYPE_RADIO_BUTTON graph displayed for energy level INDEX.
-                           Reference line is added.
-                           Magnifier is added.
-                           The system is SIM_STATE.
-                           Sim speed is set to SIM_SPEED.
+        currentDetails:
+          listItems:
+            numberOfWells: Number of wells set to {$value}.
+            electricField: Electric field set to {$value} volts per nanometer.
 
         interactionHint: Add more wells and explore what happens to the energy levels. Turn on an electric field and explore its effect.
 

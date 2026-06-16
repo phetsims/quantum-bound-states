@@ -122,7 +122,8 @@ addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenButtonsHelpText', 'a11y.s
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_playArea_energyDiagram', 'a11y.screens.manyWellsScreen.screenSummary.playArea.energyDiagramStringProperty' );
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_playArea_quantumStateGraph', 'a11y.screens.manyWellsScreen.screenSummary.playArea.quantumStateGraphStringProperty' );
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_controlArea', 'a11y.screens.manyWellsScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_currentDetails', 'a11y.screens.manyWellsScreen.screenSummary.currentDetailsStringProperty' );
+addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_listItems_numberOfWells', 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.numberOfWellsStringProperty' );
+addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_listItems_electricField', 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.electricFieldStringProperty' );
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_interactionHint', 'a11y.screens.manyWellsScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenButtonsHelpText', 'a11y.screens.superpositionScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_playArea_energyDiagram', 'a11y.screens.superpositionScreen.screenSummary.playArea.energyDiagramStringProperty' );
@@ -543,7 +544,12 @@ const QuantumBoundStatesFluent = {
             quantumStateGraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_playArea_quantumStateGraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.playArea.quantumStateGraphStringProperty' ) )
           },
           controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.controlAreaStringProperty' ) ),
-          currentDetailsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetailsStringProperty' ) ),
+          currentDetails: {
+            listItems: {
+              numberOfWells: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_listItems_numberOfWells', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.numberOfWellsStringProperty' ), [{"name":"value"}] ),
+              electricField: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_listItems_electricField', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.electricFieldStringProperty' ), [{"name":"value"}] )
+            }
+          },
           interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.interactionHintStringProperty' ) )
         }
       },

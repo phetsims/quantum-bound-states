@@ -187,7 +187,12 @@ type StringsType = {
             'quantumStateGraphStringProperty': LocalizedStringProperty;
           };
           'controlAreaStringProperty': LocalizedStringProperty;
-          'currentDetailsStringProperty': LocalizedStringProperty;
+          'currentDetails': {
+            'listItems': {
+              'numberOfWellsStringProperty': LocalizedStringProperty;
+              'electricFieldStringProperty': LocalizedStringProperty;
+            }
+          };
           'interactionHintStringProperty': LocalizedStringProperty;
         }
       };

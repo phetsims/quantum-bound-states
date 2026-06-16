@@ -7,6 +7,7 @@
  */
 
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
+import QBSCurrentDetailsNode from '../../common/view/QBSCurrentDetailsNode.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ManyWellsModel from '../model/ManyWellsModel.js';
 
@@ -21,8 +22,42 @@ export default class ManyWellsScreenSummaryContent extends ScreenSummaryContent 
         QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.playArea.quantumStateGraphStringProperty
       ],
       controlAreaContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.controlAreaStringProperty,
-      currentDetailsContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.currentDetailsStringProperty,
+      currentDetailsContent: new ManyWellsCurrentDetailsNode( model ),
       interactionHintContent: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.interactionHintStringProperty
     } );
+  }
+}
+
+/**
+ * ManyWellsCurrentDetailsNode provides the current details description for the 'Many Wells' screen.
+ */
+class ManyWellsCurrentDetailsNode extends QBSCurrentDetailsNode {
+
+  public constructor( model: ManyWellsModel ) {
+
+    // Number of wells
+    const numberOfWellsItem = {
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.numberOfWells.createProperty( {
+        value: model.numberOfWellsProperty
+      } )
+    };
+
+    // Electric field value
+    const electricFieldItem = {
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.electricField.createProperty( {
+        value: model.electricFieldProperty
+      } )
+    };
+
+    super( [
+      QBSCurrentDetailsNode.createSelectedPotentialListItem( model.potentialProperty ),
+      numberOfWellsItem,
+      electricFieldItem,
+      QBSCurrentDetailsNode.createSelectedGraphItem( model.selectedGraphProperty, model.selectedEnergyLevelProperty ),
+      QBSCurrentDetailsNode.createReferenceLineItem( model.referenceLine ),
+      QBSCurrentDetailsNode.createMagnifierItem( model.magnifier ),
+      QBSCurrentDetailsNode.createTimeStateItem( model.time.isPlayingProperty ),
+      QBSCurrentDetailsNode.createTimeSpeedItem( model.time )
+    ] );
   }
 }

@@ -389,7 +389,14 @@
             "value": "There are controls for building the lattice and for controlling the speed of the simulation.\nSet the number of wells in the lattice and apply an electric field. Toggle the value labels\non the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy\nfor telling apart closely spaced energy levels. Zoom the energy axis in or out. You can track\nthe time the system has been evolving or hide it. There are controls to pause, step through,\nor restart the system. For slowly evolving states, you can increase the sim speed."
           },
           "currentDetails": {
-            "value": "Currently,\n  The potential well type is POTENTIAL_TYPE.\n  Number of wells set to NUMBER_OF_WELLS.\n  Electric field set to ELECTRIC_FIELD volts per nanometer.\n  GRAPH_TYPE_RADIO_BUTTON graph displayed for energy level INDEX.\n  Reference line is added.\n  Magnifier is added.\n  The system is SIM_STATE.\n  Sim speed is set to SIM_SPEED."
+            "listItems": {
+              "numberOfWells": {
+                "value": "Number of wells set to {$value}."
+              },
+              "electricField": {
+                "value": "Electric field set to {$value} volts per nanometer."
+              }
+            }
           },
           "interactionHint": {
             "value": "Add more wells and explore what happens to the energy levels. Turn on an electric field and explore its effect."
