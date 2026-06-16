@@ -7,6 +7,9 @@
  */
 
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import { SuperpositionConfigurationType } from './SuperpositionConfigurationType.js';
@@ -18,9 +21,9 @@ type SelfOptions = {
   tandemPrefix: string;
 };
 
-export type SuperpositionConfigurationOptions = SelfOptions;
+export type SuperpositionConfigurationOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class SuperpositionConfiguration {
+export default class SuperpositionConfiguration extends PhetioObject {
 
   public readonly superpositionConfigurationType: SuperpositionConfigurationType;
   public readonly nameProperty: TReadOnlyProperty<string>;
@@ -29,10 +32,22 @@ export default class SuperpositionConfiguration {
 
   public constructor( providedOptions: SuperpositionConfigurationOptions ) {
 
-    this.superpositionConfigurationType = providedOptions.superpositionConfigurationType;
-    this.nameProperty = providedOptions.nameProperty;
-    this.accessibleNameProperty = providedOptions.accessibleNameProperty || providedOptions.nameProperty;
-    this.tandemPrefix = providedOptions.tandemPrefix;
+    const options = optionize<SuperpositionConfigurationOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // SelfOptions
+      accessibleNameProperty: providedOptions.nameProperty,
+
+      // PhetioObjectOptions
+      isDisposable: false,
+      phetioState: false
+    }, providedOptions );
+
+    super( options );
+
+    this.superpositionConfigurationType = options.superpositionConfigurationType;
+    this.nameProperty = options.nameProperty;
+    this.accessibleNameProperty = options.accessibleNameProperty;
+    this.tandemPrefix = options.tandemPrefix;
   }
 
   /**
