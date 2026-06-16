@@ -37,7 +37,7 @@ class SuperpositionCurrentDetailsNode extends QBSCurrentDetailsNode {
 
     // Identify the selected superposition configuration.
     const superpositionListItem = {
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.currentDetails.listItems.superPosition.createProperty( {
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.currentDetails.accessibleTemplate.listItems.superPosition.createProperty( {
         type: model.superpositionConfigurationTypeProperty,
         name: 'TODO' //TODO extract accessible name from the selected superposition configuration
       } )

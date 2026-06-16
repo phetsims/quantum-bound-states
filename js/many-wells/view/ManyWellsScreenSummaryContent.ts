@@ -37,14 +37,14 @@ class ManyWellsCurrentDetailsNode extends QBSCurrentDetailsNode {
 
     // Number of wells
     const numberOfWellsItem = {
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.numberOfWells.createProperty( {
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.numberOfWells.createProperty( {
         value: model.numberOfWellsProperty
       } )
     };
 
     // Electric field value
     const electricFieldItem = {
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.electricField.createProperty( {
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.electricField.createProperty( {
         value: model.electricFieldProperty
       } )
     };

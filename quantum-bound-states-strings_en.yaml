@@ -161,17 +161,18 @@ a11y:
     defaults:
       screenSummary:
         currentDetails:
-          leadingParagraph: Currently,
-          listItems:
-            selectedPotential:    The potential well type is {$potentialName}.
-            selectedGraph:        '{ $graphName } displayed for energy level { $energyLevelIndex }.'
-            referenceLineIsAdded: Reference Line is added.
-            magnifierIsAdded:     Magnifier is added.
-            simState:
-              select_isPlaying:
-                true:  The sim is playing.
-                false: The sim is paused.
-            simSpeed:             Sim speed is set to SIM_SPEED.
+          accessibleTemplate:
+            leadingParagraph: Currently,
+            listItems:
+              selectedPotential:    The potential well type is {$potentialName}.
+              selectedGraph:        '{ $graphName } displayed for energy level { $energyLevelIndex }.'
+              referenceLineIsAdded: Reference Line is added.
+              magnifierIsAdded:     Magnifier is added.
+              simState:
+                select_isPlaying:
+                  true:  The sim is playing.
+                  false: The sim is paused.
+              simSpeed:             Sim speed is set to SIM_SPEED.
 
     oneWellScreen:
       screenButtonsHelpText: Explore bound states in various single well potentials.
@@ -243,9 +244,10 @@ a11y:
                          or restart the system. For slowly evolving states, you can increase the sim speed.
 
         currentDetails:
-          listItems:
-            numberOfWells: Number of wells set to {$value}.
-            electricField: Electric field set to {$value} volts per nanometer.
+          accessibleTemplate:
+            listItems:
+              numberOfWells: Number of wells set to {$value}.
+              electricField: Electric field set to {$value} volts per nanometer.
 
         interactionHint: Add more wells and explore what happens to the energy levels. Turn on an electric field and explore its effect.
 
@@ -271,11 +273,12 @@ a11y:
                          evolving states, you can increase the sim speed.
 
         currentDetails:
-          listItems:
-            superPosition:
-              select_type:
-                preset: Superposition is set to preset { $name }.
-                custom: Superposition is set to { $name }.
+          accessibleTemplate:
+            listItems:
+              superPosition:
+                select_type:
+                  preset: Superposition is set to preset { $name }.
+                  custom: Superposition is set to { $name }.
 
         interactionHint: Choose a preset superposition and press Play to explore how it changes over time.
 

@@ -23,7 +23,7 @@ export default class QBSCurrentDetailsNode extends Node {
   public constructor( listItems: AccessibleListItem[] ) {
     super( {
       accessibleTemplate: AccessibleList.createTemplateProperty( {
-        leadingParagraphStringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.leadingParagraphStringProperty,
+        leadingParagraphStringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.leadingParagraphStringProperty,
         listItems: listItems
       } )
     } );
@@ -34,7 +34,7 @@ export default class QBSCurrentDetailsNode extends Node {
    */
   public static createSelectedPotentialListItem( potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem {
     return {
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.listItems.selectedPotential.createProperty( {
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedPotential.createProperty( {
         potentialName: new DynamicProperty<string, string, QuantumPotential>( potentialProperty, {
           derive: potential => potential.accessibleNameProperty
         } )
@@ -47,7 +47,7 @@ export default class QBSCurrentDetailsNode extends Node {
    */
   public static createSelectedGraphItem( selectedGraphProperty: TReadOnlyProperty<QuantumStateGraph>, energyLevelProperty: TReadOnlyProperty<number> ): AccessibleListItem {
     return {
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.listItems.selectedGraph.createProperty( {
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedGraph.createProperty( {
         graphName: new DynamicProperty<string, string, QuantumStateGraph>( selectedGraphProperty, {
           derive: selectedGraph => selectedGraph.accessibleNameProperty
         } ),
@@ -61,7 +61,7 @@ export default class QBSCurrentDetailsNode extends Node {
    */
   public static createReferenceLineItem( referenceLine: ReferenceLine ): AccessibleListItem {
     return {
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.listItems.referenceLineIsAddedStringProperty,
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.referenceLineIsAddedStringProperty,
       visibleProperty: referenceLine.visibleProperty
     };
   }
@@ -71,7 +71,7 @@ export default class QBSCurrentDetailsNode extends Node {
    */
   public static createMagnifierItem( magnifier: Magnifier ): AccessibleListItem {
     return {
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.listItems.magnifierIsAddedStringProperty,
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.magnifierIsAddedStringProperty,
       visibleProperty: magnifier.visibleProperty
     };
   }
@@ -81,7 +81,7 @@ export default class QBSCurrentDetailsNode extends Node {
    */
   public static createTimeStateItem( isPlayingProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
     return {
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.listItems.simState.createProperty( {
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.simState.createProperty( {
         isPlaying: isPlayingProperty.derived( isPlaying => isPlaying ? 'true' : 'false' )
       } )
     };
@@ -93,7 +93,7 @@ export default class QBSCurrentDetailsNode extends Node {
   public static createTimeSpeedItem( time: QBSTime ): AccessibleListItem {
     return {
       //TODO Need descriptions of sim speeds.
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.listItems.simSpeedStringProperty
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.simSpeedStringProperty
     };
   }
 }

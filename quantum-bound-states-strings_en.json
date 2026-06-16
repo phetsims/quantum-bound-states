@@ -304,27 +304,29 @@
       "defaults": {
         "screenSummary": {
           "currentDetails": {
-            "leadingParagraph": {
-              "value": "Currently,"
-            },
-            "listItems": {
-              "selectedPotential": {
-                "value": "The potential well type is {$potentialName}."
+            "accessibleTemplate": {
+              "leadingParagraph": {
+                "value": "Currently,"
               },
-              "selectedGraph": {
-                "value": "{ $graphName } displayed for energy level { $energyLevelIndex }."
-              },
-              "referenceLineIsAdded": {
-                "value": "Reference Line is added."
-              },
-              "magnifierIsAdded": {
-                "value": "Magnifier is added."
-              },
-              "simState": {
-                "value": "{ $isPlaying ->\n  [true] The sim is playing.\n  *[false] The sim is paused.\n}"
-              },
-              "simSpeed": {
-                "value": "Sim speed is set to SIM_SPEED."
+              "listItems": {
+                "selectedPotential": {
+                  "value": "The potential well type is {$potentialName}."
+                },
+                "selectedGraph": {
+                  "value": "{ $graphName } displayed for energy level { $energyLevelIndex }."
+                },
+                "referenceLineIsAdded": {
+                  "value": "Reference Line is added."
+                },
+                "magnifierIsAdded": {
+                  "value": "Magnifier is added."
+                },
+                "simState": {
+                  "value": "{ $isPlaying ->\n  [true] The sim is playing.\n  *[false] The sim is paused.\n}"
+                },
+                "simSpeed": {
+                  "value": "Sim speed is set to SIM_SPEED."
+                }
               }
             }
           }
@@ -389,12 +391,14 @@
             "value": "There are controls for building the lattice and for controlling the speed of the simulation.\nSet the number of wells in the lattice and apply an electric field. Toggle the value labels\non the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy\nfor telling apart closely spaced energy levels. Zoom the energy axis in or out. You can track\nthe time the system has been evolving or hide it. There are controls to pause, step through,\nor restart the system. For slowly evolving states, you can increase the sim speed."
           },
           "currentDetails": {
-            "listItems": {
-              "numberOfWells": {
-                "value": "Number of wells set to {$value}."
-              },
-              "electricField": {
-                "value": "Electric field set to {$value} volts per nanometer."
+            "accessibleTemplate": {
+              "listItems": {
+                "numberOfWells": {
+                  "value": "Number of wells set to {$value}."
+                },
+                "electricField": {
+                  "value": "Electric field set to {$value} volts per nanometer."
+                }
               }
             }
           },
@@ -420,9 +424,11 @@
             "value": "There are controls for building superpositions and for controlling the speed of the simulation.\nSwitch between curated Preset combinations and your own Custom combinations, and open Customize\nto set the magnitude and phase of each level. Toggle the value labels on the Energy Diagram,\nadd a Reference Line, and add a Magnifier. You can track the time the system has been evolving\nor hide it. There are controls to pause, step through, or restart the system. For slowly\nevolving states, you can increase the sim speed."
           },
           "currentDetails": {
-            "listItems": {
-              "superPosition": {
-                "value": "{ $type ->\n  [preset] Superposition is set to preset { $name }.\n  *[custom] Superposition is set to { $name }.\n}"
+            "accessibleTemplate": {
+              "listItems": {
+                "superPosition": {
+                  "value": "{ $type ->\n  [preset] Superposition is set to preset { $name }.\n  *[custom] Superposition is set to { $name }.\n}"
+                }
               }
             }
           },

@@ -145,14 +145,16 @@ type StringsType = {
       'defaults': {
         'screenSummary': {
           'currentDetails': {
-            'leadingParagraphStringProperty': LocalizedStringProperty;
-            'listItems': {
-              'selectedPotentialStringProperty': LocalizedStringProperty;
-              'selectedGraphStringProperty': LocalizedStringProperty;
-              'referenceLineIsAddedStringProperty': LocalizedStringProperty;
-              'magnifierIsAddedStringProperty': LocalizedStringProperty;
-              'simStateStringProperty': LocalizedStringProperty;
-              'simSpeedStringProperty': LocalizedStringProperty;
+            'accessibleTemplate': {
+              'leadingParagraphStringProperty': LocalizedStringProperty;
+              'listItems': {
+                'selectedPotentialStringProperty': LocalizedStringProperty;
+                'selectedGraphStringProperty': LocalizedStringProperty;
+                'referenceLineIsAddedStringProperty': LocalizedStringProperty;
+                'magnifierIsAddedStringProperty': LocalizedStringProperty;
+                'simStateStringProperty': LocalizedStringProperty;
+                'simSpeedStringProperty': LocalizedStringProperty;
+              }
             }
           }
         }
@@ -188,9 +190,11 @@ type StringsType = {
           };
           'controlAreaStringProperty': LocalizedStringProperty;
           'currentDetails': {
-            'listItems': {
-              'numberOfWellsStringProperty': LocalizedStringProperty;
-              'electricFieldStringProperty': LocalizedStringProperty;
+            'accessibleTemplate': {
+              'listItems': {
+                'numberOfWellsStringProperty': LocalizedStringProperty;
+                'electricFieldStringProperty': LocalizedStringProperty;
+              }
             }
           };
           'interactionHintStringProperty': LocalizedStringProperty;
@@ -205,8 +209,10 @@ type StringsType = {
           };
           'controlAreaStringProperty': LocalizedStringProperty;
           'currentDetails': {
-            'listItems': {
-              'superPositionStringProperty': LocalizedStringProperty;
+            'accessibleTemplate': {
+              'listItems': {
+                'superPositionStringProperty': LocalizedStringProperty;
+              }
             }
           };
           'interactionHintStringProperty': LocalizedStringProperty;

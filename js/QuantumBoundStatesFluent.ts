@@ -101,13 +101,13 @@ addToMapIfDefined( 'keyboardHelp_comboBox_heading', 'keyboardHelp.comboBox.headi
 addToMapIfDefined( 'keyboardHelp_potentialHandles_heading', 'keyboardHelp.potentialHandles.headingStringProperty' );
 addToMapIfDefined( 'keyboardHelp_referenceLine_heading', 'keyboardHelp.referenceLine.headingStringProperty' );
 addToMapIfDefined( 'keyboardHelp_referenceLine_readValues', 'keyboardHelp.referenceLine.readValuesStringProperty' );
-addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_leadingParagraph', 'a11y.screens.defaults.screenSummary.currentDetails.leadingParagraphStringProperty' );
-addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_listItems_selectedPotential', 'a11y.screens.defaults.screenSummary.currentDetails.listItems.selectedPotentialStringProperty' );
-addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_listItems_selectedGraph', 'a11y.screens.defaults.screenSummary.currentDetails.listItems.selectedGraphStringProperty' );
-addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_listItems_referenceLineIsAdded', 'a11y.screens.defaults.screenSummary.currentDetails.listItems.referenceLineIsAddedStringProperty' );
-addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_listItems_magnifierIsAdded', 'a11y.screens.defaults.screenSummary.currentDetails.listItems.magnifierIsAddedStringProperty' );
-addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_listItems_simState', 'a11y.screens.defaults.screenSummary.currentDetails.listItems.simStateStringProperty' );
-addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_listItems_simSpeed', 'a11y.screens.defaults.screenSummary.currentDetails.listItems.simSpeedStringProperty' );
+addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_leadingParagraph', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.leadingParagraphStringProperty' );
+addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_selectedPotential', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedPotentialStringProperty' );
+addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_selectedGraph', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedGraphStringProperty' );
+addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_referenceLineIsAdded', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.referenceLineIsAddedStringProperty' );
+addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_magnifierIsAdded', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.magnifierIsAddedStringProperty' );
+addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_simState', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.simStateStringProperty' );
+addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_simSpeed', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.simSpeedStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenButtonsHelpText', 'a11y.screens.oneWellScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_playArea_energyDiagram', 'a11y.screens.oneWellScreen.screenSummary.playArea.energyDiagramStringProperty' );
 addToMapIfDefined( 'a11y_screens_oneWellScreen_screenSummary_playArea_quantumStateGraph', 'a11y.screens.oneWellScreen.screenSummary.playArea.quantumStateGraphStringProperty' );
@@ -122,14 +122,14 @@ addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenButtonsHelpText', 'a11y.s
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_playArea_energyDiagram', 'a11y.screens.manyWellsScreen.screenSummary.playArea.energyDiagramStringProperty' );
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_playArea_quantumStateGraph', 'a11y.screens.manyWellsScreen.screenSummary.playArea.quantumStateGraphStringProperty' );
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_controlArea', 'a11y.screens.manyWellsScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_listItems_numberOfWells', 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.numberOfWellsStringProperty' );
-addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_listItems_electricField', 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.electricFieldStringProperty' );
+addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_accessibleTemplate_listItems_numberOfWells', 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.numberOfWellsStringProperty' );
+addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_accessibleTemplate_listItems_electricField', 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.electricFieldStringProperty' );
 addToMapIfDefined( 'a11y_screens_manyWellsScreen_screenSummary_interactionHint', 'a11y.screens.manyWellsScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenButtonsHelpText', 'a11y.screens.superpositionScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_playArea_energyDiagram', 'a11y.screens.superpositionScreen.screenSummary.playArea.energyDiagramStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_playArea_quantumStateGraph', 'a11y.screens.superpositionScreen.screenSummary.playArea.quantumStateGraphStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_controlArea', 'a11y.screens.superpositionScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_currentDetails_listItems_superPosition', 'a11y.screens.superpositionScreen.screenSummary.currentDetails.listItems.superPositionStringProperty' );
+addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_currentDetails_accessibleTemplate_listItems_superPosition', 'a11y.screens.superpositionScreen.screenSummary.currentDetails.accessibleTemplate.listItems.superPositionStringProperty' );
 addToMapIfDefined( 'a11y_screens_superpositionScreen_screenSummary_interactionHint', 'a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagramControls_accessibleHeading', 'a11y.energyDiagramControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphControls_accessibleHeading', 'a11y.quantumStateGraphControls.accessibleHeadingStringProperty' );
@@ -493,14 +493,16 @@ const QuantumBoundStatesFluent = {
       defaults: {
         screenSummary: {
           currentDetails: {
-            leadingParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_leadingParagraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.leadingParagraphStringProperty' ) ),
-            listItems: {
-              selectedPotential: new FluentPattern<{ potentialName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_listItems_selectedPotential', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.listItems.selectedPotentialStringProperty' ), [{"name":"potentialName"}] ),
-              selectedGraph: new FluentPattern<{ energyLevelIndex: FluentVariable, graphName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_listItems_selectedGraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.listItems.selectedGraphStringProperty' ), [{"name":"energyLevelIndex"},{"name":"graphName"}] ),
-              referenceLineIsAddedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_listItems_referenceLineIsAdded', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.listItems.referenceLineIsAddedStringProperty' ) ),
-              magnifierIsAddedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_listItems_magnifierIsAdded', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.listItems.magnifierIsAddedStringProperty' ) ),
-              simState: new FluentPattern<{ isPlaying: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'> }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_listItems_simState', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.listItems.simStateStringProperty' ), [{"name":"isPlaying","variants":["true","false"]}] ),
-              simSpeedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_listItems_simSpeed', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.listItems.simSpeedStringProperty' ) )
+            accessibleTemplate: {
+              leadingParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_leadingParagraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.leadingParagraphStringProperty' ) ),
+              listItems: {
+                selectedPotential: new FluentPattern<{ potentialName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_selectedPotential', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedPotentialStringProperty' ), [{"name":"potentialName"}] ),
+                selectedGraph: new FluentPattern<{ energyLevelIndex: FluentVariable, graphName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_selectedGraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedGraphStringProperty' ), [{"name":"energyLevelIndex"},{"name":"graphName"}] ),
+                referenceLineIsAddedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_referenceLineIsAdded', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.referenceLineIsAddedStringProperty' ) ),
+                magnifierIsAddedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_magnifierIsAdded', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.magnifierIsAddedStringProperty' ) ),
+                simState: new FluentPattern<{ isPlaying: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'> }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_simState', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.simStateStringProperty' ), [{"name":"isPlaying","variants":["true","false"]}] ),
+                simSpeedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_simSpeed', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.simSpeedStringProperty' ) )
+              }
             }
           }
         }
@@ -545,9 +547,11 @@ const QuantumBoundStatesFluent = {
           },
           controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.controlAreaStringProperty' ) ),
           currentDetails: {
-            listItems: {
-              numberOfWells: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_listItems_numberOfWells', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.numberOfWellsStringProperty' ), [{"name":"value"}] ),
-              electricField: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_listItems_electricField', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.listItems.electricFieldStringProperty' ), [{"name":"value"}] )
+            accessibleTemplate: {
+              listItems: {
+                numberOfWells: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_accessibleTemplate_listItems_numberOfWells', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.numberOfWellsStringProperty' ), [{"name":"value"}] ),
+                electricField: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_accessibleTemplate_listItems_electricField', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.electricFieldStringProperty' ), [{"name":"value"}] )
+              }
             }
           },
           interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.interactionHintStringProperty' ) )
@@ -565,8 +569,10 @@ const QuantumBoundStatesFluent = {
           },
           controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_controlArea', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.controlAreaStringProperty' ) ),
           currentDetails: {
-            listItems: {
-              superPosition: new FluentPattern<{ name: FluentVariable, type: 'preset' | 'custom' | TReadOnlyProperty<'preset' | 'custom'> }>( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_currentDetails_listItems_superPosition', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.currentDetails.listItems.superPositionStringProperty' ), [{"name":"name"},{"name":"type","variants":["preset","custom"]}] )
+            accessibleTemplate: {
+              listItems: {
+                superPosition: new FluentPattern<{ name: FluentVariable, type: 'preset' | 'custom' | TReadOnlyProperty<'preset' | 'custom'> }>( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_currentDetails_accessibleTemplate_listItems_superPosition', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.currentDetails.accessibleTemplate.listItems.superPositionStringProperty' ), [{"name":"name"},{"name":"type","variants":["preset","custom"]}] )
+              }
             }
           },
           interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_superpositionScreen_screenSummary_interactionHint', _.get( QuantumBoundStatesStrings, 'a11y.screens.superpositionScreen.screenSummary.interactionHintStringProperty' ) )
