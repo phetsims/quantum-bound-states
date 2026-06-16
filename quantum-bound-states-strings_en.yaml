@@ -604,12 +604,12 @@ a11y:
     accessibleHeading:   Magnifier
     accessibleParagraph: The Magnifier shows a zoomed-in view of part of the Energy Diagram, helpful for telling apart closely spaced energy levels.
     probe:
-      accessibleName:           Magnifier Probe
-      accessibleHelpText:       Move the probe over the Energy Diagram to choose what the magnifier shows.
+      accessibleName:           Probe
+      accessibleHelpText:       Move the probe over the Energy Diagram to inspect closely spaced energy levels.
       accessibleObjectResponse: probe centered at POSITION nanometers
     body:
-      accessibleName:           Magnifier Body
-      accessibleHelpText:       Move the magnified view window to a comfortable spot.
+      accessibleName:           Viewer
+      accessibleHelpText:       Move the viewer that shows the zoomed-in view.
       accessibleObjectResponse: lens at POSITION nanometers
 
   referenceLine:

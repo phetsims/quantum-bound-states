@@ -996,10 +996,10 @@
       },
       "probe": {
         "accessibleName": {
-          "value": "Magnifier Probe"
+          "value": "Probe"
         },
         "accessibleHelpText": {
-          "value": "Move the probe over the Energy Diagram to choose what the magnifier shows."
+          "value": "Move the probe over the Energy Diagram to inspect closely spaced energy levels."
         },
         "accessibleObjectResponse": {
           "value": "probe centered at POSITION nanometers"
@@ -1007,10 +1007,10 @@
       },
       "body": {
         "accessibleName": {
-          "value": "Magnifier Body"
+          "value": "Viewer"
         },
         "accessibleHelpText": {
-          "value": "Move the magnified view window to a comfortable spot."
+          "value": "Move the viewer that shows the zoomed-in view."
         },
         "accessibleObjectResponse": {
           "value": "lens at POSITION nanometers"
