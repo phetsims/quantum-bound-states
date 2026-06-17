@@ -591,16 +591,16 @@
             "value": "Potential well type is {$potentialName}."
           },
           "numberOfWells": {
-            "value": "Number of wells is {$numberOfWells}."
+            "value": "Number of wells set to {$numberOfWells}."
           },
           "electronMasses": {
-            "value": "Mass of the system is {$electronMasses} electron masses."
-          },
-          "energyOffset": {
-            "value": "Energy offset is {$energyOffset} electron volts."
+            "value": "Mass of the system set to {$electronMasses} electron masses."
           },
           "electricField": {
-            "value": "Electric field is {$electricField} volts per nanometer."
+            "value": "Electric field set to {$electricField} volts per nanometer."
+          },
+          "energyOffset": {
+            "value": "Energy offset set to {$energyOffset} electron volts."
           }
         }
       }

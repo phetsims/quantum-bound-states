@@ -299,8 +299,8 @@ type StringsType = {
           'selectedPotentialStringProperty': LocalizedStringProperty;
           'numberOfWellsStringProperty': LocalizedStringProperty;
           'electronMassesStringProperty': LocalizedStringProperty;
-          'energyOffsetStringProperty': LocalizedStringProperty;
           'electricFieldStringProperty': LocalizedStringProperty;
+          'energyOffsetStringProperty': LocalizedStringProperty;
         }
       }
     };
