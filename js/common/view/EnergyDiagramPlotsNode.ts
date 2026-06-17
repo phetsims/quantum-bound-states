@@ -41,8 +41,7 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
 
     const highlightedEnergyLevelPlot = new EnergyLevelsPlot( chartTransform, [], {
       strokeProperty: QBSColors.highlightedEnergyLevelColorProperty,
-      lineWidth: 3,
-      hasArrowHeads: true
+      lineWidth: 3
     } );
 
     // Back-to-front rendering order.
