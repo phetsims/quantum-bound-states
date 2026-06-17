@@ -83,7 +83,6 @@ export default class ManyWellsModel extends QBSModel {
       tandem: this.energyDiagram.tandem.createTandem( 'yAxisZoomLevelProperty' ),
       phetioFeatured: true
     } );
-    //TODO Derive yAxisScaleProperty from yAxisZoomLevelProperty
   }
 
   public override reset(): void {
