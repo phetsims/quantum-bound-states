@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -28,12 +27,11 @@ export default class HarmonicOscillatorWidthDragListener extends PotentialDragLi
     const wellWidthProperty = potential.wellWidthProperty;
 
     // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-    const dragBoundsProperty = new DerivedProperty( [ potential.xOffsetProperty ],
-      xOffset => {
-        const minX = xOffset + wellWidthProperty.range.min / 2;
-        const maxX = xOffset + wellWidthProperty.range.max / 2;
-        return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
-      } );
+    const dragBoundsProperty = potential.xOffsetProperty.derived( xOffset => {
+      const minX = xOffset + wellWidthProperty.range.min / 2;
+      const maxX = xOffset + wellWidthProperty.range.max / 2;
+      return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
+    } );
 
     super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
@@ -45,7 +43,7 @@ export default class HarmonicOscillatorWidthDragListener extends PotentialDragLi
       // Transform from view to model coordinates while dragging.
       viewToModelDelta: ( viewDelta, isFromPDOM ) => {
         if ( isFromPDOM ) {
-         return chartTransform.viewToModelDeltaX( viewDelta.x );
+          return chartTransform.viewToModelDeltaX( viewDelta.x );
         }
         else {
           return 2 * chartTransform.viewToModelDeltaX( viewDelta.x );

@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
@@ -25,7 +24,7 @@ export default class PotentialMarkersNode extends Node {
 
     const options = optionize<PotentialMarkersNodeOptions, SelfOptions, NodeOptions>()( {
       isDisposable: false,
-      visibleProperty: new DerivedProperty( [ selectedPotentialProperty ], selectedPotential => potential === selectedPotential )
+      visibleProperty: selectedPotentialProperty.derived( selectedPotential => potential === selectedPotential )
     }, providedOptions );
 
     super( options );

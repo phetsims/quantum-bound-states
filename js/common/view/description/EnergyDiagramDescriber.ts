@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import DynamicProperty from '../../../../../axon/js/DynamicProperty.js';
 import StringProperty from '../../../../../axon/js/StringProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
@@ -75,7 +74,7 @@ export default class EnergyDiagramDescriber {
     const yOffsetProperty = new DynamicProperty<number, number, QuantumPotential>( this.model.potentialProperty, {
       derive: potential => potential.yOffsetProperty
     } );
-    const yOffsetRangeProperty = new DerivedProperty( [ this.model.potentialProperty ], potential => potential.yOffsetProperty.range );
+    const yOffsetRangeProperty = this.model.potentialProperty.derived( potential => potential.yOffsetProperty.range );
     listItems.push( {
       stringProperty: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleTemplate.listItems.energyOffset.createProperty( {
         energyOffset: yOffsetProperty.derived( yOffset => toFixed( yOffset, QBSConstants.Y_OFFSET_DECIMAL_PLACES ) )
