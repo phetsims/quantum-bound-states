@@ -30,9 +30,14 @@ import PresetSuperpositionConfiguration from './PresetSuperpositionConfiguration
 
 export default class SuperpositionModel extends QBSModel {
 
+  // Whether a preset or custom superposition configuration is selectable.
   public readonly superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>;
-  public readonly superpositionPresetProperty: Property<PresetSuperpositionConfiguration>;
-  public readonly superpositionCustomProperty: Property<CustomSuperpositionConfiguration>;
+
+  // The selected preset superposition configuration
+  public readonly presetSuperpositionConfigurationProperty: Property<PresetSuperpositionConfiguration>;
+
+  // The selected custom superposition configuration
+  public readonly customSuperpositionConfigurationProperty: Property<CustomSuperpositionConfiguration>;
 
   public constructor( tandem: Tandem ) {
 
@@ -208,16 +213,16 @@ export default class SuperpositionModel extends QBSModel {
       } )
     ];
 
-    this.superpositionPresetProperty = new Property<PresetSuperpositionConfiguration>( presetSuperpositionConfigurations[ 0 ], {
+    this.presetSuperpositionConfigurationProperty = new Property<PresetSuperpositionConfiguration>( presetSuperpositionConfigurations[ 0 ], {
       validValues: presetSuperpositionConfigurations,
-      tandem: tandem.createTandem( 'superpositionPresetProperty' ),
+      tandem: tandem.createTandem( 'presetSuperpositionConfigurationProperty' ),
       phetioFeatured: true,
       phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO
     } );
 
-    this.superpositionCustomProperty = new Property<CustomSuperpositionConfiguration>( customSuperpositionConfigurations[ 0 ], {
+    this.customSuperpositionConfigurationProperty = new Property<CustomSuperpositionConfiguration>( customSuperpositionConfigurations[ 0 ], {
       validValues: customSuperpositionConfigurations,
-      tandem: tandem.createTandem( 'superpositionCustomProperty' ),
+      tandem: tandem.createTandem( 'customSuperpositionConfigurationProperty' ),
       phetioFeatured: true,
       phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO
     } );
@@ -226,7 +231,7 @@ export default class SuperpositionModel extends QBSModel {
   public override reset(): void {
     super.reset();
     this.superpositionConfigurationTypeProperty.reset();
-    this.superpositionPresetProperty.reset();
-    this.superpositionCustomProperty.reset();
+    this.presetSuperpositionConfigurationProperty.reset();
+    this.customSuperpositionConfigurationProperty.reset();
   }
 }

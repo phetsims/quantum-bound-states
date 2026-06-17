@@ -42,10 +42,10 @@ class SuperpositionCurrentDetailsNode extends QBSCurrentDetailsNode {
     const superpositionListItem = {
       stringProperty: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.currentDetails.accessibleTemplate.listItems.superPosition.createProperty( {
         type: model.superpositionConfigurationTypeProperty,
-        presetName: new DynamicProperty<string, string, PresetSuperpositionConfiguration>( model.superpositionPresetProperty, {
+        presetName: new DynamicProperty<string, string, PresetSuperpositionConfiguration>( model.presetSuperpositionConfigurationProperty, {
           derive: superpositionPreset => superpositionPreset.accessibleNameProperty
         } ),
-        customName: new DynamicProperty<string, string, CustomSuperpositionConfiguration>( model.superpositionCustomProperty, {
+        customName: new DynamicProperty<string, string, CustomSuperpositionConfiguration>( model.customSuperpositionConfigurationProperty, {
           derive: superpositionCustom => superpositionCustom.accessibleNameProperty
         } )
       } )
