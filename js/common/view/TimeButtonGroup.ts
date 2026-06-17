@@ -8,6 +8,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import PlayPauseButton from '../../../../scenery-phet/js/buttons/PlayPauseButton.js';
 import RestartButton from '../../../../scenery-phet/js/buttons/RestartButton.js';
 import StepForwardButton from '../../../../scenery-phet/js/buttons/StepForwardButton.js';
@@ -59,7 +60,9 @@ export default class TimeButtonGroup extends HBox {
       touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
       accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponseStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponse.createProperty( {
+        time: time.currentTimeProperty.derived( currentTime => toFixed( currentTime, time.getDecimalPlaces() ) )
+      } ),
       tandem: tandem.createTandem( 'stepForwardButton' )
     } );
 

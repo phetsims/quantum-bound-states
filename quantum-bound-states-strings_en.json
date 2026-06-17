@@ -809,7 +809,7 @@
         "value": "Reset the clock to zero without changing any well or energy settings."
       },
       "accessibleContextResponse": {
-        "value": "Time reset."
+        "value": "Time reset to 0 femtoseconds."
       }
     },
     "playPauseButton": {
@@ -825,7 +825,7 @@
         "value": "Step forward time while paused."
       },
       "accessibleContextResponse": {
-        "value": "Stepped forward."
+        "value": "Stepped forward to { $time } femtoseconds."
       }
     },
     "probabilityDensityDetailsButton": {

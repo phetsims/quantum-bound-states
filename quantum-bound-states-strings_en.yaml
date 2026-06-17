@@ -499,7 +499,7 @@ a11y:
 
   restartButton:
     accessibleHelpText:        Reset the clock to zero without changing any well or energy settings.
-    accessibleContextResponse: Time reset.
+    accessibleContextResponse: Time reset to 0 femtoseconds.
 
   playPauseButton:
     accessibleHelpTextPlaying: Pause to stop time and inspect the current state.
@@ -507,7 +507,7 @@ a11y:
 
   stepForwardButton:
     accessibleHelpText:        Step forward time while paused.
-    accessibleContextResponse: Stepped forward.
+    accessibleContextResponse: Stepped forward to { $time } femtoseconds.
 
   probabilityDensityDetailsButton:
     accessibleName:            Probability Density Details

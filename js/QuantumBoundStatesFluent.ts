@@ -794,7 +794,7 @@ const QuantumBoundStatesFluent = {
     },
     stepForwardButton: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleContextResponseStringProperty' ) )
+      accessibleContextResponse: new FluentPattern<{ time: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleContextResponseStringProperty' ), [{"name":"time"}] )
     },
     _comment_24: new FluentComment( {"comment":"Buttons","associatedKey":"probabilityDensityDetailsButton"} ),
     probabilityDensityDetailsButton: {
