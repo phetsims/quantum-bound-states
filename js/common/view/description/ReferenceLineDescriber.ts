@@ -78,10 +78,10 @@ export default class ReferenceLineDescriber {
  * Maps a potential energy value to a core-description string, accounting for infinite values.
  */
 function potentialEnergyToString( potentialEnergy: number ): string | number {
-  if ( potentialEnergy === QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY ) {
+  if ( potentialEnergy === QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY || potentialEnergy === Infinity ) {
     return QuantumBoundStatesFluent.a11y.values.positiveInfinityStringProperty.value;
   }
-  else if ( potentialEnergy === -QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY ) {
+  else if ( potentialEnergy === -QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY || potentialEnergy === -Infinity ) {
     return QuantumBoundStatesFluent.a11y.values.negativeInfinityStringProperty.value;
   }
   else {
