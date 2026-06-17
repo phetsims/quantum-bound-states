@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
@@ -22,17 +21,14 @@ export default class TimeDisplay extends NumberDisplay {
   public constructor( time: QBSTime, tandem: Tandem ) {
 
     const backgroundFillProperty = time.timeVisibleProperty.derived(
-      timeVisible => timeVisible ? QBSColors.timeDisplayEnabledFillProperty.value : QBSColors.timeDisplayDisabledFillProperty.value );
+            timeVisible => timeVisible ? QBSColors.timeDisplayEnabledFillProperty.value : QBSColors.timeDisplayDisabledFillProperty.value );
 
     // Hide the value by making it transparent.
     const textFillProperty = time.timeVisibleProperty.derived( timeVisible => timeVisible ? 'black' : 'transparent' );
 
-    // For selecting the correct accessible paragraph via Fluent select_.
-    const timeStateProperty = new DerivedStringProperty( [ time.timeVisibleProperty, time.isPlayingProperty ],
-      ( timeVisible, isPlaying ) => !timeVisible ? 'isHidden' : isPlaying ? 'isPlaying' : 'isPaused' );
-
+    //TODO What should this be when timeVisibleProperty is false?
     const accessibleParagraphProperty = QuantumBoundStatesFluent.a11y.timeControls.numberDisplay.accessibleParagraph.createProperty( {
-      timeState: timeStateProperty,
+      isPlaying: time.isPlayingProperty.derived( isPlaying => isPlaying ? 'true' : 'false' ),
       time: time.currentTimeProperty.derived( currentTime => toFixed( currentTime, time.getDecimalPlaces() ) )
     } );
 

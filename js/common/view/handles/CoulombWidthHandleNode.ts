@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
@@ -31,7 +32,8 @@ export default class CoulombWidthHandleNode extends PotentialHandleNode<CoulombP
                       tandem: Tandem ) {
 
     const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.widthPatternStringProperty, {
-      value: potential.wellWidthProperty.derived( wellWidth => toFixed( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) )
+      value: new DerivedStringProperty( [ potential.wellWidthProperty ],
+        wellWidth => toFixed( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) )
     } );
 
     super( potential, chartTransform, potential.wellWidthProperty, labelStringProperty, valuesVisibleProperty, {

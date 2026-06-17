@@ -95,7 +95,7 @@ export class MagnifierBodyNode extends InteractiveHighlighting( Node ) {
     } );
 
     //TODO temporarily display probe position as (x,y)
-    const xyStringProperty = magnifier.probePositionProperty.derived(
+    const xyStringProperty = new DerivedProperty( [ magnifier.probePositionProperty ],
       probePosition => `(${toFixed( probePosition.x, 2 )}, ${toFixed( probePosition.y, 2 )})` );
     const xyText = new Text( xyStringProperty, {
       font: new PhetFont( 12 ),

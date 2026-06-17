@@ -604,7 +604,7 @@ const QuantumBoundStatesFluent = {
     timeControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.accessibleHeadingStringProperty' ) ),
       numberDisplay: {
-        accessibleParagraph: new FluentPattern<{ time: FluentVariable, timeState: 'isHidden' | 'isPlaying' | 'isPaused' | TReadOnlyProperty<'isHidden' | 'isPlaying' | 'isPaused'> }>( fluentSupport.bundleProperty, 'a11y_timeControls_numberDisplay_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.numberDisplay.accessibleParagraphStringProperty' ), [{"name":"time"},{"name":"timeState","variants":["isHidden","isPlaying","isPaused"]}] )
+        accessibleParagraph: new FluentPattern<{ isPlaying: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'>, time: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_timeControls_numberDisplay_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.numberDisplay.accessibleParagraphStringProperty' ), [{"name":"isPlaying","variants":["true","false"]},{"name":"time"}] )
       }
     },
     toolControls: {

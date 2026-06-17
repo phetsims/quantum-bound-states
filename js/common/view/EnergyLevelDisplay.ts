@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
@@ -44,7 +45,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
         stroke: QBSColors.energyLevelDisplayBackgroundStrokeProperty,
         opacity: 1 // use alpha in fill
       },
-      visibleProperty: energyLevelIndexProperty.derived( energyLevelIndex => energyLevelIndex !== null )
+      visibleProperty: new DerivedProperty( [ energyLevelIndexProperty ], energyLevel => energyLevel !== null )
     }, providedOptions );
 
     // When 'Values' is checked, show the label and value for the energy level.

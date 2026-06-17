@@ -6,6 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
@@ -31,14 +33,15 @@ export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<P
                       tandem: Tandem ) {
 
     const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.spacingPatternStringProperty, {
-      value: potential.spacingProperty.derived( spacing => toFixed( spacing, QBSConstants.SPACING_DECIMAL_PLACES ) )
+      value: new DerivedStringProperty( [ potential.spacingProperty ],
+        spacing => toFixed( spacing, QBSConstants.SPACING_DECIMAL_PLACES ) )
     } );
 
     super( potential, chartTransform, potential.spacingProperty, labelStringProperty, valuesVisibleProperty, {
       orientation: 'horizontal',
 
       //TODO Provide a way to hide this handle via PhET-iO?
-      visibleProperty: potential.numberOfWellsProperty.derived( numberOfWells => numberOfWells > 1 ),
+      visibleProperty: new DerivedProperty( [ potential.numberOfWellsProperty ], numberOfWells => numberOfWells > 1 ),
       accessibleName: QuantumBoundStatesFluent.a11y.handles.poschlTellerSpacingHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.poschlTellerSpacingHandle.accessibleHelpTextStringProperty,
       accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.handles.poschlTellerSpacingHandle.accessibleObjectResponse.createProperty( {

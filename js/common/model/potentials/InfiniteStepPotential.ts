@@ -53,8 +53,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
       units: electronVoltsUnit,
       range: options.stepHeightRange,
       tandem: options.tandem.createTandem( 'stepHeightProperty' ),
-      phetioFeatured: true,
-      phetioReadOnly: ( options.stepHeightRange.getLength() === 0 )
+      phetioFeatured: true
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
