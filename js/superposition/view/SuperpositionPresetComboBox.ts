@@ -43,7 +43,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<PresetSuperpos
         value: superpositionPreset,
         accessibleName: superpositionPreset.nameProperty,
         createNode: () => alignGroup.createBox( new RichText( superpositionPreset.nameProperty, richTextOptions ), alignBoxOptions ),
-        tandemName: `${superpositionPreset.tandemPrefix}Item`
+        tandemName: `${superpositionPreset.tandem.name}Item`
       };
     } );
 

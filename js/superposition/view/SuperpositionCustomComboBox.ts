@@ -44,7 +44,7 @@ export default class SuperpositionCustomComboBox extends ComboBox<CustomSuperpos
         value: superpositionCustom,
         accessibleName: superpositionCustom.nameProperty,
         createNode: () => alignGroup.createBox( new RichText( superpositionCustom.nameProperty, richTextOptions ), alignBoxOptions ),
-        tandemName: `${superpositionCustom.tandemPrefix}Item`
+        tandemName: `${superpositionCustom.tandem.name}Item`
       };
     } );
 

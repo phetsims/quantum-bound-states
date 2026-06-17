@@ -18,7 +18,6 @@ type SelfOptions = {
   superpositionConfigurationType: SuperpositionConfigurationType;
   nameProperty: TReadOnlyProperty<string>;
   accessibleNameProperty?: TReadOnlyProperty<string>;
-  tandemPrefix: string;
 };
 
 export type SuperpositionConfigurationOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -28,7 +27,6 @@ export default class SuperpositionConfiguration extends PhetioObject {
   public readonly superpositionConfigurationType: SuperpositionConfigurationType;
   public readonly nameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
-  public readonly tandemPrefix: string;
 
   protected constructor( providedOptions: SuperpositionConfigurationOptions ) {
 
@@ -47,7 +45,6 @@ export default class SuperpositionConfiguration extends PhetioObject {
     this.superpositionConfigurationType = options.superpositionConfigurationType;
     this.nameProperty = options.nameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
-    this.tandemPrefix = options.tandemPrefix;
   }
 
   /**
