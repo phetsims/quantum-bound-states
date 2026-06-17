@@ -372,6 +372,37 @@ a11y:
                          psi times exp of negative i E t over h-bar.
 
   #=======================================================================================================
+  # Graphs
+  #=======================================================================================================
+
+  energyDiagram:
+    accessibleHeading: Energy Diagram
+    accessibleTemplate:
+      leadingParagraph: |-
+                        The Energy Diagram shows the potential energy curve and energy levels for the selected 
+                        potential well type. Currently,
+      listItems:
+        selectedPotential:    Potential well type is {$potentialName}.
+        numberOfWells:        Number of wells is {$numberOfWells}.
+        electronMasses:       Mass of the system is {$electronMasses} electron masses.
+        energyOffset:         Energy offset is {$energyOffset} electron volts.
+        electricField:        Electric field is {$electricField} volts per nanometer.
+
+  probabilityDensityGraph:
+    accessibleHeading:   Probability Density Graph
+    accessibleParagraph: |-
+                         The Probability Density graph shows the probability density across the well
+                         for energy level { $energyLevelIndex }. The curve has { $numberOfNodes } nodes. Listen to the shape
+                         with sonification, or move the Reference Line to read the potential value at any position.
+
+  waveFunctionGraph:
+    accessibleHeading:   Wave Function Graph
+    accessibleParagraph: |-
+                         The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function
+                         across the well for energy level { $energyLevelIndex }. Listen to each part with sonification, move the
+                         Reference Line to read values, and play time to explore how the parts behave.
+
+  #=======================================================================================================
   # Handles
   #=======================================================================================================
 
@@ -452,37 +483,6 @@ a11y:
       accessibleName:           spacing handle
       accessibleHelpText:       Change the separation between the anharmonic wells and observe how the energy levels respond.
       accessibleObjectResponse: '{$spacing} nanometers'
-
-  #=======================================================================================================
-  # Graphs
-  #=======================================================================================================
-
-  energyDiagram:
-    accessibleHeading: Energy Diagram
-    accessibleTemplate:
-      leadingParagraph: |-
-                        The Energy Diagram shows the potential energy curve and energy levels for the selected 
-                        potential well type. Currently,
-      listItems:
-        selectedPotential:    Potential well type is {$potentialName}.
-        numberOfWells:        Number of wells is {$numberOfWells}.
-        electronMasses:       Mass of the system is {$electronMasses} electron masses.
-        energyOffset:         Energy offset is {$energyOffset} electron volts.
-        electricField:        Electric field is {$electricField} volts per nanometer.
-
-  probabilityDensityGraph:
-    accessibleHeading:   Probability Density Graph
-    accessibleParagraph: |-
-                         The Probability Density graph shows the probability density across the well
-                         for energy level { $energyLevelIndex }. The curve has { $numberOfNodes } nodes. Listen to the shape
-                         with sonification, or move the Reference Line to read the potential value at any position.
-
-  waveFunctionGraph:
-    accessibleHeading:   Wave Function Graph
-    accessibleParagraph: |-
-                         The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function
-                         across the well for energy level { $energyLevelIndex }. Listen to each part with sonification, move the
-                         Reference Line to read values, and play time to explore how the parts behave.
 
   #=======================================================================================================
   # Push Buttons

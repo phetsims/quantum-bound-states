@@ -165,6 +165,17 @@ addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleName', 'a11y.supe
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleHelpText', 'a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_probabilityDensityDetailsDialog_accessibleParagraph', 'a11y.probabilityDensityDetailsDialog.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionDetailsDialog_accessibleParagraph', 'a11y.waveFunctionDetailsDialog.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_leadingParagraph', 'a11y.energyDiagram.accessibleTemplate.leadingParagraphStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_selectedPotential', 'a11y.energyDiagram.accessibleTemplate.listItems.selectedPotentialStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_numberOfWells', 'a11y.energyDiagram.accessibleTemplate.listItems.numberOfWellsStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_electronMasses', 'a11y.energyDiagram.accessibleTemplate.listItems.electronMassesStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_energyOffset', 'a11y.energyDiagram.accessibleTemplate.listItems.energyOffsetStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_electricField', 'a11y.energyDiagram.accessibleTemplate.listItems.electricFieldStringProperty' );
+addToMapIfDefined( 'a11y_probabilityDensityGraph_accessibleHeading', 'a11y.probabilityDensityGraph.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_probabilityDensityGraph_accessibleParagraph', 'a11y.probabilityDensityGraph.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_waveFunctionGraph_accessibleHeading', 'a11y.waveFunctionGraph.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_waveFunctionGraph_accessibleParagraph', 'a11y.waveFunctionGraph.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_handles_accessibleRoleDescription', 'a11y.handles.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_handles_asymmetricTriangleDepthHandle_accessibleName', 'a11y.handles.asymmetricTriangleDepthHandle.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_handles_asymmetricTriangleDepthHandle_accessibleHelpText', 'a11y.handles.asymmetricTriangleDepthHandle.accessibleHelpTextStringProperty' );
@@ -211,17 +222,6 @@ addToMapIfDefined( 'a11y_handles_poschlTellerWidthHandle_accessibleObjectRespons
 addToMapIfDefined( 'a11y_handles_poschlTellerSpacingHandle_accessibleName', 'a11y.handles.poschlTellerSpacingHandle.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_handles_poschlTellerSpacingHandle_accessibleHelpText', 'a11y.handles.poschlTellerSpacingHandle.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_handles_poschlTellerSpacingHandle_accessibleObjectResponse', 'a11y.handles.poschlTellerSpacingHandle.accessibleObjectResponseStringProperty' );
-addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_leadingParagraph', 'a11y.energyDiagram.accessibleTemplate.leadingParagraphStringProperty' );
-addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_selectedPotential', 'a11y.energyDiagram.accessibleTemplate.listItems.selectedPotentialStringProperty' );
-addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_numberOfWells', 'a11y.energyDiagram.accessibleTemplate.listItems.numberOfWellsStringProperty' );
-addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_electronMasses', 'a11y.energyDiagram.accessibleTemplate.listItems.electronMassesStringProperty' );
-addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_energyOffset', 'a11y.energyDiagram.accessibleTemplate.listItems.energyOffsetStringProperty' );
-addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_electricField', 'a11y.energyDiagram.accessibleTemplate.listItems.electricFieldStringProperty' );
-addToMapIfDefined( 'a11y_probabilityDensityGraph_accessibleHeading', 'a11y.probabilityDensityGraph.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_probabilityDensityGraph_accessibleParagraph', 'a11y.probabilityDensityGraph.accessibleParagraphStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionGraph_accessibleHeading', 'a11y.waveFunctionGraph.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_waveFunctionGraph_accessibleParagraph', 'a11y.waveFunctionGraph.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_timeButtonGroup_accessibleHeading', 'a11y.timeButtonGroup.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeButtonGroup_accessibleHelpText', 'a11y.timeButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_restartButton_accessibleHelpText', 'a11y.restartButton.accessibleHelpTextStringProperty' );
@@ -667,9 +667,34 @@ const QuantumBoundStatesFluent = {
     waveFunctionDetailsDialog: {
       accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsDialog_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsDialog.accessibleParagraphStringProperty' ) )
     },
-    _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"handles"} ),
-    _comment_16: new FluentComment( {"comment":"Handles","associatedKey":"handles"} ),
-    _comment_17: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"handles"} ),
+    _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
+    _comment_16: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),
+    _comment_17: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
+    energyDiagram: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleHeadingStringProperty' ) ),
+      accessibleTemplate: {
+        leadingParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_leadingParagraph', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.leadingParagraphStringProperty' ) ),
+        listItems: {
+          selectedPotential: new FluentPattern<{ potentialName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_selectedPotential', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.selectedPotentialStringProperty' ), [{"name":"potentialName"}] ),
+          numberOfWells: new FluentPattern<{ numberOfWells: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_numberOfWells', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.numberOfWellsStringProperty' ), [{"name":"numberOfWells"}] ),
+          _comment_0: new FluentComment( {"comment":"mass","associatedKey":"electronMasses"} ),
+          electronMasses: new FluentPattern<{ electronMasses: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_electronMasses', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.electronMassesStringProperty' ), [{"name":"electronMasses"}] ),
+          energyOffset: new FluentPattern<{ energyOffset: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_energyOffset', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.energyOffsetStringProperty' ), [{"name":"energyOffset"}] ),
+          electricField: new FluentPattern<{ electricField: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_electricField', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.electricFieldStringProperty' ), [{"name":"electricField"}] )
+        }
+      }
+    },
+    probabilityDensityGraph: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleHeadingStringProperty' ) ),
+      accessibleParagraph: new FluentPattern<{ energyLevelIndex: FluentVariable, numberOfNodes: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleParagraphStringProperty' ), [{"name":"energyLevelIndex"},{"name":"numberOfNodes"}] )
+    },
+    waveFunctionGraph: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionGraph.accessibleHeadingStringProperty' ) ),
+      accessibleParagraph: new FluentPattern<{ energyLevelIndex: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_waveFunctionGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionGraph.accessibleParagraphStringProperty' ), [{"name":"energyLevelIndex"}] )
+    },
+    _comment_18: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"handles"} ),
+    _comment_19: new FluentComment( {"comment":"Handles","associatedKey":"handles"} ),
+    _comment_20: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"handles"} ),
     handles: {
       accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_accessibleRoleDescription', _.get( QuantumBoundStatesStrings, 'a11y.handles.accessibleRoleDescriptionStringProperty' ) ),
       asymmetricTriangleDepthHandle: {
@@ -747,31 +772,6 @@ const QuantumBoundStatesFluent = {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerSpacingHandle_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerSpacingHandle.accessibleHelpTextStringProperty' ) ),
         accessibleObjectResponse: new FluentPattern<{ spacing: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_handles_poschlTellerSpacingHandle_accessibleObjectResponse', _.get( QuantumBoundStatesStrings, 'a11y.handles.poschlTellerSpacingHandle.accessibleObjectResponseStringProperty' ), [{"name":"spacing"}] )
       }
-    },
-    _comment_18: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
-    _comment_19: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),
-    _comment_20: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
-    energyDiagram: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleHeadingStringProperty' ) ),
-      accessibleTemplate: {
-        leadingParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_leadingParagraph', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.leadingParagraphStringProperty' ) ),
-        listItems: {
-          selectedPotential: new FluentPattern<{ potentialName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_selectedPotential', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.selectedPotentialStringProperty' ), [{"name":"potentialName"}] ),
-          numberOfWells: new FluentPattern<{ numberOfWells: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_numberOfWells', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.numberOfWellsStringProperty' ), [{"name":"numberOfWells"}] ),
-          _comment_0: new FluentComment( {"comment":"mass","associatedKey":"electronMasses"} ),
-          electronMasses: new FluentPattern<{ electronMasses: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_electronMasses', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.electronMassesStringProperty' ), [{"name":"electronMasses"}] ),
-          energyOffset: new FluentPattern<{ energyOffset: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_energyOffset', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.energyOffsetStringProperty' ), [{"name":"energyOffset"}] ),
-          electricField: new FluentPattern<{ electricField: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_electricField', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.electricFieldStringProperty' ), [{"name":"electricField"}] )
-        }
-      }
-    },
-    probabilityDensityGraph: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleHeadingStringProperty' ) ),
-      accessibleParagraph: new FluentPattern<{ energyLevelIndex: FluentVariable, numberOfNodes: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleParagraphStringProperty' ), [{"name":"energyLevelIndex"},{"name":"numberOfNodes"}] )
-    },
-    waveFunctionGraph: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionGraph.accessibleHeadingStringProperty' ) ),
-      accessibleParagraph: new FluentPattern<{ energyLevelIndex: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_waveFunctionGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionGraph.accessibleParagraphStringProperty' ), [{"name":"energyLevelIndex"}] )
     },
     _comment_21: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeButtonGroup"} ),
     _comment_22: new FluentComment( {"comment":"Push Buttons","associatedKey":"timeButtonGroup"} ),

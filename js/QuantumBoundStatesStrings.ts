@@ -291,6 +291,27 @@ type StringsType = {
     'waveFunctionDetailsDialog': {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
+    'energyDiagram': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleTemplate': {
+        'leadingParagraphStringProperty': LocalizedStringProperty;
+        'listItems': {
+          'selectedPotentialStringProperty': LocalizedStringProperty;
+          'numberOfWellsStringProperty': LocalizedStringProperty;
+          'electronMassesStringProperty': LocalizedStringProperty;
+          'energyOffsetStringProperty': LocalizedStringProperty;
+          'electricFieldStringProperty': LocalizedStringProperty;
+        }
+      }
+    };
+    'probabilityDensityGraph': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
+    'waveFunctionGraph': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
     'handles': {
       'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
       'asymmetricTriangleDepthHandle': {
@@ -368,27 +389,6 @@ type StringsType = {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
       }
-    };
-    'energyDiagram': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleTemplate': {
-        'leadingParagraphStringProperty': LocalizedStringProperty;
-        'listItems': {
-          'selectedPotentialStringProperty': LocalizedStringProperty;
-          'numberOfWellsStringProperty': LocalizedStringProperty;
-          'electronMassesStringProperty': LocalizedStringProperty;
-          'energyOffsetStringProperty': LocalizedStringProperty;
-          'electricFieldStringProperty': LocalizedStringProperty;
-        }
-      }
-    };
-    'probabilityDensityGraph': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
-    };
-    'waveFunctionGraph': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
     'timeButtonGroup': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
