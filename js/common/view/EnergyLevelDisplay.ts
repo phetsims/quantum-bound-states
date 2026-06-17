@@ -45,19 +45,21 @@ export default class EnergyLevelDisplay extends BackgroundNode {
         stroke: QBSColors.energyLevelDisplayBackgroundStrokeProperty,
         opacity: 1 // use alpha in fill
       },
-      visibleProperty: new DerivedProperty( [ model.energyDiagram.valuesVisibleProperty, energyLevelProperty ],
-        ( valuesVisible, energyLevel ) => valuesVisible && energyLevel !== null )
+      visibleProperty: new DerivedProperty( [ energyLevelProperty ], energyLevel => energyLevel !== null )
     }, providedOptions );
 
     const stringProperty = new DerivedStringProperty(
-      [ energyLevelProperty, model.boundStateResultProperty ],
-      ( energyLevel, boundStateResult ) => {
+      [ energyLevelProperty, model.energyDiagram.valuesVisibleProperty, model.boundStateResultProperty ],
+      ( energyLevel, valuesVisible, boundStateResult ) => {
         if ( energyLevel === null ) {
           return '';
         }
-        else {
+        else if ( valuesVisible ) {
           const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevel ), QBSConstants.ENERGY_LEVEL_DECIMALS );
           return `E<sub>${energyLevel}</sub> = ${energy} eV`;
+        }
+        else {
+          return `E<sub>${energyLevel}</sub>`;
         }
       } );
 
