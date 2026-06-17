@@ -25,7 +25,7 @@ export default class ManyWellsScreenView extends QBSScreenView {
       model.potentialProperty,
       model.numberOfWellsProperty,
       model.electricFieldProperty,
-      model.selectedEnergyLevelProperty,
+      model.selectedEnergyLevelIndexProperty,
       model.time,
       tandem.createTandem( 'energyDiagramControlPanel' ) );
 

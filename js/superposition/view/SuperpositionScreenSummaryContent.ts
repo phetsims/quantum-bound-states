@@ -54,7 +54,7 @@ class SuperpositionCurrentDetailsNode extends QBSCurrentDetailsNode {
     super( [
       QBSCurrentDetailsNode.createSelectedPotentialListItem( model.potentialProperty ),
       superpositionListItem,
-      QBSCurrentDetailsNode.createSelectedGraphItem( model.selectedGraphProperty, model.selectedEnergyLevelProperty ),
+      QBSCurrentDetailsNode.createSelectedGraphItem( model.selectedGraphProperty, model.selectedEnergyLevelIndexProperty ),
       QBSCurrentDetailsNode.createReferenceLineItem( model.referenceLine ),
       QBSCurrentDetailsNode.createMagnifierItem( model.magnifier ),
       QBSCurrentDetailsNode.createTimeStateItem( model.time.isPlayingProperty ),

@@ -53,7 +53,7 @@ class ManyWellsCurrentDetailsNode extends QBSCurrentDetailsNode {
       QBSCurrentDetailsNode.createSelectedPotentialListItem( model.potentialProperty ),
       numberOfWellsItem,
       electricFieldItem,
-      QBSCurrentDetailsNode.createSelectedGraphItem( model.selectedGraphProperty, model.selectedEnergyLevelProperty ),
+      QBSCurrentDetailsNode.createSelectedGraphItem( model.selectedGraphProperty, model.selectedEnergyLevelIndexProperty ),
       QBSCurrentDetailsNode.createReferenceLineItem( model.referenceLine ),
       QBSCurrentDetailsNode.createMagnifierItem( model.magnifier ),
       QBSCurrentDetailsNode.createTimeStateItem( model.time.isPlayingProperty ),

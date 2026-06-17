@@ -96,7 +96,7 @@ export default class EnergyDiagramNode extends Node {
 
     const energyDiagramPlotsNode = new EnergyDiagramPlotsNode( model, this.chartTransform );
 
-    model.highlightedEnergyLevelProperty.lazyLink( highlightedEnergyLevel => {
+    model.highlightedEnergyLevelIndexProperty.lazyLink( highlightedEnergyLevel => {
 
       // Change the cursor to a pointer when an energy level is highlighted.
       this.chartRectangle.cursor = ( highlightedEnergyLevel === null ) ? 'default' : 'pointer';
@@ -116,13 +116,13 @@ export default class EnergyDiagramNode extends Node {
       tandem.createTandem( 'markersLayer' ) );
 
     // Displays the selected energy level and its corresponding energy value.
-    const selectedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.selectedEnergyLevelProperty, this.chartTransform, {
+    const selectedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.selectedEnergyLevelIndexProperty, this.chartTransform, {
       left: this.chartRectangle.left + 10,
       tandem: tandem.createTandem( 'selectedEnergyLevelDisplay' )
     } );
 
     // Displays the highlighted energy level and its corresponding energy value.
-    const highlightedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.highlightedEnergyLevelProperty, this.chartTransform, {
+    const highlightedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.highlightedEnergyLevelIndexProperty, this.chartTransform, {
       left: selectedEnergyLevelDisplay.left,
       tandem: tandem.createTandem( 'highlightedEnergyLevelDisplay' )
     } );

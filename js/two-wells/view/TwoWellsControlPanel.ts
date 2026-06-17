@@ -29,7 +29,7 @@ export class TwoWellsControlPanel extends Panel {
 
   public constructor( listboxParent: Node,
                       potentialProperty: Property<QuantumPotential>,
-                      energyLevelProperty: NumberProperty,
+                      energyLevelIndexProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -47,7 +47,7 @@ export class TwoWellsControlPanel extends Panel {
         titleText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
-        new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) )
+        new EnergyLevelControl( energyLevelIndexProperty, time, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );
 

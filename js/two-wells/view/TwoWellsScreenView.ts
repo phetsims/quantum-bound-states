@@ -20,7 +20,7 @@ export default class TwoWellsScreenView extends QBSScreenView {
     const listboxParent = new Node();
 
     const energyDiagramControlPanel = new TwoWellsControlPanel( listboxParent, model.potentialProperty,
-      model.selectedEnergyLevelProperty, model.time, tandem.createTandem( 'energyDiagramControlPanel' ) );
+      model.selectedEnergyLevelIndexProperty, model.time, tandem.createTandem( 'energyDiagramControlPanel' ) );
 
     super( model, listboxParent, energyDiagramControlPanel, {
       screenSummaryContent: new TwoWellsScreenSummaryContent( model ),

@@ -37,8 +37,8 @@ export default class EnergyLevelSelectionListener extends PressListener {
 
       // Press to select the highlighted energy level.
       press: event => {
-        if ( model.highlightedEnergyLevelProperty.value !== null ) {
-          model.selectedEnergyLevelProperty.value = model.highlightedEnergyLevelProperty.value;
+        if ( model.highlightedEnergyLevelIndexProperty.value !== null ) {
+          model.selectedEnergyLevelIndexProperty.value = model.highlightedEnergyLevelIndexProperty.value;
           soundPlayer.play();
         }
       }
@@ -49,10 +49,10 @@ export default class EnergyLevelSelectionListener extends PressListener {
     this.chartTransform = chartTransform;
 
     // If the highlighted energy level becomes selected, clear the highlighted energy level.
-    model.selectedEnergyLevelProperty.link( selectedEnergyLevel => {
+    model.selectedEnergyLevelIndexProperty.link( selectedEnergyLevel => {
       if ( !isSettingPhetioStateProperty.value ) {
-        if ( model.highlightedEnergyLevelProperty.value === selectedEnergyLevel ) {
-          model.highlightedEnergyLevelProperty.value = null;
+        if ( model.highlightedEnergyLevelIndexProperty.value === selectedEnergyLevel ) {
+          model.highlightedEnergyLevelIndexProperty.value = null;
         }
       }
     } );
@@ -66,11 +66,11 @@ export default class EnergyLevelSelectionListener extends PressListener {
 
     // Highlight the energy level that is closest to where the pointer is. Do not highlight the selected energy level.
     const energyLevel = this.eventToEnergyLevel( event );
-    if ( energyLevel !== this.model.selectedEnergyLevelProperty.value ) {
-      this.model.highlightedEnergyLevelProperty.value = energyLevel;
+    if ( energyLevel !== this.model.selectedEnergyLevelIndexProperty.value ) {
+      this.model.highlightedEnergyLevelIndexProperty.value = energyLevel;
     }
     else {
-      this.model.highlightedEnergyLevelProperty.value = null;
+      this.model.highlightedEnergyLevelIndexProperty.value = null;
     }
   }
 
@@ -79,7 +79,7 @@ export default class EnergyLevelSelectionListener extends PressListener {
    */
   public override exit( event: PressListenerEvent ): void {
     super.exit( event );
-    this.model.highlightedEnergyLevelProperty.value = null;
+    this.model.highlightedEnergyLevelIndexProperty.value = null;
   }
 
   /**
@@ -94,6 +94,6 @@ export default class EnergyLevelSelectionListener extends PressListener {
     const energy = this.chartTransform.viewToModelY( localPoint.y );
 
     // Find the closest energy level.
-    return this.model.getClosestEnergyLevel( energy, ENERGY_CLOSENESS_THRESHOLD );
+    return this.model.getClosestEnergyLevelIndex( energy, ENERGY_CLOSENESS_THRESHOLD );
   }
 }

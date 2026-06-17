@@ -75,14 +75,14 @@ export default class QBSScreenView extends ScreenView {
     const quantumStateGraphNodes: QuantumStateGraphNode[] = [];
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model.probabilityDensityGraph,
-      model.selectedGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
+      model.selectedGraphProperty, model.selectedEnergyLevelIndexProperty, model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createProbabilityDensityDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'probabilityDensityGraphNode' )
       } );
     quantumStateGraphNodes.push( probabilityDensityGraphNode );
 
     const waveFunctionGraphNode = new WaveFunctionGraphNode( model.waveFunctionGraph,
-      model.selectedGraphProperty, model.selectedEnergyLevelProperty, model.curvesVisibleProperty, {
+      model.selectedGraphProperty, model.selectedEnergyLevelIndexProperty, model.curvesVisibleProperty, {
         createEquationDetailsButton: options.createWaveFunctionDetailsButton,
         tandem: quantumStateGraphNodesTandem.createTandem( 'waveFunctionGraphNode' )
       } );

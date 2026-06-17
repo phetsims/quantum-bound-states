@@ -19,11 +19,11 @@ import QBSConstants from '../QBSConstants.js';
 
 export default class EquationTermNode extends BackgroundNode {
 
-  private constructor( energyLevelProperty: TReadOnlyProperty<number>, patternString: string, tandem: Tandem ) {
+  private constructor( energyLevelIndexProperty: TReadOnlyProperty<number>, patternString: string, tandem: Tandem ) {
 
-    affirm( patternString.includes( '{{energyLevel}}' ), 'invalid pattern string: ' + patternString );
+    affirm( patternString.includes( '{{energyLevelIndex}}' ), 'invalid pattern string: ' + patternString );
 
-    const stringProperty = new DerivedStringProperty( [ energyLevelProperty ],
+    const stringProperty = new DerivedStringProperty( [ energyLevelIndexProperty ],
       energyLevel => StringUtils.fillIn( patternString, {
         energyLevel: energyLevel
       } ) );
@@ -54,14 +54,14 @@ export default class EquationTermNode extends BackgroundNode {
   /**
    * Creates a term for the probability density equation.
    */
-  public static probabilityDensityTerm( energyLevelProperty: TReadOnlyProperty<number>, tandem: Tandem ): EquationTermNode {
-    return new EquationTermNode( energyLevelProperty, '|Ψ<sub>{{energyLevel}}</sub>(x,t)|<sup>2</sup>', tandem );
+  public static probabilityDensityTerm( energyLevelIndexProperty: TReadOnlyProperty<number>, tandem: Tandem ): EquationTermNode {
+    return new EquationTermNode( energyLevelIndexProperty, '|Ψ<sub>{{energyLevelIndex}}</sub>(x,t)|<sup>2</sup>', tandem );
   }
 
   /**
    * Creates a term for the wave function equation.
    */
-  public static waveFunctionTerm( energyLevelProperty: TReadOnlyProperty<number>, tandem: Tandem ): EquationTermNode {
-    return new EquationTermNode( energyLevelProperty, 'Ψ<sub><sub>{{energyLevel}}</sub></sub>(x,t)', tandem );
+  public static waveFunctionTerm( energyLevelIndexProperty: TReadOnlyProperty<number>, tandem: Tandem ): EquationTermNode {
+    return new EquationTermNode( energyLevelIndexProperty, 'Ψ<sub><sub>{{energyLevelIndex}}</sub></sub>(x,t)', tandem );
   }
 }

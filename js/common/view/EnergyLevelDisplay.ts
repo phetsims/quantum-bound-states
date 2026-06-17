@@ -30,7 +30,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
 
   //TODO Reduce coupling to QBSModel
   public constructor( model: QBSModel,
-                      energyLevelProperty: TReadOnlyProperty<number | null>,
+                      energyLevelIndexProperty: TReadOnlyProperty<number | null>,
                       chartTransform: ChartTransform,
                       providedOptions: EnergyLevelDisplayOptions ) {
 
@@ -45,24 +45,24 @@ export default class EnergyLevelDisplay extends BackgroundNode {
         stroke: QBSColors.energyLevelDisplayBackgroundStrokeProperty,
         opacity: 1 // use alpha in fill
       },
-      visibleProperty: new DerivedProperty( [ energyLevelProperty ], energyLevel => energyLevel !== null )
+      visibleProperty: new DerivedProperty( [ energyLevelIndexProperty ], energyLevel => energyLevel !== null )
     }, providedOptions );
 
     // When 'Values' is checked, show the label and value for the energy level.
     // When 'Values' is not checked, show only the label.
     // See https://github.com/phetsims/quantum-bound-states/issues/82
     const stringProperty = new DerivedStringProperty(
-      [ energyLevelProperty, model.energyDiagram.valuesVisibleProperty, model.boundStateResultProperty ],
-      ( energyLevel, valuesVisible, boundStateResult ) => {
-        if ( energyLevel === null ) {
+      [ energyLevelIndexProperty, model.energyDiagram.valuesVisibleProperty, model.boundStateResultProperty ],
+      ( energyLevelIndex, valuesVisible, boundStateResult ) => {
+        if ( energyLevelIndex === null ) {
           return '';
         }
         else if ( valuesVisible ) {
-          const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevel ), QBSConstants.ENERGY_LEVEL_DECIMALS );
-          return `E<sub>${energyLevel}</sub> = ${energy} eV`;
+          const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevelIndex ), QBSConstants.ENERGY_LEVEL_DECIMALS );
+          return `E<sub>${energyLevelIndex}</sub> = ${energy} eV`;
         }
         else {
-          return `E<sub>${energyLevel}</sub>`;
+          return `E<sub>${energyLevelIndex}</sub>`;
         }
       } );
 
@@ -73,11 +73,11 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     super( content, options );
 
     Multilink.multilink(
-      [ energyLevelProperty, model.boundStateResultProperty, model.energyDiagram.yRangeProperty ],
-      ( energyLevel, boundStateResult, yRange ) => {
+      [ energyLevelIndexProperty, model.boundStateResultProperty, model.energyDiagram.yRangeProperty ],
+      ( energyLevelIndex, boundStateResult, yRange ) => {
         //TODO https://github.com/phetsims/quantum-bound-states/issues/40 Temporary patch
-        if ( energyLevel !== null && model.selectedEnergyLevelProperty.range.min === model.potentialProperty.value.groundStateIndex ) {
-          const energy = model.getEnergyAtEnergyLevel( energyLevel );
+        if ( energyLevelIndex !== null && model.selectedEnergyLevelIndexProperty.range.min === model.potentialProperty.value.groundStateIndex ) {
+          const energy = model.getEnergyAtEnergyLevel( energyLevelIndex );
           this.bottom = chartTransform.modelToViewY( energy ) - 3;
         }
       } );

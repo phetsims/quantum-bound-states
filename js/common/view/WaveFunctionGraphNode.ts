@@ -25,7 +25,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
   public constructor( waveFunctionGraph: WaveFunctionGraph,
                       quantumStateGraphProperty: TReadOnlyProperty<QuantumStateGraph>,
-                      selectedEnergyLevelProperty: TReadOnlyProperty<number>,
+                      selectedEnergyLevelIndexProperty: TReadOnlyProperty<number>,
                       curvesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions: WaveFunctionGraphNodeOptions ) {
 
@@ -45,14 +45,14 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleParagraph.createProperty( {
-        energyLevelIndex: selectedEnergyLevelProperty
+        energyLevelIndex: selectedEnergyLevelIndexProperty
       } )
     }, providedOptions );
 
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
     // of the chartRectangle. The term corresponds to the selected energy level.
     if ( !options.createEquationDetailsButton ) {
-      options.createEquationTermNode = tandem => EquationTermNode.waveFunctionTerm( selectedEnergyLevelProperty, tandem );
+      options.createEquationTermNode = tandem => EquationTermNode.waveFunctionTerm( selectedEnergyLevelIndexProperty, tandem );
     }
 
     super( curvesVisibleProperty, options );

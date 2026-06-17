@@ -33,7 +33,7 @@ export class OneWellControlPanel extends Panel {
                       potentialProperty: Property<QuantumPotential>,
                       electronMassesProperty: NumberProperty,
                       energyOffsetProperty: NumberProperty,
-                      energyLevelProperty: NumberProperty,
+                      energyLevelIndexProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -53,7 +53,7 @@ export class OneWellControlPanel extends Panel {
         new ElectronMassesControl( electronMassesProperty, time, tandem.createTandem( 'electronMassesControl' ) ),
         new EnergyOffsetControl( energyOffsetProperty, time, tandem.createTandem( 'energyOffsetControl' ) ),
         new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
-        new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) )
+        new EnergyLevelControl( energyLevelIndexProperty, time, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );
 

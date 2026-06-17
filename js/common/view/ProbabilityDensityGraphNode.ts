@@ -26,7 +26,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
 
   public constructor( probabilityDensityGraph: ProbabilityDensityGraph,
                       quantumStateGraphProperty: TReadOnlyProperty<QuantumStateGraph>,
-                      selectedEnergyLevelProperty: TReadOnlyProperty<number>,
+                      selectedEnergyLevelIndexProperty: TReadOnlyProperty<number>,
                       curvesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
@@ -47,7 +47,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.probabilityDensityGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.probabilityDensityGraph.accessibleParagraph.createProperty( {
-        energyLevelIndex: selectedEnergyLevelProperty,
+        energyLevelIndex: selectedEnergyLevelIndexProperty,
         numberOfNodes: 'TODO' //TODO Where do we get numberOfNodes?
       } )
     }, providedOptions );
@@ -55,7 +55,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
     // of the chartRectangle. The term corresponds to the selected energy level.
     if ( !options.createEquationDetailsButton ) {
-      options.createEquationTermNode = tandem => EquationTermNode.probabilityDensityTerm( selectedEnergyLevelProperty, tandem );
+      options.createEquationTermNode = tandem => EquationTermNode.probabilityDensityTerm( selectedEnergyLevelIndexProperty, tandem );
     }
 
     super( curvesVisibleProperty, options );

@@ -33,7 +33,7 @@ export class ManyWellsControlPanel extends Panel {
                       potentialProperty: Property<QuantumPotential>,
                       numberOfWellsProperty: NumberProperty,
                       electricFieldProperty: NumberProperty,
-                      energyLevelProperty: NumberProperty,
+                      energyLevelIndexProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
 
@@ -52,7 +52,7 @@ export class ManyWellsControlPanel extends Panel {
         new NumberOfWellsControl( numberOfWellsProperty, time, tandem.createTandem( 'numberOfWellsControl' ) ),
         new ElectricFieldControl( electricFieldProperty, time, tandem.createTandem( 'electricFieldControl' ) ),
         new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
-        new EnergyLevelControl( energyLevelProperty, time, tandem.createTandem( 'energyLevelControl' ) )
+        new EnergyLevelControl( energyLevelIndexProperty, time, tandem.createTandem( 'energyLevelControl' ) )
       ]
     } ) );
 

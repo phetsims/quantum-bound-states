@@ -33,7 +33,7 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
     } );
 
     const selectedEnergyLevelPlot = new EnergyLevelsPlot( chartTransform,
-      [ model.getEnergyAtEnergyLevel( model.selectedEnergyLevelProperty.value ) ], {
+      [ model.getEnergyAtEnergyLevel( model.selectedEnergyLevelIndexProperty.value ) ], {
         strokeProperty: QBSColors.selectedEnergyLevelColorProperty,
         lineWidth: 2,
         hasArrowHeads: true
@@ -62,13 +62,13 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
       potentialPlot.setYCoordinates( boundStateResult.potentials );
       energyLevelsPlot.setEnergies( boundStateResult.energies );
 
-      const selectedEnergyLevel = model.selectedEnergyLevelProperty.value;
+      const selectedEnergyLevel = model.selectedEnergyLevelIndexProperty.value;
       if ( model.isSelectedEnergyLevelValid() ) {
         const selectedEnergy = model.getEnergyAtEnergyLevel( selectedEnergyLevel );
         selectedEnergyLevelPlot.setEnergy( selectedEnergy );
       }
 
-      const highlightedEnergyLevel = model.highlightedEnergyLevelProperty.value;
+      const highlightedEnergyLevel = model.highlightedEnergyLevelIndexProperty.value;
       if ( model.isHighlightedEnergyLevelValid() ) {
         const highlightedEnergy = ( highlightedEnergyLevel === null ) ? null : model.getEnergyAtEnergyLevel( highlightedEnergyLevel );
         highlightedEnergyLevelPlot.setEnergy( highlightedEnergy );
@@ -81,8 +81,8 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
 
     Multilink.multilinkAny( [
         model.boundStateResultProperty,
-        model.selectedEnergyLevelProperty,
-        model.highlightedEnergyLevelProperty,
+        model.selectedEnergyLevelIndexProperty,
+        model.highlightedEnergyLevelIndexProperty,
         ...plots.map( plot => plot.strokeProperty )
       ],
       () => {

@@ -19,14 +19,14 @@ import { addPauseListeners } from './addPauseListeners.js';
 
 export default class EnergyLevelControl extends HBox {
 
-  public constructor( energyLevelProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
+  public constructor( energyLevelIndexProperty: NumberProperty, time: QBSTime, tandem: Tandem ) {
 
     const energyLevelText = new Text( QuantumBoundStatesFluent.energyLevelStringProperty, {
       font: QBSConstants.CONTROL_FONT,
       maxWidth: 150
     } );
 
-    const energyLevelSpinner = new EnergyLevelSpinner( energyLevelProperty, time, tandem.createTandem( 'energyLevelSpinner' ) );
+    const energyLevelSpinner = new EnergyLevelSpinner( energyLevelIndexProperty, time, tandem.createTandem( 'energyLevelSpinner' ) );
 
     super( {
       isDisposable: false,
@@ -39,11 +39,11 @@ export default class EnergyLevelControl extends HBox {
 
 class EnergyLevelSpinner extends NumberSpinner {
 
-  public constructor( energyLevelProperty: NumberProperty,
+  public constructor( energyLevelIndexProperty: NumberProperty,
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    super( energyLevelProperty, energyLevelProperty.rangeProperty, {
+    super( energyLevelIndexProperty, energyLevelIndexProperty.rangeProperty, {
       isDisposable: false,
       arrowsPosition: 'leftRight',
       arrowsScale: 1,

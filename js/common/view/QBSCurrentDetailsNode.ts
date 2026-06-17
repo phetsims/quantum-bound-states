@@ -45,13 +45,13 @@ export default class QBSCurrentDetailsNode extends Node {
   /**
    * Identify the selected quantum state graph and selected energy level.
    */
-  public static createSelectedGraphItem( selectedGraphProperty: TReadOnlyProperty<QuantumStateGraph>, energyLevelProperty: TReadOnlyProperty<number> ): AccessibleListItem {
+  public static createSelectedGraphItem( selectedGraphProperty: TReadOnlyProperty<QuantumStateGraph>, energyLevelIndexProperty: TReadOnlyProperty<number> ): AccessibleListItem {
     return {
       stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedGraph.createProperty( {
         graphName: new DynamicProperty<string, string, QuantumStateGraph>( selectedGraphProperty, {
           derive: selectedGraph => selectedGraph.accessibleNameProperty
         } ),
-        energyLevelIndex: energyLevelProperty
+        energyLevelIndex: energyLevelIndexProperty
       } )
     };
   }
