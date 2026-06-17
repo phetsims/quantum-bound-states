@@ -144,9 +144,9 @@ export default class EnergyDiagramNode extends Node {
       this.horizontalGridLines,
       verticalGridLines,
       clippedLayer,
-      handlesLayer,
       selectedEnergyLevelDisplay,
-      highlightedEnergyLevelDisplay
+      highlightedEnergyLevelDisplay,
+      handlesLayer
     ];
 
     this.setAccessibleTemplate( describer.getAccessibleTemplate() );
