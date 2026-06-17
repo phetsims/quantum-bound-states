@@ -385,8 +385,8 @@ a11y:
         selectedPotential:    Potential well type is {$potentialName}.
         numberOfWells:        Number of wells is {$numberOfWells}.
         electronMasses:       Mass of the system is {$electronMasses} electron masses.
-        energyOffset:         Energy offset is {$energyOffset} electron volts.
         electricField:        Electric field is {$electricField} volts per nanometer.
+        energyOffset:         Energy offset is {$energyOffset} electron volts.
 
   probabilityDensityGraph:
     accessibleHeading:   Probability Density Graph

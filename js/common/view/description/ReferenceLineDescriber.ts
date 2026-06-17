@@ -15,9 +15,11 @@ import QBSConstants from '../../QBSConstants.js';
 
 export default class ReferenceLineDescriber {
 
-  //TODO elimate coupling to QBSModel? Or is that OK/necessary for description?
-  public constructor( private readonly model: QBSModel ) {
-    // All fields are defined and initialized via constructor params.
+  private readonly model: QBSModel;
+
+  //TODO Eliminate coupling to QBSModel? Or is that OK/necessary for description?
+  public constructor( model: QBSModel ) {
+    this.model = model;
   }
 
   public getAccessibleObjectResponse(): string {
