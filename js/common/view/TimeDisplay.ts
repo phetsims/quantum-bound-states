@@ -6,10 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSTime from '../model/QBSTime.js';
 import { femtosecondsUnit } from '../model/units/femtosecondsUnit.js';
 import QBSColors from '../QBSColors.js';
@@ -19,19 +20,33 @@ export default class TimeDisplay extends NumberDisplay {
 
   public constructor( time: QBSTime, tandem: Tandem ) {
 
-    super( time.currentTimeProperty, new Range( 0, 10000 ), {
+    const backgroundFillProperty = time.timeVisibleProperty.derived(
+            timeVisible => timeVisible ? QBSColors.timeDisplayEnabledFillProperty.value : QBSColors.timeDisplayDisabledFillProperty.value );
+
+    // Hide the value by making it transparent.
+    const textFillProperty = time.timeVisibleProperty.derived( timeVisible => timeVisible ? 'black' : 'transparent' );
+
+    //TODO What should this be when timeVisibleProperty is false?
+    const accessibleParagraphProperty = QuantumBoundStatesFluent.a11y.timeControls.numberDisplay.accessibleParagraph.createProperty( {
+      isPlaying: time.isPlayingProperty.derived( isPlaying => isPlaying ? 'true' : 'false' ),
+      time: time.currentTimeProperty.derived( currentTime => toFixed( currentTime, time.getDecimalPlaces() ) )
+    } );
+
+    // time.currentTimeProperty has no range. Use a large range to size the NumberDisplay.
+    const timeRange = new Range( 0, 10000 );
+
+    super( time.currentTimeProperty, timeRange, {
       isDisposable: false,
       textOptions: {
         font: QBSConstants.TIME_FONT,
-        // Hide the value by making it transparent.
-        fill: new DerivedProperty( [ time.timeVisibleProperty ], timeVisible => timeVisible ? 'black' : 'transparent' )
+        fill: textFillProperty
       },
-      backgroundFill: new DerivedProperty( [ time.timeVisibleProperty ],
-        timeVisible => timeVisible ? QBSColors.timeDisplayEnabledFillProperty.value : QBSColors.timeDisplayDisabledFillProperty.value ),
+      backgroundFill: backgroundFillProperty,
       numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString( value, {
         decimalPlaces: time.getDecimalPlaces(),
         showTrailingZeros: true
       } ),
+      accessibleParagraph: accessibleParagraphProperty,
       tandem: tandem.createTandem( 'valueDisplay' )
     } );
   }

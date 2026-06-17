@@ -298,6 +298,11 @@ a11y:
 
   timeControls:
     accessibleHeading: Time Controls
+    numberDisplay:
+      accessibleParagraph:
+        select_isPlaying:
+          true: Pause sim to read current time.
+          false: '{ $time } femtoseconds'
 
   toolControls:
     accessibleHeading: Tool Controls

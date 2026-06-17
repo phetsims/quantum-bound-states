@@ -135,6 +135,7 @@ addToMapIfDefined( 'a11y_energyDiagramControls_accessibleHeading', 'a11y.energyD
 addToMapIfDefined( 'a11y_quantumStateGraphControls_accessibleHeading', 'a11y.quantumStateGraphControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionParts_accessibleHeading', 'a11y.waveFunctionParts.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_timeControls_accessibleHeading', 'a11y.timeControls.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_timeControls_numberDisplay_accessibleParagraph', 'a11y.timeControls.numberDisplay.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_toolControls_accessibleHeading', 'a11y.toolControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_valuesCheckbox_accessibleHelpText', 'a11y.valuesCheckbox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_valuesCheckbox_accessibleContextResponseChecked', 'a11y.valuesCheckbox.accessibleContextResponseCheckedStringProperty' );
@@ -600,7 +601,10 @@ const QuantumBoundStatesFluent = {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionParts_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionParts.accessibleHeadingStringProperty' ) )
     },
     timeControls: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.accessibleHeadingStringProperty' ) )
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.accessibleHeadingStringProperty' ) ),
+      numberDisplay: {
+        accessibleParagraph: new FluentPattern<{ isPlaying: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'>, time: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_timeControls_numberDisplay_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.numberDisplay.accessibleParagraphStringProperty' ), [{"name":"isPlaying","variants":["true","false"]},{"name":"time"}] )
+      }
     },
     toolControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_toolControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.toolControls.accessibleHeadingStringProperty' ) )

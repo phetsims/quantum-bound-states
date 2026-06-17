@@ -234,6 +234,9 @@ type StringsType = {
     };
     'timeControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'numberDisplay': {
+        'accessibleParagraphStringProperty': LocalizedStringProperty;
+      }
     };
     'toolControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;

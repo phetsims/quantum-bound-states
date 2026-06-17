@@ -460,6 +460,11 @@
     "timeControls": {
       "accessibleHeading": {
         "value": "Time Controls"
+      },
+      "numberDisplay": {
+        "accessibleParagraph": {
+          "value": "{ $isPlaying ->\n  [true] Pause sim to read current time.\n  *[false] { $time } femtoseconds\n}"
+        }
       }
     },
     "toolControls": {
