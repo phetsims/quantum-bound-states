@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionPreset is a superposition configuration whose coefficients cannot be changed.
+ * PresetSuperpositionConfiguration is a superposition configuration whose coefficients cannot be changed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,7 +15,7 @@ type SelfOptions = EmptySelfOptions;
 type SuperpositionPresetOptions = SelfOptions &
   StrictOmit<SuperpositionConfigurationOptions, 'superpositionConfigurationType'>;
 
-export default class SuperpositionPreset extends SuperpositionConfiguration {
+export default class PresetSuperpositionConfiguration extends SuperpositionConfiguration {
 
   public constructor( providedOptions: SuperpositionPresetOptions ) {
 

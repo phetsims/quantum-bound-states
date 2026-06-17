@@ -16,11 +16,11 @@ import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import SuperpositionCustom from '../model/SuperpositionCustom.js';
+import CustomSuperpositionConfiguration from '../model/CustomSuperpositionConfiguration.js';
 
-export default class SuperpositionCustomComboBox extends ComboBox<SuperpositionCustom> {
+export default class SuperpositionCustomComboBox extends ComboBox<CustomSuperpositionConfiguration> {
 
-  public constructor( superpositionCustomProperty: Property<SuperpositionCustom>,
+  public constructor( superpositionCustomProperty: Property<CustomSuperpositionConfiguration>,
                       listboxParent: Node,
                       alignGroup: AlignGroup,
                       tandem: Tandem ) {
@@ -39,7 +39,7 @@ export default class SuperpositionCustomComboBox extends ComboBox<SuperpositionC
       xAlign: 'left'
     };
 
-    const items: ComboBoxItem<SuperpositionCustom>[] = superpositionCustomProperty.validValues.map( superpositionCustom => {
+    const items: ComboBoxItem<CustomSuperpositionConfiguration>[] = superpositionCustomProperty.validValues.map( superpositionCustom => {
       return {
         value: superpositionCustom,
         accessibleName: superpositionCustom.nameProperty,

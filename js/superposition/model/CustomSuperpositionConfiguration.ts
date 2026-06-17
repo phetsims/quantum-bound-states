@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionCustom is a superposition configuration whose coefficients can be customized.
+ * CustomSuperpositionConfiguration is a superposition configuration whose coefficients can be customized.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,7 +15,7 @@ type SelfOptions = EmptySelfOptions;
 type SuperpositionCustomOptions = SelfOptions &
   StrictOmit<SuperpositionConfigurationOptions, 'superpositionConfigurationType'>;
 
-export default class SuperpositionCustom extends SuperpositionConfiguration {
+export default class CustomSuperpositionConfiguration extends SuperpositionConfiguration {
 
   public constructor( providedOptions: SuperpositionCustomOptions ) {
 

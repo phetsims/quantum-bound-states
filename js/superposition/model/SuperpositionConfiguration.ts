@@ -30,7 +30,7 @@ export default class SuperpositionConfiguration extends PhetioObject {
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
   public readonly tandemPrefix: string;
 
-  public constructor( providedOptions: SuperpositionConfigurationOptions ) {
+  protected constructor( providedOptions: SuperpositionConfigurationOptions ) {
 
     const options = optionize<SuperpositionConfigurationOptions, SelfOptions, PhetioObjectOptions>()( {
 

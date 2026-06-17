@@ -25,14 +25,14 @@ import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanomete
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import SuperpositionConfiguration from './SuperpositionConfiguration.js';
 import { SuperpositionConfigurationType, SuperpositionConfigurationTypeValues } from './SuperpositionConfigurationType.js';
-import SuperpositionCustom from './SuperpositionCustom.js';
-import SuperpositionPreset from './SuperpositionPreset.js';
+import CustomSuperpositionConfiguration from './CustomSuperpositionConfiguration.js';
+import PresetSuperpositionConfiguration from './PresetSuperpositionConfiguration.js';
 
 export default class SuperpositionModel extends QBSModel {
 
   public readonly superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>;
-  public readonly superpositionPresetProperty: Property<SuperpositionPreset>;
-  public readonly superpositionCustomProperty: Property<SuperpositionCustom>;
+  public readonly superpositionPresetProperty: Property<PresetSuperpositionConfiguration>;
+  public readonly superpositionCustomProperty: Property<CustomSuperpositionConfiguration>;
 
   public constructor( tandem: Tandem ) {
 
@@ -120,9 +120,9 @@ export default class SuperpositionModel extends QBSModel {
 
     //TODO Make this mess go away.
     let presetIndex = 1;
-    const presetConfigurationsTandem = tandem.createTandem( 'presetConfigurationsTandem' );
-    const superpositionPresets: SuperpositionPreset[] = [
-      new SuperpositionPreset( {
+    const presetSuperpositionConfigurationsTandem = tandem.createTandem( 'presetSuperpositionConfigurations' );
+    const presetSuperpositionConfigurations: PresetSuperpositionConfiguration[] = [
+      new PresetSuperpositionConfiguration( {
         nameProperty: new DerivedStringProperty( [
           groundStateIndexProperty,
           QuantumBoundStatesFluent.superpositionConfigurations.preset1.groundState0StringProperty,
@@ -132,9 +132,9 @@ export default class SuperpositionModel extends QBSModel {
           groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
         } ),
         tandemPrefix: `preset${presetIndex}`,
-        tandem: presetConfigurationsTandem.createTandem( `preset${presetIndex++}` )
+        tandem: presetSuperpositionConfigurationsTandem.createTandem( `preset${presetIndex++}` )
       } ),
-      new SuperpositionPreset( {
+      new PresetSuperpositionConfiguration( {
         nameProperty: new DerivedStringProperty( [
           groundStateIndexProperty,
           QuantumBoundStatesFluent.superpositionConfigurations.preset2.groundState0StringProperty,
@@ -144,9 +144,9 @@ export default class SuperpositionModel extends QBSModel {
           groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
         } ),
         tandemPrefix: `preset${presetIndex}`,
-        tandem: presetConfigurationsTandem.createTandem( `preset${presetIndex++}` )
+        tandem: presetSuperpositionConfigurationsTandem.createTandem( `preset${presetIndex++}` )
       } ),
-      new SuperpositionPreset( {
+      new PresetSuperpositionConfiguration( {
         nameProperty: new DerivedStringProperty( [
           groundStateIndexProperty,
           QuantumBoundStatesFluent.superpositionConfigurations.preset3.groundState0StringProperty,
@@ -156,9 +156,9 @@ export default class SuperpositionModel extends QBSModel {
           groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
         } ),
         tandemPrefix: `preset${presetIndex}`,
-        tandem: presetConfigurationsTandem.createTandem( `preset${presetIndex++}` )
+        tandem: presetSuperpositionConfigurationsTandem.createTandem( `preset${presetIndex++}` )
       } ),
-      new SuperpositionPreset( {
+      new PresetSuperpositionConfiguration( {
         nameProperty: new DerivedStringProperty( [
           groundStateIndexProperty,
           QuantumBoundStatesFluent.superpositionConfigurations.preset4.groundState0StringProperty,
@@ -168,55 +168,55 @@ export default class SuperpositionModel extends QBSModel {
           groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
         } ),
         tandemPrefix: `preset${presetIndex}`,
-        tandem: presetConfigurationsTandem.createTandem( `preset${presetIndex++}` )
+        tandem: presetSuperpositionConfigurationsTandem.createTandem( `preset${presetIndex++}` )
       } ),
-      new SuperpositionPreset( {
+      new PresetSuperpositionConfiguration( {
         nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.preset5StringProperty,
         tandemPrefix: `preset${presetIndex}`,
-        tandem: presetConfigurationsTandem.createTandem( `preset${presetIndex++}` )
+        tandem: presetSuperpositionConfigurationsTandem.createTandem( `preset${presetIndex++}` )
       } )
     ];
 
     //TODO Make this mess go away.
     let customIndex = 1;
-    const customConfigurationsTandem = tandem.createTandem( 'customConfigurations' );
-    const superpositionCustoms: SuperpositionCustom[] = [
-      new SuperpositionCustom( {
+    const customSuperpositionConfigurationsTandem = tandem.createTandem( 'customSuperpositionConfigurations' );
+    const customSuperpositionConfigurations: CustomSuperpositionConfiguration[] = [
+      new CustomSuperpositionConfiguration( {
         nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom1StringProperty,
         tandemPrefix: `custom${customIndex}`,
-        tandem: customConfigurationsTandem.createTandem( `custom${customIndex++}` )
+        tandem: customSuperpositionConfigurationsTandem.createTandem( `custom${customIndex++}` )
       } ),
-      new SuperpositionCustom( {
+      new CustomSuperpositionConfiguration( {
         nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom2StringProperty,
         tandemPrefix: `custom${customIndex}`,
-        tandem: customConfigurationsTandem.createTandem( `custom${customIndex++}` )
+        tandem: customSuperpositionConfigurationsTandem.createTandem( `custom${customIndex++}` )
       } ),
-      new SuperpositionCustom( {
+      new CustomSuperpositionConfiguration( {
         nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom3StringProperty,
         tandemPrefix: `custom${customIndex}`,
-        tandem: customConfigurationsTandem.createTandem( `custom${customIndex++}` )
+        tandem: customSuperpositionConfigurationsTandem.createTandem( `custom${customIndex++}` )
       } ),
-      new SuperpositionCustom( {
+      new CustomSuperpositionConfiguration( {
         nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom4StringProperty,
         tandemPrefix: `custom${customIndex}`,
-        tandem: customConfigurationsTandem.createTandem( `custom${customIndex++}` )
+        tandem: customSuperpositionConfigurationsTandem.createTandem( `custom${customIndex++}` )
       } ),
-      new SuperpositionCustom( {
+      new CustomSuperpositionConfiguration( {
         nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom5StringProperty,
         tandemPrefix: `custom${customIndex}`,
-        tandem: customConfigurationsTandem.createTandem( `custom${customIndex++}` )
+        tandem: customSuperpositionConfigurationsTandem.createTandem( `custom${customIndex++}` )
       } )
     ];
 
-    this.superpositionPresetProperty = new Property<SuperpositionPreset>( superpositionPresets[ 0 ], {
-      validValues: superpositionPresets,
+    this.superpositionPresetProperty = new Property<PresetSuperpositionConfiguration>( presetSuperpositionConfigurations[ 0 ], {
+      validValues: presetSuperpositionConfigurations,
       tandem: tandem.createTandem( 'superpositionPresetProperty' ),
       phetioFeatured: true,
       phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO
     } );
 
-    this.superpositionCustomProperty = new Property<SuperpositionCustom>( superpositionCustoms[ 0 ], {
-      validValues: superpositionCustoms,
+    this.superpositionCustomProperty = new Property<CustomSuperpositionConfiguration>( customSuperpositionConfigurations[ 0 ], {
+      validValues: customSuperpositionConfigurations,
       tandem: tandem.createTandem( 'superpositionCustomProperty' ),
       phetioFeatured: true,
       phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO

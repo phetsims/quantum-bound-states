@@ -10,9 +10,9 @@ import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import QBSCurrentDetailsNode from '../../common/view/QBSCurrentDetailsNode.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import SuperpositionCustom from '../model/SuperpositionCustom.js';
+import CustomSuperpositionConfiguration from '../model/CustomSuperpositionConfiguration.js';
 import SuperpositionModel from '../model/SuperpositionModel.js';
-import SuperpositionPreset from '../model/SuperpositionPreset.js';
+import PresetSuperpositionConfiguration from '../model/PresetSuperpositionConfiguration.js';
 
 export default class SuperpositionScreenSummaryContent extends ScreenSummaryContent {
 
@@ -42,10 +42,10 @@ class SuperpositionCurrentDetailsNode extends QBSCurrentDetailsNode {
     const superpositionListItem = {
       stringProperty: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.currentDetails.accessibleTemplate.listItems.superPosition.createProperty( {
         type: model.superpositionConfigurationTypeProperty,
-        presetName: new DynamicProperty<string, string, SuperpositionPreset>( model.superpositionPresetProperty, {
+        presetName: new DynamicProperty<string, string, PresetSuperpositionConfiguration>( model.superpositionPresetProperty, {
           derive: superpositionPreset => superpositionPreset.accessibleNameProperty
         } ),
-        customName: new DynamicProperty<string, string, SuperpositionCustom>( model.superpositionCustomProperty, {
+        customName: new DynamicProperty<string, string, CustomSuperpositionConfiguration>( model.superpositionCustomProperty, {
           derive: superpositionCustom => superpositionCustom.accessibleNameProperty
         } )
       } )

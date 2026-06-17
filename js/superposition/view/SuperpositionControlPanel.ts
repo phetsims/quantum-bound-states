@@ -26,8 +26,8 @@ import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
-import SuperpositionCustom from '../model/SuperpositionCustom.js';
-import SuperpositionPreset from '../model/SuperpositionPreset.js';
+import CustomSuperpositionConfiguration from '../model/CustomSuperpositionConfiguration.js';
+import PresetSuperpositionConfiguration from '../model/PresetSuperpositionConfiguration.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
 import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
 import SuperpositionCustomizationButton from './SuperpositionCustomizationButton.js';
@@ -44,8 +44,8 @@ export class SuperpositionControlPanel extends Panel {
   public constructor( listboxParent: Node,
                       potentialProperty: Property<QuantumPotential>,
                       superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>,
-                      superpositionPresetProperty: Property<SuperpositionPreset>,
-                      superpositionCustomProperty: Property<SuperpositionCustom>,
+                      superpositionPresetProperty: Property<PresetSuperpositionConfiguration>,
+                      superpositionCustomProperty: Property<CustomSuperpositionConfiguration>,
                       tandem: Tandem ) {
 
     const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
