@@ -71,7 +71,7 @@ export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<P
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.poschlTellerSpacingHandle.accessibleObjectResponse.format( {
-      spacing: this.potential.spacingProperty.value
+      spacing: toFixed( this.potential.spacingProperty.value, QBSConstants.SPACING_DECIMAL_PLACES )
     } ) );
   }
 }

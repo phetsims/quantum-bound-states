@@ -61,7 +61,7 @@ export default class AsymmetricTriangleDepthHandleNode extends PotentialHandleNo
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.asymmetricTriangleDepthHandle.accessibleObjectResponse.format( {
-      depth: this.potential.wellDepthProperty.value
+      depth: toFixed( this.potential.wellDepthProperty.value, QBSConstants.WELL_DEPTH_DECIMAL_PLACES )
     } ) );
   }
 }

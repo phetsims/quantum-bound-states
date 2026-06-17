@@ -58,7 +58,7 @@ export default class InfiniteStepHeightHandleNode extends PotentialHandleNode<In
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.infiniteStepHeightHandle.accessibleObjectResponse.format( {
-      stepHeight: this.potential.stepHeightProperty.value
+      stepHeight: toFixed( this.potential.stepHeightProperty.value, QBSConstants.STEP_HEIGHT_DECIMAL_PLACES )
     } ) );
   }
 }

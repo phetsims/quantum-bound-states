@@ -62,7 +62,7 @@ export default class CoulombWidthHandleNode extends PotentialHandleNode<CoulombP
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.coulombWidthHandle.accessibleObjectResponse.format( {
-      width: this.potential.wellWidthProperty.value
+      width: toFixed( this.potential.wellWidthProperty.value, QBSConstants.WELL_WIDTH_DECIMAL_PLACES )
     } ) );
   }
 }

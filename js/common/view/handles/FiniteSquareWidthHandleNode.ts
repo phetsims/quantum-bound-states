@@ -61,7 +61,7 @@ export default class FiniteSquareWidthHandleNode extends PotentialHandleNode<Fin
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.finiteSquareWidthHandle.accessibleObjectResponse.format( {
-      width: this.potential.wellWidthProperty.value
+      width: toFixed( this.potential.wellWidthProperty.value, QBSConstants.WELL_WIDTH_DECIMAL_PLACES )
     } ) );
   }
 }

@@ -64,7 +64,7 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.finiteSquareDepthHandle.accessibleObjectResponse.format( {
-      depth: this.potential.wellDepthProperty.value
+      depth: toFixed( this.potential.wellDepthProperty.value, QBSConstants.WELL_DEPTH_DECIMAL_PLACES )
     } ) );
   }
 

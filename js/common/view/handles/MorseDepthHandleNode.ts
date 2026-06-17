@@ -59,7 +59,7 @@ export default class MorseDepthHandleNode extends PotentialHandleNode<MorsePoten
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.morseDepthHandle.accessibleObjectResponse.format( {
-      depth: this.potential.wellDepthProperty.value
+      depth: toFixed( this.potential.wellDepthProperty.value, QBSConstants.WELL_DEPTH_DECIMAL_PLACES )
     } ) );
   }
 }

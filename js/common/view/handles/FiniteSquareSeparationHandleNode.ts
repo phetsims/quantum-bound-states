@@ -74,7 +74,7 @@ export default class FiniteSquareSeparationHandleNode extends PotentialHandleNod
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.finiteSquareSeparationHandle.accessibleObjectResponse.format( {
-      separation: this.potential.separationProperty.value
+      separation: toFixed( this.potential.separationProperty.value, QBSConstants.SEPARATION_DECIMAL_PLACES )
     } ) );
   }
 }

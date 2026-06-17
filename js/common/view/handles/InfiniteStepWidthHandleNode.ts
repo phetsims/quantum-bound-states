@@ -60,7 +60,7 @@ export default class InfiniteStepWidthHandleNode extends PotentialHandleNode<Inf
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.infiniteStepWidthHandle.accessibleObjectResponse.format( {
-      width: this.potential.wellWidthProperty.value
+      width: toFixed( this.potential.wellWidthProperty.value, QBSConstants.WELL_WIDTH_DECIMAL_PLACES )
     } ) );
   }
 }
