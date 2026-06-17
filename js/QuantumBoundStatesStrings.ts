@@ -404,6 +404,7 @@ type StringsType = {
     'playPauseButton': {
       'accessibleHelpTextPlayingStringProperty': LocalizedStringProperty;
       'accessibleHelpTextPausedStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseOffStringProperty': LocalizedStringProperty;
     };
     'stepForwardButton': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

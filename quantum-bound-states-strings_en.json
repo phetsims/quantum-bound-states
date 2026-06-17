@@ -463,7 +463,7 @@
       },
       "numberDisplay": {
         "accessibleParagraph": {
-          "value": "{ $isPlaying ->\n  [true] Pause sim to read current time.\n  *[false] { $time } femtoseconds\n}"
+          "value": "{ $timeState ->\n  [isHidden] Time is hidden.\n  [isPlaying] Pause sim to read current time.\n  *[isPaused] { $time } femtoseconds\n}"
         }
       }
     },
@@ -809,7 +809,7 @@
         "value": "Reset the clock to zero without changing any well or energy settings."
       },
       "accessibleContextResponse": {
-        "value": "Time reset to 0 femtoseconds."
+        "value": "{ $timeVisible ->\n  [true] Time reset to 0 femtoseconds.\n  *[false] Time reset.\n}"
       }
     },
     "playPauseButton": {
@@ -818,6 +818,9 @@
       },
       "accessibleHelpTextPaused": {
         "value": "Play to start time and explore what happens."
+      },
+      "accessibleContextResponseOff": {
+        "value": "{ $timeVisible ->\n  [true] Sim paused at { $time } femtoseconds.\n  *[false] Sim is paused.\n}"
       }
     },
     "stepForwardButton": {
@@ -825,7 +828,7 @@
         "value": "Step forward time while paused."
       },
       "accessibleContextResponse": {
-        "value": "Stepped forward to { $time } femtoseconds."
+        "value": "{ $timeVisible ->\n  [true] Time stepped forward to { $time } femtoseconds.\n  *[false] Time stepped forward.\n}"
       }
     },
     "probabilityDensityDetailsButton": {

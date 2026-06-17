@@ -229,6 +229,7 @@ addToMapIfDefined( 'a11y_restartButton_accessibleHelpText', 'a11y.restartButton.
 addToMapIfDefined( 'a11y_restartButton_accessibleContextResponse', 'a11y.restartButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_playPauseButton_accessibleHelpTextPlaying', 'a11y.playPauseButton.accessibleHelpTextPlayingStringProperty' );
 addToMapIfDefined( 'a11y_playPauseButton_accessibleHelpTextPaused', 'a11y.playPauseButton.accessibleHelpTextPausedStringProperty' );
+addToMapIfDefined( 'a11y_playPauseButton_accessibleContextResponseOff', 'a11y.playPauseButton.accessibleContextResponseOffStringProperty' );
 addToMapIfDefined( 'a11y_stepForwardButton_accessibleHelpText', 'a11y.stepForwardButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_stepForwardButton_accessibleContextResponse', 'a11y.stepForwardButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_probabilityDensityDetailsButton_accessibleName', 'a11y.probabilityDensityDetailsButton.accessibleNameStringProperty' );
@@ -603,7 +604,7 @@ const QuantumBoundStatesFluent = {
     timeControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_timeControls_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.accessibleHeadingStringProperty' ) ),
       numberDisplay: {
-        accessibleParagraph: new FluentPattern<{ isPlaying: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'>, time: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_timeControls_numberDisplay_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.numberDisplay.accessibleParagraphStringProperty' ), [{"name":"isPlaying","variants":["true","false"]},{"name":"time"}] )
+        accessibleParagraph: new FluentPattern<{ time: FluentVariable, timeState: 'isHidden' | 'isPlaying' | 'isPaused' | TReadOnlyProperty<'isHidden' | 'isPlaying' | 'isPaused'> }>( fluentSupport.bundleProperty, 'a11y_timeControls_numberDisplay_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.timeControls.numberDisplay.accessibleParagraphStringProperty' ), [{"name":"time"},{"name":"timeState","variants":["isHidden","isPlaying","isPaused"]}] )
       }
     },
     toolControls: {
@@ -786,15 +787,16 @@ const QuantumBoundStatesFluent = {
     },
     restartButton: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_restartButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.restartButton.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_restartButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.restartButton.accessibleContextResponseStringProperty' ) )
+      accessibleContextResponse: new FluentPattern<{ timeVisible: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'> }>( fluentSupport.bundleProperty, 'a11y_restartButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.restartButton.accessibleContextResponseStringProperty' ), [{"name":"timeVisible","variants":["true","false"]}] )
     },
     playPauseButton: {
       accessibleHelpTextPlayingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_playPauseButton_accessibleHelpTextPlaying', _.get( QuantumBoundStatesStrings, 'a11y.playPauseButton.accessibleHelpTextPlayingStringProperty' ) ),
-      accessibleHelpTextPausedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_playPauseButton_accessibleHelpTextPaused', _.get( QuantumBoundStatesStrings, 'a11y.playPauseButton.accessibleHelpTextPausedStringProperty' ) )
+      accessibleHelpTextPausedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_playPauseButton_accessibleHelpTextPaused', _.get( QuantumBoundStatesStrings, 'a11y.playPauseButton.accessibleHelpTextPausedStringProperty' ) ),
+      accessibleContextResponseOff: new FluentPattern<{ time: FluentVariable, timeVisible: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'> }>( fluentSupport.bundleProperty, 'a11y_playPauseButton_accessibleContextResponseOff', _.get( QuantumBoundStatesStrings, 'a11y.playPauseButton.accessibleContextResponseOffStringProperty' ), [{"name":"time"},{"name":"timeVisible","variants":["true","false"]}] )
     },
     stepForwardButton: {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponse: new FluentPattern<{ time: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleContextResponseStringProperty' ), [{"name":"time"}] )
+      accessibleContextResponse: new FluentPattern<{ time: FluentVariable, timeVisible: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'> }>( fluentSupport.bundleProperty, 'a11y_stepForwardButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.stepForwardButton.accessibleContextResponseStringProperty' ), [{"name":"time"},{"name":"timeVisible","variants":["true","false"]}] )
     },
     _comment_24: new FluentComment( {"comment":"Buttons","associatedKey":"probabilityDensityDetailsButton"} ),
     probabilityDensityDetailsButton: {

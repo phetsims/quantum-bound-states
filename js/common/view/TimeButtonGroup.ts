@@ -28,6 +28,9 @@ export default class TimeButtonGroup extends HBox {
 
   public constructor( time: QBSTime, tandem: Tandem ) {
 
+    const currentTimeStringProperty = time.currentTimeProperty.derived( currentTime => toFixed( currentTime, time.getDecimalPlaces() ) );
+    const timeVisibleStringProperty = time.timeVisibleProperty.derived( visible => visible ? 'true' : 'false' );
+
     const restartButton = new RestartButton( {
       listener: () => time.restart(),
       baseColor: QBSColors.restartButtonColorProperty,
@@ -35,8 +38,16 @@ export default class TimeButtonGroup extends HBox {
       touchAreaDilation: BUTTON_TOUCH_AREA_DILATION,
       enabledProperty: new DerivedProperty( [ time.currentTimeProperty ], currentTime => currentTime !== 0 ),
       accessibleHelpText: QuantumBoundStatesFluent.a11y.restartButton.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.restartButton.accessibleContextResponseStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.restartButton.accessibleContextResponse.createProperty( {
+        timeVisible: timeVisibleStringProperty
+      } ),
       tandem: tandem.createTandem( 'restartButton' )
+    } );
+
+    // Note the time when paused, otherwise just note that the sim is paused.
+    const pausedContextResponseProperty = QuantumBoundStatesFluent.a11y.playPauseButton.accessibleContextResponseOff.createProperty( {
+      timeVisible: timeVisibleStringProperty,
+      time: currentTimeStringProperty
     } );
 
     const playPauseButton = new PlayPauseButton( time.isPlayingProperty, {
@@ -50,7 +61,15 @@ export default class TimeButtonGroup extends HBox {
         ],
         ( isPlaying, accessibleHelpTextPlayingString, accessibleHelpTextPausedString ) =>
           isPlaying ? accessibleHelpTextPlayingString : accessibleHelpTextPausedString ),
+      accessibleContextResponseOff: pausedContextResponseProperty,
       tandem: tandem.createTandem( 'playPauseButton' )
+    } );
+
+    // If time is visible when the playPauseButton gets focus, note the time.
+    playPauseButton.focusedProperty.lazyLink( focused => {
+      if ( focused && time.timeVisibleProperty && !time.isPlayingProperty.value ) {
+        playPauseButton.addAccessibleContextResponse( pausedContextResponseProperty.value );
+      }
     } );
 
     const stepForwardButton = new StepForwardButton( {
@@ -61,7 +80,8 @@ export default class TimeButtonGroup extends HBox {
       enabledProperty: DerivedProperty.not( time.isPlayingProperty ),
       accessibleHelpText: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: QuantumBoundStatesFluent.a11y.stepForwardButton.accessibleContextResponse.createProperty( {
-        time: time.currentTimeProperty.derived( currentTime => toFixed( currentTime, time.getDecimalPlaces() ) )
+        timeVisible: timeVisibleStringProperty,
+        time: currentTimeStringProperty
       } ),
       tandem: tandem.createTandem( 'stepForwardButton' )
     } );

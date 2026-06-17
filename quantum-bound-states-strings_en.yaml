@@ -300,9 +300,10 @@ a11y:
     accessibleHeading: Time Controls
     numberDisplay:
       accessibleParagraph:
-        select_isPlaying:
-          true: Pause sim to read current time.
-          false: '{ $time } femtoseconds'
+        select_timeState:
+          isHidden:  Time is hidden.
+          isPlaying:  Pause sim to read current time.
+          isPaused: '{ $time } femtoseconds'
 
   toolControls:
     accessibleHeading: Tool Controls
@@ -387,11 +388,11 @@ a11y:
                         The Energy Diagram shows the potential energy curve and energy levels for the selected 
                         potential well type. Currently,
       listItems:
-        selectedPotential:    Potential well type is {$potentialName}.
-        numberOfWells:        Number of wells set to {$numberOfWells}.
-        electronMasses:       Mass of the system set to {$electronMasses} electron masses.
-        electricField:        Electric field set to {$electricField} volts per nanometer.
-        energyOffset:         Energy offset set to {$energyOffset} electron volts.
+        selectedPotential: Potential well type is {$potentialName}.
+        numberOfWells:     Number of wells set to {$numberOfWells}.
+        electronMasses:    Mass of the system set to {$electronMasses} electron masses.
+        electricField:     Electric field set to {$electricField} volts per nanometer.
+        energyOffset:      Energy offset set to {$energyOffset} electron volts.
 
   probabilityDensityGraph:
     accessibleHeading:   Probability Density Graph
@@ -499,15 +500,25 @@ a11y:
 
   restartButton:
     accessibleHelpText:        Reset the clock to zero without changing any well or energy settings.
-    accessibleContextResponse: Time reset to 0 femtoseconds.
+    accessibleContextResponse:
+      select_timeVisible:
+        true: Time reset to 0 femtoseconds.
+        false: Time reset.
 
   playPauseButton:
     accessibleHelpTextPlaying: Pause to stop time and inspect the current state.
     accessibleHelpTextPaused:  Play to start time and explore what happens.
+    accessibleContextResponseOff:
+      select_timeVisible:
+        true:  Sim paused at { $time } femtoseconds.
+        false: Sim is paused.
 
   stepForwardButton:
     accessibleHelpText:        Step forward time while paused.
-    accessibleContextResponse: Stepped forward to { $time } femtoseconds.
+    accessibleContextResponse:
+      select_timeVisible:
+        true: Time stepped forward to { $time } femtoseconds.
+        false: Time stepped forward.
 
   probabilityDensityDetailsButton:
     accessibleName:            Probability Density Details
