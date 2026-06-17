@@ -373,6 +373,13 @@ type StringsType = {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleTemplate': {
         'leadingParagraphStringProperty': LocalizedStringProperty;
+        'listItems': {
+          'selectedPotentialStringProperty': LocalizedStringProperty;
+          'numberOfWellsStringProperty': LocalizedStringProperty;
+          'electronMassesStringProperty': LocalizedStringProperty;
+          'energyOffsetStringProperty': LocalizedStringProperty;
+          'electricFieldStringProperty': LocalizedStringProperty;
+        }
       }
     };
     'probabilityDensityGraph': {

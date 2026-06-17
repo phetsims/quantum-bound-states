@@ -463,6 +463,12 @@ a11y:
       leadingParagraph: |-
                         The Energy Diagram shows the potential energy curve and energy levels for the selected 
                         potential well type. Currently,
+      listItems:
+        selectedPotential:    Potential well type is {$potentialName}.
+        numberOfWells:        Number of wells is {$numberOfWells}.
+        electronMasses:       Mass of the system is {$electronMasses} electron masses.
+        energyOffset:         Energy offset is {$energyOffset} electron volts.
+        electricField:        Electric field is {$electricField} volts per nanometer.
 
   probabilityDensityGraph:
     accessibleHeading:   Probability Density Graph

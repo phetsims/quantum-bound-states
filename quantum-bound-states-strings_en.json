@@ -755,6 +755,23 @@
       "accessibleTemplate": {
         "leadingParagraph": {
           "value": "The Energy Diagram shows the potential energy curve and energy levels for the selected \npotential well type. Currently,"
+        },
+        "listItems": {
+          "selectedPotential": {
+            "value": "Potential well type is {$potentialName}."
+          },
+          "numberOfWells": {
+            "value": "Number of wells is {$numberOfWells}."
+          },
+          "electronMasses": {
+            "value": "Mass of the system is {$electronMasses} electron masses."
+          },
+          "energyOffset": {
+            "value": "Energy offset is {$energyOffset} electron volts."
+          },
+          "electricField": {
+            "value": "Electric field is {$electricField} volts per nanometer."
+          }
         }
       }
     },
