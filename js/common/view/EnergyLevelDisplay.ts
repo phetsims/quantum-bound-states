@@ -48,6 +48,9 @@ export default class EnergyLevelDisplay extends BackgroundNode {
       visibleProperty: new DerivedProperty( [ energyLevelProperty ], energyLevel => energyLevel !== null )
     }, providedOptions );
 
+    // When 'Values' is checked, show the label and value for the energy level.
+    // When 'Values' is not checked, show only the label.
+    // See https://github.com/phetsims/quantum-bound-states/issues/82
     const stringProperty = new DerivedStringProperty(
       [ energyLevelProperty, model.energyDiagram.valuesVisibleProperty, model.boundStateResultProperty ],
       ( energyLevel, valuesVisible, boundStateResult ) => {
