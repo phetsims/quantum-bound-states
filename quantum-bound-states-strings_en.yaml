@@ -167,7 +167,7 @@ a11y:
             leadingParagraph: Currently,
             listItems:
               selectedPotential:    Potential well type is {$potentialName}.
-              selectedGraph:        '{ $graphName } is displayed for energy level { $index }.'
+              selectedGraph:        '{ $graphName } is displayed for energy level { $energyLevelIndex }.'
               referenceLineIsAdded: Reference Line is added.
               magnifierIsAdded:     Magnifier is added.
               simState:
@@ -248,8 +248,8 @@ a11y:
         currentDetails:
           accessibleTemplate:
             listItems:
-              numberOfWells: Number of wells set to {$value}.
-              electricField: Electric field set to {$value} volts per nanometer.
+              numberOfWells: Number of wells set to { $numberOfWells }.
+              electricField: Electric field set to { $electricField } volts per nanometer.
 
         interactionHint: Add more wells and explore what happens to the energy levels. Turn on an electric field and explore its effect.
 
@@ -474,14 +474,14 @@ a11y:
     accessibleHeading:   Probability Density Graph
     accessibleParagraph: |-
                          The Probability Density graph shows the probability density across the well
-                         for energy level { $index }. The curve has { $numberOfNodes } nodes. Listen to the shape
+                         for energy level { $energyLevelIndex }. The curve has { $numberOfNodes } nodes. Listen to the shape
                          with sonification, or move the Reference Line to read the potential value at any position.
 
   waveFunctionGraph:
     accessibleHeading:   Wave Function Graph
     accessibleParagraph: |-
                          The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function
-                         across the well for energy level { $index }. Listen to each part with sonification, move the
+                         across the well for energy level { $energyLevelIndex }. Listen to each part with sonification, move the
                          Reference Line to read values, and play time to explore how the parts behave.
 
   #=======================================================================================================

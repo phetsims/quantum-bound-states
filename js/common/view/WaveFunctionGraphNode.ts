@@ -45,7 +45,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       // Core-description options for this graph.
       accessibleHeading: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleParagraph.createProperty( {
-        index: selectedEnergyLevelProperty
+        energyLevelIndex: selectedEnergyLevelProperty
       } )
     }, providedOptions );
 

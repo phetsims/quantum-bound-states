@@ -505,7 +505,7 @@ const QuantumBoundStatesFluent = {
               leadingParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_leadingParagraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.leadingParagraphStringProperty' ) ),
               listItems: {
                 selectedPotential: new FluentPattern<{ potentialName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_selectedPotential', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedPotentialStringProperty' ), [{"name":"potentialName"}] ),
-                selectedGraph: new FluentPattern<{ graphName: FluentVariable, index: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_selectedGraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedGraphStringProperty' ), [{"name":"graphName"},{"name":"index"}] ),
+                selectedGraph: new FluentPattern<{ energyLevelIndex: FluentVariable, graphName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_selectedGraph', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedGraphStringProperty' ), [{"name":"energyLevelIndex"},{"name":"graphName"}] ),
                 referenceLineIsAddedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_referenceLineIsAdded', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.referenceLineIsAddedStringProperty' ) ),
                 magnifierIsAddedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_magnifierIsAdded', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.magnifierIsAddedStringProperty' ) ),
                 simState: new FluentPattern<{ isPlaying: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'> }>( fluentSupport.bundleProperty, 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_simState', _.get( QuantumBoundStatesStrings, 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.simStateStringProperty' ), [{"name":"isPlaying","variants":["true","false"]}] ),
@@ -557,8 +557,8 @@ const QuantumBoundStatesFluent = {
           currentDetails: {
             accessibleTemplate: {
               listItems: {
-                numberOfWells: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_accessibleTemplate_listItems_numberOfWells', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.numberOfWellsStringProperty' ), [{"name":"value"}] ),
-                electricField: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_accessibleTemplate_listItems_electricField', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.electricFieldStringProperty' ), [{"name":"value"}] )
+                numberOfWells: new FluentPattern<{ numberOfWells: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_accessibleTemplate_listItems_numberOfWells', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.numberOfWellsStringProperty' ), [{"name":"numberOfWells"}] ),
+                electricField: new FluentPattern<{ electricField: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screens_manyWellsScreen_screenSummary_currentDetails_accessibleTemplate_listItems_electricField', _.get( QuantumBoundStatesStrings, 'a11y.screens.manyWellsScreen.screenSummary.currentDetails.accessibleTemplate.listItems.electricFieldStringProperty' ), [{"name":"electricField"}] )
               }
             }
           },
@@ -767,11 +767,11 @@ const QuantumBoundStatesFluent = {
     },
     probabilityDensityGraph: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleHeadingStringProperty' ) ),
-      accessibleParagraph: new FluentPattern<{ index: FluentVariable, numberOfNodes: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleParagraphStringProperty' ), [{"name":"index"},{"name":"numberOfNodes"}] )
+      accessibleParagraph: new FluentPattern<{ energyLevelIndex: FluentVariable, numberOfNodes: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleParagraphStringProperty' ), [{"name":"energyLevelIndex"},{"name":"numberOfNodes"}] )
     },
     waveFunctionGraph: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionGraph.accessibleHeadingStringProperty' ) ),
-      accessibleParagraph: new FluentPattern<{ index: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_waveFunctionGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionGraph.accessibleParagraphStringProperty' ), [{"name":"index"}] )
+      accessibleParagraph: new FluentPattern<{ energyLevelIndex: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_waveFunctionGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionGraph.accessibleParagraphStringProperty' ), [{"name":"energyLevelIndex"}] )
     },
     _comment_21: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"timeButtonGroup"} ),
     _comment_22: new FluentComment( {"comment":"Push Buttons","associatedKey":"timeButtonGroup"} ),

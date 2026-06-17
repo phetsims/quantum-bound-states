@@ -51,7 +51,7 @@ export default class QBSCurrentDetailsNode extends Node {
         graphName: new DynamicProperty<string, string, QuantumStateGraph>( selectedGraphProperty, {
           derive: selectedGraph => selectedGraph.accessibleNameProperty
         } ),
-        index: energyLevelProperty
+        energyLevelIndex: energyLevelProperty
       } )
     };
   }

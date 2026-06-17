@@ -317,7 +317,7 @@
                   "value": "Potential well type is {$potentialName}."
                 },
                 "selectedGraph": {
-                  "value": "{ $graphName } is displayed for energy level { $index }."
+                  "value": "{ $graphName } is displayed for energy level { $energyLevelIndex }."
                 },
                 "referenceLineIsAdded": {
                   "value": "Reference Line is added."
@@ -398,10 +398,10 @@
             "accessibleTemplate": {
               "listItems": {
                 "numberOfWells": {
-                  "value": "Number of wells set to {$value}."
+                  "value": "Number of wells set to { $numberOfWells }."
                 },
                 "electricField": {
-                  "value": "Electric field set to {$value} volts per nanometer."
+                  "value": "Electric field set to { $electricField } volts per nanometer."
                 }
               }
             }
@@ -780,7 +780,7 @@
         "value": "Probability Density Graph"
       },
       "accessibleParagraph": {
-        "value": "The Probability Density graph shows the probability density across the well\nfor energy level { $index }. The curve has { $numberOfNodes } nodes. Listen to the shape\nwith sonification, or move the Reference Line to read the potential value at any position."
+        "value": "The Probability Density graph shows the probability density across the well\nfor energy level { $energyLevelIndex }. The curve has { $numberOfNodes } nodes. Listen to the shape\nwith sonification, or move the Reference Line to read the potential value at any position."
       }
     },
     "waveFunctionGraph": {
@@ -788,7 +788,7 @@
         "value": "Wave Function Graph"
       },
       "accessibleParagraph": {
-        "value": "The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function\nacross the well for energy level { $index }. Listen to each part with sonification, move the\nReference Line to read values, and play time to explore how the parts behave."
+        "value": "The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function\nacross the well for energy level { $energyLevelIndex }. Listen to each part with sonification, move the\nReference Line to read values, and play time to explore how the parts behave."
       }
     },
     "timeButtonGroup": {
