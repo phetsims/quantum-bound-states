@@ -79,7 +79,8 @@ export default class ManyWellsModel extends QBSModel {
 
     this.yAxisZoomLevelProperty = new NumberProperty( 0, {
       numberType: 'Integer',
-      range: new Range( 0, 2 ), //TODO How many zoom levels are needed?
+      range: new Range( 0, 1 ),
+      tandem: this.energyDiagram.tandem.createTandem( 'yAxisZoomLevelProperty' ),
       phetioFeatured: true
     } );
     //TODO Derive yAxisScaleProperty from yAxisZoomLevelProperty
