@@ -53,7 +53,6 @@ export default class EnergyDiagramDescriber {
 
     // Electron masses, if variable
     if ( this.model.electronMassesProperty.range.getLength() !== 0 ) {
-      console.log( `electronMassesProperty.range=${this.model.electronMassesProperty.range}` );
       listItems.push( {
         stringProperty: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleTemplate.listItems.electronMasses.createProperty( {
           electronMasses: this.model.electronMassesProperty.derived( electronMasses => toFixed( electronMasses, QBSConstants.ELECTRON_MASSES_DECIMAL_PLACES ) )
