@@ -108,8 +108,11 @@ export default abstract class QuantumPotential extends PhetioObject {
 
     this.xOffsetProperty = new NumberProperty( options.xOffset, {
       units: nanometersUnit,
-      range: QBSConstants.ALL_GRAPHS_X_RANGE
-      // This is a Property for development purposes only. Do not instrument for PhET-iO.
+      range: QBSConstants.ALL_GRAPHS_X_RANGE,
+      //TODO Should be instrumented for Morse
+      phetioFeatured: true,
+      phetioReadOnly: true,
+      phetioDocumentation: 'The x-axis offset (position offset) of the potential\'s center from 0 nm.'
     } );
 
     this.yOffsetProperty = new NumberProperty( options.yOffsetRange.defaultValue, {
@@ -118,7 +121,8 @@ export default abstract class QuantumPotential extends PhetioObject {
       range: options.yOffsetRange,
       tandem: options.tandem.createTandem( 'yOffsetProperty' ),
       phetioFeatured: true,
-      phetioReadOnly: ( options.yOffsetRange.getLength() === 0 )
+      phetioReadOnly: ( options.yOffsetRange.getLength() === 0 ),
+      phetioDocumentation: 'The y-axis offset (energy offset) of the potential from 0 eV.'
     } );
 
     this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
