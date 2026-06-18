@@ -117,15 +117,16 @@ export default abstract class QuantumPotential extends PhetioObject {
       units: electronVoltsUnit,
       range: options.yOffsetRange,
       tandem: options.tandem.createTandem( 'yOffsetProperty' ),
-      phetioFeatured: true
-      //TODO should this be phetioReadOnly: true?
+      phetioFeatured: true,
+      phetioReadOnly: ( options.yOffsetRange.getLength() === 0 )
     } );
 
     this.wellWidthProperty = new NumberProperty( options.wellWidthRange.defaultValue, {
       units: nanometersUnit,
       range: options.wellWidthRange,
       tandem: options.tandem.createTandem( 'wellWidthProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioReadOnly: ( options.wellWidthRange.getLength() === 0 )
     } );
 
     this.changedEmitter = new Emitter(); //TODO PhET-iO?

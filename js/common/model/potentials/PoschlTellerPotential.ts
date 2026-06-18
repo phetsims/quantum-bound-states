@@ -62,7 +62,8 @@ export default class PoschlTellerPotential extends QuantumPotentialDepth {
       units: nanometersUnit,
       range: options.spacingRange,
       tandem: ( options.spacingRange.getLength() > 0 ) ? options.tandem.createTandem( 'spacingProperty' ) : Tandem.OPT_OUT,
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioReadOnly: ( options.spacingRange.getLength() === 0 )
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
