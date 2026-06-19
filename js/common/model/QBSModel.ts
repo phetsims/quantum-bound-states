@@ -34,6 +34,7 @@ import { BoundStateResult } from './solver/BoundStateResult.js';
 import NumerovSolver from './solver/NumerovSolver.js';
 import XGrid from './solver/XGrid.js';
 import { TimeEvolvedSuperposition, TimeEvolvedSuperpositionIO } from './TimeEvolvedSuperposition.js';
+import { electronVoltsUnit } from './units/electronVoltsUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
@@ -77,9 +78,11 @@ export default class QBSModel implements TModel {
 
   // Index (aka quantum number) of the selected energy level
   public readonly selectedEnergyLevelIndexProperty: NumberProperty;
+  public readonly selectedEnergyLevelValueProperty: TReadOnlyProperty<number>;
 
   // Index (aka quantum number) of the highlighted energy level. null if there is no energy level highlighted.
   public readonly highlightedEnergyLevelIndexProperty: Property<number | null>;
+  public readonly highlightedEnergyLevelValueProperty: TReadOnlyProperty<number | null>;
 
   // Energy diagram
   public readonly energyDiagram: EnergyDiagram;
@@ -143,6 +146,14 @@ export default class QBSModel implements TModel {
       phetioDocumentation: 'Energy level index of the selected potential'
     } );
 
+    this.selectedEnergyLevelValueProperty = new DerivedProperty( [ this.selectedEnergyLevelIndexProperty, this.boundStateResultProperty ],
+      ( energyLevelIndex, boundStateResult ) => this.getEnergyAtEnergyLevel( energyLevelIndex ), {
+        units: electronVoltsUnit,
+        tandem: options.tandem.createTandem( 'selectedEnergyLevelValueProperty' ),
+        phetioValueType: NumberIO,
+        phetioFeatured: true
+      } );
+
     this.highlightedEnergyLevelIndexProperty = new Property<number | null>( null, {
       tandem: options.tandem.createTandem( 'highlightedEnergyLevelIndexProperty' ),
       phetioValueType: NullableIO( NumberIO ),
@@ -150,6 +161,14 @@ export default class QBSModel implements TModel {
       phetioReadOnly: true,
       phetioDocumentation: 'Energy level index of the highlighted potential'
     } );
+
+    this.highlightedEnergyLevelValueProperty = new DerivedProperty( [ this.highlightedEnergyLevelIndexProperty, this.boundStateResultProperty ],
+      ( energyLevelIndex, boundStateResult ) => ( energyLevelIndex === null ) ? null : this.getEnergyAtEnergyLevel( energyLevelIndex ), {
+        units: electronVoltsUnit,
+        tandem: options.tandem.createTandem( 'highlightedEnergyLevelValueProperty' ),
+        phetioValueType: NullableIO( NumberIO ),
+        phetioFeatured: true
+      } );
 
     // When the bound state changes, clear the highlighted energy level.
     this.boundStateResultProperty.lazyLink( () => {

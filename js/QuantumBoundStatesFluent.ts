@@ -172,6 +172,7 @@ addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_selectedPote
 addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_numberOfWells', 'a11y.energyDiagram.accessibleTemplate.listItems.numberOfWellsStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_electronMasses', 'a11y.energyDiagram.accessibleTemplate.listItems.electronMassesStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_electricField', 'a11y.energyDiagram.accessibleTemplate.listItems.electricFieldStringProperty' );
+addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_energyLevel', 'a11y.energyDiagram.accessibleTemplate.listItems.energyLevelStringProperty' );
 addToMapIfDefined( 'a11y_probabilityDensityGraph_accessibleHeading', 'a11y.probabilityDensityGraph.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_probabilityDensityGraph_accessibleParagraph', 'a11y.probabilityDensityGraph.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionGraph_accessibleHeading', 'a11y.waveFunctionGraph.accessibleHeadingStringProperty' );
@@ -690,7 +691,9 @@ const QuantumBoundStatesFluent = {
           numberOfWells: new FluentPattern<{ numberOfWells: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_numberOfWells', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.numberOfWellsStringProperty' ), [{"name":"numberOfWells"}] ),
           _comment_0: new FluentComment( {"comment":"mass","associatedKey":"electronMasses"} ),
           electronMasses: new FluentPattern<{ electronMasses: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_electronMasses', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.electronMassesStringProperty' ), [{"name":"electronMasses"}] ),
-          electricField: new FluentPattern<{ electricField: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_electricField', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.electricFieldStringProperty' ), [{"name":"electricField"}] )
+          electricField: new FluentPattern<{ electricField: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_electricField', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.electricFieldStringProperty' ), [{"name":"electricField"}] ),
+          _comment_1: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
+          energyLevel: new FluentPattern<{ energy: FluentVariable, energyLevelIndex: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_energyDiagram_accessibleTemplate_listItems_energyLevel', _.get( QuantumBoundStatesStrings, 'a11y.energyDiagram.accessibleTemplate.listItems.energyLevelStringProperty' ), [{"name":"energy"},{"name":"energyLevelIndex"}] )
         }
       }
     },

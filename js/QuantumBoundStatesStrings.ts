@@ -303,6 +303,7 @@ type StringsType = {
           'numberOfWellsStringProperty': LocalizedStringProperty;
           'electronMassesStringProperty': LocalizedStringProperty;
           'electricFieldStringProperty': LocalizedStringProperty;
+          'energyLevelStringProperty': LocalizedStringProperty;
         }
       }
     };

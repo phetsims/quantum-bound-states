@@ -603,6 +603,9 @@
           },
           "electricField": {
             "value": "Electric field set to {$electricField} volts per nanometer."
+          },
+          "energyLevel": {
+            "value": "Energy level {$energyLevelIndex} selected at { $energy } electron volts."
           }
         }
       }

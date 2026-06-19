@@ -392,6 +392,7 @@ a11y:
         numberOfWells:     Number of wells set to {$numberOfWells}.
         electronMasses:    Mass of the system set to {$electronMasses} electron masses.
         electricField:     Electric field set to {$electricField} volts per nanometer.
+        energyLevel:       Energy level {$energyLevelIndex} selected at { $energy } electron volts.
 
   probabilityDensityGraph:
     accessibleHeading:   Probability Density Graph
