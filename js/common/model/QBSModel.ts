@@ -58,7 +58,7 @@ export default class QBSModel implements TModel {
 
   // The quantum potential that is currently selected.
   public readonly potentialProperty: Property<QuantumPotential>;
-  private readonly potentials: QuantumPotential[];
+  public readonly potentials: QuantumPotential[];
 
   // Properties that are shared by all potentials.
   public readonly numberOfWellsProperty: NumberProperty;

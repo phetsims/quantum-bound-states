@@ -302,8 +302,8 @@ a11y:
       accessibleParagraph:
         select_timeState:
           isHidden:  Time is hidden.
-          isPlaying:  Pause sim to read current time.
-          isPaused: '{ $time } femtoseconds'
+          isPlaying: Pause sim to read current time.
+          isPaused:  '{ $time } femtoseconds'
 
   toolControls:
     accessibleHeading: Tool Controls
@@ -392,7 +392,6 @@ a11y:
         numberOfWells:     Number of wells set to {$numberOfWells}.
         electronMasses:    Mass of the system set to {$electronMasses} electron masses.
         electricField:     Electric field set to {$electricField} volts per nanometer.
-        energyOffset:      Energy offset set to {$energyOffset} electron volts.
 
   probabilityDensityGraph:
     accessibleHeading:   Probability Density Graph
@@ -491,6 +490,21 @@ a11y:
       accessibleObjectResponse: '{$spacing} nanometers'
 
   #=======================================================================================================
+  # Potentials
+  #=======================================================================================================
+
+  potentials:
+    accessibleTemplate:
+      listItems:
+        width:            Well width set to {$width} nanometers.
+        depth:            Well depth set to {$depth} electron volts.
+        separation:       Separation set to {$separation} nanometers.
+        spacing:          Spacing set to {$spacing} nanometers.
+        stepHeight:       Step height set to {$stepHeight} electron volts.
+        energyOffset:     Energy offset set to {$energyOffset} electron volts.
+        angularFrequency: Angular frequency is {$angularFrequency} inverse femtoseconds.
+
+  #=======================================================================================================
   # Push Buttons
   #=======================================================================================================
 
@@ -499,10 +513,10 @@ a11y:
     accessibleHelpText: Restart, play, pause, and step the system forward in time.
 
   restartButton:
-    accessibleHelpText:        Reset the clock to zero without changing any well or energy settings.
+    accessibleHelpText: Reset the clock to zero without changing any well or energy settings.
     accessibleContextResponse:
       select_timeVisible:
-        true: Time reset to 0 femtoseconds.
+        true:  Time reset to 0 femtoseconds.
         false: Time reset.
 
   playPauseButton:
@@ -514,10 +528,10 @@ a11y:
         false: Sim is paused.
 
   stepForwardButton:
-    accessibleHelpText:        Step forward time while paused.
+    accessibleHelpText: Step forward time while paused.
     accessibleContextResponse:
       select_timeVisible:
-        true: Time stepped forward to { $time } femtoseconds.
+        true:  Time stepped forward to { $time } femtoseconds.
         false: Time stepped forward.
 
   probabilityDensityDetailsButton:
@@ -676,7 +690,7 @@ a11y:
     femtoseconds:
       accessiblePattern: '{$value} femtoseconds'
     inverseFemtoseconds:
-      accessiblePattern: '{$value} per femtosecond'
+      accessiblePattern: '{$value} per inverse femtosecond'
     inverseNanometers:
       accessiblePattern: '{$value} inverse nanometers'
     inverseSquareRootNanometers:

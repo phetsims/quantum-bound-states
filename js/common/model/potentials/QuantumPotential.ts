@@ -9,6 +9,7 @@
 import Emitter from '../../../../../axon/js/Emitter.js';
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
@@ -29,7 +30,7 @@ import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 type SelfOptions = {
 
   // Global Properties that are shared by all QuantumPotential instances.
-  numberOfWellsProperty: TReadOnlyProperty<number>;
+  numberOfWellsProperty: TRangedProperty;
   electronMassesProperty: TReadOnlyProperty<number>;
   electricFieldProperty: TReadOnlyProperty<number>;
 
@@ -49,7 +50,7 @@ export type QuantumPotentialOptions = SelfOptions & PickRequired<PhetioObjectOpt
 export default abstract class QuantumPotential extends PhetioObject {
 
   // Global Properties that are shared by all QuantumPotential instances.
-  public readonly numberOfWellsProperty: TReadOnlyProperty<number>;
+  public readonly numberOfWellsProperty: TRangedProperty;
   public readonly electronMassesProperty: TReadOnlyProperty<number>;
   public readonly electricFieldProperty: TReadOnlyProperty<number>;
 

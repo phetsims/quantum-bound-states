@@ -303,7 +303,6 @@ type StringsType = {
           'numberOfWellsStringProperty': LocalizedStringProperty;
           'electronMassesStringProperty': LocalizedStringProperty;
           'electricFieldStringProperty': LocalizedStringProperty;
-          'energyOffsetStringProperty': LocalizedStringProperty;
         }
       }
     };
@@ -391,6 +390,19 @@ type StringsType = {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      }
+    };
+    'potentials': {
+      'accessibleTemplate': {
+        'listItems': {
+          'widthStringProperty': LocalizedStringProperty;
+          'depthStringProperty': LocalizedStringProperty;
+          'separationStringProperty': LocalizedStringProperty;
+          'spacingStringProperty': LocalizedStringProperty;
+          'stepHeightStringProperty': LocalizedStringProperty;
+          'energyOffsetStringProperty': LocalizedStringProperty;
+          'angularFrequencyStringProperty': LocalizedStringProperty;
+        }
       }
     };
     'timeButtonGroup': {

@@ -603,9 +603,6 @@
           },
           "electricField": {
             "value": "Electric field set to {$electricField} volts per nanometer."
-          },
-          "energyOffset": {
-            "value": "Energy offset set to {$energyOffset} electron volts."
           }
         }
       }
@@ -793,6 +790,33 @@
         },
         "accessibleObjectResponse": {
           "value": "{$spacing} nanometers"
+        }
+      }
+    },
+    "potentials": {
+      "accessibleTemplate": {
+        "listItems": {
+          "width": {
+            "value": "Well width set to {$width} nanometers."
+          },
+          "depth": {
+            "value": "Well depth set to {$depth} electron volts."
+          },
+          "separation": {
+            "value": "Separation set to {$separation} nanometers."
+          },
+          "spacing": {
+            "value": "Spacing set to {$spacing} nanometers."
+          },
+          "stepHeight": {
+            "value": "Step height set to {$stepHeight} electron volts."
+          },
+          "energyOffset": {
+            "value": "Energy offset set to {$energyOffset} electron volts."
+          },
+          "angularFrequency": {
+            "value": "Angular frequency is {$angularFrequency} inverse femtoseconds."
+          }
         }
       }
     },
@@ -1092,7 +1116,7 @@
       },
       "inverseFemtoseconds": {
         "accessiblePattern": {
-          "value": "{$value} per femtosecond"
+          "value": "{$value} per inverse femtosecond"
         }
       },
       "inverseNanometers": {
