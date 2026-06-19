@@ -88,20 +88,24 @@ export class HomeEndKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
   }
 
   /**
-   * Handles the home key by setting valueProperty to its minimum and playing a sound.
+   * Handles the home key.
    */
   private home(): void {
-    this.valueProperty.value = this.valueProperty.range.min;
-    MIN_SOUND_PLAYER.play();
-    this.homeCallback();
+    if ( this.valueProperty.value !== this.valueProperty.range.min ) {
+      this.valueProperty.value = this.valueProperty.range.min;
+      MIN_SOUND_PLAYER.play();
+      this.homeCallback();
+    }
   }
 
   /**
-   * Handles the end key by setting valueProperty to its maximum and playing a sound.
+   * Handles the end key.
    */
   private end(): void {
-    this.valueProperty.value = this.valueProperty.range.max;
-    MAX_SOUND_PLAYER.play();
-    this.endCallback();
+    if ( this.valueProperty.value !== this.valueProperty.range.max ) {
+      this.valueProperty.value = this.valueProperty.range.max;
+      MAX_SOUND_PLAYER.play();
+      this.endCallback();
+    }
   }
 }
