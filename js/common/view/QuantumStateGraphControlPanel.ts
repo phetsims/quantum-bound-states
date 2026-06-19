@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
@@ -46,7 +45,7 @@ export default class QuantumStateGraphControlPanel extends Panel {
       layoutOptions: {
         leftMargin: 25 // indent below quantumStateGraphRadioButtonGroup
       },
-      checkboxesEnabledProperty: new DerivedProperty( [ selectedGraphProperty ], selectedGraph => selectedGraph === waveFunctionGraph ),
+      checkboxesEnabledProperty: selectedGraphProperty.derived( selectedGraph => selectedGraph === waveFunctionGraph ),
       tandem: tandem.createTandem( 'waveFunctionPartsCheckboxGroup' )
     } );
 

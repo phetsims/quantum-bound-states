@@ -463,7 +463,7 @@
       },
       "numberDisplay": {
         "accessibleParagraph": {
-          "value": "{ $isPlaying ->\n  [true] Pause sim to read current time.\n  *[false] { $time } femtoseconds\n}"
+          "value": "{ $timeState ->\n  [isHidden] Time is hidden.\n  [isPlaying] Pause sim to read current time.\n  *[isPaused] { $time } femtoseconds\n}"
         }
       }
     },

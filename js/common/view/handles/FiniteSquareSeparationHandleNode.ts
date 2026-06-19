@@ -6,8 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
@@ -33,15 +31,14 @@ export default class FiniteSquareSeparationHandleNode extends PotentialHandleNod
                       tandem: Tandem ) {
 
     const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.separationPatternStringProperty, {
-      value: new DerivedStringProperty( [ potential.separationProperty ],
-        separation => toFixed( separation, QBSConstants.SEPARATION_DECIMAL_PLACES ) )
+      value: potential.separationProperty.derived( separation => toFixed( separation, QBSConstants.SEPARATION_DECIMAL_PLACES ) )
     } );
 
     super( potential, chartTransform, potential.separationProperty, labelStringProperty, valuesVisibleProperty, {
       orientation: 'horizontal',
 
       //TODO Provide a way to hide this handle via PhET-iO?
-      visibleProperty: new DerivedProperty( [ potential.numberOfWellsProperty ], numberOfWells => numberOfWells > 1 ),
+      visibleProperty: potential.numberOfWellsProperty.derived( numberOfWells => numberOfWells > 1 ),
       accessibleName: QuantumBoundStatesFluent.a11y.handles.finiteSquareSeparationHandle.accessibleNameStringProperty,
       accessibleHelpText: QuantumBoundStatesFluent.a11y.handles.finiteSquareSeparationHandle.accessibleHelpTextStringProperty,
       accessibleFocusObjectResponse: QuantumBoundStatesFluent.a11y.handles.finiteSquareSeparationHandle.accessibleObjectResponse.createProperty( {

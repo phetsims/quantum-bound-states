@@ -7,10 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -23,10 +23,9 @@ export default class EquationTermNode extends BackgroundNode {
 
     affirm( patternString.includes( '{{energyLevelIndex}}' ), 'invalid pattern string: ' + patternString );
 
-    const stringProperty = new DerivedStringProperty( [ energyLevelIndexProperty ],
-      energyLevel => StringUtils.fillIn( patternString, {
-        energyLevel: energyLevel
-      } ) );
+    const stringProperty = new PatternStringProperty( new StringProperty( patternString ), {
+      energyLevelIndex: energyLevelIndexProperty
+    } );
 
     const richText = new RichText( stringProperty, {
       font: QBSConstants.EQUATION_TERM_FONT,

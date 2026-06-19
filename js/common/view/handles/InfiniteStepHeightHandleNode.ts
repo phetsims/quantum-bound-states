@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
@@ -28,8 +27,7 @@ export default class InfiniteStepHeightHandleNode extends PotentialHandleNode<In
                       tandem: Tandem ) {
 
     const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.stepHeightPatternStringProperty, {
-      value: new DerivedStringProperty( [ potential.stepHeightProperty ],
-        stepHeight => toFixed( stepHeight, QBSConstants.STEP_HEIGHT_DECIMAL_PLACES ) )
+      value: potential.stepHeightProperty.derived( stepHeight => toFixed( stepHeight, QBSConstants.STEP_HEIGHT_DECIMAL_PLACES ) )
     } );
 
     super( potential, chartTransform, potential.stepHeightProperty, labelStringProperty, valuesVisibleProperty, {

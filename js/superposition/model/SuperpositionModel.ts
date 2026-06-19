@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -122,7 +121,7 @@ export default class SuperpositionModel extends QBSModel {
       phetioFeatured: true
     } );
 
-    const groundStateIndexProperty = new DerivedProperty( [ this.potentialProperty ], potential => potential.groundStateIndex );
+    const groundStateIndexProperty = this.potentialProperty.derived( potential => potential.groundStateIndex );
 
     //TODO Make this mess go away.
     let presetIndex = 1;

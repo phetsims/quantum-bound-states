@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -21,7 +20,7 @@ export default class PoschlTellerSpacingMarkerNode extends PotentialMarkerNode<P
                       tandem: Tandem ) {
 
     super( potential, chartTransform, {
-      visibleProperty: new DerivedProperty( [ potential.numberOfWellsProperty ], numberOfWells => numberOfWells > 1 ),
+      visibleProperty: potential.numberOfWellsProperty.derived( numberOfWells => numberOfWells > 1 ),
       tandem: tandem
     } );
   }

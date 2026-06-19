@@ -300,9 +300,10 @@ a11y:
     accessibleHeading: Time Controls
     numberDisplay:
       accessibleParagraph:
-        select_isPlaying:
-          true:  Pause sim to read current time.
-          false: '{ $time } femtoseconds'
+        select_timeState:
+          isHidden:  Time is hidden.
+          isPlaying:  Pause sim to read current time.
+          isPaused: '{ $time } femtoseconds'
 
   toolControls:
     accessibleHeading: Tool Controls

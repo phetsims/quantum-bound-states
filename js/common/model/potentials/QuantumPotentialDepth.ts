@@ -35,7 +35,8 @@ export default abstract class QuantumPotentialDepth extends QuantumPotential {
       units: electronVoltsUnit,
       range: options.wellDepthRange,
       tandem: options.tandem.createTandem( 'wellDepthProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioReadOnly: ( options.wellDepthRange.getLength() === 0 )
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
