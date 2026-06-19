@@ -19,7 +19,7 @@ export default class ProbabilityDensityDetailsDialog extends Dialog {
 
     const titleNode = new Text( QuantumBoundStatesFluent.probabilityDensityDialogTitleStringProperty, {
       font: QBSConstants.TITLE_FONT,
-      maxWidth: 300
+      maxWidth: 400
     } );
 
     //TODO Create dialog content.

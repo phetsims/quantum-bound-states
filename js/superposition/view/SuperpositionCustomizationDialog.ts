@@ -18,7 +18,8 @@ export default class SuperpositionCustomizationDialog extends Dialog {
   public constructor() {
 
     const titleNode = new Text( QuantumBoundStatesFluent.superpositionCustomizationDialogTitleStringProperty, {
-      font: QBSConstants.TITLE_FONT
+      font: QBSConstants.TITLE_FONT,
+      maxWidth: 400
     } );
 
     //TODO Create dialog content.
