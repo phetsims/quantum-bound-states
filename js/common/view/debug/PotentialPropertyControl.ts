@@ -38,7 +38,7 @@ export default class PotentialPropertyControl extends QBSNumberControl {
           } )
         },
         sliderOptions: {
-          majorTicks: createMinMaxTicks( potentialProperty.range, decimalPlaces )
+          majorTicks: createMinMaxTicks( potentialProperty.range )
         },
         tandem: Tandem.OPT_OUT
       } ) );
@@ -48,7 +48,7 @@ export default class PotentialPropertyControl extends QBSNumberControl {
 /**
  * Creates major tick marks for min and max values.
  */
-function createMinMaxTicks( range: Range, decimals: number ): NumberControlMajorTick[] {
+function createMinMaxTicks( range: Range ): NumberControlMajorTick[] {
   return [
     {
       value: range.min,
