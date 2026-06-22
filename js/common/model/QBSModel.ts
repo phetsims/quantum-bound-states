@@ -426,31 +426,6 @@ export default class QBSModel implements TModel {
     const energies = this.boundStateResultProperty.value.energies;
     return ( energiesIndex >= 0 && energiesIndex < energies.length );
   }
-
-  /**
-   * Determines whether the selected energy level is valid.
-   * Because selectedEnergyLevelIndexProperty is adjusted when boundStateResultProperty changes, there are circumstances
-   * where it is necessary to test whether that has happened. For example, when redrawing the Energy Diagram plots,
-   * or when restoring PhET-iO state.
-   */
-  public isSelectedEnergyLevelValid(): boolean {
-    return this.isEnergyLevelIndexValid( this.selectedEnergyLevelIndexProperty.value );
-  }
-
-  /**
-   * Determines whether the highlighted energy level is valid.
-   * Because highlightedEnergyLevelIndexProperty is adjusted when boundStateResultProperty changes, there are circumstances
-   * where it is necessary to test whether that has happened. For example, when redrawing the Energy Diagram plots,
-   * or when restoring PhET-iO state.
-   */
-  public isHighlightedEnergyLevelValid(): boolean {
-    if ( this.highlightedEnergyLevelIndexProperty.value === null ) {
-      return true;
-    }
-    else {
-      return this.isEnergyLevelIndexValid( this.highlightedEnergyLevelIndexProperty.value );
-    }
-  }
 }
 
 /**

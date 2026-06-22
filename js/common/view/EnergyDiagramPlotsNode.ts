@@ -62,15 +62,15 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
       potentialPlot.setYCoordinates( boundStateResult.potentials );
       energyLevelsPlot.setEnergies( boundStateResult.energies );
 
-      const selectedEnergyLevel = model.selectedEnergyLevelIndexProperty.value;
-      if ( model.isSelectedEnergyLevelValid() ) {
-        const selectedEnergy = model.getEnergyAtEnergyLevel( selectedEnergyLevel );
+      const selectedEnergyLevelIndex = model.selectedEnergyLevelIndexProperty.value;
+      if ( model.isEnergyLevelIndexValid( selectedEnergyLevelIndex ) ) {
+        const selectedEnergy = model.getEnergyAtEnergyLevel( selectedEnergyLevelIndex );
         selectedEnergyLevelPlot.setEnergy( selectedEnergy );
       }
 
-      const highlightedEnergyLevel = model.highlightedEnergyLevelIndexProperty.value;
-      if ( model.isHighlightedEnergyLevelValid() ) {
-        const highlightedEnergy = ( highlightedEnergyLevel === null ) ? null : model.getEnergyAtEnergyLevel( highlightedEnergyLevel );
+      const highlightedEnergyLevelIndex = model.highlightedEnergyLevelIndexProperty.value;
+      if ( highlightedEnergyLevelIndex === null || model.isEnergyLevelIndexValid( highlightedEnergyLevelIndex ) ) {
+        const highlightedEnergy = ( highlightedEnergyLevelIndex === null ) ? null : model.getEnergyAtEnergyLevel( highlightedEnergyLevelIndex );
         highlightedEnergyLevelPlot.setEnergy( highlightedEnergy );
       }
 
