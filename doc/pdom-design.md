@@ -641,4 +641,4 @@ editing history / production.
     space" → "closely spaced"; `timeSpeedSlider` trailing "Slow" removed.
 11. **To production:** replace each *remaining* ALL-CAPS token (screen summaries, graph paragraphs, magnifier)
     with a Fluent `{ $variable }` wired to the §9 property, then run
-    `npm run grunt -- modulify --targets=strings --repo=quantum-bound-states` and type-check.
+    `bin/grunt modulify --targets=strings --repo=quantum-bound-states` and type-check.
