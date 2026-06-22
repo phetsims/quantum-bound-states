@@ -148,7 +148,8 @@ export default abstract class QuantumPotential extends PhetioObject {
       phetioReadOnly: ( options.wellWidthRange.getLength() === 0 )
     } );
 
-    this.changedEmitter = new Emitter(); //TODO PhET-iO?
+    // Emitters are typically not instrumented for PhET-iO, and there was no request to instrument this one.
+    this.changedEmitter = new Emitter();
 
     this.energyAxisRange = options.energyAxisRange;
 
