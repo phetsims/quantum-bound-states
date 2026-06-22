@@ -34,14 +34,28 @@ type SelfOptions = {
   electronMassesProperty: TReadOnlyProperty<number>;
   electricFieldProperty: TReadOnlyProperty<number>;
 
-  // Attributes that are specific to a particular QuantumPotential instance.
-  groundStateIndex?: number;
+  // Energy level index of the ground state.
+  groundStateIndex?: 0 | 1;
+
+  // Position offset (x-offset) from 0 nm.
   xOffset?: number;
+
+  // Energy offset (y-offset) from 0 eV.
   yOffsetRange?: RangeWithValue;
-  energyAxisRange?: Range; // range of the energy axis (y-axis) when yOffsetProperty is at its initial value
+
+  // Range of the energy axis (y-axis) when yOffsetProperty is at its initial value
+  energyAxisRange?: Range;
+
+  // Range of wellWidthProperty in nm.
   wellWidthRange: RangeWithValue;
+
+  // Name used to identify this potential in the visual UI.
   visualNameProperty: TReadOnlyProperty<string>;
+
+  // Name used to identify this potential in the accessible UI.
   accessibleNameProperty?: TReadOnlyProperty<string>;
+
+  // Prefix for the tandem names related to this potential.
   tandemPrefix: string;
 };
 
@@ -57,13 +71,11 @@ export default abstract class QuantumPotential extends PhetioObject {
   public readonly groundStateIndex: number;
 
   // Horizontal offset of the potential from x=0 nm. While the UI does not provide a way to change x-offset, the model
-  // should handle a non-zero x-offset. So this is a Property for development purposes only, and can be changed via
+  // should handle a non-zero x-offset. So this is a Property for development purposes only and can be changed via
   // the subclasses of ConfigurePotentialDialog.
-  //TODO Rename to positionOffsetProperty?
   public readonly xOffsetProperty: NumberProperty;
 
   // Vertical offset of the potential from y=0 eV.
-  //TODO Renamed to energyOffsetProperty?
   public readonly yOffsetProperty: NumberProperty;
 
   // Uniform width of all wells, in nm.
@@ -72,10 +84,16 @@ export default abstract class QuantumPotential extends PhetioObject {
   // Fires when the quantum potential has changed and the BoundStateResult needs to be recomputed.
   public readonly changedEmitter: Emitter;
 
+  // Range of the energy axis (y-axis) when yOffsetProperty is at its initial value.
   public readonly energyAxisRange: Range;
 
+  // Name used to identify this potential in the visual UI.
   public readonly visualNameProperty: TReadOnlyProperty<string>;
+
+  // Name used to identify this potential in the accessible UI.
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
+
+  // Prefix for the tandem names related to this potential.
   public readonly tandemPrefix: string;
 
   protected constructor( providedOptions: QuantumPotentialOptions ) {
@@ -84,11 +102,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
       // SelfOptions
       groundStateIndex: 1,
-
-      // If the testXOffset query parameter is present, provide the ability to change x-offset for development purposes.
-      // While the UI does not provide a way to change x-offset, the model should be generalized to handle a non-zero x-offset.
-      xOffset: 0, // effectively constant
-
+      xOffset: 0,
       yOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant
       energyAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
       accessibleNameProperty: providedOptions.visualNameProperty,
