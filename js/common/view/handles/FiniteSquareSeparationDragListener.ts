@@ -2,13 +2,14 @@
 
 /**
  * FiniteSquareSeparationDragListener is the drag listener for changing separation between wells of a Finite Square potential.
+ * The drag handle is assumed to be on the right wall of the center well if the number of wells is even, or the well to
+ * the left of center if the number of wells is odd.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
-import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import { toFixedNumber } from '../../../../../dot/js/util/toFixedNumber.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -26,31 +27,27 @@ export default class FiniteSquareSeparationDragListener extends PotentialDragLis
 
     const separationProperty = potential.separationProperty;
 
-    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-    const dragBoundsProperty = new DerivedProperty(
-      [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
-      ( xOffset, numberOfWells, wellWidth ) => {
-        const minX = ( numberOfWells % 2 === 0 ) ?
-                     xOffset + separationProperty.range.min / 2 :
-                     xOffset + wellWidth / 2 + separationProperty.range.min;
-        const maxX = ( numberOfWells % 2 === 0 ) ?
-                     xOffset + separationProperty.range.max / 2 :
-                     xOffset + wellWidth / 2 + separationProperty.range.max;
-        return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
-      } );
-
     super( handleNode, separationProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'horizontal',
       keyboardDragDelta: QBSConstants.SEPARATION_KEYBOARD_DRAG_DELTA, // nm
       keyboardShiftDragDelta: QBSConstants.SEPARATION_KEYBOARD_SHIFT_DRAG_DELTA, // nm
-      dragBoundsProperty: dragBoundsProperty,
-
-      // Transform from view to model coordinates while dragging.
-      viewToModelDelta: ( viewDelta, isFromPDOM ) => {
-        return ( potential.numberOfWellsProperty.value % 2 === 0 && !isFromPDOM ) ?
-               2 * chartTransform.viewToModelDeltaX( viewDelta.x ) :
-               chartTransform.viewToModelDeltaX( viewDelta.x );
+      updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
+        let separation;
+        if ( isFromPDOM ) {
+          const modelDelta = chartTransform.viewToModelDelta( viewDelta );
+          separation = separationProperty.value + modelDelta.x;
+        }
+        else {
+          const modelPosition = chartTransform.viewToModelPosition( viewPosition );
+          if ( potential.numberOfWellsProperty.value % 2 === 0 ) {
+            separation = 2 * ( modelPosition.x - potential.xOffsetProperty.value );
+          }
+          else {
+            separation = modelPosition.x - potential.xOffsetProperty.value - ( potential.wellWidthProperty.value / 2 );
+          }
+        }
+        separationProperty.value = separationProperty.range.constrainValue( toFixedNumber( separation, QBSConstants.SEPARATION_DECIMAL_PLACES ) );
       }
     } );
   }

@@ -15,8 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import CoulombWidthDragListener from './CoulombWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
+import WellWidthDragListener from './WellWidthDragListener.js';
 
 // The width handle will be places this many eV above the potential's energy offset.
 // Vertical marker lines will indicate where the width is measured.
@@ -44,7 +44,7 @@ export default class CoulombWidthHandleNode extends PotentialHandleNode<CoulombP
       tandem: tandem
     } );
 
-    this.addInputListener( new CoulombWidthDragListener( this, potential, chartTransform, time, tandem ) );
+    this.addInputListener( new WellWidthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

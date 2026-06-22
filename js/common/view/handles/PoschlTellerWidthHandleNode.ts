@@ -15,8 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import PoschlTellerWidthDragListener from './PoschlTellerWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
+import WellWidthDragListener from './WellWidthDragListener.js';
 
 // The width handle will be placed this many eV above the potential's energy offset.
 // Vertical marker lines indicate where the width is measured.
@@ -44,7 +44,7 @@ export default class PoschlTellerWidthHandleNode extends PotentialHandleNode<Pos
       tandem: tandem
     } );
 
-    this.addInputListener( new PoschlTellerWidthDragListener( this, potential, chartTransform, time, tandem ) );
+    this.addInputListener( new WellWidthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

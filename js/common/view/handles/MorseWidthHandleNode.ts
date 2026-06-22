@@ -15,8 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import MorseWidthDragListener from './MorseWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
+import WellWidthDragListener from './WellWidthDragListener.js';
 
 // The width handle will be places this many eV above the potential's energy offset.
 // Vertical marker lines indicate where the width is measured.
@@ -44,7 +44,7 @@ export default class MorseWidthHandleNode extends PotentialHandleNode<MorsePoten
       tandem: tandem
     } );
 
-    this.addInputListener( new MorseWidthDragListener( this, potential, chartTransform, time, tandem ) );
+    this.addInputListener( new WellWidthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

@@ -15,8 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import InfiniteSquarePotential from '../../model/potentials/InfiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import InfiniteSquareWidthDragListener from './InfiniteSquareWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
+import WellWidthDragListener from './WellWidthDragListener.js';
 
 export default class InfiniteSquareWidthHandleNode extends PotentialHandleNode<InfiniteSquarePotential> {
 
@@ -40,7 +40,7 @@ export default class InfiniteSquareWidthHandleNode extends PotentialHandleNode<I
       tandem: tandem
     } );
 
-    this.addInputListener( new InfiniteSquareWidthDragListener( this, potential, chartTransform, time, tandem ) );
+    this.addInputListener( new WellWidthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

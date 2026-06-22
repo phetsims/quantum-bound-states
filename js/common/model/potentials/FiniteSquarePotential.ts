@@ -29,7 +29,7 @@ type SelfOptions = {
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
-  WithOptional<QuantumPotentialDepthOptions, 'wellWidthRange' | 'wellDepthRange' | 'visualNameProperty' | 'tandemPrefix'>;
+  WithOptional<QuantumPotentialDepthOptions, 'wellWidthRange' | 'wellDepthRange' | 'depthDirection' | 'visualNameProperty' | 'tandemPrefix'>;
 
 export default class FiniteSquarePotential extends QuantumPotentialDepth {
 
@@ -46,6 +46,7 @@ export default class FiniteSquarePotential extends QuantumPotentialDepth {
       // QuantumPotentialOptions
       wellDepthRange: new RangeWithValue( 1, 20, 10 ), // for 1 well
       wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
+      depthDirection: 'up',
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
       tandemPrefix: 'finiteSquarePotential'
     }, providedOptions );

@@ -15,8 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import FiniteSquareDepthDragListener from './FiniteSquareDepthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
+import WellDepthDragListener from './WellDepthDragListener.js';
 
 // How far the handle is positioned from the rightmost well of the potential, in nm
 const HANDLE_X_OFFSET = 0.25;
@@ -43,7 +43,7 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
       tandem: tandem
     } );
 
-    this.addInputListener( new FiniteSquareDepthDragListener( this, potential, chartTransform, time, tandem ) );
+    this.addInputListener( new WellDepthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

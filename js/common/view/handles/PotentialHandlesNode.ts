@@ -24,13 +24,15 @@ export default class PotentialHandlesNode extends Node {
 
     const options = optionize<PotentialHandlesNodeOptions, SelfOptions, NodeOptions>()( {
       isDisposable: false,
-      visibleProperty: selectedPotentialProperty.derived( selectedPotential => potential === selectedPotential )
+
+      // Handles for the potential are visible when the potential is selected.
+      visibleProperty: selectedPotentialProperty.derived( selectedPotential => potential === selectedPotential ),
+
+      // pdomOrder is determined by the initial order of children. Order of children will later be modified by moving
+      // a handle to the front when interaction begins.
+      pdomOrder: providedOptions.children
     }, providedOptions );
 
     super( options );
-
-    // pdomOrder is determined by the initial order of children. Order of children will later be modified by moving
-    // a handle to the front when interaction begins.
-    this.pdomOrder = options.children;
   }
 }

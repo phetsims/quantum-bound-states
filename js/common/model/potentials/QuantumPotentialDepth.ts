@@ -14,8 +14,13 @@ import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhet
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
+// 'up' - depth is measured upward from the bottom of the well
+// 'down' - depth is measured downward from the top of the well
+type DepthDirection = 'up' | 'down';
+
 type SelfOptions = {
   wellDepthRange: RangeWithValue;
+  depthDirection: DepthDirection;
 };
 
 export type QuantumPotentialDepthOptions = SelfOptions & QuantumPotentialOptions;
@@ -25,11 +30,15 @@ export default abstract class QuantumPotentialDepth extends QuantumPotential {
   // Uniform depth of all wells, in eV.
   public readonly wellDepthProperty: NumberProperty;
 
+  public readonly depthDirection: DepthDirection;
+
   public constructor( providedOptions: QuantumPotentialDepthOptions ) {
 
     const options = providedOptions;
 
     super( options );
+
+    this.depthDirection = options.depthDirection;
 
     this.wellDepthProperty = new NumberProperty( options.wellDepthRange.defaultValue, {
       units: electronVoltsUnit,

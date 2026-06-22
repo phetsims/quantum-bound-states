@@ -2,13 +2,14 @@
 
 /**
  * PoschlTellerSpacingDragListener is the drag listener for changing spacing between wells of a Poschl-Teller potential.
+ * The drag handle is assumed to be on the right wall of the center well if the number of wells is even, or the well to
+ * the left of center if the number of wells is odd.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
-import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import { toFixedNumber } from '../../../../../dot/js/util/toFixedNumber.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
@@ -26,33 +27,23 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
 
     const spacingProperty = potential.spacingProperty;
 
-    // Since we are not providing options.transform, dragBoundsProperty is in view coordinates.
-    const dragBoundsProperty = new DerivedProperty(
-      [ potential.xOffsetProperty, potential.numberOfWellsProperty, potential.wellWidthProperty ],
-      ( xOffset, numberOfWells, wellWidth ) => {
-        const minX = ( numberOfWells % 2 === 0 ) ?
-                     xOffset + spacingProperty.range.min / 2 :
-                     xOffset + wellWidth / 2 + spacingProperty.range.min;
-        const maxX = ( numberOfWells % 2 === 0 ) ?
-                     xOffset + spacingProperty.range.max / 2 :
-                     xOffset + wellWidth / 2 + spacingProperty.range.max;
-
-        return new Bounds2( chartTransform.modelToViewX( minX ), 0, chartTransform.modelToViewX( maxX ), 1 );
-      } );
-
-    // Since we are not providing options.transform, all drag events (including listener.modelDelta) are in view coordinates.
     super( handleNode, spacingProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'horizontal',
       keyboardDragDelta: QBSConstants.SPACING_KEYBOARD_DRAG_DELTA, // nm
       keyboardShiftDragDelta: QBSConstants.SPACING_KEYBOARD_SHIFT_DRAG_DELTA, // nm
-      dragBoundsProperty: dragBoundsProperty,
-
-      // Transform from view to model coordinates while dragging.
-      viewToModelDelta: ( viewDelta, isFromPDOM ) => {
-        return ( potential.numberOfWellsProperty.value % 2 === 0 && !isFromPDOM ) ?
-               2 * chartTransform.viewToModelDeltaX( viewDelta.x ) :
-               chartTransform.viewToModelDeltaX( viewDelta.x );
+      updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
+        let spacing;
+        if ( isFromPDOM ) {
+          const modelDelta = chartTransform.viewToModelDelta( viewDelta );
+          spacing = spacingProperty.value + modelDelta.x;
+        }
+        else {
+          const modelPosition = chartTransform.viewToModelPosition( viewPosition );
+          const multiplier = ( potential.numberOfWellsProperty.value % 2 === 0 ) ? 2 : 1;
+          spacing = multiplier * ( modelPosition.x - potential.xOffsetProperty.value );
+        }
+        spacingProperty.value = spacingProperty.range.constrainValue( toFixedNumber( spacing, QBSConstants.SPACING_DECIMAL_PLACES ) );
       }
     } );
   }

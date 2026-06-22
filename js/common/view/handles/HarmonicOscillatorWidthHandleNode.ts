@@ -15,8 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import HarmonicOscillatorPotential from '../../model/potentials/HarmonicOscillatorPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import HarmonicOscillatorWidthDragListener from './HarmonicOscillatorWidthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
+import WellWidthDragListener from './WellWidthDragListener.js';
 
 export default class HarmonicOscillatorWidthHandleNode extends PotentialHandleNode<HarmonicOscillatorPotential> {
 
@@ -40,7 +40,7 @@ export default class HarmonicOscillatorWidthHandleNode extends PotentialHandleNo
       tandem: tandem
     } );
 
-    this.addInputListener( new HarmonicOscillatorWidthDragListener( this, potential, chartTransform, time, tandem ) );
+    this.addInputListener( new WellWidthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

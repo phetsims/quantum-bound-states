@@ -22,9 +22,8 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 type SelfOptions = {
   orientation: 'horizontal' | 'vertical';
 
-  // Converts the drag delta from view coordinates to model coordinates.
-  // isFromPDOM is true if the drag event is from the keyboard.
-  viewToModelDelta: ( viewDelta: Vector2, isFromPDOM: boolean ) => number;
+  // Updates the associated Property during a drag.
+  updateProperty: ( viewPosition: Vector2, viewDelta: Vector2, isFromPDOM: boolean ) => void;
 
   // Keyboard options
   keyboardDragDelta: number; // in model units
@@ -60,7 +59,7 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
     // CONFUSION ALERT!
     // Scenery drag listeners require a ModelViewTransform2 and we have a ChartTransform. So we will not provide
     // a value for options.transform. This means that (according to the scenery drag listener API) positionProperty,
-    // dragBoundsProperty, and listener.modelDelta will be in view coordinates. Subclasses will transform those view
+    // listener.modelPoint and listener.modelDelta will be in view coordinates. Subclasses will transform those view
     // coordinates to model coordinates using the ChartTransform.
     const options = optionize<PotentialHandleDragListenerOptions, SelfOptions, RichDragListenerOptions>()( {
 
@@ -92,10 +91,9 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
         // Remember the Property's previous value for sound feedback.
         const previousValue = rangedProperty.value;
 
-        // Based on the drag delta in view coordinates, compute the new value.
-        // Since we are not providing options.transform, listener.modelDelta is (confusingly) in view coordinates.
-        const modelDelta = options.viewToModelDelta( listener.modelDelta, event.isFromPDOM() );
-        rangedProperty.value = rangedProperty.range.constrainValue( rangedProperty.value + modelDelta );
+        // Update the associated Property. Since we are not providing options.transform, listener.modelPoint and
+        // listener.modelDelta are (confusingly) in view coordinates.
+        options.updateProperty( listener.modelPoint, listener.modelDelta, event.isFromPDOM() );
 
         // Play sound to communicate how the Property changed.
         this.valueChangeSoundPlayer.playSoundForValueChange( rangedProperty.value, previousValue );

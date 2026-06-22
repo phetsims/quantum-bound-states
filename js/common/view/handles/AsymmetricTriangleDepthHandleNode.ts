@@ -15,8 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import AsymmetricTrianglePotential from '../../model/potentials/AsymmetricTrianglePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import AsymmetricTriangleDepthDragListener from './AsymmetricTriangleDepthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
+import WellDepthDragListener from './WellDepthDragListener.js';
 
 // How far the handle is positioned from the rightmost well of the potential, in nm
 const HANDLE_X_OFFSET = 0.25;
@@ -43,7 +43,7 @@ export default class AsymmetricTriangleDepthHandleNode extends PotentialHandleNo
       tandem: tandem
     } );
 
-    this.addInputListener( new AsymmetricTriangleDepthDragListener( this, potential, chartTransform, time, tandem ) );
+    this.addInputListener( new WellDepthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

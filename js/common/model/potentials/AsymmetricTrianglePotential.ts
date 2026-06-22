@@ -34,6 +34,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotentialDepth {
       // QuantumPotentialOptions
       wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
       wellDepthRange: new RangeWithValue( 1, 18, 10 ), // for 1 well
+      depthDirection: 'up',
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.asymmetricTriangleStringProperty,
       tandemPrefix: 'asymmetricTrianglePotential'
     }, providedOptions );

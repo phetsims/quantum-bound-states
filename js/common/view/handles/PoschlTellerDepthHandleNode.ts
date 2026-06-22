@@ -15,8 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import PoschlTellerPotential from '../../model/potentials/PoschlTellerPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import PoschlTellerDepthDragListener from './PoschlTellerDepthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
+import WellDepthDragListener from './WellDepthDragListener.js';
 
 export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<PoschlTellerPotential> {
 
@@ -40,7 +40,7 @@ export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<Pos
       tandem: tandem
     } );
 
-    this.addInputListener( new PoschlTellerDepthDragListener( this, potential, chartTransform, time, tandem ) );
+    this.addInputListener( new WellDepthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

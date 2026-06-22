@@ -1,26 +1,26 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * FiniteSquareWidthDragListener is the drag listener for changing the well width of a Finite Square potential.
- * The drag handle is assumed to be on the right wall of the rightmost well, and therefore is effectively
- * controlling the total width of the potential when dragging with the pointer.
+ * WellWidthDragListener is the drag listener for changing the well width of a quantum potential.
+ * This drag listener is for single-well potentials that are centered at the x-offset.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import ChartTransform from '../../../../../bamboo/js/ChartTransform.js';
 import { toFixedNumber } from '../../../../../dot/js/util/toFixedNumber.js';
+import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
+import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import FiniteSquareWidthHandleNode from './FiniteSquareWidthHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
+import PotentialHandleNode from './PotentialHandleNode.js';
 
-export default class FiniteSquareWidthDragListener extends PotentialDragListener<FiniteSquarePotential> {
+export default class WellWidthDragListener extends PotentialDragListener<QuantumPotential> {
 
-  public constructor( handleNode: FiniteSquareWidthHandleNode,
-                      potential: FiniteSquarePotential,
+  public constructor( handleNode: PotentialHandleNode<QuantumPotential>,
+                      potential: QuantumPotential,
                       chartTransform: ChartTransform,
                       time: QBSTime,
                       parentTandem: Tandem ) {
@@ -33,19 +33,17 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
       keyboardDragDelta: QBSConstants.WIDTH_KEYBOARD_DRAG_DELTA, // nm
       keyboardShiftDragDelta: QBSConstants.WIDTH_KEYBOARD_SHIFT_DRAG_DELTA, // nm
       updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
+        affirm( potential.numberOfWellsProperty.value === 1, 'numberOfWells must be 1' );
         let wellWidth;
         if ( isFromPDOM ) {
           const modelDelta = chartTransform.viewToModelDelta( viewDelta );
-          wellWidth = potential.wellWidthProperty.value + modelDelta.x;
+          wellWidth = wellWidthProperty.value + modelDelta.x;
         }
         else {
           const modelPosition = chartTransform.viewToModelPosition( viewPosition );
-          const numberOfWells = potential.numberOfWellsProperty.value;
-          const totalWidth = 2 * ( modelPosition.x - potential.xOffsetProperty.value );
-          const totalSeparation = potential.separationProperty.value * ( numberOfWells - 1 );
-          wellWidth = ( totalWidth - totalSeparation ) / numberOfWells;
+          wellWidth = 2 * ( modelPosition.x - potential.xOffsetProperty.value );
         }
-        potential.wellWidthProperty.value = potential.wellWidthProperty.range.constrainValue( toFixedNumber( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) );
+        wellWidthProperty.value = wellWidthProperty.range.constrainValue( toFixedNumber( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) );
       }
     } );
   }

@@ -15,8 +15,8 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import MorsePotential from '../../model/potentials/MorsePotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
-import MorseDepthDragListener from './MorseDepthDragListener.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
+import WellDepthDragListener from './WellDepthDragListener.js';
 
 export default class MorseDepthHandleNode extends PotentialHandleNode<MorsePotential> {
 
@@ -40,7 +40,7 @@ export default class MorseDepthHandleNode extends PotentialHandleNode<MorsePoten
       tandem: tandem
     } );
 
-    this.addInputListener( new MorseDepthDragListener( this, potential, chartTransform, time, tandem ) );
+    this.addInputListener( new WellDepthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
   /**

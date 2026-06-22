@@ -33,7 +33,7 @@ type SelfOptions = {
 };
 
 export type PoschlTellerPotentialOptions = SelfOptions &
-  WithOptional<QuantumPotentialDepthOptions, 'wellWidthRange' | 'wellDepthRange' | 'visualNameProperty' | 'tandemPrefix'>;
+  WithOptional<QuantumPotentialDepthOptions, 'wellWidthRange' | 'wellDepthRange' | 'depthDirection' | 'visualNameProperty' | 'tandemPrefix'>;
 
 export default class PoschlTellerPotential extends QuantumPotentialDepth {
 
@@ -52,6 +52,7 @@ export default class PoschlTellerPotential extends QuantumPotentialDepth {
       energyAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
       wellWidthRange: new RangeWithValue( 0.1, 1, 1 ), // for 1 well
       wellDepthRange: new RangeWithValue( 1, 15, 10 ), // for 1 well
+      depthDirection: 'down',
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.poschlTellerStringProperty,
       tandemPrefix: 'poschlTellerPotential' //TODO rename to 'anharmonicOscillatorPotential'?
     }, providedOptions );
