@@ -359,6 +359,9 @@ export default class QBSModel implements TModel {
     return energies[ index ];
   }
 
+  /**
+   * Determines whether the specified energyLevelIndex is valid.
+   */
   private isValidEnergyLevelIndex( energyLevelIndex: number ): boolean {
     const groundStateIndex = this.potentialProperty.value.groundStateIndex;
     const energiesIndex = energyLevelIndex - groundStateIndex;
@@ -366,31 +369,49 @@ export default class QBSModel implements TModel {
     return ( energiesIndex >= 0 && energiesIndex < energies.length );
   }
 
+  /**
+   * Gets the closest potential energy value at the specified position.
+   */
   public getPotentialEnergyAt( x: number ): number {
     const index = this.xGrid.getClosestIndex( x );
     return this.boundStateResultProperty.value.potentials[ index ];
   }
 
+  /**
+   * Gets the closest probability density value at the specified position.
+   */
   public getProbabilityDensityAt( x: number ): number {
     const index = this.xGrid.getClosestIndex( x );
     return this.timeEvolvedSuperpositionProperty.value.probabilityDensityValues[ index ];
   }
 
+  /**
+   * Gets the closest real part value for the wave function at the specified position.
+   */
   public getRealPartAt( x: number ): number {
     const index = this.xGrid.getClosestIndex( x );
     return this.timeEvolvedSuperpositionProperty.value.realPartValues[ index ];
   }
 
+  /**
+   * Gets the closest imaginary part value for the wave function at the specified position.
+   */
   public getImaginaryPartAt( x: number ): number {
     const index = this.xGrid.getClosestIndex( x );
     return this.timeEvolvedSuperpositionProperty.value.imaginaryPartValues[ index ];
   }
 
+  /**
+   * Gets the closest magnitude value for the wave function at the specified position.
+   */
   public getMagnitudeAt( x: number ): number {
     const index = this.xGrid.getClosestIndex( x );
     return this.timeEvolvedSuperpositionProperty.value.magnitudeValues[ index ];
   }
 
+  /**
+   * Gets the closest phase value for the wave function at the specified position.
+   */
   public getPhaseAt( x: number ): number {
     const index = this.xGrid.getClosestIndex( x );
     return this.timeEvolvedSuperpositionProperty.value.phaseValues[ index ];
