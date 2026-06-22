@@ -18,7 +18,11 @@ import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js
 type DepthDirection = 'up' | 'down';
 
 type SelfOptions = {
+
+  // Range of wellDepthProperty in nm.
   wellDepthRange: RangeWithValue;
+
+  // Direction that depth is measured.
   depthDirection: DepthDirection;
 };
 
@@ -29,6 +33,7 @@ export default abstract class QuantumPotentialDepth extends QuantumPotential {
   // Uniform depth of all wells, in eV.
   public readonly wellDepthProperty: NumberProperty;
 
+  // Direction that depth is measured. See DepthDirection.
   public readonly depthDirection: DepthDirection;
 
   public constructor( providedOptions: QuantumPotentialDepthOptions ) {
