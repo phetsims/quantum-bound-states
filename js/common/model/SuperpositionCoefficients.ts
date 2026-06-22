@@ -309,26 +309,4 @@ export default class SuperpositionCoefficients {
     }
     return index;
   }
-
-  //TODO Delete this because we removed 'Average Probability Density of Band' feature.
-  /**
-   * Sets all the coefficient values in a band of eigenstates. Coefficients outside the band are set to zero.
-   * The band is defined by startIndex and endIndex inclusive.
-   */
-  public setBandOfCoefficients( startIndex: number, endIndex: number, coefficient: number ): void {
-    if ( isAffirmEnabled() ) {
-      affirm( Number.isInteger( startIndex ), 'startIndex must be an integer: ' + startIndex );
-      affirm( Number.isInteger( endIndex ), 'endIndex must be an integer: ' + endIndex );
-      affirm( startIndex < endIndex, 'startIndex must be < endIndex: ' + startIndex + ', ' + endIndex );
-      affirm( startIndex >= 0 && startIndex < this.coefficients.length, 'startIndex is out of bounds: ' + startIndex );
-      affirm( endIndex >= 0 && endIndex < this.coefficients.length, 'endIndex is out of bounds: ' + endIndex );
-      affirm( coefficient >= 0 && coefficient <= 1, 'coefficient must be between 0 and 1: ' + coefficient );
-    }
-
-    this.coefficients.fill( 0 );
-    for ( let i = startIndex; i <= endIndex; i++ ) {
-      this.coefficients[ i ] = coefficient;
-    }
-    this.valuesChangedEmitter.emit();
-  }
 }
