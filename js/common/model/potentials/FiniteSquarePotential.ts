@@ -10,7 +10,8 @@ import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import WithOptional from '../../../../../phet-core/js/types/WithOptional.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
@@ -29,7 +30,8 @@ type SelfOptions = {
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
-  WithOptional<QuantumPotentialDepthOptions, 'wellWidthRange' | 'wellDepthRange' | 'depthDirection' | 'visualNameProperty' | 'tandemPrefix'>;
+  PickOptional<QuantumPotentialDepthOptions, 'yOffsetRange' | 'wellWidthRange' | 'wellDepthRange' | 'visualNameProperty' | 'tandemPrefix'> &
+  PickRequired<QuantumPotentialDepthOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class FiniteSquarePotential extends QuantumPotentialDepth {
 

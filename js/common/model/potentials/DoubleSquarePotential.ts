@@ -11,6 +11,7 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
@@ -20,7 +21,7 @@ import FiniteSquarePotential, { FiniteSquarePotentialOptions } from './FiniteSqu
 type SelfOptions = EmptySelfOptions;
 
 type DoubleSquarePotentialOptions = SelfOptions &
-  Pick<FiniteSquarePotentialOptions, 'electronMassesProperty' | 'electricFieldProperty' | 'tandem'>;
+  PickRequired<FiniteSquarePotentialOptions, 'electronMassesProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class DoubleSquarePotential extends FiniteSquarePotential {
 
