@@ -147,7 +147,15 @@ export default class QBSModel implements TModel {
     } );
 
     this.selectedEnergyLevelValueProperty = new DerivedProperty( [ this.selectedEnergyLevelIndexProperty, this.boundStateResultProperty ],
-      ( energyLevelIndex, boundStateResult ) => this.getEnergyAtEnergyLevel( energyLevelIndex ), {
+      ( energyLevelIndex, boundStateResult ) => {
+        if ( this.isValidEnergyLevelIndex( energyLevelIndex ) ) {
+          return this.getEnergyAtEnergyLevel( energyLevelIndex ); // uses boundStateResult
+        }
+        else {
+          // Handle the intermediate state where dependencies are out of sync.
+          return 0;
+        }
+      }, {
         units: electronVoltsUnit,
         tandem: options.tandem.createTandem( 'selectedEnergyLevelValueProperty' ),
         phetioValueType: NumberIO,
@@ -349,6 +357,13 @@ export default class QBSModel implements TModel {
     const index = energyLevelIndex - groundStateIndex;
     affirmCallback( () => index >= 0 && index < energies.length, `index out of range: ${index}` );
     return energies[ index ];
+  }
+
+  private isValidEnergyLevelIndex( energyLevelIndex: number ): boolean {
+    const groundStateIndex = this.potentialProperty.value.groundStateIndex;
+    const energiesIndex = energyLevelIndex - groundStateIndex;
+    const energies = this.boundStateResultProperty.value.energies;
+    return ( energiesIndex >= 0 && energiesIndex < energies.length );
   }
 
   public getPotentialEnergyAt( x: number ): number {
