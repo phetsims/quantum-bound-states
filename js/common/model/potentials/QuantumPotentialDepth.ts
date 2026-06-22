@@ -1,8 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * QuantumPotentialDepth extends the QuantumPotential base class by adding wellDepthProperty,
- * a Property that is common to half of the quantum potential types.
+ * QuantumPotentialDepth extends the QuantumPotential base class by adding wellDepthProperty.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
