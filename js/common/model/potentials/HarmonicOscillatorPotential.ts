@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
@@ -14,6 +15,7 @@ import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/brows
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
+import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
@@ -92,6 +94,14 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
         phetioValueType: NumberIO,
         phetioFeatured: true
       } );
+
+    // Changes to Properties instantiated by this class trigger notification.
+    //TODO Duplicate work is being done here because solveBoundState uses springConstantProperty instead of wellWidthProperty.
+    Multilink.multilink( [ this.springConstantProperty ], () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.changedEmitter.emit();
+      }
+    } );
   }
 
   public override toString(): string {
