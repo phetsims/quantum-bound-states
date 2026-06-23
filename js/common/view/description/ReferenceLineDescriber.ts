@@ -87,6 +87,6 @@ function potentialEnergyToString( potentialEnergy: number ): string | number {
     return QuantumBoundStatesFluent.a11y.values.negativeInfinityStringProperty.value;
   }
   else {
-    return toFixed( potentialEnergy, QBSConstants.POTENTIAL_ENERGY_DECIMALS );
+    return toFixed( potentialEnergy, QBSConstants.POTENTIAL_ENERGY_DECIMAL_PLACES );
   }
 }

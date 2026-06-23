@@ -78,7 +78,7 @@ export default class EnergyDiagramDescriber {
     listItems.push( {
       stringProperty: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleTemplate.listItems.energyLevel.createProperty( {
         energyLevelIndex: this.model.selectedEnergyLevelIndexProperty,
-        energy: this.model.selectedEnergyLevelValueProperty.derived( energy => toFixed( energy, QBSConstants.TOTAL_ENERGY_DECIMALS ) )
+        energy: this.model.selectedEnergyLevelValueProperty.derived( energy => toFixed( energy, QBSConstants.TOTAL_ENERGY_DECIMAL_PLAES ) )
       } )
     } );
 

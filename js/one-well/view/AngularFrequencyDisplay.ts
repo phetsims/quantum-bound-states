@@ -32,7 +32,7 @@ export class AngularFrequencyDisplay extends NumberDisplay {
       numberFormatter: angularFrequency => {
         //TODO Localize string pattern?
         return StringUtils.fillIn( 'ω = {{value}} {{units}}', ( {
-          value: toFixed( angularFrequency, QBSConstants.ANGULAR_FREQUENCY ),
+          value: toFixed( angularFrequency, QBSConstants.ANGULAR_FREQUENCY_DECIMAL_PLACES ),
           units: inverseFemtosecondsUnit.visualSymbolStringProperty!.value
         } ) );
       },

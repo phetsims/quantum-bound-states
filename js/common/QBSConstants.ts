@@ -87,9 +87,9 @@ export default class QBSConstants {
   public static readonly SPACING_DECIMAL_PLACES = 2;
   public static readonly X_OFFSET_DECIMAL_PLACES = 1;
   public static readonly Y_OFFSET_DECIMAL_PLACES = 1;
-  public static readonly ANGULAR_FREQUENCY = 1;
-  public static readonly POTENTIAL_ENERGY_DECIMALS = 2;
-  public static readonly TOTAL_ENERGY_DECIMALS = 2;
+  public static readonly ANGULAR_FREQUENCY_DECIMAL_PLACES = 1;
+  public static readonly POTENTIAL_ENERGY_DECIMAL_PLACES = 2;
+  public static readonly TOTAL_ENERGY_DECIMAL_PLAES = 2;
   public static readonly PROBABILITY_DENSITY_DECIMAL_PLACES = 2;
   public static readonly REAL_PART_DECIMAL_PLACES = 2;
   public static readonly IMAGINARY_PART_DECIMAL_PLACES = 2;

@@ -57,7 +57,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
           return '';
         }
         else if ( valuesVisible ) {
-          const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevelIndex ), QBSConstants.TOTAL_ENERGY_DECIMALS );
+          const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevelIndex ), QBSConstants.TOTAL_ENERGY_DECIMAL_PLAES );
           return `E<sub>${energyLevelIndex}</sub> = ${energy} eV`;
         }
         else {
