@@ -54,8 +54,9 @@ type PotentialParameters = {
   numberOfWells: number; // number of wells, must be 1 for CoulombSolution
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
+  wellWidth: number; // Width of the well L in nm
+  energyAtWellWidth: number; // Energy at the position where well width is measured, in eV
   electricField: number; // Electric field in V/nm, must be 0 for CoulombSolution
-  coupling: number; // Coulomb coupling K = ke² in eV·nm (positive)
 };
 
 // Parameters for solve method
@@ -82,10 +83,12 @@ export default class CoulombSolution {
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
-    const { numberOfWells, xOffset, yOffset, electricField, coupling } = parameters;
+    const { numberOfWells, xOffset, yOffset, wellWidth, energyAtWellWidth, electricField } = parameters;
     affirm( numberOfWells === 1, 'CoulombSolution does not support multiple wells' );
     affirm( electricField === 0, 'CoulombSolution does not support electric field' );
-    affirm( coupling > 0, 'coupling must be positive' );
+
+    const coupling = computeCoupling( wellWidth, energyAtWellWidth );
+    affirm( coupling > 0, `coupling must be positive: ${coupling}` );
 
     return ( x: number ) => {
       const ax = Math.abs( x - xOffset );
@@ -112,10 +115,12 @@ export default class CoulombSolution {
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, electronMasses, electricField, coupling } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, energyAtWellWidth, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'CoulombSolution does not support multiple wells' );
     affirm( electricField === 0, 'CoulombSolution does not support electric field' );
-    affirm( coupling > 0, 'coupling must be positive' );
+
+    const coupling = computeCoupling( wellWidth, energyAtWellWidth );
+    affirm( coupling > 0, `coupling must be positive: ${coupling}` );
 
     // Work in the Coulomb frame where the potential floor is the standard 1/|x| form (no y₀).
     const intrinsicEnergyMin = energyMin - yOffset;
@@ -163,8 +168,9 @@ export default class CoulombSolution {
       numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
-      electricField: electricField,
-      coupling: coupling
+      wellWidth: wellWidth,
+      energyAtWellWidth: energyAtWellWidth,
+      electricField: electricField
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
@@ -206,4 +212,12 @@ function evaluatePolynomial( coefficients: number[], r: number ): number {
     sum = sum * r + coefficients[ j ];
   }
   return sum;
+}
+
+/**
+ * Computes coupling.
+ * K = w * E_ref / 2, where w is the well width and E_ref = WIDTH_HANDLE_ENERGY.
+ */
+function computeCoupling( wellWidth: number, energyAtWellWidth: number ): number {
+  return wellWidth * energyAtWellWidth / 2;
 }

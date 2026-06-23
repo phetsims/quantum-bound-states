@@ -6,8 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
@@ -46,8 +44,6 @@ export default class CoulombPotential extends QuantumPotential {
   // the y-axis is zoomed. See https://github.com/phetsims/quantum-bound-states/issues/63
   public static readonly MIN_SOLVER_ENERGY_BELOW_LIMIT = 60; // eV
 
-  private readonly couplingProperty: TReadOnlyProperty<number>;
-
   public constructor( providedOptions: CoulombPotentialOptions ) {
 
     const options = optionize<CoulombPotentialOptions, SelfOptions, QuantumPotentialOptions>()( {
@@ -70,11 +66,6 @@ export default class CoulombPotential extends QuantumPotential {
     }, providedOptions );
 
     super( options );
-
-    // coupling K = w * E_ref / 2, where w is the well width and E_ref = WIDTH_HANDLE_ENERGY.
-    this.couplingProperty = new DerivedProperty( [ this.wellWidthProperty ],
-      wellWidth => wellWidth * CoulombPotential.WIDTH_HANDLE_ENERGY / 2
-    );
   }
 
   public override toString(): string {
@@ -101,9 +92,10 @@ export default class CoulombPotential extends QuantumPotential {
       energyMax: this.getMaxSolverEnergy(),
       xOffset: this.xOffsetProperty.value,
       yOffset: this.yOffsetProperty.value,
+      wellWidth: this.wellWidthProperty.value,
+      energyAtWellWidth: CoulombPotential.WIDTH_HANDLE_ENERGY,
       electronMasses: this.electronMassesProperty.value,
-      electricField: this.electricFieldProperty.value,
-      coupling: this.couplingProperty.value
+      electricField: this.electricFieldProperty.value
     } );
   }
 
