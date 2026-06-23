@@ -62,40 +62,6 @@ type StringsType = {
   'energyOffsetStringProperty': LocalizedStringProperty;
   'presetStringProperty': LocalizedStringProperty;
   'customStringProperty': LocalizedStringProperty;
-  'units': {
-    'electronMasses': {
-      'symbolStringProperty': LocalizedStringProperty;
-      'symbolPatternStringProperty': LocalizedStringProperty;
-    };
-    'electronVolts': {
-      'symbolStringProperty': LocalizedStringProperty;
-      'symbolPatternStringProperty': LocalizedStringProperty;
-    };
-    'electronVoltsPerNanometerSquared': {
-      'symbolStringProperty': LocalizedStringProperty;
-      'symbolPatternStringProperty': LocalizedStringProperty;
-    };
-    'femtoseconds': {
-      'symbolStringProperty': LocalizedStringProperty;
-      'symbolPatternStringProperty': LocalizedStringProperty;
-    };
-    'inverseFemtoseconds': {
-      'symbolStringProperty': LocalizedStringProperty;
-      'symbolPatternStringProperty': LocalizedStringProperty;
-    };
-    'inverseNanometers': {
-      'symbolStringProperty': LocalizedStringProperty;
-      'symbolPatternStringProperty': LocalizedStringProperty;
-    };
-    'inverseSquareRootNanometers': {
-      'symbolStringProperty': LocalizedStringProperty;
-      'symbolPatternStringProperty': LocalizedStringProperty;
-    };
-    'voltsPerNanometer': {
-      'symbolStringProperty': LocalizedStringProperty;
-      'symbolPatternStringProperty': LocalizedStringProperty;
-    }
-  };
   'potentialWells': {
     'finiteSquareStringProperty': LocalizedStringProperty;
     'infiniteSquareStringProperty': LocalizedStringProperty;
@@ -531,32 +497,6 @@ type StringsType = {
         'imaginaryPartPhraseStringProperty': LocalizedStringProperty;
         'magnitudePhraseStringProperty': LocalizedStringProperty;
         'phasePhraseStringProperty': LocalizedStringProperty;
-      }
-    };
-    'units': {
-      'electronMasses': {
-        'accessiblePatternStringProperty': LocalizedStringProperty;
-      };
-      'electronVolts': {
-        'accessiblePatternStringProperty': LocalizedStringProperty;
-      };
-      'electronVoltsPerNanometerSquared': {
-        'accessiblePatternStringProperty': LocalizedStringProperty;
-      };
-      'femtoseconds': {
-        'accessiblePatternStringProperty': LocalizedStringProperty;
-      };
-      'inverseFemtoseconds': {
-        'accessiblePatternStringProperty': LocalizedStringProperty;
-      };
-      'inverseNanometers': {
-        'accessiblePatternStringProperty': LocalizedStringProperty;
-      };
-      'inverseSquareRootNanometers': {
-        'accessiblePatternStringProperty': LocalizedStringProperty;
-      };
-      'voltsPerNanometer': {
-        'accessiblePatternStringProperty': LocalizedStringProperty;
       }
     };
     'values': {

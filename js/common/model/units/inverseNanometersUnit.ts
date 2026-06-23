@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/quantum-bound-states/issues/11 Move to scenery-phet/js/units/
 /**
  * Unit for inverse nanometers (nm^-1)
  *
@@ -9,10 +8,10 @@
 
 import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import PhetUnit from '../../../../../scenery-phet/js/PhetUnit.js';
-import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
+import SceneryPhetFluent from '../../../../../scenery-phet/js/SceneryPhetFluent.js';
 
 export const inverseNanometersUnit = new PhetUnit<ReadOnlyProperty<string>>( 'nm^-1', {
-  visualSymbolStringProperty: QuantumBoundStatesFluent.units.inverseNanometers.symbolStringProperty,
-  visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.inverseNanometers.symbolPatternStringProperty,
-  accessiblePattern: QuantumBoundStatesFluent.a11y.units.inverseNanometers.accessiblePattern
+  visualSymbolStringProperty: SceneryPhetFluent.units.inverseNanometers.symbolStringProperty,
+  visualSymbolPatternStringProperty: SceneryPhetFluent.units.inverseNanometers.symbolPatternStringProperty,
+  accessiblePattern: SceneryPhetFluent.a11y.units.inverseNanometers.pattern
 } );

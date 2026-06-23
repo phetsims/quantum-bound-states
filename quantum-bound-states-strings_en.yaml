@@ -69,41 +69,6 @@ energyOffset:                          Energy Offset
 preset:                                Preset
 custom:                                Custom
 
-# Units
-units:
-  # mass
-  electronMasses:
-    symbol:        m<sub>e</sub>
-    symbolPattern: '{{value}} m<sub>e</sub>'
-  # energy
-  electronVolts:
-    symbol:        eV
-    symbolPattern: '{{value}} eV'
-  # spring constant
-  electronVoltsPerNanometerSquared:
-    symbol:        eV/nm<sup>2</sup>
-    symbolPattern: '{{value}} eV/nm<sup>2</sup>'
-  # time
-  femtoseconds:
-    symbol:        fs
-    symbolPattern: '{{value}} fs'
-  # angular frequency of Harmonic Oscillator
-  inverseFemtoseconds:
-    symbol:        fs<sup>-1</sup>
-    symbolPattern: '{{value}} fs<sup>-1</sup>'
-  # probability density y-values
-  inverseNanometers:
-    symbol:        nm<sup>-1</sup>
-    symbolPattern: '{{value}} nm<sup>-1</sup>'
-  # wave function y-values
-  inverseSquareRootNanometers:
-    symbol:        nm<sup>-1/2</sup>
-    symbolPattern: '{{value}} nm<sup>-1/2</sup>'
-  # electric field
-  voltsPerNanometer:
-    symbol:        V/nm
-    symbolPattern: '{{value}} V/nm'
-
 # Potential Wells
 potentialWells:
   finiteSquare:       Finite Square
@@ -676,28 +641,6 @@ a11y:
       imaginaryPartPhrase:      imaginary part is {$value}
       magnitudePhrase:          magnitude is {$value}
       phasePhrase:              phase is {$value} radians
-
-  #=======================================================================================================
-  # Units
-  #=======================================================================================================
-
-  units:
-    electronMasses:
-      accessiblePattern: '{$value} times electron mass'
-    electronVolts:
-      accessiblePattern: '{$value} electron volts'
-    electronVoltsPerNanometerSquared:
-      accessiblePattern: '{$value} electron volts per nanometer squared'
-    femtoseconds:
-      accessiblePattern: '{$value} femtoseconds'
-    inverseFemtoseconds:
-      accessiblePattern: '{$value} per inverse femtosecond'
-    inverseNanometers:
-      accessiblePattern: '{$value} inverse nanometers'
-    inverseSquareRootNanometers:
-      accessiblePattern: '{$value} inverse square root nanometers'
-    voltsPerNanometer:
-      accessiblePattern: '{$value} volts per nanometer'
 
   #=======================================================================================================
   # Values

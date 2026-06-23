@@ -133,72 +133,6 @@
   "custom": {
     "value": "Custom"
   },
-  "units": {
-    "electronMasses": {
-      "symbol": {
-        "value": "m<sub>e</sub>"
-      },
-      "symbolPattern": {
-        "value": "{{value}} m<sub>e</sub>"
-      }
-    },
-    "electronVolts": {
-      "symbol": {
-        "value": "eV"
-      },
-      "symbolPattern": {
-        "value": "{{value}} eV"
-      }
-    },
-    "electronVoltsPerNanometerSquared": {
-      "symbol": {
-        "value": "eV/nm<sup>2</sup>"
-      },
-      "symbolPattern": {
-        "value": "{{value}} eV/nm<sup>2</sup>"
-      }
-    },
-    "femtoseconds": {
-      "symbol": {
-        "value": "fs"
-      },
-      "symbolPattern": {
-        "value": "{{value}} fs"
-      }
-    },
-    "inverseFemtoseconds": {
-      "symbol": {
-        "value": "fs<sup>-1</sup>"
-      },
-      "symbolPattern": {
-        "value": "{{value}} fs<sup>-1</sup>"
-      }
-    },
-    "inverseNanometers": {
-      "symbol": {
-        "value": "nm<sup>-1</sup>"
-      },
-      "symbolPattern": {
-        "value": "{{value}} nm<sup>-1</sup>"
-      }
-    },
-    "inverseSquareRootNanometers": {
-      "symbol": {
-        "value": "nm<sup>-1/2</sup>"
-      },
-      "symbolPattern": {
-        "value": "{{value}} nm<sup>-1/2</sup>"
-      }
-    },
-    "voltsPerNanometer": {
-      "symbol": {
-        "value": "V/nm"
-      },
-      "symbolPattern": {
-        "value": "{{value}} V/nm"
-      }
-    }
-  },
   "potentialWells": {
     "finiteSquare": {
       "value": "Finite Square"
@@ -1093,48 +1027,6 @@
         },
         "phasePhrase": {
           "value": "phase is {$value} radians"
-        }
-      }
-    },
-    "units": {
-      "electronMasses": {
-        "accessiblePattern": {
-          "value": "{$value} times electron mass"
-        }
-      },
-      "electronVolts": {
-        "accessiblePattern": {
-          "value": "{$value} electron volts"
-        }
-      },
-      "electronVoltsPerNanometerSquared": {
-        "accessiblePattern": {
-          "value": "{$value} electron volts per nanometer squared"
-        }
-      },
-      "femtoseconds": {
-        "accessiblePattern": {
-          "value": "{$value} femtoseconds"
-        }
-      },
-      "inverseFemtoseconds": {
-        "accessiblePattern": {
-          "value": "{$value} per inverse femtosecond"
-        }
-      },
-      "inverseNanometers": {
-        "accessiblePattern": {
-          "value": "{$value} inverse nanometers"
-        }
-      },
-      "inverseSquareRootNanometers": {
-        "accessiblePattern": {
-          "value": "{$value} inverse square root nanometers"
-        }
-      },
-      "voltsPerNanometer": {
-        "accessiblePattern": {
-          "value": "{$value} volts per nanometer"
         }
       }
     },

@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/quantum-bound-states/issues/11 Move to scenery-phet/js/units/
 /**
  * Unit for electron volts (eV)
  *
@@ -9,10 +8,10 @@
 
 import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import PhetUnit from '../../../../../scenery-phet/js/PhetUnit.js';
-import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
+import SceneryPhetFluent from '../../../../../scenery-phet/js/SceneryPhetFluent.js';
 
 export const electronVoltsUnit = new PhetUnit<ReadOnlyProperty<string>>( 'eV', {
-  visualSymbolStringProperty: QuantumBoundStatesFluent.units.electronVolts.symbolStringProperty,
-  visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.electronVolts.symbolPatternStringProperty,
-  accessiblePattern: QuantumBoundStatesFluent.a11y.units.electronVolts.accessiblePattern
+  visualSymbolStringProperty: SceneryPhetFluent.units.electronVolts.symbolStringProperty,
+  visualSymbolPatternStringProperty: SceneryPhetFluent.units.electronVolts.symbolPatternStringProperty,
+  accessiblePattern: SceneryPhetFluent.a11y.units.electronVolts.pattern
 } );

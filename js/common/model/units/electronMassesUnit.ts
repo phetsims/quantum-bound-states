@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/quantum-bound-states/issues/11 Move to scenery-phet/js/units/
 /**
  * Unit for electron masses (m<sub>e</sub>)
  *
@@ -9,10 +8,10 @@
 
 import ReadOnlyProperty from '../../../../../axon/js/ReadOnlyProperty.js';
 import PhetUnit from '../../../../../scenery-phet/js/PhetUnit.js';
-import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
+import SceneryPhetFluent from '../../../../../scenery-phet/js/SceneryPhetFluent.js';
 
 export const electronMassesUnit = new PhetUnit<ReadOnlyProperty<string>>( 'm<sub>e</sub>', {
-  visualSymbolStringProperty: QuantumBoundStatesFluent.units.electronMasses.symbolStringProperty,
-  visualSymbolPatternStringProperty: QuantumBoundStatesFluent.units.electronMasses.symbolPatternStringProperty,
-  accessiblePattern: QuantumBoundStatesFluent.a11y.units.electronMasses.accessiblePattern
+  visualSymbolStringProperty: SceneryPhetFluent.units.electronMasses.symbolStringProperty,
+  visualSymbolPatternStringProperty: SceneryPhetFluent.units.electronMasses.symbolPatternStringProperty,
+  accessiblePattern: SceneryPhetFluent.a11y.units.electronMasses.pattern
 } );
