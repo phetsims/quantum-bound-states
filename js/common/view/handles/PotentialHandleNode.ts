@@ -10,7 +10,6 @@
  */
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../../axon/js/Property.js';
 import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
@@ -23,7 +22,6 @@ import AccessibleInteractiveOptions from '../../../../../scenery-phet/js/accessi
 import ArrowNode, { ArrowNodeOptions } from '../../../../../scenery-phet/js/ArrowNode.js';
 import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import BooleanIO from '../../../../../tandem/js/types/BooleanIO.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSColors from '../../QBSColors.js';
@@ -102,28 +100,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     const arrowNode = new ArrowNode( tailX, tailY, tipX, tipY, ARROW_NODE_OPTIONS );
     this.addChild( arrowNode );
 
-    // Keep track of whether the pointer is over the arrow. This affects the visibility of the label.
-    const isOverProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'isOverProperty' ),
-      phetioDocumentation: 'Indicates whether the pointer is over the handle.',
-      phetioReadOnly: true
-    } );
-    arrowNode.addInputListener( {
-      over: () => {
-        isOverProperty.value = true;
-      },
-      out: () => {
-        isOverProperty.value = false;
-      }
-    } );
-
-    const labelNodeTandem = options.tandem.createTandem( 'labelNode' );
-    const labelVisibleProperty = DerivedProperty.or( [ valuesVisibleProperty, this.focusedProperty, this.isDraggingProperty, isOverProperty ], {
-      tandem: labelNodeTandem.createTandem( 'visibleProperty' ),
-      phetioValueType: BooleanIO
-    } );
-
-    const labelNode = new PotentialHandleLabelNode( labelStringProperty, labelVisibleProperty, labelNodeTandem );
+    const labelNode = new PotentialHandleLabelNode( labelStringProperty, valuesVisibleProperty, options.tandem.createTandem( 'labelNode' ) );
     this.addChild( labelNode );
     labelNode.localBoundsProperty.link( () => {
       labelNode.centerX = 0;
