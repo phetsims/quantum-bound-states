@@ -1,7 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for a Harmonic Oscillator potential.
+ * HarmonicOscillatorSolution implements the analytical solution for a single-well Harmonic Oscillator potential.
+ *
  * V(x) = (1/2) * k * (x - x₀)² + y₀ = (1/2) * m * ω² * (x - x₀)² + y₀
  *
  * ENERGY EIGENVALUES:

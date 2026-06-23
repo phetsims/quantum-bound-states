@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for a single-well 1D Coulomb potential.
+ * CoulombSolution implements the analytical solution for a single-well 1D Coulomb potential.
  *
  * The 1D Coulomb potential is a hydrogen-like attractive well with a 1/|x| singularity
  * at x = x₀. Only the antisymmetric (odd-parity) family of states is included here,

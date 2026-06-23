@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for a single-well Morse potential.
+ * MorseSolution implements the analytical solution for a single-well Morse potential.
  *
  * The Morse potential models a diatomic-molecule-like well with a repulsive wall on
  * the left, a minimum at x = 0, and a flat asymptote at x → +∞.  It is parameterized

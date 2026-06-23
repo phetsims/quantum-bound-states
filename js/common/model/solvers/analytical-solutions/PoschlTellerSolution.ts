@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for a single-well Pöschl-Teller potential.
+ * PoschlTellerSolution implements the analytical solution for a single-well Pöschl-Teller potential.
  *
  * The Pöschl-Teller potential is a symmetric quantum well with exact analytical solutions.
  * It is parameterized by well depth V₀ and width w.

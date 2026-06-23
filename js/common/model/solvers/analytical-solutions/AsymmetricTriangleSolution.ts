@@ -1,12 +1,11 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for a single-well Asymmetric Triangle potential.
- * The solution involves Airy functions Ai(z) and Bi(z), which are the natural basis
- * functions for a linear potential region.
+ * AsymmetricTriangleSolution implements the analytical solution for a single-well Asymmetric Triangle potential.
  *
- * The potential is a finite triangular well. It is flat at the barrier energy outside
- * the well and rises linearly across the well interior:
+ * The solution involves Airy functions Ai(z) and Bi(z), which are the natural basis functions for a linear potential
+ * region. The potential is a finite triangular well. It is flat at the barrier energy outside the well and rises
+ * linearly across the well interior:
  *
  * V(x) = wellDepth + yOffset    for x < xOffset - wellWidth/2
  * V(x) = yOffset + (wellDepth/wellWidth) * x    for xOffset - wellWidth/2 < x < xOffset + wellWidth/2

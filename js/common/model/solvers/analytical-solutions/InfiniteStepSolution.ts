@@ -1,7 +1,8 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for a single-well Infinite Step potential (Infinite Square potential with an interior step).
+ * InfiniteStepSolution implements the analytical solution for a single-well Infinite Step potential
+ * (an Infinite Square potential with an interior step).
  *
  * The well has impenetrable walls, but the floor is not flat: the right half sits at a higher
  * potential V₀ than the left half.  A particle in the left half "sees" a step barrier of height

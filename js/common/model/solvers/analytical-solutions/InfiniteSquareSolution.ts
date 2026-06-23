@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * Analytical solution for a single-well Infinite Square potential (particle in a box).
+ * InfiniteSquareSolution implements the analytical solution for a single-well Infinite Square potential (particle in a box).
  *
  * The infinite square well is the simplest quantum mechanical system where a particle
  * is confined to a region with impenetrable walls.
