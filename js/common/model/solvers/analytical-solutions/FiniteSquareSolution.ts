@@ -2,6 +2,7 @@
 
 /**
  * FiniteSquareSolution implements the analytical solution for a single-well Finite Square potential.
+ * It computes the potential energy curve for single-well and multi-well potentials.
  *
  * The finite square well extends the infinite well by allowing the potential to be
  * finite outside the well. Particles can penetrate into the classically forbidden

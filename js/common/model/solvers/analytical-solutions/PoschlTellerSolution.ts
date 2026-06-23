@@ -2,6 +2,7 @@
 
 /**
  * PoschlTellerSolution implements the analytical solution for a single-well Pöschl-Teller potential.
+ * It computes the potential energy curve for single-well and multi-well potentials.
  *
  * The Pöschl-Teller potential is a symmetric quantum well with exact analytical solutions.
  * It is parameterized by well depth V₀ and width w.
