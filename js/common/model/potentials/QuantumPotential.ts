@@ -49,8 +49,11 @@ type SelfOptions = {
   // Range of wellWidthProperty in nm.
   wellWidthRange: RangeWithValue;
 
-  // Number of decimal places to use for well width in the visual UI and core description.
-  // Finite Square is the only potential that overrides the default in the Many Wells screen.
+  // Number of decimal places to use for well width in the visual UI and core description. Finite Square is the only
+  // potential that overrides the default in the Many Wells screen.
+  // See https://github.com/phetsims/quantum-bound-states/issues/87.
+  // Well width is the only Property that has an option like this because all other Properties have the same number
+  // of decimal places in all screens, and therefore rely on constants defined in QBSConstants.
   wellWidthDecimalPlaces?: number;
 
   // Name used to identify this potential in the visual UI.
