@@ -143,7 +143,6 @@ export default class HarmonicOscillatorSolution {
   }
 }
 
-
 /**
  * Calculates the Hermite polynomial H_n(x) using the recurrence relation:
  * H_0(x) = 1, H_1(x) = 2x, H_{n+1}(x) = 2x·H_n(x) − 2n·H_{n−1}(x)
