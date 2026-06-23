@@ -8,7 +8,7 @@
  */
 
 import qunitStart from '../../chipper/js/browser/sim-tests/qunitStart.js';
-import './common/model/QBSSolverTests.js';
+import './common/model/tests/QBSSolverTests.js';
 
 // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
 qunitStart();
