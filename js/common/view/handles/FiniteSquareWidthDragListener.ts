@@ -13,7 +13,6 @@ import { toFixedNumber } from '../../../../../dot/js/util/toFixedNumber.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../model/potentials/FiniteSquarePotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWidthHandleNode from './FiniteSquareWidthHandleNode.js';
 import PotentialDragListener from './PotentialDragListener.js';
 
@@ -27,11 +26,16 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
 
     const wellWidthProperty = potential.wellWidthProperty;
 
+    // keyboardShiftDragDelta operates at the same precision as the number of decimal places displayed in the visual UI.
+    // keyboardDragDelta is coarser.
+    const keyboardShiftDragDelta = Math.pow( 10, -potential.wellWidthDecimalPlaces ); // nm
+    const keyboardDragDelta = 5 * keyboardShiftDragDelta; // nm
+
     super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'horizontal',
-      keyboardDragDelta: QBSConstants.WIDTH_KEYBOARD_DRAG_DELTA, // nm
-      keyboardShiftDragDelta: QBSConstants.WIDTH_KEYBOARD_SHIFT_DRAG_DELTA, // nm
+      keyboardShiftDragDelta: keyboardShiftDragDelta,
+      keyboardDragDelta: keyboardDragDelta,
       updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
         let wellWidth;
         if ( isFromPDOM ) {
@@ -45,7 +49,7 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
           const totalSeparation = potential.separationProperty.value * ( numberOfWells - 1 );
           wellWidth = ( totalWidth - totalSeparation ) / numberOfWells;
         }
-        potential.wellWidthProperty.value = potential.wellWidthProperty.range.constrainValue( toFixedNumber( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) );
+        potential.wellWidthProperty.value = potential.wellWidthProperty.range.constrainValue( toFixedNumber( wellWidth, potential.wellWidthDecimalPlaces ) );
       }
     } );
   }

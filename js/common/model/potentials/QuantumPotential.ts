@@ -49,6 +49,10 @@ type SelfOptions = {
   // Range of wellWidthProperty in nm.
   wellWidthRange: RangeWithValue;
 
+  // Number of decimal places to use for well width in the visual UI and core description.
+  // Finite Square is the only potential that overrides the default in the Many Wells screen.
+  wellWidthDecimalPlaces?: number;
+
   // Name used to identify this potential in the visual UI.
   visualNameProperty: TReadOnlyProperty<string>;
 
@@ -80,6 +84,7 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   // Uniform width of all wells, in nm.
   public readonly wellWidthProperty: NumberProperty;
+  public readonly wellWidthDecimalPlaces: number;
 
   // Fires when the quantum potential has changed and the BoundStateResult needs to be recomputed.
   public readonly changedEmitter: Emitter;
@@ -104,6 +109,7 @@ export default abstract class QuantumPotential extends PhetioObject {
       groundStateIndex: 1,
       xOffset: 0,
       yOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant
+      wellWidthDecimalPlaces: QBSConstants.WELL_WIDTH_DECIMAL_PLACES,
       energyAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
       accessibleNameProperty: providedOptions.visualNameProperty,
 
@@ -118,6 +124,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.numberOfWellsProperty = options.numberOfWellsProperty;
     this.electronMassesProperty = options.electronMassesProperty;
     this.electricFieldProperty = options.electricFieldProperty;
+    this.wellWidthDecimalPlaces = options.wellWidthDecimalPlaces;
 
     this.groundStateIndex = options.groundStateIndex;
 

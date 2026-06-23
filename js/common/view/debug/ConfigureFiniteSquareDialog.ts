@@ -18,6 +18,7 @@ export default class ConfigureFiniteSquareDialog extends ConfigurePotentialDialo
       xOffsetProperty: potential.xOffsetProperty,
       yOffsetProperty: potential.yOffsetProperty,
       wellWidthProperty: potential.wellWidthProperty,
+      wellWidthDecimalPlaces: potential.wellWidthDecimalPlaces,
       wellDepthProperty: potential.wellDepthProperty,
       separationProperty: potential.separationProperty
     } );

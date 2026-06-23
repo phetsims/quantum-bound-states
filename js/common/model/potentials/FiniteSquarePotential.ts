@@ -30,7 +30,7 @@ type SelfOptions = {
 };
 
 export type FiniteSquarePotentialOptions = SelfOptions &
-  PickOptional<QuantumPotentialDepthOptions, 'yOffsetRange' | 'wellWidthRange' | 'wellDepthRange' | 'visualNameProperty' | 'tandemPrefix'> &
+  PickOptional<QuantumPotentialDepthOptions, 'yOffsetRange' | 'wellWidthRange' | 'wellWidthDecimalPlaces' | 'wellDepthRange' | 'visualNameProperty' | 'tandemPrefix'> &
   PickRequired<QuantumPotentialDepthOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class FiniteSquarePotential extends QuantumPotentialDepth {

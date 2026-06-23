@@ -15,6 +15,7 @@ import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPot
 import QBSModel from '../../common/model/QBSModel.js';
 import { electronMassesUnit } from '../../../../scenery-phet/js/units/electronMassesUnit.js';
 import { voltsPerNanometerUnit } from '../../../../scenery-phet/js/units/voltsPerNanometerUnit.js';
+import QBSConstants from '../../common/QBSConstants.js';
 
 export default class ManyWellsModel extends QBSModel {
 
@@ -54,6 +55,7 @@ export default class ManyWellsModel extends QBSModel {
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
         wellWidthRange: new RangeWithValue( 0.1, 0.5, 0.5 ),
+        wellWidthDecimalPlaces: QBSConstants.WELL_WIDTH_DECIMAL_PLACES_MANY_WELLS,
         wellDepthRange: new RangeWithValue( 5, 15, 10 ),
         separationRange: new RangeWithValue( 0.05, 0.25, 0.1 ),
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )

@@ -25,38 +25,41 @@ import QBSConstants from '../../QBSConstants.js';
 
 export default class QuantumPotentialDescriber {
 
-  private constructor() {
-    // Not intended for instantiation.
+  // The selected potential.
+  private readonly potentialProperty: TReadOnlyProperty<QuantumPotential>;
+
+  public constructor( potentialProperty: TReadOnlyProperty<QuantumPotential> ) {
+    this.potentialProperty = potentialProperty;
   }
 
   /**
    * Create AccessibleListItems, used in the Energy Diagram to describe quantum potentials in an AccessibleList.
    */
-  public static createAccessibleListItems( potential: QuantumPotential, potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem[] {
+  public createAccessibleListItems( potential: QuantumPotential ): AccessibleListItem[] {
     let accessibleListItems: AccessibleListItem[] | null = null;
     if ( potential instanceof AsymmetricTrianglePotential ) {
-      accessibleListItems = QuantumPotentialDescriber.createAsymmetricTriangleListItems( potential, potentialProperty );
+      accessibleListItems = this.createAsymmetricTriangleListItems( potential );
     }
     else if ( potential instanceof CoulombPotential ) {
-      accessibleListItems = QuantumPotentialDescriber.createCoulombListItems( potential, potentialProperty );
+      accessibleListItems = this.createCoulombListItems( potential );
     }
     else if ( potential instanceof FiniteSquarePotential ) {
-      accessibleListItems = QuantumPotentialDescriber.createFiniteSquareListItems( potential, potentialProperty );
+      accessibleListItems = this.createFiniteSquareListItems( potential );
     }
     else if ( potential instanceof HarmonicOscillatorPotential ) {
-      accessibleListItems = QuantumPotentialDescriber.createHarmonicOscillatorListItems( potential, potentialProperty );
+      accessibleListItems = this.createHarmonicOscillatorListItems( potential );
     }
     else if ( potential instanceof InfiniteSquarePotential ) {
-      accessibleListItems = QuantumPotentialDescriber.createInfiniteSquareListItems( potential, potentialProperty );
+      accessibleListItems = this.createInfiniteSquareListItems( potential );
     }
     else if ( potential instanceof InfiniteStepPotential ) {
-      accessibleListItems = QuantumPotentialDescriber.createInfiniteStepListItems( potential, potentialProperty );
+      accessibleListItems = this.createInfiniteStepListItems( potential );
     }
     else if ( potential instanceof MorsePotential ) {
-      accessibleListItems = QuantumPotentialDescriber.createMorseListItems( potential, potentialProperty );
+      accessibleListItems = this.createMorseListItems( potential );
     }
     else if ( potential instanceof PoschlTellerPotential ) {
-      accessibleListItems = QuantumPotentialDescriber.createPoschlTellerListItems( potential, potentialProperty );
+      accessibleListItems = this.createPoschlTellerListItems( potential );
     }
     affirm( accessibleListItems !== null, 'unexpected potential type' );
     return accessibleListItems;
@@ -65,121 +68,112 @@ export default class QuantumPotentialDescriber {
   /**
    * Create AccessibleListItems for an Asymmetric Triangle potential. Items will be read in the order returns.
    */
-  protected static createAsymmetricTriangleListItems( potential: AsymmetricTrianglePotential,
-                                                      potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem[] {
-    const visibleProperty = QuantumPotentialDescriber.createAccessibleListItemVisibleProperty( potential, potentialProperty );
+  protected createAsymmetricTriangleListItems( potential: AsymmetricTrianglePotential ): AccessibleListItem[] {
+    const visibleProperty = this.createAccessibleListItemVisibleProperty( potential );
     return [
-      QuantumPotentialDescriber.createEnergyOffsetListItem( potential.yOffsetProperty, potential, potentialProperty ),
-      QuantumPotentialDescriber.createWellWidthListItem( potential.wellWidthProperty, visibleProperty ),
-      QuantumPotentialDescriber.createWellDepthListItem( potential.wellDepthProperty, visibleProperty )
+      this.createEnergyOffsetListItem( potential.yOffsetProperty, potential ),
+      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty ),
+      this.createWellDepthListItem( potential.wellDepthProperty, visibleProperty )
     ];
   }
 
   /**
    * Create AccessibleListItems for a Coulomb potential. Items will be read in the order returns.
    */
-  protected static createCoulombListItems( potential: CoulombPotential,
-                                           potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem[] {
-    const visibleProperty = QuantumPotentialDescriber.createAccessibleListItemVisibleProperty( potential, potentialProperty );
+  protected createCoulombListItems( potential: CoulombPotential ): AccessibleListItem[] {
+    const visibleProperty = this.createAccessibleListItemVisibleProperty( potential );
     return [
-      QuantumPotentialDescriber.createEnergyOffsetListItem( potential.yOffsetProperty, potential, potentialProperty ),
-      QuantumPotentialDescriber.createWellWidthListItem( potential.wellWidthProperty, visibleProperty )
+      this.createEnergyOffsetListItem( potential.yOffsetProperty, potential ),
+      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty )
     ];
   }
 
   /**
    * Creates AccessibleListItems for a Finite Square potential. Items will be read in the order returns.
    */
-  protected static createFiniteSquareListItems( potential: FiniteSquarePotential,
-                                                potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem[] {
-    const visibleProperty = QuantumPotentialDescriber.createAccessibleListItemVisibleProperty( potential, potentialProperty );
+  protected createFiniteSquareListItems( potential: FiniteSquarePotential ): AccessibleListItem[] {
+    const visibleProperty = this.createAccessibleListItemVisibleProperty( potential );
     const separationVisibleProperty = new DerivedProperty( [ visibleProperty, potential.numberOfWellsProperty ],
       ( visible, numberOfWells ) => visible && numberOfWells > 1 );
     return [
-      QuantumPotentialDescriber.createEnergyOffsetListItem( potential.yOffsetProperty, potential, potentialProperty ),
-      QuantumPotentialDescriber.createWellWidthListItem( potential.wellWidthProperty, visibleProperty ),
-      QuantumPotentialDescriber.createWellDepthListItem( potential.wellDepthProperty, visibleProperty ),
-      QuantumPotentialDescriber.createSeparationListItem( potential.separationProperty, separationVisibleProperty )
+      this.createEnergyOffsetListItem( potential.yOffsetProperty, potential ),
+      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty ),
+      this.createWellDepthListItem( potential.wellDepthProperty, visibleProperty ),
+      this.createSeparationListItem( potential.separationProperty, separationVisibleProperty )
     ];
   }
 
   /**
    * Creates AccessibleListItems for a Harmonic Oscillator potential. Items will be read in the order returns.
    */
-  protected static createHarmonicOscillatorListItems( potential: HarmonicOscillatorPotential,
-                                                      potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem[] {
-    const visibleProperty = QuantumPotentialDescriber.createAccessibleListItemVisibleProperty( potential, potentialProperty );
+  protected createHarmonicOscillatorListItems( potential: HarmonicOscillatorPotential ): AccessibleListItem[] {
+    const visibleProperty = this.createAccessibleListItemVisibleProperty( potential );
     return [
-      QuantumPotentialDescriber.createEnergyOffsetListItem( potential.yOffsetProperty, potential, potentialProperty ),
-      QuantumPotentialDescriber.createWellWidthListItem( potential.wellWidthProperty, visibleProperty )
+      this.createEnergyOffsetListItem( potential.yOffsetProperty, potential ),
+      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty )
     ];
   }
 
   /**
    * Creates AccessibleListItems for an Infinite Square potential. Items will be read in the order returns.
    */
-  protected static createInfiniteSquareListItems( potential: InfiniteSquarePotential,
-                                                  potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem[] {
-    const visibleProperty = QuantumPotentialDescriber.createAccessibleListItemVisibleProperty( potential, potentialProperty );
+  protected createInfiniteSquareListItems( potential: InfiniteSquarePotential ): AccessibleListItem[] {
+    const visibleProperty = this.createAccessibleListItemVisibleProperty( potential );
     return [
-      QuantumPotentialDescriber.createEnergyOffsetListItem( potential.yOffsetProperty, potential, potentialProperty ),
-      QuantumPotentialDescriber.createWellWidthListItem( potential.wellWidthProperty, visibleProperty )
+      this.createEnergyOffsetListItem( potential.yOffsetProperty, potential ),
+      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty )
     ];
   }
 
   /**
    * Creates AccessibleListItems for an Infinite Step potential. Items will be read in the order returns.
    */
-  protected static createInfiniteStepListItems( potential: InfiniteStepPotential,
-                                                potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem[] {
-    const visibleProperty = QuantumPotentialDescriber.createAccessibleListItemVisibleProperty( potential, potentialProperty );
+  protected createInfiniteStepListItems( potential: InfiniteStepPotential ): AccessibleListItem[] {
+    const visibleProperty = this.createAccessibleListItemVisibleProperty( potential );
     return [
-      QuantumPotentialDescriber.createEnergyOffsetListItem( potential.yOffsetProperty, potential, potentialProperty ),
-      QuantumPotentialDescriber.createWellWidthListItem( potential.wellWidthProperty, visibleProperty ),
-      QuantumPotentialDescriber.createStepHeightListItem( potential.stepHeightProperty, visibleProperty )
+      this.createEnergyOffsetListItem( potential.yOffsetProperty, potential ),
+      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty ),
+      this.createStepHeightListItem( potential.stepHeightProperty, visibleProperty )
     ];
   }
 
   /**
    * Creates AccessibleListItems for a Morse potential. Items will be read in the order returns.
    */
-  protected static createMorseListItems( potential: MorsePotential,
-                                         potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem[] {
-    const visibleProperty = QuantumPotentialDescriber.createAccessibleListItemVisibleProperty( potential, potentialProperty );
+  protected createMorseListItems( potential: MorsePotential ): AccessibleListItem[] {
+    const visibleProperty = this.createAccessibleListItemVisibleProperty( potential );
     return [
-      QuantumPotentialDescriber.createEnergyOffsetListItem( potential.yOffsetProperty, potential, potentialProperty ),
-      QuantumPotentialDescriber.createWellWidthListItem( potential.wellWidthProperty, visibleProperty ),
-      QuantumPotentialDescriber.createWellDepthListItem( potential.wellDepthProperty, visibleProperty )
+      this.createEnergyOffsetListItem( potential.yOffsetProperty, potential ),
+      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty ),
+      this.createWellDepthListItem( potential.wellDepthProperty, visibleProperty )
     ];
   }
 
   /**
    * Creates AccessibleListItems for a Poschl-Teller potential. Items will be read in the order returns.
    */
-  protected static createPoschlTellerListItems( potential: PoschlTellerPotential,
-                                                potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem[] {
-    const visibleProperty = QuantumPotentialDescriber.createAccessibleListItemVisibleProperty( potential, potentialProperty );
+  protected createPoschlTellerListItems( potential: PoschlTellerPotential ): AccessibleListItem[] {
+    const visibleProperty = this.createAccessibleListItemVisibleProperty( potential );
     const spacingVisibleProperty = new DerivedProperty( [ visibleProperty, potential.numberOfWellsProperty ],
       ( visible, numberOfWells ) => visible && numberOfWells > 1 );
     return [
-      QuantumPotentialDescriber.createEnergyOffsetListItem( potential.yOffsetProperty, potential, potentialProperty ),
-      QuantumPotentialDescriber.createWellWidthListItem( potential.wellWidthProperty, visibleProperty ),
-      QuantumPotentialDescriber.createWellDepthListItem( potential.wellDepthProperty, visibleProperty ),
-      QuantumPotentialDescriber.createSpacingListItem( potential.spacingProperty, spacingVisibleProperty )
+      this.createEnergyOffsetListItem( potential.yOffsetProperty, potential ),
+      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty ),
+      this.createWellDepthListItem( potential.wellDepthProperty, visibleProperty ),
+      this.createSpacingListItem( potential.spacingProperty, spacingVisibleProperty )
     ];
   }
 
   /**
    * Creates an AccessibleListItem for a potential's energy offset.
    */
-  protected static createEnergyOffsetListItem( energyOffsetProperty: TReadOnlyProperty<number>,
-                                               potential: QuantumPotential,
-                                               potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem {
+  protected createEnergyOffsetListItem( energyOffsetProperty: TReadOnlyProperty<number>,
+                                        potential: QuantumPotential ): AccessibleListItem {
     return {
       stringProperty: QuantumBoundStatesFluent.a11y.potentials.accessibleTemplate.listItems.energyOffset.createProperty( {
         energyOffset: energyOffsetProperty.derived( energy => toFixed( energy, QBSConstants.Y_OFFSET_DECIMAL_PLACES ) )
       } ),
-      visibleProperty: new DerivedProperty( [ potentialProperty ],
+      visibleProperty: new DerivedProperty( [ this.potentialProperty ],
         thatPotential => ( thatPotential === potential ) && potential.yOffsetProperty.range.getLength() !== 0 )
     };
   }
@@ -187,11 +181,12 @@ export default class QuantumPotentialDescriber {
   /**
    * Creates an AccessibleListItem for a potential's well width.
    */
-  protected static createWellWidthListItem( wellWidthProperty: TReadOnlyProperty<number>,
-                                            visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
+  protected createWellWidthListItem( wellWidthProperty: TReadOnlyProperty<number>,
+                                     wellWidthDecimalPlaces: number,
+                                     visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
     return {
       stringProperty: QuantumBoundStatesFluent.a11y.potentials.accessibleTemplate.listItems.width.createProperty( {
-        width: wellWidthProperty.derived( wellWidth => toFixed( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) )
+        width: wellWidthProperty.derived( wellWidth => toFixed( wellWidth, wellWidthDecimalPlaces ) )
       } ),
       visibleProperty: visibleProperty
     };
@@ -200,8 +195,8 @@ export default class QuantumPotentialDescriber {
   /**
    * Creates an AccessibleListItem for a potential's well depth.
    */
-  protected static createWellDepthListItem( wellDepthProperty: TReadOnlyProperty<number>,
-                                            visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
+  protected createWellDepthListItem( wellDepthProperty: TReadOnlyProperty<number>,
+                                     visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
     return {
       stringProperty: QuantumBoundStatesFluent.a11y.potentials.accessibleTemplate.listItems.depth.createProperty( {
         depth: wellDepthProperty.derived( wellDepth => toFixed( wellDepth, QBSConstants.WELL_DEPTH_DECIMAL_PLACES ) )
@@ -213,8 +208,8 @@ export default class QuantumPotentialDescriber {
   /**
    * Creates an AccessibleListItem for a Finite Square potential's separation.'
    */
-  protected static createSeparationListItem( separationProperty: TReadOnlyProperty<number>,
-                                             visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
+  protected createSeparationListItem( separationProperty: TReadOnlyProperty<number>,
+                                      visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
     return {
       stringProperty: QuantumBoundStatesFluent.a11y.potentials.accessibleTemplate.listItems.separation.createProperty( {
         separation: separationProperty.derived( separation => toFixed( separation, QBSConstants.SEPARATION_DECIMAL_PLACES ) )
@@ -226,8 +221,8 @@ export default class QuantumPotentialDescriber {
   /**
    * Creates an AccessibleListItem for a Poschl-Teller potential's spacing.'
    */
-  protected static createSpacingListItem( spacingProperty: TReadOnlyProperty<number>,
-                                          visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
+  protected createSpacingListItem( spacingProperty: TReadOnlyProperty<number>,
+                                   visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
     return {
       stringProperty: QuantumBoundStatesFluent.a11y.potentials.accessibleTemplate.listItems.spacing.createProperty( {
         spacing: spacingProperty.derived( spacing => toFixed( spacing, QBSConstants.SPACING_DECIMAL_PLACES ) )
@@ -239,8 +234,8 @@ export default class QuantumPotentialDescriber {
   /**
    * Creates an AccessibleListItem for an Infinite Step potential's step height.'
    */
-  protected static createStepHeightListItem( stepHeightProperty: TReadOnlyProperty<number>,
-                                             visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
+  protected createStepHeightListItem( stepHeightProperty: TReadOnlyProperty<number>,
+                                      visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
     return {
       stringProperty: QuantumBoundStatesFluent.a11y.potentials.accessibleTemplate.listItems.stepHeight.createProperty( {
         stepHeight: stepHeightProperty.derived( stepHeight => toFixed( stepHeight, QBSConstants.STEP_HEIGHT_DECIMAL_PLACES ) )
@@ -253,8 +248,7 @@ export default class QuantumPotentialDescriber {
    * Creates the visibleProperty that determines whether an AccessibleListItem should be visible. The default is
    * to show the AccessibleListItem when the potentialProperty is selected.
    */
-  protected static createAccessibleListItemVisibleProperty( potential: QuantumPotential,
-                                                            potentialProperty: TReadOnlyProperty<QuantumPotential> ): TReadOnlyProperty<boolean> {
-    return potentialProperty.derived( thatPotential => potential === thatPotential );
+  protected createAccessibleListItemVisibleProperty( potential: QuantumPotential ): TReadOnlyProperty<boolean> {
+    return this.potentialProperty.derived( thatPotential => potential === thatPotential );
   }
 }

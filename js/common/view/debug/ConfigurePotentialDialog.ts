@@ -10,7 +10,7 @@
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import { combineOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import VBox, { VBoxOptions } from '../../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
@@ -27,18 +27,30 @@ type SelfOptions = {
   yOffsetProperty: NumberProperty;
 
   // optional
-  wellWidthProperty?: NumberProperty;
-  wellDepthProperty?: NumberProperty;
-  stepHeightProperty?: NumberProperty;
-  separationProperty?: NumberProperty;
-  spacingProperty?: NumberProperty;
+  wellWidthProperty?: NumberProperty | null;
+  wellWidthDecimalPlaces?: number;
+  wellDepthProperty?: NumberProperty | null;
+  stepHeightProperty?: NumberProperty | null;
+  separationProperty?: NumberProperty | null;
+  spacingProperty?: NumberProperty | null;
 };
 
 export type ConfigureQuantumPotentialDialogOptions = SelfOptions;
 
 export default class ConfigurePotentialDialog extends Dialog {
 
-  protected constructor( titleString: string, time: QBSTime, options: ConfigureQuantumPotentialDialogOptions ) {
+  protected constructor( titleString: string, time: QBSTime, providedOptions: ConfigureQuantumPotentialDialogOptions ) {
+
+    const options = optionize<ConfigureQuantumPotentialDialogOptions, SelfOptions>()( {
+
+      // SelfOptions
+      wellWidthProperty: null,
+      wellWidthDecimalPlaces: QBSConstants.WELL_WIDTH_DECIMAL_PLACES,
+      wellDepthProperty: null,
+      stepHeightProperty: null,
+      separationProperty: null,
+      spacingProperty: null
+    }, providedOptions );
 
     const controls: Node[] = [];
 
@@ -51,7 +63,7 @@ export default class ConfigurePotentialDialog extends Dialog {
     }
 
     if ( options.wellWidthProperty && options.wellWidthProperty.range.getLength() > 0 ) {
-      controls.push( new PotentialPropertyControl( 'wellWidthProperty', options.wellWidthProperty, QBSConstants.WELL_WIDTH_DECIMAL_PLACES, time ) );
+      controls.push( new PotentialPropertyControl( 'wellWidthProperty', options.wellWidthProperty, options.wellWidthDecimalPlaces, time ) );
     }
 
     if ( options.wellDepthProperty && options.wellDepthProperty.range.getLength() > 0 ) {

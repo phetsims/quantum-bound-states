@@ -79,8 +79,8 @@ export default class QBSConstants {
   public static readonly ELECTRON_MASSES_DECIMAL_PLACES = 2;
   public static readonly X_DECIMAL_PLACES = 2;
   public static readonly ELECTRIC_FIELD_DECIMAL_PLACES = 1;
-  //TODO In the Java version, WELL_WIDTH_DECIMAL_PLACES = 2 for Many Wells screen.
   public static readonly WELL_WIDTH_DECIMAL_PLACES = 1;
+  public static readonly WELL_WIDTH_DECIMAL_PLACES_MANY_WELLS = 2;
   public static readonly WELL_DEPTH_DECIMAL_PLACES = 1;
   public static readonly STEP_HEIGHT_DECIMAL_PLACES = 1;
   public static readonly SEPARATION_DECIMAL_PLACES = 2;

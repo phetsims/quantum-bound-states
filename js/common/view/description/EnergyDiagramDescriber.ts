@@ -20,10 +20,12 @@ import QuantumPotentialDescriber from './QuantumPotentialDescriber.js';
 export default class EnergyDiagramDescriber {
 
   private readonly model: QBSModel;
+  private readonly quantumPotentialDescriber: QuantumPotentialDescriber;
 
   //TODO Eliminate coupling to QBSModel? Or is that OK/necessary for description?
   public constructor( model: QBSModel ) {
     this.model = model;
+    this.quantumPotentialDescriber = new QuantumPotentialDescriber( model.potentialProperty );
   }
 
   /**
@@ -70,9 +72,7 @@ export default class EnergyDiagramDescriber {
     }
 
     // Potentials
-    this.model.potentials.forEach( potential => {
-      listItems.push( ...QuantumPotentialDescriber.createAccessibleListItems( potential, this.model.potentialProperty ) );
-    } );
+    this.model.potentials.forEach( potential => listItems.push( ...this.quantumPotentialDescriber.createAccessibleListItems( potential ) ) );
 
     // Selected energy level
     listItems.push( {
