@@ -103,8 +103,10 @@ export default class XGrid extends PhetioObject {
  * @author WebStorm AI Assistant
  */
 function findClosestIndex( array: readonly number[], targetValue: number ): number {
-  affirm( array.length > 0, 'Array must have at least one element' );
-  affirm( targetValue >= array[ 0 ] && targetValue <= array[ array.length - 1 ], `Target value out of range: ${targetValue}` );
+  if ( isAffirmEnabled() ) {
+    affirm( array.length > 0, 'Array must have at least one element' );
+    affirm( targetValue >= array[ 0 ] && targetValue <= array[ array.length - 1 ], `Target value out of range: ${targetValue}` );
+  }
 
   let lowIndex = 0;
   let highIndex = array.length - 1;
