@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import Multilink from '../../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import Shape from '../../../../../kite/js/Shape.js';
@@ -17,7 +16,6 @@ import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
@@ -26,7 +24,6 @@ import QBSTime from '../QBSTime.js';
 import HarmonicOscillatorSolution from '../solver/analytical-solutions/HarmonicOscillatorSolution.js';
 import { BoundStateResult } from '../solver/BoundStateResult.js';
 import XGrid from '../solver/XGrid.js';
-import { electronVoltsPerNanometerSquaredUnit } from '../units/electronVoltsPerNanometerSquaredUnit.js';
 import { inverseFemtosecondsUnit } from '../units/inverseFemtosecondsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
@@ -40,9 +37,6 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
   // This is the y-coordinate where well width is measured, in eV above yOffset.
   public static readonly WIDTH_HANDLE_ENERGY = 4;
-
-  // Spring constant in eV/nm^2.
-  private readonly springConstantProperty: TReadOnlyProperty<number>;
 
   // Angular frequency in fs^-1.
   public readonly angularFrequencyProperty: TReadOnlyProperty<number>;
@@ -60,27 +54,6 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
     super( options );
 
-    /**
-     * Derive the spring constant from wellWidth at a fixed energy E = WIDTH_HANDLE_ENERGY above the well minimum.
-     *
-     *  At the turning point: (1/2) k x_tp² = E
-     *    → x_tp = sqrt(2E / k)
-     *  The full classical width w is the distance between the two turning points:
-     *    → w = 2 x_tp = 2 sqrt(2E / k)
-     *
-     *  Inverting for k:
-     *    k = 2E / x_tp² = 8E / w²
-     */
-    this.springConstantProperty = new DerivedProperty( [ this.wellWidthProperty ],
-      wellWidth => {
-        return ( 8 * HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY ) / ( wellWidth * wellWidth );
-      }, {
-        units: electronVoltsPerNanometerSquaredUnit,
-        tandem: options.tandem.createTandem( 'springConstantProperty' ),
-        phetioValueType: NumberIO,
-        phetioFeatured: true
-      } );
-
     // Calculate the angular frequency: ω = (2/width)*sqrt(2E/m)
     this.angularFrequencyProperty = new DerivedProperty( [ this.wellWidthProperty, electronMassesProperty ],
       ( wellWidth, electronMasses ) => {
@@ -97,14 +70,6 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
         phetioValueType: NumberIO,
         phetioFeatured: true
       } );
-
-    // Changes to Properties instantiated by this class trigger notification.
-    //TODO Duplicate work is being done here because solveBoundState uses springConstantProperty instead of wellWidthProperty.
-    Multilink.multilink( [ this.springConstantProperty ], () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.changedEmitter.emit();
-      }
-    } );
   }
 
   public override toString(): string {
@@ -129,7 +94,8 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
       numberOfWells: this.numberOfWellsProperty.value,
       xOffset: this.xOffsetProperty.value,
       yOffset: this.yOffsetProperty.value,
-      springConstant: this.springConstantProperty.value,
+      wellWidth: this.wellWidthProperty.value,
+      energyAtWellWidth: HarmonicOscillatorPotential.WIDTH_HANDLE_ENERGY,
       electricField: this.electricFieldProperty.value,
       electronMasses: this.electronMassesProperty.value,
       energyMin: this.getMinSolverEnergy(),

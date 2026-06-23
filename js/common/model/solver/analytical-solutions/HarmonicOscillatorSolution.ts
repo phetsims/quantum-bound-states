@@ -29,7 +29,8 @@ type PotentialParameters = {
   numberOfWells: number;
   xOffset: number; // Horizontal position x₀ of the singularity in nm
   yOffset: number; // Constant energy shift y₀ in eV
-  springConstant: number; // Spring constant k in eV/nm²
+  wellWidth: number; // Width of the well L in nm
+  energyAtWellWidth: number; // Energy at the position where well width is measured, in eV
   electricField: number; // Electric field in V/nm
 };
 
@@ -53,9 +54,11 @@ export default class HarmonicOscillatorSolution {
   public static createPotentialFunction( parameters: PotentialParameters ): PotentialFunction {
 
     // Unpack parameters
-    const { numberOfWells, xOffset, yOffset, springConstant, electricField } = parameters;
+    const { numberOfWells, xOffset, yOffset, wellWidth, energyAtWellWidth, electricField } = parameters;
     affirm( numberOfWells === 1, 'HarmonicOscillatorSolution does not support multiple wells' );
     affirm( electricField === 0, 'HarmonicOscillatorSolution does not support electric field' );
+
+    const springConstant = computeSpringConstant( wellWidth, energyAtWellWidth );
 
     return ( x: number ) => {
       const dx = x - xOffset;
@@ -70,10 +73,11 @@ export default class HarmonicOscillatorSolution {
   public static solve( xGrid: XGrid, parameters: SolveParameters ): BoundStateResult {
 
     // Unpack parameters
-    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, springConstant, electronMasses, electricField } = parameters;
+    const { numberOfWells, energyMin, energyMax, xOffset, yOffset, wellWidth, energyAtWellWidth, electronMasses, electricField } = parameters;
     affirm( numberOfWells === 1, 'HarmonicOscillatorSolution does not support multiple wells' );
     affirm( electricField === 0, 'HarmonicOscillatorSolution does not support electric field' );
 
+    const springConstant = computeSpringConstant( wellWidth, energyAtWellWidth );
     const omega = Math.sqrt( springConstant / electronMasses );
 
     // Calculate energies: E_n = ℏω(n + 1/2) + y₀ for n = 0, 1, 2, ...
@@ -112,7 +116,7 @@ export default class HarmonicOscillatorSolution {
 
       for ( const x of xGrid.xCoordinates ) {
         const xi = alpha * ( x - xOffset );
-        const hermite = HarmonicOscillatorSolution.hermitePolynomial( n, xi );
+        const hermite = hermitePolynomial( n, xi );
         const value = normalization * Math.exp( ( -xi * xi ) / 2 ) * hermite;
         waveFunction.push( value );
       }
@@ -123,7 +127,8 @@ export default class HarmonicOscillatorSolution {
       numberOfWells: numberOfWells,
       xOffset: xOffset,
       yOffset: yOffset,
-      springConstant: springConstant,
+      wellWidth: wellWidth,
+      energyAtWellWidth: energyAtWellWidth,
       electricField: electricField
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
@@ -135,22 +140,41 @@ export default class HarmonicOscillatorSolution {
       method: 'analytical'
     };
   }
+}
 
-  /**
-   * Calculates the Hermite polynomial H_n(x) using the recurrence relation:
-   * H_0(x) = 1, H_1(x) = 2x, H_{n+1}(x) = 2x·H_n(x) − 2n·H_{n−1}(x)
-   */
-  private static hermitePolynomial( n: number, x: number ): number {
-    if ( n === 0 ) { return 1; }
-    if ( n === 1 ) { return 2 * x; }
 
-    let hPrev = 1;
-    let hCurr = 2 * x;
-    for ( let i = 1; i < n; i++ ) {
-      const hNext = 2 * x * hCurr - 2 * i * hPrev;
-      hPrev = hCurr;
-      hCurr = hNext;
-    }
-    return hCurr;
+/**
+ * Calculates the Hermite polynomial H_n(x) using the recurrence relation:
+ * H_0(x) = 1, H_1(x) = 2x, H_{n+1}(x) = 2x·H_n(x) − 2n·H_{n−1}(x)
+ */
+function hermitePolynomial( n: number, x: number ): number {
+  if ( n === 0 ) { return 1; }
+  if ( n === 1 ) { return 2 * x; }
+
+  let hPrev = 1;
+  let hCurr = 2 * x;
+  for ( let i = 1; i < n; i++ ) {
+    const hNext = 2 * x * hCurr - 2 * i * hPrev;
+    hPrev = hCurr;
+    hCurr = hNext;
   }
+  return hCurr;
+}
+
+/**
+ * Derive the spring constant from wellWidth at a fixed energy E = WIDTH_HANDLE_ENERGY above the well minimum.
+ *
+ *  At the turning point: (1/2) k x_tp² = E
+ *    → x_tp = sqrt(2E / k)
+ *  The full classical width w is the distance between the two turning points:
+ *    → w = 2 x_tp = 2 sqrt(2E / k)
+ *
+ *  Inverting for k:
+ *    k = 2E / x_tp² = 8E / w²
+ *
+ *  @param wellWidth - width of the well in nm
+ *  @returns spring constant in eV/nm^2
+ */
+function computeSpringConstant( wellWidth: number, energyAtWellWidth: number ): number {
+  return ( 8 * energyAtWellWidth ) / ( wellWidth * wellWidth );
 }
