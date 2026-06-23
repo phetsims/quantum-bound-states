@@ -14,7 +14,7 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
-import affirm, { affirmCallback } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { affirmCallback, isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { electronVoltsUnit } from '../../../../scenery-phet/js/units/electronVoltsUnit.js';
@@ -443,14 +443,16 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStat
   const result = potential.solveBoundState( xGrid );
 
   // Validate the result.
-  affirm( result.potentials.length === xGrid.xCoordinates.length &&
-          result.energies.length > 0 &&
-          result.waveFunctions.length === result.energies.length,
-    `Invalid BoundStateResult for ${potential.toString()}\n` +
-    `  xGrid.length = ${xGrid.xCoordinates.length}\n` +
-    `  potentials.length = ${result.potentials.length}\n` +
-    `  energies.length = ${result.energies.length}\n` +
-    `  waveFunctions.length = ${result.waveFunctions.length}` );
+  if ( isAffirmEnabled() ) {
+    affirm( result.potentials.length === xGrid.xCoordinates.length &&
+            result.energies.length > 0 &&
+            result.waveFunctions.length === result.energies.length,
+      `Invalid BoundStateResult for ${potential.toString()}\n` +
+      `  xGrid.length = ${xGrid.xCoordinates.length}\n` +
+      `  potentials.length = ${result.potentials.length}\n` +
+      `  energies.length = ${result.energies.length}\n` +
+      `  waveFunctions.length = ${result.waveFunctions.length}` );
+  }
 
   return result;
 }
