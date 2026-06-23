@@ -13,11 +13,7 @@ import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 export default class ConfigureMorseDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: MorsePotential, time: QBSTime ) {
-
-    super( 'Morse', time, {
-      xOffsetProperty: potential.xOffsetProperty,
-      yOffsetProperty: potential.yOffsetProperty,
-      wellWidthProperty: potential.wellWidthProperty,
+    super( 'Morse', potential, time, {
       wellDepthProperty: potential.wellDepthProperty
     } );
   }

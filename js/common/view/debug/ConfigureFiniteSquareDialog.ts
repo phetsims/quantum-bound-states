@@ -13,12 +13,7 @@ import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 export default class ConfigureFiniteSquareDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: FiniteSquarePotential, time: QBSTime ) {
-
-    super( 'Finite Square', time, {
-      xOffsetProperty: potential.xOffsetProperty,
-      yOffsetProperty: potential.yOffsetProperty,
-      wellWidthProperty: potential.wellWidthProperty,
-      wellWidthDecimalPlaces: potential.wellWidthDecimalPlaces,
+    super( 'Finite Square', potential, time, {
       wellDepthProperty: potential.wellDepthProperty,
       separationProperty: potential.separationProperty
     } );

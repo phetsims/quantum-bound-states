@@ -16,19 +16,12 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../../sun/js/Dialog.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
+import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSTime from '../../model/QBSTime.js';
 import QBSConstants from '../../QBSConstants.js';
 import PotentialPropertyControl from './PotentialPropertyControl.js';
 
 type SelfOptions = {
-
-  // required
-  xOffsetProperty: NumberProperty;
-  yOffsetProperty: NumberProperty;
-
-  // optional
-  wellWidthProperty?: NumberProperty | null;
-  wellWidthDecimalPlaces?: number;
   wellDepthProperty?: NumberProperty | null;
   stepHeightProperty?: NumberProperty | null;
   separationProperty?: NumberProperty | null;
@@ -39,13 +32,11 @@ export type ConfigureQuantumPotentialDialogOptions = SelfOptions;
 
 export default class ConfigurePotentialDialog extends Dialog {
 
-  protected constructor( titleString: string, time: QBSTime, providedOptions: ConfigureQuantumPotentialDialogOptions ) {
+  protected constructor( titleString: string, potential: QuantumPotential, time: QBSTime, providedOptions?: ConfigureQuantumPotentialDialogOptions ) {
 
     const options = optionize<ConfigureQuantumPotentialDialogOptions, SelfOptions>()( {
 
       // SelfOptions
-      wellWidthProperty: null,
-      wellWidthDecimalPlaces: QBSConstants.WELL_WIDTH_DECIMAL_PLACES,
       wellDepthProperty: null,
       stepHeightProperty: null,
       separationProperty: null,
@@ -54,16 +45,16 @@ export default class ConfigurePotentialDialog extends Dialog {
 
     const controls: Node[] = [];
 
-    if ( options.xOffsetProperty && options.xOffsetProperty.range.getLength() > 0 ) {
-      controls.push( new PotentialPropertyControl( 'xOffsetProperty', options.xOffsetProperty, QBSConstants.X_OFFSET_DECIMAL_PLACES, time ) );
+    if ( potential.xOffsetProperty.range.getLength() > 0 ) {
+      controls.push( new PotentialPropertyControl( 'xOffsetProperty', potential.xOffsetProperty, QBSConstants.X_OFFSET_DECIMAL_PLACES, time ) );
     }
 
-    if ( options.yOffsetProperty.range.getLength() > 0 ) {
-      controls.push( new PotentialPropertyControl( 'yOffsetProperty', options.yOffsetProperty, QBSConstants.Y_OFFSET_DECIMAL_PLACES, time ) );
+    if ( potential.yOffsetProperty.range.getLength() > 0 ) {
+      controls.push( new PotentialPropertyControl( 'yOffsetProperty', potential.yOffsetProperty, QBSConstants.Y_OFFSET_DECIMAL_PLACES, time ) );
     }
 
-    if ( options.wellWidthProperty && options.wellWidthProperty.range.getLength() > 0 ) {
-      controls.push( new PotentialPropertyControl( 'wellWidthProperty', options.wellWidthProperty, options.wellWidthDecimalPlaces, time ) );
+    if ( potential.wellWidthProperty.range.getLength() > 0 ) {
+      controls.push( new PotentialPropertyControl( 'wellWidthProperty', potential.wellWidthProperty, potential.wellWidthDecimalPlaces, time ) );
     }
 
     if ( options.wellDepthProperty && options.wellDepthProperty.range.getLength() > 0 ) {

@@ -13,11 +13,7 @@ import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 export default class ConfigureInfiniteStepDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: InfiniteStepPotential, time: QBSTime ) {
-
-    super( 'Infinite Step', time, {
-      xOffsetProperty: potential.xOffsetProperty,
-      yOffsetProperty: potential.yOffsetProperty,
-      wellWidthProperty: potential.wellWidthProperty,
+    super( 'Infinite Step', potential, time, {
       stepHeightProperty: potential.stepHeightProperty
     } );
   }

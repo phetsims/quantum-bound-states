@@ -13,11 +13,6 @@ import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 export default class ConfigureCoulombDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: CoulombPotential, time: QBSTime ) {
-
-    super( 'Coulomb', time, {
-      xOffsetProperty: potential.xOffsetProperty,
-      yOffsetProperty: potential.yOffsetProperty,
-      wellWidthProperty: potential.wellWidthProperty
-    } );
+    super( 'Coulomb', potential, time );
   }
 }

@@ -13,11 +13,6 @@ import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 export default class ConfigureHarmonicOscillatorDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: HarmonicOscillatorPotential, time: QBSTime ) {
-
-    super( 'Harmonic Oscillator', time, {
-      xOffsetProperty: potential.xOffsetProperty,
-      yOffsetProperty: potential.yOffsetProperty,
-      wellWidthProperty: potential.wellWidthProperty
-    } );
+    super( 'Harmonic Oscillator', potential, time );
   }
 }

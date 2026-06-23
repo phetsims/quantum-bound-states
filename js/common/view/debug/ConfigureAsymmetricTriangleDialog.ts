@@ -13,11 +13,7 @@ import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 export default class ConfigureAsymmetricTriangleDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: AsymmetricTrianglePotential, time: QBSTime ) {
-
-    super( 'Asymmetric Triangle', time, {
-      xOffsetProperty: potential.xOffsetProperty,
-      yOffsetProperty: potential.yOffsetProperty,
-      wellWidthProperty: potential.wellWidthProperty,
+    super( 'Asymmetric Triangle', potential, time, {
       wellDepthProperty: potential.wellDepthProperty
     } );
   }

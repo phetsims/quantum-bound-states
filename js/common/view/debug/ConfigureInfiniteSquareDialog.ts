@@ -13,11 +13,6 @@ import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 export default class ConfigureInfiniteSquareDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: InfiniteSquarePotential, time: QBSTime ) {
-
-    super( 'Infinite Square', time, {
-      xOffsetProperty: potential.xOffsetProperty,
-      yOffsetProperty: potential.yOffsetProperty,
-      wellWidthProperty: potential.wellWidthProperty
-    } );
+    super( 'Infinite Square', potential, time );
   }
 }

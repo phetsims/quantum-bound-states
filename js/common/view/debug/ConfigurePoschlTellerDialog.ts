@@ -13,11 +13,7 @@ import ConfigurePotentialDialog from './ConfigurePotentialDialog.js';
 export default class ConfigurePoschlTellerDialog extends ConfigurePotentialDialog {
 
   public constructor( potential: PoschlTellerPotential, time: QBSTime ) {
-
-    super( 'Pöschl-Teller', time, {
-      xOffsetProperty: potential.xOffsetProperty,
-      yOffsetProperty: potential.yOffsetProperty,
-      wellWidthProperty: potential.wellWidthProperty,
+    super( 'Pöschl-Teller', potential, time, {
       wellDepthProperty: potential.wellDepthProperty,
       spacingProperty: potential.spacingProperty
     } );
