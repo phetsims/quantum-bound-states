@@ -21,7 +21,7 @@ import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // es
 import InfiniteStepSolution from '../solvers/analytical-solutions/InfiniteStepSolution.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
-import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
+import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {

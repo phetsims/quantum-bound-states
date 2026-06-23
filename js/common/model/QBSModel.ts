@@ -34,7 +34,7 @@ import { BoundStateResult } from './solvers/BoundStateResult.js';
 import NumerovSolver from './solvers/NumerovSolver.js';
 import XGrid from './solvers/XGrid.js';
 import { TimeEvolvedSuperposition, TimeEvolvedSuperpositionIO } from './TimeEvolvedSuperposition.js';
-import { electronVoltsUnit } from './units/electronVoltsUnit.js';
+import { electronVoltsUnit } from '../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {

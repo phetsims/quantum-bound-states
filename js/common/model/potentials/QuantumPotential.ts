@@ -25,7 +25,7 @@ import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/Re
 import QBSConstants from '../../QBSConstants.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
-import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
+import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
 
 type SelfOptions = {
 

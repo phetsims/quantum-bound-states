@@ -13,8 +13,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
-import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
+import { electronMassesUnit } from '../../../../scenery-phet/js/units/electronMassesUnit.js';
+import { voltsPerNanometerUnit } from '../../../../scenery-phet/js/units/voltsPerNanometerUnit.js';
 
 export default class TwoWellsModel extends QBSModel {
 

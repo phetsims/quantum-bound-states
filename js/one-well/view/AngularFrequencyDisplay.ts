@@ -13,7 +13,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
-import { inverseFemtosecondsUnit } from '../../common/model/units/inverseFemtosecondsUnit.js';
+import { inverseFemtosecondsUnit } from '../../../../scenery-phet/js/units/inverseFemtosecondsUnit.js';
 import QBSConstants from '../../common/QBSConstants.js';
 
 type SelfOptions = EmptySelfOptions;

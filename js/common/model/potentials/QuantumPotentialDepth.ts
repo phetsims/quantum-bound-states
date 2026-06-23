@@ -10,7 +10,7 @@ import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
-import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
+import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 // 'up' - depth is measured upward from the bottom of the well

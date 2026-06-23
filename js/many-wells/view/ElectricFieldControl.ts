@@ -14,7 +14,7 @@ import { NumberControlMajorTick } from '../../../../scenery-phet/js/NumberContro
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSTime from '../../common/model/QBSTime.js';
-import { voltsPerNanometerUnit } from '../../common/model/units/voltsPerNanometerUnit.js';
+import { voltsPerNanometerUnit } from '../../../../scenery-phet/js/units/voltsPerNanometerUnit.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QBSNumberControl, { QBSNumberControlOptions } from '../../common/view/QBSNumberControl.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';

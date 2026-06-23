@@ -15,7 +15,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSTime from '../../common/model/QBSTime.js';
-import { electronMassesUnit } from '../../common/model/units/electronMassesUnit.js';
+import { electronMassesUnit } from '../../../../scenery-phet/js/units/electronMassesUnit.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QBSNumberControl, { QBSNumberControlOptions } from '../../common/view/QBSNumberControl.js';
