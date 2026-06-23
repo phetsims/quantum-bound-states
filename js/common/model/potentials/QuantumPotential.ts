@@ -87,6 +87,8 @@ export default abstract class QuantumPotential extends PhetioObject {
 
   // Uniform width of all wells, in nm.
   public readonly wellWidthProperty: NumberProperty;
+
+  // See SelfOptions.wellWidthDecimalPlaces.
   public readonly wellWidthDecimalPlaces: number;
 
   // Fires when the quantum potential has changed and the BoundStateResult needs to be recomputed.
