@@ -103,6 +103,9 @@
   "separationPattern": {
     "value": "separation = {{value}} nm"
   },
+  "angularFrequencyPattern": {
+    "value": "ω = {{value}} fs<sup>-1</sup>"
+  },
   "mass": {
     "value": "Mass"
   },

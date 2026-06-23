@@ -52,6 +52,7 @@ type StringsType = {
   'stepHeightPatternStringProperty': LocalizedStringProperty;
   'spacingPatternStringProperty': LocalizedStringProperty;
   'separationPatternStringProperty': LocalizedStringProperty;
+  'angularFrequencyPatternStringProperty': LocalizedStringProperty;
   'massStringProperty': LocalizedStringProperty;
   'numberOfWellsStringProperty': LocalizedStringProperty;
   'electricFieldStringProperty': LocalizedStringProperty;

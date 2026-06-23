@@ -13,8 +13,8 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
-import { inverseFemtosecondsUnit } from '../../../../scenery-phet/js/units/inverseFemtosecondsUnit.js';
 import QBSConstants from '../../common/QBSConstants.js';
+import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -29,15 +29,11 @@ export class AngularFrequencyDisplay extends NumberDisplay {
         font: QBSConstants.ANGULAR_FREQUENCY_FONT
       },
       useRichText: true,
-      numberFormatter: angularFrequency => {
-        //TODO Localize string pattern?
-        return StringUtils.fillIn( 'ω = {{value}} {{units}}', ( {
-          value: toFixed( angularFrequency, QBSConstants.ANGULAR_FREQUENCY_DECIMAL_PLACES ),
-          units: inverseFemtosecondsUnit.visualSymbolStringProperty!.value
-        } ) );
-      },
+      numberFormatter: angularFrequency => StringUtils.fillIn( QuantumBoundStatesFluent.angularFrequencyPatternStringProperty, {
+        value: toFixed( angularFrequency, QBSConstants.ANGULAR_FREQUENCY_DECIMAL_PLACES )
+      } ),
       numberFormatterDependencies: [
-        inverseFemtosecondsUnit.visualSymbolStringProperty!
+        QuantumBoundStatesFluent.angularFrequencyPatternStringProperty
       ]
       //TODO core description?
     }, providedOptions );

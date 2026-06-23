@@ -370,6 +370,7 @@ const QuantumBoundStatesFluent = {
   stepHeightPatternStringProperty: _.get( QuantumBoundStatesStrings, 'stepHeightPatternStringProperty' ),
   spacingPatternStringProperty: _.get( QuantumBoundStatesStrings, 'spacingPatternStringProperty' ),
   separationPatternStringProperty: _.get( QuantumBoundStatesStrings, 'separationPatternStringProperty' ),
+  angularFrequencyPatternStringProperty: _.get( QuantumBoundStatesStrings, 'angularFrequencyPatternStringProperty' ),
   _comment_16: new FluentComment( {"comment":"Sliders","associatedKey":"mass"} ),
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
   numberOfWellsStringProperty: _.get( QuantumBoundStatesStrings, 'numberOfWellsStringProperty' ),
