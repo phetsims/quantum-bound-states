@@ -10,9 +10,7 @@ import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
 import Sim, { SimOptions } from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
-import { testSolvers } from './common/model/solver/testSolvers.js';
 import QBSConstants from './common/QBSConstants.js';
-import QBSQueryParameters from './common/QBSQueryParameters.js';
 import QBSSimulationPreferencesNode from './common/view/QBSSimulationPreferencesNode.js';
 import ManyWellsScreen from './many-wells/ManyWellsScreen.js';
 import OneWellScreen from './one-well/OneWellScreen.js';
@@ -45,9 +43,4 @@ simLauncher.launch( () => {
 
   const sim = new Sim( titleStringProperty, screens, options );
   sim.start();
-
-  // Run tests of numerical (NumerovSolver) and analytic solutions.
-  if ( QBSQueryParameters.testSolvers || QBSQueryParameters.testSolversVerbose ) {
-    testSolvers();
-  }
 } );

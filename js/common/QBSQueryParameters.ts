@@ -27,16 +27,6 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
   // private - for internal use only
   //====================================================================================================================
 
-  // Runs tests of numerical (NumerovSolver) and analytic solutions at startup. Results are logged to the browser console.
-  testSolvers: {
-    type: 'flag'
-  },
-
-  // Same as testSolvers, but with verbose logging.
-  testSolversVerbose: {
-    type: 'flag'
-  },
-
   // Number of sample points for approximating each curve
   numberOfPoints: {
     type: 'number',
