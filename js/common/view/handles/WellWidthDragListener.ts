@@ -43,7 +43,7 @@ export default class WellWidthDragListener extends PotentialDragListener<Quantum
           const modelPosition = chartTransform.viewToModelPosition( viewPosition );
           wellWidth = 2 * ( modelPosition.x - potential.xOffsetProperty.value );
         }
-        wellWidthProperty.value = wellWidthProperty.range.constrainValue( toFixedNumber( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) );
+        wellWidthProperty.value = wellWidthProperty.range.constrainValue( toFixedNumber( wellWidth, potential.wellWidthDecimalPlaces ) );
       }
     } );
   }

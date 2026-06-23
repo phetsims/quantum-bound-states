@@ -14,7 +14,6 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import CoulombPotential from '../../model/potentials/CoulombPotential.js';
 import QBSTime from '../../model/QBSTime.js';
-import QBSConstants from '../../QBSConstants.js';
 import PotentialHandleNode from './PotentialHandleNode.js';
 import WellWidthDragListener from './WellWidthDragListener.js';
 
@@ -31,7 +30,7 @@ export default class CoulombWidthHandleNode extends PotentialHandleNode<CoulombP
                       tandem: Tandem ) {
 
     const labelStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.widthPatternStringProperty, {
-      value: potential.wellWidthProperty.derived( wellWidth => toFixed( wellWidth, QBSConstants.WELL_WIDTH_DECIMAL_PLACES ) )
+      value: potential.wellWidthProperty.derived( wellWidth => toFixed( wellWidth, potential.wellWidthDecimalPlaces ) )
     } );
 
     super( potential, chartTransform, potential.wellWidthProperty, labelStringProperty, valuesVisibleProperty, {
@@ -60,7 +59,7 @@ export default class CoulombWidthHandleNode extends PotentialHandleNode<CoulombP
    */
   public override describeMoved(): void {
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.coulombWidthHandle.accessibleObjectResponse.format( {
-      width: toFixed( this.potential.wellWidthProperty.value, QBSConstants.WELL_WIDTH_DECIMAL_PLACES )
+      width: toFixed( this.potential.wellWidthProperty.value, this.potential.wellWidthDecimalPlaces )
     } ) );
   }
 }
