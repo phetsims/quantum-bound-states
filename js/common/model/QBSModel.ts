@@ -14,9 +14,10 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
-import affirm, { affirmCallback, isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { affirmCallback } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { electronVoltsUnit } from '../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
@@ -34,7 +35,6 @@ import { BoundStateResult } from './solvers/BoundStateResult.js';
 import NumerovSolver from './solvers/NumerovSolver.js';
 import XGrid from './solvers/XGrid.js';
 import { TimeEvolvedSuperposition, TimeEvolvedSuperpositionIO } from './TimeEvolvedSuperposition.js';
-import { electronVoltsUnit } from '../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
 type SelfOptions = {
@@ -443,18 +443,14 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStat
   const result = potential.solveBoundState( xGrid );
 
   // Validate the result.
-  if ( isAffirmEnabled() ) {
-    affirm( result.potentials.length > 0 &&
-            result.potentials.length === xGrid.xCoordinates.length &&
-            result.energies.length > 0 &&
-            result.waveFunctions.length > 0 &&
-            result.energies.length === result.waveFunctions.length,
-      `Invalid BoundStateResult for ${potential.toString()}\n` +
-      `  xGrid.length = ${xGrid.xCoordinates.length}\n` +
-      `  potentials.length = ${result.potentials.length}\n` +
-      `  energies.length = ${result.energies.length}\n` +
-      `  waveFunctions.length = ${result.waveFunctions.length}` );
-  }
+  affirm( result.potentials.length === xGrid.xCoordinates.length &&
+          result.energies.length > 0 &&
+          result.waveFunctions.length === result.energies.length,
+    `Invalid BoundStateResult for ${potential.toString()}\n` +
+    `  xGrid.length = ${xGrid.xCoordinates.length}\n` +
+    `  potentials.length = ${result.potentials.length}\n` +
+    `  energies.length = ${result.energies.length}\n` +
+    `  waveFunctions.length = ${result.waveFunctions.length}` );
 
   return result;
 }
