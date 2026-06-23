@@ -20,7 +20,7 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 
 // The separation handle will be placed this many eV above the potential's energy offset.
 // Vertical marker lines indicate where the separation is measured.
-const ENERGY_OFFSET = 3; // eV
+const ENERGY_OFFSET = 1; // eV
 
 export default class PoschlTellerSpacingHandleNode extends PotentialHandleNode<PoschlTellerPotential> {
 
