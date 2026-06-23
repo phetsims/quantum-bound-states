@@ -52,21 +52,14 @@ export default class NumberOfWellsControl extends QBSNumberControl {
 }
 
 /**
- * Creates a major tick at min/max and specific intervals.
+ * Creates major ticks for this control.
  */
 function createMajorTicks( range: Range ): NumberControlMajorTick[] {
-
-  const TICK_INTERVAL = 5;
-
-  const majorTicks: NumberControlMajorTick[] = [];
-  for ( let i = range.min; i <= range.max; i++ ) {
-    if ( i === range.min || i === range.max || i % TICK_INTERVAL === 0 ) {
-      majorTicks.push( {
-        value: i,
-        label: new Text( i, QBSConstants.TICK_TEXT_OPTIONS )
-      } );
-    }
-  }
-
-  return majorTicks;
+  const majorTickValues = [ range.min, range.max ];
+  return majorTickValues.map( value => {
+    return {
+      value: value,
+      label: new Text( value, QBSConstants.TICK_TEXT_OPTIONS )
+    };
+  } );
 }
