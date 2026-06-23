@@ -20,6 +20,8 @@ import PotentialHandleNode from './PotentialHandleNode.js';
 
 // The separation handle will be placed this many eV above the potential's energy offset.
 // Vertical marker lines indicate where the separation is measured.
+// This specific value was chosen so that the separation handle is higher than the well width handle,
+// in order to minimize overlap. See https://github.com/phetsims/quantum-bound-states/issues/90.
 const ENERGY_OFFSET = 2.75; // eV
 
 export default class FiniteSquareSeparationHandleNode extends PotentialHandleNode<FiniteSquarePotential> {
