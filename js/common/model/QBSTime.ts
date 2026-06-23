@@ -12,10 +12,10 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import { femtosecondsUnit } from '../../../../scenery-phet/js/units/femtosecondsUnit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { femtosecondsUnit } from './units/femtosecondsUnit.js';
 
 // Time steps for each time speed.
 const TIME_STEP_VALUES = [ 0.01, 0.1, 1, 10, 100 ];

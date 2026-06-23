@@ -10,10 +10,10 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
+import { femtosecondsUnit } from '../../../../scenery-phet/js/units/femtosecondsUnit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSTime from '../model/QBSTime.js';
-import { femtosecondsUnit } from '../model/units/femtosecondsUnit.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
