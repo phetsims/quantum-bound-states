@@ -22,9 +22,9 @@ export default class ManyWellsModel extends QBSModel {
 
   public constructor( tandem: Tandem ) {
 
-    const numberOfWellsProperty = new NumberProperty( 5, {
+    const numberOfWellsProperty = new NumberProperty( 3, {
       numberType: 'Integer',
-      range: new Range( 1, 10 ),
+      range: new Range( 1, 8 ),
       tandem: tandem.createTandem( 'numberOfWellsProperty' ),
       phetioFeatured: true
     } );
@@ -54,8 +54,8 @@ export default class ManyWellsModel extends QBSModel {
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
         wellWidthRange: new RangeWithValue( 0.1, 0.5, 0.5 ),
-        wellDepthRange: new RangeWithValue( 5, 20, 10 ),
-        separationRange: new RangeWithValue( 0.05, 0.2, 0.1 ),
+        wellDepthRange: new RangeWithValue( 5, 15, 10 ),
+        separationRange: new RangeWithValue( 0.05, 0.25, 0.1 ),
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new PoschlTellerPotential( {
