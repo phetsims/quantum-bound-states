@@ -15,9 +15,9 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import InfiniteSquareSolution from '../solver/analytical-solutions/InfiniteSquareSolution.js';
-import { BoundStateResult } from '../solver/BoundStateResult.js';
-import XGrid from '../solver/XGrid.js';
+import InfiniteSquareSolution from '../solvers/analytical-solutions/InfiniteSquareSolution.js';
+import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import XGrid from '../solvers/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = EmptySelfOptions;

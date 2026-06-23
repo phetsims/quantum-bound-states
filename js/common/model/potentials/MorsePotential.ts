@@ -18,9 +18,9 @@ import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
-import MorseSolution from '../solver/analytical-solutions/MorseSolution.js';
-import { BoundStateResult } from '../solver/BoundStateResult.js';
-import XGrid from '../solver/XGrid.js';
+import MorseSolution from '../solvers/analytical-solutions/MorseSolution.js';
+import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import XGrid from '../solvers/XGrid.js';
 import { QuantumPotentialOptions } from './QuantumPotential.js';
 import QuantumPotentialDepth, { QuantumPotentialDepthOptions } from './QuantumPotentialDepth.js';
 

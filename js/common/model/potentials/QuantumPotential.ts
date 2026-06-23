@@ -23,8 +23,8 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/Phet
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
 import QBSConstants from '../../QBSConstants.js';
-import { BoundStateResult } from '../solver/BoundStateResult.js';
-import XGrid from '../solver/XGrid.js';
+import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import XGrid from '../solvers/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 
 type SelfOptions = {

@@ -19,10 +19,10 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import FiniteSquareSolution from '../solver/analytical-solutions/FiniteSquareSolution.js';
-import { BoundStateResult } from '../solver/BoundStateResult.js';
-import NumerovSolver from '../solver/NumerovSolver.js';
-import XGrid from '../solver/XGrid.js';
+import FiniteSquareSolution from '../solvers/analytical-solutions/FiniteSquareSolution.js';
+import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import NumerovSolver from '../solvers/NumerovSolver.js';
+import XGrid from '../solvers/XGrid.js';
 import QuantumPotentialDepth, { QuantumPotentialDepthOptions } from './QuantumPotentialDepth.js';
 
 type SelfOptions = {

@@ -23,10 +23,10 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
-import PoschlTellerSolution from '../solver/analytical-solutions/PoschlTellerSolution.js';
-import { BoundStateResult } from '../solver/BoundStateResult.js';
-import NumerovSolver from '../solver/NumerovSolver.js';
-import XGrid from '../solver/XGrid.js';
+import PoschlTellerSolution from '../solvers/analytical-solutions/PoschlTellerSolution.js';
+import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import NumerovSolver from '../solvers/NumerovSolver.js';
+import XGrid from '../solvers/XGrid.js';
 import QuantumPotentialDepth, { QuantumPotentialDepthOptions } from './QuantumPotentialDepth.js';
 
 type SelfOptions = {

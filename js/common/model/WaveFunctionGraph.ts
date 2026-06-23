@@ -16,7 +16,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
-import XGrid from './solver/XGrid.js';
+import XGrid from './solvers/XGrid.js';
 import { TimeEvolvedSuperposition } from './TimeEvolvedSuperposition.js';
 
 export default class WaveFunctionGraph extends QuantumStateGraph {

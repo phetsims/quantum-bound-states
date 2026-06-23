@@ -18,9 +18,9 @@ import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhet
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
-import InfiniteStepSolution from '../solver/analytical-solutions/InfiniteStepSolution.js';
-import { BoundStateResult } from '../solver/BoundStateResult.js';
-import XGrid from '../solver/XGrid.js';
+import InfiniteStepSolution from '../solvers/analytical-solutions/InfiniteStepSolution.js';
+import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import XGrid from '../solvers/XGrid.js';
 import { electronVoltsUnit } from '../units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 

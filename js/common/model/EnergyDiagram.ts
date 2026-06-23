@@ -17,7 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../QBSConstants.js';
 import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
-import XGrid from './solver/XGrid.js';
+import XGrid from './solvers/XGrid.js';
 
 export default class EnergyDiagram extends PhetioObject {
 

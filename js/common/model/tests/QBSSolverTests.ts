@@ -49,10 +49,10 @@
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../QBSConstants.js';
-import PoschlTellerSolution from '../solver/analytical-solutions/PoschlTellerSolution.js';
-import NumerovSolver from '../solver/NumerovSolver.js';
+import PoschlTellerSolution from '../solvers/analytical-solutions/PoschlTellerSolution.js';
+import NumerovSolver from '../solvers/NumerovSolver.js';
 import { allFinite, assertWaveFunctionContinuity, assertWaveFunctionDerivativeContinuity, computeNorm, computeOverlap, countNodes, waveFunctionRMSError } from './QBSSolverTestUtils.js';
-import XGrid from '../solver/XGrid.js';
+import XGrid from '../solvers/XGrid.js';
 
 const HBAR = NumerovSolver.HBAR;
 
