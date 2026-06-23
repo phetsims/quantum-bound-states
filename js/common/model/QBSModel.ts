@@ -444,11 +444,16 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStat
 
   // Validate the result.
   if ( isAffirmEnabled() ) {
-    affirm( result.potentials.length > 0, 'BoundStateResult has no potentials: ' + potential.toString() );
-    affirm( result.potentials.length === xGrid.xCoordinates.length, `BoundStateResult has the wrong number of potentials, ${result.potentials.length} != ${xGrid.xCoordinates.length}: ` + potential.toString() );
-    affirm( result.energies.length > 0, 'BoundStateResult has no energies: ' + potential.toString() );
-    affirm( result.waveFunctions.length > 0, 'BoundStateResult has no waveFunctions: ' + potential.toString() );
-    affirm( result.energies.length === result.waveFunctions.length, 'BoundStateResult does not have a wave function for each energy: ' + potential.toString() );
+    affirm( result.potentials.length > 0 &&
+            result.potentials.length === xGrid.xCoordinates.length &&
+            result.energies.length > 0 &&
+            result.waveFunctions.length > 0 &&
+            result.energies.length === result.waveFunctions.length,
+      `Invalid BoundStateResult for ${potential.toString()}\n` +
+      `  xGrid.length = ${xGrid.xCoordinates.length}\n` +
+      `  potentials.length = ${result.potentials.length}\n` +
+      `  energies.length = ${result.energies.length}\n` +
+      `  waveFunctions.length = ${result.waveFunctions.length}` );
   }
 
   return result;
