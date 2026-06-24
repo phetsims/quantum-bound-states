@@ -444,7 +444,6 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStat
 
   const result = potential.solveBoundState( xGrid );
 
-  // Validate the result.
   if ( isAffirmEnabled() ) {
     affirm( result.potentials.length === xGrid.xCoordinates.length &&
             result.energies.length > 0 &&
@@ -454,6 +453,15 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStat
       `  potentials.length = ${result.potentials.length}\n` +
       `  energies.length = ${result.energies.length}\n` +
       `  waveFunctions.length = ${result.waveFunctions.length}` );
+  }
+
+  // If the result was invalid, apply a workaround so that the sim does not crash in the built version.
+  // This is necessary because the sim has a large number of parameters and (even with unit tests) there
+  // may be some configuration that yields an invalid result.
+  if ( result.energies.length === 0 || result.waveFunctions.length === 0 ) {
+    console.warn( `Invalid BoundStateResult for ${potential.toString()}` );
+    result.energies = [ 0 ];
+    result.waveFunctions = [ new Array( xGrid.xCoordinates.length ).fill( 0 ) ];
   }
 
   return result;
