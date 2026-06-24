@@ -443,17 +443,17 @@ a11y:
 
     poschlTellerDepthHandle:
       accessibleName:           depth handle
-      accessibleHelpText:       Deepen the anharmonic well and observe how the energy levels respond.
+      accessibleHelpText:       Deepen the Pöschl-Teller well and observe how the energy levels respond.
       accessibleObjectResponse: '{$depth} electron volts'
 
     poschlTellerWidthHandle:
       accessibleName:           width handle
-      accessibleHelpText:       Change the width of the anharmonic well and observe how the energy levels respond.
+      accessibleHelpText:       Change the width of the Pöschl-Teller well and observe how the energy levels respond.
       accessibleObjectResponse: '{$width} nanometers'
 
     poschlTellerSpacingHandle:
       accessibleName:           spacing handle
-      accessibleHelpText:       Change the separation between the anharmonic wells and observe how the energy levels respond.
+      accessibleHelpText:       Change the separation between the Pöschl-Teller wells and observe how the energy levels respond.
       accessibleObjectResponse: '{$spacing} nanometers'
 
   #=======================================================================================================
