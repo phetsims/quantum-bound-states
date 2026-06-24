@@ -40,7 +40,9 @@ export default class DoubleSquarePotential extends FiniteSquarePotential {
 
       // FiniteSquarePotentialOptions
       numberOfWellsProperty: numberOfWellsProperty,
-      separationRange: new RangeWithValue( 0.05, 0.2, 0.1 ),
+      wellWidthRange: new RangeWithValue( 0.5, 3, 1 ),
+      wellDepthRange: new RangeWithValue( 1, 15, 9 ),
+      separationRange: new RangeWithValue( 0.05, 0.7, 0.4 ),
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.doubleSquareStringProperty,
       tandemPrefix: 'doubleSquarePotential'
     }, providedOptions );
