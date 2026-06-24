@@ -47,7 +47,7 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
       accessibleHeading: QuantumBoundStatesFluent.a11y.probabilityDensityGraph.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.probabilityDensityGraph.accessibleParagraph.createProperty( {
         energyLevelIndex: selectedEnergyLevelIndexProperty,
-        numberOfNodes: 'TODO' //TODO Where do we get numberOfNodes?
+        numberOfNodes: probabilityDensityGraph.numberOfNodesProperty
       } )
     }, providedOptions );
 

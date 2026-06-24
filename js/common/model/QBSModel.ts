@@ -100,6 +100,11 @@ export default class QBSModel implements TModel {
   // y-axis values for plotting components of the time-dependent wave function
   public readonly timeEvolvedSuperpositionProperty: TReadOnlyProperty<TimeEvolvedSuperposition>;
 
+  // Number of nodes in the Probability Density curve. This is equal to the 1-based index into BoundStateResult.energies
+  // that corresponds to selectedEnergyLevelIndexProperty, and therefore corresponds to what is displayed in the
+  // Probability Density graph.
+  public readonly numberOfNodesProperty: TReadOnlyProperty<number>;
+
   public readonly magnifier: Magnifier;
   public readonly referenceLine: ReferenceLine;
 
@@ -241,6 +246,9 @@ export default class QBSModel implements TModel {
         phetioValueType: TimeEvolvedSuperpositionIO,
         phetioFeatured: true
       } );
+
+    this.numberOfNodesProperty = new DerivedProperty( [ this.selectedEnergyLevelIndexProperty ],
+      selectedEnergyLevelIndex => selectedEnergyLevelIndex - this.potentialProperty.value.groundStateIndex + 1 );
 
     // The order of quantumStateGraphs determines the order of radio buttons in QuatumStateGraphRadioButtonGroup.
     const quantumStateGraphs: QuantumStateGraph[] = [];

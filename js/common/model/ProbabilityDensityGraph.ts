@@ -27,6 +27,9 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
   // Range for the y-axis
   public readonly yAxisRangeProperty: TReadOnlyProperty<Range>;
 
+  // Number of nodes in the displayed Probability Density curve.
+  public readonly numberOfNodesProperty: TReadOnlyProperty<number>;
+
   //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
 
@@ -37,6 +40,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
 
     this.xGrid = model.xGrid;
     this.timeEvolvedSuperpositionProperty = model.timeEvolvedSuperpositionProperty;
+    this.numberOfNodesProperty = model.numberOfNodesProperty;
 
     // Use the maximum time-independent probability density to set the y-axis range.
     this.yAxisRangeProperty = new DerivedProperty(

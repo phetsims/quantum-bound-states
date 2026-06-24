@@ -552,7 +552,7 @@
         "value": "Probability Density Graph"
       },
       "accessibleParagraph": {
-        "value": "The Probability Density graph shows the probability density across the well\nfor energy level { $energyLevelIndex }. The curve has { $numberOfNodes } nodes. Listen to the shape\nwith sonification, or move the Reference Line to read the potential value at any position."
+        "value": "The Probability Density graph shows the probability density across the well for energy level { $energyLevelIndex }.\nThe curve has { $numberOfNodes ->\n  [one] { $numberOfNodes } node.\n *[other] { $numberOfNodes } nodes.\n }\n Listen to the shape with sonification, or move the Reference Line to read the potential value at any position."
       }
     },
     "waveFunctionGraph": {

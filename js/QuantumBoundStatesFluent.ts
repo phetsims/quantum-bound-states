@@ -637,7 +637,7 @@ const QuantumBoundStatesFluent = {
     },
     probabilityDensityGraph: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleHeadingStringProperty' ) ),
-      accessibleParagraph: new FluentPattern<{ energyLevelIndex: FluentVariable, numberOfNodes: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleParagraphStringProperty' ), [{"name":"energyLevelIndex"},{"name":"numberOfNodes"}] )
+      accessibleParagraph: new FluentPattern<{ energyLevelIndex: FluentVariable, numberOfNodes: number | 'one' | number | 'other' | TReadOnlyProperty<number | 'one' | number | 'other'> }>( fluentSupport.bundleProperty, 'a11y_probabilityDensityGraph_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.probabilityDensityGraph.accessibleParagraphStringProperty' ), [{"name":"energyLevelIndex"},{"name":"numberOfNodes","variants":[{"type":"number","value":"one"},{"type":"number","value":"other"}]}] )
     },
     waveFunctionGraph: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionGraph_accessibleHeading', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionGraph.accessibleHeadingStringProperty' ) ),
