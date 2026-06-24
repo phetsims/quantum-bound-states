@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Rename to 'Anharmonic Oscillator'?
 /**
  * PoschlTellerPotential is a Pöschl-Teller potential.
  *
@@ -56,7 +55,7 @@ export default class PoschlTellerPotential extends QuantumPotentialDepth {
       wellDepthRange: new RangeWithValue( 1, 14, 10 ), // for 1 well
       depthDirection: 'down',
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.poschlTellerStringProperty,
-      tandemPrefix: 'poschlTellerPotential' //TODO rename to 'anharmonicOscillatorPotential'?
+      tandemPrefix: 'poschlTellerPotential'
     }, providedOptions );
 
     super( options );
