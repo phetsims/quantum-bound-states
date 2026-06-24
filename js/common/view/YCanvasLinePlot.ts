@@ -49,6 +49,11 @@ export default class YCanvasLinePlot extends CanvasPainter {
     if ( isAffirmEnabled() ) {
       affirm( xCoordinates.length > 1, 'xCoordinates must contain at least two values' );
       affirm( xCoordinates.length === yCoordinates.length, 'xCoordinates and yCoordinates must be the same length' );
+      if ( isAffirmEnabled() ) {
+        xCoordinates.forEach( ( x, index ) => {
+          affirm( isFinite( x ) && !isNaN( x ), `xCoordinates[${index}] is invalid: ${x}` );
+        } );
+      }
     }
 
     const options = optionize<YCanvasLinePlotOptions, StrictOmit<SelfOptions, 'visibleProperty'>, CanvasPainterOptions>()( {
@@ -61,13 +66,6 @@ export default class YCanvasLinePlot extends CanvasPainter {
       // CanvasPainterOptions
       visible: providedOptions.visibleProperty ? providedOptions.visibleProperty.value : true
     }, providedOptions );
-
-    // Validate x-coordinates.
-    if ( isAffirmEnabled() ) {
-      xCoordinates.forEach( ( x, index ) => {
-        affirm( isFinite( x ) && !isNaN( x ), `xCoordinates[${index}] is invalid: ${x}` );
-      } );
-    }
 
     super( options );
 
