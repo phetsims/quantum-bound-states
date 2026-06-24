@@ -12,7 +12,6 @@ import Property from '../../../../axon/js/Property.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../QBSConstants.js';
-import QBSQueryParameters from '../QBSQueryParameters.js';
 
 export default class ReferenceLine extends PhetioObject {
 
@@ -30,7 +29,7 @@ export default class ReferenceLine extends PhetioObject {
       phetioState: false
     } );
 
-    this.visibleProperty = new BooleanProperty( QBSQueryParameters.referenceLineVisible, {
+    this.visibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'visibleProperty' ),
       phetioFeatured: true
     } );

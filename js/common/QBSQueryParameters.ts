@@ -35,42 +35,6 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
     defaultValue: 3001 //TODO Decide what the optimal value should be.
   },
 
-  // Initial value of the 'Magnifier' checkbox
-  magnifierVisible: {
-    type: 'boolean',
-    defaultValue: false
-  },
-
-  // Initial value of the 'Reference Line' checkbox
-  referenceLineVisible: {
-    type: 'boolean',
-    defaultValue: false
-  },
-
-  // Initial value of the 'Real Part' checkbox
-  realPartSelected: {
-    type: 'boolean',
-    defaultValue: true
-  },
-
-  // Initial value of the 'Imaginary Part' checkbox
-  imaginaryPartSelected: {
-    type: 'boolean',
-    defaultValue: true //TODO should be false
-  },
-
-  // Initial value of the 'Magnitude' checkbox
-  magnitudeSelected: {
-    type: 'boolean',
-    defaultValue: true //TODO should be false
-  },
-
-  // Initial value of the 'Phase' checkbox
-  phaseSelected: {
-    type: 'boolean',
-    defaultValue: false
-  },
-
   // Chooses the mapping of phase to color.
   phaseToColor: {
     type: 'string',

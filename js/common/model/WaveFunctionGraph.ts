@@ -13,7 +13,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import XGrid from './solvers/XGrid.js';
@@ -48,22 +47,22 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
 
     this.timeEvolvedSuperpositionProperty = model.timeEvolvedSuperpositionProperty;
 
-    this.realPartSelectedProperty = new BooleanProperty( QBSQueryParameters.realPartSelected, {
+    this.realPartSelectedProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'realPartSelectedProperty' ),
       phetioFeatured: true
     } );
 
-    this.imaginaryPartSelectedProperty = new BooleanProperty( QBSQueryParameters.imaginaryPartSelected, {
+    this.imaginaryPartSelectedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'imaginaryPartSelectedProperty' ),
       phetioFeatured: true
     } );
 
-    this.magnitudeSelectedProperty = new BooleanProperty( QBSQueryParameters.magnitudeSelected, {
+    this.magnitudeSelectedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'magnitudeSelectedProperty' ),
       phetioFeatured: true
     } );
 
-    this.phaseSelectedProperty = new BooleanProperty( QBSQueryParameters.phaseSelected, {
+    this.phaseSelectedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'phaseSelectedProperty' ),
       phetioFeatured: true
     } );
