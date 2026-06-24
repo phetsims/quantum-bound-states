@@ -29,9 +29,9 @@ export default class QBSConstants {
 
   // Credits are shared by all sims in this suite.
   public static readonly CREDITS: CreditsData = {
-    leadDesign: 'Sam McKagan',
-    softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
-    team: 'Wendy Adams, Kathy Perkins, Carl Wieman',
+    leadDesign: 'Brett Fiedler, Sam McKagan',
+    softwareDevelopment: 'Chris Malley (PixelZoom, Inc.), Martin Veillette',
+    team: 'Wendy Adams, Ariel Paul, Kathy Perkins, Carl Wieman',
     contributors: '',
     qualityAssurance: '',
     graphicArts: '',

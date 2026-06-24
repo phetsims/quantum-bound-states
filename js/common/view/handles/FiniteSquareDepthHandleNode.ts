@@ -50,11 +50,11 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
    * Position the handle to the right of the rightmost well, at the top of the potential.
    */
   protected override updatePosition(): void {
-    const x = this.getModelX();
-    this.x = this.chartTransform.modelToViewX( x );
+    const xModel = this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 + HANDLE_X_OFFSET;
+    this.x = this.chartTransform.modelToViewX( xModel );
     this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
                                                this.potential.wellDepthProperty.value +
-                                               this.potential.getElectricFieldOffset( x ) );
+                                               this.potential.getElectricFieldOffset( xModel ) );
   }
 
   /**
@@ -64,13 +64,5 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.finiteSquareDepthHandle.accessibleObjectResponse.format( {
       depth: toFixed( this.potential.wellDepthProperty.value, QBSConstants.WELL_DEPTH_DECIMAL_PLACES )
     } ) );
-  }
-
-  /**
-   * Gets the x coordinate where the handle should be positioned in the model coordinate system.
-   * This is to the right of the rightmost well.
-   */
-  public getModelX(): number {
-    return this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 + HANDLE_X_OFFSET;
   }
 }

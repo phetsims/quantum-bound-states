@@ -47,12 +47,12 @@ export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<Pos
    * Position the handle at the bottom of the rightmost well.
    */
   protected override updatePosition(): void {
-    const x = this.getModelX();
-    this.x = this.chartTransform.modelToViewX( x );
+    const xModel = this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 - this.potential.wellWidthProperty.value / 2;
+    this.x = this.chartTransform.modelToViewX( xModel );
     // Subtract wellDepth because depth is downward for Poschl-Teller.
     this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value -
                                                this.potential.wellDepthProperty.value +
-                                               this.potential.getElectricFieldOffset( x ) );
+                                               this.potential.getElectricFieldOffset( xModel ) );
   }
 
   /**
@@ -62,13 +62,5 @@ export default class PoschlTellerDepthHandleNode extends PotentialHandleNode<Pos
     this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.handles.poschlTellerDepthHandle.accessibleObjectResponse.format( {
       depth: toFixed( this.potential.wellDepthProperty.value, QBSConstants.WELL_DEPTH_DECIMAL_PLACES )
     } ) );
-  }
-
-  /**
-   * Gets the x coordinate where the handle should be positioned in the model coordinate system.
-   * This is at the center of the rightmost well.
-   */
-  public getModelX(): number {
-    return this.potential.xOffsetProperty.value + this.potential.getTotalWidth() / 2 - this.potential.wellWidthProperty.value / 2;
   }
 }
