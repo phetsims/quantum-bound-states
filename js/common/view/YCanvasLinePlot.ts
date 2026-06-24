@@ -11,16 +11,19 @@
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import CanvasPainter, { CanvasPainterOptions } from '../../../../bamboo/js/CanvasPainter.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Range from '../../../../dot/js/Range.js';
 import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ProfileColorProperty from '../../../../scenery/js/util/ProfileColorProperty.js';
+import QBSConstants from '../QBSConstants.js';
 
 type SelfOptions = {
   lineWidth?: number;
   lineDash?: number[];
   strokeProperty: ProfileColorProperty;
   visibleProperty?: TReadOnlyProperty<boolean>;
+  yMax?: number;
 };
 
 export type YCanvasLinePlotOptions = SelfOptions & CanvasPainterOptions;
@@ -30,6 +33,11 @@ export default class YCanvasLinePlot extends CanvasPainter {
   private readonly chartTransform: ChartTransform;
   private readonly xCoordinates: readonly number[];
   private yCoordinates: readonly number[];
+
+  // Constrain y-coordinates to the range [-yMax,yMax]. This addresses the fact that potential energies may be very
+  // large numbers, and Canvas cannot handle large numbers. See https://github.com/phetsims/quantum-bound-states/issues/50
+  private readonly yMaxRange: Range;
+
   public lineWidth: number;
   public lineDash: number[];
   public readonly strokeProperty: ProfileColorProperty;
@@ -49,16 +57,25 @@ export default class YCanvasLinePlot extends CanvasPainter {
       // SelfOptions
       lineWidth: 1,
       lineDash: [], // solid
+      yMax: QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY,
 
       // CanvasPainterOptions
       visible: providedOptions.visibleProperty ? providedOptions.visibleProperty.value : true
     }, providedOptions );
+
+    // Validate x-coordinates.
+    if ( isAffirmEnabled() ) {
+      xCoordinates.forEach( ( x, index ) => {
+        affirm( isFinite( x ) && !isNaN( x ), `xCoordinates[${index}] is invalid: ${x}` );
+      } );
+    }
 
     super( options );
 
     this.chartTransform = chartTransform;
     this.xCoordinates = xCoordinates;
     this.yCoordinates = yCoordinates;
+    this.yMaxRange = new Range( -options.yMax, options.yMax );
     this.lineWidth = options.lineWidth;
     this.lineDash = options.lineDash;
     this.strokeProperty = options.strokeProperty;
@@ -88,28 +105,14 @@ export default class YCanvasLinePlot extends CanvasPainter {
       context.setLineDash( this.lineDash );
 
       const length = this.xCoordinates.length;
-      let pathStarted = false;
-      const VERTICAL_LARGE_VALUE_GUARD = 1e10;
       for ( let i = 0; i < length; i++ ) {
+
+        // Convert to view coordinates and constrain y-coordinates to a range that does not cause problems with Canvas.
         const x = this.chartTransform.modelToViewX( this.xCoordinates[ i ] );
-        const y = this.chartTransform.modelToViewY( this.yCoordinates[ i ] );
+        const y = this.yMaxRange.constrainValue( this.chartTransform.modelToViewY( this.yCoordinates[ i ] ) );
 
-        // Guard against non-finite view coordinates, or view coordinates that are so large they
-        // overflow float32 (Canvas uses float32 internally), producing the same effect as Infinity.
-        // This can occur e.g. from a Morse potential with a very narrow well and large x-offset, where
-        // the repulsive wall produces astronomically large but technically finite values.
-        // The Canvas API silently ignores moveTo/lineTo with such an argument, which breaks the
-        // current path, causing the curve to disappear without any console error.
-        // Reset pathStarted so the next canvas-safe point opens a fresh sub-path.
-        // See https://github.com/phetsims/quantum-bound-states/issues/50
-        if ( !isFinite( x ) || !isFinite( y ) || Math.abs( y ) > VERTICAL_LARGE_VALUE_GUARD ) {
-          pathStarted = false;
-          continue;
-        }
-
-        if ( !pathStarted ) {
+        if ( i === 0 ) {
           context.moveTo( x, y );
-          pathStarted = true;
         }
         else {
           context.lineTo( x, y );
