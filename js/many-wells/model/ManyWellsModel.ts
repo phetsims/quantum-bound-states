@@ -65,7 +65,7 @@ export default class ManyWellsModel extends QBSModel {
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
         wellWidthRange: new RangeWithValue( 0.2, 0.2, 0.2 ), // effectively constant
-        wellDepthRange: new RangeWithValue( 5, 15, 10 ),
+        wellDepthRange: new RangeWithValue( 4, 11, 10 ),
         spacingRange: new RangeWithValue( 0.3, 0.8, 0.5 ),
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
       } )

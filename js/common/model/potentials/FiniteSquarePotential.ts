@@ -46,7 +46,7 @@ export default class FiniteSquarePotential extends QuantumPotentialDepth {
       separationRange: new RangeWithValue( 0, 0, 0 ), // for 1 well, effectively constant zero
 
       // QuantumPotentialOptions
-      wellDepthRange: new RangeWithValue( 1, 20, 10 ), // for 1 well
+      wellDepthRange: new RangeWithValue( 1, 19, 10 ), // for 1 well
       wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
       depthDirection: 'up',
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.finiteSquareStringProperty,
