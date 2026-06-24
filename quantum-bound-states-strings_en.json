@@ -704,7 +704,7 @@
           "value": "depth handle"
         },
         "accessibleHelpText": {
-          "value": "Deepen the anharmonic well and observe how the energy levels respond."
+          "value": "Deepen the Pöschl-Teller well and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$depth} electron volts"
@@ -715,7 +715,7 @@
           "value": "width handle"
         },
         "accessibleHelpText": {
-          "value": "Change the width of the anharmonic well and observe how the energy levels respond."
+          "value": "Change the width of the Pöschl-Teller well and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$width} nanometers"
@@ -726,7 +726,7 @@
           "value": "spacing handle"
         },
         "accessibleHelpText": {
-          "value": "Change the separation between the anharmonic wells and observe how the energy levels respond."
+          "value": "Change the separation between the Pöschl-Teller wells and observe how the energy levels respond."
         },
         "accessibleObjectResponse": {
           "value": "{$spacing} nanometers"
