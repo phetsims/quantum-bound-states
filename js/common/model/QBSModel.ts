@@ -250,19 +250,13 @@ export default class QBSModel implements TModel {
     this.numberOfNodesProperty = new DerivedProperty( [ this.selectedEnergyLevelIndexProperty ],
       selectedEnergyLevelIndex => selectedEnergyLevelIndex - this.potentialProperty.value.groundStateIndex + 1 );
 
-    // The order of quantumStateGraphs determines the order of radio buttons in QuatumStateGraphRadioButtonGroup.
-    const quantumStateGraphs: QuantumStateGraph[] = [];
     const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphs' );
-
     this.probabilityDensityGraph = new ProbabilityDensityGraph( this, quantumStateGraphsTandem.createTandem( 'probabilityDensityGraph' ) );
-    quantumStateGraphs.push( this.probabilityDensityGraph );
-
     this.waveFunctionGraph = new WaveFunctionGraph( this, quantumStateGraphsTandem.createTandem( 'waveFunctionGraph' ) );
-    quantumStateGraphs.push( this.waveFunctionGraph );
 
-    //TODO Initial value should be quantumStateGraphs[ 0 ]
-    this.selectedGraphProperty = new Property( this.waveFunctionGraph, {
-      validValues: quantumStateGraphs,
+    this.selectedGraphProperty = new Property<QuantumStateGraph>( this.probabilityDensityGraph, {
+      // The order of validValues determines the order of radio buttons in QuatumStateGraphRadioButtonGroup.
+      validValues: [ this.probabilityDensityGraph, this.waveFunctionGraph ],
       tandem: options.tandem.createTandem( 'selectedGraphProperty' ),
       phetioValueType: QuantumStateGraph.QuantumStateGraphIO,
       phetioFeatured: true
