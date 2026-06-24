@@ -15,7 +15,6 @@ import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../QBSConstants.js';
-import QBSQueryParameters from '../QBSQueryParameters.js';
 import QBSModel from './QBSModel.js';
 import XGrid from './solvers/XGrid.js';
 
@@ -49,7 +48,8 @@ export default class EnergyDiagram extends PhetioObject {
     } );
     this.yRangeProperty = this._yRangeProperty;
 
-    this.valuesVisibleProperty = new BooleanProperty( QBSQueryParameters.valuesVisible, {
+    // Defaults to false, see https://github.com/phetsims/quantum-bound-states/issues/100.
+    this.valuesVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'valuesVisibleProperty' ),
       phetioFeatured: true
     } );

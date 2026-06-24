@@ -35,12 +35,6 @@ const QBSQueryParameters = QueryStringMachine.getAll( {
     defaultValue: 3001 //TODO Decide what the optimal value should be.
   },
 
-  // Initial value of the 'Values' checkbox
-  valuesVisible: {
-    type: 'boolean',
-    defaultValue: true
-  },
-
   // Initial value of the 'Magnifier' checkbox
   magnifierVisible: {
     type: 'boolean',
