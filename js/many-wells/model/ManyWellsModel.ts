@@ -54,7 +54,7 @@ export default class ManyWellsModel extends QBSModel {
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
-        wellWidthRange: new RangeWithValue( 0.1, 0.5, 0.45 ),
+        wellWidthRange: new RangeWithValue( 0.35, 0.55, 0.45 ),
         wellWidthDecimalPlaces: QBSConstants.WELL_WIDTH_DECIMAL_PLACES_MANY_WELLS,
         wellDepthRange: new RangeWithValue( 5, 15, 9 ),
         separationRange: new RangeWithValue( 0.05, 0.25, 0.1 ),
@@ -65,7 +65,7 @@ export default class ManyWellsModel extends QBSModel {
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
         wellWidthRange: new RangeWithValue( 0.2, 0.2, 0.2 ), // effectively constant
-        wellDepthRange: new RangeWithValue( 4, 11, 10 ),
+        wellDepthRange: new RangeWithValue( 6, 11, 10 ),
         spacingRange: new RangeWithValue( 0.3, 0.8, 0.5 ),
         tandem: potentialsTandem.createTandem( 'poschlTellerPotential' )
       } )
