@@ -14,6 +14,7 @@ import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.j
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
+import QBSConstants from '../QBSConstants.js';
 import EnergyLevelsPlot from './EnergyLevelsPlot.js';
 import YCanvasLinePlot from './YCanvasLinePlot.js';
 
@@ -24,7 +25,8 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
 
     const potentialPlot = new YCanvasLinePlot( chartTransform, model.xGrid.xCoordinates, model.boundStateResultProperty.value.potentials, {
       strokeProperty: QBSColors.potentialEnergyColorProperty,
-      lineWidth: 3
+      lineWidth: 3,
+      yMax: QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY
     } );
 
     const energyLevelsPlot = new EnergyLevelsPlot( chartTransform, model.boundStateResultProperty.value.energies, {

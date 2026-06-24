@@ -16,14 +16,13 @@ import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ProfileColorProperty from '../../../../scenery/js/util/ProfileColorProperty.js';
-import QBSConstants from '../QBSConstants.js';
 
 type SelfOptions = {
   lineWidth?: number;
   lineDash?: number[];
   strokeProperty: ProfileColorProperty;
   visibleProperty?: TReadOnlyProperty<boolean>;
-  yMax?: number;
+  yMax?: number | null;
 };
 
 export type YCanvasLinePlotOptions = SelfOptions & CanvasPainterOptions;
@@ -36,7 +35,7 @@ export default class YCanvasLinePlot extends CanvasPainter {
 
   // Constrain y-coordinates to the range [-yMax,yMax]. This addresses the fact that potential energies may be very
   // large numbers, and Canvas cannot handle large numbers. See https://github.com/phetsims/quantum-bound-states/issues/50
-  private readonly yMaxRange: Range;
+  private readonly yMaxRange: Range | null;
 
   public lineWidth: number;
   public lineDash: number[];
@@ -57,7 +56,7 @@ export default class YCanvasLinePlot extends CanvasPainter {
       // SelfOptions
       lineWidth: 1,
       lineDash: [], // solid
-      yMax: QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY,
+      yMax: null,
 
       // CanvasPainterOptions
       visible: providedOptions.visibleProperty ? providedOptions.visibleProperty.value : true
@@ -75,7 +74,7 @@ export default class YCanvasLinePlot extends CanvasPainter {
     this.chartTransform = chartTransform;
     this.xCoordinates = xCoordinates;
     this.yCoordinates = yCoordinates;
-    this.yMaxRange = new Range( -options.yMax, options.yMax );
+    this.yMaxRange = ( options.yMax === null ) ? null : new Range( -options.yMax, options.yMax );
     this.lineWidth = options.lineWidth;
     this.lineDash = options.lineDash;
     this.strokeProperty = options.strokeProperty;
@@ -107,9 +106,14 @@ export default class YCanvasLinePlot extends CanvasPainter {
       const length = this.xCoordinates.length;
       for ( let i = 0; i < length; i++ ) {
 
-        // Convert to view coordinates and constrain y-coordinates to a range that does not cause problems with Canvas.
+        // Convert to view coordinates.
         const x = this.chartTransform.modelToViewX( this.xCoordinates[ i ] );
-        const y = this.yMaxRange.constrainValue( this.chartTransform.modelToViewY( this.yCoordinates[ i ] ) );
+        let y = this.chartTransform.modelToViewY( this.yCoordinates[ i ] );
+
+        // Optionally constrain y-coordinates to a range that does not cause problems with Canvas.
+        if ( this.yMaxRange ) {
+          y = this.yMaxRange.constrainValue( y );
+        }
 
         if ( i === 0 ) {
           context.moveTo( x, y );
