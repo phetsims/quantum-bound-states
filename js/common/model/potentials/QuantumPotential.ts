@@ -16,8 +16,8 @@ import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
+import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
@@ -25,7 +25,6 @@ import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/Re
 import QBSConstants from '../../QBSConstants.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
-import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
 
 type SelfOptions = {
 
@@ -212,11 +211,6 @@ export default abstract class QuantumPotential extends PhetioObject {
   public getElectricFieldOffset( x: number ): number {
     return ( x - this.xOffsetProperty.value ) * this.electricFieldProperty.value;
   }
-
-  /**
-   * Creates the icon that represents this potential. Used in the combo box for selecting a potential.
-   */
-  public abstract createIcon(): Node;
 
   /**
    * QuantumPotentialIO handles PhET-iO serialization of QuantumPotential instances.

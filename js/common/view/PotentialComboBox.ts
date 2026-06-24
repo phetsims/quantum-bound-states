@@ -17,6 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QuantumPotential from '../model/potentials/QuantumPotential.js';
 import QBSConstants from '../QBSConstants.js';
+import QuantumPotentialIconFactory from './QuantumPotentialIconFactory.js';
 
 export default class PotentialComboBox extends ComboBox<QuantumPotential> {
 
@@ -65,7 +66,7 @@ function createItemNode( potential: QuantumPotential, textAlignGroup: AlignGroup
     xAlign: 'left'
   } );
 
-  const icon = iconAlignGroup.createBox( potential.createIcon(), {
+  const icon = iconAlignGroup.createBox( QuantumPotentialIconFactory.createIcon( potential ), {
     xAlign: 'center'
   } );
 

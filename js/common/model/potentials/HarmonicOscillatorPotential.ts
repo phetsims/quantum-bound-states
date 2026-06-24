@@ -9,22 +9,18 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
-import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../../scenery/js/nodes/Path.js';
+import { inverseFemtosecondsUnit } from '../../../../../scenery-phet/js/units/inverseFemtosecondsUnit.js';
 import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
-import QBSColors from '../../QBSColors.js';
 import QBSConstants from '../../QBSConstants.js';
 import QBSTime from '../QBSTime.js';
 import HarmonicOscillatorSolution from '../solvers/analytical-solutions/HarmonicOscillatorSolution.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
-import { inverseFemtosecondsUnit } from '../../../../../scenery-phet/js/units/inverseFemtosecondsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -112,18 +108,5 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
     // The harmonic oscillator has infinitely many bound states, so there is no physical maximum energy.
     // Cap the search at a fixed energy above the well bottom, independent of the Energy diagram's viewport.
     return QBSConstants.MAX_SOLVER_ENERGY_ABOVE_WELL + this.yOffsetProperty.value;
-  }
-
-  public override createIcon(): Node {
-
-    // Shape ported from BSWellComboBox.java, values determined empirically.
-    const shape = new Shape()
-      .moveTo( 0, 3 )
-      .quadraticCurveTo( 8.5, 30, 17, 3 );
-
-    return new Path( shape, {
-      stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
-    } );
   }
 }

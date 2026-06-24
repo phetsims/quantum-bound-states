@@ -7,16 +7,11 @@
  */
 
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
-import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
-import QBSColors from '../../QBSColors.js';
-import QBSConstants from '../../QBSConstants.js';
 import AsymmetricTriangleSolution from '../solvers/analytical-solutions/AsymmetricTriangleSolution.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
@@ -85,25 +80,5 @@ export default class AsymmetricTrianglePotential extends QuantumPotentialDepth {
 
   public override getMaxSolverEnergy(): number {
     return this.yOffsetProperty.value + this.wellDepthProperty.value; // top of the well
-  }
-
-  public override createIcon(): Node {
-
-    const wellWidth = 12;
-    const wellDepth = 12;
-    const edgeLength = 8; // horizontal length of the edges that extend to the left and right of the well
-
-    // Described from left to right
-    const shape = new Shape()
-      .moveTo( 0, 0 )
-      .lineTo( edgeLength, 0 )
-      .lineTo( edgeLength, wellDepth )
-      .lineTo( edgeLength + wellWidth, 0 )
-      .lineTo( edgeLength + wellWidth + edgeLength, 0 );
-
-    return new Path( shape, {
-      stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
-    } );
   }
 }

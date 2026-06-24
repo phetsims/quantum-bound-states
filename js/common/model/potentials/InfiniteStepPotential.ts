@@ -13,15 +13,13 @@ import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/brows
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
+import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
-import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import InfiniteStepSolution from '../solvers/analytical-solutions/InfiniteStepSolution.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
-import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
 type SelfOptions = {
@@ -113,16 +111,5 @@ export default class InfiniteStepPotential extends QuantumPotential {
     // The infinite step well has infinitely many bound states, so there is no physical maximum energy.
     // Cap the search at a fixed energy above the well bottom, independent of the Energy diagram's viewport.
     return QBSConstants.MAX_SOLVER_ENERGY_ABOVE_WELL + this.yOffsetProperty.value;
-  }
-
-  /**
-   * Creates the icon for this potential.
-   */
-  public override createIcon(): Node {
-    return new InfiniteSquareWellIcon( {
-      wellWidth: 12,
-      wellDepth: 12,
-      hasStep: true
-    } );
   }
 }

@@ -13,12 +13,10 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
-import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import FiniteSquareSolution from '../solvers/analytical-solutions/FiniteSquareSolution.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import NumerovSolver from '../solvers/NumerovSolver.js';
@@ -158,18 +156,5 @@ export default class FiniteSquarePotential extends QuantumPotentialDepth {
   public getTotalWidth(): number {
     return ( this.numberOfWellsProperty.value * this.wellWidthProperty.value ) +
            ( ( this.numberOfWellsProperty.value - 1 ) * this.separationProperty.value );
-  }
-
-  /**
-   * Creates the icon for this potential.
-   */
-  public override createIcon(): Node {
-    return new FiniteSquareWellsIcon( {
-      numberOfWells: 1,
-      wellWidth: 12,
-      wellDepth: 12,
-      edgeLength: 8,
-      lineWidth: 2
-    } );
   }
 }

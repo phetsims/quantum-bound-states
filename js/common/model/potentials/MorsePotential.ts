@@ -8,16 +8,11 @@
 
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
-import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
-import QBSColors from '../../QBSColors.js';
-import QBSConstants from '../../QBSConstants.js';
 import MorseSolution from '../solvers/analytical-solutions/MorseSolution.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
@@ -88,41 +83,5 @@ export default class MorsePotential extends QuantumPotentialDepth {
 
   public override getMaxSolverEnergy(): number {
     return this.yOffsetProperty.value; // dissociation limit; no bound states above this
-  }
-
-  /**
-   * Creates the icon for this potential.
-   */
-  public override createIcon(): Node {
-
-    // Sampling parameters
-    const numberOfPoints = 50;
-    const xMin = -1.4; // more negative shows more of the left edge that goes to infinity
-    const xMax = 15;
-    const dx = ( xMax - xMin ) / numberOfPoints;
-    const wellWidth = 1.7;
-    const wellDepth = 10.1;
-
-    // Create the Shape by sampling the curve.
-    const shape = new Shape();
-    for ( let x = xMin; x <= xMax; x += dx ) {
-
-      //TODO Duplication here with getPotentialEnergyAt
-      const term = 1 - Math.exp( -x / wellWidth );
-      let y = ( wellDepth * term * term ) - wellDepth;
-
-      y *= -1; // invert the y-axis to match scenery's coordinate frame
-      if ( x === xMin ) {
-        shape.moveTo( x, y );
-      }
-      else {
-        shape.lineTo( x, y );
-      }
-    }
-
-    return new Path( shape, {
-      stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
-    } );
   }
 }

@@ -11,10 +11,8 @@ import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/brows
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
-import InfiniteSquareWellIcon from '../../view/InfiniteSquareWellIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import InfiniteSquareSolution from '../solvers/analytical-solutions/InfiniteSquareSolution.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
@@ -80,15 +78,5 @@ export default class InfiniteSquarePotential extends QuantumPotential {
     // The infinite square well has infinitely many bound states, so there is no physical maximum energy.
     // Cap the search at a fixed energy above the well bottom, independent of the Energy diagram's viewport.
     return QBSConstants.MAX_SOLVER_ENERGY_ABOVE_WELL + this.yOffsetProperty.value;
-  }
-
-  /**
-   * Creates the icon for this potential.
-   */
-  public override createIcon(): Node {
-    return new InfiniteSquareWellIcon( {
-      wellWidth: 12,
-      wellDepth: 12
-    } );
   }
 }

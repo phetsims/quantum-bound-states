@@ -12,10 +12,7 @@ import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
-import QBSConstants from '../../QBSConstants.js';
-import FiniteSquareWellsIcon from '../../view/FiniteSquareWellsIcon.js'; // eslint-disable-line phet/no-view-imported-from-model
 import FiniteSquarePotential, { FiniteSquarePotentialOptions } from './FiniteSquarePotential.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -48,19 +45,5 @@ export default class DoubleSquarePotential extends FiniteSquarePotential {
     }, providedOptions );
 
     super( options );
-  }
-
-  /**
-   * Creates the icon for this potential.
-   */
-  public override createIcon(): Node {
-    return new FiniteSquareWellsIcon( {
-      numberOfWells: 2,
-      wellWidth: 12,
-      wellDepth: 12,
-      edgeLength: 4,
-      wellSpacing: 6,
-      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
-    } );
   }
 }

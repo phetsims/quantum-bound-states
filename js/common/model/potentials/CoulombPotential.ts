@@ -8,16 +8,11 @@
 
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
-import Shape from '../../../../../kite/js/Shape.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../../scenery/js/nodes/Path.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
-import QBSColors from '../../QBSColors.js';
-import QBSConstants from '../../QBSConstants.js';
 import CoulombSolution from '../solvers/analytical-solutions/CoulombSolution.js';
 import { BoundStateResult } from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
@@ -108,20 +103,5 @@ export default class CoulombPotential extends QuantumPotential {
 
   public override getMaxSolverEnergy(): number {
     return this.yOffsetProperty.value; // top of the potential
-  }
-
-  public override createIcon(): Node {
-
-    // Shape ported from BSWellComboBox.java, values determined empirically.
-    const shape = new Shape()
-      .moveTo( 0, 4 )
-      .quadraticCurveTo( 8, 5, 7, 16 )
-      .moveTo( 10, 16 )
-      .quadraticCurveTo( 11, 5, 17, 4 );
-
-    return new Path( shape, {
-      stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
-    } );
   }
 }
