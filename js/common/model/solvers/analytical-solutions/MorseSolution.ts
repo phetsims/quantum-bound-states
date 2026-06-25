@@ -42,7 +42,7 @@
  */
 
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import { BoundStateResult } from '../BoundStateResult.js';
+import BoundStateResult from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import XGrid from '../XGrid.js';
@@ -126,12 +126,12 @@ export default class MorseSolution {
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
-    return {
+    return new BoundStateResult( {
       potentials: potentials,
       energies: energies,
       waveFunctions: waveFunctions,
-      method: 'analytical'
-    };
+      solutionMethod: 'analytical'
+    } );
   }
 }
 
@@ -293,7 +293,7 @@ function logGamma( z: number ): number {
   ];
 
   // This recursive approach may looks strange, but  it allows to extend the approximation 
-  // to values of z where z< 0.5, where the Lanczos method is not valid.
+  // to values of z where z< 0.5, where the Lanczos solutionMethod is not valid.
   if ( z < 0.5 ) {
     return Math.log( Math.PI ) - Math.log( Math.sin( Math.PI * z ) ) - logGamma( 1 - z );
   }

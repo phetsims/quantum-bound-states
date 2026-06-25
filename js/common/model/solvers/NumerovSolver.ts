@@ -49,7 +49,7 @@
  */
 
 import QBSConstants from '../../QBSConstants.js';
-import { BoundStateResult } from './BoundStateResult.js';
+import BoundStateResult from './BoundStateResult.js';
 import EnergyRefiner from './EnergyRefiner.js';
 import NumerovIntegrator from './NumerovIntegrator.js';
 import { PotentialFunction } from './PotentialFunction.js';
@@ -226,12 +226,12 @@ export default class NumerovSolver {
     const V = this.evaluatePotential( potentialFunction, xGrid.xCoordinates );
     const { energies, waveFunctions } = this.findBoundStates( potentialFunction, V, xGrid, energyMin, energyMax );
 
-    return {
+    return new BoundStateResult( {
       potentials: V,
       energies: energies,
       waveFunctions: waveFunctions,
-      method: 'numerov'
-    };
+      solutionMethod: 'numerov'
+    } );
   }
 
   /**

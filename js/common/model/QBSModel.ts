@@ -31,7 +31,7 @@ import ProbabilityDensityGraph from './ProbabilityDensityGraph.js';
 import QBSTime from './QBSTime.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
-import { BoundStateResult } from './solvers/BoundStateResult.js';
+import BoundStateResult from './solvers/BoundStateResult.js';
 import NumerovSolver from './solvers/NumerovSolver.js';
 import XGrid from './solvers/XGrid.js';
 import { TimeEvolvedSuperposition, TimeEvolvedSuperpositionIO } from './TimeEvolvedSuperposition.js';
@@ -139,7 +139,12 @@ export default class QBSModel implements TModel {
     this.potentials = options.potentials;
 
     this.boundStateResultProperty = new Property( solveBoundState( options.potential, this.xGrid ), {
-      //TODO PhET-iO instrumentation
+      //TODO PhET-iO instrumentation of boundStateResultProperty, something like this:
+      //tandem: options.tandem.createTandem( 'boundStateResultProperty' ),
+      //phetioValueType: BoundStateResult.BoundStateResultIO,
+      //phetioFeatured: true,
+      //phetioReadOnly: true,
+      //phetioDocumentation: 'Bound state information for the selected quantum potential.'
     } );
 
     this.energyDiagram = new EnergyDiagram( this, options.tandem.createTandem( 'energyDiagram' ) );
@@ -444,7 +449,7 @@ function getEnergyLevelIndexRange( groundStateIndex: number, numberOfEnergyLevel
  */
 function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStateResult {
 
-  const result = potential.solveBoundState( xGrid );
+  let result = potential.solveBoundState( xGrid );
 
   if ( isAffirmEnabled() ) {
     affirm( result.potentials.length === xGrid.xCoordinates.length &&
@@ -462,8 +467,12 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStat
   // may be some configuration that yields an invalid result.
   if ( result.energies.length === 0 || result.waveFunctions.length === 0 ) {
     console.warn( `Invalid BoundStateResult for ${potential.toString()}` );
-    result.energies = [ 0 ];
-    result.waveFunctions = [ new Array( xGrid.xCoordinates.length ).fill( 0 ) ];
+    result = new BoundStateResult( {
+      potentials: result.potentials,
+      energies: [ 0 ],
+      waveFunctions: [ new Array( xGrid.xCoordinates.length ).fill( 0 ) ],
+      solutionMethod: result.solutionMethod
+    } );
   }
 
   return result;

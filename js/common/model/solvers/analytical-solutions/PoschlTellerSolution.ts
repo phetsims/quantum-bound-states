@@ -44,7 +44,7 @@
 
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import QBSConstants from '../../../QBSConstants.js';
-import { BoundStateResult } from '../BoundStateResult.js';
+import BoundStateResult from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import WaveFunctionNormalizer from '../WaveFunctionNormalizer.js';
@@ -143,12 +143,12 @@ export default class PoschlTellerSolution {
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
-    return {
+    return new BoundStateResult( {
       potentials: potentials,
       energies: energies,
       waveFunctions: waveFunctions,
-      method: 'analytical'
-    };
+      solutionMethod: 'analytical'
+    } );
   }
 }
 

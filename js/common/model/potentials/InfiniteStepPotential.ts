@@ -18,7 +18,7 @@ import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhet
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteStepSolution from '../solvers/analytical-solutions/InfiniteStepSolution.js';
-import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import BoundStateResult from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 

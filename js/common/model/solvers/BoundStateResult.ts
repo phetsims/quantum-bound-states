@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Convert this to a class and add BoundStateResultIO with data-type serialization.
 /**
  * BoundStateResult is the result from a bound state calculation. It contains all information about
  * the computed quantum state, including potential energy values, energy levels, and normalized
@@ -31,12 +30,29 @@
  * const probabilityDensity = psi0.map( psi => psi * psi );
  */
 
-// Enumeration of methods used to compute the bound state
-type NumericMethod = 'numerov' | 'analytical';
+// Enumeration of methods used to solve for the bound state
+type SolutionMethod = 'numerov' | 'analytical';
 
-export type BoundStateResult = {
-  potentials: number[];      // Potential energy values in eV, from left to right
-  energies: number[];        // Eigenvalues (energy levels) in eV (sorted from lowest to highest) TODO change to energyLevels
-  waveFunctions: number[][]; // Normalized wave functions (each row is one state) TODO change to waveFunctionSolutions?
-  method: NumericMethod;     // Name of the method used to compute the bound state TODO do we need this?
+type BoundStateResultOptions = {
+  potentials: number[];      // Potential energy values in eV, from left to right TODO change to potentialEnergies
+  energies: number[];        // Energy levels (eigenvalues) in eV, sorted from lowest to highest TODO change to energyLevels
+  waveFunctions: number[][]; // Normalized wave function solutions (each row is one state) TODO change to waveFunctionSolutions
+  solutionMethod: SolutionMethod;    // Name of the method used to solve for the bound state TODO rename to solutionMethod
 };
+
+export default class BoundStateResult {
+
+  public readonly potentials: number[];
+  public readonly energies: number[];
+  public readonly waveFunctions: number[][];
+  public readonly solutionMethod: SolutionMethod;
+
+  public constructor( options: BoundStateResultOptions ) {
+    this.potentials = options.potentials;
+    this.energies = options.energies;
+    this.waveFunctions = options.waveFunctions;
+    this.solutionMethod = options.solutionMethod;
+  }
+
+  //TODO BoundStateResultIO for PhET-iO data-type serialization
+}

@@ -19,7 +19,7 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import QBSTime from '../QBSTime.js';
 import HarmonicOscillatorSolution from '../solvers/analytical-solutions/HarmonicOscillatorSolution.js';
-import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import BoundStateResult from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 

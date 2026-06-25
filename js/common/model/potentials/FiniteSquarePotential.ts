@@ -18,7 +18,7 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import FiniteSquareSolution from '../solvers/analytical-solutions/FiniteSquareSolution.js';
-import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import BoundStateResult from '../solvers/BoundStateResult.js';
 import NumerovSolver from '../solvers/NumerovSolver.js';
 import XGrid from '../solvers/XGrid.js';
 import QuantumPotentialDepth, { QuantumPotentialDepthOptions } from './QuantumPotentialDepth.js';

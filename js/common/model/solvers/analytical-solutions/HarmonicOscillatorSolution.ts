@@ -18,7 +18,7 @@
 
 import factorial from '../../../../../../dot/js/util/factorial.js';
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import { BoundStateResult } from '../BoundStateResult.js';
+import BoundStateResult from '../BoundStateResult.js';
 import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import XGrid from '../XGrid.js';
@@ -134,12 +134,12 @@ export default class HarmonicOscillatorSolution {
     } );
     const potentials = xGrid.xCoordinates.map( x => potentialFunction( x ) );
 
-    return {
+    return new BoundStateResult( {
       potentials: potentials,
       energies: energies,
       waveFunctions: waveFunctions,
-      method: 'analytical'
-    };
+      solutionMethod: 'analytical'
+    } );
   }
 }
 

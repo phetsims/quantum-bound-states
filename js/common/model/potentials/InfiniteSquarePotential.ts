@@ -14,7 +14,7 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteSquareSolution from '../solvers/analytical-solutions/InfiniteSquareSolution.js';
-import { BoundStateResult } from '../solvers/BoundStateResult.js';
+import BoundStateResult from '../solvers/BoundStateResult.js';
 import XGrid from '../solvers/XGrid.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
