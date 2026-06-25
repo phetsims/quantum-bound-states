@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import DynamicProperty from '../../../../../axon/js/DynamicProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import { toFixed } from '../../../../../dot/js/util/toFixed.js';
@@ -15,6 +16,7 @@ import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSModel from '../../model/QBSModel.js';
 import QBSConstants from '../../QBSConstants.js';
+import EnergyLevelDisplay from '../EnergyLevelDisplay.js';
 import QuantumPotentialDescriber from './QuantumPotentialDescriber.js';
 
 export default class EnergyDiagramDescriber {
@@ -75,10 +77,17 @@ export default class EnergyDiagramDescriber {
     this.model.potentials.forEach( potential => listItems.push( ...this.quantumPotentialDescriber.createAccessibleListItems( potential ) ) );
 
     // Selected energy level
+    const energyStringProperty = new DerivedStringProperty(
+      [ this.model.selectedEnergyLevelIndexProperty, this.model.selectedEnergyLevelValueProperty ],
+      ( selectedEnergyLevelIndex, selectedEnergyLevelValue ) => {
+        const decimalPlaces = EnergyLevelDisplay.getNumberOfDecimalPlaces( selectedEnergyLevelIndex,
+          this.model.potentialProperty.value.groundStateIndex, this.model.boundStateResultProperty.value.energies );
+        return toFixed( selectedEnergyLevelValue, decimalPlaces );
+    } );
     listItems.push( {
       stringProperty: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleTemplate.listItems.energyLevel.createProperty( {
         energyLevelIndex: this.model.selectedEnergyLevelIndexProperty,
-        energy: this.model.selectedEnergyLevelValueProperty.derived( energy => toFixed( energy, QBSConstants.TOTAL_ENERGY_DECIMAL_PLAES ) )
+        energy: energyStringProperty
       } )
     } );
 

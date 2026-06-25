@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Change to EnergyLevelDisplay extends NumberDisplay
 /**
  * EnergyLevelDisplay displays an energy level identifier (E1, E2, etc.) and the corresponding energy value in eV.
  *
@@ -11,7 +10,9 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import BackgroundNode, { BackgroundNodeOptions } from '../../../../scenery-phet/js/BackgroundNode.js';
@@ -20,6 +21,8 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
+
+const NUMBER_OF_DECIMAL_PLACES_RANGE = new Range( 2, 12 ); // Same as Java version, see BSEigenstatesNode.java
 
 type SelfOptions = EmptySelfOptions;
 
@@ -57,7 +60,9 @@ export default class EnergyLevelDisplay extends BackgroundNode {
           return '';
         }
         else if ( valuesVisible ) {
-          const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevelIndex ), QBSConstants.TOTAL_ENERGY_DECIMAL_PLAES );
+          const decimalPlaces = EnergyLevelDisplay.getNumberOfDecimalPlaces( energyLevelIndex,
+            model.potentialProperty.value.groundStateIndex, boundStateResult.energies );
+          const energy = toFixed( model.getEnergyAtEnergyLevel( energyLevelIndex ), decimalPlaces );
           return `E<sub>${energyLevelIndex}</sub> = ${energy} eV`;
         }
         else {
@@ -80,5 +85,60 @@ export default class EnergyLevelDisplay extends BackgroundNode {
           this.bottom = chartTransform.modelToViewY( energy ) - 3;
         }
       } );
+  }
+
+  /**
+   * Computes the number of decimal places needed to show the difference between a specified energy level and
+   * the energy levels that are adjacent to it.
+   */
+  public static getNumberOfDecimalPlaces( energyLevelIndex: number, groundStateIndex: number, energies: number[] ): number {
+
+    // Index and energy value that correspond to energyLevelIndex.
+    const index = energyLevelIndex - groundStateIndex;
+    const energy = energies[ index ];
+
+    // Find the smallest difference between the selected energy level and the adjacent energy levels.
+    let difference = 1000; // an arbitrarily large value, in eV
+
+    // Adjacent energy level below.
+    if ( index > 0 ) {
+      difference = Math.abs( energy - energies[ index - 1 ] );
+    }
+
+    // Adjacent energy level above.
+    if ( index < energies.length - 1 ) {
+      const difference2 = Math.abs( energy - energies[ index + 1 ] );
+      if ( difference2 < difference ) {
+        difference = difference2;
+      }
+    }
+    affirm( difference > 0, `difference must be positive: ${difference}` );
+
+    // Determine the number of significant decimal places needed to show the energy difference.
+    let decimalPlaces = 0;
+    if ( difference >= 1 ) {
+
+      // The number of decimal places is not important, and we can stop here.
+      decimalPlaces = NUMBER_OF_DECIMAL_PLACES_RANGE.min;
+    }
+    else {
+
+      // Convert the difference to a string. Count to the right of the decimal place until we find the first non-zero digit.
+      const differenceString = `${difference}`;
+      const decimalPointIndex = differenceString.indexOf( '.' );
+      for ( let i = decimalPointIndex + 1; i < differenceString.length; i++ ) {
+        decimalPlaces++;
+        if ( differenceString[ i ] !== '0' ) {
+          break;
+        }
+      }
+
+      // Constrain the number of decimal places to range.
+      decimalPlaces = NUMBER_OF_DECIMAL_PLACES_RANGE.constrainValue( decimalPlaces );
+    }
+    affirm( NUMBER_OF_DECIMAL_PLACES_RANGE.contains( decimalPlaces ) && Number.isInteger( decimalPlaces ),
+      `invalid decimalPlaces: ${decimalPlaces}` );
+
+    return decimalPlaces;
   }
 }
