@@ -1,6 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Should this be promoted to a class that also handles time-dependent propagation?
+//TODO Convert this to a class and add BoundStateResultIO with data-type serialization.
 /**
  * Result from a bound state calculation.
  *
