@@ -36,59 +36,58 @@ import NumberIO from '../../../../../tandem/js/types/NumberIO.js';
 import StringIO from '../../../../../tandem/js/types/StringIO.js';
 
 const STATE_SCHEMA = {
+  solutionMethod: StringIO,
   potentials: ArrayIO( NumberIO ),
   energies: ArrayIO( NumberIO ),
-  waveFunctions: ArrayIO( ArrayIO( NumberIO ) ),
-  solutionMethod: StringIO
+  waveFunctions: ArrayIO( ArrayIO( NumberIO ) )
 };
 
 type BoundStateResultStateObject = {
+  solutionMethod: string;
   potentials: number[];
   energies: number[];
   waveFunctions: number[][];
-  solutionMethod: string;
 };
 
 // Enumeration of methods used to solve for the bound state
 type SolutionMethod = 'numerov' | 'analytical';
 
-//TODO If we can delete solutionMethod, then we can use SchemaOrientedIOType to create the IOType, similar to TimeEvolvedSuperpositionIO
 type BoundStateResultOptions = {
+  solutionMethod: SolutionMethod;    // Name of the method used to solve for the bound state TODO rename to solutionMethod
   potentials: number[];      // Potential energy values in eV, from left to right TODO change to potentialEnergies
   energies: number[];        // Energy levels (eigenvalues) in eV, sorted from lowest to highest TODO change to energyLevels
   waveFunctions: number[][]; // Normalized wave function solutions (each row is one state) TODO change to waveFunctionSolutions
-  solutionMethod: SolutionMethod;    // Name of the method used to solve for the bound state TODO rename to solutionMethod
 };
 
 export default class BoundStateResult {
 
+  public readonly solutionMethod: SolutionMethod;
   public readonly potentials: number[];
   public readonly energies: number[];
   public readonly waveFunctions: number[][];
-  public readonly solutionMethod: SolutionMethod;
 
   public constructor( options: BoundStateResultOptions ) {
+    this.solutionMethod = options.solutionMethod;
     this.potentials = options.potentials;
     this.energies = options.energies;
     this.waveFunctions = options.waveFunctions;
-    this.solutionMethod = options.solutionMethod;
   }
 
   private toStateObject(): BoundStateResultStateObject {
     return {
+      solutionMethod: this.solutionMethod,
       potentials: this.potentials,
       energies: this.energies,
-      waveFunctions: this.waveFunctions,
-      solutionMethod: this.solutionMethod
+      waveFunctions: this.waveFunctions
     };
   }
 
   private static fromStateObject( stateObject: BoundStateResultStateObject ): BoundStateResult {
     return new BoundStateResult( {
+      solutionMethod: stateObject.solutionMethod as SolutionMethod,
       potentials: stateObject.potentials,
       energies: stateObject.energies,
-      waveFunctions: stateObject.waveFunctions,
-      solutionMethod: stateObject.solutionMethod as SolutionMethod
+      waveFunctions: stateObject.waveFunctions
     } );
   }
 
@@ -103,9 +102,9 @@ export default class BoundStateResult {
     //TODO When BoundStateResult field names are changed, update documentation.
     documentation: 'Bounds state information for the selected quantum potential. Fields include:' +
                    '<ul>' +
+                   '<li>solutionMethod: the method used to solve for the bound state</li>' +
                    '<li>potentials: TODO</li>' +
                    '<li>energies: TODO</li>' +
-                   '<li>waveFunctions: TODO</li>' +
-                   '<li>solutionMethod: the method used to solve for the bound state</li>'
+                   '<li>waveFunctions: TODO</li>'
   } );
 }
