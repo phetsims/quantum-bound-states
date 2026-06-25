@@ -43,6 +43,8 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
       tandem: tandem
     } );
 
+    potential.numberOfWellsProperty.lazyLink( () => this.updateLabelPosition() );
+
     this.addInputListener( new WellDepthDragListener( this, potential, chartTransform, time, tandem ) );
   }
 
@@ -55,6 +57,21 @@ export default class FiniteSquareDepthHandleNode extends PotentialHandleNode<Fin
     this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
                                                this.potential.wellDepthProperty.value +
                                                this.potential.getElectricFieldOffset( xModel ) );
+  }
+
+  /**
+   * Updates the position of the label. This label is typically centered above the arrow. But when the number of
+   * wells is at its maximum, the label can sometimes exceed the bounds of the Energy Diagram and overlap the control
+   * panel to the right of the Energy Diagram. So in that case, right-justify the label and arrow.
+   */
+  protected override updateLabelPosition(): void {
+    if ( this.potential.numberOfWellsProperty.value === this.potential.numberOfWellsProperty.range.max ) {
+      this.labelNode.right = this.arrowNode.right;
+    }
+    else {
+      this.labelNode.centerX = this.arrowNode.centerX;
+    }
+    this.labelNode.bottom = this.arrowNode.top + PotentialHandleNode.LABEL_Y_OFFSET;
   }
 
   /**
