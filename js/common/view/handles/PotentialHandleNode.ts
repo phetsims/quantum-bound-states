@@ -57,11 +57,14 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
   // Whether the handle is being dragged.
   public readonly isDraggingProperty: Property<boolean>;
 
-  // The label that identifies the property that the handle is associated with.
-  protected readonly labelNode: PotentialHandleLabelNode;
+  // Double-head arrow that can be dragged.
+  protected readonly arrowNode: ArrowNode;
 
-  protected static readonly HORIZONTAL_ARROW_Y_OFFSET = -( ARROW_NODE_OPTIONS.headWidth / 2 + 3 );
-  protected static readonly VERTICAL_ARROW_Y_OFFSET = -( QBSConstants.HANDLE_LENGTH / 2 + 3 );
+  // The label that identifies the property that the handle is associated with.
+  protected readonly labelNode: Node;
+
+  // Vertical offset of the label above the arrow.
+  protected static readonly LABEL_Y_OFFSET = -3;
 
   protected constructor( potential: T,
                          chartTransform: ChartTransform,
@@ -103,15 +106,15 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     const tipX = options.orientation === 'horizontal' ? QBSConstants.HANDLE_LENGTH / 2 : 0;
     const tipY = options.orientation === 'horizontal' ? 0 : QBSConstants.HANDLE_LENGTH / 2;
 
-    const arrowNode = new ArrowNode( tailX, tailY, tipX, tipY, ARROW_NODE_OPTIONS );
-    this.addChild( arrowNode );
+    this.arrowNode = new ArrowNode( tailX, tailY, tipX, tipY, ARROW_NODE_OPTIONS );
+    this.addChild( this.arrowNode );
 
     this.labelNode = new PotentialHandleLabelNode( labelStringProperty, valuesVisibleProperty, options.tandem.createTandem( 'labelNode' ) );
     this.addChild( this.labelNode );
     this.labelNode.localBoundsProperty.link( () => this.updateLabelPosition( options.orientation ) );
 
     // Pointer area around arrow.
-    const pointerArea = arrowNode.localBounds.dilatedXY( 5, 5 );
+    const pointerArea = this.arrowNode.localBounds.dilatedXY( 5, 5 );
     this.mouseArea = pointerArea;
     this.touchArea = pointerArea;
 
@@ -127,8 +130,8 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
 
     // Change the arrow colors to indicate whether the handle is enabled.
     this.inputEnabledProperty.link( inputEnabled => {
-      arrowNode.fill = inputEnabled ? QBSColors.handleFillProperty : QBSColors.handleDisabledFillProperty;
-      arrowNode.stroke = inputEnabled ? QBSColors.handleStrokeProperty : QBSColors.handleDisabledStrokeProperty;
+      this.arrowNode.fill = inputEnabled ? QBSColors.handleFillProperty : QBSColors.handleDisabledFillProperty;
+      this.arrowNode.stroke = inputEnabled ? QBSColors.handleStrokeProperty : QBSColors.handleDisabledStrokeProperty;
     } );
 
     // When the potential or chartTransform changes, update the position of the handle.
@@ -146,10 +149,8 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
    * Updates the position of the label. Horizontally centered above the arrow by default.
    */
   protected updateLabelPosition( orientation: ArrowOrientation ): void {
-    this.labelNode.centerX = 0;
-    this.labelNode.bottom = ( orientation === 'horizontal' ) ?
-                            PotentialHandleNode.HORIZONTAL_ARROW_Y_OFFSET :
-                            PotentialHandleNode.VERTICAL_ARROW_Y_OFFSET;
+    this.labelNode.centerX = this.arrowNode.centerX;
+    this.labelNode.bottom = this.arrowNode.top + PotentialHandleNode.LABEL_Y_OFFSET;
   }
 
   /**
