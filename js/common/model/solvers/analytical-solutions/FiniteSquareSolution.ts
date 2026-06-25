@@ -114,7 +114,7 @@ export default class FiniteSquareSolution {
       }
       potentialEnergy += yOffset + electricField * ( x - xOffset );
 
-      affirm( potentialEnergy < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY );
+      affirm( potentialEnergy < QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY, `invalid potentialEnergy: ${potentialEnergy}` );
       return potentialEnergy;
     };
   }

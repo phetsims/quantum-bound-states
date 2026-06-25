@@ -26,7 +26,7 @@ export default class PotentialPropertyControl extends QBSNumberControl {
   public constructor( labelString: string, potentialProperty: NumberProperty, decimalPlaces: number, time: QBSTime ) {
 
     const units = potentialProperty.units;
-    affirm( units instanceof PhetUnit, 'nanometersProperty must have PhetUnit' );
+    affirm( units instanceof PhetUnit, 'nanometersProperty.units must be a PhetUnit' );
 
     super( labelString, potentialProperty, time,
       combineOptions<QBSNumberControlOptions>( {}, QBSConstants.NUMBER_CONTROL_OPTIONS, {

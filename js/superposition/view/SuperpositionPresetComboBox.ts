@@ -27,7 +27,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<PresetSuperpos
                       tandem: Tandem ) {
 
     const validValues = superpositionPresetProperty.validValues;
-    affirm( validValues );
+    affirm( validValues, 'superpositionPresetProperty.validValues' );
 
     const richTextOptions = {
       font: QBSConstants.CONTROL_FONT,

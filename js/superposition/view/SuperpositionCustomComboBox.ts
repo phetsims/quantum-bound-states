@@ -26,7 +26,7 @@ export default class SuperpositionCustomComboBox extends ComboBox<CustomSuperpos
                       tandem: Tandem ) {
 
     const validValues = superpositionCustomProperty.validValues;
-    affirm( validValues );
+    affirm( validValues, 'superpositionCustomProperty.validValues is required.' );
 
     const richTextOptions = {
       font: QBSConstants.CONTROL_FONT,

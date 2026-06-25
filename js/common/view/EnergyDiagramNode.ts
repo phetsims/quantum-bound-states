@@ -107,7 +107,7 @@ export default class EnergyDiagramNode extends Node {
       this.chartTransform, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
 
     const potentials = model.potentialProperty.validValues!;
-    affirm( potentials );
+    affirm( potentials, 'potentialProperty.validValues is required.' );
 
     const handlesLayer = new PotentialHandlesLayer( potentials, model.potentialProperty, this.chartTransform,
       model.energyDiagram.valuesVisibleProperty, model.time, tandem.createTandem( 'handlesLayer' ) );
