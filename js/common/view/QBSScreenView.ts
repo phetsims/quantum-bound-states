@@ -71,7 +71,9 @@ export default class QBSScreenView extends ScreenView {
     const energyDiagramNode = new EnergyDiagramNode( model, new EnergyDiagramDescriber( model ), options.tandem.createTandem( 'energyDiagramNode' ) );
     this.energyDiagramNode = energyDiagramNode;
 
+    // Group all quantum state graphs under a parent tandem.
     const quantumStateGraphNodesTandem = options.tandem.createTandem( 'quantumStateGraphNodes' );
+
     const quantumStateGraphNodes: QuantumStateGraphNode[] = [];
 
     const probabilityDensityGraphNode = new ProbabilityDensityGraphNode( model.probabilityDensityGraph,

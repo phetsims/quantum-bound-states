@@ -34,6 +34,7 @@ export default class MarkersLayer extends Node {
 
     potentials.forEach( potential => {
 
+      // Group all markers for this potential under a parent tandem.
       const markersNodeTandem = tandem.createTandem( `${potential.tandemPrefix}MarkersNode` );
 
       if ( potential instanceof AsymmetricTrianglePotential ) {

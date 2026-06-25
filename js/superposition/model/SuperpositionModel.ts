@@ -64,6 +64,7 @@ export default class SuperpositionModel extends QBSModel {
       phetioReadOnly: true
     } );
 
+    // Group all potentials under a parent tandem.
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
@@ -113,6 +114,7 @@ export default class SuperpositionModel extends QBSModel {
       tandem: tandem
     } );
 
+    // Group all superposition configurations under a parent tandem.
     const superpositionConfigurationsTandem = tandem.createTandem( 'superpositionConfigurations' );
 
     this.superpositionConfigurationTypeProperty = new StringUnionProperty( 'preset', {
@@ -123,9 +125,11 @@ export default class SuperpositionModel extends QBSModel {
 
     const groundStateIndexProperty = this.potentialProperty.derived( potential => potential.groundStateIndex );
 
+    // Group all preset superposition configurations under a parent tandem.
+    const presetsTandem = superpositionConfigurationsTandem.createTandem( 'presets' );
+
     //TODO Make this mess go away.
     let presetIndex = 1;
-    const presetsTandem = superpositionConfigurationsTandem.createTandem( 'presets' );
     const presetSuperpositionConfigurations: PresetSuperpositionConfiguration[] = [
       new PresetSuperpositionConfiguration( {
         nameProperty: new DerivedStringProperty( [
@@ -177,9 +181,11 @@ export default class SuperpositionModel extends QBSModel {
       } )
     ];
 
+    // Group all custom superposition configurations under a parent tandem.
+    const customTandem = superpositionConfigurationsTandem.createTandem( 'custom' );
+
     //TODO Make this mess go away.
     let customIndex = 1;
-    const customTandem = superpositionConfigurationsTandem.createTandem( 'custom' );
     const customSuperpositionConfigurations: CustomSuperpositionConfiguration[] = [
       new CustomSuperpositionConfiguration( {
         nameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom1StringProperty,

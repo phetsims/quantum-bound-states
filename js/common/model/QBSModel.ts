@@ -256,7 +256,9 @@ export default class QBSModel implements TModel {
     this.numberOfNodesProperty = new DerivedProperty( [ this.selectedEnergyLevelIndexProperty ],
       selectedEnergyLevelIndex => selectedEnergyLevelIndex - this.potentialProperty.value.groundStateIndex + 1 );
 
+    // Group all quantum state graphs under a parent tandem.
     const quantumStateGraphsTandem = options.tandem.createTandem( 'quantumStateGraphs' );
+
     this.probabilityDensityGraph = new ProbabilityDensityGraph( this, quantumStateGraphsTandem.createTandem( 'probabilityDensityGraph' ) );
     this.waveFunctionGraph = new WaveFunctionGraph( this, quantumStateGraphsTandem.createTandem( 'waveFunctionGraph' ) );
 

@@ -43,6 +43,7 @@ export default class PotentialHandlesLayer extends Node {
 
     potentials.forEach( potential => {
 
+      // Group all handles for this potential under a parent tandem.
       const handlesNodeTandem = tandem.createTandem( `${potential.tandemPrefix}HandlesNode` );
 
       if ( potential instanceof InfiniteSquarePotential ) {

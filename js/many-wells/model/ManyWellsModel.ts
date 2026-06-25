@@ -47,6 +47,7 @@ export default class ManyWellsModel extends QBSModel {
       phetioFeatured: true
     } );
 
+    // Group all potentials under a parent tandem.
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const potentials = [
