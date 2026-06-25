@@ -24,6 +24,6 @@ export type TimeEvolvedSuperposition = CoreRecord<typeof SCHEMA>;
 
 // PhET-iO data-type serialization for TimeEvolvedSuperposition instances.
 export const TimeEvolvedSuperpositionIO = new SchemaOrientedIOType<TimeEvolvedSuperposition, typeof SCHEMA>( 'TimeEvolvedSuperpositionIO', {
-  documentation: 'Serialization for the time-evolved superposition of a wave function at a given energy level.',
-  stateSchema: SCHEMA
+  stateSchema: SCHEMA,
+  documentation: 'Time-evolved superposition of a wave function at the selected energy level.'
 } );
