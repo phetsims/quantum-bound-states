@@ -29,7 +29,7 @@
  * }
  *
  * // Calculate probability density
- * const probability = psi0.map( psi => psi * psi );
+ * const probabilityDensity = psi0.map( psi => psi * psi );
  */
 
 type NumericMethod = 'numerov' | 'analytical';
