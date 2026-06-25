@@ -110,7 +110,8 @@ export default class QuantumPotentialDescriber {
     const visibleProperty = this.createAccessibleListItemVisibleProperty( potential );
     return [
       this.createEnergyOffsetListItem( potential.yOffsetProperty, potential ),
-      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty )
+      this.createWellWidthListItem( potential.wellWidthProperty, potential.wellWidthDecimalPlaces, visibleProperty ),
+      this.createAngularFrequencyListItem( potential.angularFrequencyProperty, visibleProperty )
     ];
   }
 
@@ -239,6 +240,19 @@ export default class QuantumPotentialDescriber {
     return {
       stringProperty: QuantumBoundStatesFluent.a11y.potentials.accessibleTemplate.listItems.stepHeight.createProperty( {
         stepHeight: stepHeightProperty.derived( stepHeight => toFixed( stepHeight, QBSConstants.STEP_HEIGHT_DECIMAL_PLACES ) )
+      } ),
+      visibleProperty: visibleProperty
+    };
+  }
+
+  /**
+   * Creates an AccessibleListItem for a Harmonic Oscillator's angular frequency.
+   */
+  protected createAngularFrequencyListItem( angularFrequencyProperty: TReadOnlyProperty<number>,
+                                            visibleProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
+    return {
+      stringProperty: QuantumBoundStatesFluent.a11y.potentials.accessibleTemplate.listItems.angularFrequency.createProperty( {
+        angularFrequency: angularFrequencyProperty.derived( angularFrequency => toFixed( angularFrequency, QBSConstants.ANGULAR_FREQUENCY_DECIMAL_PLACES ) )
       } ),
       visibleProperty: visibleProperty
     };
