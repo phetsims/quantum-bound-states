@@ -139,12 +139,11 @@ export default class QBSModel implements TModel {
     this.potentials = options.potentials;
 
     this.boundStateResultProperty = new Property( solveBoundState( options.potential, this.xGrid ), {
-      //TODO PhET-iO instrumentation of boundStateResultProperty, something like this:
-      //tandem: options.tandem.createTandem( 'boundStateResultProperty' ),
-      //phetioValueType: BoundStateResult.BoundStateResultIO,
-      //phetioFeatured: true,
-      //phetioReadOnly: true,
-      //phetioDocumentation: 'Bound state information for the selected quantum potential.'
+      tandem: options.tandem.createTandem( 'boundStateResultProperty' ),
+      phetioValueType: BoundStateResult.BoundStateResultIO,
+      phetioFeatured: true,
+      phetioReadOnly: true,
+      phetioDocumentation: 'Bound state information for the selected quantum potential. See BoundStateResultIO for details.'
     } );
 
     this.energyDiagram = new EnergyDiagram( this, options.tandem.createTandem( 'energyDiagram' ) );
