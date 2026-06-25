@@ -13,7 +13,6 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
@@ -61,11 +60,7 @@ export default class FiniteSquarePotential extends QuantumPotentialDepth {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.separationProperty ], () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.changedEmitter.emit();
-      }
-    } );
+    Multilink.multilink( [ this.separationProperty ], () => this.changedEmitter.emit() );
   }
 
   public override reset(): void {

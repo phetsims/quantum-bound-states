@@ -18,7 +18,6 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import { nanometersUnit } from '../../../../../scenery-phet/js/units/nanometersUnit.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../../tandem/js/types/ReferenceIO.js';
@@ -168,11 +167,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     //TODO Does energyAxisRangeProperty need to be included here? If not, document why not.
     Multilink.multilink( [ this.numberOfWellsProperty, this.electronMassesProperty, this.electricFieldProperty,
         this.xOffsetProperty, this.yOffsetProperty, this.wellWidthProperty ],
-      () => {
-        if ( !isSettingPhetioStateProperty.value ) {
-          this.changedEmitter.emit();
-        }
-      } );
+      () => this.changedEmitter.emit() );
 
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;

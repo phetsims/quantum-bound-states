@@ -14,7 +14,6 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QuantumBoundStatesFluent from '../../../QuantumBoundStatesFluent.js';
 import QBSConstants from '../../QBSConstants.js';
 import InfiniteStepSolution from '../solvers/analytical-solutions/InfiniteStepSolution.js';
@@ -59,11 +58,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.stepHeightProperty ], () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.changedEmitter.emit();
-      }
-    } );
+    Multilink.multilink( [ this.stepHeightProperty ], () => this.changedEmitter.emit() );
   }
 
   public override reset(): void {

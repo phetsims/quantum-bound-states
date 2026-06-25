@@ -10,7 +10,6 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
@@ -33,11 +32,7 @@ export default class ProbabilityDensityPlotsNode extends ChartCanvasNode {
     chartTransform.changedEmitter.addListener( () => updatePlots() );
 
     Multilink.multilink( [ probabilityDensityGraph.timeEvolvedSuperpositionProperty, probabilityDensityPlot.strokeProperty ],
-      () => {
-        if ( !isSettingPhetioStateProperty.value ) {
-          updatePlots();
-        }
-      } );
+      () => updatePlots() );
 
     // When PhET-iO state has been fully restored, update plots.
     if ( Tandem.PHET_IO_ENABLED ) {

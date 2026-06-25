@@ -9,7 +9,6 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { electronVoltsUnit } from '../../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import QuantumPotential, { QuantumPotentialOptions } from './QuantumPotential.js';
 
@@ -53,11 +52,7 @@ export default abstract class QuantumPotentialDepth extends QuantumPotential {
     } );
 
     // Changes to Properties instantiated by this class trigger notification.
-    Multilink.multilink( [ this.wellDepthProperty ], () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.changedEmitter.emit();
-      }
-    } );
+    Multilink.multilink( [ this.wellDepthProperty ], () => this.changedEmitter.emit() );
   }
 
   public override reset(): void {
