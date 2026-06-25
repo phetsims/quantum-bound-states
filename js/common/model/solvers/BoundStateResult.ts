@@ -2,7 +2,7 @@
 
 //TODO Convert this to a class and add BoundStateResultIO with data-type serialization.
 /**
- * Result from a bound state calculation.
+ * BoundStateResult is the result from a bound state calculation.
  *
  * @author Martin Martin Veillette
  *
