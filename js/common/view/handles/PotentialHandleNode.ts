@@ -147,6 +147,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
 
   /**
    * Updates the position of the label. Horizontally centered above the arrow by default.
+   * Subclasses can override this method to change the position.
    */
   protected updateLabelPosition( orientation: ArrowOrientation ): void {
     this.labelNode.centerX = this.arrowNode.centerX;
