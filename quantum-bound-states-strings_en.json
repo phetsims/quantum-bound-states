@@ -238,6 +238,11 @@
       "readValues": {
         "value": "Read values<br>(accessibility)"
       }
+    },
+    "magnifier": {
+      "heading": {
+        "value": "Magnifier"
+      }
     }
   },
   "a11y": {

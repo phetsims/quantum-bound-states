@@ -115,6 +115,8 @@ keyboardHelp:
   referenceLine:
     heading:    Reference Line
     readValues: Read values<br>(accessibility)
+  magnifier:
+    heading:    Magnifier
 
 # Strings that are specific to accessibility
 a11y:

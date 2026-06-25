@@ -109,6 +109,9 @@ type StringsType = {
     'referenceLine': {
       'headingStringProperty': LocalizedStringProperty;
       'readValuesStringProperty': LocalizedStringProperty;
+    };
+    'magnifier': {
+      'headingStringProperty': LocalizedStringProperty;
     }
   };
   'a11y': {

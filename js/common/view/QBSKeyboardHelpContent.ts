@@ -8,53 +8,80 @@
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import ComboBoxKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/ComboBoxKeyboardHelpSection.js';
-import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import MoveDraggableItemsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/MoveDraggableItemsKeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import SpinnerControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SpinnerControlsKeyboardHelpSection.js';
-import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
+import TimeControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/TimeControlsKeyboardHelpSection.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ReferenceLineKeyboardHelpSection from './ReferenceLineKeyboardHelpSection.js';
 
-export default class QBSKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
+const ROW_SPACING = 40;
+const COLUMN_SPACING = 40;
+
+export default class QBSKeyboardHelpContent extends HBox {
 
   public constructor() {
 
-    // Sections in the left column.
-    const leftSections: KeyboardHelpSection[] = [
+    const column1 = new VBox( {
+      align: 'left',
+      spacing: ROW_SPACING,
+      children: [
 
-      // Potential Handles
-      new MoveDraggableItemsKeyboardHelpSection( {
-        headingStringProperty: QuantumBoundStatesFluent.keyboardHelp.potentialHandles.headingStringProperty
-      } ),
+        // Potential Handles
+        new MoveDraggableItemsKeyboardHelpSection( {
+          headingStringProperty: QuantumBoundStatesFluent.keyboardHelp.potentialHandles.headingStringProperty
+        } ),
 
-      // Reference Line
-      new ReferenceLineKeyboardHelpSection(),
+        // Magnifier
+        new MoveDraggableItemsKeyboardHelpSection( {
+          headingStringProperty: QuantumBoundStatesFluent.keyboardHelp.magnifier.headingStringProperty
+        } ),
 
-      // Slider Controls
-      new SliderControlsKeyboardHelpSection()
-    ];
+        // Reference Line
+        new ReferenceLineKeyboardHelpSection()
+      ]
+    } );
 
-    // Sections in the right column.
-    const rightSections: KeyboardHelpSection[] = [
+    const column2 = new VBox( {
+      align: 'left',
+      spacing: ROW_SPACING,
+      children: [
 
+        // Time Controls
+        new TimeControlsKeyboardHelpSection(),
 
-      // Spinner Controls
-      new SpinnerControlsKeyboardHelpSection(),
+        // Combo Boxes
+        new ComboBoxKeyboardHelpSection( {
+          headingString: QuantumBoundStatesFluent.keyboardHelp.comboBox.headingStringProperty
+        } ),
 
-      // ComboBox
-      new ComboBoxKeyboardHelpSection( {
-        headingString: QuantumBoundStatesFluent.keyboardHelp.comboBox.headingStringProperty
-      } ),
+        // Slider Controls
+        new SliderControlsKeyboardHelpSection()
+      ]
+    } );
 
-      // Basic Actions
-      new BasicActionsKeyboardHelpSection( {
-        withCheckboxContent: true
-      } )
-    ];
+    const column3 = new VBox( {
+      align: 'left',
+      spacing: ROW_SPACING,
+      children: [
 
-    super( leftSections, rightSections, {
-      isDisposable: false
+        // Spinner Controls
+        new SpinnerControlsKeyboardHelpSection(),
+
+        // Basic Actions
+        new BasicActionsKeyboardHelpSection( {
+          withCheckboxContent: true
+        } )
+      ]
+    } );
+
+    super( {
+      isDisposable: false,
+      spacing: COLUMN_SPACING,
+      align: 'top',
+      children: [ column1, column2, column3 ]
     } );
   }
 }

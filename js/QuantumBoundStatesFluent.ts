@@ -93,6 +93,7 @@ addToMapIfDefined( 'keyboardHelp_comboBox_heading', 'keyboardHelp.comboBox.headi
 addToMapIfDefined( 'keyboardHelp_potentialHandles_heading', 'keyboardHelp.potentialHandles.headingStringProperty' );
 addToMapIfDefined( 'keyboardHelp_referenceLine_heading', 'keyboardHelp.referenceLine.headingStringProperty' );
 addToMapIfDefined( 'keyboardHelp_referenceLine_readValues', 'keyboardHelp.referenceLine.readValuesStringProperty' );
+addToMapIfDefined( 'keyboardHelp_magnifier_heading', 'keyboardHelp.magnifier.headingStringProperty' );
 addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_leadingParagraph', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.leadingParagraphStringProperty' );
 addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_selectedPotential', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedPotentialStringProperty' );
 addToMapIfDefined( 'a11y_screens_defaults_screenSummary_currentDetails_accessibleTemplate_listItems_selectedGraph', 'a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.selectedGraphStringProperty' );
@@ -437,6 +438,12 @@ const QuantumBoundStatesFluent = {
     referenceLine: {
       headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.headingStringProperty' ),
       readValuesStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.referenceLine.readValuesStringProperty' )
+    },
+    _comment_0: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
+    _comment_1: new FluentComment( {"comment":"Tools","associatedKey":"magnifier"} ),
+    _comment_2: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
+    magnifier: {
+      headingStringProperty: _.get( QuantumBoundStatesStrings, 'keyboardHelp.magnifier.headingStringProperty' )
     }
   },
   _comment_26: new FluentComment( {"comment":"Strings that are specific to accessibility","associatedKey":"a11y"} ),
