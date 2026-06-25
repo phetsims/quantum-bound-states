@@ -90,7 +90,7 @@ export default class XGrid extends PhetioObject {
   }
 
   /**
-   * Access the coordinates through as getter so that the array is readonly.
+   * Access the coordinates through a getter so that the array is readonly.
    */
   public get xCoordinates(): readonly number[] {
     return this.xCoordinatesProperty.value;
