@@ -138,7 +138,9 @@ export default class QBSModel implements TModel {
     } );
     this.potentials = options.potentials;
 
-    this.boundStateResultProperty = new Property( solveBoundState( options.potential, this.xGrid ) );
+    this.boundStateResultProperty = new Property( solveBoundState( options.potential, this.xGrid ), {
+      //TODO PhET-iO instrumentation
+    } );
 
     this.energyDiagram = new EnergyDiagram( this, options.tandem.createTandem( 'energyDiagram' ) );
 
