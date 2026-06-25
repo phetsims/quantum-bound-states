@@ -22,7 +22,9 @@ import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
-const NUMBER_OF_DECIMAL_PLACES_RANGE = new Range( 2, 12 ); // Same as Java version, see BSEigenstatesNode.java
+// A large number of decimal places is indeed needed to differentiate between closely-spaced energy levels.
+// For example, see E0 and E1 for Poschl-Teller in the Two Wells screen with depth=10 and spacing=3.
+const NUMBER_OF_DECIMAL_PLACES_RANGE = new Range( 2, 13 );
 
 type SelfOptions = EmptySelfOptions;
 
