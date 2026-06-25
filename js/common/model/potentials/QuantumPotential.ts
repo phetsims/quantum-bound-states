@@ -164,7 +164,6 @@ export default abstract class QuantumPotential extends PhetioObject {
     this.energyAxisRange = options.energyAxisRange;
 
     // Changes to global Properties or Properties instantiated by this class trigger notification.
-    //TODO Does energyAxisRangeProperty need to be included here? If not, document why not.
     Multilink.multilink( [ this.numberOfWellsProperty, this.electronMassesProperty, this.electricFieldProperty,
         this.xOffsetProperty, this.yOffsetProperty, this.wellWidthProperty ],
       () => this.changedEmitter.emit() );
