@@ -42,7 +42,7 @@ type SelfOptions = {
   yOffsetRange?: RangeWithValue;
 
   // Range of the energy axis (y-axis) when yOffsetProperty is at its initial value
-  energyAxisRange?: Range;
+  yAxisRange: Range;
 
   // Range of wellWidthProperty in nm.
   wellWidthRange: RangeWithValue;
@@ -92,8 +92,8 @@ export default abstract class QuantumPotential extends PhetioObject {
   // Fires when the quantum potential has changed and the BoundStateResult needs to be recomputed.
   public readonly changedEmitter: Emitter;
 
-  // Range of the energy axis (y-axis) when yOffsetProperty is at its initial value.
-  public readonly energyAxisRange: Range;
+  // Range of the y-axis (energy) when yOffsetProperty is at its initial value.
+  public readonly yAxisRange: Range;
 
   // Name used to identify this potential in the visual UI.
   public readonly visualNameProperty: TReadOnlyProperty<string>;
@@ -113,7 +113,6 @@ export default abstract class QuantumPotential extends PhetioObject {
       xOffset: 0,
       yOffsetRange: new RangeWithValue( 0, 0, 0 ), // effectively constant
       wellWidthDecimalPlaces: QBSConstants.WELL_WIDTH_DECIMAL_PLACES,
-      energyAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
       accessibleNameProperty: providedOptions.visualNameProperty,
 
       // PhetioObjectOptions
@@ -161,7 +160,7 @@ export default abstract class QuantumPotential extends PhetioObject {
     // Emitters are typically not instrumented for PhET-iO, and there was no request to instrument this one.
     this.changedEmitter = new Emitter();
 
-    this.energyAxisRange = options.energyAxisRange;
+    this.yAxisRange = options.yAxisRange;
 
     // Changes to global Properties or Properties instantiated by this class trigger notification.
     Multilink.multilink( [ this.numberOfWellsProperty, this.electronMassesProperty, this.electricFieldProperty,

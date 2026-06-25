@@ -8,6 +8,7 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
@@ -43,6 +44,7 @@ export default class HarmonicOscillatorPotential extends QuantumPotential {
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
+      yAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
       wellWidthRange: new RangeWithValue( 0.1, 3, 1 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.harmonicOscillatorStringProperty,
       tandemPrefix: 'harmonicOscillatorPotential'

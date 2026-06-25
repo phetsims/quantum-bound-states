@@ -8,6 +8,7 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
@@ -43,6 +44,7 @@ export default class FiniteSquarePotential extends QuantumPotentialDepth {
       separationRange: new RangeWithValue( 0, 0, 0 ), // for 1 well, effectively constant zero
 
       // QuantumPotentialOptions
+      yAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
       wellDepthRange: new RangeWithValue( 1, 19, 10 ), // for 1 well
       wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
       depthDirection: 'up',

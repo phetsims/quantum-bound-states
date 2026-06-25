@@ -40,7 +40,7 @@ export default class EnergyDiagram extends PhetioObject {
 
     this.xGrid = model.xGrid;
 
-    this._yRangeProperty = new Property( model.potentialProperty.value.energyAxisRange, {
+    this._yRangeProperty = new Property( model.potentialProperty.value.yAxisRange, {
       tandem: tandem.createTandem( 'yRangeProperty' ),
       phetioValueType: Range.RangeIO,
       phetioFeatured: true,
@@ -56,8 +56,8 @@ export default class EnergyDiagram extends PhetioObject {
 
     // Set the Energy Diagram's y-axis range based on the y-offset of the selected potential.
     const yOffsetListener = ( yOffset: number ) => {
-      const min = roundToInterval( model.potentialProperty.value.energyAxisRange.min + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
-      const max = roundToInterval( model.potentialProperty.value.energyAxisRange.max + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
+      const min = roundToInterval( model.potentialProperty.value.yAxisRange.min + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
+      const max = roundToInterval( model.potentialProperty.value.yAxisRange.max + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
       this._yRangeProperty.value = new Range( min, max );
     };
     model.potentialProperty.link( ( potential, oldPotential ) => {

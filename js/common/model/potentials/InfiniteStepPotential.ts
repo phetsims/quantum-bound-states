@@ -8,6 +8,7 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
 import affirm, { isAffirmEnabled } from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -42,6 +43,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
       stepHeightRange: new RangeWithValue( 0, 17, 3 ), // for 1 well
 
       // QuantumPotentialOptions
+      yAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
       wellWidthRange: new RangeWithValue( 0.2, 6, 1 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
       tandemPrefix: 'infiniteStepPotential'

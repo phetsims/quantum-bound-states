@@ -60,7 +60,7 @@ export default class OneWellModel extends QBSModel {
       phetioReadOnly: true
     } );
 
-    const yOffsetRange = new RangeWithValue( -10, 10, 0 ); //TODO This assumes that all potentials have energyAxisRange.getLength() === 20
+    const yOffsetRange = new RangeWithValue( -10, 10, 0 ); //TODO This assumes that all potentials have yAxisRange.getLength() === 20
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
