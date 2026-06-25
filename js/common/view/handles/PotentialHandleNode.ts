@@ -111,7 +111,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
 
     this.labelNode = new PotentialHandleLabelNode( labelStringProperty, valuesVisibleProperty, options.tandem.createTandem( 'labelNode' ) );
     this.addChild( this.labelNode );
-    this.labelNode.localBoundsProperty.link( () => this.updateLabelPosition( options.orientation ) );
+    this.labelNode.localBoundsProperty.link( () => this.updateLabelPosition() );
 
     // Pointer area around arrow.
     const pointerArea = this.arrowNode.localBounds.dilatedXY( 5, 5 );
@@ -149,7 +149,7 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
    * Updates the position of the label. Horizontally centered above the arrow by default.
    * Subclasses can override this method to change the position.
    */
-  protected updateLabelPosition( orientation: ArrowOrientation ): void {
+  protected updateLabelPosition(): void {
     this.labelNode.centerX = this.arrowNode.centerX;
     this.labelNode.bottom = this.arrowNode.top + PotentialHandleNode.LABEL_Y_OFFSET;
   }

@@ -53,6 +53,16 @@ export default class MorseDepthHandleNode extends PotentialHandleNode<MorsePoten
   }
 
   /**
+   * Updates the position of the label. For the Morse depth handle, the default behavior of centering the
+   * label above the arrow causes the label to overlap the Energy Level display most of the time. Instead,
+   * we left-justify the label with the arrow.
+   */
+  protected override updateLabelPosition(): void {
+    this.labelNode.left = this.arrowNode.centerX - this.arrowNode.width / 2;
+    this.labelNode.bottom = this.arrowNode.top + PotentialHandleNode.LABEL_Y_OFFSET;
+  }
+
+  /**
    * Describes the handle when it is moved.
    */
   public override describeMoved(): void {
