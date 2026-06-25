@@ -89,10 +89,16 @@ export default class XGrid extends PhetioObject {
     } );
   }
 
+  /**
+   * Access the coordinates through as getter so that the array is readonly.
+   */
   public get xCoordinates(): readonly number[] {
     return this.xCoordinatesProperty.value;
   }
 
+  /**
+   * Gets the index of the x-coordinate that is closest to the specified x value.
+   */
   public getClosestIndex( x: number ): number {
     affirm( x >= this.xMin && x <= this.xMax, `x out of range: ${x}` );
     return findClosestIndex( this.xCoordinates, x );
