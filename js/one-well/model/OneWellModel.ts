@@ -63,6 +63,7 @@ export default class OneWellModel extends QBSModel {
     // Default offset is zero eV, with ability to shift the range the same amount in both positive and negative directions.
     const yOffsetRange = new RangeWithValue( -10, 10, 0 );
 
+    // Group all potentials under a parent tandem.
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
     const harmonicOscillatorPotential = new HarmonicOscillatorPotential( electronMassesProperty, {
