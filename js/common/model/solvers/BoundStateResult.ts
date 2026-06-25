@@ -31,11 +31,12 @@
  * const probabilityDensity = psi0.map( psi => psi * psi );
  */
 
+// Enumeration of methods used to compute the bound state
 type NumericMethod = 'numerov' | 'analytical';
 
 export type BoundStateResult = {
   potentials: number[];      // Potential energy values in eV, from left to right
   energies: number[];        // Eigenvalues (energy levels) in eV (sorted from lowest to highest) TODO change to energyLevels
   waveFunctions: number[][]; // Normalized wave functions (each row is one state) TODO change to waveFunctionSolutions?
-  method: NumericMethod;     // Name of the numerical method used TODO do we need this?
+  method: NumericMethod;     // Name of the method used to compute the bound state TODO do we need this?
 };
