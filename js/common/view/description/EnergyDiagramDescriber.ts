@@ -80,6 +80,7 @@ export default class EnergyDiagramDescriber {
     const energyStringProperty = new DerivedStringProperty(
       [ this.model.selectedEnergyLevelIndexProperty, this.model.selectedEnergyLevelValueProperty ],
       ( selectedEnergyLevelIndex, selectedEnergyLevelValue ) => {
+        //TODO EnergyLevelDisplay.getNumberOfDecimalPlaces is sadly called here and in EnergyLevelDisplay. Can they share a new Property?
         const decimalPlaces = EnergyLevelDisplay.getNumberOfDecimalPlaces( selectedEnergyLevelIndex,
           this.model.potentialProperty.value.groundStateIndex, this.model.boundStateResultProperty.value.energies );
         return toFixed( selectedEnergyLevelValue, decimalPlaces );
