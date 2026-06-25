@@ -2,12 +2,11 @@
 
 //TODO Convert this to a class and add BoundStateResultIO with data-type serialization.
 /**
- * BoundStateResult is the result from a bound state calculation.
+ * BoundStateResult is the result from a bound state calculation. It contains all information about
+ * the computed quantum state, including potential energy values, energy levels, and normalized
+ * wave functions.
  *
  * @author Martin Martin Veillette
- *
- * Contains all information about the computed quantum states including
- * eigenvalues (energy levels), normalized wave functions, and the spatial grid.
  *
  * @example
  *
