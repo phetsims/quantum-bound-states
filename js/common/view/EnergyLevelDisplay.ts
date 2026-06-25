@@ -100,12 +100,12 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     // Find the smallest difference between the selected energy level and the adjacent energy levels.
     let difference = 1000; // an arbitrarily large value, in eV
 
-    // Adjacent energy level below.
+    // Adjacent lower energy level
     if ( index > 0 ) {
       difference = Math.abs( energy - energies[ index - 1 ] );
     }
 
-    // Adjacent energy level above.
+    // Adjacent higher energy level
     if ( index < energies.length - 1 ) {
       const difference2 = Math.abs( energy - energies[ index + 1 ] );
       if ( difference2 < difference ) {
