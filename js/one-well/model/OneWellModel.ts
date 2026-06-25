@@ -60,7 +60,8 @@ export default class OneWellModel extends QBSModel {
       phetioReadOnly: true
     } );
 
-    const yOffsetRange = new RangeWithValue( -10, 10, 0 ); //TODO This assumes that all potentials have yAxisRange.getLength() === 20
+    // Default offset is zero eV, with ability to shift the range the same amount in both positive and negative directions.
+    const yOffsetRange = new RangeWithValue( -10, 10, 0 );
 
     const potentialsTandem = tandem.createTandem( 'potentials' );
 
