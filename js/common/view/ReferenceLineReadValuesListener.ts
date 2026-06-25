@@ -20,7 +20,7 @@ import { ReferenceLineHandleNode } from './ReferenceLineNode.js';
 export default class ReferenceLineReadValuesListener extends KeyboardListener<OneKeyStroke[]> {
 
   public static readonly HOTKEY_DATA = new HotkeyData( {
-    keys: [ 'alt+r' ],
+    keys: [ 'space', 'enter' ],
     repoName: quantumBoundStates.name,
     keyboardHelpDialogLabelStringProperty: QuantumBoundStatesFluent.keyboardHelp.referenceLine.readValuesStringProperty
   } );

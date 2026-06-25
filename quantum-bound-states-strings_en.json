@@ -236,7 +236,7 @@
         "value": "Reference Line"
       },
       "readValues": {
-        "value": "Read values"
+        "value": "Read values<br>(accessibility)"
       }
     }
   },

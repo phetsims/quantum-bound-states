@@ -114,7 +114,7 @@ keyboardHelp:
     heading: Potential Handles
   referenceLine:
     heading:    Reference Line
-    readValues: Read values
+    readValues: Read values<br>(accessibility)
 
 # Strings that are specific to accessibility
 a11y:
