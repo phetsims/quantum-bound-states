@@ -89,7 +89,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
 
   /**
    * Computes the number of decimal places needed to show the difference between a specified energy level and
-   * the energy levels that are adjacent to it.
+   * the energy levels that are adjacent to it. This algorithm is a port from the Java version, see BSEigenstatesNode.java.
    */
   public static getNumberOfDecimalPlaces( energyLevelIndex: number, groundStateIndex: number, energies: number[] ): number {
 
