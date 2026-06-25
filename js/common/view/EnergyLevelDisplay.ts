@@ -123,8 +123,12 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     }
     else {
 
-      // Convert the difference to a string. Count to the right of the decimal place until we find the first non-zero digit.
-      const differenceString = `${difference}`;
+      // Convert the difference to a string. JavaScript converts integers with more than 21 digits to
+      // scientific notation when used in a string context. So use toFixed instead of `${difference}`
+      // so that we have decimal notation.
+      const differenceString = toFixed( difference, 20 );
+
+      // Count to the right of the decimal place until we find the first non-zero digit.
       const decimalPointIndex = differenceString.indexOf( '.' );
       for ( let i = decimalPointIndex + 1; i < differenceString.length; i++ ) {
         decimalPlaces++;
