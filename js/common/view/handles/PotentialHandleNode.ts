@@ -35,11 +35,11 @@ const ARROW_NODE_OPTIONS = {
   headWidth: 15,
   tailWidth: 6
 };
-const HORIZONTAL_ARROW_Y_OFFSET = -( ARROW_NODE_OPTIONS.headWidth / 2 + 3 );
-const VERTICAL_ARROW_Y_OFFSET = -( QBSConstants.HANDLE_LENGTH / 2 + 3 );
+
+type ArrowOrientation = 'horizontal' | 'vertical';
 
 type SelfOptions = {
-  orientation: 'horizontal' | 'vertical';
+  orientation: ArrowOrientation;
 };
 
 export type PotentialHandleNodeOptions = SelfOptions &
@@ -56,6 +56,12 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
 
   // Whether the handle is being dragged.
   public readonly isDraggingProperty: Property<boolean>;
+
+  // The label that identifies the property that the handle is associated with.
+  protected readonly labelNode: PotentialHandleLabelNode;
+
+  protected static readonly HORIZONTAL_ARROW_Y_OFFSET = -( ARROW_NODE_OPTIONS.headWidth / 2 + 3 );
+  protected static readonly VERTICAL_ARROW_Y_OFFSET = -( QBSConstants.HANDLE_LENGTH / 2 + 3 );
 
   protected constructor( potential: T,
                          chartTransform: ChartTransform,
@@ -100,12 +106,9 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
     const arrowNode = new ArrowNode( tailX, tailY, tipX, tipY, ARROW_NODE_OPTIONS );
     this.addChild( arrowNode );
 
-    const labelNode = new PotentialHandleLabelNode( labelStringProperty, valuesVisibleProperty, options.tandem.createTandem( 'labelNode' ) );
-    this.addChild( labelNode );
-    labelNode.localBoundsProperty.link( () => {
-      labelNode.centerX = 0;
-      labelNode.bottom = ( options.orientation === 'horizontal' ) ? HORIZONTAL_ARROW_Y_OFFSET : VERTICAL_ARROW_Y_OFFSET;
-    } );
+    this.labelNode = new PotentialHandleLabelNode( labelStringProperty, valuesVisibleProperty, options.tandem.createTandem( 'labelNode' ) );
+    this.addChild( this.labelNode );
+    this.labelNode.localBoundsProperty.link( () => this.updateLabelPosition( options.orientation ) );
 
     // Pointer area around arrow.
     const pointerArea = arrowNode.localBounds.dilatedXY( 5, 5 );
@@ -138,6 +141,16 @@ export default abstract class PotentialHandleNode<T extends QuantumPotential> ex
    * Updates the position of the handle.
    */
   protected abstract updatePosition(): void;
+
+  /**
+   * Updates the position of the label. Horizontally centered above the arrow by default.
+   */
+  protected updateLabelPosition( orientation: ArrowOrientation ): void {
+    this.labelNode.centerX = 0;
+    this.labelNode.bottom = ( orientation === 'horizontal' ) ?
+                            PotentialHandleNode.HORIZONTAL_ARROW_Y_OFFSET :
+                            PotentialHandleNode.VERTICAL_ARROW_Y_OFFSET;
+  }
 
   /**
    * Describes the handle when it is moved.
