@@ -62,7 +62,7 @@ export default class XGrid extends PhetioObject {
     this.numberOfPoints = options.numberOfPoints;
     this.dx = ( this.xMax - this.xMin ) / ( this.numberOfPoints - 1 );
 
-    const xCoordinates = [];
+    const xCoordinates: number[] = [];
     for ( let i = 0; i < this.numberOfPoints; i++ ) {
       if ( i < this.numberOfPoints - 1 ) {
         xCoordinates.push( this.xMin + i * this.dx );
@@ -74,9 +74,14 @@ export default class XGrid extends PhetioObject {
     }
     affirm( xCoordinates.length === this.numberOfPoints, 'xCoordinates.length should be equal to numberOfPoints' );
 
+    //TODO Does this really need to be a Property just so that clients can get the x-coordinates? It seems wasteful to be saving and restoring it.
     this.xCoordinatesProperty = new Property( xCoordinates, {
       units: nanometersUnit,
-      isValidValue: value => value.length === xCoordinates.length,
+
+      // This Property will be saved and restored by PhET-iO. Verify that the range and number of points are unchanged.
+      isValidValue: value => value.length === xCoordinates.length &&
+                             value[ 0 ] === xCoordinates[ 0 ] &&
+                             value[ value.length - 1 ] === xCoordinates[ xCoordinates.length - 1 ],
       tandem: options.tandem.createTandem( 'xCoordinatesProperty' ),
       phetioValueType: ArrayIO( NumberIO ),
       phetioFeatured: true,
