@@ -24,11 +24,11 @@ const HYDROGEN_COUPLING = 1.44;
 // Range of well width, in nm. This value and WIDTH_HANDLE_ENERGY are related. Do not change either value
 // unless you have read and understood the documentation!
 //
-// The default well width gives coupling = 0.7 * 4.114 / 2 = 1.44 eV·nm (the physical ke²).
+// The default well width gives coupling = 0.7 nm * 4.114 eV/ 2 = 1.44 eV·nm (the physical ke²).
 // It is worth noting that the coupling is proportional to the well width, so the range of well widths corresponds
 // to a range of couplings. For example, the default width of 0.7 nm gives a coupling of 1.44 eV·nm,
 // which is the physical value of ke² and reproduces the standard behavior. (E_1 =-13.6 eV, E_2 =-3.4 eV, etc)
-// Therefoe do not change the default value without talking to a designer, as it will change the default coupling and
+// Therefore one should not change the default value without talking to a designer, as it will change the default coupling and
 // thus the default behavior of the simulation. The Java reference did not have a well width parameter, but the
 // coupling was effectively 1.44 eV·nm, so the default well width is set to give that coupling. A more physical model
 // would tune the Bohr radius, but this is not a good UI fit for the sim's scale.
