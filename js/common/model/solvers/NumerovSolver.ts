@@ -979,6 +979,7 @@ export default class NumerovSolver {
       const potentialEnergy = potentialFunction( x );
       return Number.isFinite( potentialEnergy ) ?
              Math.min( potentialEnergy, NumerovSolver.MAX_SOLVER_POTENTIAL_ENERGY ) :
+             //TODO Don't we need to include a sign here? What if potentialEnergy === -Infinity?
              NumerovSolver.MAX_SOLVER_POTENTIAL_ENERGY;
     } );
   }
