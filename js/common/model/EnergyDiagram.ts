@@ -46,6 +46,7 @@ export default class EnergyDiagram extends PhetioObject {
       phetioFeatured: true
     } );
 
+    //TODO Is yRangeProperty a candidate for RangedDynamicProperty?
     this._yRangeProperty = new Property( model.potentialProperty.value.yAxisRange, {
       tandem: tandem.createTandem( 'yRangeProperty' ),
       phetioValueType: Range.RangeIO,
