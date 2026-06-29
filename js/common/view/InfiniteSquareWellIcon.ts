@@ -1,8 +1,10 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Can this be replaced with using InfiniteSquarePotential and InfiniteStepPotential directly?
 /**
  * InfiniteSquareWellIcon draws the icon for a potential that consists of one infinite square well, with or without a step.
+ *
+ * This icon is intentionally NOT created using model classes because there is too much overhead for PhET-iO
+ * and other features in those classes, and it's more difficult to tweak the look of the icons.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -1,9 +1,11 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Can this be replaced with using FiniteSquarePotential directly?
 /**
  * FiniteSquareWellsIcon draws the icon for a potential that consists of one or more finite square wells.
  * It is used for screen icons and combo box icons.
+ *
+ * This icon is intentionally NOT created using model classes because there is too much overhead for PhET-iO
+ * and other features in those classes, and it's more difficult to tweak the look of the icons.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -41,14 +41,15 @@ export default class TwoWellsScreen extends Screen<TwoWellsModel, TwoWellsScreen
  * Creates the icon for this screen.
  */
 function createScreenIcon(): ScreenIcon {
-  return new ScreenIcon( new FiniteSquareWellsIcon( {
+  const iconNode = new FiniteSquareWellsIcon( {
     numberOfWells: 2,
     wellWidth: 15,
     wellDepth: 30,
     wellSpacing: 10,
     edgeLength: 8,
     lineWidth: 3
-  } ), {
+  } );
+  return new ScreenIcon( iconNode, {
     maxIconWidthProportion: 0.85,
     maxIconHeightProportion: 0.85,
     fill: QBSColors.screenBackgroundColorProperty
