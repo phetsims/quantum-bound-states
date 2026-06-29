@@ -28,7 +28,7 @@ type SelfOptions = {
 };
 
 export type PoschlTellerPotentialOptions = SelfOptions &
-  PickOptional<QuantumPotentialDepthOptions, 'yAxisRange' | 'yOffsetRange' | 'wellWidthRange' | 'wellDepthRange'> &
+  PickOptional<QuantumPotentialDepthOptions, 'yRange' | 'yOffsetRange' | 'wellWidthRange' | 'wellDepthRange'> &
   PickRequired<QuantumPotentialDepthOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class PoschlTellerPotential extends QuantumPotentialDepth {
@@ -45,7 +45,7 @@ export default class PoschlTellerPotential extends QuantumPotentialDepth {
 
       // QuantumPotentialOptions
       groundStateIndex: 0,
-      yAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
+      yRange: new Range( -15, 5 ).dilated( 0.5 ),
       wellWidthRange: new RangeWithValue( 0.1, 1, 0.5 ), // for 1 well
       wellDepthRange: new RangeWithValue( 1, 14, 10 ), // for 1 well
       depthDirection: 'down',

@@ -28,7 +28,7 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
                       curvesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions: WaveFunctionGraphNodeOptions ) {
 
-    const yRange = waveFunctionGraph.yAxisRangeProperty.value.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
+    const yRange = waveFunctionGraph.yRangeProperty.value.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
 
     const options = optionize<WaveFunctionGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {
 
@@ -60,9 +60,9 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
     this.clippedLayer.addChild( new WaveFunctionPlotsNode( waveFunctionGraph, this.chartTransform ) );
 
     //TODO This should be lazyLink, but then the graph does not initially have correct y-range dilation.
-    waveFunctionGraph.yAxisRangeProperty.link( yAxisRange => {
-      this.setYRange( yAxisRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
-      this.setYTickSpacing( yAxisRange.max );
+    waveFunctionGraph.yRangeProperty.link( yRange => {
+      this.setYRange( yRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
+      this.setYTickSpacing( yRange.max );
     } );
   }
 }

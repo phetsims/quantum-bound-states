@@ -47,7 +47,7 @@ export default class InfiniteSquareWidthHandleNode extends PotentialHandleNode<I
    */
   protected override updatePosition(): void {
     this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
-    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.yAxisRange.getLength() / 2 );
+    this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value + this.potential.yRange.getLength() / 2 );
   }
 
   /**

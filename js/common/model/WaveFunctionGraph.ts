@@ -33,7 +33,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   public readonly phaseSelectedProperty: Property<boolean>;
 
   // Range for the y-axis
-  public readonly yAxisRangeProperty: TReadOnlyProperty<Range>;
+  public readonly yRangeProperty: TReadOnlyProperty<Range>;
 
   //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
@@ -68,7 +68,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
     } );
 
     // Use the maximum time-independent wave function value to set the y-axis range.
-    this.yAxisRangeProperty = new DerivedProperty( [ model.selectedWaveFunctionValuesProperty ],
+    this.yRangeProperty = new DerivedProperty( [ model.selectedWaveFunctionValuesProperty ],
       selectedWaveFunctionValues => {
         //TODO It may be more performant to return maxAbsY as part of BoundStateResult
         const minY = Math.min( ...selectedWaveFunctionValues );

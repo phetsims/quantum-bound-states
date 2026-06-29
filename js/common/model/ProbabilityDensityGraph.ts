@@ -25,7 +25,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
   public readonly timeEvolvedSuperpositionProperty: TReadOnlyProperty<TimeEvolvedSuperposition>;
 
   // Range for the y-axis
-  public readonly yAxisRangeProperty: TReadOnlyProperty<Range>;
+  public readonly yRangeProperty: TReadOnlyProperty<Range>;
 
   // Number of nodes in the displayed Probability Density curve.
   public readonly numberOfNodesProperty: TReadOnlyProperty<number>;
@@ -43,7 +43,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
     this.numberOfNodesProperty = model.numberOfNodesProperty;
 
     // Use the maximum time-independent probability density to set the y-axis range.
-    this.yAxisRangeProperty = new DerivedProperty(
+    this.yRangeProperty = new DerivedProperty(
       [ model.selectedWaveFunctionValuesProperty ],
       waveFunctionValues => {
         //TODO It may be more performant to return maxAbsY as part of BoundStateResult, then use maxAbsY * maxAbsY here.

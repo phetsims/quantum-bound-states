@@ -32,7 +32,7 @@ export default class AsymmetricTrianglePotential extends QuantumPotentialDepth {
     const options = optionize<AsymmetricTrianglePotentialOptions, SelfOptions, QuantumPotentialDepthOptions>()( {
 
       // QuantumPotentialOptions
-      yAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
+      yRange: new Range( 0, 20 ).dilated( 0.5 ),
       wellWidthRange: new RangeWithValue( 0.5, 6, 1 ), // for 1 well
       wellDepthRange: new RangeWithValue( 1, 18, 10 ), // for 1 well
       depthDirection: 'up',

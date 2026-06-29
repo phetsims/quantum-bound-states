@@ -29,8 +29,8 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
                       curvesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions: ProbabilityDensityGraphNodeOptions ) {
 
-    const yRange = new Range( probabilityDensityGraph.yAxisRangeProperty.value.min,
-      probabilityDensityGraph.yAxisRangeProperty.value.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
+    const yRange = new Range( probabilityDensityGraph.yRangeProperty.value.min,
+      probabilityDensityGraph.yRangeProperty.value.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
 
     const options = optionize<ProbabilityDensityGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {
 
@@ -63,9 +63,9 @@ export default class ProbabilityDensityGraphNode extends QuantumStateGraphNode {
     this.clippedLayer.addChild( new ProbabilityDensityPlotsNode( probabilityDensityGraph, this.chartTransform ) );
 
     //TODO This should be lazyLink, but then the graph does not initially have correct y-range dilation.
-    probabilityDensityGraph.yAxisRangeProperty.link( yAxisRange => {
-      this.setYRange( new Range( yAxisRange.min, yAxisRange.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
-      this.setYTickSpacing( yAxisRange.max );
+    probabilityDensityGraph.yRangeProperty.link( yRange => {
+      this.setYRange( new Range( yRange.min, yRange.max + QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
+      this.setYTickSpacing( yRange.max );
     } );
   }
 }

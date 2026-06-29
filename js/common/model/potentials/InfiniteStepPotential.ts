@@ -43,7 +43,7 @@ export default class InfiniteStepPotential extends QuantumPotential {
       stepHeightRange: new RangeWithValue( 0, 17, 3 ), // for 1 well
 
       // QuantumPotentialOptions
-      yAxisRange: new Range( 0, 20 ).dilated( 0.5 ),
+      yRange: new Range( 0, 20 ).dilated( 0.5 ),
       wellWidthRange: new RangeWithValue( 0.2, 6, 1 ), // for 1 well
       visualNameProperty: QuantumBoundStatesFluent.potentialWells.infiniteStepStringProperty,
       tandemPrefix: 'infiniteStepPotential'

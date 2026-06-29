@@ -47,7 +47,7 @@ export default class EnergyDiagram extends PhetioObject {
     } );
 
     //TODO Is yRangeProperty a candidate for RangedDynamicProperty?
-    this._yRangeProperty = new Property( model.potentialProperty.value.yAxisRange, {
+    this._yRangeProperty = new Property( model.potentialProperty.value.yRange, {
       tandem: tandem.createTandem( 'yRangeProperty' ),
       phetioValueType: Range.RangeIO,
       phetioFeatured: true,
@@ -57,8 +57,8 @@ export default class EnergyDiagram extends PhetioObject {
 
     // Set the Energy Diagram's y-axis range based on the y-offset of the selected potential.
     const yOffsetListener = ( yOffset: number ) => {
-      const min = roundToInterval( model.potentialProperty.value.yAxisRange.min + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
-      const max = roundToInterval( model.potentialProperty.value.yAxisRange.max + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
+      const min = roundToInterval( model.potentialProperty.value.yRange.min + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
+      const max = roundToInterval( model.potentialProperty.value.yRange.max + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
       this._yRangeProperty.value = new Range( min, max );
     };
     model.potentialProperty.link( ( potential, oldPotential ) => {

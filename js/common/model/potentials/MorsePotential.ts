@@ -34,7 +34,7 @@ export default class MorsePotential extends QuantumPotentialDepth {
       // QuantumPotentialOptions
       groundStateIndex: 0,
       xOffset: -2, // shift left so that more of the potential's tail is visible
-      yAxisRange: new Range( -15, 5 ).dilated( 0.5 ),
+      yRange: new Range( -15, 5 ).dilated( 0.5 ),
       wellWidthRange: new RangeWithValue( 0.1, 1, 0.5 ), // for 1 well
       wellDepthRange: new RangeWithValue( 1.5, 14, 9 ), // for 1 well
       depthDirection: 'down',
