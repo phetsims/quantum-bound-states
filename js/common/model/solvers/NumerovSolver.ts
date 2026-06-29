@@ -56,6 +56,8 @@ import { PotentialFunction } from './PotentialFunction.js';
 import WaveFunctionNormalizer, { NormalizationMethod } from './WaveFunctionNormalizer.js';
 import XGrid from './XGrid.js';
 
+const HBAR = QBSConstants.HBAR;
+
 /**
  * Configuration options for the solver.
  */
@@ -77,11 +79,6 @@ export type EigenstateResult = {
 };
 
 export default class NumerovSolver {
-
-  // TODO: move this to QBSConstants, it is used in the analytical solutions as well.
-  // Reduced Planck constant (hbar) in natural units: √(eV⋅mₑ)⋅nm
-  // Computed as: 1.054571817e-34 / (1e-9 * sqrt(9.1093837015e-31 * 1.602176634e-19))
-  public static readonly HBAR = 0.2760428268035944;
 
   // Positive barriers above this are effectively infinite for the energy ranges in this sim.
   // Keeping them finite avoids overflow in Numerov factors for steep potentials such as Morse.
@@ -861,7 +858,7 @@ export default class NumerovSolver {
    */
   private inverseIteration( energy: number, V: number[], xGrid: XGrid, seed: number[] ): number[] {
     const N = V.length;
-    const invC = 6 * NumerovSolver.HBAR * NumerovSolver.HBAR / ( this.mass * xGrid.dx * xGrid.dx );
+    const invC = 6 * HBAR * HBAR / ( this.mass * xGrid.dx * xGrid.dx );
 
     // Tridiagonal entries of M = H − E·B over the interior indices 1 … N−2 (rows 0 and N−1 are pinned
     // to ψ = 0 by the Dirichlet boundary and drop out of the system).

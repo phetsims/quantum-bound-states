@@ -23,9 +23,10 @@
  */
 
 import affirm from '../../../../../perennial-alias/js/browser-and-node/affirm.js';
-import NumerovSolver from './NumerovSolver.js';
+import QBSConstants from '../../QBSConstants.js';
 import XGrid from './XGrid.js';
 
+const HBAR = QBSConstants.HBAR;
 const RESCALE_TRIGGER = 1e100;
 const RESCALE_TARGET = 1e50;
 
@@ -211,7 +212,7 @@ export default class NumerovIntegrator {
    * @returns Array of k² values
    */
   private calculateK2( E: number, V: number[] ): number[] {
-    return V.map( v => ( 2 * this.mass * ( E - v ) ) / ( NumerovSolver.HBAR * NumerovSolver.HBAR ) );
+    return V.map( v => ( 2 * this.mass * ( E - v ) ) / ( HBAR * HBAR ) );
   }
 
   /**

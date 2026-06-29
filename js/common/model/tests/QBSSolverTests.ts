@@ -51,10 +51,10 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../QBSConstants.js';
 import PoschlTellerSolution from '../solvers/analytical-solutions/PoschlTellerSolution.js';
 import NumerovSolver from '../solvers/NumerovSolver.js';
-import { allFinite, assertWaveFunctionContinuity, assertWaveFunctionDerivativeContinuity, computeNorm, computeOverlap, countNodes, waveFunctionRMSError } from './QBSSolverTestUtils.js';
 import XGrid from '../solvers/XGrid.js';
+import { allFinite, assertWaveFunctionContinuity, assertWaveFunctionDerivativeContinuity, computeNorm, computeOverlap, countNodes, waveFunctionRMSError } from './QBSSolverTestUtils.js';
 
-const HBAR = NumerovSolver.HBAR;
+const HBAR = QBSConstants.HBAR;
 
 /** Half-width of the sim view grid (QBSConstants.ALL_GRAPHS_X_RANGE is [−3.5, 3.5] nm). */
 const STANDARD_X_MAX = QBSConstants.ALL_GRAPHS_X_RANGE.max;

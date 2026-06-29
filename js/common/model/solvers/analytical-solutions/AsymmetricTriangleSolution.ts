@@ -23,13 +23,13 @@
  */
 
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import QBSConstants from '../../../QBSConstants.js';
 import BoundStateResult from '../BoundStateResult.js';
-import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import WaveFunctionNormalizer from '../WaveFunctionNormalizer.js';
 import XGrid from '../XGrid.js';
 
-const HBAR = NumerovSolver.HBAR;
+const HBAR = QBSConstants.HBAR;
 
 // Fraction of wellDepth used to nudge the energy search range away from exact well edges,
 // preventing the solver from starting exactly at a boundary where V(x) = E.

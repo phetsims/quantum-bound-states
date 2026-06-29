@@ -33,13 +33,13 @@
  */
 
 import affirm from '../../../../../../perennial-alias/js/browser-and-node/affirm.js';
+import QBSConstants from '../../../QBSConstants.js';
 import BoundStateResult from '../BoundStateResult.js';
-import NumerovSolver from '../NumerovSolver.js';
 import { PotentialFunction } from '../PotentialFunction.js';
 import WaveFunctionNormalizer from '../WaveFunctionNormalizer.js';
 import XGrid from '../XGrid.js';
 
-const HBAR = NumerovSolver.HBAR;
+const HBAR = QBSConstants.HBAR;
 
 // The Coulomb spectrum is infinite and accumulates at E = 0, but only the lowest few
 // states are physically relevant for the sim. The Java reference also stopped at 10.

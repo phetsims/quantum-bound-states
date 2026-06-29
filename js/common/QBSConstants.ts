@@ -113,6 +113,10 @@ export default class QBSConstants {
   //TODO Is this OK or do we need to use Number.Infinity?
   public static readonly EFFECTIVELY_INFINITE_POTENTIAL_ENERGY = 1000; // eV
 
+  // Reduced Planck constant (hbar) in natural units: √(eV⋅mₑ)⋅nm
+  // Computed as: 1.054571817e-34 / (1e-9 * sqrt(9.1093837015e-31 * 1.602176634e-19))
+  public static readonly HBAR = 0.2760428268035944;
+
   // Upper bound (eV above the well bottom) of the energy window searched by the bound-state solver, for
   // potentials that have infinitely many bound states (infinite square well, harmonic oscillator, infinite step).
   // These have no physical maximum energy, so the search is capped at a fixed energy. This is deliberately

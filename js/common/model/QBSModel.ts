@@ -32,7 +32,6 @@ import QBSTime from './QBSTime.js';
 import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import BoundStateResult from './solvers/BoundStateResult.js';
-import NumerovSolver from './solvers/NumerovSolver.js';
 import XGrid from './solvers/XGrid.js';
 import { TimeEvolvedSuperposition, TimeEvolvedSuperpositionIO } from './TimeEvolvedSuperposition.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
@@ -518,7 +517,7 @@ function getTimeEvolvedSuperposition( currentTime: number, // femtoseconds
       const modelTime = currentTime / QBSTime.NATURAL_TIME_UNIT_FS;
 
       // Time evolution phase for this eigenstate: -E_n*t/ℏ
-      const timePhase = -energy * modelTime / NumerovSolver.HBAR;
+      const timePhase = -energy * modelTime / QBSConstants.HBAR;
 
       // Total phase: initial phase + time evolution phase
       const totalPhase = initialPhase + timePhase;
