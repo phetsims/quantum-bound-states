@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../../axon/js/Emitter.js';
 import Multilink from '../../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
@@ -13,6 +14,7 @@ import TRangedProperty from '../../../../../axon/js/TRangedProperty.js';
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../../dot/js/RangeWithValue.js';
+import { roundToInterval } from '../../../../../dot/js/util/roundToInterval.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
@@ -41,7 +43,7 @@ type SelfOptions = {
   // Energy offset (y-offset) from 0 eV.
   yOffsetRange?: RangeWithValue;
 
-  // Range of the energy axis (y-axis) when yOffsetProperty is at its initial value
+  // Initial value of yRangeProperty when yOffsetProperty is zero.
   yRange: Range;
 
   // Range of wellWidthProperty in nm.
@@ -92,8 +94,8 @@ export default abstract class QuantumPotential extends PhetioObject {
   // Fires when the quantum potential has changed and the BoundStateResult needs to be recomputed.
   public readonly changedEmitter: Emitter;
 
-  // Range of the y-axis (energy) when yOffsetProperty is at its initial value.
-  public readonly yRange: Range;
+  // Range of the y-axis (energy axis)
+  public readonly yRangeProperty: TReadOnlyProperty<Range>;
 
   // Name used to identify this potential in the visual UI.
   public readonly visualNameProperty: TReadOnlyProperty<string>;
@@ -160,7 +162,16 @@ export default abstract class QuantumPotential extends PhetioObject {
     // Emitters are typically not instrumented for PhET-iO, and there was no request to instrument this one.
     this.changedEmitter = new Emitter();
 
-    this.yRange = options.yRange;
+    this.yRangeProperty = new DerivedProperty( [ this.yOffsetProperty ], yOffset => {
+      const min = roundToInterval( options.yRange.min + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
+      const max = roundToInterval( options.yRange.max + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
+      return new Range( min, max );
+    }, {
+      tandem: options.tandem.createTandem( 'yRangeProperty' ),
+      phetioValueType: Range.RangeIO,
+      phetioFeatured: true,
+      phetioDocumentation: 'The range of the y-axis (energy axis) for the quantum potential.'
+    } );
 
     // Changes to global Properties or Properties instantiated by this class trigger notification.
     Multilink.multilink( [ this.numberOfWellsProperty, this.electronMassesProperty, this.electricFieldProperty,

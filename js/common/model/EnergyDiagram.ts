@@ -8,13 +8,13 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import QBSConstants from '../QBSConstants.js';
+import QuantumPotential from './potentials/QuantumPotential.js';
 import QBSModel from './QBSModel.js';
 import XGrid from './solvers/XGrid.js';
 
@@ -26,8 +26,8 @@ export default class EnergyDiagram extends PhetioObject {
   // Visibility of values on drag handles and energy lines.
   public readonly valuesVisibleProperty: Property<boolean>;
 
+  // y-range (energy range) of the selected potential.
   public readonly yRangeProperty: TReadOnlyProperty<Range>;
-  private readonly _yRangeProperty: Property<Range>;
 
   //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
@@ -46,26 +46,13 @@ export default class EnergyDiagram extends PhetioObject {
       phetioFeatured: true
     } );
 
-    //TODO Is yRangeProperty a candidate for RangedDynamicProperty?
-    this._yRangeProperty = new Property( model.potentialProperty.value.yRange, {
+    // Use the y-range of the selected potential.
+    this.yRangeProperty = new DynamicProperty<Range, Range, QuantumPotential>( model.potentialProperty, {
+      derive: potential => potential.yRangeProperty,
       tandem: tandem.createTandem( 'yRangeProperty' ),
       phetioValueType: Range.RangeIO,
       phetioFeatured: true,
       phetioReadOnly: true
-    } );
-    this.yRangeProperty = this._yRangeProperty;
-
-    // Set the Energy Diagram's y-axis range based on the y-offset of the selected potential.
-    const yOffsetListener = ( yOffset: number ) => {
-      const min = roundToInterval( model.potentialProperty.value.yRange.min + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
-      const max = roundToInterval( model.potentialProperty.value.yRange.max + yOffset, QBSConstants.Y_OFFSET_INTERVAL );
-      this._yRangeProperty.value = new Range( min, max );
-    };
-    model.potentialProperty.link( ( potential, oldPotential ) => {
-      if ( oldPotential && oldPotential.yOffsetProperty.hasListener( yOffsetListener ) ) {
-        oldPotential.yOffsetProperty.unlink( yOffsetListener );
-      }
-      potential.yOffsetProperty.link( yOffsetListener );
     } );
   }
 

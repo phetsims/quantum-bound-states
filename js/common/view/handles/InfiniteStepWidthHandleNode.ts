@@ -48,7 +48,7 @@ export default class InfiniteStepWidthHandleNode extends PotentialHandleNode<Inf
   protected override updatePosition(): void {
     this.x = this.chartTransform.modelToViewX( this.potential.xOffsetProperty.value + this.potential.wellWidthProperty.value / 2 );
     this.y = this.chartTransform.modelToViewY( this.potential.yOffsetProperty.value +
-                                               ( this.potential.yRange.getLength() / 2 ) +
+                                               ( this.potential.yRangeProperty.value.getLength() / 2 ) +
                                                ( this.potential.stepHeightProperty.value / 2 ) );
   }
 
