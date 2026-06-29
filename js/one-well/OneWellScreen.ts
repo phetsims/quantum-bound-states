@@ -41,12 +41,15 @@ export default class OneWellScreen extends Screen<OneWellModel, OneWellScreenVie
  * Creates the icon for this screen.
  */
 function createScreenIcon(): ScreenIcon {
+
+  // Single finite square well
   const iconNode = new FiniteSquareWellsIcon( {
     numberOfWells: 1,
     wellWidth: 30,
     wellDepth: 30,
     lineWidth: 3
   } );
+
   return new ScreenIcon( iconNode, {
     maxIconWidthProportion: 0.85,
     maxIconHeightProportion: 0.85,

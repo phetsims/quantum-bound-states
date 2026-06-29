@@ -41,6 +41,8 @@ export default class TwoWellsScreen extends Screen<TwoWellsModel, TwoWellsScreen
  * Creates the icon for this screen.
  */
 function createScreenIcon(): ScreenIcon {
+
+  // Double finite square wells
   const iconNode = new FiniteSquareWellsIcon( {
     numberOfWells: 2,
     wellWidth: 15,
@@ -49,6 +51,7 @@ function createScreenIcon(): ScreenIcon {
     edgeLength: 8,
     lineWidth: 3
   } );
+
   return new ScreenIcon( iconNode, {
     maxIconWidthProportion: 0.85,
     maxIconHeightProportion: 0.85,
