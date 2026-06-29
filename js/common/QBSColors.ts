@@ -168,7 +168,7 @@ export default class QBSColors {
     default: 'rgb( 71, 207, 255 )'
   } );
 
-  public static readonly magnifierBodyColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierBodyColorProperty', {
+  public static readonly magnifierViewerColorProperty = new ProfileColorProperty( quantumBoundStates, 'magnifierViewerColorProperty', {
     default: Color.grayColor( 200 )
   } );
 

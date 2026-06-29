@@ -30,7 +30,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import Magnifier from '../model/Magnifier.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
-import MagnifierBodyDragListener from './MagnifierBodyDragListener.js';
+import MagnifierViewerDragListener from './MagnifierViewerDragListener.js';
 import MagnifierProbeDragListener from './MagnifierProbeDragListener.js';
 
 const DISPLAY_SIZE = new Dimension2( 170, 70 );
@@ -42,36 +42,36 @@ export default class MagnifierNode extends Node {
 
   public constructor( magnifier: Magnifier, chartTransform: ChartTransform, tandem: Tandem ) {
 
-    const bodyNode = new MagnifierBodyNode( magnifier, chartTransform, tandem.createTandem( 'bodyNode' ) );
+    const viewerNode = new MagnifierViewerNode( magnifier, chartTransform, tandem.createTandem( 'viewerNode' ) );
 
     const probeNode = new MagnifierProbeNode( magnifier, chartTransform, tandem.createTandem( 'probeNode' ) );
 
-    const wireNode = new MagnifierWireNode( bodyNode, probeNode );
+    const wireNode = new MagnifierWireNode( viewerNode, probeNode );
 
     super( {
       isDisposable: false,
-      children: [ bodyNode, wireNode, probeNode ],
+      children: [ viewerNode, wireNode, probeNode ],
       visibleProperty: magnifier.visibleProperty,
       accessibleHeading: QuantumBoundStatesFluent.a11y.magnifier.accessibleHeadingStringProperty,
       accessibleParagraph: QuantumBoundStatesFluent.a11y.magnifier.accessibleParagraphStringProperty,
       tandem: tandem
     } );
 
-    this.pdomOrder = [ probeNode, bodyNode ];
+    this.pdomOrder = [ probeNode, viewerNode ];
   }
 }
 
 /**
- * MagnifierBodyNode is the body of the magnifier, where the magnified energy levels are displayed.
+ * MagnifierViewerNode is the movable viewer, which displays magnified energy levels in a viewport.
  */
-export class MagnifierBodyNode extends InteractiveHighlighting( Node ) {
+export class MagnifierViewerNode extends InteractiveHighlighting( Node ) {
 
   public constructor( magnifier: Magnifier, chartTransform: ChartTransform, tandem: Tandem ) {
 
     const options = combineOptions<NodeOptions>( {}, AccessibleDraggableOptions, {
       cursor: 'pointer',
-      accessibleName: QuantumBoundStatesFluent.a11y.magnifier.body.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifier.body.accessibleHelpTextStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.magnifier.viewer.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.magnifier.viewer.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioInputEnabledPropertyInstrumented: true,
       phetioVisiblePropertyInstrumented: false
@@ -80,7 +80,7 @@ export class MagnifierBodyNode extends InteractiveHighlighting( Node ) {
     const shadedRectangle = new ShadedRectangle( new Bounds2( 0, 0,
       DISPLAY_SIZE.width + BEZEL_WIDTH + 2,
       DISPLAY_SIZE.height + BEZEL_WIDTH + BOTTOM_BEZEL_WIDTH ), {
-      baseColor: QBSColors.magnifierBodyColorProperty,
+      baseColor: QBSColors.magnifierViewerColorProperty,
       lightOffset: 0.95,
       cornerRadius: CORNER_RADIUS
     } );
@@ -121,20 +121,20 @@ export class MagnifierBodyNode extends InteractiveHighlighting( Node ) {
 
     super( options );
 
-    this.addInputListener( new MagnifierBodyDragListener( this, magnifier.bodyPositionProperty, chartTransform, tandem ) );
+    this.addInputListener( new MagnifierViewerDragListener( this, magnifier.viewerPositionProperty, chartTransform, tandem ) );
 
-    magnifier.bodyPositionProperty.link( bodyPosition => {
-      this.translation = chartTransform.modelToViewPosition( bodyPosition );
+    magnifier.viewerPositionProperty.link( viewerPosition => {
+      this.translation = chartTransform.modelToViewPosition( viewerPosition );
     } );
   }
 
   public doAccessibleObjectResponse(): void {
-    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.magnifier.body.accessibleObjectResponseStringProperty );
+    this.addAccessibleObjectResponse( QuantumBoundStatesFluent.a11y.magnifier.viewer.accessibleObjectResponseStringProperty );
   }
 }
 
 /**
- * MagnifierProbeNode is the movable probe, for selecting which part of the Energy graph is displayed.
+ * MagnifierProbeNode is the movable probe, for selecting which part of the Energy Diagram is displayed by the viewer.
  */
 export class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 
@@ -164,30 +164,30 @@ export class MagnifierProbeNode extends InteractiveHighlighting( ProbeNode ) {
 }
 
 /**
- * MagnifierWireNode is the wire that connects the body and probe.
+ * MagnifierWireNode is the wire that connects the viewer and probe.
  */
 class MagnifierWireNode extends Path {
 
-  public constructor( bodyNode: Node, probeNode: Node ) {
+  public constructor( viewerNode: Node, probeNode: Node ) {
 
-    const shapeProperty = new DerivedProperty( [ bodyNode.boundsProperty, probeNode.boundsProperty ], () => {
+    const shapeProperty = new DerivedProperty( [ viewerNode.boundsProperty, probeNode.boundsProperty ], () => {
 
       // connection points
-      const bodyConnectionPoint = bodyNode.centerBottom;
+      const viewerConnectionPoint = viewerNode.centerBottom;
       const probeConnectionPoint = probeNode.centerBottom;
 
       // control points
-      // The y coordinate of the body's control point varies with the x distance between the body and probe.
+      // The y coordinate of the viewer's control point varies with the x distance between the viewer and probe.
       const xOffset1 = 0;
-      const yOffset1 = linear( 0, 800, 0, 200, Math.abs( bodyNode.centerX - probeNode.centerX ) ); // x distance -> y offset
-      const c1 = new Vector2( bodyConnectionPoint.x + xOffset1, bodyConnectionPoint.y + yOffset1 );
+      const yOffset1 = linear( 0, 800, 0, 200, Math.abs( viewerNode.centerX - probeNode.centerX ) ); // x distance -> y offset
+      const c1 = new Vector2( viewerConnectionPoint.x + xOffset1, viewerConnectionPoint.y + yOffset1 );
       const xOffset2 = 0;
-      const yOffset2 = linear( 0, 800, 100, 150, Math.abs( bodyNode.centerX - probeNode.centerX ) ); // x distance -> y offset
+      const yOffset2 = linear( 0, 800, 100, 150, Math.abs( viewerNode.centerX - probeNode.centerX ) ); // x distance -> y offset
       const c2 = new Vector2( probeConnectionPoint.x + xOffset2, probeConnectionPoint.y + yOffset2 );
 
       // cubic curve
       const shape = new Shape()
-        .moveTo( bodyConnectionPoint.x, bodyConnectionPoint.y )
+        .moveTo( viewerConnectionPoint.x, viewerConnectionPoint.y )
         .cubicCurveTo( c1.x, c1.y, c2.x, c2.y, probeConnectionPoint.x, probeConnectionPoint.y );
 
       // For debugging, draw the control points.

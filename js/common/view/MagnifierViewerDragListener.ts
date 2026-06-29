@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * MagnifierBodyDragListener is the drag listener for moving the body of the magnifier.
+ * MagnifierViewerDragListener is the drag listener for moving the magnifier's viewer.
  * It supports both pointer and keyboard dragging, with sound feedback.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -14,12 +14,12 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { MagnifierBodyNode } from './MagnifierNode.js';
+import { MagnifierViewerNode } from './MagnifierNode.js';
 
-export default class MagnifierBodyDragListener extends SoundRichDragListener {
+export default class MagnifierViewerDragListener extends SoundRichDragListener {
 
-  public constructor( magnifierBodyNode: MagnifierBodyNode,
-                      bodyPositionProperty: Property<Vector2>,
+  public constructor( viewerNode: MagnifierViewerNode,
+                      viewerPositionProperty: Property<Vector2>,
                       chartTransform: ChartTransform,
                       parentTandem: Tandem ) {
 
@@ -32,17 +32,17 @@ export default class MagnifierBodyDragListener extends SoundRichDragListener {
       -( chartTransform.viewHeight / chartTransform.modelYRange.getLength() ) // yScale, model to view
     );
 
-    // Drag bounds in model coordinates, adjusted for the size of the body.
+    // Drag bounds in model coordinates, adjusted for the size of the viewer.
     // y values can be anything because movement is constrained to horizontal.
     //TODO dragBoundsProperty is incorrect, energyDiagram.yRangeProperty is dynamic.
-    const bodyWidth = chartTransform.viewToModelDeltaX( magnifierBodyNode.width );
-    const bodyHeight = chartTransform.viewToModelDeltaY( magnifierBodyNode.height );
-    const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, chartTransform.modelYRange.min - bodyHeight,
-      chartTransform.modelXRange.max - bodyWidth, chartTransform.modelYRange.max ) );
+    const viewerWith = chartTransform.viewToModelDeltaX( viewerNode.width );
+    const viewerHeight = chartTransform.viewToModelDeltaY( viewerNode.height );
+    const dragBoundsProperty = new Property( new Bounds2( chartTransform.modelXRange.min, chartTransform.modelYRange.min - viewerHeight,
+      chartTransform.modelXRange.max - viewerWith, chartTransform.modelYRange.max ) );
 
     super( {
       transform: transform,
-      positionProperty: bodyPositionProperty,
+      positionProperty: viewerPositionProperty,
       dragBoundsProperty: dragBoundsProperty,
       dragListenerOptions: {
         useParentOffset: true //TODO delete this?
@@ -52,7 +52,7 @@ export default class MagnifierBodyDragListener extends SoundRichDragListener {
         shiftDragDelta: chartTransform.modelToViewDeltaX( 0.01 ),
         moveOnHoldInterval: 50
       },
-      end: () => magnifierBodyNode.doAccessibleObjectResponse(),
+      end: () => viewerNode.doAccessibleObjectResponse(),
       tandem: parentTandem
     } );
   }

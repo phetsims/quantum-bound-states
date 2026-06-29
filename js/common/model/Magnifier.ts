@@ -21,8 +21,9 @@ export default class Magnifier extends PhetioObject {
   // Center of the magnifier probe.
   public readonly probePositionProperty: Property<Vector2>;
 
-  // Top-left corner of the magnifier body.
-  public readonly bodyPositionProperty: Property<Vector2>;
+  // Top-left corner of the magnifier viewer.
+  //TODO What should be consider the positon of the viewer?
+  public readonly viewerPositionProperty: Property<Vector2>;
 
   //TODO Does this need to be dynamic or is a single power sufficient?
   public static readonly MAGNIFICATION_POWER = 10;
@@ -46,9 +47,9 @@ export default class Magnifier extends PhetioObject {
       phetioFeatured: true
     } );
 
-    //TODO bodyPositionProperty must be updated when energyDiagram.yRangeProperty changes.
-    this.bodyPositionProperty = new Vector2Property( new Vector2( 1.65, 15 ), {
-      tandem: tandem.createTandem( 'bodyPositionProperty' ),
+    //TODO viewerPositionProperty must be updated when energyDiagram.yRangeProperty changes.
+    this.viewerPositionProperty = new Vector2Property( new Vector2( 1.65, 15 ), {
+      tandem: tandem.createTandem( 'viewerPositionProperty' ),
       phetioFeatured: true
     } );
   }
@@ -56,6 +57,6 @@ export default class Magnifier extends PhetioObject {
   public reset(): void {
     this.visibleProperty.reset();
     this.probePositionProperty.reset();
-    this.bodyPositionProperty.reset();
+    this.viewerPositionProperty.reset();
   }
 }

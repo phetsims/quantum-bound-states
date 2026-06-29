@@ -627,7 +627,7 @@ a11y:
       accessibleName:           Probe
       accessibleHelpText:       Move the probe over the Energy Diagram to inspect closely spaced energy levels.
       accessibleObjectResponse: probe centered at POSITION nanometers
-    body:
+    viewer:
       accessibleName:           Viewer
       accessibleHelpText:       Move the viewer that shows the zoomed-in view.
       accessibleObjectResponse: lens at POSITION nanometers

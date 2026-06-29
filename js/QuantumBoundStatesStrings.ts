@@ -482,7 +482,7 @@ type StringsType = {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
       };
-      'body': {
+      'viewer': {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;

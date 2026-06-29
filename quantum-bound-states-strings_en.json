@@ -989,7 +989,7 @@
           "value": "probe centered at POSITION nanometers"
         }
       },
-      "body": {
+      "viewer": {
         "accessibleName": {
           "value": "Viewer"
         },
