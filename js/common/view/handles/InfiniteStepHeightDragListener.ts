@@ -31,8 +31,6 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
       orientation: 'vertical',
       keyboardDragDelta: QBSConstants.STEP_HEIGHT_KEYBOARD_DRAG_DELTA, // eV
       keyboardShiftDragDelta: QBSConstants.STEP_HEIGHT_KEYBOARD_SHIFT_DRAG_DELTA, // eV
-
-      //TODO Identical to WellDepthDragListener except operates on stepHeightProperty
       updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
         let stepHeight;
         if ( isFromPDOM ) {

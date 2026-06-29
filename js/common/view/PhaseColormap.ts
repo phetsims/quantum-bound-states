@@ -15,7 +15,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 export default class PhaseColormap {
 
   private constructor() {
-    //TODO Not intended for instantiation
+    // Not intended for instantiation
   }
 
   /**

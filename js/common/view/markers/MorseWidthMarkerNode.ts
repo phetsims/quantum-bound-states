@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/quantum-bound-states/issues/53 identical to CoulombWidthMarkerNode
 /**
  * MorseWidthMarkerNode is the marker (pair of vertical dashed lines) that shows the well width of a Morse potential.
  *
