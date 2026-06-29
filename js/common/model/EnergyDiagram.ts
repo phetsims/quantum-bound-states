@@ -20,7 +20,7 @@ import XGrid from './solvers/XGrid.js';
 
 export default class EnergyDiagram extends PhetioObject {
 
-  // x-axis values
+  // x-axis (position) values
   public readonly xGrid: XGrid;
 
   // y-range (energy range) of the selected potential.
