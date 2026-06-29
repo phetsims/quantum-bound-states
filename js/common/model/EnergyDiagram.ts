@@ -23,11 +23,11 @@ export default class EnergyDiagram extends PhetioObject {
   // x-axis values
   public readonly xGrid: XGrid;
 
-  // Visibility of values on drag handles and energy lines.
-  public readonly valuesVisibleProperty: Property<boolean>;
-
   // y-range (energy range) of the selected potential.
   public readonly yRangeProperty: TReadOnlyProperty<Range>;
+
+  // Visibility of values on drag handles and energy lines.
+  public readonly valuesVisibleProperty: Property<boolean>;
 
   //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
@@ -40,12 +40,6 @@ export default class EnergyDiagram extends PhetioObject {
 
     this.xGrid = model.xGrid;
 
-    // Defaults to false, see https://github.com/phetsims/quantum-bound-states/issues/100.
-    this.valuesVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'valuesVisibleProperty' ),
-      phetioFeatured: true
-    } );
-
     // Use the y-range of the selected potential.
     this.yRangeProperty = new DynamicProperty<Range, Range, QuantumPotential>( model.potentialProperty, {
       derive: potential => potential.yRangeProperty,
@@ -53,6 +47,12 @@ export default class EnergyDiagram extends PhetioObject {
       phetioValueType: Range.RangeIO,
       phetioFeatured: true,
       phetioReadOnly: true
+    } );
+
+    // Defaults to false, see https://github.com/phetsims/quantum-bound-states/issues/100.
+    this.valuesVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'valuesVisibleProperty' ),
+      phetioFeatured: true
     } );
   }
 
