@@ -22,7 +22,7 @@ export default class Magnifier extends PhetioObject {
   public readonly probePositionProperty: Property<Vector2>;
 
   // Top-left corner of the magnifier viewer.
-  //TODO What should be considered the positon of the viewer?
+  //TODO What should be considered the position of the viewer?
   public readonly viewerPositionProperty: Property<Vector2>;
 
   //TODO Does this need to be dynamic or is a single power sufficient?
