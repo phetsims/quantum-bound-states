@@ -61,6 +61,7 @@ export default class HarmonicOscillatorSolution {
 
     const springConstant = computeSpringConstant( wellWidth, energyAtWellWidth );
 
+    //TODO Should we constrain to QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY, as is done for other potential types?
     return ( x: number ) => {
       const dx = x - xOffset;
       return 0.5 * springConstant * dx * dx + yOffset;

@@ -86,6 +86,7 @@ export default class MorseSolution {
     affirm( numberOfWells === 1, 'MorseSolution does not support multiple wells' );
     affirm( electricField === 0, 'MorseSolution does not support electric field' );
 
+    //TODO Should we constrain to QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY, as is done for other potential types?
     return ( x: number ) => {
       const term = 1 - Math.exp( -( x - xOffset ) / wellWidth );
       return wellDepth * term * term - wellDepth + yOffset;
