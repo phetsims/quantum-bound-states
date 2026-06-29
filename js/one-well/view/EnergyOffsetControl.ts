@@ -43,8 +43,6 @@ class EnergyOffsetSpinner extends FineCoarseSpinner {
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    //TODO Restart and pause time
-
     super( energyOffsetProperty, {
       isDisposable: false,
       deltaFine: 0.1, // eV
