@@ -125,10 +125,6 @@ export default class QBSConstants {
   // See https://github.com/phetsims/quantum-bound-states/issues/63
   public static readonly MAX_SOLVER_ENERGY_ABOVE_WELL = 30; // eV
 
-  //TODO from BSConstants.java, are these compatible with values and units in new code?
-  public static readonly ELECTRON_MASS = 5.68; // eV/c^2
-  public static readonly KE2 = 1.44; // ke^2, eV nm
-
   // Line widths
   public static readonly POTENTIAL_ICON_LINE_WIDTH = 2;
   public static readonly REFERENCE_LINE_LINE_WIDTH = 1.5;
