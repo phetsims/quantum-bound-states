@@ -7,6 +7,8 @@
  */
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
+import Text from '../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import QBSColors from '../common/QBSColors.js';
 import QBSKeyboardHelpContent from '../common/view/QBSKeyboardHelpContent.js';
@@ -21,6 +23,7 @@ export default class SuperpositionScreen extends Screen<SuperpositionModel, Supe
     const options: ScreenOptions = {
       name: QuantumBoundStatesFluent.screen.superpositionStringProperty,
       backgroundColorProperty: QBSColors.screenBackgroundColorProperty,
+      homeScreenIcon: createScreenIcon(),
       createKeyboardHelpNode: () => new QBSKeyboardHelpContent(),
       screenButtonsHelpText: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
@@ -33,3 +36,18 @@ export default class SuperpositionScreen extends Screen<SuperpositionModel, Supe
     );
   }
 }
+
+/**
+ * Creates the icon for this screen.
+ */
+function createScreenIcon(): ScreenIcon {
+
+  const iconNode = new Text( '?' ); //TODO icon for this screen
+
+  return new ScreenIcon( iconNode, {
+    maxIconWidthProportion: 0.85,
+    maxIconHeightProportion: 0.85,
+    fill: QBSColors.screenBackgroundColorProperty
+  } );
+}
+
