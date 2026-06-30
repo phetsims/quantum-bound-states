@@ -97,6 +97,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
 
     // Index and energy value that correspond to energyLevelIndex.
     const index = energyLevelIndex - groundStateIndex;
+    affirm( index >= 0 && index < energies.length, `invalid index: ${index}` );
     const energy = energies[ index ];
 
     // Find the smallest difference between the selected energy level and the adjacent energy levels.
@@ -105,11 +106,15 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     // Adjacent lower energy level
     if ( index > 0 ) {
       difference = Math.abs( energy - energies[ index - 1 ] );
+      affirm( difference !== 0,
+        `Adjacent energy levels must have different energies: E${index}=${energy} E${index - 1}=${energies[ index - 1 ]}` );
     }
 
     // Adjacent higher energy level
     if ( index < energies.length - 1 ) {
       const difference2 = Math.abs( energy - energies[ index + 1 ] );
+      affirm( difference2 !== 0,
+        `Adjacent energy levels must have different energies: E${index}=${energy} E${index + 1}=${energies[ index + 1 ]}` );
       if ( difference2 < difference ) {
         difference = difference2;
       }
