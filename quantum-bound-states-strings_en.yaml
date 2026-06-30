@@ -549,7 +549,9 @@ a11y:
 
   timeSpeedSlider:
     accessibleName:     Time Speed
-    accessibleHelpText: Speed up or slow down how fast time evolves, from Slow to Fast.
+    accessibleHelpText: |-
+                        Change how fast time passes, from 1, slowest, to 5, fastest. Observe changes in the Quantum State Graph.
+                        Each speed increment speeds time up by a factor of ten. At Speed 3, one femtosecond in the sim happens in one real second.
 
   electronMassesControl:
     accessibleHelpText: Adjust the relative mass of the system and explore how the wave function and energy levels respond.
