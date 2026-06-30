@@ -19,7 +19,7 @@ export default class PotentialHandleLabelNode extends BackgroundNode {
   public constructor( labelStringProperty: TReadOnlyProperty<string>, visibleProperty: TReadOnlyProperty<boolean>, tandem: Tandem ) {
 
     const labelText = new RichText( labelStringProperty, {
-      font: QBSConstants.HANDLE_FONT,
+      font: QBSConstants.HANDLE_LABEL_FONT,
       maxWidth: 140
     } );
 

@@ -57,11 +57,11 @@ export default class QBSConstants {
   public static readonly TITLE_FONT = new PhetFont( { size: 14, weight: 'bold' } );
   public static readonly TIME_FONT = new PhetFont( { size: 15, family: 'monospace' } );
   public static readonly EQUATION_TERM_FONT = new PhetFont( 18 );
-  public static readonly ENERGY_LEVEL_DISPLAY_FONT = new PhetFont( 14 );
+  public static readonly ENERGY_LEVEL_FONT = new PhetFont( 14 );
   public static readonly ANGULAR_FREQUENCY_FONT = new PhetFont( 14 );
-  public static readonly HANDLE_FONT = new PhetFont( 14 );
+  public static readonly HANDLE_LABEL_FONT = new PhetFont( 14 );
 
-  // Energy Diagram & all Quantum State Graphs
+  // Shared by all graphs (Energy Diagram & all Quantum State Graphs)
   public static readonly ALL_GRAPHS_VIEW_WIDTH = 700;
   public static readonly ALL_GRAPHS_X_RANGE = new Range( -3.5, 3.5 );
   public static readonly ALL_GRAPHS_X_TICK_SPACING = 1;
@@ -123,6 +123,7 @@ export default class QBSConstants {
   // decoupled from the Energy diagram's viewport (yRange) so that the set of computed states - and each state's
   // energy, wave function, and node count - stays stable when the y-axis is zoomed.
   // See https://github.com/phetsims/quantum-bound-states/issues/63
+  //TODO This value makes assumptions about yRange and yOffsetRange. Should it be computed by QuantumPotential subclasses?
   public static readonly MAX_SOLVER_ENERGY_ABOVE_WELL = 30; // eV
 
   // Line widths

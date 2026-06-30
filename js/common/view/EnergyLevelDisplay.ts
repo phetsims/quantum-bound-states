@@ -73,7 +73,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
       } );
 
     const content = new RichText( stringProperty, {
-      font: QBSConstants.ENERGY_LEVEL_DISPLAY_FONT
+      font: QBSConstants.ENERGY_LEVEL_FONT
     } );
 
     super( content, options );
