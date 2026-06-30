@@ -25,7 +25,7 @@ type SelfOptions = {
   yMax?: number | null;
 };
 
-export type YCanvasLinePlotOptions = SelfOptions & CanvasPainterOptions;
+export type YCanvasLinePlotOptions = SelfOptions;
 
 export default class YCanvasLinePlot extends CanvasPainter {
 
