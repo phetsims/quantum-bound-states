@@ -32,7 +32,7 @@ export default abstract class PotentialMarkerNode<T extends QuantumPotential> ex
 
     const options = optionize<PotentialMarkerNodeOptions, SelfOptions, PathOptions>()( {
       stroke: QBSColors.markerLinesStrokeProperty,
-      lineWidth: QBSConstants.MARKERS_LINE_WIDTH,
+      lineWidth: QBSConstants.MARKER_LINE_WIDTH,
       lineDash: [ 6, 6 ]
     }, providedOptions );
 

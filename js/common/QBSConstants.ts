@@ -128,12 +128,13 @@ export default class QBSConstants {
   // Line widths
   public static readonly POTENTIAL_ENERGY_LINE_WIDTH = 3;
   public static readonly TOTAL_ENERGY_LINE_WIDTH = 2;
-  public static readonly POTENTIAL_ICON_LINE_WIDTH = 2;
-  public static readonly REFERENCE_LINE_LINE_WIDTH = 1.5;
   public static readonly PROBABILITY_DENSITY_LINE_WIDTH = 2;
   public static readonly WAVE_FUNCTION_LINE_WIDTH = 2;
-  public static readonly MARKERS_LINE_WIDTH = 1.5;
+  public static readonly REFERENCE_LINE_LINE_WIDTH = 1.5;
+  public static readonly GRID_LINE_LINE_WIDTH = 1;
+  public static readonly MARKER_LINE_WIDTH = 1.5;
   public static readonly LEGEND_LINE_WIDTH = 3;
+  public static readonly POTENTIAL_ICON_LINE_WIDTH = 2;
 
   // Drag handles for configuring potentials
   public static readonly HANDLE_LENGTH = 35;
@@ -152,7 +153,7 @@ export default class QBSConstants {
 
   public static readonly GRID_LINE_SET_OPTIONS: GridLineSetOptions = {
     pickable: false, // optimization
-    lineWidth: 1,
+    lineWidth: QBSConstants.GRID_LINE_LINE_WIDTH,
     lineDash: [ 4, 4 ],
     stroke: QBSColors.gridLinesStrokeProperty
   };
