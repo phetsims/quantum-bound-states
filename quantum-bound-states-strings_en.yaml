@@ -58,8 +58,8 @@ angularFrequencyPattern:               'ω = {{value}} fs<sup>-1</sup>'
 mass:                                  Mass
 numberOfWells:                         Number of Wells
 electricField:                         Electric Field
-slow:                                  slow
-fast:                                  fast
+slowest:                               slowest
+fastest:                               fastest
 
 # Spinners
 energyLevel:                           Energy Level
@@ -116,7 +116,7 @@ keyboardHelp:
     heading:    Reference Line
     readValues: Read values<br>(accessibility)
   magnifier:
-    heading:    Magnifier
+    heading: Magnifier
 
 # Strings that are specific to accessibility
 a11y:

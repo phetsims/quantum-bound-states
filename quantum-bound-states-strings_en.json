@@ -115,11 +115,11 @@
   "electricField": {
     "value": "Electric Field"
   },
-  "slow": {
-    "value": "slow"
+  "slowest": {
+    "value": "slowest"
   },
-  "fast": {
-    "value": "fast"
+  "fastest": {
+    "value": "fastest"
   },
   "energyLevel": {
     "value": "Energy Level"

@@ -60,8 +60,8 @@ addToMapIfDefined( 'superpositionCustomizationDialogTitle', 'superpositionCustom
 addToMapIfDefined( 'mass', 'massStringProperty' );
 addToMapIfDefined( 'numberOfWells', 'numberOfWellsStringProperty' );
 addToMapIfDefined( 'electricField', 'electricFieldStringProperty' );
-addToMapIfDefined( 'slow', 'slowStringProperty' );
-addToMapIfDefined( 'fast', 'fastStringProperty' );
+addToMapIfDefined( 'slowest', 'slowestStringProperty' );
+addToMapIfDefined( 'fastest', 'fastestStringProperty' );
 addToMapIfDefined( 'energyLevel', 'energyLevelStringProperty' );
 addToMapIfDefined( 'energyOffset', 'energyOffsetStringProperty' );
 addToMapIfDefined( 'preset', 'presetStringProperty' );
@@ -376,8 +376,8 @@ const QuantumBoundStatesFluent = {
   massStringProperty: _.get( QuantumBoundStatesStrings, 'massStringProperty' ),
   numberOfWellsStringProperty: _.get( QuantumBoundStatesStrings, 'numberOfWellsStringProperty' ),
   electricFieldStringProperty: _.get( QuantumBoundStatesStrings, 'electricFieldStringProperty' ),
-  slowStringProperty: _.get( QuantumBoundStatesStrings, 'slowStringProperty' ),
-  fastStringProperty: _.get( QuantumBoundStatesStrings, 'fastStringProperty' ),
+  slowestStringProperty: _.get( QuantumBoundStatesStrings, 'slowestStringProperty' ),
+  fastestStringProperty: _.get( QuantumBoundStatesStrings, 'fastestStringProperty' ),
   _comment_17: new FluentComment( {"comment":"Spinners","associatedKey":"energyLevel"} ),
   energyLevelStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelStringProperty' ),
   energyLevelPatternStringProperty: _.get( QuantumBoundStatesStrings, 'energyLevelPatternStringProperty' ),

@@ -48,10 +48,10 @@ export default class TimeSpeedSlider extends HSlider {
     affirm( validValues, 'timeStepIndexProperty must have validValues' );
     validValues.forEach( value => {
       if ( value === range.min ) {
-        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.slowStringProperty, TICK_TEXT_OPTIONS ) );
+        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.slowestStringProperty, TICK_TEXT_OPTIONS ) );
       }
       else if ( value === range.max ) {
-        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.fastStringProperty, TICK_TEXT_OPTIONS ) );
+        this.addMajorTick( value, new Text( QuantumBoundStatesFluent.fastestStringProperty, TICK_TEXT_OPTIONS ) );
       }
       else {
         this.addMajorTick( value );

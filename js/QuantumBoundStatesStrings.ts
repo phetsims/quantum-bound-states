@@ -56,8 +56,8 @@ type StringsType = {
   'massStringProperty': LocalizedStringProperty;
   'numberOfWellsStringProperty': LocalizedStringProperty;
   'electricFieldStringProperty': LocalizedStringProperty;
-  'slowStringProperty': LocalizedStringProperty;
-  'fastStringProperty': LocalizedStringProperty;
+  'slowestStringProperty': LocalizedStringProperty;
+  'fastestStringProperty': LocalizedStringProperty;
   'energyLevelStringProperty': LocalizedStringProperty;
   'energyLevelPatternStringProperty': LocalizedStringProperty;
   'energyOffsetStringProperty': LocalizedStringProperty;
