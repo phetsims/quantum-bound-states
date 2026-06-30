@@ -9,17 +9,15 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
+import { electronMassesUnit } from '../../../../scenery-phet/js/units/electronMassesUnit.js';
+import { voltsPerNanometerUnit } from '../../../../scenery-phet/js/units/voltsPerNanometerUnit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import { electronMassesUnit } from '../../../../scenery-phet/js/units/electronMassesUnit.js';
-import { voltsPerNanometerUnit } from '../../../../scenery-phet/js/units/voltsPerNanometerUnit.js';
 import QBSConstants from '../../common/QBSConstants.js';
 
 export default class ManyWellsModel extends QBSModel {
-
-  public readonly yAxisZoomLevelProperty: NumberProperty;
 
   public constructor( tandem: Tandem ) {
 
@@ -81,17 +79,5 @@ export default class ManyWellsModel extends QBSModel {
       potentials: potentials,
       tandem: tandem
     } );
-
-    this.yAxisZoomLevelProperty = new NumberProperty( 0, {
-      numberType: 'Integer',
-      range: new Range( 0, 1 ),
-      tandem: this.energyDiagram.tandem.createTandem( 'yAxisZoomLevelProperty' ),
-      phetioFeatured: true
-    } );
-  }
-
-  public override reset(): void {
-    super.reset();
-    this.yAxisZoomLevelProperty.reset();
   }
 }

@@ -244,12 +244,6 @@ addToMapIfDefined( 'a11y_superpositionCustomizationButton_accessibleContextRespo
 addToMapIfDefined( 'a11y_superpositionDetailsButton_accessibleName', 'a11y.superpositionDetailsButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_superpositionDetailsButton_accessibleHelpText', 'a11y.superpositionDetailsButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_superpositionDetailsButton_accessibleContextResponse', 'a11y.superpositionDetailsButton.accessibleContextResponseStringProperty' );
-addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomInButton_accessibleName', 'a11y.yAxisZoomButtonGroup.zoomInButton.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomInButton_accessibleHelpText', 'a11y.yAxisZoomButtonGroup.zoomInButton.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomInButton_accessibleContextResponse', 'a11y.yAxisZoomButtonGroup.zoomInButton.accessibleContextResponseStringProperty' );
-addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleName', 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleHelpText', 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleContextResponse', 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleName', 'a11y.quantumStateGraphRadioButtonGroup.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleHelpText', 'a11y.quantumStateGraphRadioButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_timeSpeedSlider_accessibleName', 'a11y.timeSpeedSlider.accessibleNameStringProperty' );
@@ -787,18 +781,6 @@ const QuantumBoundStatesFluent = {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsButton.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsButton.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsButton.accessibleContextResponseStringProperty' ) )
-    },
-    yAxisZoomButtonGroup: {
-      zoomInButton: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_yAxisZoomButtonGroup_zoomInButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.yAxisZoomButtonGroup.zoomInButton.accessibleNameStringProperty' ) ),
-        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_yAxisZoomButtonGroup_zoomInButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.yAxisZoomButtonGroup.zoomInButton.accessibleHelpTextStringProperty' ) ),
-        accessibleContextResponse: new FluentPattern<{ max: FluentVariable, min: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_yAxisZoomButtonGroup_zoomInButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.yAxisZoomButtonGroup.zoomInButton.accessibleContextResponseStringProperty' ), [{"name":"max"},{"name":"min"}] )
-      },
-      zoomOutButton: {
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleNameStringProperty' ) ),
-        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleHelpTextStringProperty' ) ),
-        accessibleContextResponse: new FluentPattern<{ max: FluentVariable, min: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_yAxisZoomButtonGroup_zoomOutButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.yAxisZoomButtonGroup.zoomOutButton.accessibleContextResponseStringProperty' ), [{"name":"max"},{"name":"min"}] )
-      }
     },
     _comment_28: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"quantumStateGraphRadioButtonGroup"} ),
     _comment_29: new FluentComment( {"comment":"Radio Buttons","associatedKey":"quantumStateGraphRadioButtonGroup"} ),

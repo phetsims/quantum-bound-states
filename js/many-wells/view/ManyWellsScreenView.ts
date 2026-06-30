@@ -12,7 +12,6 @@ import QBSScreenView from '../../common/view/QBSScreenView.js';
 import ManyWellsModel from '../model/ManyWellsModel.js';
 import { ManyWellsControlPanel } from './ManyWellsControlPanel.js';
 import ManyWellsScreenSummaryContent from './ManyWellsScreenSummaryContent.js';
-import ManyWellsZoomButtonGroup from './ManyWellsZoomButtonGroup.js';
 
 export default class ManyWellsScreenView extends QBSScreenView {
 
@@ -33,13 +32,5 @@ export default class ManyWellsScreenView extends QBSScreenView {
       screenSummaryContent: new ManyWellsScreenSummaryContent( model ),
       tandem: tandem
     } );
-
-    // Add a zoom button group for the Energy Diagram's y-axis.
-    const yAxisZoomButtonGroup = new ManyWellsZoomButtonGroup( model.yAxisZoomLevelProperty,
-      this.energyDiagramNode.tandem.createTandem( 'yAxisZoomButtonGroup' ) );
-    this.screenViewRootNode.addChild( yAxisZoomButtonGroup );
-    yAxisZoomButtonGroup.right = this.energyDiagramRectangleBounds.left - 26;
-    yAxisZoomButtonGroup.bottom = this.energyDiagramRectangleBounds.bottom - 7;
-    this.pdomOrderInsertAfter( this.pdomPlayAreaNode, this.energyDiagramNode, yAxisZoomButtonGroup );
   }
 }

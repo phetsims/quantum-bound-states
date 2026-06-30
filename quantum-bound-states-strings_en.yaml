@@ -207,7 +207,7 @@ a11y:
                          There are controls for building the lattice and for controlling the speed of the simulation.
                          Set the number of wells in the lattice and apply an electric field. Toggle the value labels
                          on the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy
-                         for telling apart closely spaced energy levels. Zoom the energy axis in or out. You can track
+                         for telling apart closely spaced energy levels. You can track
                          the time the system has been evolving or hide it. There are controls to pause, step through,
                          or restart the system. For slowly evolving states, you can increase the sim speed.
 
@@ -523,16 +523,6 @@ a11y:
     accessibleName:            Superposition Details
     accessibleHelpText:        Open the full equation and coefficient list for the current superposition state.
     accessibleContextResponse: Superposition Details dialog opened.
-
-  yAxisZoomButtonGroup:
-    zoomInButton:
-      accessibleName:            Zoom In
-      accessibleHelpText:        Zoom in y axis for Energy Diagram.
-      accessibleContextResponse: 'zoomed in, y range {$min} to {$max}'
-    zoomOutButton:
-      accessibleName:            Zoom Out
-      accessibleHelpText:        Zoom out y axis for Energy Diagram.
-      accessibleContextResponse: 'zoomed out, y range {$min} to {$max}'
 
   #=======================================================================================================
   # Radio Buttons
