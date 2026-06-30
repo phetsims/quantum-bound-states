@@ -49,7 +49,7 @@ class LegendEntryNode extends HBox {
   public constructor( labelStringProperty: TReadOnlyProperty<string>, stroke: TColor ) {
 
     const lineNode = new Line( 0, 0, 20, 0, {
-      lineWidth: 3,
+      lineWidth: QBSConstants.LEGEND_LINE_WIDTH,
       stroke: stroke
     } );
 

@@ -132,8 +132,7 @@ function createFiniteSquareIcon(): Node {
     numberOfWells: 1,
     wellWidth: 12,
     wellDepth: 12,
-    edgeLength: 8,
-    lineWidth: 2
+    edgeLength: 8
   } );
 }
 

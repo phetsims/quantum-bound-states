@@ -25,25 +25,25 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
 
     const potentialPlot = new YCanvasLinePlot( chartTransform, model.xGrid.xCoordinates, model.boundStateResultProperty.value.potentials, {
       strokeProperty: QBSColors.potentialEnergyColorProperty,
-      lineWidth: 3,
+      lineWidth: QBSConstants.POTENTIAL_ENERGY_LINE_WIDTH,
       yMax: QBSConstants.EFFECTIVELY_INFINITE_POTENTIAL_ENERGY
     } );
 
     const energyLevelsPlot = new EnergyLevelsPlot( chartTransform, model.boundStateResultProperty.value.energies, {
       strokeProperty: QBSColors.totalEnergyColorProperty,
-      lineWidth: 2
+      lineWidth: QBSConstants.TOTAL_ENERGY_LINE_WIDTH
     } );
 
     const selectedEnergyLevelPlot = new EnergyLevelsPlot( chartTransform,
       [ model.getEnergyAtEnergyLevel( model.selectedEnergyLevelIndexProperty.value ) ], {
         strokeProperty: QBSColors.selectedEnergyLevelColorProperty,
-        lineWidth: 2,
+        lineWidth: QBSConstants.TOTAL_ENERGY_LINE_WIDTH,
         hasArrowHeads: true
       } );
 
     const highlightedEnergyLevelPlot = new EnergyLevelsPlot( chartTransform, [], {
       strokeProperty: QBSColors.highlightedEnergyLevelColorProperty,
-      lineWidth: 3
+      lineWidth: QBSConstants.TOTAL_ENERGY_LINE_WIDTH
     } );
 
     // Back-to-front rendering order.

@@ -15,6 +15,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import QBSColors from '../QBSColors.js';
+import QBSConstants from '../QBSConstants.js';
 
 type SelfOptions = {
   numberOfWells: number;
@@ -39,7 +40,7 @@ export default class FiniteSquareWellsIcon extends Path {
 
       // PathOptions
       stroke: QBSColors.potentialEnergyColorProperty,
-      lineWidth: 2
+      lineWidth: QBSConstants.POTENTIAL_ICON_LINE_WIDTH
     }, providedOptions );
 
     const shape = new Shape().moveTo( 0, 0 ).lineTo( options.edgeLength, 0 );

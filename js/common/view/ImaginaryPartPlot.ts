@@ -11,6 +11,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import { TimeEvolvedSuperposition } from '../model/TimeEvolvedSuperposition.js';
 import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
 import QBSColors from '../QBSColors.js';
+import QBSConstants from '../QBSConstants.js';
 import YCanvasLinePlot from './YCanvasLinePlot.js';
 
 export default class ImaginaryPartPlot extends YCanvasLinePlot {
@@ -21,7 +22,7 @@ export default class ImaginaryPartPlot extends YCanvasLinePlot {
 
     super( chartTransform, waveFunctionGraph.xGrid.xCoordinates, waveFunctionGraph.timeEvolvedSuperpositionProperty.value.imaginaryPartValues, {
       strokeProperty: QBSColors.imaginaryPartStrokeProperty,
-      lineWidth: 2,
+      lineWidth: QBSConstants.WAVE_FUNCTION_LINE_WIDTH,
       visibleProperty: waveFunctionGraph.imaginaryPartSelectedProperty
     } );
 

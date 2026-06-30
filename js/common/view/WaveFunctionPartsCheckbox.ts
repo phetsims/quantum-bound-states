@@ -70,7 +70,7 @@ function createContent( stringProperty: TReadOnlyProperty<string>, strokePropert
         maxWidth: 120
       } ),
       new Line( 0, 0, 30, 0, {
-        lineWidth: 3,
+        lineWidth: QBSConstants.WAVE_FUNCTION_LINE_WIDTH,
         stroke: strokeProperty
       } )
     ]

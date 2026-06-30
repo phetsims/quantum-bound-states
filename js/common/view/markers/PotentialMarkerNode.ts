@@ -13,6 +13,7 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import Path, { PathOptions } from '../../../../../scenery/js/nodes/Path.js';
 import QuantumPotential from '../../model/potentials/QuantumPotential.js';
 import QBSColors from '../../QBSColors.js';
+import QBSConstants from '../../QBSConstants.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -31,7 +32,7 @@ export default abstract class PotentialMarkerNode<T extends QuantumPotential> ex
 
     const options = optionize<PotentialMarkerNodeOptions, SelfOptions, PathOptions>()( {
       stroke: QBSColors.markerLinesStrokeProperty,
-      lineWidth: 1.5,
+      lineWidth: QBSConstants.MARKERS_LINE_WIDTH,
       lineDash: [ 6, 6 ]
     }, providedOptions );
 

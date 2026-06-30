@@ -126,8 +126,14 @@ export default class QBSConstants {
   public static readonly MAX_SOLVER_ENERGY_ABOVE_WELL = 30; // eV
 
   // Line widths
+  public static readonly POTENTIAL_ENERGY_LINE_WIDTH = 3;
+  public static readonly TOTAL_ENERGY_LINE_WIDTH = 2;
   public static readonly POTENTIAL_ICON_LINE_WIDTH = 2;
   public static readonly REFERENCE_LINE_LINE_WIDTH = 1.5;
+  public static readonly PROBABILITY_DENSITY_LINE_WIDTH = 2;
+  public static readonly WAVE_FUNCTION_LINE_WIDTH = 2;
+  public static readonly MARKERS_LINE_WIDTH = 1.5;
+  public static readonly LEGEND_LINE_WIDTH = 3;
 
   // Drag handles for configuring potentials
   public static readonly HANDLE_LENGTH = 35;

@@ -11,6 +11,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import ProbabilityDensityGraph from '../model/ProbabilityDensityGraph.js';
 import { TimeEvolvedSuperposition } from '../model/TimeEvolvedSuperposition.js';
 import QBSColors from '../QBSColors.js';
+import QBSConstants from '../QBSConstants.js';
 import YCanvasLinePlot from './YCanvasLinePlot.js';
 
 export default class ProbabilityDensityPlot extends YCanvasLinePlot {
@@ -22,7 +23,7 @@ export default class ProbabilityDensityPlot extends YCanvasLinePlot {
     super( chartTransform, probabilityDensityGraph.xGrid.xCoordinates,
       probabilityDensityGraph.timeEvolvedSuperpositionProperty.value.probabilityDensityValues, {
         strokeProperty: QBSColors.probabilityDensityStrokeProperty,
-        lineWidth: 2
+        lineWidth: QBSConstants.PROBABILITY_DENSITY_LINE_WIDTH
       } );
 
     this.timeEvolvedSuperpositionProperty = probabilityDensityGraph.timeEvolvedSuperpositionProperty;
