@@ -110,7 +110,7 @@ export default class QBSConstants {
   public static readonly STEP_HEIGHT_KEYBOARD_DRAG_DELTA = 0.5; // eV
   public static readonly STEP_HEIGHT_KEYBOARD_SHIFT_DRAG_DELTA = 0.1; // eV
 
-  //TODO Is this OK or do we need to use Number.Infinity?
+  //TODO Where to use this? Is it used consistently? Should it be larger? Document in examples.md?
   public static readonly EFFECTIVELY_INFINITE_POTENTIAL_ENERGY = 1000; // eV
 
   // Reduced Planck constant (hbar) in natural units: √(eV⋅mₑ)⋅nm
