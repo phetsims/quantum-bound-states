@@ -52,6 +52,7 @@ export default class ManyWellsModel extends QBSModel {
 
     const potentials = [
       new FiniteSquarePotential( {
+        yRange: new Range( -5, 20 ).dilated( 0.5 ),
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
@@ -62,6 +63,7 @@ export default class ManyWellsModel extends QBSModel {
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
       } ),
       new PoschlTellerPotential( {
+        yRange: new Range( -20, 5 ).dilated( 0.5 ),
         numberOfWellsProperty: numberOfWellsProperty,
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
