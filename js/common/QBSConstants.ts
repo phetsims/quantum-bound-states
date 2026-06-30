@@ -127,13 +127,18 @@ export default class QBSConstants {
 
   // Line widths
   public static readonly POTENTIAL_ENERGY_LINE_WIDTH = 3;
-  public static readonly TOTAL_ENERGY_LINE_WIDTH = 2;
+  public static readonly ENERGY_LEVELS_LINE_WIDTH = 2;
+  public static readonly SELECTED_ENERGY_LEVEL_LINE_WIDTH = 2;
+  public static readonly HIGHLIGHTED_ENERGY_LEVEL_LINE_WIDTH = 2;
   public static readonly PROBABILITY_DENSITY_LINE_WIDTH = 2;
-  public static readonly WAVE_FUNCTION_LINE_WIDTH = 2;
+  public static readonly WAVE_FUNCTION_REAL_PART_LINE_WIDTH = 2;
+  public static readonly WAVE_FUNCTION_IMAGINARY_PART_LINE_WIDTH = 2;
+  public static readonly WAVE_FUNCTION_MAGNITUDE_LINE_WIDTH = 2;
   public static readonly REFERENCE_LINE_LINE_WIDTH = 1.5;
   public static readonly GRID_LINE_LINE_WIDTH = 1;
   public static readonly MARKER_LINE_WIDTH = 1.5;
   public static readonly LEGEND_LINE_WIDTH = 3;
+  public static readonly WAVE_FUNCTION_CHECKBOX_LINE_WIDTH = 3;
   public static readonly POTENTIAL_ICON_LINE_WIDTH = 2;
 
   // Drag handles for configuring potentials

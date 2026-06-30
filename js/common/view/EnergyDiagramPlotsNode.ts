@@ -31,19 +31,19 @@ export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
 
     const energyLevelsPlot = new EnergyLevelsPlot( chartTransform, model.boundStateResultProperty.value.energies, {
       strokeProperty: QBSColors.totalEnergyColorProperty,
-      lineWidth: QBSConstants.TOTAL_ENERGY_LINE_WIDTH
+      lineWidth: QBSConstants.ENERGY_LEVELS_LINE_WIDTH
     } );
 
     const selectedEnergyLevelPlot = new EnergyLevelsPlot( chartTransform,
       [ model.getEnergyAtEnergyLevel( model.selectedEnergyLevelIndexProperty.value ) ], {
         strokeProperty: QBSColors.selectedEnergyLevelColorProperty,
-        lineWidth: QBSConstants.TOTAL_ENERGY_LINE_WIDTH,
+        lineWidth: QBSConstants.SELECTED_ENERGY_LEVEL_LINE_WIDTH,
         hasArrowHeads: true
       } );
 
     const highlightedEnergyLevelPlot = new EnergyLevelsPlot( chartTransform, [], {
       strokeProperty: QBSColors.highlightedEnergyLevelColorProperty,
-      lineWidth: QBSConstants.TOTAL_ENERGY_LINE_WIDTH
+      lineWidth: QBSConstants.HIGHLIGHTED_ENERGY_LEVEL_LINE_WIDTH
     } );
 
     // Back-to-front rendering order.
