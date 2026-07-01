@@ -6,12 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import QuantumStateGraph from '../model/QuantumStateGraph.js';
-import WaveFunctionGraph from '../model/WaveFunctionGraph.js';
+import QBSModel from '../model/QBSModel.js';
 import QBSConstants from '../QBSConstants.js';
+import QuantumStateGraphDescriber from './description/QuantumStateGraphDescriber.js';
 import EquationTermNode from './EquationTermNode.js';
 import QuantumStateGraphNode, { QuantumStateGraphNodeOptions } from './QuantumStateGraphNode.js';
 import WaveFunctionPlotsNode from './WaveFunctionPlotsNode.js';
@@ -22,13 +21,9 @@ type WaveFunctionGraphNodeOptions = SelfOptions & Pick<QuantumStateGraphNodeOpti
 
 export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
 
-  public constructor( waveFunctionGraph: WaveFunctionGraph,
-                      quantumStateGraphProperty: TReadOnlyProperty<QuantumStateGraph>,
-                      selectedEnergyLevelIndexProperty: TReadOnlyProperty<number>,
-                      curvesVisibleProperty: TReadOnlyProperty<boolean>,
-                      providedOptions: WaveFunctionGraphNodeOptions ) {
+  public constructor( model: QBSModel, providedOptions: WaveFunctionGraphNodeOptions ) {
 
-    const yRange = waveFunctionGraph.yRangeProperty.value.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
+    const yRange = model.waveFunctionGraph.yRangeProperty.value.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION );
 
     const options = optionize<WaveFunctionGraphNodeOptions, SelfOptions, QuantumStateGraphNodeOptions>()( {
 
@@ -39,27 +34,23 @@ export default class WaveFunctionGraphNode extends QuantumStateGraphNode {
       yTickLabelDecimals: 1,
 
       // Visible when this graph is selected.
-      visibleProperty: quantumStateGraphProperty.derived( graph => graph === waveFunctionGraph ),
-
-      // Core-description options for this graph.
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.quantumStateGraph.accessibleParagraph.waveFunction.createProperty( {
-        energyLevelIndex: selectedEnergyLevelIndexProperty
-      } )
+      visibleProperty: model.selectedGraphProperty.derived( graph => graph === model.waveFunctionGraph ),
+      accessibleParagraph: QuantumStateGraphDescriber.getWaveFunctionDescription( model )
     }, providedOptions );
 
     // If we do not have a button for showing equation details, then show a mathematical term in the top-right corner
     // of the chartRectangle. The term corresponds to the selected energy level.
     if ( !options.createEquationDetailsButton ) {
-      options.createEquationTermNode = tandem => EquationTermNode.waveFunctionTerm( selectedEnergyLevelIndexProperty, tandem );
+      options.createEquationTermNode = tandem => EquationTermNode.waveFunctionTerm( model.selectedEnergyLevelIndexProperty, tandem );
     }
 
-    super( curvesVisibleProperty, options );
+    super( model.curvesVisibleProperty, options );
 
     // Canvas renderer for plots related to this graph.
-    this.clippedLayer.addChild( new WaveFunctionPlotsNode( waveFunctionGraph, this.chartTransform ) );
+    this.clippedLayer.addChild( new WaveFunctionPlotsNode( model.waveFunctionGraph, this.chartTransform ) );
 
     //TODO This should be lazyLink, but then the graph does not initially have correct y-range dilation.
-    waveFunctionGraph.yRangeProperty.link( yRange => {
+    model.waveFunctionGraph.yRangeProperty.link( yRange => {
       this.setYRange( yRange.dilated( QBSConstants.QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION ) );
       this.setYTickSpacing( yRange.max );
     } );
