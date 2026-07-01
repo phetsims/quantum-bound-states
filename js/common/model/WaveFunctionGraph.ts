@@ -39,7 +39,7 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   public constructor( model: QBSModel, tandem: Tandem ) {
 
     super( {
-      accessibleNameProperty: QuantumBoundStatesFluent.a11y.waveFunctionGraph.accessibleHeadingStringProperty,
+      accessibleNameProperty: QuantumBoundStatesFluent.waveFunctionStringProperty,
       tandem: tandem
     } );
 

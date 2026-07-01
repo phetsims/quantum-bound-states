@@ -34,7 +34,7 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
   public constructor( model: QBSModel, tandem: Tandem ) {
 
     super( {
-      accessibleNameProperty: QuantumBoundStatesFluent.a11y.probabilityDensityGraph.accessibleHeadingStringProperty,
+      accessibleNameProperty: QuantumBoundStatesFluent.probabilityDensityStringProperty,
       tandem: tandem
     } );
 

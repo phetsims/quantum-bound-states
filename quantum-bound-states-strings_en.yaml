@@ -360,22 +360,20 @@ a11y:
         electricField:     Electric field set to {$electricField} volts per nanometer.
         energyLevel:       Energy level {$energyLevelIndex} selected at { $energy } electron volts.
 
-  probabilityDensityGraph:
-    accessibleHeading:   Probability Density Graph
-    accessibleParagraph: |-
-                         The Probability Density graph shows the probability density across the well for energy level { $energyLevelIndex }.
-                         The curve has { $numberOfNodes ->
-                           [one] { $numberOfNodes } node.
-                          *[other] { $numberOfNodes } nodes.
-                          }
-                          Listen to the shape with sonification, or move the Reference Line to read the potential value at any position.
-
-  waveFunctionGraph:
-    accessibleHeading:   Wave Function Graph
-    accessibleParagraph: |-
-                         The Wave Function graph shows the real, imaginary, and magnitude parts of the wave function
-                         across the well for energy level { $energyLevelIndex }. Listen to each part with sonification, move the
-                         Reference Line to read values, and play time to explore how the parts behave.
+  quantumStateGraph:
+    accessibleHeading: Quantum State Graph
+    accessibleParagraph:
+      probabilityDensity: |-
+                          Shows the probability density across the well for energy level { $energyLevelIndex }.
+                          The curve has { $numberOfNodes ->
+                            [one] { $numberOfNodes } node.
+                           *[other] { $numberOfNodes } nodes.
+                           }
+                           Listen to the shape with sonification, or move the Reference Line to read the potential value at any position.
+      waveFunction:       |-
+                          Shows the real, imaginary, and magnitude parts of the wave function
+                          across the well for energy level { $energyLevelIndex }. Listen to each part with sonification, move the
+                          Reference Line to read values, and play time to explore how the parts behave.
 
   #=======================================================================================================
   # Handles

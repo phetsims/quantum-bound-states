@@ -277,13 +277,12 @@ type StringsType = {
         }
       }
     };
-    'probabilityDensityGraph': {
+    'quantumStateGraph': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
-    };
-    'waveFunctionGraph': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'accessibleParagraphStringProperty': LocalizedStringProperty;
+      'accessibleParagraph': {
+        'probabilityDensityStringProperty': LocalizedStringProperty;
+        'waveFunctionStringProperty': LocalizedStringProperty;
+      }
     };
     'handles': {
       'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
