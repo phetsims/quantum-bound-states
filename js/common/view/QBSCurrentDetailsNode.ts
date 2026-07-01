@@ -30,7 +30,7 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Identify the selected quantum potential.
+   * Identifies the selected quantum potential.
    */
   public static createSelectedPotentialListItem( potentialProperty: TReadOnlyProperty<QuantumPotential> ): AccessibleListItem {
     return {
@@ -43,7 +43,7 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Identify the selected quantum state graph and selected energy level.
+   * Identifies the selected quantum state graph and selected energy level.
    */
   public static createSelectedGraphItem( selectedGraphProperty: TReadOnlyProperty<QuantumStateGraph>, energyLevelIndexProperty: TReadOnlyProperty<number> ): AccessibleListItem {
     return {
@@ -57,7 +57,7 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Note if the Reference Line is visible.
+   * Notes if the Reference Line is visible.
    */
   public static createReferenceLineItem( referenceLine: ReferenceLine ): AccessibleListItem {
     return {
@@ -67,7 +67,7 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Note if the Magnifier is visible.
+   * Notes if the Magnifier is visible.
    */
   public static createMagnifierItem( magnifier: Magnifier ): AccessibleListItem {
     return {
@@ -77,7 +77,7 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Note whether the sim is playing or paused.
+   * Notes whether the sim is playing or paused.
    */
   public static createTimeStateItem( isPlayingProperty: TReadOnlyProperty<boolean> ): AccessibleListItem {
     return {
@@ -88,12 +88,13 @@ export default class QBSCurrentDetailsNode extends Node {
   }
 
   /**
-   * Describe the sim speed.
+   * Describes the time speed.
    */
   public static createTimeSpeedItem( time: QBSTime ): AccessibleListItem {
     return {
       stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.timeSpeed.createProperty( {
-        speed: time.timeSpeedProperty
+        speed: time.timeSpeedProperty,
+        timeStep: time.timeStepProperty
       } )
     };
   }

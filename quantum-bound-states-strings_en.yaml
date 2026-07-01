@@ -142,7 +142,12 @@ a11y:
                 select_isPlaying:
                   true:  Sim is playing.
                   false: Sim is paused.
-              timeSpeed:            Time speed is set to {$speed}.
+              timeSpeed:            |-
+                                    Time speed is set to {$speed}.
+                                    { $timeStep ->
+                                      [one] { $timeStep } femtosecond happens in one second of real time.
+                                      *[other] { $timeStep } femtoseconds happen in one second of real time.
+                                    }
 
     oneWellScreen:
       screenButtonsHelpText: Explore bound states across multiple, modifiable single well potentials.

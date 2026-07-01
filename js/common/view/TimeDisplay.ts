@@ -50,6 +50,7 @@ export default class TimeDisplay extends NumberDisplay {
         decimalPlaces: time.getDecimalPlaces(),
         showTrailingZeros: true
       } ),
+      //TODO Add numberFormatterDependencies but avoid resize of display
       accessibleParagraph: accessibleParagraphProperty,
       tandem: tandem.createTandem( 'valueDisplay' )
     } );

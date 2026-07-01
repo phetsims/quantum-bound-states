@@ -7,6 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
@@ -16,6 +17,7 @@ import { femtosecondsUnit } from '../../../../scenery-phet/js/units/femtoseconds
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 // Time steps for each time speed.
 const TIME_STEP_VALUES = [ 0.01, 0.1, 1, 10, 100 ];
@@ -40,6 +42,9 @@ export default class QBSTime extends PhetioObject {
 
   // Time speed is a 1-based index used to selected values from 0-based TIME_STEP_VALUES and TIME_DECIMAL_PLACES.
   public readonly timeSpeedProperty: NumberProperty;
+
+  // Time step in fs
+  public readonly timeStepProperty: TReadOnlyProperty<number>;
 
   // Whether time is visible.
   public readonly timeVisibleProperty: Property<boolean>;
@@ -91,6 +96,14 @@ export default class QBSTime extends PhetioObject {
       }
     } );
 
+    this.timeStepProperty = new DerivedProperty( [ this.timeSpeedProperty ],
+      timeSpeed => TIME_STEP_VALUES[ timeSpeed - 1 ], {
+        validValues: TIME_STEP_VALUES,
+        tandem: tandem.createTandem( 'timeStepProperty' ),
+        phetioValueType: NumberIO,
+        phetioFeatured: true
+      } );
+
     this.timeVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'timeVisibleProperty' )
     } );
@@ -98,10 +111,6 @@ export default class QBSTime extends PhetioObject {
 
   public getDecimalPlaces(): number {
     return TIME_DECIMAL_PLACES[ this.timeSpeedProperty.value - 1 ];
-  }
-
-  private getTimeStep(): number {
-    return TIME_STEP_VALUES[ this.timeSpeedProperty.value - 1 ];
   }
 
   public reset(): void {
@@ -116,14 +125,14 @@ export default class QBSTime extends PhetioObject {
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
-    this._currentTimeProperty.value += ( FEMTOSECONDS_PER_SECOND * dt * this.getTimeStep() );
+    this._currentTimeProperty.value += ( FEMTOSECONDS_PER_SECOND * dt * this.timeStepProperty.value );
   }
 
   /**
    * Steps time forward by one step, called when the user presses the 'Step Forward' button.
    */
   public stepForward(): void {
-    this._currentTimeProperty.value += this.getTimeStep();
+    this._currentTimeProperty.value += this.timeStepProperty.value;
   }
 
   /**

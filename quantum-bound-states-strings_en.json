@@ -271,7 +271,7 @@
                   "value": "{ $isPlaying ->\n  [true] Sim is playing.\n  *[false] Sim is paused.\n}"
                 },
                 "timeSpeed": {
-                  "value": "Time speed is set to {$speed}."
+                  "value": "Time speed is set to {$speed}.\n{ $timeStep ->\n  [one] { $timeStep } femtosecond happens in one second of real time.\n  *[other] { $timeStep } femtoseconds happen in one second of real time.\n}"
                 }
               }
             }
