@@ -17,6 +17,10 @@ import QBSTime from '../model/QBSTime.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
+// This range typically determines the width of the display. If you make this larger, you may need to adjust
+// options.minBackgroundWidth. To test: pause the sim, step through all time speeds, and see if the time display resizes.
+const TIME_RANGE = new Range( 0, 100000 );
+
 export default class TimeDisplay extends NumberDisplay {
 
   public constructor( time: QBSTime, tandem: Tandem ) {
@@ -36,10 +40,7 @@ export default class TimeDisplay extends NumberDisplay {
       time: time.currentTimeProperty.derived( currentTime => toFixed( currentTime, time.getDecimalPlaces() ) )
     } );
 
-    // time.currentTimeProperty has no range. Use a large range to size the NumberDisplay.
-    const timeRange = new Range( 0, 10000 );
-
-    super( time.currentTimeProperty, timeRange, {
+    super( time.currentTimeProperty, TIME_RANGE, {
       isDisposable: false,
       textOptions: {
         font: QBSConstants.TIME_FONT,
@@ -50,7 +51,12 @@ export default class TimeDisplay extends NumberDisplay {
         decimalPlaces: time.getDecimalPlaces(),
         showTrailingZeros: true
       } ),
-      //TODO Add numberFormatterDependencies but avoid resize of display
+
+      // Display correct number of decimal places for timeSpeedProperty.
+      numberFormatterDependencies: [ time.timeSpeedProperty ],
+
+      // Caution! minBackgroundWidth must be large enough to prevent resizing when timeSpeedProperty changes.
+      minBackgroundWidth: 130,
       accessibleParagraph: accessibleParagraphProperty,
       tandem: tandem.createTandem( 'valueDisplay' )
     } );
