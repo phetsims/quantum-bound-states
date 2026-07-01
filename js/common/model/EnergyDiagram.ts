@@ -41,11 +41,8 @@ export default class EnergyDiagram extends PhetioObject {
 
     // Use the y-range of the selected potential.
     this.yRangeProperty = new DynamicProperty<Range, Range, QuantumPotential>( model.potentialProperty, {
-      derive: potential => potential.yRangeProperty,
-      tandem: tandem.createTandem( 'yRangeProperty' ),
-      phetioValueType: Range.RangeIO,
-      phetioFeatured: true,
-      phetioReadOnly: true
+      derive: potential => potential.yRangeProperty
+      // This is a one-way Property, so do not instrument for PhET-iO, or restoring state will try to set it.
     } );
 
     // Defaults to false, see https://github.com/phetsims/quantum-bound-states/issues/100.
