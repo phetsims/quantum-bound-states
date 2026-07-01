@@ -344,7 +344,7 @@ export default class QBSModel implements TModel {
   /**
    * Determines whether the specified energyLevelIndex is valid.
    */
-  private isValidEnergyLevelIndex( energyLevelIndex: number ): boolean {
+  public isValidEnergyLevelIndex( energyLevelIndex: number ): boolean {
     const groundStateIndex = this.potentialProperty.value.groundStateIndex;
     const energiesIndex = energyLevelIndex - groundStateIndex;
     const energies = this.boundStateResultProperty.value.energies;
@@ -397,16 +397,6 @@ export default class QBSModel implements TModel {
   public getPhaseAt( x: number ): number {
     const index = this.xGrid.getClosestIndex( x );
     return this.timeEvolvedSuperpositionProperty.value.phaseValues[ index ];
-  }
-
-  /**
-   * Determines whether the given energy level index is valid.
-   */
-  public isEnergyLevelIndexValid( energyLevelIndex: number ): boolean {
-    const groundStateIndex = this.potentialProperty.value.groundStateIndex;
-    const energiesIndex = energyLevelIndex - groundStateIndex;
-    const energies = this.boundStateResultProperty.value.energies;
-    return ( energiesIndex >= 0 && energiesIndex < energies.length );
   }
 }
 
