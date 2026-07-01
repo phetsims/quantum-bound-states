@@ -150,6 +150,9 @@ export default class QBSModel implements TModel {
     } );
 
     this.highlightedEnergyLevelIndexProperty = new Property<number | null>( null, {
+
+      // This is transient and not needed for PhET-iO state. But instrumenting it will prevent reports of
+      // State Wrapper problems during QA.
       tandem: options.tandem.createTandem( 'highlightedEnergyLevelIndexProperty' ),
       phetioValueType: NullableIO( NumberIO ),
       phetioFeatured: true,
