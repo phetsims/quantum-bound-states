@@ -12,7 +12,7 @@ import QBSModel from '../../model/QBSModel.js';
 
 export default class QuantumStateGraphDescriber {
 
-  private constructor( model: QBSModel ) {
+  private constructor() {
     // Not intended for instantiation.
   }
 
