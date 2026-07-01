@@ -70,7 +70,8 @@ export default class TimeDisplay extends Node {
     super( {
       children: [ backgroundNode, text ],
       accessibleParagraph: accessibleParagraphProperty,
-      tandem: tandem.createTandem( 'valueDisplay' )
+      tandem: tandem,
+      phetioVisiblePropertyInstrumented: true
     } );
   }
 }
