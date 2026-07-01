@@ -15,6 +15,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PDOMSectionNode from '../../../../scenery-phet/js/accessibility/PDOMSectionNode.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -22,7 +23,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
-import EnergyDiagramNode from '../../common/view/EnergyDiagramNode.js';
+import EnergyDiagramNode, { EnergyDiagramNodeOptions } from '../../common/view/EnergyDiagramNode.js';
 import LegendPanel from '../../common/view/LegendPanel.js';
 import MagnifierNode from '../../common/view/MagnifierNode.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
@@ -45,7 +46,8 @@ type SelfOptions = {
 
   // Creates a button for showing the complete Wave Function equation.
   createWaveFunctionDetailsButton?: ( ( tandem: Tandem ) => Node ) | null;
-};
+
+} & PickOptional<EnergyDiagramNodeOptions, 'hasEnergyLevelSelection'>;
 
 export type QBSScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
 
@@ -61,14 +63,18 @@ export default class QBSScreenView extends ScreenView {
 
       // SelfOptions
       createProbabilityDensityDetailsButton: null,
-      createWaveFunctionDetailsButton: null
+      createWaveFunctionDetailsButton: null,
+      hasEnergyLevelSelection: true
     }, providedOptions );
 
     super( options );
 
     const legendPanel = new LegendPanel( options.tandem.createTandem( 'legendPanel' ) );
 
-    const energyDiagramNode = new EnergyDiagramNode( model, new EnergyDiagramDescriber( model ), options.tandem.createTandem( 'energyDiagramNode' ) );
+    const energyDiagramNode = new EnergyDiagramNode( model, new EnergyDiagramDescriber( model ), {
+      hasEnergyLevelSelection: options.hasEnergyLevelSelection,
+      tandem: options.tandem.createTandem( 'energyDiagramNode' )
+    } );
     this.energyDiagramNode = energyDiagramNode;
 
     // Group all quantum state graphs under a parent tandem.

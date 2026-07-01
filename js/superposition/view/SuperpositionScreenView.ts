@@ -32,6 +32,7 @@ export default class SuperpositionScreenView extends QBSScreenView {
     super( model, listboxParent, energyDiagramControlPanel, {
       createProbabilityDensityDetailsButton: tandem => new ProbabilityDensityDetailsButton( tandem ),
       createWaveFunctionDetailsButton: tandem => new WaveFunctionDetailsButton( tandem ),
+      hasEnergyLevelSelection: false,
       screenSummaryContent: new SuperpositionScreenSummaryContent( model ),
       tandem: tandem
     } );

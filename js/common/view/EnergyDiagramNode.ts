@@ -15,11 +15,13 @@ import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSModel from '../model/QBSModel.js';
 import QBSColors from '../QBSColors.js';
@@ -27,9 +29,13 @@ import QBSConstants from '../QBSConstants.js';
 import EnergyDiagramDescriber from './description/EnergyDiagramDescriber.js';
 import EnergyDiagramPlotsNode from './EnergyDiagramPlotsNode.js';
 import EnergyLevelDisplay from './EnergyLevelDisplay.js';
-import EnergyLevelSelectionListener from './EnergyLevelSelectionListener.js';
+import EnergyLevelHighlightListener, { EnergyLevelHighlightListenerOptions } from './EnergyLevelHighlightListener.js';
 import PotentialHandlesLayer from './handles/PotentialHandlesLayer.js';
 import MarkersLayer from './markers/MarkersLayer.js';
+
+type SelfOptions = EmptySelfOptions & PickOptional<EnergyLevelHighlightListenerOptions, 'hasEnergyLevelSelection'>;
+
+export type EnergyDiagramNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class EnergyDiagramNode extends Node {
 
@@ -45,14 +51,20 @@ export default class EnergyDiagramNode extends Node {
   private readonly horizontalGridLines: GridLineSet;
 
   //TODO Reduce coupling with QBSModel
-  public constructor( model: QBSModel, describer: EnergyDiagramDescriber, tandem: Tandem ) {
+  public constructor( model: QBSModel, describer: EnergyDiagramDescriber, providedOptions: EnergyDiagramNodeOptions ) {
 
-    super( {
+    const options = optionize<EnergyDiagramNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      hasEnergyLevelSelection: true,
+
+      // NodeOptions
       isDisposable: false,
       accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagram.accessibleHeadingStringProperty,
-      tandem: tandem,
       phetioInputEnabledPropertyInstrumented: true
-    } );
+    }, providedOptions );
+
+    super( options );
 
     this.chartTransform = new ChartTransform( {
       viewWidth: QBSConstants.ALL_GRAPHS_VIEW_WIDTH,
@@ -102,29 +114,31 @@ export default class EnergyDiagramNode extends Node {
       this.chartRectangle.cursor = ( highlightedEnergyLevel === null ) ? 'default' : 'pointer';
     } );
 
-    // Highlighting and selection of energy levels.
-    this.chartRectangle.addInputListener( new EnergyLevelSelectionListener( model, this.chartRectangle,
-      this.chartTransform, tandem.createTandem( 'energyLevelSelectionListener' ) ) );
+    // Highlighting and optional selection of energy levels.
+    this.chartRectangle.addInputListener( new EnergyLevelHighlightListener( model, this.chartRectangle, this.chartTransform, {
+      hasEnergyLevelSelection: options.hasEnergyLevelSelection,
+      tandem: options.tandem.createTandem( 'energyLevelHighlightListener' )
+    } ) );
 
     const potentials = model.potentialProperty.validValues!;
     affirm( potentials, 'potentialProperty.validValues is required.' );
 
     const handlesLayer = new PotentialHandlesLayer( potentials, model.potentialProperty, this.chartTransform,
-      model.energyDiagram.valuesVisibleProperty, model.time, tandem.createTandem( 'handlesLayer' ) );
+      model.energyDiagram.valuesVisibleProperty, model.time, options.tandem.createTandem( 'handlesLayer' ) );
 
     const markersLayer = new MarkersLayer( potentials, model.potentialProperty, this.chartTransform,
-      tandem.createTandem( 'markersLayer' ) );
+      options.tandem.createTandem( 'markersLayer' ) );
 
     // Displays the selected energy level and its corresponding energy value.
     const selectedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.selectedEnergyLevelIndexProperty, this.chartTransform, {
       left: this.chartRectangle.left + 10,
-      tandem: tandem.createTandem( 'selectedEnergyLevelDisplay' )
+      tandem: options.tandem.createTandem( 'selectedEnergyLevelDisplay' )
     } );
 
     // Displays the highlighted energy level and its corresponding energy value.
     const highlightedEnergyLevelDisplay = new EnergyLevelDisplay( model, model.highlightedEnergyLevelIndexProperty, this.chartTransform, {
       left: selectedEnergyLevelDisplay.left,
-      tandem: tandem.createTandem( 'highlightedEnergyLevelDisplay' )
+      tandem: options.tandem.createTandem( 'highlightedEnergyLevelDisplay' )
     } );
 
     // Parent for elements that are clipped to the chartRectangle.

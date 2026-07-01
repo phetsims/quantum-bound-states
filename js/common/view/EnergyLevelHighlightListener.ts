@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * EnergyLevelSelectionListener supports clicking in the Energy Diagram to select and energy level.
+ * EnergyLevelHighlightListener supports clicking in the Energy Diagram to select and energy level.
  * With pointer input it highlights the energy level that is closest to the pointer.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -9,16 +9,25 @@
 
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import PressListener, { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PressListener, { PressListenerEvent, PressListenerOptions } from '../../../../scenery/js/listeners/PressListener.js';
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSModel from '../model/QBSModel.js';
 
 // The pointer must be this close to an energy level to highlight it or select it.
 const ENERGY_CLOSENESS_THRESHOLD = 1; // eV
 
-export default class EnergyLevelSelectionListener extends PressListener {
+type SelfOptions = {
+
+  // Whether clicking on the highlighted energy level causes it to be selected.
+  hasEnergyLevelSelection?: boolean;
+};
+
+export type EnergyLevelHighlightListenerOptions = SelfOptions & PickRequired<PressListenerOptions, 'tandem'>;
+
+export default class EnergyLevelHighlightListener extends PressListener {
 
   private readonly model: QBSModel;
   private readonly chartRectangle: ChartRectangle;
@@ -28,21 +37,27 @@ export default class EnergyLevelSelectionListener extends PressListener {
   public constructor( model: QBSModel,
                       chartRectangle: ChartRectangle,
                       chartTransform: ChartTransform,
-                      tandem: Tandem ) {
+                      providedOptions: EnergyLevelHighlightListenerOptions ) {
 
     const soundPlayer = sharedSoundPlayers.get( 'pushButton' );
 
-    super( {
-      tandem: tandem,
+    const options = optionize<EnergyLevelHighlightListenerOptions, SelfOptions, PressListenerOptions>()( {
 
-      // Press to select the highlighted energy level.
-      press: event => {
+      // SelfOptions
+      hasEnergyLevelSelection: true
+    }, providedOptions );
+
+    // Press to select the highlighted energy level.
+    if ( options.hasEnergyLevelSelection ) {
+      options.press = event => {
         if ( model.highlightedEnergyLevelIndexProperty.value !== null ) {
           model.selectedEnergyLevelIndexProperty.value = model.highlightedEnergyLevelIndexProperty.value;
           soundPlayer.play();
         }
-      }
-    } );
+      };
+    }
+
+    super( options );
 
     this.model = model;
     this.chartRectangle = chartRectangle;
