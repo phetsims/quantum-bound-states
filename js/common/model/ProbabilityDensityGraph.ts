@@ -41,21 +41,8 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
     this.timeEvolvedSuperpositionProperty = model.timeEvolvedSuperpositionProperty;
     this.numberOfNodesProperty = model.numberOfNodesProperty;
 
-    // Use the maximum time-independent probability density to set the y-axis range.
-    this.yRangeProperty = new DerivedProperty(
-      [ model.selectedWaveFunctionValuesProperty ],
-      waveFunctionValues => {
-        //TODO It may be more performant to return maxAbsY as part of BoundStateResult, then use maxAbsY * maxAbsY here.
-
-        // TODO: copied from WaveFunctionGraph.ts, should be refactored to use maxAbsY from BoundStateResult
-        // Let's not assume that the wave function values are all positive.
-        const minY = Math.min( ...waveFunctionValues );
-        const maxY = Math.max( ...waveFunctionValues );
-        const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
-
-        // Guard against maxAbsY === 0 (see WaveFunctionGraph.ts for explanation).
-        const safeMaxAbsY = ( maxAbsY > 0 && Number.isFinite( maxAbsY ) ) ? maxAbsY : 1;
-        return new Range( 0, safeMaxAbsY * safeMaxAbsY );
-      } );
+    // Use the maximum time-independent wave function solution to set the y-axis range.
+    this.yRangeProperty = new DerivedProperty( [ model.selectedEnergyLevelIndexProperty, model.boundStateResultProperty ],
+      ( selectedEnergyLevelIndex, boundStateResult ) => model.getProbabilityDensityRangeForEnergyLevel( selectedEnergyLevelIndex ) );
   }
 }

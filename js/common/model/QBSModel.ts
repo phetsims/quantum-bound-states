@@ -67,10 +67,6 @@ export default class QBSModel implements TModel {
   // Result for configuration of the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
 
-  // Time-independent wave function values for the selected potential and selected energy level.
-  //TODO Get rid of selectedWaveFunctionValuesProperty
-  public readonly selectedWaveFunctionValuesProperty: TReadOnlyProperty<number[]>;
-
   // Constant grid of x-coordinates, used for all graphs.
   public readonly xGrid: XGrid;
 
@@ -206,16 +202,6 @@ export default class QBSModel implements TModel {
       }
     } );
 
-    this.selectedWaveFunctionValuesProperty = new DerivedProperty(
-      [ this.boundStateResultProperty, this.selectedEnergyLevelIndexProperty ],
-      ( boundStateResult, selectedEnergyLevel ) => {
-        const groundStateIndex = this.potentialProperty.value.groundStateIndex;
-        const waveFunctionsIndex = selectedEnergyLevel - groundStateIndex;
-        const waveFunctions = boundStateResult.waveFunctions;
-        affirmCallback( () => waveFunctionsIndex >= 0 && waveFunctionsIndex < waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
-        return waveFunctions[ waveFunctionsIndex ];
-      } );
-
     this.timeEvolvedSuperpositionProperty = new DerivedProperty(
       [ this.time.currentTimeProperty, this.boundStateResultProperty, this.selectedEnergyLevelIndexProperty ],
       ( currentTime, boundStateResult, selectedEnergyLevelIndex ) =>
@@ -310,6 +296,46 @@ export default class QBSModel implements TModel {
     const index = energyLevelIndex - groundStateIndex;
     affirmCallback( () => index >= 0 && index < energies.length, `index out of range: ${index}` );
     return energies[ index ];
+  }
+
+  /**
+   * Gets the time-independent wave function values for a specified energy level.
+   */
+  public getWaveFunctionsForEnergyLevel( energyLevelIndex: number ): number[] {
+    const groundStateIndex = this.potentialProperty.value.groundStateIndex;
+    const waveFunctionsIndex = energyLevelIndex - groundStateIndex;
+    const waveFunctions = this.boundStateResultProperty.value.waveFunctions;
+    affirmCallback( () => waveFunctionsIndex >= 0 && waveFunctionsIndex < waveFunctions.length, `waveFunctionIndex out of range: ${waveFunctionsIndex}` );
+    return waveFunctions[ waveFunctionsIndex ];
+  }
+
+  //TODO This only works for superposition states with 1 non-zero coefficient, so it should eventually go away.
+  /**
+   * Gets the y-axis range (energy range) that will fit the time-independent wave function curve for the
+   * specified energy level.
+   */
+  public getWaveFunctionRangeForEnergyLevel( energyLevelIndex: number ): Range {
+    const selectedWaveFunctionValues = this.getWaveFunctionsForEnergyLevel( energyLevelIndex );
+
+    //TODO It would be more performant to return maxWaveFunctionValues: number[] as part of BoundStateResult
+    const minY = Math.min( ...selectedWaveFunctionValues );
+    const maxY = Math.max( ...selectedWaveFunctionValues );
+    const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
+
+    // Guard against maxAbsY === 0 or NaN, which occurs when the wave function is all zeros (the placeholder used
+    // for the no-bound-state edge case, see https://github.com/phetsims/quantum-bound-states/issues/56). A degenerate
+    // Range(0,0) propagates to setYTickSpacing(0), crashing bamboo's forEachSpacing with NaN.
+    const safeMaxAbsY = ( maxAbsY > 0 && Number.isFinite( maxAbsY ) ) ? maxAbsY : 1;
+    return new Range( -safeMaxAbsY, safeMaxAbsY );
+  }
+
+  /**
+   * Gets the y-axis range (energy range) that will fit the time-independent probability density curve for the
+   * specified energy level.
+   */
+  public getProbabilityDensityRangeForEnergyLevel( energyLevelIndex: number ): Range {
+    const waveFunctionRange = this.getWaveFunctionRangeForEnergyLevel( energyLevelIndex );
+    return new Range( 0, waveFunctionRange.max * waveFunctionRange.max );
   }
 
   /**

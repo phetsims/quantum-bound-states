@@ -66,21 +66,9 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
       phetioFeatured: true
     } );
 
-    // Use the maximum time-independent wave function value to set the y-axis range.
-    this.yRangeProperty = new DerivedProperty( [ model.selectedWaveFunctionValuesProperty ],
-      selectedWaveFunctionValues => {
-        //TODO It may be more performant to return maxAbsY as part of BoundStateResult
-        const minY = Math.min( ...selectedWaveFunctionValues );
-        const maxY = Math.max( ...selectedWaveFunctionValues );
-        const maxAbsY = Math.max( Math.abs( minY ), Math.abs( maxY ) );
-
-        // Guard against maxAbsY === 0, which occurs when the wave function is all zeros
-        // (e.g. the placeholder used for the no-bound-state edge case, see
-        // https://github.com/phetsims/quantum-bound-states/issues/56). A degenerate
-        // Range(0,0) propagates to setYTickSpacing(0), crashing bamboo's forEachSpacing with NaN.
-        const safeMaxAbsY = ( maxAbsY > 0 && Number.isFinite( maxAbsY ) ) ? maxAbsY : 1;
-        return new Range( -safeMaxAbsY, safeMaxAbsY );
-      } );
+    // Use the maximum time-independent wave function solution to set the y-axis range.
+    this.yRangeProperty = new DerivedProperty( [ model.selectedEnergyLevelIndexProperty, model.boundStateResultProperty ],
+      ( selectedEnergyLevelIndex, boundStateResult ) => model.getWaveFunctionRangeForEnergyLevel( selectedEnergyLevelIndex ) );
   }
 
   public override reset(): void {
