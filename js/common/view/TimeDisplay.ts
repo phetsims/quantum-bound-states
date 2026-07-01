@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * TimeDisplay displays the current time, with a toggle button to show/hide the value.
+ * TimeDisplay displays the current time.
  *
  * Note that this implementation does not use NumberDisplay because we could not find a suitable workaround for a
  * problem that is specific to this sim. When timeSpeedProperty changes, that changes the number of decimal places
