@@ -17,7 +17,6 @@ import TModel from '../../../../joist/js/TModel.js';
 import affirm, { affirmCallback, isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { electronVoltsUnit } from '../../../../scenery-phet/js/units/electronVoltsUnit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
@@ -77,11 +76,9 @@ export default class QBSModel implements TModel {
 
   // Index (aka quantum number) of the selected energy level
   public readonly selectedEnergyLevelIndexProperty: NumberProperty;
-  public readonly selectedEnergyLevelValueProperty: TReadOnlyProperty<number>;
 
   // Index (aka quantum number) of the highlighted energy level. null if there is no energy level highlighted.
   public readonly highlightedEnergyLevelIndexProperty: Property<number | null>;
-  public readonly highlightedEnergyLevelValueProperty: TReadOnlyProperty<number | null>;
 
   // Energy diagram
   public readonly energyDiagram: EnergyDiagram;
@@ -156,22 +153,6 @@ export default class QBSModel implements TModel {
       phetioDocumentation: 'Energy level index of the selected potential'
     } );
 
-    this.selectedEnergyLevelValueProperty = new DerivedProperty( [ this.selectedEnergyLevelIndexProperty, this.boundStateResultProperty ],
-      ( energyLevelIndex, boundStateResult ) => {
-        if ( this.isValidEnergyLevelIndex( energyLevelIndex ) ) {
-          return this.getEnergyAtEnergyLevel( energyLevelIndex ); // uses boundStateResult
-        }
-        else {
-          // Handle the intermediate state where dependencies are out of sync.
-          return 0;
-        }
-      }, {
-        units: electronVoltsUnit,
-        tandem: options.tandem.createTandem( 'selectedEnergyLevelValueProperty' ),
-        phetioValueType: NumberIO,
-        phetioFeatured: true
-      } );
-
     this.highlightedEnergyLevelIndexProperty = new Property<number | null>( null, {
       tandem: options.tandem.createTandem( 'highlightedEnergyLevelIndexProperty' ),
       phetioValueType: NullableIO( NumberIO ),
@@ -179,14 +160,6 @@ export default class QBSModel implements TModel {
       phetioReadOnly: true,
       phetioDocumentation: 'Energy level index of the highlighted potential'
     } );
-
-    this.highlightedEnergyLevelValueProperty = new DerivedProperty( [ this.highlightedEnergyLevelIndexProperty, this.boundStateResultProperty ],
-      ( energyLevelIndex, boundStateResult ) => ( energyLevelIndex === null ) ? null : this.getEnergyAtEnergyLevel( energyLevelIndex ), {
-        units: electronVoltsUnit,
-        tandem: options.tandem.createTandem( 'highlightedEnergyLevelValueProperty' ),
-        phetioValueType: NullableIO( NumberIO ),
-        phetioFeatured: true
-      } );
 
     // When the bound state changes, clear the highlighted energy level.
     this.boundStateResultProperty.lazyLink( () => {
