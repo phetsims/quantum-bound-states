@@ -310,6 +310,7 @@ export default class QBSModel implements TModel {
   }
 
   //TODO This only works for superposition states with 1 non-zero coefficient, so it should eventually go away.
+  //TODO  And replaced by something that determines the range based on the superposition state.
   /**
    * Gets the y-axis range (energy range) that will fit the time-independent wave function curve for the
    * specified energy level.
