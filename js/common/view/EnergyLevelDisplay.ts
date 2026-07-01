@@ -78,11 +78,11 @@ export default class EnergyLevelDisplay extends BackgroundNode {
 
     super( content, options );
 
+    // Position the label above its associated line in the Energy Diagram.
     Multilink.multilink(
       [ energyLevelIndexProperty, model.boundStateResultProperty, model.energyDiagram.yRangeProperty ],
       ( energyLevelIndex, boundStateResult, yRange ) => {
-        //TODO https://github.com/phetsims/quantum-bound-states/issues/40 Temporary patch
-        if ( energyLevelIndex !== null && model.selectedEnergyLevelIndexProperty.range.min === model.potentialProperty.value.groundStateIndex ) {
+        if ( energyLevelIndex !== null && model.isValidEnergyLevelIndex( energyLevelIndex ) ) {
           const energy = model.getEnergyAtEnergyLevel( energyLevelIndex );
           this.bottom = chartTransform.modelToViewY( energy ) - 3;
         }
