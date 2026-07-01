@@ -28,9 +28,6 @@ export default class TimeDisplay extends NumberDisplay {
     const backgroundFillProperty = time.timeVisibleProperty.derived(
       timeVisible => timeVisible ? QBSColors.timeDisplayEnabledFillProperty.value : QBSColors.timeDisplayDisabledFillProperty.value );
 
-    // Hide the value by making it transparent.
-    const textFillProperty = time.timeVisibleProperty.derived( timeVisible => timeVisible ? 'black' : 'transparent' );
-
     // For selecting the correct accessible paragraph via Fluent select_.
     const timeStateProperty = new DerivedStringProperty( [ time.timeVisibleProperty, time.isPlayingProperty ],
       ( timeVisible, isPlaying ) => !timeVisible ? 'isHidden' : isPlaying ? 'isPlaying' : 'isPaused' );
@@ -43,8 +40,8 @@ export default class TimeDisplay extends NumberDisplay {
     super( time.currentTimeProperty, TIME_RANGE, {
       isDisposable: false,
       textOptions: {
-        font: QBSConstants.TIME_FONT,
-        fill: textFillProperty
+        visibleProperty: time.timeVisibleProperty, // Hide the time value.
+        font: QBSConstants.TIME_FONT
       },
       backgroundFill: backgroundFillProperty,
       numberFormatter: value => femtosecondsUnit.getVisualSymbolPatternString( value, {
