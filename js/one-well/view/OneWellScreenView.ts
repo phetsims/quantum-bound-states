@@ -33,6 +33,7 @@ export default class OneWellScreenView extends QBSScreenView {
     // Angular frequency, displayed above the top-right of the Energy Diagram when the Harmonic Oscillator potential is selected.
     // See https://github.com/phetsims/quantum-bound-states/issues/44.
     const angularFrequencyDisplay = new AngularFrequencyDisplay( model.harmonicOscillatorPotential.angularFrequencyProperty, {
+      //TODO Do we need a way to permanently hide this via PhET-iO?
       visibleProperty: new DerivedProperty( [ model.potentialProperty ], potential => potential === model.harmonicOscillatorPotential ),
       tandem: tandem.createTandem( 'angularFrequencyDisplay' )
     } );
