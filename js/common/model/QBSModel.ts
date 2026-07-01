@@ -291,6 +291,28 @@ export default class QBSModel implements TModel {
   }
 
   /**
+   * Determines whether the specified energy level (aka quantum number) is valid for the current configuration
+   * of the selected quantum potential.
+   */
+  public isValidEnergyLevelIndex( energyLevelIndex: number ): boolean {
+    const groundStateIndex = this.potentialProperty.value.groundStateIndex;
+    const energiesIndex = energyLevelIndex - groundStateIndex;
+    const energies = this.boundStateResultProperty.value.energies;
+    return ( energiesIndex >= 0 && energiesIndex < energies.length );
+  }
+
+  /**
+   * Gets the energy (in eV) at a given energy level for the selected quantum potential.
+   */
+  public getEnergyAtEnergyLevel( energyLevelIndex: number ): number {
+    const energies = this.boundStateResultProperty.value.energies;
+    const groundStateIndex = this.potentialProperty.value.groundStateIndex;
+    const index = energyLevelIndex - groundStateIndex;
+    affirmCallback( () => index >= 0 && index < energies.length, `index out of range: ${index}` );
+    return energies[ index ];
+  }
+
+  /**
    * Gets the index of the energy level that is closest to some energy value, within some threshold.  If there is no
    * energy level within the threshold, then null is returned. This implementation was adapted from BSModel.java.
    */
@@ -327,27 +349,6 @@ export default class QBSModel implements TModel {
 
     // Adjust for the ground state index.
     return ( index === -1 ) ? null : index + this.potentialProperty.value.groundStateIndex;
-  }
-
-  /**
-   * Gets the energy (in eV) at a given energy level.
-   */
-  public getEnergyAtEnergyLevel( energyLevelIndex: number ): number {
-    const energies = this.boundStateResultProperty.value.energies;
-    const groundStateIndex = this.potentialProperty.value.groundStateIndex;
-    const index = energyLevelIndex - groundStateIndex;
-    affirmCallback( () => index >= 0 && index < energies.length, `index out of range: ${index}` );
-    return energies[ index ];
-  }
-
-  /**
-   * Determines whether the specified energyLevelIndex is valid.
-   */
-  public isValidEnergyLevelIndex( energyLevelIndex: number ): boolean {
-    const groundStateIndex = this.potentialProperty.value.groundStateIndex;
-    const energiesIndex = energyLevelIndex - groundStateIndex;
-    const energies = this.boundStateResultProperty.value.energies;
-    return ( energiesIndex >= 0 && energiesIndex < energies.length );
   }
 
   /**
