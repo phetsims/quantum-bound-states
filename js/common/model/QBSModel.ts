@@ -333,7 +333,6 @@ export default class QBSModel implements TModel {
    * Gets the energy (in eV) at a given energy level.
    */
   public getEnergyAtEnergyLevel( energyLevelIndex: number ): number {
-
     const energies = this.boundStateResultProperty.value.energies;
     const groundStateIndex = this.potentialProperty.value.groundStateIndex;
     const index = energyLevelIndex - groundStateIndex;
