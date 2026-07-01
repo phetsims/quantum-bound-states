@@ -22,6 +22,9 @@ export default class ReferenceLineDescriber {
     this.model = model;
   }
 
+  /**
+   * Gets a static accessibleObjectResponse that describes the current state of the reference line.
+   */
   public getAccessibleObjectResponse(): string {
 
     const x = this.model.referenceLine.xProperty.value;

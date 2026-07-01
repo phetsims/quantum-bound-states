@@ -30,7 +30,7 @@ export default class EnergyDiagramDescriber {
   }
 
   /**
-   * Gets the accessible template that describes the graph area.
+   * Gets the accessible template that dynamically describes the graph area.
    */
   public getAccessibleTemplate(): TReadOnlyProperty<AccessibleTemplateValue> {
 

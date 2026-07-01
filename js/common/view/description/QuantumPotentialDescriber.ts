@@ -33,7 +33,7 @@ export default class QuantumPotentialDescriber {
   }
 
   /**
-   * Create AccessibleListItems, used in the Energy Diagram to describe quantum potentials in an AccessibleList.
+   * Create AccessibleListItems, used in the Energy Diagram to dynamically describe quantum potentials via an AccessibleList.
    */
   public createAccessibleListItems( potential: QuantumPotential ): AccessibleListItem[] {
     let accessibleListItems: AccessibleListItem[] | null = null;
