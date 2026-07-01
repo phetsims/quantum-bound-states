@@ -32,7 +32,6 @@ export type EnergyLevelDisplayOptions = SelfOptions & NodeTranslationOptions & P
 
 export default class EnergyLevelDisplay extends BackgroundNode {
 
-  //TODO Reduce coupling to QBSModel
   public constructor( model: QBSModel,
                       energyLevelIndexProperty: TReadOnlyProperty<number | null>,
                       chartTransform: ChartTransform,

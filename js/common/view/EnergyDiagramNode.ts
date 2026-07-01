@@ -50,7 +50,6 @@ export default class EnergyDiagramNode extends Node {
   private readonly yTickLabelSet: TickLabelSet;
   private readonly horizontalGridLines: GridLineSet;
 
-  //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, describer: EnergyDiagramDescriber, providedOptions: EnergyDiagramNodeOptions ) {
 
     const options = optionize<EnergyDiagramNodeOptions, SelfOptions, NodeOptions>()( {

@@ -17,7 +17,6 @@ export default class ReferenceLineDescriber {
 
   private readonly model: QBSModel;
 
-  //TODO Eliminate coupling to QBSModel? Or is that OK/necessary for description?
   public constructor( model: QBSModel ) {
     this.model = model;
   }

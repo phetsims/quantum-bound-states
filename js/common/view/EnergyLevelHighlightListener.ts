@@ -33,7 +33,6 @@ export default class EnergyLevelHighlightListener extends PressListener {
   private readonly chartRectangle: ChartRectangle;
   private readonly chartTransform: ChartTransform;
 
-  //TODO Reduce coupling to QBSModel
   public constructor( model: QBSModel,
                       chartRectangle: ChartRectangle,
                       chartTransform: ChartTransform,

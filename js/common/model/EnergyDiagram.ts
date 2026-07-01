@@ -29,7 +29,6 @@ export default class EnergyDiagram extends PhetioObject {
   // Visibility of values on drag handles and energy lines.
   public readonly valuesVisibleProperty: Property<boolean>;
 
-  //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
 
     super( {

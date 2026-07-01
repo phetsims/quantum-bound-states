@@ -23,7 +23,6 @@ export default class EnergyDiagramDescriber {
   private readonly model: QBSModel;
   private readonly quantumPotentialDescriber: QuantumPotentialDescriber;
 
-  //TODO Reduce coupling to QBSModel? Or is that OK for description?
   public constructor( model: QBSModel ) {
     this.model = model;
     this.quantumPotentialDescriber = new QuantumPotentialDescriber( model.potentialProperty );

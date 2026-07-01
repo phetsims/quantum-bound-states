@@ -35,7 +35,6 @@ export default class WaveFunctionGraph extends QuantumStateGraph {
   // Range for the y-axis
   public readonly yRangeProperty: TReadOnlyProperty<Range>;
 
-  //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
 
     super( {

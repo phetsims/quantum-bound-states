@@ -20,7 +20,6 @@ import YCanvasLinePlot from './YCanvasLinePlot.js';
 
 export default class EnergyDiagramPlotsNode extends ChartCanvasNode {
 
-  //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, chartTransform: ChartTransform ) {
 
     const potentialPlot = new YCanvasLinePlot( chartTransform, model.xGrid.xCoordinates, model.boundStateResultProperty.value.potentials, {

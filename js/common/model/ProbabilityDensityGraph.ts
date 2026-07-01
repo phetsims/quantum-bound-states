@@ -30,7 +30,6 @@ export default class ProbabilityDensityGraph extends QuantumStateGraph {
   // Number of nodes in the displayed Probability Density curve.
   public readonly numberOfNodesProperty: TReadOnlyProperty<number>;
 
-  //TODO Reduce coupling with QBSModel
   public constructor( model: QBSModel, tandem: Tandem ) {
 
     super( {
