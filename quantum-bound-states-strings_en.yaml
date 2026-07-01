@@ -539,7 +539,7 @@ a11y:
     accessibleName:     Time Speed
     accessibleHelpText: |-
                         Change how fast time passes, from 1, slowest, to 5, fastest. Observe changes in the Quantum State Graph.
-                        Each increment speeds up time by a factor of ten. At Speed 3, one femtosecond in the sim happens in one real second.
+                        Each increment speeds up time by a factor of ten. At speed 3, one femtosecond in the sim happens in one real second.
 
   electronMassesControl:
     accessibleHelpText: Adjust the relative mass of the system and explore how the wave function and energy levels respond.

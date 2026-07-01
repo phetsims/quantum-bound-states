@@ -854,7 +854,7 @@
         "value": "Time Speed"
       },
       "accessibleHelpText": {
-        "value": "Change how fast time passes, from 1, slowest, to 5, fastest. Observe changes in the Quantum State Graph.\nEach speed increment speeds time up by a factor of ten. At Speed 3, one femtosecond in the sim happens in one real second."
+        "value": "Change how fast time passes, from 1, slowest, to 5, fastest. Observe changes in the Quantum State Graph.\nEach increment speeds up time by a factor of ten. At speed 3, one femtosecond in the sim happens in one real second."
       }
     },
     "electronMassesControl": {
