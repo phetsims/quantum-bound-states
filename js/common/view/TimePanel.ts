@@ -17,7 +17,7 @@ import QBSConstants from '../QBSConstants.js';
 import TimeButtonGroup from './TimeButtonGroup.js';
 import TimeDisplay from './TimeDisplay.js';
 import TimeSpeedSlider from './TimeSpeedSlider.js';
-import TimeToggleButton from './TimeToggleButton.js';
+import TimeVisibilityToggleButton from './TimeVisibilityToggleButton.js';
 
 export default class TimePanel extends Panel {
 
@@ -33,7 +33,7 @@ export default class TimePanel extends Panel {
       phetioVisiblePropertyInstrumented: true
     } );
 
-    const toggleButton = new TimeToggleButton( time.timeVisibleProperty, tandem.createTandem( 'toggleButton' ) );
+    const timeVisibilityToggleButton = new TimeVisibilityToggleButton( time.timeVisibleProperty, tandem.createTandem( 'timeVisibilityToggleButton' ) );
 
     const timeDisplay = new TimeDisplay( time, tandem.createTandem( 'timeDisplay' ) );
 
@@ -46,7 +46,7 @@ export default class TimePanel extends Panel {
       children: [
         new HBox( {
           spacing: 3,
-          children: [ toggleButton, timeDisplay ]
+          children: [ timeVisibilityToggleButton, timeDisplay ]
         } ),
         buttonGroup,
         timeSpeedSlider

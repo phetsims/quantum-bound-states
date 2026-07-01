@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * TimeToggleButton is the toggle button used to show/hide the time value.
+ * TimeVisibilityToggleButton is the toggle button used to show/hide the time value.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 
-export default class TimeToggleButton extends EyeToggleButton {
+export default class TimeVisibilityToggleButton extends EyeToggleButton {
 
   public constructor( timeVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
