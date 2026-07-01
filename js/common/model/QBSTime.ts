@@ -38,8 +38,8 @@ export default class QBSTime extends PhetioObject {
   private readonly _currentTimeProperty: Property<number>;
   public readonly currentTimeProperty: TReadOnlyProperty<number>;
 
-  // Selects the time step from TIME_STEP_VALUES.
-  public readonly timeStepIndexProperty: NumberProperty;
+  // Time speed is a 1-based index used to selected values from 0-based TIME_STEP_VALUES and TIME_DECIMAL_PLACES.
+  public readonly timeSpeedProperty: NumberProperty;
 
   // Whether time is visible.
   public readonly timeVisibleProperty: Property<boolean>;
@@ -73,16 +73,19 @@ export default class QBSTime extends PhetioObject {
     } );
     this.currentTimeProperty = this._currentTimeProperty;
 
-    this.timeStepIndexProperty = new NumberProperty( 1, {
+    // timeSpeedProperty values are 1-based.
+    const timeSpeedValues = TIME_STEP_VALUES.map( ( value, index ) => index + 1 );
+
+    this.timeSpeedProperty = new NumberProperty( 3, {
       numberType: 'Integer',
-      range: new Range( 0, TIME_STEP_VALUES.length - 1 ),
-      validValues: [ ...TIME_STEP_VALUES.keys() ],
-      tandem: tandem.createTandem( 'timeStepIndexProperty' ),
+      range: new Range( 1, timeSpeedValues.length ),
+      validValues: timeSpeedValues,
+      tandem: tandem.createTandem( 'timeSpeedProperty' ),
       phetioFeatured: true
     } );
 
-    // When the time step is changed, reset the current time to zero.
-    this.timeStepIndexProperty.link( () => {
+    // When the time speed is changed, reset the current time to zero.
+    this.timeSpeedProperty.link( () => {
       if ( !isSettingPhetioStateProperty.value ) {
         this._currentTimeProperty.reset();
       }
@@ -94,17 +97,17 @@ export default class QBSTime extends PhetioObject {
   }
 
   public getDecimalPlaces(): number {
-    return TIME_DECIMAL_PLACES[ this.timeStepIndexProperty.value ];
+    return TIME_DECIMAL_PLACES[ this.timeSpeedProperty.value - 1 ];
   }
 
   private getTimeStep(): number {
-    return TIME_STEP_VALUES[ this.timeStepIndexProperty.value ];
+    return TIME_STEP_VALUES[ this.timeSpeedProperty.value - 1 ];
   }
 
   public reset(): void {
     this._currentTimeProperty.reset();
     this.isPlayingProperty.reset();
-    this.timeStepIndexProperty.reset();
+    this.timeSpeedProperty.reset();
     this.timeVisibleProperty.reset();
   }
 

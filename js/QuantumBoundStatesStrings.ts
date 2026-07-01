@@ -127,7 +127,7 @@ type StringsType = {
                 'referenceLineIsAddedStringProperty': LocalizedStringProperty;
                 'magnifierIsAddedStringProperty': LocalizedStringProperty;
                 'simStateStringProperty': LocalizedStringProperty;
-                'simSpeedStringProperty': LocalizedStringProperty;
+                'timeSpeedStringProperty': LocalizedStringProperty;
               }
             }
           }

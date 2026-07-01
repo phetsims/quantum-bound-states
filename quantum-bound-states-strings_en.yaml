@@ -142,7 +142,7 @@ a11y:
                 select_isPlaying:
                   true:  Sim is playing.
                   false: Sim is paused.
-              simSpeed:             Sim speed is set to SIM_SPEED.
+              timeSpeed:            Time speed is set to {$speed}.
 
     oneWellScreen:
       screenButtonsHelpText: Explore bound states across multiple, modifiable single well potentials.

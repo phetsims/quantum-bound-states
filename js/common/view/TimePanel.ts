@@ -39,7 +39,7 @@ export default class TimePanel extends Panel {
 
     const buttonGroup = new TimeButtonGroup( time, tandem.createTandem( 'buttonGroup' ) );
 
-    const timeSpeedSlider = new TimeSpeedSlider( time.timeStepIndexProperty, tandem.createTandem( 'timeSpeedSlider' ) );
+    const timeSpeedSlider = new TimeSpeedSlider( time.timeSpeedProperty, tandem.createTandem( 'timeSpeedSlider' ) );
 
     const content = new HBox( {
       spacing: 20,

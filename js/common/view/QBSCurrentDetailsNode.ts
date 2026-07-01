@@ -92,8 +92,9 @@ export default class QBSCurrentDetailsNode extends Node {
    */
   public static createTimeSpeedItem( time: QBSTime ): AccessibleListItem {
     return {
-      //TODO Need descriptions of sim speeds.
-      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.simSpeedStringProperty
+      stringProperty: QuantumBoundStatesFluent.a11y.screens.defaults.screenSummary.currentDetails.accessibleTemplate.listItems.timeSpeed.createProperty( {
+        speed: time.timeSpeedProperty
+      } )
     };
   }
 }

@@ -270,8 +270,8 @@
                 "simState": {
                   "value": "{ $isPlaying ->\n  [true] Sim is playing.\n  *[false] Sim is paused.\n}"
                 },
-                "simSpeed": {
-                  "value": "Sim speed is set to SIM_SPEED."
+                "timeSpeed": {
+                  "value": "Time speed is set to {$speed}."
                 }
               }
             }
