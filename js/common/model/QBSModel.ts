@@ -449,6 +449,7 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStat
             result.energies.length > 0 &&
             result.waveFunctions.length === result.energies.length,
       `Invalid BoundStateResult for ${potential.toString()}\n` +
+      `  solutionMethod = ${result.solutionMethod}\n` +
       `  xGrid.length = ${xGrid.xCoordinates.length}\n` +
       `  potentials.length = ${result.potentials.length}\n` +
       `  energies.length = ${result.energies.length}\n` +
