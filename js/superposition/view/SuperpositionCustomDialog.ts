@@ -45,8 +45,8 @@ export default class SuperpositionCustomDialog extends Dialog {
 }
 
 /**
- * SuperpositionCustomDialogContent is the content for SuperpositionCustomDialog. It updates dynamically to match
- * the selected custom configuration.
+ * SuperpositionCustomDialogContent encapsulates the content for SuperpositionCustomDialog.
+ * It updates dynamically to match the selected custom configuration.
  */
 class SuperpositionCustomDialogContent extends Node {
 

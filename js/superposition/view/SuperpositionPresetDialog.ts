@@ -46,8 +46,8 @@ export default class SuperpositionPresetDialog extends Dialog {
 }
 
 /**
- * SuperpositionPresetDialogContent is the content for SuperpositionPresetDialog. It updates dynamically to match
- * the selected preset.
+ * SuperpositionPresetDialogContent encapsulates the content for SuperpositionPresetDialog.
+ * It updates dynamically to match the selected preset.
  */
 class SuperpositionPresetDialogContent extends Node {
 
