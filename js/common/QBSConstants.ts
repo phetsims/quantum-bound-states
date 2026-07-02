@@ -75,12 +75,12 @@ export default class QBSConstants {
   public static readonly QUANTUM_STATE_GRAPHS_VIEW_HEIGHT = 175;
   public static readonly QUANTUM_STATE_GRAPHS_Y_RANGE_DILATION = 0.1; // in model coordinates
 
-  // Decimal places in displayed values
+  // Decimal places in displayed values in most places.
+  // Exceptions to these are implemented where the exception occurs.
   public static readonly ELECTRON_MASSES_DECIMAL_PLACES = 2;
   public static readonly X_DECIMAL_PLACES = 2;
   public static readonly ELECTRIC_FIELD_DECIMAL_PLACES = 1;
   public static readonly WELL_WIDTH_DECIMAL_PLACES = 1;
-  public static readonly WELL_WIDTH_DECIMAL_PLACES_MANY_WELLS = 2;
   public static readonly WELL_DEPTH_DECIMAL_PLACES = 1;
   public static readonly STEP_HEIGHT_DECIMAL_PLACES = 1;
   public static readonly SEPARATION_DECIMAL_PLACES = 2;

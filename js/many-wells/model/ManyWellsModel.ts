@@ -15,7 +15,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
 import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import QBSConstants from '../../common/QBSConstants.js';
 
 export default class ManyWellsModel extends QBSModel {
 
@@ -55,7 +54,7 @@ export default class ManyWellsModel extends QBSModel {
         electronMassesProperty: electronMassesProperty,
         electricFieldProperty: electricFieldProperty,
         wellWidthRange: new RangeWithValue( 0.35, 0.55, 0.45 ),
-        wellWidthDecimalPlaces: QBSConstants.WELL_WIDTH_DECIMAL_PLACES_MANY_WELLS,
+        wellWidthDecimalPlaces: 2, // More decimal places are needed here because wellWidthRange is narrow.
         wellDepthRange: new RangeWithValue( 5, 15, 9 ),
         separationRange: new RangeWithValue( 0.05, 0.25, 0.1 ),
         tandem: potentialsTandem.createTandem( 'finiteSquarePotential' )
