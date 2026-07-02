@@ -13,7 +13,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PressListener, { PressListenerEvent, PressListenerOptions } from '../../../../scenery/js/listeners/PressListener.js';
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import QBSModel from '../model/QBSModel.js';
 
 // The pointer must be this close to an energy level to highlight it or select it.
@@ -51,6 +50,7 @@ export default class EnergyLevelHighlightListener extends PressListener {
       options.press = event => {
         if ( model.highlightedEnergyLevelIndexProperty.value !== null ) {
           model.selectedEnergyLevelIndexProperty.value = model.highlightedEnergyLevelIndexProperty.value;
+          model.highlightedEnergyLevelIndexProperty.value = null;
           soundPlayer.play();
         }
       };
@@ -61,15 +61,6 @@ export default class EnergyLevelHighlightListener extends PressListener {
     this.model = model;
     this.chartRectangle = chartRectangle;
     this.chartTransform = chartTransform;
-
-    // If the highlighted energy level becomes selected, clear the highlighted energy level.
-    model.selectedEnergyLevelIndexProperty.link( selectedEnergyLevel => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        if ( model.highlightedEnergyLevelIndexProperty.value === selectedEnergyLevel ) {
-          model.highlightedEnergyLevelIndexProperty.value = null;
-        }
-      }
-    } );
   }
 
   /**
