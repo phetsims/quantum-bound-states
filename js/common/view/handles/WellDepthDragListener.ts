@@ -42,8 +42,8 @@ export default class WellDepthDragListener extends PotentialDragListener<Quantum
         else {
           const modelPosition = chartTransform.viewToModelPosition( viewPosition );
           const xModel = chartTransform.viewToModelX( handleNode.x );
-          const electricFieldXOffset = potential.getElectricFieldOffset( xModel );
-          wellDepth = ( multiplier * ( modelPosition.y - electricFieldXOffset ) ) - potential.yOffsetProperty.value;
+          const electricFieldOffset = potential.getElectricFieldOffset( xModel );
+          wellDepth = ( multiplier * ( modelPosition.y - electricFieldOffset ) ) - potential.yOffsetProperty.value;
         }
         wellDepthProperty.value = wellDepthProperty.range.constrainValue( toFixedNumber( wellDepth, QBSConstants.WELL_DEPTH_DECIMAL_PLACES ) );
       }
