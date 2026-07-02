@@ -8,6 +8,8 @@
 
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
+import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
 import SuperpositionConfiguration, { SuperpositionConfigurationOptions } from './SuperpositionConfiguration.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -23,6 +25,9 @@ export default class CustomSuperpositionConfiguration extends SuperpositionConfi
       superpositionConfigurationType: 'custom'
     }, providedOptions );
 
-    super( options );
+    //TODO Not sure how this should be handled.
+    const superpositionCoefficients = new SuperpositionCoefficients( [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ] );
+
+    super( superpositionCoefficients, options );
   }
 }

@@ -12,6 +12,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
+import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
 import { SuperpositionConfigurationType } from './SuperpositionConfigurationType.js';
 
 type SelfOptions = {
@@ -30,11 +31,12 @@ export type SuperpositionConfigurationOptions = SelfOptions & PickRequired<Pheti
 
 export default class SuperpositionConfiguration extends PhetioObject {
 
+  public readonly superpositionCoefficients: SuperpositionCoefficients;
   public readonly superpositionConfigurationType: SuperpositionConfigurationType;
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
 
-  protected constructor( providedOptions: SuperpositionConfigurationOptions ) {
+  protected constructor( superpositionCoefficients: SuperpositionCoefficients, providedOptions: SuperpositionConfigurationOptions ) {
 
     const options = optionize<SuperpositionConfigurationOptions, SelfOptions, PhetioObjectOptions>()( {
 
@@ -48,6 +50,7 @@ export default class SuperpositionConfiguration extends PhetioObject {
 
     super( options );
 
+    this.superpositionCoefficients = superpositionCoefficients;
     this.superpositionConfigurationType = options.superpositionConfigurationType;
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;

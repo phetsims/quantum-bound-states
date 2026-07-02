@@ -11,7 +11,13 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import affirm, { affirmCallback, isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import QBSConstants from '../QBSConstants.js';
 import SuperpositionCoefficient from './SuperpositionCoefficient.js';
+
+// Normalization error must be less than this value. The value is related to number of decimal places used in the
+// visual interface for coefficient magnitude. For example, the user may only be able to enter 0.54, when the actual
+// normalized coefficient should be 0.543.
+const NORMALIZATION_ERROR = Math.pow( 10, -QBSConstants.SUPERPOSITION_COEFFICIENT_MAGNITUDE_DECIMAL_PLACES );
 
 export default class SuperpositionCoefficients {
 
@@ -22,6 +28,9 @@ export default class SuperpositionCoefficients {
   public readonly valuesChangedEmitter: Emitter;
 
   public constructor( coefficients: SuperpositionCoefficient[] ) {
+    if ( isAffirmEnabled() ) {
+      affirm( SuperpositionCoefficients.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
+    }
     this.coefficients = coefficients;
     this.valuesChangedEmitter = new Emitter();
   }
@@ -45,7 +54,9 @@ export default class SuperpositionCoefficients {
    * Sets the coefficients.
    */
   public setCoefficients( coefficients: SuperpositionCoefficient[] ): void {
-    affirm( coefficients.length > 0, 'coefficients.length must be > 0: ' + coefficients.length );
+    if ( isAffirmEnabled() ) {
+      affirm( SuperpositionCoefficients.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
+    }
     this.coefficients = coefficients;
     this.valuesChangedEmitter.emit();
   }
@@ -185,6 +196,10 @@ export default class SuperpositionCoefficients {
       affirm( index >= 0 && index <= this.coefficients.length - 1, 'index is out of bounds: ' + index );
     }
     this.coefficients[ index ] = coefficient;
+    if ( isAffirmEnabled() ) {
+      affirm( SuperpositionCoefficients.isValidCoefficients( this.coefficients ),
+        'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
+    }
     this.valuesChangedEmitter.emit();
   }
 
@@ -218,21 +233,20 @@ export default class SuperpositionCoefficients {
    * allows the user to enter values with limited precision. For example, the user may only be able to enter 0.54,
    * when the actual coefficient should be 0.543.
    */
-  public isNormalized( normalizationError = 0 ): boolean {
-    isAffirmEnabled() && affirm( normalizationError >= 0, 'normalizationError must be >= 0: ' + normalizationError );
+  public isNormalized(): boolean {
     const sumOfSquares = this.getSumOfSquares();
     if ( sumOfSquares === 0 ) {
       return false;
     }
     else {
-      return ( Math.abs( 1 - sumOfSquares ) <= normalizationError );
+      return ( Math.abs( 1 - sumOfSquares ) < NORMALIZATION_ERROR );
     }
   }
 
   /**
    * Gets the sum of all coefficient magnitudes.
    */
-  public getSum(): number {
+  private getSum(): number {
     let sum = 0;
     this.coefficients.forEach( coefficient => {
       sum += coefficient.magnitude;
@@ -254,7 +268,7 @@ export default class SuperpositionCoefficients {
 
   /**
    * Determines whether this set of coefficients represents a superposition state.
-   * A superposition state has at least 2 non-zero coefficients.
+   * A superposition state has at least 2 coefficients with non-zero magnitude.
    */
   public isSuperpositionState(): boolean {
     return ( this.getNumberOfNonZeroCoefficients() >= 2 );
@@ -273,5 +287,12 @@ export default class SuperpositionCoefficients {
       }
     }
     return index;
+  }
+
+  /**
+   * Determines whether an array of coefficients is valid.
+   */
+  public static isValidCoefficients( coefficients: SuperpositionCoefficient[] ): boolean {
+    return ( coefficients.length > 0 && _.find( coefficients, coefficient => coefficient.magnitude !== 0 ) !== undefined );
   }
 }

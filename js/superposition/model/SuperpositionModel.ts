@@ -6,11 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import { electronMassesUnit } from '../../../../scenery-phet/js/units/electronMassesUnit.js';
+import { voltsPerNanometerUnit } from '../../../../scenery-phet/js/units/voltsPerNanometerUnit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import DoubleSquarePotential from '../../common/model/potentials/DoubleSquarePotential.js';
 import FiniteSquarePotential from '../../common/model/potentials/FiniteSquarePotential.js';
@@ -19,8 +20,6 @@ import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquar
 import MorsePotential from '../../common/model/potentials/MorsePotential.js';
 import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import { electronMassesUnit } from '../../../../scenery-phet/js/units/electronMassesUnit.js';
-import { voltsPerNanometerUnit } from '../../../../scenery-phet/js/units/voltsPerNanometerUnit.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionConfiguration from './CustomSuperpositionConfiguration.js';
 import PresetSuperpositionConfiguration from './PresetSuperpositionConfiguration.js';
@@ -125,61 +124,8 @@ export default class SuperpositionModel extends QBSModel {
 
     const groundStateIndexProperty = this.potentialProperty.derived( potential => potential.groundStateIndex );
 
-    // Group all preset superposition configurations under a parent tandem.
-    const presetsTandem = superpositionConfigurationsTandem.createTandem( 'presets' );
-
-    //TODO Make this mess go away.
-    let presetIndex = 1;
-    const presetSuperpositionConfigurations: PresetSuperpositionConfiguration[] = [
-      new PresetSuperpositionConfiguration( {
-        visualNameProperty: new DerivedStringProperty( [
-          groundStateIndexProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.preset1.groundState0StringProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.preset1.groundState1StringProperty
-        ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
-        accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset1.createProperty( {
-          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
-        } ),
-        tandem: presetsTandem.createTandem( `preset${presetIndex++}` )
-      } ),
-      new PresetSuperpositionConfiguration( {
-        visualNameProperty: new DerivedStringProperty( [
-          groundStateIndexProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.preset2.groundState0StringProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.preset2.groundState1StringProperty
-        ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
-        accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset2.createProperty( {
-          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
-        } ),
-        tandem: presetsTandem.createTandem( `preset${presetIndex++}` )
-      } ),
-      new PresetSuperpositionConfiguration( {
-        visualNameProperty: new DerivedStringProperty( [
-          groundStateIndexProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.preset3.groundState0StringProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.preset3.groundState1StringProperty
-        ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
-        accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset3.createProperty( {
-          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
-        } ),
-        tandem: presetsTandem.createTandem( `preset${presetIndex++}` )
-      } ),
-      new PresetSuperpositionConfiguration( {
-        visualNameProperty: new DerivedStringProperty( [
-          groundStateIndexProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.preset4.groundState0StringProperty,
-          QuantumBoundStatesFluent.superpositionConfigurations.preset4.groundState1StringProperty
-        ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
-        accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset4.createProperty( {
-          groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
-        } ),
-        tandem: presetsTandem.createTandem( `preset${presetIndex++}` )
-      } ),
-      new PresetSuperpositionConfiguration( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionConfigurations.preset5StringProperty,
-        tandem: presetsTandem.createTandem( `preset${presetIndex++}` )
-      } )
-    ];
+    const presetSuperpositionConfigurations = PresetSuperpositionConfiguration.createPresets( groundStateIndexProperty,
+      superpositionConfigurationsTandem.createTandem( 'presets' ) );
 
     // Group all custom superposition configurations under a parent tandem.
     const customTandem = superpositionConfigurationsTandem.createTandem( 'custom' );
@@ -211,14 +157,14 @@ export default class SuperpositionModel extends QBSModel {
 
     this.presetSuperpositionConfigurationProperty = new Property<PresetSuperpositionConfiguration>( presetSuperpositionConfigurations[ 0 ], {
       validValues: presetSuperpositionConfigurations,
-      tandem: presetsTandem.createTandem( 'presetSuperpositionConfigurationProperty' ),
+      tandem: tandem.createTandem( 'presetSuperpositionConfigurationProperty' ),
       phetioFeatured: true,
       phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO
     } );
 
     this.customSuperpositionConfigurationProperty = new Property<CustomSuperpositionConfiguration>( customSuperpositionConfigurations[ 0 ], {
       validValues: customSuperpositionConfigurations,
-      tandem: customTandem.createTandem( 'customSuperpositionConfigurationProperty' ),
+      tandem: tandem.createTandem( 'customSuperpositionConfigurationProperty' ),
       phetioFeatured: true,
       phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO
     } );

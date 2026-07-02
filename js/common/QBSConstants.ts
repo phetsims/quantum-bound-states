@@ -94,6 +94,9 @@ export default class QBSConstants {
   public static readonly IMAGINARY_PART_DECIMAL_PLACES = 2;
   public static readonly MAGNITUDE_DECIMAL_PLACES = 2;
   public static readonly PHASE_DECIMAL_PLACES = 2;
+  public static readonly SUPERPOSITION_COEFFICIENT_AMPLITUDE_DECIMAL_PLACES = 2;
+  public static readonly SUPERPOSITION_COEFFICIENT_MAGNITUDE_DECIMAL_PLACES = 2;
+  public static readonly SUPERPOSITION_COEFFICIENT_PHASE_MULTIPLIER_DECIMAL_PLACES = 1;
 
   // Intervals
   public static readonly Y_OFFSET_INTERVAL = Math.pow( 10, -QBSConstants.Y_OFFSET_DECIMAL_PLACES ); // eV
