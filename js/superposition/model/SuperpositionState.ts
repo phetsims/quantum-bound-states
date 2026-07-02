@@ -1,5 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Combine SuperpositionState and SuperpositionCoefficients into a single class named SuperpositionState?
+//TODO Move SuperpositionCoefficients methods that mutate into CustomSuperpositionState?
 /**
  * SuperpositionState is the base class for superposition states. The state is defined by a set of coefficients.
  *
