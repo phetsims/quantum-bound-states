@@ -69,7 +69,7 @@ export class SuperpositionControlPanel extends Panel {
     const comboBoxItemAlignGroup = new AlignGroup();
 
     const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent,
-      comboBoxItemAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
+      comboBoxItemAlignGroup, tandem.createTandem( 'presetComboBox' ) );
 
     const presetButton = new SuperpositionPresetButton( {
       listener: () => new SuperpositionPresetDialog( superpositionPresetProperty.value, potentialProperty.value.groundStateIndex ).show(),
