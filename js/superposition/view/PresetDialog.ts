@@ -29,7 +29,7 @@ export default class PresetDialog extends Dialog {
       maxWidth: 400
     } );
 
-    const content = new SuperpositionPresetDialogContent( superpositionState, groundStateIndex );
+    const content = new PresetDialogContent( superpositionState, groundStateIndex );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
       title: titleNode,
@@ -48,9 +48,9 @@ export default class PresetDialog extends Dialog {
 }
 
 /**
- * SuperpositionPresetDialogContent encapsulates the content for PresetDialog.
+ * PresetDialogContent encapsulates the content for PresetDialog.
  */
-class SuperpositionPresetDialogContent extends Node {
+class PresetDialogContent extends Node {
 
   public constructor( superpositionState: PresetSuperpositionState, groundStateIndex: number ) {
 
@@ -63,7 +63,7 @@ class SuperpositionPresetDialogContent extends Node {
     } );
 
     this.disposeEmitter.addListener( () => {
-      phet.log && phet.log( 'SuperpositionPresetDialogContent disposed' );
+      phet.log && phet.log( 'PresetDialogContent disposed' );
       text.dispose();
     } );
   }
