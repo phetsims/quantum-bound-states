@@ -9,8 +9,7 @@
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
 import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
@@ -19,17 +18,13 @@ import SuperpositionState, { SuperpositionStateOptions } from './SuperpositionSt
 
 type SelfOptions = EmptySelfOptions;
 
-type PresetSuperpositionStateOptions = SelfOptions & StrictOmit<SuperpositionStateOptions, 'superpositionStateType'>;
+type PresetSuperpositionStateOptions = SelfOptions & SuperpositionStateOptions;
 
 export default class PresetSuperpositionState extends SuperpositionState {
 
   private constructor( superpositionCoefficients: SuperpositionCoefficients, providedOptions: PresetSuperpositionStateOptions ) {
 
-    const options = optionize<PresetSuperpositionStateOptions, SelfOptions, SuperpositionStateOptions>()( {
-      superpositionStateType: 'preset'
-    }, providedOptions );
-
-    super( superpositionCoefficients, options );
+    super( superpositionCoefficients, providedOptions );
   }
 
   public static createPresets( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState[] {

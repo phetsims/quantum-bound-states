@@ -13,12 +13,8 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
-import { SuperpositionStateType } from './SuperpositionStateType.js';
 
 type SelfOptions = {
-
-  // Whether the superposition state is preset or custom
-  superpositionStateType: SuperpositionStateType;
 
   // Name used in the visual interface
   visualNameProperty: TReadOnlyProperty<string>;
@@ -32,7 +28,6 @@ export type SuperpositionStateOptions = SelfOptions & PickRequired<PhetioObjectO
 export default class SuperpositionState extends PhetioObject {
 
   public readonly superpositionCoefficients: SuperpositionCoefficients;
-  public readonly superpositionStateType: SuperpositionStateType;
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
 
@@ -51,7 +46,6 @@ export default class SuperpositionState extends PhetioObject {
     super( options );
 
     this.superpositionCoefficients = superpositionCoefficients;
-    this.superpositionStateType = options.superpositionStateType;
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
   }
