@@ -59,7 +59,7 @@ type SelfOptions = {
   // Name used to identify this potential in the visual UI.
   visualNameProperty: TReadOnlyProperty<string>;
 
-  // Name used to identify this potential in the accessible UI.
+  // Name used to identify this potential in the accessible UI, including core description.
   accessibleNameProperty?: TReadOnlyProperty<string>;
 
   // Prefix for the tandem names related to this potential.
