@@ -27,12 +27,12 @@ import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 import { SuperpositionStateType } from '../model/SuperpositionStateType.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
-import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
 import SuperpositionCustomButton from './SuperpositionCustomButton.js';
+import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
 import SuperpositionCustomDialog from './SuperpositionCustomDialog.js';
 import SuperpositionPresetButton from './SuperpositionPresetButton.js';
-import SuperpositionPresetDialog from './SuperpositionPresetDialog.js';
 import SuperpositionPresetComboBox from './SuperpositionPresetComboBox.js';
+import SuperpositionPresetDialog from './SuperpositionPresetDialog.js';
 
 // Space between the combo box and the button.
 const BUTTON_SPACING = 8;
@@ -71,10 +71,8 @@ export class SuperpositionControlPanel extends Panel {
     const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent,
       comboBoxItemAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
 
-    const presetDialog = new SuperpositionPresetDialog( superpositionPresetProperty );
-
     const presetButton = new SuperpositionPresetButton( {
-      listener: () => presetDialog.show(),
+      listener: () => new SuperpositionPresetDialog( superpositionPresetProperty.value, potentialProperty.value.groundStateIndex ).show(),
       tandem: tandem.createTandem( 'presetButton' )
     } );
 
@@ -87,10 +85,8 @@ export class SuperpositionControlPanel extends Panel {
     const customComboBox = new SuperpositionCustomComboBox( superpositionCustomProperty, listboxParent,
       comboBoxItemAlignGroup, tandem.createTandem( 'customComboBox' ) );
 
-    const customDialog = new SuperpositionCustomDialog( superpositionCustomProperty );
-
     const customButton = new SuperpositionCustomButton( {
-      listener: () => customDialog.show(),
+      listener: () => new SuperpositionCustomDialog( superpositionCustomProperty.value, potentialProperty.value.groundStateIndex ).show(),
       tandem: tandem.createTandem( 'customButton' )
     } );
 

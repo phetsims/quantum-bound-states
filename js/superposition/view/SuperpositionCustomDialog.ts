@@ -6,9 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -19,13 +17,11 @@ import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 
 export default class SuperpositionCustomDialog extends Dialog {
 
-  public constructor( customSuperpositionStateProperty: TReadOnlyProperty<CustomSuperpositionState> ) {
+  public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
 
     // Title includes the visual name of the selected superposition state.
     const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.superpositionStateDialogTitleStringProperty, {
-      label: new DynamicProperty<string, string, CustomSuperpositionState>( customSuperpositionStateProperty, {
-        derive: superpositionState => superpositionState.visualNameProperty
-      } )
+      label: superpositionState.visualNameProperty
     } );
 
     const titleNode = new RichText( titleStringProperty, {
@@ -33,24 +29,30 @@ export default class SuperpositionCustomDialog extends Dialog {
       maxWidth: 400
     } );
 
-    const content = new SuperpositionCustomDialogContent( customSuperpositionStateProperty );
+    const content = new SuperpositionCustomDialogContent( superpositionState, groundStateIndex );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
-      isDisposable: false,
-      title: titleNode
+      title: titleNode,
+      hideCallback: () => this.dispose()
     } );
 
     super( content, options );
+
+    this.disposeEmitter.addListener( () => {
+      phet.log && phet.log( 'SuperpositionCustomDialog disposed' );
+      titleStringProperty.dispose();
+      titleNode.dispose();
+      content.dispose();
+    } );
   }
 }
 
 /**
  * SuperpositionCustomDialogContent encapsulates the content for SuperpositionCustomDialog.
- * It updates dynamically to match the selected custom superposition state.
  */
 class SuperpositionCustomDialogContent extends Node {
 
-  public constructor( customSuperpositionStateProperty: TReadOnlyProperty<CustomSuperpositionState> ) {
+  public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
 
     const text = new RichText( 'Under Construction', {
       font: QBSConstants.CONTROL_FONT
@@ -58,6 +60,11 @@ class SuperpositionCustomDialogContent extends Node {
 
     super( {
       children: [ text ]
+    } );
+
+    this.disposeEmitter.addListener( () => {
+      phet.log && phet.log( 'SuperpositionCustomDialogContent disposed' );
+      text.dispose();
     } );
   }
 }
