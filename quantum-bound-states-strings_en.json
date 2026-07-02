@@ -162,7 +162,7 @@
       "value": "Infinite Step"
     }
   },
-  "superpositionConfigurations": {
+  "superpositionStates": {
     "preset1": {
       "groundState0": {
         "value": "cΨ<sub>0</sub> + cΨ<sub>1</sub>"
@@ -885,7 +885,7 @@
         "value": "Shift the zero of the energy scale up or down."
       }
     },
-    "superpositionConfigurations": {
+    "superpositionStates": {
       "preset1": {
         "value": "{ $groundStateIndex ->\n  [0] c times psi sub 0 plus c times psi sub 1\n  *[1] c times psi sub 1 plus c times psi sub 2\n}"
       },

@@ -21,21 +21,21 @@ import MorsePotential from '../../common/model/potentials/MorsePotential.js';
 import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import CustomSuperpositionConfiguration from './CustomSuperpositionConfiguration.js';
-import PresetSuperpositionConfiguration from './PresetSuperpositionConfiguration.js';
-import SuperpositionConfiguration from './SuperpositionConfiguration.js';
-import { SuperpositionConfigurationType, SuperpositionConfigurationTypeValues } from './SuperpositionConfigurationType.js';
+import CustomSuperpositionState from './CustomSuperpositionState.js';
+import PresetSuperpositionState from './PresetSuperpositionState.js';
+import SuperpositionState from './SuperpositionState.js';
+import { SuperpositionStateType, SuperpositionStateTypeValues } from './SuperpositionStateType.js';
 
 export default class SuperpositionModel extends QBSModel {
 
-  // Whether a preset or custom superposition configuration is selectable.
-  public readonly superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>;
+  // Whether a preset or custom superposition state is selected
+  public readonly superpositionStateTypeProperty: Property<SuperpositionStateType>;
 
-  // The selected preset superposition configuration
-  public readonly presetSuperpositionConfigurationProperty: Property<PresetSuperpositionConfiguration>;
+  // The selected preset superposition state
+  public readonly presetSuperpositionStateProperty: Property<PresetSuperpositionState>;
 
-  // The selected custom superposition configuration
-  public readonly customSuperpositionConfigurationProperty: Property<CustomSuperpositionConfiguration>;
+  // The selected custom superposition state
+  public readonly customSuperpositionStateProperty: Property<CustomSuperpositionState>;
 
   public constructor( tandem: Tandem ) {
 
@@ -113,67 +113,67 @@ export default class SuperpositionModel extends QBSModel {
       tandem: tandem
     } );
 
-    // Group all superposition configurations under a parent tandem.
-    const superpositionConfigurationsTandem = tandem.createTandem( 'superpositionConfigurations' );
+    // Group all superposition states under a parent tandem.
+    const superpositionStatesTandem = tandem.createTandem( 'superpositionStates' );
 
-    this.superpositionConfigurationTypeProperty = new StringUnionProperty( 'preset', {
-      validValues: SuperpositionConfigurationTypeValues,
-      tandem: superpositionConfigurationsTandem.createTandem( 'superpositionConfigurationTypeProperty' ),
+    this.superpositionStateTypeProperty = new StringUnionProperty( 'preset', {
+      validValues: SuperpositionStateTypeValues,
+      tandem: superpositionStatesTandem.createTandem( 'superpositionStateTypeProperty' ),
       phetioFeatured: true
     } );
 
     const groundStateIndexProperty = this.potentialProperty.derived( potential => potential.groundStateIndex );
 
-    const presetSuperpositionConfigurations = PresetSuperpositionConfiguration.createPresets( groundStateIndexProperty,
-      superpositionConfigurationsTandem.createTandem( 'presets' ) );
+    const presetSuperpositionStates = PresetSuperpositionState.createPresets( groundStateIndexProperty,
+      superpositionStatesTandem.createTandem( 'presets' ) );
 
-    // Group all custom superposition configurations under a parent tandem.
-    const customTandem = superpositionConfigurationsTandem.createTandem( 'custom' );
+    // Group all custom superposition states under a parent tandem.
+    const customTandem = superpositionStatesTandem.createTandem( 'custom' );
 
     //TODO Make this mess go away.
     let customIndex = 1;
-    const customSuperpositionConfigurations: CustomSuperpositionConfiguration[] = [
-      new CustomSuperpositionConfiguration( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom1StringProperty,
+    const customSuperpositionStates: CustomSuperpositionState[] = [
+      new CustomSuperpositionState( {
+        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom1StringProperty,
         tandem: customTandem.createTandem( `custom${customIndex++}` )
       } ),
-      new CustomSuperpositionConfiguration( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom2StringProperty,
+      new CustomSuperpositionState( {
+        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom2StringProperty,
         tandem: customTandem.createTandem( `custom${customIndex++}` )
       } ),
-      new CustomSuperpositionConfiguration( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom3StringProperty,
+      new CustomSuperpositionState( {
+        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom3StringProperty,
         tandem: customTandem.createTandem( `custom${customIndex++}` )
       } ),
-      new CustomSuperpositionConfiguration( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom4StringProperty,
+      new CustomSuperpositionState( {
+        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom4StringProperty,
         tandem: customTandem.createTandem( `custom${customIndex++}` )
       } ),
-      new CustomSuperpositionConfiguration( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionConfigurations.custom5StringProperty,
+      new CustomSuperpositionState( {
+        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom5StringProperty,
         tandem: customTandem.createTandem( `custom${customIndex++}` )
       } )
     ];
 
-    this.presetSuperpositionConfigurationProperty = new Property<PresetSuperpositionConfiguration>( presetSuperpositionConfigurations[ 0 ], {
-      validValues: presetSuperpositionConfigurations,
-      tandem: tandem.createTandem( 'presetSuperpositionConfigurationProperty' ),
+    this.presetSuperpositionStateProperty = new Property<PresetSuperpositionState>( presetSuperpositionStates[ 0 ], {
+      validValues: presetSuperpositionStates,
+      tandem: tandem.createTandem( 'presetSuperpositionStateProperty' ),
       phetioFeatured: true,
-      phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO
+      phetioValueType: SuperpositionState.SuperpositionStateIO
     } );
 
-    this.customSuperpositionConfigurationProperty = new Property<CustomSuperpositionConfiguration>( customSuperpositionConfigurations[ 0 ], {
-      validValues: customSuperpositionConfigurations,
-      tandem: tandem.createTandem( 'customSuperpositionConfigurationProperty' ),
+    this.customSuperpositionStateProperty = new Property<CustomSuperpositionState>( customSuperpositionStates[ 0 ], {
+      validValues: customSuperpositionStates,
+      tandem: tandem.createTandem( 'customSuperpositionStateProperty' ),
       phetioFeatured: true,
-      phetioValueType: SuperpositionConfiguration.SuperpositionConfigurationIO
+      phetioValueType: SuperpositionState.SuperpositionStateIO
     } );
   }
 
   public override reset(): void {
     super.reset();
-    this.superpositionConfigurationTypeProperty.reset();
-    this.presetSuperpositionConfigurationProperty.reset();
-    this.customSuperpositionConfigurationProperty.reset();
+    this.superpositionStateTypeProperty.reset();
+    this.presetSuperpositionStateProperty.reset();
+    this.customSuperpositionStateProperty.reset();
   }
 }

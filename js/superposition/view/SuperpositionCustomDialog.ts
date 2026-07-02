@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionCustomDialog is the dialog for customizing a superposition configuration
+ * SuperpositionCustomDialog is the dialog for customizing a superposition state
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,16 +15,16 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import CustomSuperpositionConfiguration from '../model/CustomSuperpositionConfiguration.js';
+import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 
 export default class SuperpositionCustomDialog extends Dialog {
 
-  public constructor( customSuperpositionConfigurationProperty: TReadOnlyProperty<CustomSuperpositionConfiguration> ) {
+  public constructor( customSuperpositionStateProperty: TReadOnlyProperty<CustomSuperpositionState> ) {
 
-    // Title includes the visual name of the selected configuration.
+    // Title includes the visual name of the selected superposition state.
     const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.superpositionStateDialogTitleStringProperty, {
-      label: new DynamicProperty<string, string, CustomSuperpositionConfiguration>( customSuperpositionConfigurationProperty, {
-        derive: configuration => configuration.visualNameProperty
+      label: new DynamicProperty<string, string, CustomSuperpositionState>( customSuperpositionStateProperty, {
+        derive: superpositionState => superpositionState.visualNameProperty
       } )
     } );
 
@@ -33,7 +33,7 @@ export default class SuperpositionCustomDialog extends Dialog {
       maxWidth: 400
     } );
 
-    const content = new SuperpositionCustomDialogContent( customSuperpositionConfigurationProperty );
+    const content = new SuperpositionCustomDialogContent( customSuperpositionStateProperty );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
       isDisposable: false,
@@ -46,11 +46,11 @@ export default class SuperpositionCustomDialog extends Dialog {
 
 /**
  * SuperpositionCustomDialogContent encapsulates the content for SuperpositionCustomDialog.
- * It updates dynamically to match the selected custom configuration.
+ * It updates dynamically to match the selected custom superposition state.
  */
 class SuperpositionCustomDialogContent extends Node {
 
-  public constructor( customSuperpositionConfigurationProperty: TReadOnlyProperty<CustomSuperpositionConfiguration> ) {
+  public constructor( customSuperpositionStateProperty: TReadOnlyProperty<CustomSuperpositionState> ) {
 
     const text = new RichText( 'Under Construction', {
       font: QBSConstants.CONTROL_FONT

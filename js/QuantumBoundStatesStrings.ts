@@ -73,7 +73,7 @@ type StringsType = {
     'coulombStringProperty': LocalizedStringProperty;
     'infiniteStepStringProperty': LocalizedStringProperty;
   };
-  'superpositionConfigurations': {
+  'superpositionStates': {
     'preset1': {
       'groundState0StringProperty': LocalizedStringProperty;
       'groundState1StringProperty': LocalizedStringProperty;
@@ -436,7 +436,7 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
-    'superpositionConfigurations': {
+    'superpositionStates': {
       'preset1StringProperty': LocalizedStringProperty;
       'preset2StringProperty': LocalizedStringProperty;
       'preset3StringProperty': LocalizedStringProperty;

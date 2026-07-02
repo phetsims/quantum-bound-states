@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionCustomButton is the button that opens the dialog for editing a custom superposition configuration.
+ * SuperpositionCustomButton is the button that opens the dialog for editing a custom superposition state.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

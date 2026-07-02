@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * CustomSuperpositionConfiguration is a superposition configuration whose coefficients can be customized.
+ * CustomSuperpositionState is a superposition state whose coefficients can be customized.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,19 +10,18 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
 import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
-import SuperpositionConfiguration, { SuperpositionConfigurationOptions } from './SuperpositionConfiguration.js';
+import SuperpositionState, { SuperpositionStateOptions } from './SuperpositionState.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type SuperpositionCustomOptions = SelfOptions &
-  StrictOmit<SuperpositionConfigurationOptions, 'superpositionConfigurationType'>;
+type CustomSuperpositionStateOptions = SelfOptions & StrictOmit<SuperpositionStateOptions, 'superpositionStateType'>;
 
-export default class CustomSuperpositionConfiguration extends SuperpositionConfiguration {
+export default class CustomSuperpositionState extends SuperpositionState {
 
-  public constructor( providedOptions: SuperpositionCustomOptions ) {
+  public constructor( providedOptions: CustomSuperpositionStateOptions ) {
 
-    const options = optionize<SuperpositionCustomOptions, SelfOptions, SuperpositionConfigurationOptions>()( {
-      superpositionConfigurationType: 'custom'
+    const options = optionize<CustomSuperpositionStateOptions, SelfOptions, SuperpositionStateOptions>()( {
+      superpositionStateType: 'custom'
     }, providedOptions );
 
     //TODO Not sure how this should be handled.

@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionCustomComboBox is the combo box for selecting a custom superposition state configuration.
+ * SuperpositionCustomComboBox is the combo box for selecting a custom superposition state.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,11 +16,11 @@ import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import CustomSuperpositionConfiguration from '../model/CustomSuperpositionConfiguration.js';
+import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 
-export default class SuperpositionCustomComboBox extends ComboBox<CustomSuperpositionConfiguration> {
+export default class SuperpositionCustomComboBox extends ComboBox<CustomSuperpositionState> {
 
-  public constructor( superpositionCustomProperty: Property<CustomSuperpositionConfiguration>,
+  public constructor( superpositionCustomProperty: Property<CustomSuperpositionState>,
                       listboxParent: Node,
                       alignGroup: AlignGroup,
                       tandem: Tandem ) {
@@ -39,7 +39,7 @@ export default class SuperpositionCustomComboBox extends ComboBox<CustomSuperpos
       xAlign: 'left'
     };
 
-    const items: ComboBoxItem<CustomSuperpositionConfiguration>[] = superpositionCustomProperty.validValues.map( superpositionCustom => {
+    const items: ComboBoxItem<CustomSuperpositionState>[] = superpositionCustomProperty.validValues.map( superpositionCustom => {
       return {
         value: superpositionCustom,
         createNode: () => alignGroup.createBox( new RichText( superpositionCustom.visualNameProperty, richTextOptions ), alignBoxOptions ),

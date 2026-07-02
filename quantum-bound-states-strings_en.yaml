@@ -81,8 +81,8 @@ potentialWells:
   coulomb:            Coulomb
   infiniteStep:       Infinite Step
 
-# Superposition configurations
-superpositionConfigurations:
+# Superposition States
+superpositionStates:
   preset1:
     groundState0: cΨ<sub>0</sub> + cΨ<sub>1</sub>
     groundState1: cΨ<sub>1</sub> + cΨ<sub>2</sub>
@@ -567,10 +567,10 @@ a11y:
     accessibleHelpText: Shift the zero of the energy scale up or down.
 
   #=======================================================================================================
-  # Superposition Configurations
+  # Superposition States
   #=======================================================================================================
 
-  superpositionConfigurations:
+  superpositionStates:
     preset1:
       select_groundStateIndex:
         0: c times psi sub 0 plus c times psi sub 1

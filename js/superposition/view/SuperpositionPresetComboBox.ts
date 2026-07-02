@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionPresetComboBox is the combo box for selecting a preset superposition state configuration.
+ * SuperpositionPresetComboBox is the combo box for selecting a preset superposition state.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,12 +16,12 @@ import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import CustomSuperpositionConfiguration from '../model/CustomSuperpositionConfiguration.js';
-import PresetSuperpositionConfiguration from '../model/PresetSuperpositionConfiguration.js';
+import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
+import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 
-export default class SuperpositionPresetComboBox extends ComboBox<PresetSuperpositionConfiguration> {
+export default class SuperpositionPresetComboBox extends ComboBox<PresetSuperpositionState> {
 
-  public constructor( superpositionPresetProperty: Property<PresetSuperpositionConfiguration>,
+  public constructor( superpositionPresetProperty: Property<PresetSuperpositionState>,
                       listboxParent: Node,
                       alignGroup: AlignGroup,
                       tandem: Tandem ) {
@@ -38,7 +38,7 @@ export default class SuperpositionPresetComboBox extends ComboBox<PresetSuperpos
       xAlign: 'left'
     };
 
-    const items: ComboBoxItem<CustomSuperpositionConfiguration>[] = superpositionPresetProperty.validValues.map( superpositionPreset => {
+    const items: ComboBoxItem<CustomSuperpositionState>[] = superpositionPresetProperty.validValues.map( superpositionPreset => {
       return {
         value: superpositionPreset,
         createNode: () => alignGroup.createBox( new RichText( superpositionPreset.visualNameProperty, richTextOptions ), alignBoxOptions ),

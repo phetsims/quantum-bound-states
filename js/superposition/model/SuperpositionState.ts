@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionConfiguration is the base class for superposition configurations.
+ * SuperpositionState is the base class for superposition states. The state is defined by a set of coefficients.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,12 +13,12 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
-import { SuperpositionConfigurationType } from './SuperpositionConfigurationType.js';
+import { SuperpositionStateType } from './SuperpositionStateType.js';
 
 type SelfOptions = {
 
-  // Whether the configuration is a preset or custom configuration
-  superpositionConfigurationType: SuperpositionConfigurationType;
+  // Whether the superposition state is preset or custom
+  superpositionStateType: SuperpositionStateType;
 
   // Name used in the visual interface
   visualNameProperty: TReadOnlyProperty<string>;
@@ -27,18 +27,18 @@ type SelfOptions = {
   accessibleNameProperty?: TReadOnlyProperty<string>;
 };
 
-export type SuperpositionConfigurationOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+export type SuperpositionStateOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class SuperpositionConfiguration extends PhetioObject {
+export default class SuperpositionState extends PhetioObject {
 
   public readonly superpositionCoefficients: SuperpositionCoefficients;
-  public readonly superpositionConfigurationType: SuperpositionConfigurationType;
+  public readonly superpositionStateType: SuperpositionStateType;
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
 
-  protected constructor( superpositionCoefficients: SuperpositionCoefficients, providedOptions: SuperpositionConfigurationOptions ) {
+  protected constructor( superpositionCoefficients: SuperpositionCoefficients, providedOptions: SuperpositionStateOptions ) {
 
-    const options = optionize<SuperpositionConfigurationOptions, SelfOptions, PhetioObjectOptions>()( {
+    const options = optionize<SuperpositionStateOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       accessibleNameProperty: providedOptions.visualNameProperty,
@@ -51,18 +51,18 @@ export default class SuperpositionConfiguration extends PhetioObject {
     super( options );
 
     this.superpositionCoefficients = superpositionCoefficients;
-    this.superpositionConfigurationType = options.superpositionConfigurationType;
+    this.superpositionStateType = options.superpositionStateType;
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
   }
 
   /**
-   * SuperpositionConfigurationIO handles PhET-iO serialization of SuperpositionConfiguration instances.
+   * SuperpositionStateIO handles PhET-iO serialization of SuperpositionState instances.
    * It uses reference-type serialization as described in the Serialization section of
    * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
    */
-  public static readonly SuperpositionConfigurationIO = new IOType<SuperpositionConfiguration, ReferenceIOState>( 'SuperpositionConfigurationIO', {
-    valueType: SuperpositionConfiguration,
+  public static readonly SuperpositionStateIO = new IOType<SuperpositionState, ReferenceIOState>( 'SuperpositionStateIO', {
+    valueType: SuperpositionState,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }

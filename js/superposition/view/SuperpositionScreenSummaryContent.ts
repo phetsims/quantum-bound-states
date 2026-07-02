@@ -10,9 +10,9 @@ import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import QBSCurrentDetailsNode from '../../common/view/QBSCurrentDetailsNode.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import CustomSuperpositionConfiguration from '../model/CustomSuperpositionConfiguration.js';
+import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 import SuperpositionModel from '../model/SuperpositionModel.js';
-import PresetSuperpositionConfiguration from '../model/PresetSuperpositionConfiguration.js';
+import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 
 export default class SuperpositionScreenSummaryContent extends ScreenSummaryContent {
 
@@ -38,14 +38,14 @@ class SuperpositionCurrentDetailsNode extends QBSCurrentDetailsNode {
 
   public constructor( model: SuperpositionModel ) {
 
-    // Identify the selected superposition configuration.
+    // Identify the selected superposition state.
     const superpositionListItem = {
       stringProperty: QuantumBoundStatesFluent.a11y.screens.superpositionScreen.screenSummary.currentDetails.accessibleTemplate.listItems.superPosition.createProperty( {
-        type: model.superpositionConfigurationTypeProperty,
-        presetName: new DynamicProperty<string, string, PresetSuperpositionConfiguration>( model.presetSuperpositionConfigurationProperty, {
+        type: model.superpositionStateTypeProperty,
+        presetName: new DynamicProperty<string, string, PresetSuperpositionState>( model.presetSuperpositionStateProperty, {
           derive: superpositionPreset => superpositionPreset.accessibleNameProperty
         } ),
-        customName: new DynamicProperty<string, string, CustomSuperpositionConfiguration>( model.customSuperpositionConfigurationProperty, {
+        customName: new DynamicProperty<string, string, CustomSuperpositionState>( model.customSuperpositionStateProperty, {
           derive: superpositionCustom => superpositionCustom.accessibleNameProperty
         } )
       } )

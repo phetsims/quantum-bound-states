@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * PresetSuperpositionConfiguration is a superposition configuration whose coefficients cannot be changed.
+ * PresetSuperpositionState is a superposition state whose coefficients cannot be changed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,51 +15,50 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
 import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import SuperpositionConfiguration, { SuperpositionConfigurationOptions } from './SuperpositionConfiguration.js';
+import SuperpositionState, { SuperpositionStateOptions } from './SuperpositionState.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type SuperpositionPresetOptions = SelfOptions &
-  StrictOmit<SuperpositionConfigurationOptions, 'superpositionConfigurationType'>;
+type PresetSuperpositionStateOptions = SelfOptions & StrictOmit<SuperpositionStateOptions, 'superpositionStateType'>;
 
-export default class PresetSuperpositionConfiguration extends SuperpositionConfiguration {
+export default class PresetSuperpositionState extends SuperpositionState {
 
-  private constructor( superpositionCoefficients: SuperpositionCoefficients, providedOptions: SuperpositionPresetOptions ) {
+  private constructor( superpositionCoefficients: SuperpositionCoefficients, providedOptions: PresetSuperpositionStateOptions ) {
 
-    const options = optionize<SuperpositionPresetOptions, SelfOptions, SuperpositionConfigurationOptions>()( {
-      superpositionConfigurationType: 'preset'
+    const options = optionize<PresetSuperpositionStateOptions, SelfOptions, SuperpositionStateOptions>()( {
+      superpositionStateType: 'preset'
     }, providedOptions );
 
     super( superpositionCoefficients, options );
   }
 
-  public static createPresets( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionConfiguration[] {
+  public static createPresets( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState[] {
     return [
-      PresetSuperpositionConfiguration.createPreset1( groundStateIndexProperty, parentTandem ),
-      PresetSuperpositionConfiguration.createPreset2( groundStateIndexProperty, parentTandem ),
-      PresetSuperpositionConfiguration.createPreset3( groundStateIndexProperty, parentTandem ),
-      PresetSuperpositionConfiguration.createPreset4( groundStateIndexProperty, parentTandem ),
-      PresetSuperpositionConfiguration.createPresetLocalizedParticle( groundStateIndexProperty, parentTandem )
+      PresetSuperpositionState.createPreset1( groundStateIndexProperty, parentTandem ),
+      PresetSuperpositionState.createPreset2( groundStateIndexProperty, parentTandem ),
+      PresetSuperpositionState.createPreset3( groundStateIndexProperty, parentTandem ),
+      PresetSuperpositionState.createPreset4( groundStateIndexProperty, parentTandem ),
+      PresetSuperpositionState.createPresetLocalizedParticle( groundStateIndexProperty, parentTandem )
     ];
   }
 
   /**
    * Creates preset cΨ1 + cΨ2
    */
-  private static createPreset1( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionConfiguration {
+  private static createPreset1( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
     const coefficients = new SuperpositionCoefficients( [
       new SuperpositionCoefficient( 0.71, 0 ),
       new SuperpositionCoefficient( 0.71, 0 )
     ] );
 
-    return new PresetSuperpositionConfiguration( coefficients, {
+    return new PresetSuperpositionState( coefficients, {
       visualNameProperty: new DerivedStringProperty( [
         groundStateIndexProperty,
-        QuantumBoundStatesFluent.superpositionConfigurations.preset1.groundState0StringProperty,
-        QuantumBoundStatesFluent.superpositionConfigurations.preset1.groundState1StringProperty
+        QuantumBoundStatesFluent.superpositionStates.preset1.groundState0StringProperty,
+        QuantumBoundStatesFluent.superpositionStates.preset1.groundState1StringProperty
       ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
-      accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset1.createProperty( {
+      accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionStates.preset1.createProperty( {
         groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
       } ),
       tandem: parentTandem.createTandem( 'preset1' )
@@ -69,7 +68,7 @@ export default class PresetSuperpositionConfiguration extends SuperpositionConfi
   /**
    * Creates preset cΨ1 + cΨ3
    */
-  private static createPreset2( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionConfiguration {
+  private static createPreset2( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
     const coefficients = new SuperpositionCoefficients( [
       new SuperpositionCoefficient( 0.71, 0 ),
@@ -78,13 +77,13 @@ export default class PresetSuperpositionConfiguration extends SuperpositionConfi
     ] );
     affirm( coefficients.isNormalized(), 'coefficients must be normalized' );
 
-    return new PresetSuperpositionConfiguration( coefficients, {
+    return new PresetSuperpositionState( coefficients, {
       visualNameProperty: new DerivedStringProperty( [
         groundStateIndexProperty,
-        QuantumBoundStatesFluent.superpositionConfigurations.preset2.groundState0StringProperty,
-        QuantumBoundStatesFluent.superpositionConfigurations.preset2.groundState1StringProperty
+        QuantumBoundStatesFluent.superpositionStates.preset2.groundState0StringProperty,
+        QuantumBoundStatesFluent.superpositionStates.preset2.groundState1StringProperty
       ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
-      accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset2.createProperty( {
+      accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionStates.preset2.createProperty( {
         groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
       } ),
       tandem: parentTandem.createTandem( 'preset2' )
@@ -94,7 +93,7 @@ export default class PresetSuperpositionConfiguration extends SuperpositionConfi
   /**
    * Creates preset cΨ1 - cΨ2
    */
-  private static createPreset3( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionConfiguration {
+  private static createPreset3( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
     const coefficients = new SuperpositionCoefficients( [
       new SuperpositionCoefficient( 0.71, 0 ),
@@ -102,13 +101,13 @@ export default class PresetSuperpositionConfiguration extends SuperpositionConfi
     ] );
     affirm( coefficients.isNormalized(), 'coefficients must be normalized' );
 
-    return new PresetSuperpositionConfiguration( coefficients, {
+    return new PresetSuperpositionState( coefficients, {
       visualNameProperty: new DerivedStringProperty( [
         groundStateIndexProperty,
-        QuantumBoundStatesFluent.superpositionConfigurations.preset3.groundState0StringProperty,
-        QuantumBoundStatesFluent.superpositionConfigurations.preset3.groundState1StringProperty
+        QuantumBoundStatesFluent.superpositionStates.preset3.groundState0StringProperty,
+        QuantumBoundStatesFluent.superpositionStates.preset3.groundState1StringProperty
       ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
-      accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset3.createProperty( {
+      accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionStates.preset3.createProperty( {
         groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
       } ),
       tandem: parentTandem.createTandem( 'preset3' )
@@ -118,7 +117,7 @@ export default class PresetSuperpositionConfiguration extends SuperpositionConfi
   /**
    * Creates preset cΨ1 + cΨ2 + cΨ3
    */
-  private static createPreset4( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionConfiguration {
+  private static createPreset4( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
     const coefficients = new SuperpositionCoefficients( [
       new SuperpositionCoefficient( 0.58, 0 ),
@@ -127,13 +126,13 @@ export default class PresetSuperpositionConfiguration extends SuperpositionConfi
     ] );
     affirm( coefficients.isNormalized(), 'coefficients must be normalized' );
 
-    return new PresetSuperpositionConfiguration( coefficients, {
+    return new PresetSuperpositionState( coefficients, {
       visualNameProperty: new DerivedStringProperty( [
         groundStateIndexProperty,
-        QuantumBoundStatesFluent.superpositionConfigurations.preset4.groundState0StringProperty,
-        QuantumBoundStatesFluent.superpositionConfigurations.preset4.groundState1StringProperty
+        QuantumBoundStatesFluent.superpositionStates.preset4.groundState0StringProperty,
+        QuantumBoundStatesFluent.superpositionStates.preset4.groundState1StringProperty
       ], ( groundStateIndex, groundState0String, groundState1String ) => groundStateIndex === 0 ? groundState0String : groundState1String ),
-      accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionConfigurations.preset4.createProperty( {
+      accessibleNameProperty: QuantumBoundStatesFluent.a11y.superpositionStates.preset4.createProperty( {
         groundStateIndex: groundStateIndexProperty.derived( index => index === 0 ? 0 : 1 )
       } ),
       tandem: parentTandem.createTandem( 'preset4' )
@@ -143,7 +142,7 @@ export default class PresetSuperpositionConfiguration extends SuperpositionConfi
   /**
    * Creates preset 'Localized Particle'
    */
-  private static createPresetLocalizedParticle( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionConfiguration {
+  private static createPresetLocalizedParticle( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
     const coefficients = new SuperpositionCoefficients( [
       //TODO What are the coefficients for Localized Particle?
@@ -151,8 +150,8 @@ export default class PresetSuperpositionConfiguration extends SuperpositionConfi
     ] );
     affirm( coefficients.isNormalized(), 'coefficients must be normalized' );
 
-    return new PresetSuperpositionConfiguration( coefficients, {
-      visualNameProperty: QuantumBoundStatesFluent.superpositionConfigurations.preset5StringProperty,
+    return new PresetSuperpositionState( coefficients, {
+      visualNameProperty: QuantumBoundStatesFluent.superpositionStates.preset5StringProperty,
       tandem: parentTandem.createTandem( 'localizedParticle' )
     } );
   }

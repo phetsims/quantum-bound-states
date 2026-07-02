@@ -2,7 +2,7 @@
 
 /**
  * SuperpositionPresetButton is the button that opens the 'Superposition Details' dialog for viewing a preset
- * superposition configuration.
+ * superposition state.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

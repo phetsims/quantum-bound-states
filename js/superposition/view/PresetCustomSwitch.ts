@@ -13,16 +13,16 @@ import ABSwitch, { ABSwitchOptions } from '../../../../sun/js/ABSwitch.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
+import { SuperpositionStateType } from '../model/SuperpositionStateType.js';
 
 const TEXT_OPTIONS = {
   font: QBSConstants.CONTROL_FONT,
   maxWidth: 60
 };
 
-export default class PresetCustomSwitch extends ABSwitch<SuperpositionConfigurationType> {
+export default class PresetCustomSwitch extends ABSwitch<SuperpositionStateType> {
 
-  public constructor( superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>, tandem: Tandem ) {
+  public constructor( superpositionStateTypeProperty: Property<SuperpositionStateType>, tandem: Tandem ) {
 
     // Size the switch to match the height of the font.
     const switchHeight = new Text( 'X', { font: TEXT_OPTIONS.font } ).height;
@@ -44,6 +44,6 @@ export default class PresetCustomSwitch extends ABSwitch<SuperpositionConfigurat
     const presetText = new Text( QuantumBoundStatesFluent.presetStringProperty, TEXT_OPTIONS );
     const customText = new Text( QuantumBoundStatesFluent.customStringProperty, TEXT_OPTIONS );
 
-    super( superpositionConfigurationTypeProperty, 'preset', presetText, 'custom', customText, options );
+    super( superpositionStateTypeProperty, 'preset', presetText, 'custom', customText, options );
   }
 }

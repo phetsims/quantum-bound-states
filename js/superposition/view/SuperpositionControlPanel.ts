@@ -23,9 +23,9 @@ import QBSConstants from '../../common/QBSConstants.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
 import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import CustomSuperpositionConfiguration from '../model/CustomSuperpositionConfiguration.js';
-import PresetSuperpositionConfiguration from '../model/PresetSuperpositionConfiguration.js';
-import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
+import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
+import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
+import { SuperpositionStateType } from '../model/SuperpositionStateType.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
 import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
 import SuperpositionCustomButton from './SuperpositionCustomButton.js';
@@ -41,9 +41,9 @@ export class SuperpositionControlPanel extends Panel {
 
   public constructor( listboxParent: Node,
                       potentialProperty: Property<QuantumPotential>,
-                      superpositionConfigurationTypeProperty: Property<SuperpositionConfigurationType>,
-                      superpositionPresetProperty: Property<PresetSuperpositionConfiguration>,
-                      superpositionCustomProperty: Property<CustomSuperpositionConfiguration>,
+                      superpositionStateTypeProperty: Property<SuperpositionStateType>,
+                      superpositionPresetProperty: Property<PresetSuperpositionState>,
+                      superpositionCustomProperty: Property<CustomSuperpositionState>,
                       tandem: Tandem ) {
 
     const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
@@ -81,7 +81,7 @@ export class SuperpositionControlPanel extends Panel {
     const presetHBox = new HBox( {
       spacing: BUTTON_SPACING,
       children: [ presetComboBox, buttonAlignGroup.createBox( presetButton ) ],
-      visibleProperty: superpositionConfigurationTypeProperty.derived( type => type === 'preset' )
+      visibleProperty: superpositionStateTypeProperty.derived( superpositionStateType => superpositionStateType === 'preset' )
     } );
 
     const customComboBox = new SuperpositionCustomComboBox( superpositionCustomProperty, listboxParent,
@@ -97,7 +97,7 @@ export class SuperpositionControlPanel extends Panel {
     const customHBox = new HBox( {
       spacing: BUTTON_SPACING,
       children: [ customComboBox, buttonAlignGroup.createBox( customButton ) ],
-      visibleProperty: superpositionConfigurationTypeProperty.derived( type => type === 'custom' )
+      visibleProperty: superpositionStateTypeProperty.derived( type => type === 'custom' )
     } );
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
@@ -106,7 +106,7 @@ export class SuperpositionControlPanel extends Panel {
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
         subtitleText,
-        new PresetCustomSwitch( superpositionConfigurationTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
+        new PresetCustomSwitch( superpositionStateTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
         new Node( {
           children: [ presetHBox, customHBox ]
         } )
