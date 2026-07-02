@@ -15,8 +15,14 @@ import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/Refer
 import { SuperpositionConfigurationType } from './SuperpositionConfigurationType.js';
 
 type SelfOptions = {
+
+  // Whether the configuration is a preset or custom configuration
   superpositionConfigurationType: SuperpositionConfigurationType;
-  nameProperty: TReadOnlyProperty<string>;
+
+  // Name used in the visual interface
+  visualNameProperty: TReadOnlyProperty<string>;
+
+  // Name used in the accessible interface, including core description. Defaults to visualNameProperty.
   accessibleNameProperty?: TReadOnlyProperty<string>;
 };
 
@@ -25,7 +31,7 @@ export type SuperpositionConfigurationOptions = SelfOptions & PickRequired<Pheti
 export default class SuperpositionConfiguration extends PhetioObject {
 
   public readonly superpositionConfigurationType: SuperpositionConfigurationType;
-  public readonly nameProperty: TReadOnlyProperty<string>;
+  public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
 
   protected constructor( providedOptions: SuperpositionConfigurationOptions ) {
@@ -33,7 +39,7 @@ export default class SuperpositionConfiguration extends PhetioObject {
     const options = optionize<SuperpositionConfigurationOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      accessibleNameProperty: providedOptions.nameProperty,
+      accessibleNameProperty: providedOptions.visualNameProperty,
 
       // PhetioObjectOptions
       isDisposable: false,
@@ -43,7 +49,7 @@ export default class SuperpositionConfiguration extends PhetioObject {
     super( options );
 
     this.superpositionConfigurationType = options.superpositionConfigurationType;
-    this.nameProperty = options.nameProperty;
+    this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty;
   }
 

@@ -41,8 +41,8 @@ export default class SuperpositionPresetComboBox extends ComboBox<PresetSuperpos
     const items: ComboBoxItem<CustomSuperpositionConfiguration>[] = superpositionPresetProperty.validValues.map( superpositionPreset => {
       return {
         value: superpositionPreset,
-        accessibleName: superpositionPreset.nameProperty,
-        createNode: () => alignGroup.createBox( new RichText( superpositionPreset.nameProperty, richTextOptions ), alignBoxOptions ),
+        createNode: () => alignGroup.createBox( new RichText( superpositionPreset.visualNameProperty, richTextOptions ), alignBoxOptions ),
+        accessibleName: superpositionPreset.accessibleNameProperty,
         tandemName: `${superpositionPreset.tandem.name}Item`
       };
     } );
