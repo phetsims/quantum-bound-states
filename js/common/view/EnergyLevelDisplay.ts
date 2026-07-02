@@ -129,7 +129,7 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     //TODO https://github.com/phetsims/quantum-bound-states/issues/57 Replacing affirm with console.warn until the problem is resolved.
     // affirm( difference > 0, `difference must be positive: ${difference}` );
     if ( difference <= 0 ) {
-      console.log( `difference must be positive: ${difference}` );
+      console.warn( `difference must be positive: ${difference}` );
     }
 
     // Determine the number of significant decimal places needed to show the energy difference.
