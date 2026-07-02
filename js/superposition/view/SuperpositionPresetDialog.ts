@@ -8,8 +8,9 @@
 
 import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import QBSConstants from '../../common/QBSConstants.js';
@@ -19,7 +20,7 @@ import PresetSuperpositionConfiguration from '../model/PresetSuperpositionConfig
 
 export default class SuperpositionPresetDialog extends Dialog {
 
-  public constructor( superpositionPresetProperty: Property<PresetSuperpositionConfiguration> ) {
+  public constructor( superpositionPresetProperty: TReadOnlyProperty<PresetSuperpositionConfiguration> ) {
 
     // Title includes the visual name of the selected configuration.
     const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.superpositionStateDialogTitleStringProperty, {
@@ -33,17 +34,31 @@ export default class SuperpositionPresetDialog extends Dialog {
       maxWidth: 400
     } );
 
-    //TODO Create dialog content.
-    const content = new RichText( 'Under Construction', {
-      font: QBSConstants.CONTROL_FONT
-    } );
+    const content = new SuperpositionPresetDialogContent( superpositionPresetProperty );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
+      isDisposable: false,
       title: titleNode
     } );
 
     super( content, options );
   }
+}
 
-  //TODO dispose?
+/**
+ * SuperpositionPresetDialogContent is the content for SuperpositionPresetDialog. It updates dynamically to match
+ * the selected preset.
+ */
+class SuperpositionPresetDialogContent extends Node {
+
+  public constructor( superpositionPresetProperty: TReadOnlyProperty<PresetSuperpositionConfiguration> ) {
+
+    const text = new RichText( 'Under Construction', {
+      font: QBSConstants.CONTROL_FONT
+    } );
+
+    super( {
+      children: [ text ]
+    } );
+  }
 }
