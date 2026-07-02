@@ -22,7 +22,7 @@ import QuantumPotentialDepth, { QuantumPotentialDepthOptions } from './QuantumPo
 type SelfOptions = EmptySelfOptions;
 
 export type MorsePotentialOptions = SelfOptions &
-  PickOptional<QuantumPotentialOptions, 'yOffsetRange'> &
+  PickOptional<QuantumPotentialOptions, 'yOffsetRange' | 'wellWidthDecimalPlaces'> &
   PickRequired<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class MorsePotential extends QuantumPotentialDepth {

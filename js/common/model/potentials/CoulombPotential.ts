@@ -58,7 +58,7 @@ const MIN_SOLVER_ENERGY_BELOW_LIMIT = 60; // eV
 type SelfOptions = EmptySelfOptions;
 
 export type CoulombPotentialOptions = SelfOptions &
-  PickOptional<QuantumPotentialOptions, 'yOffsetRange'> &
+  PickOptional<QuantumPotentialOptions, 'yOffsetRange' | 'wellWidthDecimalPlaces'> &
   PickRequired<QuantumPotentialOptions, 'numberOfWellsProperty' | 'electronMassesProperty' | 'electricFieldProperty' | 'tandem'>;
 
 export default class CoulombPotential extends QuantumPotential {
