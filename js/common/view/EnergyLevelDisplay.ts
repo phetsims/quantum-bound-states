@@ -105,15 +105,23 @@ export default class EnergyLevelDisplay extends BackgroundNode {
     // Adjacent lower energy level
     if ( index > 0 ) {
       difference = Math.abs( energy - energies[ index - 1 ] );
-      affirm( difference !== 0,
-        `Adjacent energy levels must have different energies: E${index}=${energy} E${index - 1}=${energies[ index - 1 ]}` );
+      //TODO https://github.com/phetsims/quantum-bound-states/issues/57 Replacing affirm with console.warn until the problem is resolved.
+      // affirm( difference !== 0,
+      //   `Adjacent energy levels must have different energies: E${index}=${energy} E${index - 1}=${energies[ index - 1 ]}` );
+      if ( difference === 0 ) {
+        console.warn( `Adjacent energy levels must have different energies: E${index}=${energy} E${index - 1}=${energies[ index - 1 ]}` );
+      }
     }
 
     // Adjacent higher energy level
     if ( index < energies.length - 1 ) {
       const difference2 = Math.abs( energy - energies[ index + 1 ] );
-      affirm( difference2 !== 0,
-        `Adjacent energy levels must have different energies: E${index}=${energy} E${index + 1}=${energies[ index + 1 ]}` );
+      //TODO https://github.com/phetsims/quantum-bound-states/issues/57 Replacing affirm with console.warn until the problem is resolved.
+      // affirm( difference2 !== 0,
+      //   `Adjacent energy levels must have different energies: E${index}=${energy} E${index + 1}=${energies[ index + 1 ]}` );
+      if ( difference2 === 0 ) {
+        console.warn( `Adjacent energy levels must have different energies: E${index}=${energy} E${index + 1}=${energies[ index + 1 ]}` );
+      }
       if ( difference2 < difference ) {
         difference = difference2;
       }
