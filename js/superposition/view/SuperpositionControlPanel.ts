@@ -27,12 +27,12 @@ import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 import { SuperpositionStateType } from '../model/SuperpositionStateType.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
-import SuperpositionCustomButton from './SuperpositionCustomButton.js';
-import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
-import SuperpositionCustomDialog from './SuperpositionCustomDialog.js';
-import SuperpositionPresetButton from './SuperpositionPresetButton.js';
-import SuperpositionPresetComboBox from './SuperpositionPresetComboBox.js';
-import SuperpositionPresetDialog from './SuperpositionPresetDialog.js';
+import CustomEditButton from './CustomEditButton.js';
+import CustomComboBox from './CustomComboBox.js';
+import CustomDialog from './CustomDialog.js';
+import PresetInfoButton from './PresetInfoButton.js';
+import PresetComboBox from './PresetComboBox.js';
+import PresetDialog from './PresetDialog.js';
 
 // Space between the combo box and the button.
 const BUTTON_SPACING = 8;
@@ -54,9 +54,10 @@ export class SuperpositionControlPanel extends Panel {
       visiblePropertyOptions: { phetioFeatured: true }
     } );
 
-    const subtitleText = new Text( QuantumBoundStatesFluent.superpositionStateStringProperty, {
+    const superpositionStateText = new Text( QuantumBoundStatesFluent.superpositionStateStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
+      tandem: tandem.createTandem( 'superpositionStateText' ),
       phetioVisiblePropertyInstrumented: true,
       visiblePropertyOptions: { phetioFeatured: true }
     } );
@@ -68,31 +69,31 @@ export class SuperpositionControlPanel extends Panel {
     // This is a workaround for the lack of dynamic layout support in ComboBox.
     const comboBoxItemAlignGroup = new AlignGroup();
 
-    const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent,
+    const presetComboBox = new PresetComboBox( superpositionPresetProperty, listboxParent,
       comboBoxItemAlignGroup, tandem.createTandem( 'presetComboBox' ) );
 
-    const presetButton = new SuperpositionPresetButton( {
-      listener: () => new SuperpositionPresetDialog( superpositionPresetProperty.value, potentialProperty.value.groundStateIndex ).show(),
-      tandem: tandem.createTandem( 'presetButton' )
+    const presetInfoButton = new PresetInfoButton( {
+      listener: () => new PresetDialog( superpositionPresetProperty.value, potentialProperty.value.groundStateIndex ).show(),
+      tandem: tandem.createTandem( 'presetInfoButton' )
     } );
 
     const presetHBox = new HBox( {
       spacing: BUTTON_SPACING,
-      children: [ presetComboBox, buttonAlignGroup.createBox( presetButton ) ],
+      children: [ presetComboBox, buttonAlignGroup.createBox( presetInfoButton ) ],
       visibleProperty: superpositionStateTypeProperty.derived( superpositionStateType => superpositionStateType === 'preset' )
     } );
 
-    const customComboBox = new SuperpositionCustomComboBox( superpositionCustomProperty, listboxParent,
+    const customComboBox = new CustomComboBox( superpositionCustomProperty, listboxParent,
       comboBoxItemAlignGroup, tandem.createTandem( 'customComboBox' ) );
 
-    const customButton = new SuperpositionCustomButton( {
-      listener: () => new SuperpositionCustomDialog( superpositionCustomProperty.value, potentialProperty.value.groundStateIndex ).show(),
-      tandem: tandem.createTandem( 'customButton' )
+    const customEditButton = new CustomEditButton( {
+      listener: () => new CustomDialog( superpositionCustomProperty.value, potentialProperty.value.groundStateIndex ).show(),
+      tandem: tandem.createTandem( 'customEditButton' )
     } );
 
     const customHBox = new HBox( {
       spacing: BUTTON_SPACING,
-      children: [ customComboBox, buttonAlignGroup.createBox( customButton ) ],
+      children: [ customComboBox, buttonAlignGroup.createBox( customEditButton ) ],
       visibleProperty: superpositionStateTypeProperty.derived( type => type === 'custom' )
     } );
 
@@ -101,7 +102,7 @@ export class SuperpositionControlPanel extends Panel {
         titleText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
-        subtitleText,
+        superpositionStateText,
         new PresetCustomSwitch( superpositionStateTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
         new Node( {
           children: [ presetHBox, customHBox ]

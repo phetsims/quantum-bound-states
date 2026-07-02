@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionPresetButton is the button that opens the 'Superposition Details' dialog for viewing a preset
+ * PresetInfoButton is the button that opens the 'Superposition Details' dialog for viewing a preset
  * superposition state.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,7 +17,7 @@ type SelfOptions = EmptySelfOptions;
 
 type SuperpositionInfoButtonOptions = SelfOptions & PickRequired<InfoButtonOptions, 'tandem' | 'listener'>;
 
-export default class SuperpositionPresetButton extends InfoButton {
+export default class PresetInfoButton extends InfoButton {
 
   public constructor( providedOptions: SuperpositionInfoButtonOptions ) {
 

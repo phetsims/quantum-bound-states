@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionCustomButton is the button that opens the dialog for editing a custom superposition state.
+ * CustomEditButton is the button that opens the dialog for editing a custom superposition state.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -18,7 +18,7 @@ type SelfOptions = EmptySelfOptions;
 
 type SuperpositionEditButtonOptions = SelfOptions & PickRequired<RectangularPushButtonOptions, 'tandem' | 'listener'>;
 
-export default class SuperpositionCustomButton extends RectangularPushButton {
+export default class CustomEditButton extends RectangularPushButton {
 
   public constructor( providedOptions: SuperpositionEditButtonOptions ) {
 

@@ -336,9 +336,9 @@ never both):
   (`SuperpositionScreenView.ts:32-33`), which open `ProbabilityDensityDetailsDialog` /
   `WaveFunctionDetailsDialog`. So these buttons and dialogs are **active, not retired** — and their
   `accessibleParagraph` equation strings (§7.2) **are consumed** on this screen.
-- `SuperpositionPresetButton` (summed equation + coefficient list) and `SuperpositionCustomButton` open
-  dialogs that are still **"Under Construction"** placeholders (`SuperpositionPresetDialog.ts:25`,
-  `SuperpositionCustomDialog.ts:25`), though the buttons' names and "dialog opened" context responses are
+- `PresetInfoButton` (summed equation + coefficient list) and `CustomEditButton` open
+  dialogs that are still **"Under Construction"** placeholders (`PresetDialog.ts:25`,
+  `CustomDialog.ts:25`), though the buttons' names and "dialog opened" context responses are
   wired.
 
 *(Minor: `EquationTermNode.waveFunctionTerm()` has a double-nested `<sub><sub>` — likely a typo to fix.)*
@@ -620,8 +620,8 @@ editing history / production.
    blue / magenta. Still don't rely on color alone (WCAG 1.4.1) — the part *names* carry the identification.
 4. **Details buttons/dialogs are active on Superposition, not retired** (§6.3): inline `EquationTermNode` on One
    Well / Two Wells; `ProbabilityDensityDetailsButton` + `WaveFunctionDetailsButton` → equation dialogs on
-   Superposition (`SuperpositionScreenView.ts:32-33`). `SuperpositionPresetDialog` /
-   `SuperpositionCustomDialog` are "Under Construction."
+   Superposition (`SuperpositionScreenView.ts:32-33`). `PresetDialog` /
+   `CustomDialog` are "Under Construction."
 5. **Graph sonification is not implemented** (only control-feedback sounds — drag / keyboard / Home-End). The
    "listen to the shape" pointers are design-ahead, matching the philosophy section's "(planned)."
 6. **Magnifier object response is static-preview** (`POSITION` token); wire `Magnifier.probePositionProperty` /

@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionPresetComboBox is the combo box for selecting a preset superposition state.
+ * CustomComboBox is the combo box for selecting a custom superposition state.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,42 +17,43 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
-import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 
-export default class SuperpositionPresetComboBox extends ComboBox<PresetSuperpositionState> {
+export default class CustomComboBox extends ComboBox<CustomSuperpositionState> {
 
-  public constructor( superpositionPresetProperty: Property<PresetSuperpositionState>,
+  public constructor( superpositionCustomProperty: Property<CustomSuperpositionState>,
                       listboxParent: Node,
                       alignGroup: AlignGroup,
                       tandem: Tandem ) {
 
-    const validValues = superpositionPresetProperty.validValues;
-    affirm( validValues, 'superpositionPresetProperty.validValues' );
+    const validValues = superpositionCustomProperty.validValues;
+    affirm( validValues, 'superpositionCustomProperty.validValues is required.' );
 
     const richTextOptions = {
       font: QBSConstants.CONTROL_FONT,
       maxWidth: 120
     };
 
+    // We sadly must resort to using an AlignGroup + AlignBox to make this combo box and PresetComboBox
+    // be the same size. ComboBox apparently does not support dynamic layout.
     const alignBoxOptions: AlignBoxOptions = {
       xAlign: 'left'
     };
 
-    const items: ComboBoxItem<CustomSuperpositionState>[] = superpositionPresetProperty.validValues.map( superpositionPreset => {
+    const items: ComboBoxItem<CustomSuperpositionState>[] = superpositionCustomProperty.validValues.map( superpositionCustom => {
       return {
-        value: superpositionPreset,
-        createNode: () => alignGroup.createBox( new RichText( superpositionPreset.visualNameProperty, richTextOptions ), alignBoxOptions ),
-        accessibleName: superpositionPreset.accessibleNameProperty,
-        tandemName: `${superpositionPreset.tandem.name}Item`
+        value: superpositionCustom,
+        createNode: () => alignGroup.createBox( new RichText( superpositionCustom.visualNameProperty, richTextOptions ), alignBoxOptions ),
+        accessibleName: superpositionCustom.accessibleNameProperty,
+        tandemName: `${superpositionCustom.tandem.name}Item`
       };
     } );
 
-    super( superpositionPresetProperty, items, listboxParent, {
+    super( superpositionCustomProperty, items, listboxParent, {
       isDisposable: false,
       xMargin: 10,
       yMargin: 6,
-      accessibleName: QuantumBoundStatesFluent.a11y.superpositionPresetComboBox.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.superpositionPresetComboBox.accessibleHelpTextStringProperty,
+      accessibleName: QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
   }

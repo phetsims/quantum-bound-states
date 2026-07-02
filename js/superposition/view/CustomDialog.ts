@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionCustomDialog is the dialog for customizing a superposition state
+ * CustomDialog is the dialog for customizing a superposition state
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,7 +15,7 @@ import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 
-export default class SuperpositionCustomDialog extends Dialog {
+export default class CustomDialog extends Dialog {
 
   public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
 
@@ -39,7 +39,7 @@ export default class SuperpositionCustomDialog extends Dialog {
     super( content, options );
 
     this.disposeEmitter.addListener( () => {
-      phet.log && phet.log( 'SuperpositionCustomDialog disposed' );
+      phet.log && phet.log( 'CustomDialog disposed' );
       titleStringProperty.dispose();
       titleNode.dispose();
       content.dispose();
@@ -48,7 +48,7 @@ export default class SuperpositionCustomDialog extends Dialog {
 }
 
 /**
- * SuperpositionCustomDialogContent encapsulates the content for SuperpositionCustomDialog.
+ * SuperpositionCustomDialogContent encapsulates the content for CustomDialog.
  */
 class SuperpositionCustomDialogContent extends Node {
 

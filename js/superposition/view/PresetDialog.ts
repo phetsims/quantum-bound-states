@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionPresetDialog is the dialog for viewing a preset superposition state.
+ * PresetDialog is the dialog for viewing a preset superposition state.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,7 +15,7 @@ import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 
-export default class SuperpositionPresetDialog extends Dialog {
+export default class PresetDialog extends Dialog {
 
   public constructor( superpositionState: PresetSuperpositionState, groundStateIndex: number ) {
 
@@ -39,7 +39,7 @@ export default class SuperpositionPresetDialog extends Dialog {
     super( content, options );
 
     this.disposeEmitter.addListener( () => {
-      phet.log && phet.log( 'SuperpositionPresetDialog disposed' );
+      phet.log && phet.log( 'PresetDialog disposed' );
       titleStringProperty.dispose();
       titleNode.dispose();
       content.dispose();
@@ -48,7 +48,7 @@ export default class SuperpositionPresetDialog extends Dialog {
 }
 
 /**
- * SuperpositionPresetDialogContent encapsulates the content for SuperpositionPresetDialog.
+ * SuperpositionPresetDialogContent encapsulates the content for PresetDialog.
  */
 class SuperpositionPresetDialogContent extends Node {
 
