@@ -2,8 +2,8 @@
 
 /**
  * SuperpositionCoefficient is a complex number that defines the weight or "amount" of a specific basis state present
- * in a quantum system's overall superposition state. Magnitude represents the probability of measuring state n, while
- * phase dictates the interference patterns between states.
+ * in a quantum system's overall superposition state. This complex number is represented herein as magnitude and phase.
+ * Magnitude represents the probability of measuring state n, while phase dictates the interference patterns between states.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,6 +16,7 @@ import { StateObject } from '../../../../tandem/js/types/StateSchema.js';
 
 const STATE_SCHEMA = {
   magnitude: NumberIO,
+  phase: NumberIO,
   phaseMultiplier: NumberIO
 };
 
@@ -24,10 +25,11 @@ type SuperpositionCoefficientStateObject = StateObject<typeof STATE_SCHEMA>;
 export default class SuperpositionCoefficient {
 
   public readonly magnitude: number;
-  public readonly phaseMultiplier: number;
+  public readonly phase: number;
+  public readonly phaseMultiplier: number; // phase = phaseMultiplier * Math.PI
 
   public static readonly MAGNITUDE_RANGE = new Range( 0, 1 );
-  public static readonly PHASE_MULTIPLIER_RANGE = new Range( 0, 2 );
+  public static readonly PHASE_MULTIPLIER_RANGE = new Range( 0, 2 ); // which gives phase [0, 2 * Math.PI]
 
   public static readonly ZERO_COEFFICIENT = new SuperpositionCoefficient( 0, 0 );
   public static readonly GROUND_STATE_COEFFICIENT = new SuperpositionCoefficient( 1, 0 );
@@ -37,11 +39,8 @@ export default class SuperpositionCoefficient {
     affirm( SuperpositionCoefficient.PHASE_MULTIPLIER_RANGE.contains( phaseMultiplier ), `invalid phaseMultiplier: ${phaseMultiplier}` );
 
     this.magnitude = magnitude;
+    this.phase = phaseMultiplier * Math.PI;
     this.phaseMultiplier = phaseMultiplier;
-  }
-
-  public get phase(): number {
-    return this.phaseMultiplier * Math.PI;
   }
 
   public clone(): SuperpositionCoefficient {
@@ -54,6 +53,7 @@ export default class SuperpositionCoefficient {
   private toStateObject(): SuperpositionCoefficientStateObject {
     return {
       magnitude: this.magnitude,
+      phase: this.phase,
       phaseMultiplier: this.phaseMultiplier
     };
   }

@@ -15,29 +15,23 @@ import SuperpositionCoefficient from './SuperpositionCoefficient.js';
 
 export default class SuperpositionCoefficients {
 
+  //TODO Should the number of coefficients always match BoundStateResult.energies.length or are zeros implied?
   private coefficients: SuperpositionCoefficient[];
 
+  // Notifies observers when this.coefficients changes in some way.
   public readonly valuesChangedEmitter: Emitter;
-  public readonly numberOfCoefficientsChangedEmitter: Emitter;
 
-  //TODO Should an initial value for this.coefficients be computed and passed in?
-  //TODO Should the number of coefficients always match BoundStateResult.energies.length or are zeros implied?
-  public constructor() {
-    this.coefficients = [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ];
+  public constructor( coefficients: SuperpositionCoefficient[] ) {
+    this.coefficients = coefficients;
     this.valuesChangedEmitter = new Emitter();
-    this.numberOfCoefficientsChangedEmitter = new Emitter();
   }
 
   /**
    * Resets to the state at which this object was constructed.
    */
   public reset(): void {
-    const previousNumberOfCoefficients = this.coefficients.length;
     this.coefficients = [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ];
     this.valuesChangedEmitter.emit();
-    if ( previousNumberOfCoefficients !== this.coefficients.length ) {
-      this.numberOfCoefficientsChangedEmitter.emit();
-    }
   }
 
   /**
@@ -52,12 +46,8 @@ export default class SuperpositionCoefficients {
    */
   public setCoefficients( coefficients: SuperpositionCoefficient[] ): void {
     affirm( coefficients.length > 0, 'coefficients.length must be > 0: ' + coefficients.length );
-    const previousNumberOfCoefficients = coefficients.length;
     this.coefficients = coefficients;
     this.valuesChangedEmitter.emit();
-    if ( previousNumberOfCoefficients !== this.coefficients.length ) {
-      this.numberOfCoefficientsChangedEmitter.emit();
-    }
   }
 
   /**
@@ -151,10 +141,6 @@ export default class SuperpositionCoefficients {
       if ( valuesChanged ) {
         this.valuesChangedEmitter.emit();
       }
-
-      if ( previousNumberOfCoefficients !== this.coefficients.length ) {
-        this.numberOfCoefficientsChangedEmitter.emit();
-      }
     }
     affirm( this.coefficients.length === numberOfCoefficients, 'coefficients.length is incorrect: ' + this.coefficients.length );
   }
@@ -209,8 +195,6 @@ export default class SuperpositionCoefficients {
   public setOneCoefficient( index: number, numberOfCoefficients?: number ): void {
     affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
 
-    const previousNumberOfCoefficients = this.coefficients.length;
-
     // Adjust the number of coefficients if necessary.
     if ( numberOfCoefficients !== undefined && numberOfCoefficients !== this.coefficients.length ) {
       affirm( Number.isInteger( numberOfCoefficients ) && numberOfCoefficients > 1,
@@ -224,10 +208,6 @@ export default class SuperpositionCoefficients {
 
     this.coefficients[ index ] = SuperpositionCoefficient.GROUND_STATE_COEFFICIENT;
     this.valuesChangedEmitter.emit();
-
-    if ( previousNumberOfCoefficients !== this.coefficients.length ) {
-      this.numberOfCoefficientsChangedEmitter.emit();
-    }
   }
 
   /**

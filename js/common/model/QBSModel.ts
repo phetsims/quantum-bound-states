@@ -32,6 +32,7 @@ import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import BoundStateResult from './solvers/BoundStateResult.js';
 import XGrid from './solvers/XGrid.js';
+import SuperpositionCoefficient from './SuperpositionCoefficient.js';
 import SuperpositionCoefficients from './SuperpositionCoefficients.js';
 import { TimeEvolvedSuperposition, TimeEvolvedSuperpositionIO } from './TimeEvolvedSuperposition.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
@@ -143,7 +144,8 @@ export default class QBSModel implements TModel {
       phetioDocumentation: 'Bound state information for the selected quantum potential. See BoundStateResultIO for details.'
     } );
 
-    this.superpositionCoefficientsProperty = new Property( new SuperpositionCoefficients() );
+    //TODO Should an initial value for this.coefficients be computed and passed in?
+    this.superpositionCoefficientsProperty = new Property( new SuperpositionCoefficients( [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ] ) );
 
     this.energyDiagram = new EnergyDiagram( this, options.tandem.createTandem( 'energyDiagram' ) );
 
