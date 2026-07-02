@@ -10,7 +10,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import TwoWellsModel from '../model/TwoWellsModel.js';
-import { TwoWellsControlPanel } from './TwoWellsControlPanel.js';
+import { TwoWellsEnergyDiagramPanel } from './TwoWellsEnergyDiagramPanel.js';
 import TwoWellsScreenSummaryContent from './TwoWellsScreenSummaryContent.js';
 
 export default class TwoWellsScreenView extends QBSScreenView {
@@ -19,10 +19,10 @@ export default class TwoWellsScreenView extends QBSScreenView {
 
     const listboxParent = new Node();
 
-    const energyDiagramControlPanel = new TwoWellsControlPanel( listboxParent, model.potentialProperty,
-      model.selectedEnergyLevelIndexProperty, model.time, tandem.createTandem( 'energyDiagramControlPanel' ) );
+    const energyDiagramPanel = new TwoWellsEnergyDiagramPanel( listboxParent, model.potentialProperty,
+      model.selectedEnergyLevelIndexProperty, model.time, tandem.createTandem( 'energyDiagramPanel' ) );
 
-    super( model, listboxParent, energyDiagramControlPanel, {
+    super( model, listboxParent, energyDiagramPanel, {
       screenSummaryContent: new TwoWellsScreenSummaryContent( model ),
       tandem: tandem
     } );

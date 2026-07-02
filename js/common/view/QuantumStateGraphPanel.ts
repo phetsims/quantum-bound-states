@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * QuantumStateGraphControlPanel contains controls related what is shown in the Quantum State graph - the graph below
+ * QuantumStateGraphPanel contains controls related to what is shown in the Quantum State graph - the graph below
  * the Energy diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -21,7 +21,7 @@ import QBSConstants from '../QBSConstants.js';
 import QuantumStateGraphRadioButtonGroup from './QuantumStateGraphRadioButtonGroup.js';
 import WaveFunctionPartsCheckboxGroup from './WaveFunctionPartsCheckboxGroup.js';
 
-export default class QuantumStateGraphControlPanel extends Panel {
+export default class QuantumStateGraphPanel extends Panel {
 
   public static readonly FIXED_WIDTH = 235;
 
@@ -61,8 +61,8 @@ export default class QuantumStateGraphControlPanel extends Panel {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       isDisposable: false,
-      minWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
-      maxWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
+      minWidth: QuantumStateGraphPanel.FIXED_WIDTH,
+      maxWidth: QuantumStateGraphPanel.FIXED_WIDTH,
       accessibleHeading: QuantumBoundStatesFluent.a11y.quantumStateGraphControls.accessibleHeadingStringProperty,
       tandem: tandem
     } );

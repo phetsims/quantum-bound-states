@@ -12,7 +12,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import OneWellModel from '../model/OneWellModel.js';
 import { AngularFrequencyDisplay } from './AngularFrequencyDisplay.js';
-import { OneWellControlPanel } from './OneWellControlPanel.js';
+import { OneWellEnergyDiagramPanel } from './OneWellEnergyDiagramPanel.js';
 import OneWellScreenSummaryContent from './OneWellScreenSummaryContent.js';
 
 export default class OneWellScreenView extends QBSScreenView {
@@ -21,11 +21,11 @@ export default class OneWellScreenView extends QBSScreenView {
 
     const listboxParent = new Node();
 
-    const energyDiagramControlPanel = new OneWellControlPanel( listboxParent, model.potentialProperty,
+    const energyDiagramPanel = new OneWellEnergyDiagramPanel( listboxParent, model.potentialProperty,
       model.electronMassesProperty, model.energyOffsetProperty, model.selectedEnergyLevelIndexProperty,
-      model.time, tandem.createTandem( 'energyDiagramControlPanel' ) );
+      model.time, tandem.createTandem( 'energyDiagramPanel' ) );
 
-    super( model, listboxParent, energyDiagramControlPanel, {
+    super( model, listboxParent, energyDiagramPanel, {
       screenSummaryContent: new OneWellScreenSummaryContent( model ),
       tandem: tandem
     } );

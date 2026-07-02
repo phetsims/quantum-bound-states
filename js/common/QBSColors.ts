@@ -52,20 +52,20 @@ export default class QBSColors {
     default: Color.grayColor( 100 )
   } );
 
-  public static readonly controlPanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'controlPanelFillProperty', {
+  public static readonly panelFillProperty = new ProfileColorProperty( quantumBoundStates, 'panelFillProperty', {
     default: 'white'
   } );
 
-  public static readonly controlPanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'controlPanelStrokeProperty', {
+  public static readonly panelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'panelStrokeProperty', {
     default: 'rgb( 200, 200, 200 )'
   } );
 
   public static readonly legendFillProperty = new ProfileColorProperty( quantumBoundStates, 'legendFillProperty', {
-    default: QBSColors.controlPanelFillProperty.colorProfileMap.default
+    default: QBSColors.panelFillProperty.colorProfileMap.default
   } );
 
   public static readonly legendStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'legendStrokeProperty', {
-    default: QBSColors.controlPanelStrokeProperty.colorProfileMap.default
+    default: QBSColors.panelStrokeProperty.colorProfileMap.default
   } );
 
   public static readonly timePanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'timePanelFillProperty', {
@@ -73,7 +73,7 @@ export default class QBSColors {
   } );
 
   public static readonly timePanelStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'timePanelStrokeProperty', {
-    default: QBSColors.controlPanelStrokeProperty.colorProfileMap.default
+    default: QBSColors.panelStrokeProperty.colorProfileMap.default
   } );
 
   public static readonly toolsPanelFillProperty = new ProfileColorProperty( quantumBoundStates, 'toolsPanelFillProperty', {

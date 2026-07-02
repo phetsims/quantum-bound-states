@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionControlPanel is the control panel that is specific to the 'Superposition' screen,
+ * SuperpositionEnergyDiagramPanel is the Energy Diagram panel that is specific to the 'Superposition' screen,
  * positioned to the right of the 'Energy' diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -21,7 +21,7 @@ import QuantumPotential from '../../common/model/potentials/QuantumPotential.js'
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
-import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
+import QuantumStateGraphPanel from '../../common/view/QuantumStateGraphPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
@@ -37,7 +37,7 @@ import PresetDialog from './PresetDialog.js';
 // Space between the combo box and the button.
 const BUTTON_SPACING = 8;
 
-export class SuperpositionControlPanel extends Panel {
+export class SuperpositionEnergyDiagramPanel extends Panel {
 
   public constructor( listboxParent: Node,
                       potentialProperty: Property<QuantumPotential>,
@@ -112,8 +112,8 @@ export class SuperpositionControlPanel extends Panel {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       isDisposable: false,
-      minWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
-      maxWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
+      minWidth: QuantumStateGraphPanel.FIXED_WIDTH,
+      maxWidth: QuantumStateGraphPanel.FIXED_WIDTH,
       accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagramControls.accessibleHeadingStringProperty,
       tandem: tandem
     } );

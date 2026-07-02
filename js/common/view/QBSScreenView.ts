@@ -4,7 +4,7 @@
  * QBSScreenView is the base class for all ScreenViews in this sim.
  *
  * All ScreenViews in this sim have the same UI components and layout, with two exceptions:
- * 1. The control panel positioned to the right of the Energy diagram is specific to each screen.
+ * 1. The panel positioned to the right of the Energy diagram is specific to each screen.
  * 2. The set of available Quantum State graphs is specific to each screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -26,7 +26,7 @@ import QBSConstants from '../../common/QBSConstants.js';
 import EnergyDiagramNode, { EnergyDiagramNodeOptions } from '../../common/view/EnergyDiagramNode.js';
 import LegendPanel from '../../common/view/LegendPanel.js';
 import MagnifierNode from '../../common/view/MagnifierNode.js';
-import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
+import QuantumStateGraphPanel from './QuantumStateGraphPanel.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
 import TimePanel from '../../common/view/TimePanel.js';
 import ToolsPanel from '../../common/view/ToolsPanel.js';
@@ -58,7 +58,7 @@ export default class QBSScreenView extends ScreenView {
   protected readonly energyDiagramNode: EnergyDiagramNode;
   protected readonly energyDiagramRectangleBounds: Bounds2;
 
-  public constructor( model: QBSModel, listboxParent: Node, energyDiagramControlPanel: Panel, providedOptions: QBSScreenViewOptions ) {
+  public constructor( model: QBSModel, listboxParent: Node, energyDiagramPanel: Panel, providedOptions: QBSScreenViewOptions ) {
 
     const options = optionize<QBSScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
@@ -108,8 +108,8 @@ export default class QBSScreenView extends ScreenView {
     const toolsPanel = new ToolsPanel( model.energyDiagram.valuesVisibleProperty, model.magnifier.visibleProperty,
       model.referenceLine.visibleProperty, options.tandem.createTandem( 'toolsPanel' ) );
 
-    const quantumStateGraphControlPanel = new QuantumStateGraphControlPanel( model.selectedGraphProperty,
-      model.probabilityDensityGraph, model.waveFunctionGraph, options.tandem.createTandem( 'quantumStateGraphControlPanel' ) );
+    const quantumStateGraphPanel = new QuantumStateGraphPanel( model.selectedGraphProperty,
+      model.probabilityDensityGraph, model.waveFunctionGraph, options.tandem.createTandem( 'quantumStateGraphPanel' ) );
 
     const timePanel = new TimePanel( model.time, options.tandem.createTandem( 'timePanel' ) );
 
@@ -127,8 +127,8 @@ export default class QBSScreenView extends ScreenView {
     const energyDiagramRectangleBounds = this.globalToParentBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
     this.energyDiagramRectangleBounds = energyDiagramRectangleBounds;
 
-    // Constrain the Energy Diagram control panel to the height of the Energy diagram.
-    energyDiagramControlPanel.maxHeight = energyDiagramRectangleBounds.height;
+    // Constrain the Energy Diagram panel to the height of the Energy diagram.
+    energyDiagramPanel.maxHeight = energyDiagramRectangleBounds.height;
 
     // Quantum State Graph is below the Energy Diagram.
     quantumStateGraphNode.x = energyDiagramNode.x;
@@ -138,10 +138,10 @@ export default class QBSScreenView extends ScreenView {
     const quantumStateGraphRectangleBounds = this.globalToParentBounds( quantumStateGraphNodes[ 0 ].getChartRectangleGlobalBounds() );
 
     // Static layout
-    energyDiagramControlPanel.left = energyDiagramRectangleBounds.right + 10;
-    energyDiagramControlPanel.top = energyDiagramRectangleBounds.top;
-    quantumStateGraphControlPanel.left = quantumStateGraphRectangleBounds.right + 10;
-    quantumStateGraphControlPanel.top = quantumStateGraphRectangleBounds.top;
+    energyDiagramPanel.left = energyDiagramRectangleBounds.right + 10;
+    energyDiagramPanel.top = energyDiagramRectangleBounds.top;
+    quantumStateGraphPanel.left = quantumStateGraphRectangleBounds.right + 10;
+    quantumStateGraphPanel.top = quantumStateGraphRectangleBounds.top;
     curvesVisibleToggleButton.left = quantumStateGraphRectangleBounds.left + 8;
     curvesVisibleToggleButton.top = quantumStateGraphRectangleBounds.top + 8;
     toolsPanel.left = quantumStateGraphRectangleBounds.left;
@@ -190,8 +190,8 @@ export default class QBSScreenView extends ScreenView {
     this.screenViewRootNode = new Node( {
       children: [
         legendPanel,
-        energyDiagramControlPanel,
-        quantumStateGraphControlPanel,
+        energyDiagramPanel,
+        quantumStateGraphPanel,
         quantumStateGraphNode,
         energyDiagramNode,
         curvesVisibleToggleButton,
@@ -207,12 +207,12 @@ export default class QBSScreenView extends ScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      energyDiagramControlPanel,
+      energyDiagramPanel,
       energyDiagramNode,
       quantumStateGraphNode,
       magnifierNode,
       curvesVisibleToggleButton,
-      quantumStateGraphControlPanel,
+      quantumStateGraphPanel,
       referenceLineNode
     ];
 
@@ -230,8 +230,8 @@ export default class QBSScreenView extends ScreenView {
     if ( phet.chipper.queryParameters.dev ) {
       const configurePotentialButton = new ConfigurePotentialButton( model.potentialProperty, model.time );
       this.screenViewRootNode.addChild( configurePotentialButton );
-      configurePotentialButton.right = energyDiagramControlPanel.right;
-      configurePotentialButton.bottom = energyDiagramControlPanel.top - 5;
+      configurePotentialButton.right = energyDiagramPanel.right;
+      configurePotentialButton.bottom = energyDiagramPanel.top - 5;
     }
   }
 

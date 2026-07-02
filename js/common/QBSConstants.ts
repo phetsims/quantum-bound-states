@@ -188,8 +188,8 @@ export default class QBSConstants {
     cornerRadius: 5,
     xMargin: 8,
     yMargin: 6,
-    fill: QBSColors.controlPanelFillProperty,
-    stroke: QBSColors.controlPanelStrokeProperty,
+    fill: QBSColors.panelFillProperty,
+    stroke: QBSColors.panelStrokeProperty,
     visiblePropertyOptions: {
       phetioFeatured: true
     }

@@ -11,7 +11,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSScreenView from '../../common/view/QBSScreenView.js';
 import SuperpositionModel from '../model/SuperpositionModel.js';
 import ProbabilityDensityDetailsButton from './ProbabilityDensityDetailsButton.js';
-import { SuperpositionControlPanel } from './SuperpositionControlPanel.js';
+import { SuperpositionEnergyDiagramPanel } from './SuperpositionEnergyDiagramPanel.js';
 import SuperpositionScreenSummaryContent from './SuperpositionScreenSummaryContent.js';
 import WaveFunctionDetailsButton from './WaveFunctionDetailsButton.js';
 
@@ -21,15 +21,15 @@ export default class SuperpositionScreenView extends QBSScreenView {
 
     const listboxParent = new Node();
 
-    const energyDiagramControlPanel = new SuperpositionControlPanel(
+    const energyDiagramPanel = new SuperpositionEnergyDiagramPanel(
       listboxParent,
       model.potentialProperty,
       model.superpositionStateTypeProperty,
       model.presetSuperpositionStateProperty,
       model.customSuperpositionStateProperty,
-      tandem.createTandem( 'energyDiagramControlPanel' ) );
+      tandem.createTandem( 'energyDiagramPanel' ) );
 
-    super( model, listboxParent, energyDiagramControlPanel, {
+    super( model, listboxParent, energyDiagramPanel, {
       createProbabilityDensityDetailsButton: tandem => new ProbabilityDensityDetailsButton( tandem ),
       createWaveFunctionDetailsButton: tandem => new WaveFunctionDetailsButton( tandem ),
       hasEnergyLevelSelection: false,

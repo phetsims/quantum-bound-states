@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * ManyWellsControlPanel is the control panel that is specific to the 'Many Wells' screen,
+ * ManyWellsEnergyDiagramPanel is the Energy Diagram panel that is specific to the 'Many Wells' screen,
  * positioned to the right of the 'Energy' diagram.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -22,12 +22,12 @@ import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyLevelControl from '../../common/view/EnergyLevelControl.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
-import QuantumStateGraphControlPanel from '../../common/view/QuantumStateGraphControlPanel.js';
+import QuantumStateGraphPanel from '../../common/view/QuantumStateGraphPanel.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import ElectricFieldControl from './ElectricFieldControl.js';
 import NumberOfWellsControl from './NumberOfWellsControl.js';
 
-export class ManyWellsControlPanel extends Panel {
+export class ManyWellsEnergyDiagramPanel extends Panel {
 
   public constructor( listboxParent: Node,
                       potentialProperty: Property<QuantumPotential>,
@@ -58,8 +58,8 @@ export class ManyWellsControlPanel extends Panel {
 
     const options = combineOptions<PanelOptions>( {}, QBSConstants.PANEL_OPTIONS, {
       isDisposable: false,
-      minWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
-      maxWidth: QuantumStateGraphControlPanel.FIXED_WIDTH,
+      minWidth: QuantumStateGraphPanel.FIXED_WIDTH,
+      maxWidth: QuantumStateGraphPanel.FIXED_WIDTH,
       accessibleHeading: QuantumBoundStatesFluent.a11y.energyDiagramControls.accessibleHeadingStringProperty,
       tandem: tandem
     } );
