@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * SuperpositionDetailsButton is the button that opens the 'Superposition Details' dialog for viewing a preset
+ * SuperpositionPresetButton is the button that opens the 'Superposition Details' dialog for viewing a preset
  * superposition configuration.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,7 +17,7 @@ type SelfOptions = EmptySelfOptions;
 
 type SuperpositionInfoButtonOptions = SelfOptions & PickRequired<InfoButtonOptions, 'tandem' | 'listener'>;
 
-export default class SuperpositionDetailsButton extends InfoButton {
+export default class SuperpositionPresetButton extends InfoButton {
 
   public constructor( providedOptions: SuperpositionInfoButtonOptions ) {
 
@@ -30,9 +30,9 @@ export default class SuperpositionDetailsButton extends InfoButton {
       yMargin: 5,
       baseColor: QBSColors.superpositionDetailsButtonBaseColorProperty,
       iconFill: QBSColors.superpositionDetailsButtonIconColorProperty,
-      accessibleName: QuantumBoundStatesFluent.a11y.superpositionDetailsButton.accessibleNameStringProperty,
-      accessibleHelpText: QuantumBoundStatesFluent.a11y.superpositionDetailsButton.accessibleHelpTextStringProperty,
-      accessibleContextResponse: QuantumBoundStatesFluent.a11y.superpositionDetailsButton.accessibleContextResponseStringProperty
+      accessibleName: QuantumBoundStatesFluent.a11y.presetButton.accessibleNameStringProperty,
+      accessibleHelpText: QuantumBoundStatesFluent.a11y.presetButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: QuantumBoundStatesFluent.a11y.presetButton.accessibleContextResponseStringProperty
     }, providedOptions );
 
     super( options );

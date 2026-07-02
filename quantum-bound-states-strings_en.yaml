@@ -38,13 +38,12 @@ magnifier:                             Magnifier
 referenceLine:                         Reference Line
 
 # ComboBoxes
-superposition:                         Superposition
+superpositionState:                    Superposition State
 
 # Dialogs
 probabilityDensityDialogTitle:         Probability Density
 waveFunctionDialogTitle:               Wave Function
-superpositionDetailsDialogTitle:       Superposition Details
-superpositionCustomizationDialogTitle: Superposition Customization
+superpositionStateDialogTitle:         'Superposition State: {{label}}'
 
 # Handles
 widthPattern:                          'width = {{value}} nm'
@@ -517,14 +516,14 @@ a11y:
     accessibleHelpText:        Open the full equation for the wave function of the selected state.
     accessibleContextResponse: Wave Function equation shown.
 
-  superpositionCustomizationButton:
+  customButton:
     accessibleName:            Superposition Customization
     accessibleHelpText:        Open the Customize Superposition dialog to set the magnitude and phase of each energy level.
     accessibleContextResponse: Superposition Customization dialog opened.
 
-  superpositionDetailsButton:
-    accessibleName:            Superposition Details
-    accessibleHelpText:        Open the full equation and coefficient list for the current superposition state.
+  presetButton:
+    accessibleName:            Superposition Preset Details
+    accessibleHelpText:        Open the full equation and coefficient list for selected superposition preset.
     accessibleContextResponse: Superposition Details dialog opened.
 
   #=======================================================================================================

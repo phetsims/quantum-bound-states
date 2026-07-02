@@ -73,8 +73,8 @@
   "referenceLine": {
     "value": "Reference Line"
   },
-  "superposition": {
-    "value": "Superposition"
+  "superpositionState": {
+    "value": "Superposition State"
   },
   "probabilityDensityDialogTitle": {
     "value": "Probability Density"
@@ -82,11 +82,8 @@
   "waveFunctionDialogTitle": {
     "value": "Wave Function"
   },
-  "superpositionDetailsDialogTitle": {
-    "value": "Superposition Details"
-  },
-  "superpositionCustomizationDialogTitle": {
-    "value": "Superposition Customization"
+  "superpositionStateDialogTitle": {
+    "value": "Superposition State: {{label}}"
   },
   "widthPattern": {
     "value": "width = {{value}} nm"
@@ -819,7 +816,7 @@
         "value": "Wave Function equation shown."
       }
     },
-    "superpositionCustomizationButton": {
+    "customButton": {
       "accessibleName": {
         "value": "Superposition Customization"
       },
@@ -830,12 +827,12 @@
         "value": "Superposition Customization dialog opened."
       }
     },
-    "superpositionDetailsButton": {
+    "presetButton": {
       "accessibleName": {
-        "value": "Superposition Details"
+        "value": "Superposition Preset Details"
       },
       "accessibleHelpText": {
-        "value": "Open the full equation and coefficient list for the current superposition state."
+        "value": "Open the full equation and coefficient list for selected superposition preset."
       },
       "accessibleContextResponse": {
         "value": "Superposition Details dialog opened."

@@ -52,11 +52,9 @@ addToMapIfDefined( 'magnitude', 'magnitudeStringProperty' );
 addToMapIfDefined( 'phase', 'phaseStringProperty' );
 addToMapIfDefined( 'magnifier', 'magnifierStringProperty' );
 addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
-addToMapIfDefined( 'superposition', 'superpositionStringProperty' );
+addToMapIfDefined( 'superpositionState', 'superpositionStateStringProperty' );
 addToMapIfDefined( 'probabilityDensityDialogTitle', 'probabilityDensityDialogTitleStringProperty' );
 addToMapIfDefined( 'waveFunctionDialogTitle', 'waveFunctionDialogTitleStringProperty' );
-addToMapIfDefined( 'superpositionDetailsDialogTitle', 'superpositionDetailsDialogTitleStringProperty' );
-addToMapIfDefined( 'superpositionCustomizationDialogTitle', 'superpositionCustomizationDialogTitleStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
 addToMapIfDefined( 'numberOfWells', 'numberOfWellsStringProperty' );
 addToMapIfDefined( 'electricField', 'electricFieldStringProperty' );
@@ -237,12 +235,12 @@ addToMapIfDefined( 'a11y_probabilityDensityDetailsButton_accessibleContextRespon
 addToMapIfDefined( 'a11y_waveFunctionDetailsButton_accessibleName', 'a11y.waveFunctionDetailsButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionDetailsButton_accessibleHelpText', 'a11y.waveFunctionDetailsButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionDetailsButton_accessibleContextResponse', 'a11y.waveFunctionDetailsButton.accessibleContextResponseStringProperty' );
-addToMapIfDefined( 'a11y_superpositionCustomizationButton_accessibleName', 'a11y.superpositionCustomizationButton.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_superpositionCustomizationButton_accessibleHelpText', 'a11y.superpositionCustomizationButton.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_superpositionCustomizationButton_accessibleContextResponse', 'a11y.superpositionCustomizationButton.accessibleContextResponseStringProperty' );
-addToMapIfDefined( 'a11y_superpositionDetailsButton_accessibleName', 'a11y.superpositionDetailsButton.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_superpositionDetailsButton_accessibleHelpText', 'a11y.superpositionDetailsButton.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_superpositionDetailsButton_accessibleContextResponse', 'a11y.superpositionDetailsButton.accessibleContextResponseStringProperty' );
+addToMapIfDefined( 'a11y_customButton_accessibleName', 'a11y.customButton.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_customButton_accessibleHelpText', 'a11y.customButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_customButton_accessibleContextResponse', 'a11y.customButton.accessibleContextResponseStringProperty' );
+addToMapIfDefined( 'a11y_presetButton_accessibleName', 'a11y.presetButton.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_presetButton_accessibleHelpText', 'a11y.presetButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_presetButton_accessibleContextResponse', 'a11y.presetButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleName', 'a11y.quantumStateGraphRadioButtonGroup.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_quantumStateGraphRadioButtonGroup_accessibleHelpText', 'a11y.quantumStateGraphRadioButtonGroup.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_timeSpeedSlider_accessibleName', 'a11y.timeSpeedSlider.accessibleNameStringProperty' );
@@ -312,7 +310,6 @@ const QuantumBoundStatesFluent = {
   screen: {
     _comment_0: new FluentComment( {"comment":"Screen Names","associatedKey":"screen.oneWell"} ),
     oneWellStringProperty: _.get( QuantumBoundStatesStrings, 'screen.oneWellStringProperty' ),
-    _comment_1: new FluentComment( {"comment":"ComboBoxes","associatedKey":"superposition"} ),
     superpositionStringProperty: _.get( QuantumBoundStatesStrings, 'screen.superpositionStringProperty' ),
     twoWellsStringProperty: _.get( QuantumBoundStatesStrings, 'screen.twoWellsStringProperty' ),
     manyWellsStringProperty: _.get( QuantumBoundStatesStrings, 'screen.manyWellsStringProperty' )
@@ -351,13 +348,12 @@ const QuantumBoundStatesFluent = {
   _comment_12: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"magnifier"} ),
   magnifierStringProperty: _.get( QuantumBoundStatesStrings, 'magnifierStringProperty' ),
   referenceLineStringProperty: _.get( QuantumBoundStatesStrings, 'referenceLineStringProperty' ),
-  _comment_13: new FluentComment( {"comment":"ComboBoxes","associatedKey":"superposition"} ),
-  superpositionStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionStringProperty' ),
+  _comment_13: new FluentComment( {"comment":"ComboBoxes","associatedKey":"superpositionState"} ),
+  superpositionStateStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionStateStringProperty' ),
   _comment_14: new FluentComment( {"comment":"Dialogs","associatedKey":"probabilityDensityDialogTitle"} ),
   probabilityDensityDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityDialogTitleStringProperty' ),
   waveFunctionDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionDialogTitleStringProperty' ),
-  superpositionDetailsDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionDetailsDialogTitleStringProperty' ),
-  superpositionCustomizationDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionCustomizationDialogTitleStringProperty' ),
+  superpositionStateDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionStateDialogTitleStringProperty' ),
   _comment_15: new FluentComment( {"comment":"Handles","associatedKey":"widthPattern"} ),
   widthPatternStringProperty: _.get( QuantumBoundStatesStrings, 'widthPatternStringProperty' ),
   depthPatternStringProperty: _.get( QuantumBoundStatesStrings, 'depthPatternStringProperty' ),
@@ -770,15 +766,15 @@ const QuantumBoundStatesFluent = {
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsButton.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsButton.accessibleContextResponseStringProperty' ) )
     },
-    superpositionCustomizationButton: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomizationButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomizationButton.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomizationButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomizationButton.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionCustomizationButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionCustomizationButton.accessibleContextResponseStringProperty' ) )
+    customButton: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_customButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.customButton.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_customButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.customButton.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_customButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.customButton.accessibleContextResponseStringProperty' ) )
     },
-    superpositionDetailsButton: {
-      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsButton.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsButton.accessibleHelpTextStringProperty' ) ),
-      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_superpositionDetailsButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.superpositionDetailsButton.accessibleContextResponseStringProperty' ) )
+    presetButton: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetButton_accessibleName', _.get( QuantumBoundStatesStrings, 'a11y.presetButton.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetButton_accessibleHelpText', _.get( QuantumBoundStatesStrings, 'a11y.presetButton.accessibleHelpTextStringProperty' ) ),
+      accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetButton_accessibleContextResponse', _.get( QuantumBoundStatesStrings, 'a11y.presetButton.accessibleContextResponseStringProperty' ) )
     },
     _comment_28: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"quantumStateGraphRadioButtonGroup"} ),
     _comment_29: new FluentComment( {"comment":"Radio Buttons","associatedKey":"quantumStateGraphRadioButtonGroup"} ),

@@ -28,10 +28,10 @@ import PresetSuperpositionConfiguration from '../model/PresetSuperpositionConfig
 import { SuperpositionConfigurationType } from '../model/SuperpositionConfigurationType.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
 import SuperpositionCustomComboBox from './SuperpositionCustomComboBox.js';
-import SuperpositionCustomizationButton from './SuperpositionCustomizationButton.js';
-import SuperpositionCustomizationDialog from './SuperpositionCustomizationDialog.js';
-import SuperpositionDetailsButton from './SuperpositionDetailsButton.js';
-import SuperpositionDetailsDialog from './SuperpositionDetailsDialog.js';
+import SuperpositionCustomButton from './SuperpositionCustomButton.js';
+import SuperpositionCustomDialog from './SuperpositionCustomDialog.js';
+import SuperpositionPresetButton from './SuperpositionPresetButton.js';
+import SuperpositionPresetDialog from './SuperpositionPresetDialog.js';
 import SuperpositionPresetComboBox from './SuperpositionPresetComboBox.js';
 
 // Space between the combo box and the button.
@@ -54,7 +54,7 @@ export class SuperpositionControlPanel extends Panel {
       visiblePropertyOptions: { phetioFeatured: true }
     } );
 
-    const subtitleText = new Text( QuantumBoundStatesFluent.superpositionStringProperty, {
+    const subtitleText = new Text( QuantumBoundStatesFluent.superpositionStateStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
       phetioVisiblePropertyInstrumented: true,
@@ -71,28 +71,32 @@ export class SuperpositionControlPanel extends Panel {
     const presetComboBox = new SuperpositionPresetComboBox( superpositionPresetProperty, listboxParent,
       comboBoxItemAlignGroup, tandem.createTandem( 'superpositionPresetComboBox' ) );
 
-    const superpositionDetailsButton = new SuperpositionDetailsButton( {
-      listener: () => new SuperpositionDetailsDialog().show(),
-      tandem: tandem.createTandem( 'superpositionDetailsButton' )
+    const presetDialog = new SuperpositionPresetDialog( superpositionPresetProperty );
+
+    const presetButton = new SuperpositionPresetButton( {
+      listener: () => presetDialog.show(),
+      tandem: tandem.createTandem( 'presetButton' )
     } );
 
     const presetHBox = new HBox( {
       spacing: BUTTON_SPACING,
-      children: [ presetComboBox, buttonAlignGroup.createBox( superpositionDetailsButton ) ],
+      children: [ presetComboBox, buttonAlignGroup.createBox( presetButton ) ],
       visibleProperty: superpositionConfigurationTypeProperty.derived( type => type === 'preset' )
     } );
 
     const customComboBox = new SuperpositionCustomComboBox( superpositionCustomProperty, listboxParent,
       comboBoxItemAlignGroup, tandem.createTandem( 'customComboBox' ) );
 
-    const superpositionCustomizationButton = new SuperpositionCustomizationButton( {
-      listener: () => new SuperpositionCustomizationDialog().show(),
-      tandem: tandem.createTandem( 'superpositionCustomizationButton' )
+    const customDialog = new SuperpositionCustomDialog( superpositionCustomProperty );
+
+    const customButton = new SuperpositionCustomButton( {
+      listener: () => customDialog.show(),
+      tandem: tandem.createTandem( 'customButton' )
     } );
 
     const customHBox = new HBox( {
       spacing: BUTTON_SPACING,
-      children: [ customComboBox, buttonAlignGroup.createBox( superpositionCustomizationButton ) ],
+      children: [ customComboBox, buttonAlignGroup.createBox( customButton ) ],
       visibleProperty: superpositionConfigurationTypeProperty.derived( type => type === 'custom' )
     } );
 

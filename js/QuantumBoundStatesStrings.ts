@@ -42,11 +42,10 @@ type StringsType = {
   'phaseStringProperty': LocalizedStringProperty;
   'magnifierStringProperty': LocalizedStringProperty;
   'referenceLineStringProperty': LocalizedStringProperty;
-  'superpositionStringProperty': LocalizedStringProperty;
+  'superpositionStateStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
-  'superpositionDetailsDialogTitleStringProperty': LocalizedStringProperty;
-  'superpositionCustomizationDialogTitleStringProperty': LocalizedStringProperty;
+  'superpositionStateDialogTitleStringProperty': LocalizedStringProperty;
   'widthPatternStringProperty': LocalizedStringProperty;
   'depthPatternStringProperty': LocalizedStringProperty;
   'stepHeightPatternStringProperty': LocalizedStringProperty;
@@ -402,12 +401,12 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
-    'superpositionCustomizationButton': {
+    'customButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
-    'superpositionDetailsButton': {
+    'presetButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
