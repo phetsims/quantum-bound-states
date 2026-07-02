@@ -23,11 +23,14 @@ type SuperpositionCoefficientStateObject = StateObject<typeof STATE_SCHEMA>;
 
 export default class SuperpositionCoefficient {
 
+  public readonly magnitude: number;
+  public readonly phaseMultiplier: number;
+
   public static readonly MAGNITUDE_RANGE = new Range( 0, 1 );
   public static readonly PHASE_MULTIPLIER_RANGE = new Range( 0, 2 );
 
-  public readonly magnitude: number;
-  public readonly phaseMultiplier: number;
+  public static readonly ZERO_COEFFICIENT = new SuperpositionCoefficient( 0, 0 );
+  public static readonly GROUND_STATE_COEFFICIENT = new SuperpositionCoefficient( 1, 0 );
 
   public constructor( magnitude: number, phaseMultiplier: number ) {
     affirm( SuperpositionCoefficient.MAGNITUDE_RANGE.contains( magnitude ), `invalid magnitude: ${magnitude}` );
@@ -39,6 +42,10 @@ export default class SuperpositionCoefficient {
 
   public get phase(): number {
     return this.phaseMultiplier * Math.PI;
+  }
+
+  public clone(): SuperpositionCoefficient {
+    return new SuperpositionCoefficient( this.magnitude, this.phaseMultiplier );
   }
 
   /**
@@ -59,9 +66,7 @@ export default class SuperpositionCoefficient {
   }
 
   /**
-   * SuperpositionCoefficientIO implements PhET-iO serialization for SuperpositionCoefficient instances.
-   * It implements data-type serialization as described in the Serialization section of
-   * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
+   * SuperpositionCoefficientIO implements data-type serialization for SuperpositionCoefficient instances.
    */
   public static readonly SuperpositionCoefficientIO =
     new IOType<SuperpositionCoefficient, SuperpositionCoefficientStateObject>( 'SuperpositionCoefficientIO', {

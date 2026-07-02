@@ -32,6 +32,7 @@ import QuantumStateGraph from './QuantumStateGraph.js';
 import ReferenceLine from './ReferenceLine.js';
 import BoundStateResult from './solvers/BoundStateResult.js';
 import XGrid from './solvers/XGrid.js';
+import SuperpositionCoefficients from './SuperpositionCoefficients.js';
 import { TimeEvolvedSuperposition, TimeEvolvedSuperpositionIO } from './TimeEvolvedSuperposition.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
@@ -64,6 +65,8 @@ export default class QBSModel implements TModel {
   public readonly electronMassesProperty: NumberProperty;
   public readonly electricFieldProperty: NumberProperty;
 
+  public readonly superpositionCoefficientsProperty: Property<SuperpositionCoefficients>;
+
   // Result for configuration of the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
 
@@ -71,7 +74,14 @@ export default class QBSModel implements TModel {
   public readonly xGrid: XGrid;
 
   // Index (aka quantum number) of the selected energy level
+  //TODO This is irrelevant for Superposition screen.
   public readonly selectedEnergyLevelIndexProperty: NumberProperty;
+
+  // Number of nodes in the Probability Density curve. This is equal to the 1-based index into BoundStateResult.energies
+  // that corresponds to selectedEnergyLevelIndexProperty, and therefore corresponds to what is displayed in the
+  // Probability Density graph.
+  //TODO This is irrelevant for Superposition screen.
+  public readonly numberOfNodesProperty: TReadOnlyProperty<number>;
 
   // Index (aka quantum number) of the highlighted energy level. null if there is no energy level highlighted.
   public readonly highlightedEnergyLevelIndexProperty: Property<number | null>;
@@ -91,11 +101,6 @@ export default class QBSModel implements TModel {
 
   // y-axis values for plotting components of the time-dependent wave function
   public readonly timeEvolvedSuperpositionProperty: TReadOnlyProperty<TimeEvolvedSuperposition>;
-
-  // Number of nodes in the Probability Density curve. This is equal to the 1-based index into BoundStateResult.energies
-  // that corresponds to selectedEnergyLevelIndexProperty, and therefore corresponds to what is displayed in the
-  // Probability Density graph.
-  public readonly numberOfNodesProperty: TReadOnlyProperty<number>;
 
   public readonly magnifier: Magnifier;
   public readonly referenceLine: ReferenceLine;
@@ -137,6 +142,8 @@ export default class QBSModel implements TModel {
       phetioReadOnly: true,
       phetioDocumentation: 'Bound state information for the selected quantum potential. See BoundStateResultIO for details.'
     } );
+
+    this.superpositionCoefficientsProperty = new Property( new SuperpositionCoefficients() );
 
     this.energyDiagram = new EnergyDiagram( this, options.tandem.createTandem( 'energyDiagram' ) );
 
@@ -258,6 +265,7 @@ export default class QBSModel implements TModel {
     this.electricFieldProperty.reset();
     this.potentialProperty.reset();
     this.potentials.forEach( potential => potential.reset() );
+    this.superpositionCoefficientsProperty.reset(); //TODO Should this be reset?
     this.selectedEnergyLevelIndexProperty.reset();
     this.highlightedEnergyLevelIndexProperty.reset();
     this.energyDiagram.reset();
@@ -458,7 +466,7 @@ function solveBoundState( potential: QuantumPotential, xGrid: XGrid ): BoundStat
 
   // If the result was invalid, apply a workaround so that the sim does not crash in the built version.
   // This is necessary because the sim has a large number of parameters and (even with unit tests) there
-  // may be some configuration that yields an invalid result.
+  // may be configurations that yield an invalid result.
   if ( result.energies.length === 0 || result.waveFunctions.length === 0 ) {
     console.warn( `Invalid BoundStateResult for ${potential.toString()}` );
     result = new BoundStateResult( {

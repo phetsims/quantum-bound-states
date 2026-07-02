@@ -1,6 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO This is a temporary implementation of superposition coefficients that does not address phase.
+//TODO Lots of stuff here probably needs to change or be deleted.
 /**
  * SuperpositionCoefficients is a port of BSSuperpositionCoefficients.java.
  * It models the set of superposition coefficients that define the contribution of eigenstates to a quantum potential's
@@ -11,39 +11,53 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import affirm, { affirmCallback, isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import SuperpositionCoefficient from './SuperpositionCoefficient.js';
 
 export default class SuperpositionCoefficients {
 
-  private coefficients: number[];
+  private coefficients: SuperpositionCoefficient[];
+
   public readonly valuesChangedEmitter: Emitter;
   public readonly numberOfCoefficientsChangedEmitter: Emitter;
 
-  public constructor( coefficients?: number[] ) {
-    this.coefficients = coefficients || [ 1 ];
+  //TODO Should an initial value for this.coefficients be computed and passed in?
+  //TODO Should the number of coefficients always match BoundStateResult.energies.length or are zeros implied?
+  public constructor() {
+    this.coefficients = [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ];
     this.valuesChangedEmitter = new Emitter();
     this.numberOfCoefficientsChangedEmitter = new Emitter();
   }
 
   /**
-   * Sets all coefficients to zero and notifies observers.
+   * Resets to the state at which this object was constructed.
    */
-  public clear(): void {
-    this.coefficients.fill( 0 );
+  public reset(): void {
+    const previousNumberOfCoefficients = this.coefficients.length;
+    this.coefficients = [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ];
     this.valuesChangedEmitter.emit();
+    if ( previousNumberOfCoefficients !== this.coefficients.length ) {
+      this.numberOfCoefficientsChangedEmitter.emit();
+    }
   }
 
   /**
-   * Copies the coefficients from another set of coefficients. If the other set has fewer coefficients than this set,
-   * then the extra coefficients are set to zero.
+   * Gets the coefficients.
    */
-  public apply( superpositionCoefficients: SuperpositionCoefficients ): void {
-    affirmCallback( () => superpositionCoefficients.coefficients.length <= this.coefficients.length,
-      'too many coefficients: ' + superpositionCoefficients.coefficients.length + ', max: ' + this.coefficients.length + '' );
-    this.coefficients.fill( 0 );
-    superpositionCoefficients.coefficients.forEach( ( coefficient, index ) => {
-      this.coefficients[ index ] = coefficient;
-    } );
+  public getCoefficients(): readonly SuperpositionCoefficient[] {
+    return this.coefficients;
+  }
+
+  /**
+   * Sets the coefficients.
+   */
+  public setCoefficients( coefficients: SuperpositionCoefficient[] ): void {
+    affirm( coefficients.length > 0, 'coefficients.length must be > 0: ' + coefficients.length );
+    const previousNumberOfCoefficients = coefficients.length;
+    this.coefficients = coefficients;
     this.valuesChangedEmitter.emit();
+    if ( previousNumberOfCoefficients !== this.coefficients.length ) {
+      this.numberOfCoefficientsChangedEmitter.emit();
+    }
   }
 
   /**
@@ -55,41 +69,10 @@ export default class SuperpositionCoefficients {
     affirmCallback( () => sumOfSquares !== 0, 'sumOfSquares must be > zero to normalized' );
     for ( let i = 0; i < this.coefficients.length; i++ ) {
       const coefficient = this.coefficients[ i ];
-      this.coefficients[ i ] = Math.sqrt( ( coefficient * coefficient ) / sumOfSquares );
+      const normalizedMagnitude = Math.sqrt( ( coefficient.magnitude * coefficient.magnitude ) / sumOfSquares );
+      this.coefficients[ i ] = new SuperpositionCoefficient( normalizedMagnitude, coefficient.phase );
     }
     affirmCallback( () => this.isNormalized(), 'expected to be normalized' );
-    this.valuesChangedEmitter.emit();
-  }
-
-  /**
-   * Gets a defensive copy of the coefficient values.
-   */
-  public getCoefficientsCopy(): number[] {
-    const coefficients = new Array( this.coefficients.length );
-    this.coefficients.forEach( ( coefficient, index ) => {
-      coefficients[ index ] = coefficient;
-    } );
-    affirm( coefficients.length === this.coefficients.length, 'coefficients.length is incorrect: ' + coefficients.length );
-    return coefficients;
-  }
-
-  /**
-   * Sets the coefficient values.
-   */
-  public setCoefficients( coefficients: number[] ): void {
-    affirm( coefficients.length > 0, 'coefficients.length must be > 0: ' + coefficients.length );
-
-    const previousNumberOfCoefficients = coefficients.length;
-
-    this.coefficients = new Array( coefficients.length );
-    coefficients.forEach( ( coefficient, index ) => {
-      this.coefficients[ index ] = coefficient;
-    } );
-    affirm( this.coefficients.length === coefficients.length, 'this.coefficients.length is incorrect: ' + this.coefficients.length );
-
-    if ( previousNumberOfCoefficients !== this.coefficients.length ) {
-      this.numberOfCoefficientsChangedEmitter.emit();
-    }
     this.valuesChangedEmitter.emit();
   }
 
@@ -112,7 +95,6 @@ export default class SuperpositionCoefficients {
     }
 
     const previousNumberOfCoefficients = this.coefficients.length;
-    let numberOfCoefficientsChanged = false;
     let valuesChanged = false;
 
     if ( numberOfCoefficients === previousNumberOfCoefficients ) {
@@ -121,24 +103,21 @@ export default class SuperpositionCoefficients {
     else {
       if ( numberOfCoefficients === 0 ) {
         this.coefficients = [];
-        numberOfCoefficientsChanged = true;
         valuesChanged = true;
       }
       else if ( previousNumberOfCoefficients === 0 ) {
 
         // If we have no coefficients yet, then set the first coefficient to 1 and all the others to 0.
-        this.coefficients = new Array( numberOfCoefficients ).fill( 0 );
-        this.coefficients[ 0 ] = 1;
-        numberOfCoefficientsChanged = true;
+        this.coefficients = new Array( numberOfCoefficients ).fill( SuperpositionCoefficient.ZERO_COEFFICIENT );
+        this.coefficients[ 0 ] = SuperpositionCoefficient.GROUND_STATE_COEFFICIENT;
         valuesChanged = true;
       }
       else if ( numberOfCoefficients > previousNumberOfCoefficients ) {
 
         // If the number of eigenstates is increasing, add new ones with zero values.
         for ( let i = previousNumberOfCoefficients; i < numberOfCoefficients; i++ ) {
-          this.coefficients.push( 0 );
+          this.coefficients.push( SuperpositionCoefficient.ZERO_COEFFICIENT );
         }
-        numberOfCoefficientsChanged = true;
         valuesChanged = false;
       }
       else {
@@ -149,7 +128,8 @@ export default class SuperpositionCoefficients {
         let needToNormalize = false;
         for ( let i = previousNumberOfCoefficients - 1; i >= numberOfCoefficients; i-- ) {
           const coefficient = this.coefficients.pop();
-          if ( coefficient !== 0 ) {
+          affirm( coefficient !== undefined, 'coefficient is undefined' );
+          if ( coefficient.magnitude !== 0 ) {
             needToNormalize = true;
           }
         }
@@ -157,7 +137,7 @@ export default class SuperpositionCoefficients {
         if ( needToNormalize ) {
           if ( this.getSum() === 0 ) {
             if ( numberOfCoefficients > 0 ) {
-              this.coefficients[ 0 ] = 1;
+              this.coefficients[ 0 ] = SuperpositionCoefficient.GROUND_STATE_COEFFICIENT;
             }
           }
           else {
@@ -165,15 +145,15 @@ export default class SuperpositionCoefficients {
           }
         }
 
-        numberOfCoefficientsChanged = true;
         valuesChanged = needToNormalize;
       }
 
-      if ( numberOfCoefficientsChanged ) {
-        this.numberOfCoefficientsChangedEmitter.emit();
-      }
       if ( valuesChanged ) {
         this.valuesChangedEmitter.emit();
+      }
+
+      if ( previousNumberOfCoefficients !== this.coefficients.length ) {
+        this.numberOfCoefficientsChangedEmitter.emit();
       }
     }
     affirm( this.coefficients.length === numberOfCoefficients, 'coefficients.length is incorrect: ' + this.coefficients.length );
@@ -187,12 +167,12 @@ export default class SuperpositionCoefficients {
   }
 
   /**
-   * Gets the number of non-zero coefficients, possibly zero.
+   * Gets the number of coefficients with non-zero magnitude, possibly zero.
    */
   public getNumberOfNonZeroCoefficients(): number {
     let count = 0;
     this.coefficients.forEach( coefficient => {
-      if ( coefficient !== 0 ) {
+      if ( coefficient.magnitude !== 0 ) {
         count++;
       }
     } );
@@ -202,7 +182,7 @@ export default class SuperpositionCoefficients {
   /**
    * Gets the value of a specific coefficient.
    */
-  public getCoefficient( index: number ): number {
+  public getCoefficient( index: number ): SuperpositionCoefficient {
     if ( isAffirmEnabled() ) {
       affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
       affirm( index >= 0 && index <= this.coefficients.length - 1, 'index is out of bounds: ' + index );
@@ -213,39 +193,45 @@ export default class SuperpositionCoefficients {
   /**
    * Sets the value of a specific coefficient and notifies observers.
    */
-  public setCoefficient( index: number, coefficient: number ): void {
+  public setCoefficient( index: number, coefficient: SuperpositionCoefficient ): void {
     if ( isAffirmEnabled() ) {
       affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
       affirm( index >= 0 && index <= this.coefficients.length - 1, 'index is out of bounds: ' + index );
-      affirm( coefficient >= 0 && coefficient <= 1, 'coefficient must be between 0 and 1: ' + coefficient );
     }
     this.coefficients[ index ] = coefficient;
     this.valuesChangedEmitter.emit();
   }
 
   /**
-   * Sets a specific coefficient to 1, sets all others to zero, and notifies observers.
+   * Sets a specific coefficient to GROUND_STATE_COEFFICIENT, sets all others to ZERO_COEFFICIENT, and notifies observers.
    * If numberOfCoefficients is provided, then the number of coefficients is also adjusted to match.
    */
   public setOneCoefficient( index: number, numberOfCoefficients?: number ): void {
-    isAffirmEnabled() && affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
+    affirm( Number.isInteger( index ), 'index must be an integer: ' + index );
+
     const previousNumberOfCoefficients = this.coefficients.length;
+
+    // Adjust the number of coefficients if necessary.
     if ( numberOfCoefficients !== undefined && numberOfCoefficients !== this.coefficients.length ) {
-      this.coefficients = new Array( numberOfCoefficients ).fill( 0 );
+      affirm( Number.isInteger( numberOfCoefficients ) && numberOfCoefficients > 1,
+        'numberOfCoefficients must be an integer > 0: ' + numberOfCoefficients );
+      this.coefficients = new Array( numberOfCoefficients ).fill( SuperpositionCoefficient.ZERO_COEFFICIENT );
     }
     else {
-      this.coefficients.fill( 0 );
+      this.coefficients.fill( SuperpositionCoefficient.ZERO_COEFFICIENT );
     }
     affirm( index >= 0 && index <= this.coefficients.length - 1, 'index is out of bounds: ' + index );
-    this.coefficients[ index ] = 1;
+
+    this.coefficients[ index ] = SuperpositionCoefficient.GROUND_STATE_COEFFICIENT;
+    this.valuesChangedEmitter.emit();
+
     if ( previousNumberOfCoefficients !== this.coefficients.length ) {
       this.numberOfCoefficientsChangedEmitter.emit();
     }
-    this.valuesChangedEmitter.emit();
   }
 
   /**
-   * Determines whether the set of coefficients is normalized.
+   * Determines whether the set of coefficients has normalized magnitudes.
    * Normalized means that c1^2 + c2^2 + ... + cn^2 = 1.
    *
    * Allows you to specify how close is good enough to be considered normalized, which is useful when the view only
@@ -259,32 +245,31 @@ export default class SuperpositionCoefficients {
       return false;
     }
     else {
-      const difference = Math.abs( 1 - sumOfSquares );
-      return ( difference <= normalizationError );
+      return ( Math.abs( 1 - sumOfSquares ) <= normalizationError );
     }
   }
 
   /**
-   * Gets the sum of all coefficients.
+   * Gets the sum of all coefficient magnitudes.
    */
   public getSum(): number {
-    let total = 0;
+    let sum = 0;
     this.coefficients.forEach( coefficient => {
-      total += coefficient;
+      sum += coefficient.magnitude;
     } );
-    return total;
+    return sum;
   }
 
   /*
-   * Gets the sum of squares of all coefficients.
+   * Gets the sum of squares of all coefficient magnitudes.
    * (c1^2 + c2^2 + ... + cn^2).
    */
   private getSumOfSquares(): number {
-    let total = 0;
+    let sum = 0;
     this.coefficients.forEach( coefficient => {
-      total += ( coefficient * coefficient );
+      sum += ( coefficient.magnitude * coefficient.magnitude );
     } );
-    return total;
+    return sum;
   }
 
   /**
@@ -296,13 +281,13 @@ export default class SuperpositionCoefficients {
   }
 
   /**
-   * Gets the index of the lowest non-zero coefficient.
-   * Returns -1 if there are no non-zero coefficients.
+   * Gets the index of the lowest coefficient with non-zero magnitude.
+   * Returns -1 if there are no coefficients with non-zero magnitude.
    */
   public getLowestNonZeroCoefficientIndex(): number {
     let index = -1;
     for ( let i = 0; i < this.coefficients.length; i++ ) {
-      if ( this.coefficients[ i ] !== 0 ) {
+      if ( this.coefficients[ i ].magnitude !== 0 ) {
         index = i;
         break;
       }
