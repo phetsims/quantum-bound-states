@@ -123,7 +123,7 @@ export default class QBSScreenView extends ScreenView {
 
     // Layout is relative to the Energy diagram.
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
-    energyDiagramNode.top = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + legendPanel.height + 3;
+    energyDiagramNode.y = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + legendPanel.height + 3;
     const energyDiagramRectangleBounds = this.globalToParentBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
     this.energyDiagramRectangleBounds = energyDiagramRectangleBounds;
 
