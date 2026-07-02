@@ -33,17 +33,26 @@ export default class WellDepthDragListener extends PotentialDragListener<Quantum
       keyboardDragDelta: QBSConstants.DEPTH_KEYBOARD_DRAG_DELTA, // eV
       keyboardShiftDragDelta: QBSConstants.DEPTH_KEYBOARD_SHIFT_DRAG_DELTA, // eV
       updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
-        const multiplier = ( potential.depthDirection === 'up' ) ? 1 : -1;
         let wellDepth;
         if ( isFromPDOM ) {
           const modelDelta = chartTransform.viewToModelDelta( viewDelta );
-          wellDepth = wellDepthProperty.value + ( multiplier * modelDelta.y );
+          if ( potential.depthDirection === 'up' ) {
+            wellDepth = wellDepthProperty.value + modelDelta.y;
+          }
+          else {
+            wellDepth = wellDepthProperty.value - modelDelta.y;
+          }
         }
         else {
           const modelPosition = chartTransform.viewToModelPosition( viewPosition );
           const xModel = chartTransform.viewToModelX( handleNode.x );
           const electricFieldOffset = potential.getElectricFieldOffset( xModel );
-          wellDepth = ( multiplier * ( modelPosition.y - electricFieldOffset ) ) - potential.yOffsetProperty.value;
+          if ( potential.depthDirection === 'up' ) {
+            wellDepth = modelPosition.y - ( potential.yOffsetProperty.value + electricFieldOffset );
+          }
+          else {
+            wellDepth = ( potential.yOffsetProperty.value + electricFieldOffset ) - modelPosition.y;
+          }
         }
         wellDepthProperty.value = wellDepthProperty.range.constrainValue( toFixedNumber( wellDepth, QBSConstants.WELL_DEPTH_DECIMAL_PLACES ) );
       }
