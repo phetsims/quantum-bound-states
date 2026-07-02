@@ -27,7 +27,10 @@ export default class PresetSuperpositionState extends SuperpositionState {
     super( superpositionCoefficients, providedOptions );
   }
 
-  public static createPresets( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState[] {
+  /**
+   * Creates the complete set of preset superposition states.
+   */
+  public static createStates( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState[] {
     return [
       PresetSuperpositionState.createPreset1( groundStateIndexProperty, parentTandem ),
       PresetSuperpositionState.createPreset2( groundStateIndexProperty, parentTandem ),

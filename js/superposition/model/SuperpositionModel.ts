@@ -20,7 +20,6 @@ import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquar
 import MorsePotential from '../../common/model/potentials/MorsePotential.js';
 import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState from './CustomSuperpositionState.js';
 import PresetSuperpositionState from './PresetSuperpositionState.js';
 import SuperpositionState from './SuperpositionState.js';
@@ -113,47 +112,19 @@ export default class SuperpositionModel extends QBSModel {
       tandem: tandem
     } );
 
-    // Group all superposition states under a parent tandem.
-    const superpositionStatesTandem = tandem.createTandem( 'superpositionStates' );
-
     this.superpositionStateTypeProperty = new StringUnionProperty( 'preset', {
       validValues: SuperpositionStateTypeValues,
-      tandem: superpositionStatesTandem.createTandem( 'superpositionStateTypeProperty' ),
+      tandem: tandem.createTandem( 'superpositionStateTypeProperty' ),
       phetioFeatured: true
     } );
 
     const groundStateIndexProperty = this.potentialProperty.derived( potential => potential.groundStateIndex );
 
-    const presetSuperpositionStates = PresetSuperpositionState.createPresets( groundStateIndexProperty,
+    // Group all superposition states under a parent tandem.
+    const superpositionStatesTandem = tandem.createTandem( 'superpositionStates' );
+
+    const presetSuperpositionStates = PresetSuperpositionState.createStates( groundStateIndexProperty,
       superpositionStatesTandem.createTandem( 'presets' ) );
-
-    // Group all custom superposition states under a parent tandem.
-    const customTandem = superpositionStatesTandem.createTandem( 'custom' );
-
-    //TODO Make this mess go away.
-    let customIndex = 1;
-    const customSuperpositionStates: CustomSuperpositionState[] = [
-      new CustomSuperpositionState( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom1StringProperty,
-        tandem: customTandem.createTandem( `custom${customIndex++}` )
-      } ),
-      new CustomSuperpositionState( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom2StringProperty,
-        tandem: customTandem.createTandem( `custom${customIndex++}` )
-      } ),
-      new CustomSuperpositionState( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom3StringProperty,
-        tandem: customTandem.createTandem( `custom${customIndex++}` )
-      } ),
-      new CustomSuperpositionState( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom4StringProperty,
-        tandem: customTandem.createTandem( `custom${customIndex++}` )
-      } ),
-      new CustomSuperpositionState( {
-        visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom5StringProperty,
-        tandem: customTandem.createTandem( `custom${customIndex++}` )
-      } )
-    ];
 
     this.presetSuperpositionStateProperty = new Property<PresetSuperpositionState>( presetSuperpositionStates[ 0 ], {
       validValues: presetSuperpositionStates,
@@ -161,6 +132,9 @@ export default class SuperpositionModel extends QBSModel {
       phetioFeatured: true,
       phetioValueType: SuperpositionState.SuperpositionStateIO
     } );
+
+    const customSuperpositionStates = CustomSuperpositionState.createStates( groundStateIndexProperty,
+      superpositionStatesTandem.createTandem( 'custom' ) );
 
     this.customSuperpositionStateProperty = new Property<CustomSuperpositionState>( customSuperpositionStates[ 0 ], {
       validValues: customSuperpositionStates,
