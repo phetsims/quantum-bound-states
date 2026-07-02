@@ -30,10 +30,10 @@ export default class QuantumStateGraphControlPanel extends Panel {
                       waveFunctionGraph: WaveFunctionGraph,
                       tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.quantumStateGraphStringProperty, {
+    const quantumStateGraphText = new Text( QuantumBoundStatesFluent.quantumStateGraphStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
-      tandem: tandem.createTandem( 'titleText' ),
+      tandem: tandem.createTandem( 'quantumStateGraphText' ),
       phetioVisiblePropertyInstrumented: true,
       visiblePropertyOptions: { phetioFeatured: true }
     } );
@@ -53,7 +53,7 @@ export default class QuantumStateGraphControlPanel extends Panel {
       align: 'left',
       spacing: 10,
       children: [
-        titleText,
+        quantumStateGraphText,
         quantumStateGraphRadioButtonGroup,
         waveFunctionPartsCheckboxGroup
       ]

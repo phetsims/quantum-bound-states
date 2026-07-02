@@ -33,10 +33,10 @@ export class TwoWellsControlPanel extends Panel {
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
+    const energyDiagramText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
-      tandem: tandem.createTandem( 'titleText' ),
+      tandem: tandem.createTandem( 'energyDiagramText' ),
       phetioVisiblePropertyInstrumented: true,
       visiblePropertyOptions: { phetioFeatured: true }
     } );
@@ -44,7 +44,7 @@ export class TwoWellsControlPanel extends Panel {
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       spacing: 12, // Add more spacing for this screen.
       children: [
-        titleText,
+        energyDiagramText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
         new EnergyLevelControl( energyLevelIndexProperty, time, tandem.createTandem( 'energyLevelControl' ) )

@@ -37,10 +37,10 @@ export class OneWellControlPanel extends Panel {
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
+    const energyDiagramText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
-      tandem: tandem.createTandem( 'titleText' ),
+      tandem: tandem.createTandem( 'energyDiagramText' ),
       phetioVisiblePropertyInstrumented: true,
       visiblePropertyOptions: { phetioFeatured: true }
     } );
@@ -48,7 +48,7 @@ export class OneWellControlPanel extends Panel {
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       spacing: 14, // Add more spacing for this screen.
       children: [
-        titleText,
+        energyDiagramText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new ElectronMassesControl( electronMassesProperty, time, tandem.createTandem( 'electronMassesControl' ) ),
         new EnergyOffsetControl( energyOffsetProperty, time, tandem.createTandem( 'energyOffsetControl' ) ),

@@ -46,10 +46,10 @@ export class SuperpositionControlPanel extends Panel {
                       superpositionCustomProperty: Property<CustomSuperpositionState>,
                       tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
+    const energyDiagramText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
-      tandem: tandem.createTandem( 'titleText' ),
+      tandem: tandem.createTandem( 'energyDiagramText' ),
       phetioVisiblePropertyInstrumented: true,
       visiblePropertyOptions: { phetioFeatured: true }
     } );
@@ -99,7 +99,7 @@ export class SuperpositionControlPanel extends Panel {
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: [
-        titleText,
+        energyDiagramText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
         superpositionStateText,

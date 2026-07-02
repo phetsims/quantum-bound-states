@@ -37,17 +37,17 @@ export class ManyWellsControlPanel extends Panel {
                       time: QBSTime,
                       tandem: Tandem ) {
 
-    const titleText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
+    const energyDiagramText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
       font: QBSConstants.TITLE_FONT,
       maxWidth: 200,
-      tandem: tandem.createTandem( 'titleText' ),
+      tandem: tandem.createTandem( 'energyDiagramText' ),
       phetioVisiblePropertyInstrumented: true,
       visiblePropertyOptions: { phetioFeatured: true }
     } );
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
       children: [
-        titleText,
+        energyDiagramText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
         new NumberOfWellsControl( numberOfWellsProperty, time, tandem.createTandem( 'numberOfWellsControl' ) ),
         new ElectricFieldControl( electricFieldProperty, time, tandem.createTandem( 'electricFieldControl' ) ),
