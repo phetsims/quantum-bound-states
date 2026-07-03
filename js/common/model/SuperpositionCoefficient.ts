@@ -48,6 +48,16 @@ export default class SuperpositionCoefficient {
   }
 
   /**
+   * Returns the coefficient represented as amplitude. This representation converts the phase to a sign, and only
+   * works for phases of 0, Math.PI, and 2 * Math.PI.
+   */
+  public asAmplitude(): number {
+    affirm( this.phaseMultiplier === 0 || this.phaseMultiplier === 1 || this.phaseMultiplier === 2,
+      `coefficient cannot be represented as an amplitude: magnitude = ${this.magnitude}, phaseMultiplier = ${this.phaseMultiplier}` );
+    return ( this.phaseMultiplier === 1 ) ? -this.magnitude : this.magnitude;
+  }
+
+  /**
    * Serializes this SuperpositionCoefficient for PhET-iO.
    */
   private toStateObject(): SuperpositionCoefficientStateObject {
