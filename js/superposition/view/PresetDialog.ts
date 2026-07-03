@@ -33,8 +33,8 @@ export default class PresetDialog extends Dialog {
     } );
 
     const titleNode = new RichText( titleStringProperty, {
-      font: QBSConstants.TITLE_FONT,
-      maxWidth: 400
+      font: QBSConstants.TITLE_FONT
+      //TODO maxWidth
     } );
 
     const content = new PresetDialogContent( superpositionState, groundStateIndex );

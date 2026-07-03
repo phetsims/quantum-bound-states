@@ -54,7 +54,7 @@ export default class QBSConstants {
   public static readonly AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } ); // for axis labels on graphs
   public static readonly TICK_LABEL_FONT = new PhetFont( 12 ); // for tick labels on graphs
   public static readonly CONTROL_FONT = new PhetFont( 14 ); // for text on checkboxes, radio buttons, push buttons, etc.
-  public static readonly TITLE_FONT = new PhetFont( { size: 14, weight: 'bold' } );
+  public static readonly TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
   public static readonly TIME_FONT = new PhetFont( { size: 15, family: 'monospace' } );
   public static readonly EQUATION_TERM_FONT = new PhetFont( 18 );
   public static readonly ENERGY_LEVEL_FONT = new PhetFont( 14 );
