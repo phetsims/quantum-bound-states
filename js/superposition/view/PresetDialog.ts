@@ -41,6 +41,8 @@ export default class PresetDialog extends Dialog {
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
       title: titleNode,
+      xSpacing: 20, // horizontal space between content and closeButton
+      ySpacing: 15, // vertical space between title and content
       hideCallback: () => this.dispose()
     } );
 
