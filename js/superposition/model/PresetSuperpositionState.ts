@@ -142,13 +142,17 @@ export default class PresetSuperpositionState extends SuperpositionState {
    */
   private static createPresetLocalizedParticle( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
-    const coefficients = new SuperpositionCoefficients( [
-      //TODO What are the coefficients for Localized Particle?
-      SuperpositionCoefficient.GROUND_STATE_COEFFICIENT
-    ] );
-    affirm( coefficients.isNormalized(), 'coefficients must be normalized' );
+    //TODO What are the coefficients for Localized Particle?
+    const coefficients: SuperpositionCoefficient[] = [];
+    for ( let i = 0; i < 10; i++ ) {
+      coefficients.push( new SuperpositionCoefficient( 0.32, 0 ) );
+    }
 
-    return new PresetSuperpositionState( coefficients, {
+    const superpositionCoefficients = new SuperpositionCoefficients( coefficients );
+    superpositionCoefficients.normalize(); //TODO Should not need to do this.
+    affirm( superpositionCoefficients.isNormalized(), 'coefficients must be normalized' );
+
+    return new PresetSuperpositionState( new SuperpositionCoefficients( coefficients ), {
       visualNameProperty: QuantumBoundStatesFluent.superpositionStates.preset5StringProperty,
       tandem: parentTandem.createTandem( 'localizedParticle' )
     } );
