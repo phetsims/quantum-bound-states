@@ -26,6 +26,7 @@ import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 
+//TODO Move fonts to QBSConstants
 const HEADING_FONT = new PhetFont( {
   size: 14,
   weight: 'bold'
