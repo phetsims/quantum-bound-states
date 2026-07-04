@@ -28,7 +28,7 @@ import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 
 //TODO Move fonts to QBSConstants
 const TITLE_FONT = QBSConstants.TITLE_FONT;
-const HEADING_FONT = new PhetFont( { size: 14, weight: 'bold' } );
+const COLUMN_HEADING_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 const COEFFICIENT_FONT = new PhetFont( 14 );
 const EQUATION_FONT = new PhetFont( 14 );
 const LEGEND_FONT = new PhetFont( 12 );
@@ -79,7 +79,7 @@ class PresetDialogContent extends GridBox {
     let row = 0;
 
     const amplitudeText = new Text( 'Amplitude (c)', { //TODO localization
-      font: HEADING_FONT,
+      font: COLUMN_HEADING_FONT,
       layoutOptions: {
         row: row,
         column: 0,
