@@ -196,6 +196,9 @@ class PresetDialogContent extends GridBox {
 }
 
 //TODO Placeholder
+/**
+ * WaveFunctionPreviewNode is a preview of the time-independent wave function.
+ */
 class WaveFunctionPreviewNode extends Node {
 
   public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
@@ -220,6 +223,9 @@ class WaveFunctionPreviewNode extends Node {
   }
 }
 
+/**
+ * PreviewLegendNode is a legend that identifies the real and imaginary parts of the wave function shown in the previews.
+ */
 class PreviewLegendNode extends GridBox {
 
   public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
