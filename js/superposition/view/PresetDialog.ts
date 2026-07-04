@@ -27,10 +27,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 
 //TODO Move fonts to QBSConstants
-const HEADING_FONT = new PhetFont( {
-  size: 14,
-  weight: 'bold'
-} );
+const HEADING_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 const COEFFICIENT_FONT = new PhetFont( 14 );
 const EQUATION_FONT = new PhetFont( 14 );
 const LEGEND_FONT = new PhetFont( 12 );
