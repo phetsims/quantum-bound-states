@@ -9,19 +9,30 @@
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import GridBox, { GridBoxOptions } from '../../../../scenery/js/layout/nodes/GridBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
-import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
+import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
+
+const HEADING_FONT = new PhetFont( {
+  size: 14,
+  weight: 'bold'
+} );
+const COEFFICIENT_FONT = new PhetFont( 14 );
+const EQUATION_FONT = new PhetFont( 14 );
+const LEGEND_FONT = new PhetFont( 12 );
 
 export default class PresetDialog extends Dialog {
 
@@ -60,11 +71,26 @@ export default class PresetDialog extends Dialog {
 /**
  * PresetDialogContent encapsulates the content for PresetDialog.
  */
-class PresetDialogContent extends VBox {
+class PresetDialogContent extends GridBox {
 
   public constructor( superpositionState: PresetSuperpositionState, groundStateIndex: number ) {
 
-    const hBoxes: Node[] = [];
+    const children: Node[] = [];
+
+    let row = 0;
+
+    const amplitudeText = new Text( 'Amplitude (c)', { //TODO localization
+      font: HEADING_FONT,
+      layoutOptions: {
+        row: row,
+        column: 0,
+        xAlign: 'right',
+        yAlign: 'center'
+      }
+    } );
+    children.push( amplitudeText );
+    row++;
+
     let equationString = 'Ψ(x,t) =';
 
     const coefficients = superpositionState.superpositionCoefficients.getCoefficients();
@@ -77,17 +103,26 @@ class PresetDialogContent extends VBox {
         const magnitudeString = toFixed( coefficient.magnitude, QBSConstants.SUPERPOSITION_COEFFICIENT_AMPLITUDE_DECIMAL_PLACES );
 
         const coefficientText = new RichText( `c<sub>${subscript}</sub> = ${amplitudeString}`, {
-          font: QBSConstants.CONTROL_FONT, //TODO create another font constant
-          maxWidth: 200
+          font: COEFFICIENT_FONT,
+          maxWidth: 200,
+          layoutOptions: {
+            row: row,
+            column: 0,
+            xAlign: 'right',
+            yAlign: 'center'
+          }
         } );
+        children.push( coefficientText );
 
-        const previewNode = new WaveFunctionPreviewNode();
-
-        hBoxes.push( new HBox( {
-          children: [ coefficientText, previewNode ],
-          align: 'center',
-          spacing: 15
-        } ) );
+        const previewNode = new WaveFunctionPreviewNode( {
+          layoutOptions: {
+            row: row,
+            column: 1,
+            xAlign: 'left',
+            yAlign: 'center'
+          }
+        } );
+        children.push( previewNode );
 
         if ( index > 0 ) {
           if ( amplitude > 0 ) {
@@ -99,28 +134,59 @@ class PresetDialogContent extends VBox {
         }
 
         equationString += ` ${magnitudeString}Ψ<sub>${subscript}</sub>(x,t)`;
+
+        row++;
       }
     } );
 
+    const separator = new HSeparator( {
+      stroke: Color.grayColor( 200 ), //TODO color profile
+      layoutOptions: {
+        row: row,
+        horizontalSpan: 2,
+        stretch: true
+      }
+    } );
+    children.push( separator );
+    row++;
+
     const equationNode = new RichText( equationString, {
-      font: QBSConstants.CONTROL_FONT //TODO create another font constant
+      font: EQUATION_FONT,
       //TODO maxWidth?
+      layoutOptions: {
+        row: row,
+        column: 0,
+        xAlign: 'right',
+        yAlign: 'center'
+      }
     } );
+    children.push( equationNode );
 
-    const previewNode = new WaveFunctionPreviewNode();
-
-    const equationHBox = new HBox( {
-      children: [ equationNode, previewNode ],
-      align: 'center',
-      spacing: 15
+    const previewNode = new WaveFunctionPreviewNode( {
+      layoutOptions: {
+        row: row,
+        column: 1,
+        xAlign: 'left',
+        yAlign: 'center'
+      }
     } );
+    children.push( previewNode );
 
-    const separator = new HSeparator( { stroke: 'black' } ); //TODO color profile
+    const legendNode = new PreviewLegendNode( {
+      layoutOptions: {
+        row: row,
+        column: 2,
+        xAlign: 'left',
+        yAlign: 'center'
+      }
+    } );
+    children.push( legendNode );
+    row++;
 
     super( {
-      children: [ ...hBoxes, separator, equationHBox ],
-      spacing: 10,
-      align: 'right'
+      children: children,
+      xSpacing: 25,
+      ySpacing: 10
     } );
 
     this.disposeEmitter.addListener( () => {
@@ -133,7 +199,7 @@ class PresetDialogContent extends VBox {
 //TODO Placeholder
 class WaveFunctionPreviewNode extends Node {
 
-  public constructor() {
+  public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
 
     const rectangle = new Rectangle( 0, 0, 150, 50, {
       fill: 'white',
@@ -145,12 +211,69 @@ class WaveFunctionPreviewNode extends Node {
       center: rectangle.center
     } );
 
-    super( {
+    super( combineOptions<NodeOptions>( {
       children: [ rectangle, text ]
-    } );
+    }, providedOptions ) );
 
     this.disposeEmitter.addListener( () => {
       //TODO
     } );
+  }
+}
+
+class PreviewLegendNode extends GridBox {
+
+  public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
+
+    const LINE_LENGTH = 25;
+
+    const realPartLine = new Line( 0, 0, LINE_LENGTH, 0, {
+      lineWidth: QBSConstants.WAVE_FUNCTION_REAL_PART_LINE_WIDTH,
+      stroke: QBSColors.realPartStrokeProperty,
+      layoutOptions: {
+        row: 0,
+        column: 0,
+        yAlign: 'center'
+      }
+    } );
+
+    const realPartText = new Text( 'Real Part', {
+      font: LEGEND_FONT,
+      layoutOptions: {
+        row: 0,
+        column: 1,
+        xAlign: 'left',
+        yAlign: 'center'
+      }
+    } );
+
+    const imaginaryPartLine = new Line( 0, 0, LINE_LENGTH, 0, {
+      lineWidth: QBSConstants.WAVE_FUNCTION_REAL_PART_LINE_WIDTH,
+      stroke: QBSColors.imaginaryPartStrokeProperty,
+      layoutOptions: {
+        row: 1,
+        column: 0,
+        yAlign: 'center'
+      }
+    } );
+
+    const imaginaryPartText = new Text( 'Imaginary Part', {
+      font: LEGEND_FONT,
+      layoutOptions: {
+        row: 1,
+        column: 1,
+        xAlign: 'left',
+        yAlign: 'center'
+      }
+    } );
+
+    super( combineOptions<GridBoxOptions>( {
+      children: [
+        realPartLine, realPartText,
+        imaginaryPartLine, imaginaryPartText
+      ],
+      xSpacing: 5,
+      ySpacing: 5
+    }, providedOptions ) );
   }
 }
