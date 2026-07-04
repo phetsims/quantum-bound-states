@@ -135,6 +135,10 @@ class PresetDialogContent extends GridBox {
           }
         }
 
+        if ( index > 0 && index % 4 === 0 ) {
+          equationString += '<br>';
+        }
+
         equationString += ` ${magnitudeString}Ψ<sub>${subscript}</sub>(x,t)`;
 
         row++;
