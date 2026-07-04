@@ -24,7 +24,7 @@ import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import EnergyDiagramNode, { EnergyDiagramNodeOptions } from '../../common/view/EnergyDiagramNode.js';
-import LegendPanel from '../../common/view/LegendPanel.js';
+import EnergyLegendPanel from './EnergyLegendPanel.js';
 import MagnifierNode from '../../common/view/MagnifierNode.js';
 import QuantumStateGraphPanel from './QuantumStateGraphPanel.js';
 import ReferenceLineNode from '../../common/view/ReferenceLineNode.js';
@@ -70,7 +70,7 @@ export default class QBSScreenView extends ScreenView {
 
     super( options );
 
-    const legendPanel = new LegendPanel( options.tandem.createTandem( 'legendPanel' ) );
+    const energyLegendPanel = new EnergyLegendPanel( options.tandem.createTandem( 'energyLegendPanel' ) );
 
     const energyDiagramNode = new EnergyDiagramNode( model, new EnergyDiagramDescriber( model ), {
       hasEnergyLevelSelection: options.hasEnergyLevelSelection,
@@ -123,7 +123,7 @@ export default class QBSScreenView extends ScreenView {
 
     // Layout is relative to the Energy diagram.
     energyDiagramNode.left = this.layoutBounds.left + QBSConstants.SCREEN_VIEW_X_MARGIN;
-    energyDiagramNode.y = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + legendPanel.height + 3;
+    energyDiagramNode.y = this.layoutBounds.top + QBSConstants.SCREEN_VIEW_X_MARGIN + energyLegendPanel.height + 3;
     const energyDiagramRectangleBounds = this.globalToParentBounds( energyDiagramNode.getChartRectangleGlobalBounds() );
     this.energyDiagramRectangleBounds = energyDiagramRectangleBounds;
 
@@ -150,9 +150,9 @@ export default class QBSScreenView extends ScreenView {
     resetAllButton.bottom = this.layoutBounds.maxY - QBSConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Dynamic Layout
-    legendPanel.boundsProperty.link( () => {
-      legendPanel.left = energyDiagramRectangleBounds.left;
-      legendPanel.bottom = energyDiagramRectangleBounds.top - 3;
+    energyLegendPanel.boundsProperty.link( () => {
+      energyLegendPanel.left = energyDiagramRectangleBounds.left;
+      energyLegendPanel.bottom = energyDiagramRectangleBounds.top - 3;
     } );
     timePanel.boundsProperty.link( () => {
       timePanel.right = energyDiagramRectangleBounds.right;
@@ -189,7 +189,7 @@ export default class QBSScreenView extends ScreenView {
     // Rendering order, from back to front
     this.screenViewRootNode = new Node( {
       children: [
-        legendPanel,
+        energyLegendPanel,
         energyDiagramPanel,
         quantumStateGraphPanel,
         quantumStateGraphNode,

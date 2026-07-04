@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * LegendPanel explains the colors used in the charts.
+ * EnergyLegendPanel explains the colors used in the charts.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -18,7 +18,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
-export default class LegendPanel extends Panel {
+export default class EnergyLegendPanel extends Panel {
 
   public constructor( tandem: Tandem ) {
 
