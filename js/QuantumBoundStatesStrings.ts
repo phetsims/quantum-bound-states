@@ -46,6 +46,7 @@ type StringsType = {
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
   'superpositionStateDialogTitleStringProperty': LocalizedStringProperty;
+  'amplitudeHeadingStringProperty': LocalizedStringProperty;
   'widthPatternStringProperty': LocalizedStringProperty;
   'depthPatternStringProperty': LocalizedStringProperty;
   'stepHeightPatternStringProperty': LocalizedStringProperty;

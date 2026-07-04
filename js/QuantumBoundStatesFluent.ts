@@ -55,6 +55,7 @@ addToMapIfDefined( 'referenceLine', 'referenceLineStringProperty' );
 addToMapIfDefined( 'superpositionState', 'superpositionStateStringProperty' );
 addToMapIfDefined( 'probabilityDensityDialogTitle', 'probabilityDensityDialogTitleStringProperty' );
 addToMapIfDefined( 'waveFunctionDialogTitle', 'waveFunctionDialogTitleStringProperty' );
+addToMapIfDefined( 'amplitudeHeading', 'amplitudeHeadingStringProperty' );
 addToMapIfDefined( 'mass', 'massStringProperty' );
 addToMapIfDefined( 'numberOfWells', 'numberOfWellsStringProperty' );
 addToMapIfDefined( 'electricField', 'electricFieldStringProperty' );
@@ -354,6 +355,7 @@ const QuantumBoundStatesFluent = {
   probabilityDensityDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'probabilityDensityDialogTitleStringProperty' ),
   waveFunctionDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'waveFunctionDialogTitleStringProperty' ),
   superpositionStateDialogTitleStringProperty: _.get( QuantumBoundStatesStrings, 'superpositionStateDialogTitleStringProperty' ),
+  amplitudeHeadingStringProperty: _.get( QuantumBoundStatesStrings, 'amplitudeHeadingStringProperty' ),
   _comment_15: new FluentComment( {"comment":"Handles","associatedKey":"widthPattern"} ),
   widthPatternStringProperty: _.get( QuantumBoundStatesStrings, 'widthPatternStringProperty' ),
   depthPatternStringProperty: _.get( QuantumBoundStatesStrings, 'depthPatternStringProperty' ),

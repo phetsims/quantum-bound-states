@@ -44,6 +44,7 @@ superpositionState:                    Superposition State
 probabilityDensityDialogTitle:         Probability Density
 waveFunctionDialogTitle:               Wave Function
 superpositionStateDialogTitle:         'Superposition State: {{label}}'
+amplitudeHeading:                      Amplitude (c)
 
 # Handles
 widthPattern:                          'width = {{value}} nm'

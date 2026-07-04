@@ -85,6 +85,9 @@
   "superpositionStateDialogTitle": {
     "value": "Superposition State: {{label}}"
   },
+  "amplitudeHeading": {
+    "value": "Amplitude (c)"
+  },
   "widthPattern": {
     "value": "width = {{value}} nm"
   },

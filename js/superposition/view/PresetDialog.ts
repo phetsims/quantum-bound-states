@@ -19,7 +19,6 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
@@ -31,7 +30,7 @@ const TITLE_FONT = QBSConstants.TITLE_FONT;
 const COLUMN_HEADING_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 const COEFFICIENT_FONT = new PhetFont( 14 );
 const EQUATION_FONT = new PhetFont( 14 );
-const LEGEND_FONT = new PhetFont( 12 );
+const LEGEND_FONT = new PhetFont( 14 );
 
 export default class PresetDialog extends Dialog {
 
@@ -43,8 +42,8 @@ export default class PresetDialog extends Dialog {
     } );
 
     const titleNode = new RichText( titleStringProperty, {
-      font: TITLE_FONT
-      //TODO maxWidth
+      font: TITLE_FONT,
+      maxWidth: 500
     } );
 
     const content = new PresetDialogContent( superpositionState, groundStateIndex );
@@ -78,8 +77,9 @@ class PresetDialogContent extends GridBox {
 
     let row = 0;
 
-    const amplitudeText = new Text( 'Amplitude (c)', { //TODO localization
+    const amplitudeText = new Text( QuantumBoundStatesFluent.amplitudeHeadingStringProperty, {
       font: COLUMN_HEADING_FONT,
+      maxWidth: 200,
       layoutOptions: {
         row: row,
         column: 0,
@@ -90,6 +90,8 @@ class PresetDialogContent extends GridBox {
     children.push( amplitudeText );
     row++;
 
+    // Localization of equationString is not supported.
+    //TODO Should this be Ψ(x) since the previews are time-independent?
     let equationString = 'Ψ(x,t) =';
 
     const coefficients = superpositionState.superpositionCoefficients.getCoefficients();
@@ -101,6 +103,7 @@ class PresetDialogContent extends GridBox {
         const amplitudeString = toFixed( amplitude, QBSConstants.SUPERPOSITION_COEFFICIENT_AMPLITUDE_DECIMAL_PLACES );
         const magnitudeString = toFixed( coefficient.magnitude, QBSConstants.SUPERPOSITION_COEFFICIENT_AMPLITUDE_DECIMAL_PLACES );
 
+        // Localization is not supported.
         const coefficientText = new RichText( `c<sub>${subscript}</sub> = ${amplitudeString}`, {
           font: COEFFICIENT_FONT,
           maxWidth: 200,
@@ -139,7 +142,7 @@ class PresetDialogContent extends GridBox {
     } );
 
     const separator = new HSeparator( {
-      stroke: Color.grayColor( 200 ), //TODO color profile
+      stroke: QBSColors.separatorStrokeProperty,
       layoutOptions: {
         row: row,
         horizontalSpan: 2,
@@ -151,7 +154,7 @@ class PresetDialogContent extends GridBox {
 
     const equationNode = new RichText( equationString, {
       font: EQUATION_FONT,
-      //TODO maxWidth?
+      maxWidth: 500,
       layoutOptions: {
         row: row,
         column: 0,
@@ -196,6 +199,7 @@ class PresetDialogContent extends GridBox {
 }
 
 //TODO Placeholder
+//TODO Factor out to PresetPreviewNode.ts
 /**
  * WaveFunctionPreviewNode is a preview of the time-independent wave function.
  */
@@ -223,6 +227,7 @@ class WaveFunctionPreviewNode extends Node {
   }
 }
 
+//TODO Factor out to PresetLegendNode.ts
 /**
  * PreviewLegendNode is a legend that identifies the real and imaginary parts of the wave function shown in the previews.
  */
@@ -231,9 +236,11 @@ class PreviewLegendNode extends GridBox {
   public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
 
     const LINE_LENGTH = 25;
+    const LINE_WIDTH = 3;
+    const TEXT_MAX_WIDTH = 150;
 
     const realPartLine = new Line( 0, 0, LINE_LENGTH, 0, {
-      lineWidth: QBSConstants.WAVE_FUNCTION_REAL_PART_LINE_WIDTH,
+      lineWidth: LINE_WIDTH,
       stroke: QBSColors.realPartStrokeProperty,
       layoutOptions: {
         row: 0,
@@ -242,8 +249,9 @@ class PreviewLegendNode extends GridBox {
       }
     } );
 
-    const realPartText = new Text( 'Real Part', {
+    const realPartText = new Text( QuantumBoundStatesFluent.realPartStringProperty, {
       font: LEGEND_FONT,
+      maxWidth: TEXT_MAX_WIDTH,
       layoutOptions: {
         row: 0,
         column: 1,
@@ -253,7 +261,7 @@ class PreviewLegendNode extends GridBox {
     } );
 
     const imaginaryPartLine = new Line( 0, 0, LINE_LENGTH, 0, {
-      lineWidth: QBSConstants.WAVE_FUNCTION_REAL_PART_LINE_WIDTH,
+      lineWidth: LINE_WIDTH,
       stroke: QBSColors.imaginaryPartStrokeProperty,
       layoutOptions: {
         row: 1,
@@ -262,8 +270,9 @@ class PreviewLegendNode extends GridBox {
       }
     } );
 
-    const imaginaryPartText = new Text( 'Imaginary Part', {
+    const imaginaryPartText = new Text( QuantumBoundStatesFluent.imaginaryPartStringProperty, {
       font: LEGEND_FONT,
+      maxWidth: TEXT_MAX_WIDTH,
       layoutOptions: {
         row: 1,
         column: 1,
@@ -277,8 +286,8 @@ class PreviewLegendNode extends GridBox {
         realPartLine, realPartText,
         imaginaryPartLine, imaginaryPartText
       ],
-      xSpacing: 5,
-      ySpacing: 5
+      xSpacing: 8,
+      ySpacing: 6
     }, providedOptions ) );
   }
 }
