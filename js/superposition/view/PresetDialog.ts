@@ -27,6 +27,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 
 //TODO Move fonts to QBSConstants
+const TITLE_FONT = QBSConstants.TITLE_FONT;
 const HEADING_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 const COEFFICIENT_FONT = new PhetFont( 14 );
 const EQUATION_FONT = new PhetFont( 14 );
@@ -42,7 +43,7 @@ export default class PresetDialog extends Dialog {
     } );
 
     const titleNode = new RichText( titleStringProperty, {
-      font: QBSConstants.TITLE_FONT
+      font: TITLE_FONT
       //TODO maxWidth
     } );
 
