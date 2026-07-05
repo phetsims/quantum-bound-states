@@ -67,16 +67,8 @@ class CustomDialogContent extends VBox {
 
   public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
 
-    const amplitudeInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
-                                        'Ψ(x,t) = a<sub>1</sub>Ψ<sub>1</sub>(x,t) + a<sub>2</sub>Ψ<sub>2</sub>(x,t) + ... + a<sub>n</sub>Ψ<sub>n</sub>(x,t)';
-    const magnitudeAndPhaseInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
-                                                'Ψ(x,t) = c<sub>1</sub>Ψ<sub>1</sub>(x,t) + c<sub>2</sub>Ψ<sub>2</sub>(x,t) + ... + c<sub>n</sub>Ψ<sub>n</sub>(x,t)';
-    const instructionsStringProperty = new DerivedStringProperty( [ superpositionState.coefficientFormatProperty ],
-      coefficientFormat => coefficientFormat === 'amplitude' ? amplitudeInstructionsString : magnitudeAndPhaseInstructionsString );
-    const instructionsText = new RichText( instructionsStringProperty, {
-      font: new PhetFont( 12 ),
-      maxWidth: 800
-    } );
+    // Instructions
+    const instructionsText = new InstructionsText( superpositionState, groundStateIndex );
 
     //TODO localize
     const numberOfCoefficientsText = new Text( 'Number of coefficients', {
@@ -145,6 +137,34 @@ class CustomDialogContent extends VBox {
     this.disposeEmitter.addListener( () => {
       phet.log && phet.log( 'CustomDialogContent disposed' );
       numberOfCoefficientsText.dispose();
+    } );
+  }
+}
+
+class InstructionsText extends RichText {
+
+  public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
+
+    // Instruction for amplitude format, with subscripts that match the selected potential's ground state.
+    let subscript = groundStateIndex;
+    const amplitudeInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
+                                        `Ψ(x,t) = a<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
+                                        `a<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
+                                        '... + a<sub>n</sub>Ψ<sub>n</sub>(x,t)';
+
+    // Instruction for magnitude & phase format, with subscripts that match the selected potential's ground state.
+    subscript = groundStateIndex;
+    const magnitudeAndPhaseInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
+                                                `Ψ(x,t) = c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
+                                                `c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
+                                                '... + c<sub>n</sub>Ψ<sub>n</sub>(x,t)';
+
+    const instructionsStringProperty = new DerivedStringProperty( [ superpositionState.coefficientFormatProperty ],
+      coefficientFormat => coefficientFormat === 'amplitude' ? amplitudeInstructionsString : magnitudeAndPhaseInstructionsString );
+
+    super( instructionsStringProperty, {
+      font: new PhetFont( 12 ),
+      maxWidth: 800
     } );
   }
 }
