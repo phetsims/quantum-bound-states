@@ -334,6 +334,7 @@ export default class SuperpositionState extends PhetioObject {
     return ( coefficients.length > 0 && _.find( coefficients, coefficient => coefficient.magnitude !== 0 ) !== undefined );
   }
 
+  //TODO Add getState for getting the coefficients? Or change this.coefficients to this.coefficientsProperty?
   /**
    * SuperpositionStateIO handles PhET-iO serialization of SuperpositionState instances.
    * It uses reference-type serialization as described in the Serialization section of
