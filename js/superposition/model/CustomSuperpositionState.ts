@@ -10,13 +10,12 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
-import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
+import SuperpositionCoefficients, { SuperpositionCoefficientsOptions } from '../../common/model/SuperpositionCoefficients.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import { SuperpositionStateOptions } from './SuperpositionState.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type CustomSuperpositionStateOptions = SelfOptions & SuperpositionStateOptions;
+type CustomSuperpositionStateOptions = SelfOptions & SuperpositionCoefficientsOptions;
 
 export default class CustomSuperpositionState extends SuperpositionCoefficients {
 

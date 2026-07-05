@@ -17,7 +17,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
-import { SuperpositionStateOptions } from '../../superposition/model/SuperpositionState.js';
 import QBSConstants from '../QBSConstants.js';
 import SuperpositionCoefficient from './SuperpositionCoefficient.js';
 
@@ -54,7 +53,7 @@ export default class SuperpositionCoefficients extends PhetioObject {
       affirm( SuperpositionCoefficients.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
     }
 
-    const options = optionize<SuperpositionStateOptions, SelfOptions, PhetioObjectOptions>()( {
+    const options = optionize<SuperpositionCoefficientsOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       accessibleNameProperty: providedOptions.visualNameProperty,
