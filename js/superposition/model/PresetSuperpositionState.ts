@@ -12,14 +12,14 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
-import SuperpositionCoefficients, { SuperpositionCoefficientsOptions } from '../../common/model/SuperpositionCoefficients.js';
+import SuperpositionState, { SuperpositionCoefficientsOptions } from '../../common/model/SuperpositionState.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type PresetSuperpositionStateOptions = SelfOptions & SuperpositionCoefficientsOptions;
 
-export default class PresetSuperpositionState extends SuperpositionCoefficients {
+export default class PresetSuperpositionState extends SuperpositionState {
 
   private constructor( coefficients: SuperpositionCoefficient[], providedOptions: PresetSuperpositionStateOptions ) {
 

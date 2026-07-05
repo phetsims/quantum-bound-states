@@ -34,7 +34,7 @@ import ReferenceLine from './ReferenceLine.js';
 import BoundStateResult from './solvers/BoundStateResult.js';
 import XGrid from './solvers/XGrid.js';
 import SuperpositionCoefficient from './SuperpositionCoefficient.js';
-import SuperpositionCoefficients from './SuperpositionCoefficients.js';
+import SuperpositionState from './SuperpositionState.js';
 import { TimeEvolvedSuperposition, TimeEvolvedSuperpositionIO } from './TimeEvolvedSuperposition.js';
 import WaveFunctionGraph from './WaveFunctionGraph.js';
 
@@ -67,7 +67,7 @@ export default class QBSModel implements TModel {
   public readonly electronMassesProperty: NumberProperty;
   public readonly electricFieldProperty: NumberProperty;
 
-  public readonly superpositionCoefficients: SuperpositionCoefficients;
+  public readonly superpositionCoefficients: SuperpositionState;
 
   // Result for configuration of the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
@@ -146,7 +146,7 @@ export default class QBSModel implements TModel {
     } );
 
     //TODO Should an initial value for this.coefficients be computed and passed in?
-    this.superpositionCoefficients = new SuperpositionCoefficients( [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ], {
+    this.superpositionCoefficients = new SuperpositionState( [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ], {
       //TODO What should these option values be?
       visualNameProperty: new Property( 'default' ),
       accessibleNameProperty: new Property( 'default' ),

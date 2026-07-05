@@ -20,7 +20,7 @@ import InfiniteSquarePotential from '../../common/model/potentials/InfiniteSquar
 import MorsePotential from '../../common/model/potentials/MorsePotential.js';
 import PoschlTellerPotential from '../../common/model/potentials/PoschlTellerPotential.js';
 import QBSModel from '../../common/model/QBSModel.js';
-import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
+import SuperpositionState from '../../common/model/SuperpositionState.js';
 import CustomSuperpositionState from './CustomSuperpositionState.js';
 import PresetSuperpositionState from './PresetSuperpositionState.js';
 import { SuperpositionStateType, SuperpositionStateTypeValues } from './SuperpositionStateType.js';
@@ -130,7 +130,7 @@ export default class SuperpositionModel extends QBSModel {
       validValues: presetSuperpositionStates,
       tandem: tandem.createTandem( 'presetSuperpositionStateProperty' ),
       phetioFeatured: true,
-      phetioValueType: SuperpositionCoefficients.SuperpositionCoefficientsIO //TODO SuperpositionState.SuperpositionStateIO
+      phetioValueType: SuperpositionState.SuperpositionCoefficientsIO //TODO SuperpositionState.SuperpositionStateIO
     } );
 
     const customSuperpositionStates = CustomSuperpositionState.createStates( groundStateIndexProperty,
@@ -140,7 +140,7 @@ export default class SuperpositionModel extends QBSModel {
       validValues: customSuperpositionStates,
       tandem: tandem.createTandem( 'customSuperpositionStateProperty' ),
       phetioFeatured: true,
-      phetioValueType: SuperpositionCoefficients.SuperpositionCoefficientsIO //TODO SuperpositionState.SuperpositionStateIO
+      phetioValueType: SuperpositionState.SuperpositionCoefficientsIO //TODO SuperpositionState.SuperpositionStateIO
     } );
   }
 

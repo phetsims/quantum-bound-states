@@ -2,7 +2,7 @@
 
 //TODO Lots of stuff here probably needs to change or be deleted.
 /**
- * SuperpositionCoefficients is a port of BSSuperpositionCoefficients.java.
+ * SuperpositionState is a port of BSSuperpositionCoefficients.java.
  * It models the set of superposition coefficients that define the contribution of eigenstates to a quantum potential's
  * wave function.
  *
@@ -36,7 +36,7 @@ type SelfOptions = {
 
 export type SuperpositionCoefficientsOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class SuperpositionCoefficients extends PhetioObject {
+export default class SuperpositionState extends PhetioObject {
 
   //TODO Should the number of coefficients always match BoundStateResult.energies.length or are zeros implied?
   private coefficients: SuperpositionCoefficient[];
@@ -50,7 +50,7 @@ export default class SuperpositionCoefficients extends PhetioObject {
   public constructor( coefficients: SuperpositionCoefficient[], providedOptions: SuperpositionCoefficientsOptions ) {
 
     if ( isAffirmEnabled() ) {
-      affirm( SuperpositionCoefficients.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
+      affirm( SuperpositionState.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
     }
 
     const options = optionize<SuperpositionCoefficientsOptions, SelfOptions, PhetioObjectOptions>()( {
@@ -91,7 +91,7 @@ export default class SuperpositionCoefficients extends PhetioObject {
    */
   public setCoefficients( coefficients: SuperpositionCoefficient[] ): void {
     if ( isAffirmEnabled() ) {
-      affirm( SuperpositionCoefficients.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
+      affirm( SuperpositionState.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
     }
     this.coefficients = coefficients;
     this.valuesChangedEmitter.emit();
@@ -233,7 +233,7 @@ export default class SuperpositionCoefficients extends PhetioObject {
     }
     this.coefficients[ index ] = coefficient;
     if ( isAffirmEnabled() ) {
-      affirm( SuperpositionCoefficients.isValidCoefficients( this.coefficients ),
+      affirm( SuperpositionState.isValidCoefficients( this.coefficients ),
         'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
     }
     this.valuesChangedEmitter.emit();
@@ -334,12 +334,12 @@ export default class SuperpositionCoefficients extends PhetioObject {
 
   //TODO Rename SuperpositionStateIO
   /**
-   * SuperpositionCoefficientsIO handles PhET-iO serialization of SuperpositionCoefficients instances.
+   * SuperpositionCoefficientsIO handles PhET-iO serialization of SuperpositionState instances.
    * It uses reference-type serialization as described in the Serialization section of
    * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
    */
-  public static readonly SuperpositionCoefficientsIO = new IOType<SuperpositionCoefficients, ReferenceIOState>( 'SuperpositionCoefficientsIO', {
-    valueType: SuperpositionCoefficients,
+  public static readonly SuperpositionCoefficientsIO = new IOType<SuperpositionState, ReferenceIOState>( 'SuperpositionCoefficientsIO', {
+    valueType: SuperpositionState,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }
