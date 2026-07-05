@@ -39,6 +39,7 @@ export type SuperpositionStateOptions = SelfOptions & PickRequired<PhetioObjectO
 export default class SuperpositionState extends PhetioObject {
 
   //TODO Should the number of coefficients always match BoundStateResult.energies.length or are zeros implied?
+  //TODO Should the API for Preset state make the coefficients be strictly immutable?
   private coefficients: SuperpositionCoefficient[];
 
   // Notifies observers when this.coefficients changes in some way.
