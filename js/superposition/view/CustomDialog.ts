@@ -219,18 +219,18 @@ class PushButtonGroup extends HBox {
 
     const xMargin = 20;
 
-    const normalizeAndApplyButton = new RectangularPushButton( {
-      content: alignGroup.createBox( new Text( 'Normalize & Apply', textOptions ) ),
-      xMargin: xMargin
-    } );
-
     const clearButton = new RectangularPushButton( {
       content: alignGroup.createBox( new Text( 'Clear', textOptions ) ),
       xMargin: xMargin
     } );
 
+    const normalizeAndSaveButton = new RectangularPushButton( {
+      content: alignGroup.createBox( new Text( 'Normalize & Save', textOptions ) ),
+      xMargin: xMargin
+    } );
+
     super( {
-      children: [ normalizeAndApplyButton, clearButton ],
+      children: [ clearButton, normalizeAndSaveButton ],
       spacing: 15
     } );
   }
