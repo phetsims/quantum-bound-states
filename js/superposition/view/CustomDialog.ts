@@ -25,8 +25,8 @@ export default class CustomDialog extends Dialog {
     } );
 
     const titleNode = new RichText( titleStringProperty, {
-      font: QBSConstants.TITLE_FONT
-      //TODO maxWidth
+      font: QBSConstants.TITLE_FONT,
+      maxWidth: 500
     } );
 
     const content = new CustomDialogContent( superpositionState, groundStateIndex );
