@@ -6,7 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
@@ -19,12 +21,27 @@ type CustomSuperpositionStateOptions = SelfOptions & SuperpositionStateOptions;
 
 export default class CustomSuperpositionState extends SuperpositionState {
 
+  public readonly numberOfCoefficientsProperty: NumberProperty;
+
   public constructor( providedOptions: CustomSuperpositionStateOptions ) {
 
+    const options = providedOptions;
+
     //TODO Is this the correct initial value? A superposition state requires 2 non-zero coefficients.
-    const coefficients = [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ];
+    const coefficients = [
+      SuperpositionCoefficient.GROUND_STATE_COEFFICIENT,
+      SuperpositionCoefficient.ZERO_COEFFICIENT
+    ];
 
     super( coefficients, providedOptions );
+
+    this.numberOfCoefficientsProperty = new NumberProperty( coefficients.length, {
+      range: new Range( 2, 50 ), // At least 2 coefficients are required for a superposition state.
+      numberType: 'Integer',
+      tandem: options.tandem.createTandem( 'numberOfCoefficientsProperty' )
+    } );
+
+    this.numberOfCoefficientsProperty.lazyLink( numberOfCoefficients => this.setNumberOfCoefficients( numberOfCoefficients ) );
   }
 
   /**

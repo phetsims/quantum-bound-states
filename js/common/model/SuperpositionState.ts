@@ -42,8 +42,8 @@ export default class SuperpositionState extends PhetioObject {
   //TODO Should the API for Preset state make the coefficients be strictly immutable?
   private coefficients: SuperpositionCoefficient[];
 
-  // Notifies observers when this.coefficients changes in some way.
-  public readonly valuesChangedEmitter: Emitter;
+  // Notifies observers when the superposition state changes in some way.
+  public readonly changedEmitter: Emitter;
 
   //TODO Should these be optional? They are only needed for Preset and Custom states.
   public readonly visualNameProperty: TReadOnlyProperty<string>;
@@ -70,7 +70,7 @@ export default class SuperpositionState extends PhetioObject {
     this.coefficients = coefficients;
     this.visualNameProperty = options.visualNameProperty;
     this.accessibleNameProperty = options.accessibleNameProperty || this.visualNameProperty;
-    this.valuesChangedEmitter = new Emitter();
+    this.changedEmitter = new Emitter();
   }
 
   /**
@@ -78,7 +78,7 @@ export default class SuperpositionState extends PhetioObject {
    */
   public reset(): void {
     this.coefficients = [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ];
-    this.valuesChangedEmitter.emit();
+    this.changedEmitter.emit();
   }
 
   /**
@@ -96,7 +96,7 @@ export default class SuperpositionState extends PhetioObject {
       affirm( SuperpositionState.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
     }
     this.coefficients = coefficients;
-    this.valuesChangedEmitter.emit();
+    this.changedEmitter.emit();
   }
 
   /**
@@ -112,7 +112,7 @@ export default class SuperpositionState extends PhetioObject {
       this.coefficients[ i ] = new SuperpositionCoefficient( normalizedMagnitude, coefficient.phase );
     }
     affirmCallback( () => this.isNormalized(), 'expected to be normalized' );
-    this.valuesChangedEmitter.emit();
+    this.changedEmitter.emit();
   }
 
   /**
@@ -134,32 +134,26 @@ export default class SuperpositionState extends PhetioObject {
     }
 
     const previousNumberOfCoefficients = this.coefficients.length;
-    let valuesChanged = false;
+    if ( numberOfCoefficients !== this.coefficients.length ) {
 
-    if ( numberOfCoefficients === previousNumberOfCoefficients ) {
-      // no change, do nothing
-    }
-    else {
       if ( numberOfCoefficients === 0 ) {
         this.coefficients = [];
-        valuesChanged = true;
       }
       else if ( previousNumberOfCoefficients === 0 ) {
 
         // If we have no coefficients yet, then set the first coefficient to 1 and all the others to 0.
         this.coefficients = new Array( numberOfCoefficients ).fill( SuperpositionCoefficient.ZERO_COEFFICIENT );
         this.coefficients[ 0 ] = SuperpositionCoefficient.GROUND_STATE_COEFFICIENT;
-        valuesChanged = true;
       }
       else if ( numberOfCoefficients > previousNumberOfCoefficients ) {
 
-        // If the number of eigenstates is increasing, add new ones with zero values.
+        // If the number of coefficients is increasing, add new ones with zero values.
         for ( let i = previousNumberOfCoefficients; i < numberOfCoefficients; i++ ) {
           this.coefficients.push( SuperpositionCoefficient.ZERO_COEFFICIENT );
         }
-        valuesChanged = false;
       }
       else {
+        affirm( numberOfCoefficients < previousNumberOfCoefficients, 'Expected numberOfCoefficients to be decreasing.' );
 
         // The number of coefficients is decreasing.
         // If we lose any non-zero coefficients, renormalize the remaining coefficients.
@@ -183,15 +177,10 @@ export default class SuperpositionState extends PhetioObject {
             this.normalize();
           }
         }
-
-        valuesChanged = needToNormalize;
       }
-
-      if ( valuesChanged ) {
-        this.valuesChangedEmitter.emit();
-      }
+      affirm( this.coefficients.length === numberOfCoefficients, 'coefficients.length is incorrect: ' + this.coefficients.length );
+      this.changedEmitter.emit();
     }
-    affirm( this.coefficients.length === numberOfCoefficients, 'coefficients.length is incorrect: ' + this.coefficients.length );
   }
 
   /**
@@ -238,7 +227,7 @@ export default class SuperpositionState extends PhetioObject {
       affirm( SuperpositionState.isValidCoefficients( this.coefficients ),
         'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
     }
-    this.valuesChangedEmitter.emit();
+    this.changedEmitter.emit();
   }
 
   /**
@@ -260,7 +249,7 @@ export default class SuperpositionState extends PhetioObject {
     affirm( index >= 0 && index <= this.coefficients.length - 1, 'index is out of bounds: ' + index );
 
     this.coefficients[ index ] = SuperpositionCoefficient.GROUND_STATE_COEFFICIENT;
-    this.valuesChangedEmitter.emit();
+    this.changedEmitter.emit();
   }
 
   /**

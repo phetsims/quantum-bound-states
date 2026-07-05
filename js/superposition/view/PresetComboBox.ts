@@ -16,7 +16,6 @@ import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 
 export default class PresetComboBox extends ComboBox<PresetSuperpositionState> {
@@ -38,7 +37,7 @@ export default class PresetComboBox extends ComboBox<PresetSuperpositionState> {
       xAlign: 'left'
     };
 
-    const items: ComboBoxItem<CustomSuperpositionState>[] = superpositionPresetProperty.validValues.map( superpositionPreset => {
+    const items: ComboBoxItem<PresetSuperpositionState>[] = superpositionPresetProperty.validValues.map( superpositionPreset => {
       return {
         value: superpositionPreset,
         createNode: () => alignGroup.createBox( new RichText( superpositionPreset.visualNameProperty, richTextOptions ), alignBoxOptions ),

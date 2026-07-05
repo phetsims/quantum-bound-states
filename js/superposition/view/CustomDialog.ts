@@ -7,13 +7,21 @@
  */
 
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
+import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
+
+type CoefficientFormat = 'amplitude' | 'magnitudeAndPhase';
 
 export default class CustomDialog extends Dialog {
 
@@ -56,17 +64,75 @@ class CustomDialogContent extends Node {
 
   public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
 
-    const text = new RichText( 'Under Construction', {
-      font: QBSConstants.CONTROL_FONT
+    const numberOfCoefficientsText = new Text( 'Number of coefficients', {
+      font: new PhetFont( 14 ),
+      maxWidth: 200
+    } );
+
+    const numberOfCoefficientsProperty = superpositionState.numberOfCoefficientsProperty;
+    const numberOfCoefficientsSpinner = new NumberSpinner( numberOfCoefficientsProperty, numberOfCoefficientsProperty.rangeProperty, {
+      arrowsPosition: 'leftRight',
+      arrowsScale: 1,
+      numberDisplayOptions: {
+        cornerRadius: 3,
+        textOptions: {
+          font: QBSConstants.CONTROL_FONT
+        }
+      }
+    } );
+
+    const numberOfCoefficientsHBox = new HBox( {
+      children: [ numberOfCoefficientsText, numberOfCoefficientsSpinner ],
+      spacing: 10
+    } );
+
+    const formatText = new Text( 'Format', {
+      font: new PhetFont( 14 ),
+      maxWidth: 200
+    } );
+
+    const formatProperty = new Property<CoefficientFormat>( 'amplitude' );
+
+    const formatRadioButtonGroup = new FormatRadioButtonGroup( formatProperty );
+
+    const formatHBox = new HBox( {
+      children: [ formatText, formatRadioButtonGroup ],
+      spacing: 10
+    } );
+
+    const topRow = new HBox( {
+      children: [ numberOfCoefficientsHBox, formatHBox ],
+      spacing: 50
     } );
 
     super( {
-      children: [ text ]
+      children: [ topRow ]
     } );
 
     this.disposeEmitter.addListener( () => {
       phet.log && phet.log( 'CustomDialogContent disposed' );
-      text.dispose();
+      numberOfCoefficientsText.dispose();
+    } );
+  }
+}
+
+class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientFormat> {
+
+  public constructor( formatProperty: Property<CoefficientFormat> ) {
+
+    const items: RectangularRadioButtonGroupItem<CoefficientFormat>[] = [
+      {
+        value: 'amplitude',
+        createNode: () => new RichText( 'Amplitude (a)', { font: QBSConstants.CONTROL_FONT } )
+      },
+      {
+        value: 'magnitudeAndPhase',
+        createNode: () => new RichText( 'Magnitude (c) & Phase (φ)', { font: QBSConstants.CONTROL_FONT } )
+      }
+    ];
+
+    super( formatProperty, items, {
+      orientation: 'horizontal'
     } );
   }
 }
