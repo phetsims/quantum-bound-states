@@ -10,13 +10,17 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
+import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState, { CoefficientFormat } from '../model/CustomSuperpositionState.js';
@@ -58,7 +62,7 @@ export default class CustomDialog extends Dialog {
 /**
  * CustomDialogContent encapsulates the content for CustomDialog.
  */
-class CustomDialogContent extends Node {
+class CustomDialogContent extends VBox {
 
   public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
 
@@ -103,8 +107,23 @@ class CustomDialogContent extends Node {
       spacing: 50
     } );
 
+    const pushButtonGroup = new PushButtonGroup();
+
     super( {
-      children: [ topRow ]
+      children: [
+        topRow,
+        new HSeparator( {
+          stroke: QBSColors.separatorStrokeProperty
+        } ),
+        new Text( 'coefficients', { font: QBSConstants.CONTROL_FONT } ), //TODO
+        new Text( 'pageSpinner', { font: QBSConstants.CONTROL_FONT } ), //TODO
+        new HSeparator( {
+          stroke: QBSColors.separatorStrokeProperty
+        } ),
+        pushButtonGroup
+      ],
+      spacing: 10,
+      align: 'center'
     } );
 
     this.disposeEmitter.addListener( () => {
@@ -122,21 +141,61 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
 
   public constructor( formatProperty: Property<CoefficientFormat> ) {
 
+    const richTextOptions = {
+      font: QBSConstants.CONTROL_FONT,
+      maxWidth: 200
+    };
+
     const items: RectangularRadioButtonGroupItem<CoefficientFormat>[] = [
       {
         value: 'amplitude',
         //TODO localize
-        createNode: () => new RichText( 'Amplitude (a)', { font: QBSConstants.CONTROL_FONT } )
+        createNode: () => new RichText( 'Amplitude (a)', richTextOptions )
       },
       {
         value: 'magnitudeAndPhase',
         //TODO localize
-        createNode: () => new RichText( 'Magnitude (c) & Phase (φ)', { font: QBSConstants.CONTROL_FONT } )
+        createNode: () => new RichText( 'Magnitude (c) & Phase (φ)', richTextOptions )
       }
     ];
 
     super( formatProperty, items, {
-      orientation: 'horizontal'
+      orientation: 'horizontal',
+      radioButtonOptions: {
+        xMargin: 15
+      }
+    } );
+  }
+}
+
+class PushButtonGroup extends HBox {
+
+  public constructor() {
+
+    // To make all push buttons the same size.
+    const alignGroup = new AlignGroup();
+
+    // Styling shared by the labels on all push buttons.
+    const textOptions = {
+      font: QBSConstants.CONTROL_FONT,
+      maxWidth: 150
+    };
+
+    const xMargin = 20;
+
+    const normalizeAndApplyButton = new RectangularPushButton( {
+      content: alignGroup.createBox( new Text( 'Normalize & Apply', textOptions ) ),
+      xMargin: xMargin
+    } );
+
+    const clearButton = new RectangularPushButton( {
+      content: alignGroup.createBox( new Text( 'Clear', textOptions ) ),
+      xMargin: xMargin
+    } );
+
+    super( {
+      children: [ normalizeAndApplyButton, clearButton ],
+      spacing: 15
     } );
   }
 }
