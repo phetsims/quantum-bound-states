@@ -123,8 +123,8 @@ class CustomDialogContent extends VBox {
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
-        new Text( 'coefficients', { font: QBSConstants.CONTROL_FONT } ), //TODO
-        new Text( 'pageSpinner', { font: QBSConstants.CONTROL_FONT } ), //TODO
+        new Text( 'coefficientsCarousel', { font: QBSConstants.CONTROL_FONT } ), //TODO
+        new Text( 'pageControl', { font: QBSConstants.CONTROL_FONT } ), //TODO
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
@@ -147,6 +147,7 @@ class InstructionsText extends RichText {
 
     // Instruction for amplitude format, with subscripts that match the selected potential's ground state.
     let subscript = groundStateIndex;
+    //TODO localize
     const amplitudeInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
                                         `Ψ(x,t) = a<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
                                         `a<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
@@ -154,6 +155,7 @@ class InstructionsText extends RichText {
 
     // Instruction for magnitude & phase format, with subscripts that match the selected potential's ground state.
     subscript = groundStateIndex;
+    //TODO localize
     const magnitudeAndPhaseInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
                                                 `Ψ(x,t) = c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
                                                 `c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
@@ -185,13 +187,11 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
     const items: RectangularRadioButtonGroupItem<CoefficientFormat>[] = [
       {
         value: 'amplitude',
-        //TODO localize
-        createNode: () => new RichText( 'Amplitude (a)', richTextOptions )
+        createNode: () => new RichText( 'Amplitude (a)', richTextOptions ) //TODO localize
       },
       {
         value: 'magnitudeAndPhase',
-        //TODO localize
-        createNode: () => new RichText( 'Magnitude (c) & Phase (φ)', richTextOptions )
+        createNode: () => new RichText( 'Magnitude (c) & Phase (φ)', richTextOptions ) //TODO localize
       }
     ];
 
@@ -220,12 +220,12 @@ class PushButtonGroup extends HBox {
     const xMargin = 20;
 
     const clearButton = new RectangularPushButton( {
-      content: alignGroup.createBox( new Text( 'Clear', textOptions ) ),
+      content: alignGroup.createBox( new Text( 'Clear', textOptions ) ), //TODO localize
       xMargin: xMargin
     } );
 
     const normalizeAndSaveButton = new RectangularPushButton( {
-      content: alignGroup.createBox( new Text( 'Normalize & Save', textOptions ) ),
+      content: alignGroup.createBox( new Text( 'Normalize & Save', textOptions ) ), //TODO localize
       xMargin: xMargin
     } );
 
