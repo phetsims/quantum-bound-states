@@ -130,7 +130,7 @@ export default class SuperpositionModel extends QBSModel {
       validValues: presetSuperpositionStates,
       tandem: tandem.createTandem( 'presetSuperpositionStateProperty' ),
       phetioFeatured: true,
-      phetioValueType: SuperpositionState.SuperpositionCoefficientsIO //TODO SuperpositionState.SuperpositionStateIO
+      phetioValueType: SuperpositionState.SuperpositionStateIO //TODO SuperpositionState.SuperpositionStateIO
     } );
 
     const customSuperpositionStates = CustomSuperpositionState.createStates( groundStateIndexProperty,
@@ -140,7 +140,7 @@ export default class SuperpositionModel extends QBSModel {
       validValues: customSuperpositionStates,
       tandem: tandem.createTandem( 'customSuperpositionStateProperty' ),
       phetioFeatured: true,
-      phetioValueType: SuperpositionState.SuperpositionCoefficientsIO //TODO SuperpositionState.SuperpositionStateIO
+      phetioValueType: SuperpositionState.SuperpositionStateIO //TODO SuperpositionState.SuperpositionStateIO
     } );
   }
 

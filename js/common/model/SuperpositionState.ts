@@ -34,7 +34,7 @@ type SelfOptions = {
   accessibleNameProperty?: TReadOnlyProperty<string>;
 };
 
-export type SuperpositionCoefficientsOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+export type SuperpositionStateOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class SuperpositionState extends PhetioObject {
 
@@ -44,16 +44,17 @@ export default class SuperpositionState extends PhetioObject {
   // Notifies observers when this.coefficients changes in some way.
   public readonly valuesChangedEmitter: Emitter;
 
+  //TODO Should these be optional? They are only needed for Preset and Custom states.
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
 
-  public constructor( coefficients: SuperpositionCoefficient[], providedOptions: SuperpositionCoefficientsOptions ) {
+  public constructor( coefficients: SuperpositionCoefficient[], providedOptions: SuperpositionStateOptions ) {
 
     if ( isAffirmEnabled() ) {
       affirm( SuperpositionState.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
     }
 
-    const options = optionize<SuperpositionCoefficientsOptions, SelfOptions, PhetioObjectOptions>()( {
+    const options = optionize<SuperpositionStateOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       accessibleNameProperty: providedOptions.visualNameProperty,
@@ -332,13 +333,12 @@ export default class SuperpositionState extends PhetioObject {
     return ( coefficients.length > 0 && _.find( coefficients, coefficient => coefficient.magnitude !== 0 ) !== undefined );
   }
 
-  //TODO Rename SuperpositionStateIO
   /**
-   * SuperpositionCoefficientsIO handles PhET-iO serialization of SuperpositionState instances.
+   * SuperpositionStateIO handles PhET-iO serialization of SuperpositionState instances.
    * It uses reference-type serialization as described in the Serialization section of
    * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
    */
-  public static readonly SuperpositionCoefficientsIO = new IOType<SuperpositionState, ReferenceIOState>( 'SuperpositionCoefficientsIO', {
+  public static readonly SuperpositionStateIO = new IOType<SuperpositionState, ReferenceIOState>( 'SuperpositionStateIO', {
     valueType: SuperpositionState,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
