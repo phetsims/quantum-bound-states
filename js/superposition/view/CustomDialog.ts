@@ -19,9 +19,7 @@ import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
-
-type CoefficientFormat = 'amplitude' | 'magnitudeAndPhase';
+import CustomSuperpositionState, { CoefficientFormat } from '../model/CustomSuperpositionState.js';
 
 export default class CustomDialog extends Dialog {
 
@@ -64,6 +62,7 @@ class CustomDialogContent extends Node {
 
   public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
 
+    //TODO localize
     const numberOfCoefficientsText = new Text( 'Number of coefficients', {
       font: new PhetFont( 14 ),
       maxWidth: 200
@@ -86,14 +85,13 @@ class CustomDialogContent extends Node {
       spacing: 10
     } );
 
+    //TODO localize
     const formatText = new Text( 'Format', {
       font: new PhetFont( 14 ),
       maxWidth: 200
     } );
 
-    const formatProperty = new Property<CoefficientFormat>( 'amplitude' );
-
-    const formatRadioButtonGroup = new FormatRadioButtonGroup( formatProperty );
+    const formatRadioButtonGroup = new FormatRadioButtonGroup( superpositionState.coefficientFormatProperty );
 
     const formatHBox = new HBox( {
       children: [ formatText, formatRadioButtonGroup ],
@@ -116,6 +114,10 @@ class CustomDialogContent extends Node {
   }
 }
 
+//TODO Factor out to FormatRadioButtonGroup.ts
+/**
+ * TODO
+ */
 class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientFormat> {
 
   public constructor( formatProperty: Property<CoefficientFormat> ) {
@@ -123,10 +125,12 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
     const items: RectangularRadioButtonGroupItem<CoefficientFormat>[] = [
       {
         value: 'amplitude',
+        //TODO localize
         createNode: () => new RichText( 'Amplitude (a)', { font: QBSConstants.CONTROL_FONT } )
       },
       {
         value: 'magnitudeAndPhase',
+        //TODO localize
         createNode: () => new RichText( 'Magnitude (c) & Phase (φ)', { font: QBSConstants.CONTROL_FONT } )
       }
     ];

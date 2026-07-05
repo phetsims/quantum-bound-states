@@ -7,6 +7,8 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -15,6 +17,9 @@ import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficien
 import SuperpositionState, { SuperpositionStateOptions } from '../../common/model/SuperpositionState.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 
+export const CoefficientFormatValues = [ 'amplitude', 'magnitudeAndPhase' ] as const;
+export type CoefficientFormat = ( typeof CoefficientFormatValues )[number];
+
 type SelfOptions = EmptySelfOptions;
 
 type CustomSuperpositionStateOptions = SelfOptions & SuperpositionStateOptions;
@@ -22,6 +27,7 @@ type CustomSuperpositionStateOptions = SelfOptions & SuperpositionStateOptions;
 export default class CustomSuperpositionState extends SuperpositionState {
 
   public readonly numberOfCoefficientsProperty: NumberProperty;
+  public readonly coefficientFormatProperty: Property<CoefficientFormat>;
 
   public constructor( providedOptions: CustomSuperpositionStateOptions ) {
 
@@ -42,6 +48,18 @@ export default class CustomSuperpositionState extends SuperpositionState {
     } );
 
     this.numberOfCoefficientsProperty.lazyLink( numberOfCoefficients => this.setNumberOfCoefficients( numberOfCoefficients ) );
+
+    this.coefficientFormatProperty = new StringUnionProperty( 'amplitude', {
+      validValues: CoefficientFormatValues,
+      tandem: options.tandem.createTandem( 'coefficientFormatProperty' )
+    } );
+  }
+
+  //TODO Is this being called?
+  public override reset(): void {
+    super.reset();
+    this.numberOfCoefficientsProperty.reset(); //TODO Should this be reset?
+    this.coefficientFormatProperty.reset();
   }
 
   /**
