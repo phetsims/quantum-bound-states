@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
@@ -66,6 +67,17 @@ class CustomDialogContent extends VBox {
 
   public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
 
+    const amplitudeInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
+                                        'Ψ(x,t) = a<sub>1</sub>Ψ<sub>1</sub>(x,t) + a<sub>2</sub>Ψ<sub>2</sub>(x,t) + ... + a<sub>n</sub>Ψ<sub>n</sub>(x,t)';
+    const magnitudeAndPhaseInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
+                                                'Ψ(x,t) = c<sub>1</sub>Ψ<sub>1</sub>(x,t) + c<sub>2</sub>Ψ<sub>2</sub>(x,t) + ... + c<sub>n</sub>Ψ<sub>n</sub>(x,t)';
+    const instructionsStringProperty = new DerivedStringProperty( [ superpositionState.coefficientFormatProperty ],
+      coefficientFormat => coefficientFormat === 'amplitude' ? amplitudeInstructionsString : magnitudeAndPhaseInstructionsString );
+    const instructionsText = new RichText( instructionsStringProperty, {
+      font: new PhetFont( 12 ),
+      maxWidth: 800
+    } );
+
     //TODO localize
     const numberOfCoefficientsText = new Text( 'Number of coefficients', {
       font: new PhetFont( 14 ),
@@ -111,6 +123,10 @@ class CustomDialogContent extends VBox {
 
     super( {
       children: [
+        instructionsText,
+        new HSeparator( {
+          stroke: QBSColors.separatorStrokeProperty
+        } ),
         topRow,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
