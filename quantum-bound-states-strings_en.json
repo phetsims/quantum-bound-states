@@ -86,7 +86,7 @@
     "value": "Superposition State: {{label}}"
   },
   "amplitudeHeading": {
-    "value": "Amplitude (c)"
+    "value": "Amplitude (a)"
   },
   "widthPattern": {
     "value": "width = {{value}} nm"
@@ -168,34 +168,34 @@
   "superpositionStates": {
     "preset1": {
       "groundState0": {
-        "value": "cΨ<sub>0</sub> + cΨ<sub>1</sub>"
+        "value": "aΨ<sub>0</sub> + aΨ<sub>1</sub>"
       },
       "groundState1": {
-        "value": "cΨ<sub>1</sub> + cΨ<sub>2</sub>"
+        "value": "aΨ<sub>1</sub> + aΨ<sub>2</sub>"
       }
     },
     "preset2": {
       "groundState0": {
-        "value": "cΨ<sub>0</sub> + cΨ<sub>2</sub>"
+        "value": "aΨ<sub>0</sub> + aΨ<sub>2</sub>"
       },
       "groundState1": {
-        "value": "cΨ<sub>1</sub> + cΨ<sub>3</sub>"
+        "value": "aΨ<sub>1</sub> + aΨ<sub>3</sub>"
       }
     },
     "preset3": {
       "groundState0": {
-        "value": "cΨ<sub>0</sub> - cΨ<sub>1</sub>"
+        "value": "aΨ<sub>0</sub> - aΨ<sub>1</sub>"
       },
       "groundState1": {
-        "value": "cΨ<sub>1</sub> - cΨ<sub>2</sub>"
+        "value": "aΨ<sub>1</sub> - aΨ<sub>2</sub>"
       }
     },
     "preset4": {
       "groundState0": {
-        "value": "cΨ<sub>0</sub> + cΨ<sub>1</sub> + cΨ<sub>2</sub>"
+        "value": "aΨ<sub>0</sub> + aΨ<sub>1</sub> + aΨ<sub>2</sub>"
       },
       "groundState1": {
-        "value": "cΨ<sub>1</sub> + cΨ<sub>2</sub> + cΨ<sub>3</sub>"
+        "value": "aΨ<sub>1</sub> + aΨ<sub>2</sub> + aΨ<sub>3</sub>"
       }
     },
     "preset5": {
@@ -890,16 +890,16 @@
     },
     "superpositionStates": {
       "preset1": {
-        "value": "{ $groundStateIndex ->\n  [0] c times psi sub 0 plus c times psi sub 1\n  *[1] c times psi sub 1 plus c times psi sub 2\n}"
+        "value": "{ $groundStateIndex ->\n  [0] a times psi sub 0 plus a times psi sub 1\n  *[1] a times psi sub 1 plus a times psi sub 2\n}"
       },
       "preset2": {
-        "value": "{ $groundStateIndex ->\n  [0] c times psi sub 0 plus c times psi sub 2\n  *[1] c times psi sub 1 plus c times psi sub 3\n}"
+        "value": "{ $groundStateIndex ->\n  [0] a times psi sub 0 plus a times psi sub 2\n  *[1] a times psi sub 1 plus a times psi sub 3\n}"
       },
       "preset3": {
-        "value": "{ $groundStateIndex ->\n  [0] c times psi sub 0 minus c times psi sub 1\n  *[1] c times psi sub 1 minus c times psi sub 2\n}"
+        "value": "{ $groundStateIndex ->\n  [0] a times psi sub 0 minus a times psi sub 1\n  *[1] a times psi sub 1 minus a times psi sub 2\n}"
       },
       "preset4": {
-        "value": "{ $groundStateIndex ->\n  [0] c times psi sub 0 plus c times psi sub 1 plus c times psi sub 2\n  *[1] c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3\n}"
+        "value": "{ $groundStateIndex ->\n  [0] a times psi sub 0 plus a times psi sub 1 plus a times psi sub 2\n  *[1] a times psi sub 1 plus a times psi sub 2 plus a times psi sub 3\n}"
       }
     },
     "timeDisplayToggleButton": {

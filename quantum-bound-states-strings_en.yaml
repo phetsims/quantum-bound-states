@@ -44,7 +44,7 @@ superpositionState:                    Superposition State
 probabilityDensityDialogTitle:         Probability Density
 waveFunctionDialogTitle:               Wave Function
 superpositionStateDialogTitle:         'Superposition State: {{label}}'
-amplitudeHeading:                      Amplitude (c)
+amplitudeHeading:                      Amplitude (a)
 
 # Handles
 widthPattern:                          'width = {{value}} nm'
@@ -85,17 +85,17 @@ potentialWells:
 # Superposition States
 superpositionStates:
   preset1:
-    groundState0: cΨ<sub>0</sub> + cΨ<sub>1</sub>
-    groundState1: cΨ<sub>1</sub> + cΨ<sub>2</sub>
+    groundState0: aΨ<sub>0</sub> + aΨ<sub>1</sub>
+    groundState1: aΨ<sub>1</sub> + aΨ<sub>2</sub>
   preset2:
-    groundState0: cΨ<sub>0</sub> + cΨ<sub>2</sub>
-    groundState1: cΨ<sub>1</sub> + cΨ<sub>3</sub>
+    groundState0: aΨ<sub>0</sub> + aΨ<sub>2</sub>
+    groundState1: aΨ<sub>1</sub> + aΨ<sub>3</sub>
   preset3:
-    groundState0: cΨ<sub>0</sub> - cΨ<sub>1</sub>
-    groundState1: cΨ<sub>1</sub> - cΨ<sub>2</sub>
+    groundState0: aΨ<sub>0</sub> - aΨ<sub>1</sub>
+    groundState1: aΨ<sub>1</sub> - aΨ<sub>2</sub>
   preset4:
-    groundState0: cΨ<sub>0</sub> + cΨ<sub>1</sub> + cΨ<sub>2</sub>
-    groundState1: cΨ<sub>1</sub> + cΨ<sub>2</sub> + cΨ<sub>3</sub>
+    groundState0: aΨ<sub>0</sub> + aΨ<sub>1</sub> + aΨ<sub>2</sub>
+    groundState1: aΨ<sub>1</sub> + aΨ<sub>2</sub> + aΨ<sub>3</sub>
   preset5: Localized Particle
   custom1: Custom 1
   custom2: Custom 2
@@ -574,20 +574,20 @@ a11y:
   superpositionStates:
     preset1:
       select_groundStateIndex:
-        0: c times psi sub 0 plus c times psi sub 1
-        1: c times psi sub 1 plus c times psi sub 2
+        0: a times psi sub 0 plus a times psi sub 1
+        1: a times psi sub 1 plus a times psi sub 2
     preset2:
       select_groundStateIndex:
-        0: c times psi sub 0 plus c times psi sub 2
-        1: c times psi sub 1 plus c times psi sub 3
+        0: a times psi sub 0 plus a times psi sub 2
+        1: a times psi sub 1 plus a times psi sub 3
     preset3:
       select_groundStateIndex:
-        0: c times psi sub 0 minus c times psi sub 1
-        1: c times psi sub 1 minus c times psi sub 2
+        0: a times psi sub 0 minus a times psi sub 1
+        1: a times psi sub 1 minus a times psi sub 2
     preset4:
       select_groundStateIndex:
-        0: c times psi sub 0 plus c times psi sub 1 plus c times psi sub 2
-        1: c times psi sub 1 plus c times psi sub 2 plus c times psi sub 3
+        0: a times psi sub 0 plus a times psi sub 1 plus a times psi sub 2
+        1: a times psi sub 1 plus a times psi sub 2 plus a times psi sub 3
 
   #=======================================================================================================
   # Toggle Buttons and Switches

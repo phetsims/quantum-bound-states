@@ -104,7 +104,7 @@ class PresetDialogContent extends GridBox {
         const magnitudeString = toFixed( coefficient.magnitude, QBSConstants.SUPERPOSITION_COEFFICIENT_AMPLITUDE_DECIMAL_PLACES );
 
         // Localization is not supported.
-        const coefficientText = new RichText( `c<sub>${subscript}</sub> = ${amplitudeString}`, {
+        const coefficientText = new RichText( `a<sub>${subscript}</sub> = ${amplitudeString}`, {
           font: COEFFICIENT_FONT,
           maxWidth: 200,
           layoutOptions: {
