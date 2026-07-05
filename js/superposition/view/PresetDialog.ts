@@ -94,7 +94,7 @@ class PresetDialogContent extends GridBox {
     //TODO Should this be Ψ(x) since the previews are time-independent?
     let equationString = 'Ψ(x,t) =';
 
-    const coefficients = superpositionState.superpositionCoefficients.getCoefficients();
+    const coefficients = superpositionState.getCoefficients();
     coefficients.forEach( ( coefficient, index ) => {
       if ( coefficient.magnitude !== 0 ) {
 

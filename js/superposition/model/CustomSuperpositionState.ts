@@ -12,20 +12,20 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
 import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import SuperpositionState, { SuperpositionStateOptions } from './SuperpositionState.js';
+import { SuperpositionStateOptions } from './SuperpositionState.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type CustomSuperpositionStateOptions = SelfOptions & SuperpositionStateOptions;
 
-export default class CustomSuperpositionState extends SuperpositionState {
+export default class CustomSuperpositionState extends SuperpositionCoefficients {
 
   public constructor( providedOptions: CustomSuperpositionStateOptions ) {
 
-    //TODO Not sure how this should be handled.
-    const superpositionCoefficients = new SuperpositionCoefficients( [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ] );
+    //TODO Is this the correct initial value? A superposition state requires 2 non-zero coefficients.
+    const coefficients = [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ];
 
-    super( superpositionCoefficients, providedOptions );
+    super( coefficients, providedOptions );
   }
 
   /**

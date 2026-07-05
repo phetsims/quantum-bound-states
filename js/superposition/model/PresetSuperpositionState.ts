@@ -14,17 +14,17 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
 import SuperpositionCoefficients from '../../common/model/SuperpositionCoefficients.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
-import SuperpositionState, { SuperpositionStateOptions } from './SuperpositionState.js';
+import { SuperpositionStateOptions } from './SuperpositionState.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type PresetSuperpositionStateOptions = SelfOptions & SuperpositionStateOptions;
 
-export default class PresetSuperpositionState extends SuperpositionState {
+export default class PresetSuperpositionState extends SuperpositionCoefficients {
 
-  private constructor( superpositionCoefficients: SuperpositionCoefficients, providedOptions: PresetSuperpositionStateOptions ) {
+  private constructor( coefficients: SuperpositionCoefficient[], providedOptions: PresetSuperpositionStateOptions ) {
 
-    super( superpositionCoefficients, providedOptions );
+    super( coefficients, providedOptions );
   }
 
   /**
@@ -45,12 +45,12 @@ export default class PresetSuperpositionState extends SuperpositionState {
    */
   private static createPreset1( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
-    const coefficients = new SuperpositionCoefficients( [
+    const coefficients = [
       new SuperpositionCoefficient( 0.71, 0 ),
       new SuperpositionCoefficient( 0.71, 0 )
-    ] );
+    ];
 
-    return new PresetSuperpositionState( coefficients, {
+    const superpositionState = new PresetSuperpositionState( coefficients, {
       visualNameProperty: new DerivedStringProperty( [
         groundStateIndexProperty,
         QuantumBoundStatesFluent.superpositionStates.preset1.groundState0StringProperty,
@@ -61,6 +61,9 @@ export default class PresetSuperpositionState extends SuperpositionState {
       } ),
       tandem: parentTandem.createTandem( 'preset1' )
     } );
+    affirm( superpositionState.isNormalized(), 'superpositionState must be normalized' );
+
+    return superpositionState;
   }
 
   /**
@@ -68,14 +71,13 @@ export default class PresetSuperpositionState extends SuperpositionState {
    */
   private static createPreset2( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
-    const coefficients = new SuperpositionCoefficients( [
+    const coefficients = [
       new SuperpositionCoefficient( 0.71, 0 ),
       SuperpositionCoefficient.ZERO_COEFFICIENT,
       new SuperpositionCoefficient( 0.71, 0 )
-    ] );
-    affirm( coefficients.isNormalized(), 'coefficients must be normalized' );
+    ];
 
-    return new PresetSuperpositionState( coefficients, {
+    const superpositionState = new PresetSuperpositionState( coefficients, {
       visualNameProperty: new DerivedStringProperty( [
         groundStateIndexProperty,
         QuantumBoundStatesFluent.superpositionStates.preset2.groundState0StringProperty,
@@ -86,6 +88,9 @@ export default class PresetSuperpositionState extends SuperpositionState {
       } ),
       tandem: parentTandem.createTandem( 'preset2' )
     } );
+    affirm( superpositionState.isNormalized(), 'superpositionState must be normalized' );
+
+    return superpositionState;
   }
 
   /**
@@ -93,13 +98,12 @@ export default class PresetSuperpositionState extends SuperpositionState {
    */
   private static createPreset3( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
-    const coefficients = new SuperpositionCoefficients( [
+    const coefficients = [
       new SuperpositionCoefficient( 0.71, 0 ),
       new SuperpositionCoefficient( 0.71, 1 ) // 1 * Math.PI, which results in amplitude of -magnitude
-    ] );
-    affirm( coefficients.isNormalized(), 'coefficients must be normalized' );
+    ];
 
-    return new PresetSuperpositionState( coefficients, {
+    const superpositionState = new PresetSuperpositionState( coefficients, {
       visualNameProperty: new DerivedStringProperty( [
         groundStateIndexProperty,
         QuantumBoundStatesFluent.superpositionStates.preset3.groundState0StringProperty,
@@ -110,6 +114,9 @@ export default class PresetSuperpositionState extends SuperpositionState {
       } ),
       tandem: parentTandem.createTandem( 'preset3' )
     } );
+    affirm( superpositionState.isNormalized(), 'superpositionState must be normalized' );
+
+    return superpositionState;
   }
 
   /**
@@ -117,14 +124,13 @@ export default class PresetSuperpositionState extends SuperpositionState {
    */
   private static createPreset4( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
-    const coefficients = new SuperpositionCoefficients( [
+    const coefficients = [
       new SuperpositionCoefficient( 0.58, 0 ),
       new SuperpositionCoefficient( 0.58, 0 ),
       new SuperpositionCoefficient( 0.58, 0 )
-    ] );
-    affirm( coefficients.isNormalized(), 'coefficients must be normalized' );
+    ];
 
-    return new PresetSuperpositionState( coefficients, {
+    const superpositionState = new PresetSuperpositionState( coefficients, {
       visualNameProperty: new DerivedStringProperty( [
         groundStateIndexProperty,
         QuantumBoundStatesFluent.superpositionStates.preset4.groundState0StringProperty,
@@ -135,6 +141,9 @@ export default class PresetSuperpositionState extends SuperpositionState {
       } ),
       tandem: parentTandem.createTandem( 'preset4' )
     } );
+    affirm( superpositionState.isNormalized(), 'superpositionState must be normalized' );
+
+    return superpositionState;
   }
 
   /**
@@ -148,13 +157,13 @@ export default class PresetSuperpositionState extends SuperpositionState {
       coefficients.push( new SuperpositionCoefficient( 0.32, 0 ) );
     }
 
-    const superpositionCoefficients = new SuperpositionCoefficients( coefficients );
-    superpositionCoefficients.normalize(); //TODO Should not need to do this.
-    affirm( superpositionCoefficients.isNormalized(), 'coefficients must be normalized' );
-
-    return new PresetSuperpositionState( new SuperpositionCoefficients( coefficients ), {
+    const superpositionState = new PresetSuperpositionState( coefficients, {
       visualNameProperty: QuantumBoundStatesFluent.superpositionStates.preset5StringProperty,
       tandem: parentTandem.createTandem( 'localizedParticle' )
     } );
+    superpositionState.normalize(); //TODO Should not need to do this.
+    affirm( superpositionState.isNormalized(), 'superpositionState must be normalized' );
+
+    return superpositionState;
   }
 }

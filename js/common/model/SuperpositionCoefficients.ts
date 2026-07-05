@@ -10,7 +10,14 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import affirm, { affirmCallback, isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
+import { SuperpositionStateOptions } from '../../superposition/model/SuperpositionState.js';
 import QBSConstants from '../QBSConstants.js';
 import SuperpositionCoefficient from './SuperpositionCoefficient.js';
 
@@ -19,7 +26,18 @@ import SuperpositionCoefficient from './SuperpositionCoefficient.js';
 // normalized coefficient should be 0.543.
 const NORMALIZATION_ERROR = Math.pow( 10, -QBSConstants.SUPERPOSITION_COEFFICIENT_MAGNITUDE_DECIMAL_PLACES );
 
-export default class SuperpositionCoefficients {
+type SelfOptions = {
+
+  // Name used in the visual interface
+  visualNameProperty: TReadOnlyProperty<string>;
+
+  // Name used in the accessible interface, including core description. Defaults to visualNameProperty.
+  accessibleNameProperty?: TReadOnlyProperty<string>;
+};
+
+export type SuperpositionCoefficientsOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+
+export default class SuperpositionCoefficients extends PhetioObject {
 
   //TODO Should the number of coefficients always match BoundStateResult.energies.length or are zeros implied?
   private coefficients: SuperpositionCoefficient[];
@@ -27,11 +45,30 @@ export default class SuperpositionCoefficients {
   // Notifies observers when this.coefficients changes in some way.
   public readonly valuesChangedEmitter: Emitter;
 
-  public constructor( coefficients: SuperpositionCoefficient[] ) {
+  public readonly visualNameProperty: TReadOnlyProperty<string>;
+  public readonly accessibleNameProperty: TReadOnlyProperty<string>;
+
+  public constructor( coefficients: SuperpositionCoefficient[], providedOptions: SuperpositionCoefficientsOptions ) {
+
     if ( isAffirmEnabled() ) {
       affirm( SuperpositionCoefficients.isValidCoefficients( coefficients ), 'coefficients.length must be > 0 and have at least 1 non-zero magnitude.' );
     }
+
+    const options = optionize<SuperpositionStateOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // SelfOptions
+      accessibleNameProperty: providedOptions.visualNameProperty,
+
+      // PhetioObjectOptions
+      isDisposable: false,
+      phetioState: false
+    }, providedOptions );
+
+    super( options );
+
     this.coefficients = coefficients;
+    this.visualNameProperty = options.visualNameProperty;
+    this.accessibleNameProperty = options.accessibleNameProperty || this.visualNameProperty;
     this.valuesChangedEmitter = new Emitter();
   }
 
@@ -295,4 +332,15 @@ export default class SuperpositionCoefficients {
   public static isValidCoefficients( coefficients: SuperpositionCoefficient[] ): boolean {
     return ( coefficients.length > 0 && _.find( coefficients, coefficient => coefficient.magnitude !== 0 ) !== undefined );
   }
+
+  //TODO Rename SuperpositionStateIO
+  /**
+   * SuperpositionCoefficientsIO handles PhET-iO serialization of SuperpositionCoefficients instances.
+   * It uses reference-type serialization as described in the Serialization section of
+   * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
+   */
+  public static readonly SuperpositionCoefficientsIO = new IOType<SuperpositionCoefficients, ReferenceIOState>( 'SuperpositionCoefficientsIO', {
+    valueType: SuperpositionCoefficients,
+    supertype: ReferenceIO( IOType.ObjectIO )
+  } );
 }

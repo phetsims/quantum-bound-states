@@ -19,6 +19,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import QBSConstants from '../QBSConstants.js';
@@ -66,7 +67,7 @@ export default class QBSModel implements TModel {
   public readonly electronMassesProperty: NumberProperty;
   public readonly electricFieldProperty: NumberProperty;
 
-  public readonly superpositionCoefficientsProperty: Property<SuperpositionCoefficients>;
+  public readonly superpositionCoefficients: SuperpositionCoefficients;
 
   // Result for configuration of the selected quantum potential.
   public readonly boundStateResultProperty: Property<BoundStateResult>;
@@ -145,7 +146,12 @@ export default class QBSModel implements TModel {
     } );
 
     //TODO Should an initial value for this.coefficients be computed and passed in?
-    this.superpositionCoefficientsProperty = new Property( new SuperpositionCoefficients( [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ] ) );
+    this.superpositionCoefficients = new SuperpositionCoefficients( [ SuperpositionCoefficient.GROUND_STATE_COEFFICIENT ], {
+      //TODO What should these option values be?
+      visualNameProperty: new Property( 'default' ),
+      accessibleNameProperty: new Property( 'default' ),
+      tandem: Tandem.OPT_OUT
+    } );
 
     this.energyDiagram = new EnergyDiagram( this, options.tandem.createTandem( 'energyDiagram' ) );
 
@@ -267,7 +273,6 @@ export default class QBSModel implements TModel {
     this.electricFieldProperty.reset();
     this.potentialProperty.reset();
     this.potentials.forEach( potential => potential.reset() );
-    this.superpositionCoefficientsProperty.reset(); //TODO Should this be reset?
     this.selectedEnergyLevelIndexProperty.reset();
     this.highlightedEnergyLevelIndexProperty.reset();
     this.energyDiagram.reset();

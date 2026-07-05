@@ -33,7 +33,7 @@ export default class SuperpositionState extends PhetioObject {
   public readonly visualNameProperty: TReadOnlyProperty<string>;
   public readonly accessibleNameProperty: TReadOnlyProperty<string>;
 
-  protected constructor( superpositionCoefficients: SuperpositionCoefficients, providedOptions: SuperpositionStateOptions ) {
+  private constructor( superpositionCoefficients: SuperpositionCoefficients, providedOptions: SuperpositionStateOptions ) {
 
     const options = optionize<SuperpositionStateOptions, SelfOptions, PhetioObjectOptions>()( {
 
@@ -57,7 +57,7 @@ export default class SuperpositionState extends PhetioObject {
    * It uses reference-type serialization as described in the Serialization section of
    * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
    */
-  public static readonly SuperpositionStateIO = new IOType<SuperpositionState, ReferenceIOState>( 'SuperpositionStateIO', {
+  private static readonly SuperpositionStateIO = new IOType<SuperpositionState, ReferenceIOState>( 'SuperpositionStateIO', {
     valueType: SuperpositionState,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
