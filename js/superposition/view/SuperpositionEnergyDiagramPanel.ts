@@ -8,6 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -18,6 +19,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
+import BoundStateResult from '../../common/model/solvers/BoundStateResult.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import PotentialComboBox from '../../common/view/PotentialComboBox.js';
@@ -26,13 +28,14 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState from '../model/CustomSuperpositionState.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 import { SuperpositionStateType } from '../model/SuperpositionStateType.js';
-import PresetCustomSwitch from './PresetCustomSwitch.js';
-import CustomEditButton from './CustomEditButton.js';
 import CustomComboBox from './CustomComboBox.js';
 import CustomDialog from './CustomDialog.js';
-import PresetInfoButton from './PresetInfoButton.js';
+import CustomEditButton from './CustomEditButton.js';
+import EnergyLevelsRichText from './EnergyLevelsRichText.js';
 import PresetComboBox from './PresetComboBox.js';
+import PresetCustomSwitch from './PresetCustomSwitch.js';
 import PresetDialog from './PresetDialog.js';
+import PresetInfoButton from './PresetInfoButton.js';
 
 // Space between the combo box and the button.
 const BUTTON_SPACING = 8;
@@ -41,6 +44,7 @@ export class SuperpositionEnergyDiagramPanel extends Panel {
 
   public constructor( listboxParent: Node,
                       potentialProperty: Property<QuantumPotential>,
+                      boundStatesResultProperty: TReadOnlyProperty<BoundStateResult>,
                       superpositionStateTypeProperty: Property<SuperpositionStateType>,
                       superpositionPresetProperty: Property<PresetSuperpositionState>,
                       superpositionCustomProperty: Property<CustomSuperpositionState>,
@@ -98,9 +102,12 @@ export class SuperpositionEnergyDiagramPanel extends Panel {
     } );
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
+      spacing: 12, // Add more spacing for this screen.
       children: [
         energyDiagramText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
+        new EnergyLevelsRichText( potentialProperty, boundStatesResultProperty,
+          tandem.createTandem( 'energyLevelsText' ) ),
         new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
         superpositionStateText,
         new PresetCustomSwitch( superpositionStateTypeProperty, tandem.createTandem( 'presetCustomSwitch' ) ),
