@@ -63,6 +63,7 @@ export default class CustomDialog extends Dialog {
       ySpacing: 15, // vertical space between title and content
       fill: QBSColors.superpositionStateDialogFillProperty,
       hideCallback: () => this.dispose()
+      //TODO Use layoutStrategy to anchor the top of the dialog while the dialog resizes?
     } );
 
     super( content, options );
