@@ -24,6 +24,7 @@ import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushBut
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
+import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -31,7 +32,9 @@ import CustomSuperpositionState, { CoefficientFormat } from '../model/CustomSupe
 
 export default class CustomDialog extends Dialog {
 
-  public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
+  public constructor( superpositionState: CustomSuperpositionState,
+                      potential: QuantumPotential,
+                      numberOfEnergyLevels: number ) {
 
     // Title includes the visual name of the selected superposition state.
     const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.superpositionStateDialogTitleStringProperty, {
@@ -43,7 +46,7 @@ export default class CustomDialog extends Dialog {
       maxWidth: 500
     } );
 
-    const content = new CustomDialogContent( superpositionState, groundStateIndex );
+    const content = new CustomDialogContent( superpositionState, potential, numberOfEnergyLevels );
 
     const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
       title: titleNode,
@@ -68,10 +71,10 @@ export default class CustomDialog extends Dialog {
  */
 class CustomDialogContent extends VBox {
 
-  public constructor( superpositionState: CustomSuperpositionState, groundStateIndex: number ) {
+  public constructor( superpositionState: CustomSuperpositionState, potential: QuantumPotential, numberOfEnergyLevels: number ) {
 
     // Instructions
-    const instructionsText = new InstructionsText( superpositionState, groundStateIndex );
+    const instructionsText = new InstructionsText( superpositionState, potential.groundStateIndex );
 
     //TODO localize
     const numberOfCoefficientsText = new Text( 'Number of coefficients', {
@@ -97,6 +100,25 @@ class CustomDialogContent extends VBox {
     } );
 
     //TODO localize
+    const warningStringProperty = new DerivedStringProperty( [ superpositionState.numberOfCoefficientsProperty ],
+      numberOfCoefficients => numberOfCoefficients > numberOfEnergyLevels ?
+                              `\u26a0\ufe0f Selected potential has ${numberOfEnergyLevels} energy levels.` :
+                              `Selected potential has ${numberOfEnergyLevels} energy levels.` );
+    const numberOfEnergyLevelsWarningText = new Text( warningStringProperty, {
+      font: new PhetFont( 12 ),
+      maxWidth: numberOfCoefficientsHBox.width
+    } );
+
+    const numberOfCoefficientVBox = new VBox( {
+      children: [
+        numberOfCoefficientsHBox,
+        numberOfEnergyLevelsWarningText
+      ],
+      spacing: 5,
+      align: 'left'
+    } );
+
+    //TODO localize
     const formatText = new Text( 'Format', {
       font: new PhetFont( 14 ),
       maxWidth: 200
@@ -110,7 +132,7 @@ class CustomDialogContent extends VBox {
     } );
 
     const topRow = new HBox( {
-      children: [ numberOfCoefficientsHBox, formatHBox ],
+      children: [ numberOfCoefficientVBox, formatHBox ],
       spacing: 50
     } );
 
@@ -145,6 +167,8 @@ class CustomDialogContent extends VBox {
       instructionsText.dispose();
       numberOfCoefficientsText.dispose();
       numberOfCoefficientsSpinner.dispose();
+      warningStringProperty.dispose();
+      numberOfEnergyLevelsWarningText.dispose();
       formatText.dispose();
       formatRadioButtonGroup.dispose();
       previewNode.dispose();
@@ -200,17 +224,14 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
       maxWidth: 200
     };
 
-    const amplitudeText = new RichText( 'Amplitude (a)', richTextOptions ); //TODO localize
-    const magnitudeAndPhaseText = new RichText( 'Magnitude (c) & Phase (φ)', richTextOptions ); //TODO localize
-
     const items: RectangularRadioButtonGroupItem<CoefficientFormat>[] = [
       {
         value: 'amplitude',
-        createNode: () => amplitudeText
+        createNode: () => new RichText( 'Amplitude (a)', richTextOptions ) //TODO localize
       },
       {
         value: 'magnitudeAndPhase',
-        createNode: () => magnitudeAndPhaseText
+        createNode: () => new RichText( 'Magnitude (c) & Phase (φ)', richTextOptions ) //TODO localize
       }
     ];
 
@@ -222,8 +243,7 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
     } );
 
     this.disposeEmitter.addListener( () => {
-      amplitudeText.dispose();
-      magnitudeAndPhaseText.dispose();
+      //TODO Anything to dispose?
     } );
   }
 }
