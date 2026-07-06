@@ -10,11 +10,14 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
@@ -125,6 +128,7 @@ class CustomDialogContent extends VBox {
         } ),
         new Text( 'coefficientsCarousel', { font: QBSConstants.CONTROL_FONT } ), //TODO
         new Text( 'pageControl', { font: QBSConstants.CONTROL_FONT } ), //TODO
+        new WaveFunctionPreviewNode(),
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
@@ -200,6 +204,33 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
       radioButtonOptions: {
         xMargin: 15
       }
+    } );
+  }
+}
+
+/**
+ * WaveFunctionPreviewNode is a preview of the time-independent wave function.
+ */
+class WaveFunctionPreviewNode extends Node {
+
+  public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
+
+    const rectangle = new Rectangle( 0, 0, 300, 50, {
+      fill: 'white',
+      stroke: 'black'
+    } );
+
+    const text = new Text( 'Preview', {
+      font: new PhetFont( 12 ),
+      center: rectangle.center
+    } );
+
+    super( combineOptions<NodeOptions>( {
+      children: [ rectangle, text ]
+    }, providedOptions ) );
+
+    this.disposeEmitter.addListener( () => {
+      //TODO
     } );
   }
 }
