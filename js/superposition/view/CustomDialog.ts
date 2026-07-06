@@ -114,6 +114,8 @@ class CustomDialogContent extends VBox {
       spacing: 50
     } );
 
+    const previewNode = new WaveFunctionPreviewNode();
+
     const pushButtonGroup = new PushButtonGroup();
 
     super( {
@@ -128,7 +130,7 @@ class CustomDialogContent extends VBox {
         } ),
         new Text( 'coefficientsCarousel', { font: QBSConstants.CONTROL_FONT } ), //TODO
         new Text( 'pageControl', { font: QBSConstants.CONTROL_FONT } ), //TODO
-        new WaveFunctionPreviewNode(),
+        previewNode,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
@@ -140,7 +142,13 @@ class CustomDialogContent extends VBox {
 
     this.disposeEmitter.addListener( () => {
       phet.log && phet.log( 'CustomDialogContent disposed' );
+      instructionsText.dispose();
       numberOfCoefficientsText.dispose();
+      numberOfCoefficientsSpinner.dispose();
+      formatText.dispose();
+      formatRadioButtonGroup.dispose();
+      previewNode.dispose();
+      pushButtonGroup.dispose();
     } );
   }
 }
@@ -172,6 +180,10 @@ class InstructionsText extends RichText {
       font: new PhetFont( 12 ),
       maxWidth: 800
     } );
+
+    this.disposeEmitter.addListener( () => {
+      instructionsStringProperty.dispose();
+    } );
   }
 }
 
@@ -188,14 +200,17 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
       maxWidth: 200
     };
 
+    const amplitudeText = new RichText( 'Amplitude (a)', richTextOptions ); //TODO localize
+    const magnitudeAndPhaseText = new RichText( 'Magnitude (c) & Phase (φ)', richTextOptions ); //TODO localize
+
     const items: RectangularRadioButtonGroupItem<CoefficientFormat>[] = [
       {
         value: 'amplitude',
-        createNode: () => new RichText( 'Amplitude (a)', richTextOptions ) //TODO localize
+        createNode: () => amplitudeText
       },
       {
         value: 'magnitudeAndPhase',
-        createNode: () => new RichText( 'Magnitude (c) & Phase (φ)', richTextOptions ) //TODO localize
+        createNode: () => magnitudeAndPhaseText
       }
     ];
 
@@ -204,6 +219,11 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
       radioButtonOptions: {
         xMargin: 15
       }
+    } );
+
+    this.disposeEmitter.addListener( () => {
+      amplitudeText.dispose();
+      magnitudeAndPhaseText.dispose();
     } );
   }
 }
@@ -250,19 +270,26 @@ class PushButtonGroup extends HBox {
 
     const xMargin = 20;
 
+    const clearText = new Text( 'Clear', textOptions ); //TODO localize
     const clearButton = new RectangularPushButton( {
-      content: alignGroup.createBox( new Text( 'Clear', textOptions ) ), //TODO localize
+      content: alignGroup.createBox( clearText ),
       xMargin: xMargin
     } );
 
+    const normalizeAndSaveText = new Text( 'Normalize & Save', textOptions ); //TODO localize
     const normalizeAndSaveButton = new RectangularPushButton( {
-      content: alignGroup.createBox( new Text( 'Normalize & Save', textOptions ) ), //TODO localize
+      content: alignGroup.createBox( normalizeAndSaveText ),
       xMargin: xMargin
     } );
 
     super( {
       children: [ clearButton, normalizeAndSaveButton ],
       spacing: 15
+    } );
+
+    this.disposeEmitter.addListener( () => {
+      clearText.dispose();
+      normalizeAndSaveText.dispose();
     } );
   }
 }

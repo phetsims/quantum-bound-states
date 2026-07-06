@@ -197,7 +197,10 @@ class PresetDialogContent extends GridBox {
 
     this.disposeEmitter.addListener( () => {
       phet.log && phet.log( 'PresetDialogContent disposed' );
-      //TODO
+      amplitudeText.dispose();
+      equationNode.dispose();
+      previewNode.dispose();
+      legendNode.dispose();
     } );
   }
 }
@@ -293,5 +296,10 @@ class PreviewLegendNode extends GridBox {
       xSpacing: 8,
       ySpacing: 6
     }, providedOptions ) );
+
+    this.disposeEmitter.addListener( () => {
+      realPartText.dispose();
+      imaginaryPartText.dispose();
+    } );
   }
 }
