@@ -139,7 +139,7 @@ class CustomDialogContent extends VBox {
       maxWidth: 200
     } );
 
-    const formatRadioButtonGroup = new FormatRadioButtonGroup( superpositionState.coefficientFormatProperty );
+    const formatRadioButtonGroup = new CoefficientFormatRadioButtonGroup( superpositionState.coefficientFormatProperty );
 
     const formatHBox = new HBox( {
       children: [ formatText, formatRadioButtonGroup ],
@@ -229,11 +229,11 @@ class InstructionsText extends RichText {
   }
 }
 
-//TODO Factor out to FormatRadioButtonGroup.ts
+//TODO Factor out to CoefficientFormatRadioButtonGroup.ts
 /**
  * TODO
  */
-class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientFormat> {
+class CoefficientFormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientFormat> {
 
   public constructor( formatProperty: Property<CoefficientFormat> ) {
 
