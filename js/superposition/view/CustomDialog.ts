@@ -153,7 +153,7 @@ class CustomDialogContent extends VBox {
     } );
 
     const coefficientSpinnersGroup = new CoefficientSpinnersGroup( superpositionState.numberOfCoefficientsProperty,
-      superpositionState.coefficientFormatProperty );
+      superpositionState.coefficientFormatProperty, potential.groundStateIndex );
 
     const previewNode = new SuperpositionStatePreviewNode( {
       viewScale: PREVIEW_SCALE
@@ -274,9 +274,11 @@ class CoefficientSpinnersGroup extends GridBox {
 
   private readonly numberOfCoefficientsProperty: TReadOnlyProperty<number>;
   private readonly coefficientFormatProperty: TReadOnlyProperty<CoefficientFormat>;
+  private readonly groundStateIndex: number;
 
   public constructor( numberOfCoefficientsProperty: TReadOnlyProperty<number>,
-                      coefficientFormatProperty: TReadOnlyProperty<CoefficientFormat> ) {
+                      coefficientFormatProperty: TReadOnlyProperty<CoefficientFormat>,
+                      groundStateIndex: number ) {
     super( {
       xSpacing: 35,
       ySpacing: 20
@@ -284,6 +286,7 @@ class CoefficientSpinnersGroup extends GridBox {
 
     this.numberOfCoefficientsProperty = numberOfCoefficientsProperty;
     this.coefficientFormatProperty = coefficientFormatProperty;
+    this.groundStateIndex = groundStateIndex;
 
     const multilink = Multilink.multilink( [ numberOfCoefficientsProperty, coefficientFormatProperty ], () => this.update() );
     this.update();
@@ -314,7 +317,7 @@ class CoefficientSpinnersGroup extends GridBox {
       }
 
       // Amplitude label
-      const amplitudeLabel = new RichText( `a<sub>${i + 1}</sub>`, {
+      const amplitudeLabel = new RichText( `a<sub>${this.groundStateIndex + i}</sub>`, {
         font: new PhetFont( 14 )
       } );
 
@@ -366,7 +369,7 @@ class CoefficientSpinnersGroup extends GridBox {
       }
 
       // Magnitude label
-      const magnitudeLabel = new RichText( `c<sub>${i + 1}</sub>`, {
+      const magnitudeLabel = new RichText( `c<sub>${this.groundStateIndex + i}</sub>`, {
         font: new PhetFont( 14 )
       } );
 
@@ -395,7 +398,7 @@ class CoefficientSpinnersGroup extends GridBox {
       } );
 
       // Phase label
-      const phaseLabel = new RichText( `φ<sub>${i + 1}</sub>`, {
+      const phaseLabel = new RichText( `φ<sub>${this.groundStateIndex + i}</sub>`, {
         font: new PhetFont( 14 )
       } );
 
