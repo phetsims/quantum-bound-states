@@ -100,7 +100,7 @@ class CustomDialogContent extends VBox {
       spacing: 10
     } );
 
-    //TODO localize
+    //TODO localize, handle singular/plural
     const warningStringProperty = new DerivedStringProperty( [ superpositionState.numberOfCoefficientsProperty ],
       numberOfCoefficients => numberOfCoefficients > numberOfEnergyLevels ?
                               `\u26a0\ufe0f Selected potential has ${numberOfEnergyLevels} energy levels.` :
