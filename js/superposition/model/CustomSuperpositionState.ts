@@ -42,7 +42,7 @@ export default class CustomSuperpositionState extends SuperpositionState {
     super( coefficients, providedOptions );
 
     this.numberOfCoefficientsProperty = new NumberProperty( coefficients.length, {
-      range: new Range( 2, 50 ), // At least 2 coefficients are required for a superposition state.
+      range: new Range( 2, 48 ), // At least 2 coefficients are required for a superposition state.
       numberType: 'Integer',
       tandem: options.tandem.createTandem( 'numberOfCoefficientsProperty' )
     } );
