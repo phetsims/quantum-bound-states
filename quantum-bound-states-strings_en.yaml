@@ -43,8 +43,8 @@ superpositionState:                  Superposition State
 # Dialogs
 probabilityDensityDialogTitle:       Probability Density
 waveFunctionDialogTitle:             Wave Function
-presetSuperpositionStateDialogTitle: 'Preset Superposition State: {{label}}'
-customSuperpositionStateDialogTitle: 'Custom Superposition State: {{label}}'
+presetSuperpositionStateDialogTitle: 'Preset Superposition State: {{name}}'
+customSuperpositionStateDialogTitle: 'Custom Superposition State: {{name}}'
 amplitudeHeading:                    Amplitude (a)
 
 # Handles

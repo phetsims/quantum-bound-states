@@ -83,10 +83,10 @@
     "value": "Wave Function"
   },
   "presetSuperpositionStateDialogTitle": {
-    "value": "Preset Superposition State: {{label}}"
+    "value": "Preset Superposition State: {{name}}"
   },
   "customSuperpositionStateDialogTitle": {
-    "value": "Custom Superposition State: {{label}}"
+    "value": "Custom Superposition State: {{name}}"
   },
   "amplitudeHeading": {
     "value": "Amplitude (a)"
