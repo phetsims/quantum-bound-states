@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Factor out private classes into their own source files.
 /**
  * CustomDialog is the dialog for customizing a superposition state
  *
@@ -229,7 +230,6 @@ class InstructionsText extends RichText {
   }
 }
 
-//TODO Factor out to CoefficientFormatRadioButtonGroup.ts
 /**
  * TODO
  */

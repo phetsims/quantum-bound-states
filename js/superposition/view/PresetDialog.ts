@@ -1,5 +1,6 @@
 // Copyright 2026, University of Colorado Boulder
 
+//TODO Factor out private classes into their own source files.
 /**
  * PresetDialog is the dialog for viewing a preset superposition state.
  *
@@ -207,7 +208,6 @@ class PresetDialogContent extends GridBox {
 }
 
 //TODO Placeholder
-//TODO Factor out to PresetPreviewNode.ts
 /**
  * WaveFunctionPreviewNode is a preview of the time-independent wave function.
  */
@@ -235,7 +235,6 @@ class WaveFunctionPreviewNode extends Node {
   }
 }
 
-//TODO Factor out to PresetLegendNode.ts
 /**
  * PreviewLegendNode is a legend that identifies the real and imaginary parts of the wave function shown in the previews.
  */
