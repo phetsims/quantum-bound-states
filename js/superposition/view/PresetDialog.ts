@@ -215,7 +215,11 @@ class WaveFunctionPreviewNode extends Node {
 
   public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
 
-    const rectangle = new Rectangle( 0, 0, 150, 50, {
+    const scale = 0.2;
+    const width = scale * QBSConstants.ALL_GRAPHS_VIEW_WIDTH;
+    const height = scale * QBSConstants.QUANTUM_STATE_GRAPHS_VIEW_HEIGHT;
+
+    const rectangle = new Rectangle( 0, 0, width, height, {
       fill: 'white',
       stroke: 'black'
     } );
