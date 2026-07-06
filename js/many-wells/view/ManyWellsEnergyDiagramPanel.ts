@@ -46,6 +46,7 @@ export class ManyWellsEnergyDiagramPanel extends Panel {
     } );
 
     const content = new VBox( combineOptions<VBoxOptions>( {}, QBSConstants.VBOX_OPTIONS, {
+      spacing: 10, // Add more spacing for this screen.
       children: [
         energyDiagramText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
