@@ -61,6 +61,7 @@ export default class CustomDialog extends Dialog {
       title: titleNode,
       xSpacing: 20, // horizontal space between content and closeButton
       ySpacing: 15, // vertical space between title and content
+      fill: QBSColors.superpositionStateDialogFillProperty,
       hideCallback: () => this.dispose()
     } );
 
@@ -254,7 +255,8 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
     super( formatProperty, items, {
       orientation: 'horizontal',
       radioButtonOptions: {
-        xMargin: 15
+        xMargin: 15,
+        baseColor: 'white'
       }
     } );
 

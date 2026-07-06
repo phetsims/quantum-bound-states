@@ -52,6 +52,7 @@ export default class PresetDialog extends Dialog {
       title: titleNode,
       xSpacing: 20, // horizontal space between content and closeButton
       ySpacing: 15, // vertical space between title and content
+      fill: QBSColors.superpositionStateDialogFillProperty,
       hideCallback: () => this.dispose()
     } );
 

@@ -275,4 +275,8 @@ export default class QBSColors {
   public static readonly markerLinesStrokeProperty = new ProfileColorProperty( quantumBoundStates, 'markerLinesStrokeProperty', {
     default: 'rgb( 85, 85, 255 )'
   } );
+
+  public static readonly superpositionStateDialogFillProperty = new ProfileColorProperty( quantumBoundStates, 'superpositionStateDialogFillProperty', {
+    default: 'rgb( 254, 250, 229 )'
+  } );
 }
