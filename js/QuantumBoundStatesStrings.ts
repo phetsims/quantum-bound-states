@@ -45,7 +45,8 @@ type StringsType = {
   'superpositionStateStringProperty': LocalizedStringProperty;
   'probabilityDensityDialogTitleStringProperty': LocalizedStringProperty;
   'waveFunctionDialogTitleStringProperty': LocalizedStringProperty;
-  'superpositionStateDialogTitleStringProperty': LocalizedStringProperty;
+  'presetSuperpositionStateDialogTitleStringProperty': LocalizedStringProperty;
+  'customSuperpositionStateDialogTitleStringProperty': LocalizedStringProperty;
   'amplitudeHeadingStringProperty': LocalizedStringProperty;
   'widthPatternStringProperty': LocalizedStringProperty;
   'depthPatternStringProperty': LocalizedStringProperty;

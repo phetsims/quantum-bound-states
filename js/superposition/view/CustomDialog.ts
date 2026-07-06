@@ -46,7 +46,7 @@ export default class CustomDialog extends Dialog {
                       numberOfEnergyLevels: number ) {
 
     // Title includes the visual name of the selected superposition state.
-    const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.superpositionStateDialogTitleStringProperty, {
+    const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.customSuperpositionStateDialogTitleStringProperty, {
       label: superpositionState.visualNameProperty
     } );
 

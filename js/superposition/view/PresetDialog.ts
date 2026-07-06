@@ -37,7 +37,7 @@ export default class PresetDialog extends Dialog {
   public constructor( superpositionState: PresetSuperpositionState, groundStateIndex: number ) {
 
     // Title includes the visual name of the selected superposition state.
-    const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.superpositionStateDialogTitleStringProperty, {
+    const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.presetSuperpositionStateDialogTitleStringProperty, {
       label: superpositionState.visualNameProperty
     } );
 

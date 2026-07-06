@@ -1,13 +1,13 @@
 # Strings for PhET's Quantum Bound States simulation
 
 # Simulation Title
-quantum-bound-states.title:      Quantum Bound States
+quantum-bound-states.title:          Quantum Bound States
 
 # Screen Names
-screen.oneWell:                  One Well
-screen.superposition:            Superposition
-screen.twoWells:                 Two Wells
-screen.manyWells:                Many Wells
+screen.oneWell:                      One Well
+screen.superposition:                Superposition
+screen.twoWells:                     Two Wells
+screen.manyWells:                    Many Wells
 
 # Preferences
 phaseFeatureControl:
@@ -15,60 +15,61 @@ phaseFeatureControl:
   description: Adds a Phase checkbox to control panels for showing and hiding the phase of the wave function.
 
 # Titles
-potentialEnergy:                 Potential Energy
-totalEnergy:                     Total Energy
-position_nm:                     Position (nm)
-energy_eV:                       Energy (eV)
-probabilityDensity:              Probability Density
-waveFunction:                    Wave Function
-quantumStateGraph:               Quantum State Graph
-energyDiagram:                   Energy Diagram
+potentialEnergy:                     Potential Energy
+totalEnergy:                         Total Energy
+position_nm:                         Position (nm)
+energy_eV:                           Energy (eV)
+probabilityDensity:                  Probability Density
+waveFunction:                        Wave Function
+quantumStateGraph:                   Quantum State Graph
+energyDiagram:                       Energy Diagram
 
 # Buttons
-probabilityDensityDetailsButton: '|Ψ(x,t)|<sup>2</sup> = ...'
-waveFunctionDetailsButton:       'Ψ(x,t) = ...'
+probabilityDensityDetailsButton:     '|Ψ(x,t)|<sup>2</sup> = ...'
+waveFunctionDetailsButton:           'Ψ(x,t) = ...'
 
 # Checkboxes
-values:                          Values
-realPart:                        Real Part
-imaginaryPart:                   Imaginary Part
-magnitude:                       Magnitude
-phase:                           Phase
-magnifier:                       Magnifier
-referenceLine:                   Reference Line
+values:                              Values
+realPart:                            Real Part
+imaginaryPart:                       Imaginary Part
+magnitude:                           Magnitude
+phase:                               Phase
+magnifier:                           Magnifier
+referenceLine:                       Reference Line
 
 # ComboBoxes
-superpositionState:              Superposition State
+superpositionState:                  Superposition State
 
 # Dialogs
-probabilityDensityDialogTitle:   Probability Density
-waveFunctionDialogTitle:         Wave Function
-superpositionStateDialogTitle:   'Superposition State: {{label}}'
-amplitudeHeading:                Amplitude (a)
+probabilityDensityDialogTitle:       Probability Density
+waveFunctionDialogTitle:             Wave Function
+presetSuperpositionStateDialogTitle: 'Preset Superposition State: {{label}}'
+customSuperpositionStateDialogTitle: 'Custom Superposition State: {{label}}'
+amplitudeHeading:                    Amplitude (a)
 
 # Handles
-widthPattern:                    'width = {{value}} nm'
-depthPattern:                    'depth = {{value}} eV'
-stepHeightPattern:               'step height = {{value}} eV'
-spacingPattern:                  'spacing = {{value}} nm'
-separationPattern:               'separation = {{value}} nm'
-angularFrequencyPattern:         'ω = {{value}} fs<sup>-1</sup>'
+widthPattern:                        'width = {{value}} nm'
+depthPattern:                        'depth = {{value}} eV'
+stepHeightPattern:                   'step height = {{value}} eV'
+spacingPattern:                      'spacing = {{value}} nm'
+separationPattern:                   'separation = {{value}} nm'
+angularFrequencyPattern:             'ω = {{value}} fs<sup>-1</sup>'
 
 # Sliders
-mass:                            Mass
-numberOfWells:                   Number of Wells
-electricField:                   Electric Field
-slowest:                         slowest
-fastest:                         fastest
+mass:                                Mass
+numberOfWells:                       Number of Wells
+electricField:                       Electric Field
+slowest:                             slowest
+fastest:                             fastest
 
 # Spinners
-energyLevel:                     Energy Level
-energyLevelPattern:              E<sub>{{index}}</sub>
-energyOffset:                    Energy Offset
+energyLevel:                         Energy Level
+energyLevelPattern:                  E<sub>{{index}}</sub>
+energyOffset:                        Energy Offset
 
 # Toggles and Switches
-preset:                          Preset
-custom:                          Custom
+preset:                              Preset
+custom:                              Custom
 
 # Potential Wells
 potentialWells:
@@ -104,7 +105,7 @@ superpositionStates:
   custom5: Custom 5
 
 # Magnifier
-magnificationPower:              '{{value}}×'
+magnificationPower:                  '{{value}}×'
 
 # Keyboard Help
 keyboardHelp:
