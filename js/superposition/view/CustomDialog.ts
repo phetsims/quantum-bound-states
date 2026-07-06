@@ -472,7 +472,7 @@ class WaveFunctionPreviewNode extends Node {
       .lineTo( width / 2, height );
     const axesNode = new Path( axesShape, {
       lineWidth: QBSConstants.GRID_LINE_LINE_WIDTH,
-      lineDash: [ 4, 4 ],
+      lineDash: [ 2, 2 ],
       stroke: QBSColors.gridLinesStrokeProperty,
       center: rectangle.center
     } );
