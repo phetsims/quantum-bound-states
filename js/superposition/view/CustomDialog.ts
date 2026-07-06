@@ -16,6 +16,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -25,6 +26,7 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -445,6 +447,7 @@ class CoefficientSpinnersGroup extends GridBox {
   }
 }
 
+//TODO WaveFunctionPreviewNode is duplicated from PresetDialog.
 /**
  * WaveFunctionPreviewNode is a preview of the time-independent wave function.
  */
@@ -461,13 +464,21 @@ class WaveFunctionPreviewNode extends Node {
       stroke: 'black'
     } );
 
-    const text = new Text( 'Preview', {
-      font: new PhetFont( 12 ),
+    const axesShape = new Shape()
+      .moveTo( 0, height / 2 )
+      .lineTo( width, height / 2 )
+      .newSubpath()
+      .moveTo( width / 2, 0 )
+      .lineTo( width / 2, height );
+    const axesNode = new Path( axesShape, {
+      lineWidth: QBSConstants.GRID_LINE_LINE_WIDTH,
+      lineDash: [ 4, 4 ],
+      stroke: QBSColors.gridLinesStrokeProperty,
       center: rectangle.center
     } );
 
     super( combineOptions<NodeOptions>( {
-      children: [ rectangle, text ]
+      children: [ rectangle, axesNode ]
     }, providedOptions ) );
 
     this.disposeEmitter.addListener( () => {

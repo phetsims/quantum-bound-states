@@ -9,6 +9,7 @@
 
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -17,6 +18,7 @@ import GridBox, { GridBoxOptions } from '../../../../scenery/js/layout/nodes/Gri
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -224,13 +226,21 @@ class WaveFunctionPreviewNode extends Node {
       stroke: 'black'
     } );
 
-    const text = new Text( 'Preview', {
-      font: new PhetFont( 12 ),
+    const axesShape = new Shape()
+      .moveTo( 0, height / 2 )
+      .lineTo( width, height / 2 )
+      .newSubpath()
+      .moveTo( width / 2, 0 )
+      .lineTo( width / 2, height );
+    const axesNode = new Path( axesShape, {
+      lineWidth: QBSConstants.GRID_LINE_LINE_WIDTH,
+      lineDash: [ 4, 4 ],
+      stroke: QBSColors.gridLinesStrokeProperty,
       center: rectangle.center
     } );
 
     super( combineOptions<NodeOptions>( {
-      children: [ rectangle, text ]
+      children: [ rectangle, axesNode ]
     }, providedOptions ) );
 
     this.disposeEmitter.addListener( () => {
