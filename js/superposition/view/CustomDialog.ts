@@ -88,6 +88,7 @@ class CustomDialogContent extends VBox {
       arrowsScale: 1,
       numberDisplayOptions: {
         cornerRadius: 3,
+        align: 'center',
         textOptions: {
           font: QBSConstants.CONTROL_FONT
         }
@@ -150,8 +151,8 @@ class CustomDialogContent extends VBox {
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
-        new Text( 'coefficientsCarousel', { font: QBSConstants.CONTROL_FONT } ), //TODO
-        new Text( 'pageControl', { font: QBSConstants.CONTROL_FONT } ), //TODO
+        new Text( 'coefficientsSpinners', { font: QBSConstants.CONTROL_FONT } ), //TODO
+        new Text( 'pageSpinner', { font: QBSConstants.CONTROL_FONT } ), //TODO
         previewNode,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
