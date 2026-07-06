@@ -9,7 +9,6 @@
 
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -18,8 +17,6 @@ import GridBox, { GridBoxOptions } from '../../../../scenery/js/layout/nodes/Gri
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
@@ -27,13 +24,15 @@ import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
+import SuperpositionStatePreviewNode from './SuperpositionStatePreviewNode.js';
 
-//TODO Move fonts to QBSConstants
+//TODO Move to QBSConstants?
 const TITLE_FONT = QBSConstants.TITLE_FONT;
 const COLUMN_HEADING_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 const COEFFICIENT_FONT = new PhetFont( 14 );
 const EQUATION_FONT = new PhetFont( 14 );
 const LEGEND_FONT = new PhetFont( 14 );
+const PREVIEW_SCALE = 0.2;
 
 export default class PresetDialog extends Dialog {
 
@@ -120,7 +119,8 @@ class PresetDialogContent extends GridBox {
         } );
         children.push( coefficientText );
 
-        const previewNode = new WaveFunctionPreviewNode( {
+        const previewNode = new SuperpositionStatePreviewNode( {
+          viewScale: PREVIEW_SCALE,
           layoutOptions: {
             row: row,
             column: 1,
@@ -172,7 +172,8 @@ class PresetDialogContent extends GridBox {
     } );
     children.push( equationNode );
 
-    const previewNode = new WaveFunctionPreviewNode( {
+    const previewNode = new SuperpositionStatePreviewNode( {
+      viewScale: PREVIEW_SCALE,
       layoutOptions: {
         row: row,
         column: 1,
@@ -205,46 +206,6 @@ class PresetDialogContent extends GridBox {
       equationNode.dispose();
       previewNode.dispose();
       legendNode.dispose();
-    } );
-  }
-}
-
-//TODO Placeholder
-/**
- * WaveFunctionPreviewNode is a preview of the time-independent wave function.
- */
-class WaveFunctionPreviewNode extends Node {
-
-  public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
-
-    const scale = 0.2;
-    const width = scale * QBSConstants.ALL_GRAPHS_VIEW_WIDTH;
-    const height = scale * QBSConstants.QUANTUM_STATE_GRAPHS_VIEW_HEIGHT;
-
-    const rectangle = new Rectangle( 0, 0, width, height, {
-      fill: 'white',
-      stroke: 'black'
-    } );
-
-    const axesShape = new Shape()
-      .moveTo( 0, height / 2 )
-      .lineTo( width, height / 2 )
-      .newSubpath()
-      .moveTo( width / 2, 0 )
-      .lineTo( width / 2, height );
-    const axesNode = new Path( axesShape, {
-      lineWidth: QBSConstants.GRID_LINE_LINE_WIDTH,
-      lineDash: [ 2, 2 ],
-      stroke: QBSColors.gridLinesStrokeProperty,
-      center: rectangle.center
-    } );
-
-    super( combineOptions<NodeOptions>( {
-      children: [ rectangle, axesNode ]
-    }, providedOptions ) );
-
-    this.disposeEmitter.addListener( () => {
-      //TODO
     } );
   }
 }

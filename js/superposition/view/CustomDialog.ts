@@ -16,18 +16,14 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
-import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import GridBox from '../../../../scenery/js/layout/nodes/GridBox.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
@@ -39,8 +35,10 @@ import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState, { CoefficientFormat } from '../model/CustomSuperpositionState.js';
+import SuperpositionStatePreviewNode from './SuperpositionStatePreviewNode.js';
 
 const NUMBER_SPINNER_FIRE_ON_HOLD_INTERVAL = 35;
+const PREVIEW_SCALE = 0.35;
 
 export default class CustomDialog extends Dialog {
 
@@ -157,7 +155,9 @@ class CustomDialogContent extends VBox {
     const coefficientSpinnersGroup = new CoefficientSpinnersGroup( superpositionState.numberOfCoefficientsProperty,
       superpositionState.coefficientFormatProperty );
 
-    const previewNode = new WaveFunctionPreviewNode();
+    const previewNode = new SuperpositionStatePreviewNode( {
+      viewScale: PREVIEW_SCALE
+    } );
 
     const pushButtonGroup = new PushButtonGroup();
 
@@ -444,46 +444,6 @@ class CoefficientSpinnersGroup extends GridBox {
 
     this.rows = rows;
     this.xSpacing = 55;
-  }
-}
-
-//TODO WaveFunctionPreviewNode is duplicated from PresetDialog.
-/**
- * WaveFunctionPreviewNode is a preview of the time-independent wave function.
- */
-class WaveFunctionPreviewNode extends Node {
-
-  public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
-
-    const scale = 0.35;
-    const width = scale * QBSConstants.ALL_GRAPHS_VIEW_WIDTH;
-    const height = scale * QBSConstants.QUANTUM_STATE_GRAPHS_VIEW_HEIGHT;
-
-    const rectangle = new Rectangle( 0, 0, width, height, {
-      fill: 'white',
-      stroke: 'black'
-    } );
-
-    const axesShape = new Shape()
-      .moveTo( 0, height / 2 )
-      .lineTo( width, height / 2 )
-      .newSubpath()
-      .moveTo( width / 2, 0 )
-      .lineTo( width / 2, height );
-    const axesNode = new Path( axesShape, {
-      lineWidth: QBSConstants.GRID_LINE_LINE_WIDTH,
-      lineDash: [ 2, 2 ],
-      stroke: QBSColors.gridLinesStrokeProperty,
-      center: rectangle.center
-    } );
-
-    super( combineOptions<NodeOptions>( {
-      children: [ rectangle, axesNode ]
-    }, providedOptions ) );
-
-    this.disposeEmitter.addListener( () => {
-      //TODO
-    } );
   }
 }
 
