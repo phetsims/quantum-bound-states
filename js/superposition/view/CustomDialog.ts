@@ -255,6 +255,7 @@ class FormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientForm
 
     super( formatProperty, items, {
       orientation: 'horizontal',
+      spacing: 3,
       radioButtonOptions: {
         xMargin: 15,
         baseColor: 'white'
