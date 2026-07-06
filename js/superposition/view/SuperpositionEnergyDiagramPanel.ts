@@ -31,7 +31,7 @@ import { SuperpositionStateType } from '../model/SuperpositionStateType.js';
 import CustomComboBox from './CustomComboBox.js';
 import CustomDialog from './CustomDialog.js';
 import CustomEditButton from './CustomEditButton.js';
-import EnergyLevelsRichText from './EnergyLevelsRichText.js';
+import EnergyLevelsText from './EnergyLevelsText.js';
 import PresetComboBox from './PresetComboBox.js';
 import PresetCustomSwitch from './PresetCustomSwitch.js';
 import PresetDialog from './PresetDialog.js';
@@ -107,7 +107,7 @@ export class SuperpositionEnergyDiagramPanel extends Panel {
       children: [
         energyDiagramText,
         new PotentialComboBox( potentialProperty, listboxParent, tandem.createTandem( 'potentialComboBox' ) ),
-        new EnergyLevelsRichText( potentialProperty, boundStatesResultProperty,
+        new EnergyLevelsText( potentialProperty, boundStatesResultProperty,
           tandem.createTandem( 'energyLevelsText' ) ),
         new HSeparator( { stroke: QBSColors.separatorStrokeProperty } ),
         superpositionStateText,

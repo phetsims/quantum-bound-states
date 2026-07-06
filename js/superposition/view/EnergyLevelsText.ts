@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * EnergyLevelsRichText indicates the range of energy levels for the selected quantum potential.
+ * EnergyLevelsText indicates the range of energy levels for the selected quantum potential.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,12 +14,13 @@ import QuantumPotential from '../../common/model/potentials/QuantumPotential.js'
 import BoundStateResult from '../../common/model/solvers/BoundStateResult.js';
 import QBSConstants from '../../common/QBSConstants.js';
 
-export default class EnergyLevelsRichText extends RichText {
+export default class EnergyLevelsText extends RichText {
 
   public constructor( potentialProperty: TReadOnlyProperty<QuantumPotential>,
                       boundStateResultProperty: TReadOnlyProperty<BoundStateResult>,
                       tandem: Tandem ) {
 
+    //TODO localize
     const stringProperty = new DerivedStringProperty( [ potentialProperty, boundStateResultProperty ],
       ( potential, boundStateResult ) => {
         if ( boundStateResult.energies.length === 1 ) {
