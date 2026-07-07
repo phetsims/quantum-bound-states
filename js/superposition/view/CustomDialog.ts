@@ -114,9 +114,6 @@ class CustomDialogContent extends VBox {
     //   spacing: 50
     // } );
 
-    const coefficientSpinnersGroup = new CoefficientSpinnersGroup( superpositionState.getNumberOfCoefficients(),
-      superpositionState.coefficientFormatProperty, potential.groundStateIndex );
-
     const amplitudePageNumberProperty = new NumberProperty( 1, {
       numberType: 'Integer',
       range: new Range( 1, 2 )
@@ -125,6 +122,10 @@ class CustomDialogContent extends VBox {
       numberType: 'Integer',
       range: new Range( 1, 4 )
     } );
+
+    const coefficientSpinnersGroup = new CoefficientSpinnersGroup( superpositionState.getNumberOfCoefficients(),
+      superpositionState.coefficientFormatProperty, amplitudePageNumberProperty, magnitudeAndPhasePageNumberProperty,
+      potential.groundStateIndex );
 
     const amplitudePageSpinner = new PageSpinner( amplitudePageNumberProperty, {
       visibleProperty: superpositionState.coefficientFormatProperty.derived( coefficientFormat => coefficientFormat === 'amplitude' )
@@ -254,9 +255,13 @@ class CoefficientSpinnersGroup extends GridBox {
   private readonly numberOfCoefficients: number;
   private readonly coefficientFormatProperty: TReadOnlyProperty<CoefficientFormat>;
   private readonly groundStateIndex: number;
+  private readonly amplitudePageNumberProperty: TReadOnlyProperty<number>;
+  private readonly magnitudeAndPhasePageNumberProperty: TReadOnlyProperty<number>;
 
   public constructor( numberOfCoefficients: number,
                       coefficientFormatProperty: TReadOnlyProperty<CoefficientFormat>,
+                      amplitudePageNumberProperty: TReadOnlyProperty<number>,
+                      magnitudeAndPhasePageNumberProperty: TReadOnlyProperty<number>,
                       groundStateIndex: number ) {
     super( {
       xSpacing: 35,
@@ -267,8 +272,12 @@ class CoefficientSpinnersGroup extends GridBox {
     this.numberOfCoefficients = numberOfCoefficients;
     this.coefficientFormatProperty = coefficientFormatProperty;
     this.groundStateIndex = groundStateIndex;
+    this.amplitudePageNumberProperty = amplitudePageNumberProperty;
+    this.magnitudeAndPhasePageNumberProperty = magnitudeAndPhasePageNumberProperty;
 
     coefficientFormatProperty.link( () => this.update() );
+    amplitudePageNumberProperty.link( () => this.update() );
+    magnitudeAndPhasePageNumberProperty.link( () => this.update() );
 
     this.disposeEmitter.addListener( () => {
       //TODO dispose
