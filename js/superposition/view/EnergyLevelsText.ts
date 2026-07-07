@@ -32,6 +32,7 @@ export default class EnergyLevelsText extends RichText {
       } );
 
     super( stringProperty, {
+      fill: 'red', //TODO Remove if we keep this in the UI.
       font: QBSConstants.CONTROL_FONT,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: true
