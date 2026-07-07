@@ -23,8 +23,10 @@ import QBSColors from '../QBSColors.js';
 import QBSConstants from '../QBSConstants.js';
 
 // A large number of decimal places is indeed needed to differentiate between closely-spaced energy levels.
-// For example, see E0 and E1 for Poschl-Teller in the Two Wells screen with depth=10 and spacing=3.
-const NUMBER_OF_DECIMAL_PLACES_RANGE = new Range( 2, 13 );
+// For example, see E0 and E1 for Poschl-Teller in the Two Wells screen with depth=10 and spacing=3, which
+// requires 13 decimal places.  The maximum is much larger than is likely necessary because it's unlikely
+// that we have discovered all cases. See https://github.com/phetsims/quantum-bound-states/issues/57.
+const NUMBER_OF_DECIMAL_PLACES_RANGE = new Range( 2, 25 );
 
 type SelfOptions = EmptySelfOptions;
 
