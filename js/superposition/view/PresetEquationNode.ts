@@ -4,10 +4,10 @@
  * PresetEquationNode renders the wave function equation for a Preset superposition state, with the following requirements:
  *
  * 1. Localization of the equation is not necessary or supported.
- * 2. Only supports amplitude format, where phase determines the operator between terms.
+ * 2. Only supports the amplitude format, where phase determines the operator between terms.
  * 3. Only terms with non-zero magnitude are included.
- * 4. Multiline equations are not particularly pretty, and don't have to be.
- * 5. Since previews of the curves are time-independent, this equation in NOT of the form Ψ(x,t).
+ * 4. Multiline equations are not particularly pretty and don't have to be.
+ * 5. Since previews of the curves are time-independent, this equation is NOT of the form Ψ(x,t).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
