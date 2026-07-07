@@ -35,7 +35,7 @@ export default class PresetSuperpositionState extends SuperpositionState {
       PresetSuperpositionState.createPreset2( groundStateIndexProperty, parentTandem ),
       PresetSuperpositionState.createPreset3( groundStateIndexProperty, parentTandem ),
       PresetSuperpositionState.createPreset4( groundStateIndexProperty, parentTandem ),
-      PresetSuperpositionState.createPresetLocalizedParticle( groundStateIndexProperty, parentTandem )
+      PresetSuperpositionState.createPresetWavePacket( groundStateIndexProperty, parentTandem )
     ];
   }
 
@@ -146,15 +146,23 @@ export default class PresetSuperpositionState extends SuperpositionState {
   }
 
   /**
-   * Creates preset 'Localized Particle'
+   * Creates preset 'Wave Packet'
    */
-  private static createPresetLocalizedParticle( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
+  private static createPresetWavePacket( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): PresetSuperpositionState {
 
-    //TODO What are the coefficients for Localized Particle?
-    const coefficients: SuperpositionCoefficient[] = [];
-    for ( let i = 0; i < 10; i++ ) {
-      coefficients.push( new SuperpositionCoefficient( 0.32, 0 ) );
-    }
+    // See https://github.com/phetsims/quantum-bound-states/issues/107
+    const coefficients: SuperpositionCoefficient[] = [
+      new SuperpositionCoefficient( 0.14, 0 ),
+      new SuperpositionCoefficient( 0.27, 0 ),
+      new SuperpositionCoefficient( 0.38, 0 ),
+      new SuperpositionCoefficient( 0.44, 0 ),
+      new SuperpositionCoefficient( 0.44, 0 ),
+      new SuperpositionCoefficient( 0.40, 0 ),
+      new SuperpositionCoefficient( 0.32, 0 ),
+      new SuperpositionCoefficient( 0.24, 0 ),
+      new SuperpositionCoefficient( 0.17, 0 ),
+      new SuperpositionCoefficient( 0.12, 0 )
+    ];
 
     const superpositionState = new PresetSuperpositionState( coefficients, {
       visualNameProperty: QuantumBoundStatesFluent.superpositionStates.preset5StringProperty,

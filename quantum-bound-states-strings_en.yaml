@@ -97,7 +97,7 @@ superpositionStates:
   preset4:
     groundState0: aΨ<sub>0</sub> + aΨ<sub>1</sub> + aΨ<sub>2</sub>
     groundState1: aΨ<sub>1</sub> + aΨ<sub>2</sub> + aΨ<sub>3</sub>
-  preset5: Localized Particle
+  preset5: Wave Packet
   custom1: Custom 1
   custom2: Custom 2
   custom3: Custom 3
