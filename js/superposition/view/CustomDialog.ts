@@ -28,7 +28,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
-import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
+import NumberSpinner, { NumberSpinnerOptions } from '../../../../sun/js/NumberSpinner.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
@@ -117,6 +117,13 @@ class CustomDialogContent extends VBox {
     const coefficientSpinnersGroup = new CoefficientSpinnersGroup( superpositionState.getNumberOfCoefficients(),
       superpositionState.coefficientFormatProperty, potential.groundStateIndex );
 
+    const amplitudePageSpinner = new PageSpinner( 2, {
+      visibleProperty: superpositionState.coefficientFormatProperty.derived( coefficientFormat => coefficientFormat === 'amplitude' )
+    } );
+    const magnitudeAndPhasePageSpinner = new PageSpinner( 4, {
+      visibleProperty: superpositionState.coefficientFormatProperty.derived( coefficientFormat => coefficientFormat === 'magnitudeAndPhase' )
+    } );
+
     const previewNode = new SuperpositionStatePreviewNode( {
       viewScale: PREVIEW_SCALE
     } );
@@ -135,6 +142,8 @@ class CustomDialogContent extends VBox {
           stroke: QBSColors.separatorStrokeProperty
         } ),
         coefficientSpinnersGroup,
+        amplitudePageSpinner,
+        magnitudeAndPhasePageSpinner,
         previewNode,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
@@ -412,6 +421,28 @@ class CoefficientSpinnersGroup extends GridBox {
 
     this.rows = rows;
     this.xSpacing = 55;
+  }
+}
+
+class PageSpinner extends NumberSpinner {
+  public constructor( numberOfPages: number, providedOptions: NumberSpinnerOptions ) {
+
+    const pageNumberProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
+      range: new Range( 1, numberOfPages )
+    } );
+
+    super( pageNumberProperty, pageNumberProperty.rangeProperty, combineOptions<NumberSpinnerOptions>( {
+      arrowsPosition: 'leftRight',
+      numberDisplayOptions: {
+        numberFormatter: value => `${value} of ${numberOfPages}`,
+        backgroundStroke: null,
+        backgroundFill: null,
+        textOptions: {
+          font: QBSConstants.CONTROL_FONT
+        }
+      }
+    }, providedOptions ) );
   }
 }
 
