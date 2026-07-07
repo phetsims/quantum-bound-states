@@ -117,10 +117,19 @@ class CustomDialogContent extends VBox {
     const coefficientSpinnersGroup = new CoefficientSpinnersGroup( superpositionState.getNumberOfCoefficients(),
       superpositionState.coefficientFormatProperty, potential.groundStateIndex );
 
-    const amplitudePageSpinner = new PageSpinner( 2, {
+    const amplitudePageNumberProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
+      range: new Range( 1, 2 )
+    } );
+    const magnitudeAndPhasePageNumberProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
+      range: new Range( 1, 4 )
+    } );
+
+    const amplitudePageSpinner = new PageSpinner( amplitudePageNumberProperty, {
       visibleProperty: superpositionState.coefficientFormatProperty.derived( coefficientFormat => coefficientFormat === 'amplitude' )
     } );
-    const magnitudeAndPhasePageSpinner = new PageSpinner( 4, {
+    const magnitudeAndPhasePageSpinner = new PageSpinner( magnitudeAndPhasePageNumberProperty, {
       visibleProperty: superpositionState.coefficientFormatProperty.derived( coefficientFormat => coefficientFormat === 'magnitudeAndPhase' )
     } );
 
@@ -425,17 +434,12 @@ class CoefficientSpinnersGroup extends GridBox {
 }
 
 class PageSpinner extends NumberSpinner {
-  public constructor( numberOfPages: number, providedOptions: NumberSpinnerOptions ) {
-
-    const pageNumberProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: new Range( 1, numberOfPages )
-    } );
+  public constructor( pageNumberProperty: NumberProperty, providedOptions: NumberSpinnerOptions ) {
 
     super( pageNumberProperty, pageNumberProperty.rangeProperty, combineOptions<NumberSpinnerOptions>( {
       arrowsPosition: 'leftRight',
       numberDisplayOptions: {
-        numberFormatter: value => `page ${value} of ${numberOfPages}`,
+        numberFormatter: value => `page ${value} of ${pageNumberProperty.range.max}`,
         backgroundStroke: null,
         backgroundFill: null,
         textOptions: {
