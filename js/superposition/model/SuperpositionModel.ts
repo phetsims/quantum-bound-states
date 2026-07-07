@@ -36,6 +36,9 @@ export default class SuperpositionModel extends QBSModel {
   // The selected custom superposition state
   public readonly customSuperpositionStateProperty: Property<CustomSuperpositionState>;
 
+  // The complete set of custom superposition states
+  public readonly customSuperpositionStates: CustomSuperpositionState[] = [];
+
   public constructor( tandem: Tandem ) {
 
     const numberOfWellsProperty = new NumberProperty( 1, {
@@ -130,17 +133,16 @@ export default class SuperpositionModel extends QBSModel {
       validValues: presetSuperpositionStates,
       tandem: tandem.createTandem( 'presetSuperpositionStateProperty' ),
       phetioFeatured: true,
-      phetioValueType: SuperpositionState.SuperpositionStateIO //TODO SuperpositionState.SuperpositionStateIO
+      phetioValueType: SuperpositionState.SuperpositionStateIO
     } );
 
-    const customSuperpositionStates = CustomSuperpositionState.createStates( groundStateIndexProperty,
-      superpositionStatesTandem.createTandem( 'custom' ) );
+    this.customSuperpositionStates = CustomSuperpositionState.createStates( superpositionStatesTandem.createTandem( 'custom' ) );
 
-    this.customSuperpositionStateProperty = new Property<CustomSuperpositionState>( customSuperpositionStates[ 0 ], {
-      validValues: customSuperpositionStates,
+    this.customSuperpositionStateProperty = new Property<CustomSuperpositionState>( this.customSuperpositionStates[ 0 ], {
+      validValues: this.customSuperpositionStates,
       tandem: tandem.createTandem( 'customSuperpositionStateProperty' ),
       phetioFeatured: true,
-      phetioValueType: SuperpositionState.SuperpositionStateIO //TODO SuperpositionState.SuperpositionStateIO
+      phetioValueType: SuperpositionState.SuperpositionStateIO
     } );
   }
 
@@ -149,5 +151,7 @@ export default class SuperpositionModel extends QBSModel {
     this.superpositionStateTypeProperty.reset();
     this.presetSuperpositionStateProperty.reset();
     this.customSuperpositionStateProperty.reset();
+    //TODO Should custom states be reset?
+    this.customSuperpositionStates.forEach( customSuperpositionState => customSuperpositionState.reset() );
   }
 }
