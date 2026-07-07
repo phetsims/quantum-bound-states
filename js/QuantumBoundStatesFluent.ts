@@ -158,6 +158,8 @@ addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleName', 'a11y.supe
 addToMapIfDefined( 'a11y_superpositionCustomComboBox_accessibleHelpText', 'a11y.superpositionCustomComboBox.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_probabilityDensityDetailsDialog_accessibleParagraph', 'a11y.probabilityDensityDetailsDialog.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_waveFunctionDetailsDialog_accessibleParagraph', 'a11y.waveFunctionDetailsDialog.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_presetSuperpositionStateDialog_accessibleParagraph', 'a11y.presetSuperpositionStateDialog.accessibleParagraphStringProperty' );
+addToMapIfDefined( 'a11y_customSuperpositionStateDialog_accessibleParagraph', 'a11y.customSuperpositionStateDialog.accessibleParagraphStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleHeading', 'a11y.energyDiagram.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_leadingParagraph', 'a11y.energyDiagram.accessibleTemplate.leadingParagraphStringProperty' );
 addToMapIfDefined( 'a11y_energyDiagram_accessibleTemplate_listItems_selectedPotential', 'a11y.energyDiagram.accessibleTemplate.listItems.selectedPotentialStringProperty' );
@@ -646,6 +648,12 @@ const QuantumBoundStatesFluent = {
     },
     waveFunctionDetailsDialog: {
       accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_waveFunctionDetailsDialog_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.waveFunctionDetailsDialog.accessibleParagraphStringProperty' ) )
+    },
+    presetSuperpositionStateDialog: {
+      accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_presetSuperpositionStateDialog_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.presetSuperpositionStateDialog.accessibleParagraphStringProperty' ) )
+    },
+    customSuperpositionStateDialog: {
+      accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_customSuperpositionStateDialog_accessibleParagraph', _.get( QuantumBoundStatesStrings, 'a11y.customSuperpositionStateDialog.accessibleParagraphStringProperty' ) )
     },
     _comment_15: new FluentComment( {"comment":"=======================================================================================================","associatedKey":"energyDiagram"} ),
     _comment_16: new FluentComment( {"comment":"Graphs","associatedKey":"energyDiagram"} ),

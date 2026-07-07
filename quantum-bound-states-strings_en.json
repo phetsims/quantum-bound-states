@@ -528,6 +528,16 @@
         "value": "The wave function of the selected state, psi of x and t, equals\npsi times exp of negative i E t over h-bar.\nPLACEHOLDER_FOR_EQUATION"
       }
     },
+    "presetSuperpositionStateDialog": {
+      "accessibleParagraph": {
+        "value": "TODO.presetSuperpositionStateDialog.accessibleParagraph"
+      }
+    },
+    "customSuperpositionStateDialog": {
+      "accessibleParagraph": {
+        "value": "TODO.customSuperpositionStateDialog.accessibleParagraph"
+      }
+    },
     "energyDiagram": {
       "accessibleHeading": {
         "value": "Energy Diagram"

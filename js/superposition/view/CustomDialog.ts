@@ -62,8 +62,8 @@ export default class CustomDialog extends Dialog {
       xSpacing: 20, // horizontal space between content and closeButton
       ySpacing: 15, // vertical space between title and content
       fill: QBSColors.superpositionStateDialogFillProperty,
-      hideCallback: () => this.dispose()
-      //TODO Use layoutStrategy to anchor the top of the dialog while the dialog resizes?
+      hideCallback: () => this.dispose(),
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.customSuperpositionStateDialog.accessibleParagraphStringProperty
     } );
 
     super( content, options );

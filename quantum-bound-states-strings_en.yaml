@@ -350,6 +350,12 @@ a11y:
                          psi times exp of negative i E t over h-bar.
                          PLACEHOLDER_FOR_EQUATION
 
+  presetSuperpositionStateDialog:
+    accessibleParagraph: TODO.presetSuperpositionStateDialog.accessibleParagraph
+
+  customSuperpositionStateDialog:
+    accessibleParagraph: TODO.customSuperpositionStateDialog.accessibleParagraph
+
   #=======================================================================================================
   # Graphs
   #=======================================================================================================

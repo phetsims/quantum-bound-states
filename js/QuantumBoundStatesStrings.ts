@@ -265,6 +265,12 @@ type StringsType = {
     'waveFunctionDetailsDialog': {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
+    'presetSuperpositionStateDialog': {
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
+    'customSuperpositionStateDialog': {
+      'accessibleParagraphStringProperty': LocalizedStringProperty;
+    };
     'energyDiagram': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'accessibleTemplate': {
