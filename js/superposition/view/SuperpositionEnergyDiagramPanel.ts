@@ -105,8 +105,21 @@ export class SuperpositionEnergyDiagramPanel extends Panel {
       comboBoxItemAlignGroup, tandem.createTandem( 'customComboBox' ) );
 
     const customEditButton = new CustomEditButton( {
-      listener: () => new CustomDialog( superpositionCustomProperty.value, potentialProperty.value,
-        boundStatesResultProperty.value.energies.length ).show(),
+      listener: () => {
+        //TODO Duplication with presetInfoButton.listener
+        const wasPlaying = time.isPlayingProperty.value;
+        const customDialog = new CustomDialog( superpositionCustomProperty.value, potentialProperty.value,
+          boundStatesResultProperty.value.energies.length, {
+            showCallback: () => {
+              time.isPlayingProperty.value = false;
+            },
+            hideCallback: () => {
+              time.isPlayingProperty.value = wasPlaying;
+              customDialog.dispose();
+            }
+          } );
+        customDialog.show();
+      },
       tandem: tandem.createTandem( 'customEditButton' )
     } );
 

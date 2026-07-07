@@ -14,7 +14,8 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import GridBox from '../../../../scenery/js/layout/nodes/GridBox.js';
@@ -28,6 +29,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import NumberSpinner, { NumberSpinnerOptions } from '../../../../sun/js/NumberSpinner.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
@@ -40,11 +42,17 @@ import SuperpositionStatePreviewNode from './SuperpositionStatePreviewNode.js';
 const NUMBER_SPINNER_FIRE_ON_HOLD_INTERVAL = 35;
 const PREVIEW_SCALE = 0.7;
 
+
+type SelfOptions = EmptySelfOptions;
+
+type CustomDialogOptions = SelfOptions & PickOptional<DialogOptions, 'showCallback' | 'hideCallback'>;
+
 export default class CustomDialog extends Dialog {
 
   public constructor( superpositionState: CustomSuperpositionState,
                       potential: QuantumPotential,
-                      numberOfEnergyLevels: number ) {
+                      numberOfEnergyLevels: number,
+                      providedOptions?: CustomDialogOptions ) {
 
     // Title includes the visual name of the Custom superposition state.
     const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.customSuperpositionStateDialogTitleStringProperty, {
@@ -58,14 +66,16 @@ export default class CustomDialog extends Dialog {
 
     const content = new CustomDialogContent( superpositionState, potential, numberOfEnergyLevels );
 
-    const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
+    const options = optionize<CustomDialogOptions, SelfOptions, DialogOptions>()( {
+
+      // DialogOptions
       title: titleNode,
       xSpacing: 20, // horizontal space between content and closeButton
       ySpacing: 15, // vertical space between title and content
       fill: QBSColors.superpositionStateDialogFillProperty,
-      hideCallback: () => this.dispose(),
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.customSuperpositionStateDialog.accessibleParagraphStringProperty
-    } );
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.customSuperpositionStateDialog.accessibleParagraphStringProperty,
+      tandem: Tandem.OPT_OUT //TODO
+    }, providedOptions );
 
     super( content, options );
 
