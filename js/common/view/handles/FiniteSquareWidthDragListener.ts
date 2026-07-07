@@ -26,16 +26,11 @@ export default class FiniteSquareWidthDragListener extends PotentialDragListener
 
     const wellWidthProperty = potential.wellWidthProperty;
 
-    // keyboardShiftDragDelta operates at the same precision as the number of decimal places displayed in the visual UI.
-    // keyboardDragDelta is coarser.
-    const keyboardShiftDragDelta = Math.pow( 10, -potential.wellWidthDecimalPlaces ); // nm
-    const keyboardDragDelta = 5 * keyboardShiftDragDelta; // nm
-
     super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'horizontal',
-      keyboardShiftDragDelta: keyboardShiftDragDelta,
-      keyboardDragDelta: keyboardDragDelta,
+      keyboardDragDelta: PotentialDragListener.getKeyboardDragDelta( potential.wellWidthDecimalPlaces ), // nm
+      keyboardShiftDragDelta: PotentialDragListener.getKeyboardShiftDragDelta( potential.wellWidthDecimalPlaces ), // nm
       updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
         let wellWidth;
         if ( isFromPDOM ) {

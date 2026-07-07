@@ -30,8 +30,8 @@ export default class WellWidthDragListener extends PotentialDragListener<Quantum
     super( handleNode, wellWidthProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'horizontal',
-      keyboardDragDelta: QBSConstants.WIDTH_KEYBOARD_DRAG_DELTA, // nm
-      keyboardShiftDragDelta: QBSConstants.WIDTH_KEYBOARD_SHIFT_DRAG_DELTA, // nm
+      keyboardDragDelta: PotentialDragListener.getKeyboardDragDelta( QBSConstants.WELL_DEPTH_DECIMAL_PLACES ), // eV
+      keyboardShiftDragDelta: PotentialDragListener.getKeyboardShiftDragDelta( QBSConstants.WELL_DEPTH_DECIMAL_PLACES ), // eV
       updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
         affirm( potential.numberOfWellsProperty.value === 1, 'numberOfWells must be 1' );
         let wellWidth;

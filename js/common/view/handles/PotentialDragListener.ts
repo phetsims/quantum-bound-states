@@ -119,4 +119,25 @@ export default class PotentialDragListener<T extends QuantumPotential> extends R
       minimumInterMiddleSoundTime: 0.1 // seconds
     } );
   }
+
+  /**
+   * Given the number of decimal places in the value, computes the drag delta for keyboard dragging.
+   * With values that have a single decimal place, we want drag and shift-drag to be the same.
+   * See https://github.com/phetsims/quantum-bound-states/issues/89#issuecomment-4907515293
+   */
+  protected static getKeyboardDragDelta( numberOfDecimalPlaces: number ): number {
+    if ( numberOfDecimalPlaces === 1 ) {
+      return PotentialDragListener.getKeyboardShiftDragDelta( numberOfDecimalPlaces );
+    }
+    else {
+      return Math.pow( 10, -( numberOfDecimalPlaces - 1 ) );
+    }
+  }
+
+  /**
+   * Given the number of decimal places in the value, computes the shift-drag delta for keyboard dragging.
+   */
+  protected static getKeyboardShiftDragDelta( numberOfDecimalPlaces: number ): number {
+    return Math.pow( 10, -numberOfDecimalPlaces );
+  }
 }

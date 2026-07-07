@@ -29,8 +29,8 @@ export default class InfiniteStepHeightDragListener extends PotentialDragListene
     super( handleNode, stepHeightProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'vertical',
-      keyboardDragDelta: QBSConstants.STEP_HEIGHT_KEYBOARD_DRAG_DELTA, // eV
-      keyboardShiftDragDelta: QBSConstants.STEP_HEIGHT_KEYBOARD_SHIFT_DRAG_DELTA, // eV
+      keyboardDragDelta: PotentialDragListener.getKeyboardDragDelta( QBSConstants.STEP_HEIGHT_DECIMAL_PLACES ), // eV
+      keyboardShiftDragDelta: PotentialDragListener.getKeyboardShiftDragDelta( QBSConstants.STEP_HEIGHT_DECIMAL_PLACES ), // eV
       updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
         let stepHeight;
         if ( isFromPDOM ) {

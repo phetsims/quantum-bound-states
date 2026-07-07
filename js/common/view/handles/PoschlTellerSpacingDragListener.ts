@@ -30,8 +30,8 @@ export default class PoschlTellerSpacingDragListener extends PotentialDragListen
     super( handleNode, spacingProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'horizontal',
-      keyboardDragDelta: QBSConstants.SPACING_KEYBOARD_DRAG_DELTA, // nm
-      keyboardShiftDragDelta: QBSConstants.SPACING_KEYBOARD_SHIFT_DRAG_DELTA, // nm
+      keyboardDragDelta: PotentialDragListener.getKeyboardDragDelta( QBSConstants.SPACING_DECIMAL_PLACES ), // nm
+      keyboardShiftDragDelta: PotentialDragListener.getKeyboardShiftDragDelta( QBSConstants.SPACING_DECIMAL_PLACES ), // nm
       updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
         let spacing;
         if ( isFromPDOM ) {

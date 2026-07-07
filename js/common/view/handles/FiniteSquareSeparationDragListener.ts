@@ -30,8 +30,8 @@ export default class FiniteSquareSeparationDragListener extends PotentialDragLis
     super( handleNode, separationProperty, chartTransform, time, {
       tandem: parentTandem,
       orientation: 'horizontal',
-      keyboardDragDelta: QBSConstants.SEPARATION_KEYBOARD_DRAG_DELTA, // nm
-      keyboardShiftDragDelta: QBSConstants.SEPARATION_KEYBOARD_SHIFT_DRAG_DELTA, // nm
+      keyboardDragDelta: PotentialDragListener.getKeyboardDragDelta( QBSConstants.SEPARATION_DECIMAL_PLACES ), // nm
+      keyboardShiftDragDelta: PotentialDragListener.getKeyboardShiftDragDelta( QBSConstants.SEPARATION_DECIMAL_PLACES ), // nm
       updateProperty: ( viewPosition, viewDelta, isFromPDOM ) => {
         let separation;
         if ( isFromPDOM ) {
