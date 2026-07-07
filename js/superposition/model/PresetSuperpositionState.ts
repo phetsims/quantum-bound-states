@@ -166,7 +166,7 @@ export default class PresetSuperpositionState extends SuperpositionState {
 
     const superpositionState = new PresetSuperpositionState( coefficients, {
       visualNameProperty: QuantumBoundStatesFluent.superpositionStates.preset5StringProperty,
-      tandem: parentTandem.createTandem( 'localizedParticle' )
+      tandem: parentTandem.createTandem( 'wavePacket' )
     } );
     superpositionState.normalize(); //TODO Should not need to do this.
     affirm( superpositionState.isNormalized(), 'superpositionState must be normalized' );
