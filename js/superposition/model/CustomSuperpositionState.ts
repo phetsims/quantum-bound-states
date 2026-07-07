@@ -8,7 +8,6 @@
 
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
@@ -24,23 +23,28 @@ type CustomSuperpositionStateOptions = SelfOptions & SuperpositionStateOptions;
 
 export default class CustomSuperpositionState extends SuperpositionState {
 
+  // Every Custom state has this many coefficients.
+  public static readonly NUMBER_OF_COEFFICIENTS = 48;
+
+  // The format that will be used to display the coefficients in the Custom Superposition State dialog.
+  // Included in the model for convenience.
   public readonly coefficientFormatProperty: Property<CoefficientFormat>;
 
   public constructor( providedOptions: CustomSuperpositionStateOptions ) {
 
     const options = providedOptions;
 
-    //TODO Is this the correct initial value? A superposition state requires 2 non-zero coefficients.
-    //TODO Demo fixed number of coefficients.
     const coefficients = [
       new SuperpositionCoefficient( 0.72, 0 ),
       new SuperpositionCoefficient( 0.72, 0 )
     ];
-    for ( let i = coefficients.length; i < 48; i++ ) {
+    for ( let i = coefficients.length; i < CustomSuperpositionState.NUMBER_OF_COEFFICIENTS; i++ ) {
        coefficients.push( SuperpositionCoefficient.ZERO_COEFFICIENT );
     }
 
     super( coefficients, providedOptions );
+
+    this.normalize();
 
     this.coefficientFormatProperty = new StringUnionProperty( 'amplitude', {
       validValues: CoefficientFormatValues,
@@ -57,11 +61,9 @@ export default class CustomSuperpositionState extends SuperpositionState {
   /**
    * Creates the complete set of custom superposition states.
    */
-  public static createStates( groundStateIndexProperty: TReadOnlyProperty<number>, parentTandem: Tandem ): CustomSuperpositionState[] {
+  public static createStates( parentTandem: Tandem ): CustomSuperpositionState[] {
     let customIndex = 1;
     return [
-      //TODO Lots of work to do here.
-      //TODO Is groundStateIndexProperty needed?
       new CustomSuperpositionState( {
         visualNameProperty: QuantumBoundStatesFluent.superpositionStates.custom1StringProperty,
         tandem: parentTandem.createTandem( `custom${customIndex++}` )
