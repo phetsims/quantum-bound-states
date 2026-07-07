@@ -44,7 +44,7 @@ export default class CustomDialog extends Dialog {
                       potential: QuantumPotential,
                       numberOfEnergyLevels: number ) {
 
-    // Title includes the visual name of the selected superposition state.
+    // Title includes the visual name of the Custom superposition state.
     const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.customSuperpositionStateDialogTitleStringProperty, {
       name: superpositionState.visualNameProperty
     } );
@@ -86,7 +86,7 @@ class CustomDialogContent extends VBox {
     // Instructions
     const instructionsText = new InstructionsText( superpositionState, potential.groundStateIndex );
 
-    //TODO localize, handle singular/plural
+    //TODO Use this somewhere.
     // const warningStringProperty = new StringProperty( superpositionState.getNumberOfCoefficients() > numberOfEnergyLevels ?
     //                           `\u26a0\ufe0f Selected potential has ${numberOfEnergyLevels} energy levels.` :
     //                           `Selected potential has ${numberOfEnergyLevels} energy levels.` );
@@ -94,24 +94,8 @@ class CustomDialogContent extends VBox {
     //   font: QBSConstants.CONTROL_FONT,
     //   maxWidth: 300
     // } );
-    //
-    //TODO localize
-    // const formatText = new Text( 'Format', {
-    //   font: new PhetFont( 14 ),
-    //   maxWidth: 200
-    // } );
 
-    const formatRadioButtonGroup = new CoefficientFormatRadioButtonGroup( superpositionState.coefficientFormatProperty );
-
-    // const formatHBox = new HBox( {
-    //   children: [ formatText, formatRadioButtonGroup ],
-    //   spacing: 10
-    // } );
-    //
-    // const topRow = new HBox( {
-    //   children: [ numberOfEnergyLevelsWarningText, formatHBox ],
-    //   spacing: 50
-    // } );
+    const coefficientFormatRadioButtonGroup = new CoefficientFormatRadioButtonGroup( superpositionState.coefficientFormatProperty );
 
     const amplitudePageNumberProperty = new NumberProperty( 1, {
       numberType: 'Integer',
@@ -145,8 +129,7 @@ class CustomDialogContent extends VBox {
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
-        // topRow,
-        formatRadioButtonGroup,
+        coefficientFormatRadioButtonGroup,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
@@ -166,10 +149,7 @@ class CustomDialogContent extends VBox {
     this.disposeEmitter.addListener( () => {
       phet.log && phet.log( 'CustomDialogContent disposed' );
       instructionsText.dispose();
-      // warningStringProperty.dispose();
-      // numberOfEnergyLevelsWarningText.dispose();
-      // formatText.dispose();
-      formatRadioButtonGroup.dispose();
+      coefficientFormatRadioButtonGroup.dispose();
       coefficientSpinnersGroup.dispose();
       previewNode.dispose();
       pushButtonGroup.dispose();
