@@ -435,7 +435,7 @@ class PageSpinner extends NumberSpinner {
     super( pageNumberProperty, pageNumberProperty.rangeProperty, combineOptions<NumberSpinnerOptions>( {
       arrowsPosition: 'leftRight',
       numberDisplayOptions: {
-        numberFormatter: value => `${value} of ${numberOfPages}`,
+        numberFormatter: value => `page ${value} of ${numberOfPages}`,
         backgroundStroke: null,
         backgroundFill: null,
         textOptions: {
