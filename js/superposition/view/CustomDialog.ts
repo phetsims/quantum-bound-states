@@ -10,7 +10,6 @@
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
@@ -26,7 +25,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import NumberSpinner, { NumberSpinnerOptions } from '../../../../sun/js/NumberSpinner.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
@@ -34,6 +32,7 @@ import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState, { CoefficientFormat } from '../model/CustomSuperpositionState.js';
+import { CoefficientFormatRadioButtonGroup } from './CoefficientFormatRadioButtonGroup.js';
 import SuperpositionStatePreviewNode from './SuperpositionStatePreviewNode.js';
 
 const NUMBER_SPINNER_FIRE_ON_HOLD_INTERVAL = 35;
@@ -209,44 +208,6 @@ class InstructionsText extends RichText {
 
     this.disposeEmitter.addListener( () => {
       instructionsStringProperty.dispose();
-    } );
-  }
-}
-
-/**
- * TODO
- */
-class CoefficientFormatRadioButtonGroup extends RectangularRadioButtonGroup<CoefficientFormat> {
-
-  public constructor( formatProperty: Property<CoefficientFormat> ) {
-
-    const richTextOptions = {
-      font: QBSConstants.CONTROL_FONT,
-      maxWidth: 200
-    };
-
-    const items: RectangularRadioButtonGroupItem<CoefficientFormat>[] = [
-      {
-        value: 'amplitude',
-        createNode: () => new RichText( 'Amplitude (a)', richTextOptions ) //TODO localize
-      },
-      {
-        value: 'magnitudeAndPhase',
-        createNode: () => new RichText( 'Magnitude (|c|) & Phase (φ)', richTextOptions ) //TODO localize
-      }
-    ];
-
-    super( formatProperty, items, {
-      orientation: 'horizontal',
-      spacing: 3,
-      radioButtonOptions: {
-        xMargin: 15,
-        baseColor: 'white'
-      }
-    } );
-
-    this.disposeEmitter.addListener( () => {
-      //TODO Anything to dispose?
     } );
   }
 }
