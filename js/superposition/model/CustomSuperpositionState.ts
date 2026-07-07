@@ -8,6 +8,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
@@ -42,7 +43,7 @@ export default class CustomSuperpositionState extends SuperpositionState {
        coefficients.push( SuperpositionCoefficient.ZERO_COEFFICIENT );
     }
 
-    super( coefficients, providedOptions );
+    super( coefficients, options );
 
     this.normalize();
 
@@ -56,6 +57,14 @@ export default class CustomSuperpositionState extends SuperpositionState {
   public override reset(): void {
     super.reset();
     this.coefficientFormatProperty.reset();
+  }
+
+  /**
+   * Override to verify that Custom states always have the same fixed number of coefficients.
+   */
+  public override setCoefficients( coefficients: SuperpositionCoefficient[] ): void {
+    affirm( coefficients.length === CustomSuperpositionState.NUMBER_OF_COEFFICIENTS, `coefficients.length must be ${CustomSuperpositionState.NUMBER_OF_COEFFICIENTS}` );
+    super.setCoefficients( coefficients );
   }
 
   /**
