@@ -167,19 +167,19 @@ a11y:
                          There are a few controls for visual inspection of the energy diagram or controlling the speed
                          of the simulation. Toggle the visual labels on the energy diagram. Add a reference line to 
                          visually compare the probability density or wave function to the boundaries of the potential
-                         well. A magnifier can aid in telling apart closely spaced energy levels. You can track the
+                         well. A magnifier lets you look closely at the energy levels. You can track the
                          time the system has been evolving or hide it. There are controls to pause, step through, or 
                          restart the system. For slowly evolving states, you can increase the sim speed.
 
-        interactionHint: Select an energy level or change the properties of the well to begin exploring.
+        interactionHint: Choose a potential, then step up through the energy levels and notice how the wave function and the energy ladder respond.
 
     twoWellsScreen:
       screenButtonsHelpText: Explore how proximity of a second potential well impacts bound states.
       screenSummary:
         playArea:
           energyDiagram:     |-
-                             In the Energy Diagram, observe the energy levels of two closely spaced potential wells,
-                             a simple model of a two-atom molecule. Drag the handles change the shape of the wells, and explore 
+                             In the Energy Diagram, observe the energy levels of two closely spaced potential wells.
+                             Drag the handles to reshape the wells and explore
                              how the energy levels and states respond as the wells move together or apart. Change the potential 
                              well type to explore a different two-well shape.
           quantumStateGraph: |-
@@ -194,7 +194,7 @@ a11y:
                          There are controls to pause, step through, or restart the system. For slowly evolving states,
                          you can increase the sim speed.
 
-        interactionHint: Select an energy level or change the properties of the wells to begin exploring.
+        interactionHint: Choose an energy level and explore how the wave function fills the two wells.
 
     manyWellsScreen:
       screenButtonsHelpText: Explore how multiple closely-spaced potential wells influence bound states.
@@ -212,8 +212,8 @@ a11y:
         controlArea:     |-
                          There are controls for building the lattice and for controlling the speed of the simulation.
                          Set the number of wells in the lattice and apply an electric field. Toggle the value labels
-                         on the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy
-                         for telling apart closely spaced energy levels. You can track
+                         on the Energy Diagram, add a Reference Line, and add a Magnifier to look closely at the energy levels.
+                         You can track
                          the time the system has been evolving or hide it. There are controls to pause, step through,
                          or restart the system. For slowly evolving states, you can increase the sim speed.
 
@@ -223,19 +223,18 @@ a11y:
               numberOfWells: Number of wells set to { $numberOfWells }.
               electricField: Electric field set to { $electricField } volts per nanometer.
 
-        interactionHint: Select an energy level, change the properties of the wells, or change the number of wells to begin exploring.
+        interactionHint: Choose the number of wells and step through the energy levels to explore the lattice.
 
     superpositionScreen:
       screenButtonsHelpText: Explore superposition states and their time-dependent behavior for various potentials.
       screenSummary:
         playArea:
           energyDiagram:     |-
-                             In the Energy Diagram, observe the energy levels of the chosen potential. The levels that
-                             contribute to the current superposition are emphasized in proportion to their weight. Change
-                             the potential well type to explore a different shape.
+                             In the Energy Diagram, observe the energy levels of the chosen potential. Multiple energy levels make up a superposition. 
+                             Change the potential well type to explore a different shape.
           quantumStateGraph: |-
                              In the Quantum State Graph, you can observe the probability density or wave function for the
-                             current superposition state. Press Play to explore how this state changes over time. Open the
+                             current superposition state. Press Play to explore what the state does over time. Open the
                              Details to view the full equation along with the magnitude and phase of each contributing level.
 
         controlArea:     |-
@@ -310,7 +309,7 @@ a11y:
     accessibleContextResponseUnchecked: Phase hidden.
 
   magnifierCheckbox:
-    accessibleHelpText:                 Show or hide magnifier.
+    accessibleHelpText:                 Show a magnifier to look closely at the energy levels.
     accessibleContextResponseChecked:   Magnifier shown.
     accessibleContextResponseUnchecked: Magnifier hidden.
 
@@ -341,13 +340,15 @@ a11y:
 
   probabilityDensityDetailsDialog:
     accessibleParagraph: |-
-                         PLACEHOLDER_FOR_EQUATION The probability density of the selected state equals the magnitude
+                         The probability density of the selected state equals the magnitude
                          of the wave function squared.
+                         PLACEHOLDER_FOR_EQUATION
 
   waveFunctionDetailsDialog:
     accessibleParagraph: |-
-                         PLACEHOLDER_FOR_EQUATION The wave function of the selected state, psi of x and t, equals
+                         The wave function of the selected state, psi of x and t, equals
                          psi times exp of negative i E t over h-bar.
+                         PLACEHOLDER_FOR_EQUATION
 
   #=======================================================================================================
   # Graphs
@@ -375,10 +376,10 @@ a11y:
                             [one] { $numberOfNodes } node.
                            *[other] { $numberOfNodes } nodes.
                            }
-                           Listen to the shape with sonification, or move the Reference Line to read the potential value at any position.
+                           Move the Reference Line to read the potential value at any position.
       waveFunction:       |-
                           Shows the real, imaginary, and magnitude parts of the wave function
-                          across the well for energy level { $energyLevelIndex }. Listen to each part with sonification, move the
+                          across the well for energy level { $energyLevelIndex }. Move the
                           Reference Line to read values, and play time to explore how the parts behave.
 
   #=======================================================================================================
@@ -520,7 +521,7 @@ a11y:
 
   customButton:
     accessibleName:            Superposition Customization
-    accessibleHelpText:        Open the Customize Superposition dialog to set the magnitude and phase of each energy level.
+    accessibleHelpText:        Open the Customize Superposition dialog to set the contribution of each energy level in the superposition.
     accessibleContextResponse: Superposition Customization dialog opened.
 
   presetButton:
@@ -548,13 +549,13 @@ a11y:
                         Each increment speeds up time by a factor of ten. At speed 3, one femtosecond in the sim happens in one real second.
 
   electronMassesControl:
-    accessibleHelpText: Adjust the relative mass of the system and explore how the wave function and energy levels respond.
+    accessibleHelpText: Adjust the mass of the system and observe how the wave function and the energy levels respond.
 
   numberOfWellsControl:
     accessibleHelpText: Add or remove wells in the lattice and observe how the energy levels respond.
 
   electricFieldControl:
-    accessibleHelpText: Apply an electric field and explore its effect on the energy levels.
+    accessibleHelpText: Apply an electric field to tilt the whole lattice, and observe how the energy lines respond.
 
   #=======================================================================================================
   # Spinners
@@ -612,21 +613,40 @@ a11y:
   presetCustomSwitch:
     accessibleHelpText: Switch between curated preset superpositions and your own custom superpositions.
 
+  # #=======================================================================================================
+  # # Superposition Customization Dialog
+  # # COUNT is a placeholder for the number-of-coefficients value; wire it to the model when implemented.
+  # #=======================================================================================================
+
+  # coefficientFormatRadioButtonGroup:
+  #   accessibleName:     Coefficient Format
+  #   accessibleHelpText: Choose whether each level is set by a single signed amplitude, or by a separate magnitude and phase.
+
+  # normalizeAndSaveButton:
+  #   accessibleName:            Normalize and Save
+  #   accessibleHelpText:        Rescale the coefficients so their values squared sum to one, and save as a custom entry.
+  #   accessibleContextResponse: Superposition normalized and saved.
+
+  # clearButton:
+  #   accessibleName:            Clear
+  #   accessibleHelpText:        Reset every coefficient to zero.
+  #   accessibleContextResponse: All coefficient components set to zero.
+
   #=======================================================================================================
   # Tools
   #=======================================================================================================
 
   magnifier:
     accessibleHeading:   Magnifier
-    accessibleParagraph: The Magnifier shows a zoomed-in view of part of the Energy Diagram, helpful for telling apart closely spaced energy levels.
+    accessibleParagraph: The Magnifier shows a zoomed-in view of part of the Energy Diagram for looking closely at the energy levels.
     probe:
       accessibleName:           Probe
-      accessibleHelpText:       Move the probe over the Energy Diagram to inspect closely spaced energy levels.
-      accessibleObjectResponse: probe centered at POSITION nanometers
+      accessibleHelpText:       Move the probe over the Energy Diagram to visually look closely at the energy levels.
+      accessibleObjectResponse: probe centered at VECTOR_POSITION nanometers
     viewer:
       accessibleName:           Viewer
       accessibleHelpText:       Move the viewer that shows the zoomed-in view.
-      accessibleObjectResponse: lens at POSITION nanometers
+      accessibleObjectResponse: lens at VECTOR_POSITION nanometers
 
   referenceLine:
     accessibleRoleDescription: custom slider

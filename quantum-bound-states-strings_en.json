@@ -295,10 +295,10 @@
             }
           },
           "controlArea": {
-            "value": "There are a few controls for visual inspection of the energy diagram or controlling the speed\nof the simulation. Toggle the visual labels on the energy diagram. Add a reference line to \nvisually compare the probability density or wave function to the boundaries of the potential\nwell. A magnifier can aid in telling apart closely spaced energy levels. You can track the\ntime the system has been evolving or hide it. There are controls to pause, step through, or \nrestart the system. For slowly evolving states, you can increase the sim speed."
+            "value": "There are a few controls for visual inspection of the energy diagram or controlling the speed\nof the simulation. Toggle the visual labels on the energy diagram. Add a reference line to \nvisually compare the probability density or wave function to the boundaries of the potential\nwell. A magnifier lets you look closely at the energy levels. You can track the\ntime the system has been evolving or hide it. There are controls to pause, step through, or \nrestart the system. For slowly evolving states, you can increase the sim speed."
           },
           "interactionHint": {
-            "value": "Select an energy level or change the properties of the well to begin exploring."
+            "value": "Choose a potential, then step up through the energy levels and notice how the wave function and the energy ladder respond."
           }
         }
       },
@@ -309,7 +309,7 @@
         "screenSummary": {
           "playArea": {
             "energyDiagram": {
-              "value": "In the Energy Diagram, observe the energy levels of two closely spaced potential wells,\na simple model of a two-atom molecule. Drag the handles change the shape of the wells, and explore \nhow the energy levels and states respond as the wells move together or apart. Change the potential \nwell type to explore a different two-well shape."
+              "value": "In the Energy Diagram, observe the energy levels of two closely spaced potential wells.\nDrag the handles to reshape the wells and explore\nhow the energy levels and states respond as the wells move together or apart. Change the potential \nwell type to explore a different two-well shape."
             },
             "quantumStateGraph": {
               "value": "In the Quantum State Graph, you can observe the probability density or wave function for the \nselected energy level. If viewing the wave function, you can toggle parts of the graph, such\nas the real or imaginary part, the magnitude, and, if enabled, the phase."
@@ -319,7 +319,7 @@
             "value": "There are tools for inspecting the graphs and options for controlling the speed of the\nsimulation. Toggle the value labels on the Energy Diagram. Add a Reference Line to compare\nthe graphs to the boundaries of the wells. A Magnifier can aid in telling apart closely \nspaced energy levels. You can track the time the system has been evolving or hide it.\nThere are controls to pause, step through, or restart the system. For slowly evolving states,\nyou can increase the sim speed."
           },
           "interactionHint": {
-            "value": "Select an energy level or change the properties of the wells to begin exploring."
+            "value": "Choose an energy level and explore how the wave function fills the two wells."
           }
         }
       },
@@ -337,7 +337,7 @@
             }
           },
           "controlArea": {
-            "value": "There are controls for building the lattice and for controlling the speed of the simulation.\nSet the number of wells in the lattice and apply an electric field. Toggle the value labels\non the Energy Diagram, add a Reference Line, and add a Magnifier, which is especially handy\nfor telling apart closely spaced energy levels. You can track\nthe time the system has been evolving or hide it. There are controls to pause, step through,\nor restart the system. For slowly evolving states, you can increase the sim speed."
+            "value": "There are controls for building the lattice and for controlling the speed of the simulation.\nSet the number of wells in the lattice and apply an electric field. Toggle the value labels\non the Energy Diagram, add a Reference Line, and add a Magnifier to look closely at the energy levels.\nYou can track\nthe time the system has been evolving or hide it. There are controls to pause, step through,\nor restart the system. For slowly evolving states, you can increase the sim speed."
           },
           "currentDetails": {
             "accessibleTemplate": {
@@ -352,7 +352,7 @@
             }
           },
           "interactionHint": {
-            "value": "Select an energy level, change the properties of the wells, or change the number of wells to begin exploring."
+            "value": "Choose the number of wells and step through the energy levels to explore the lattice."
           }
         }
       },
@@ -363,10 +363,10 @@
         "screenSummary": {
           "playArea": {
             "energyDiagram": {
-              "value": "In the Energy Diagram, observe the energy levels of the chosen potential. The levels that\ncontribute to the current superposition are emphasized in proportion to their weight. Change\nthe potential well type to explore a different shape."
+              "value": "In the Energy Diagram, observe the energy levels of the chosen potential. Multiple energy levels make up a superposition. \nChange the potential well type to explore a different shape."
             },
             "quantumStateGraph": {
-              "value": "In the Quantum State Graph, you can observe the probability density or wave function for the\ncurrent superposition state. Press Play to explore how this state changes over time. Open the\nDetails to view the full equation along with the magnitude and phase of each contributing level."
+              "value": "In the Quantum State Graph, you can observe the probability density or wave function for the\ncurrent superposition state. Press Play to explore what the state does over time. Open the\nDetails to view the full equation along with the magnitude and phase of each contributing level."
             }
           },
           "controlArea": {
@@ -474,7 +474,7 @@
     },
     "magnifierCheckbox": {
       "accessibleHelpText": {
-        "value": "Show or hide magnifier."
+        "value": "Show a magnifier to look closely at the energy levels."
       },
       "accessibleContextResponseChecked": {
         "value": "Magnifier shown."
@@ -520,12 +520,12 @@
     },
     "probabilityDensityDetailsDialog": {
       "accessibleParagraph": {
-        "value": "PLACEHOLDER_FOR_EQUATION The probability density of the selected state equals the magnitude\nof the wave function squared."
+        "value": "The probability density of the selected state equals the magnitude\nof the wave function squared.\nPLACEHOLDER_FOR_EQUATION"
       }
     },
     "waveFunctionDetailsDialog": {
       "accessibleParagraph": {
-        "value": "PLACEHOLDER_FOR_EQUATION The wave function of the selected state, psi of x and t, equals\npsi times exp of negative i E t over h-bar."
+        "value": "The wave function of the selected state, psi of x and t, equals\npsi times exp of negative i E t over h-bar.\nPLACEHOLDER_FOR_EQUATION"
       }
     },
     "energyDiagram": {
@@ -561,10 +561,10 @@
       },
       "accessibleParagraph": {
         "probabilityDensity": {
-          "value": "Shows the probability density across the well for energy level { $energyLevelIndex }.\nThe curve has { $numberOfNodes ->\n  [one] { $numberOfNodes } node.\n *[other] { $numberOfNodes } nodes.\n }\n Listen to the shape with sonification, or move the Reference Line to read the potential value at any position."
+          "value": "Shows the probability density across the well for energy level { $energyLevelIndex }.\nThe curve has { $numberOfNodes ->\n  [one] { $numberOfNodes } node.\n *[other] { $numberOfNodes } nodes.\n }\n Move the Reference Line to read the potential value at any position."
         },
         "waveFunction": {
-          "value": "Shows the real, imaginary, and magnitude parts of the wave function\nacross the well for energy level { $energyLevelIndex }. Listen to each part with sonification, move the\nReference Line to read values, and play time to explore how the parts behave."
+          "value": "Shows the real, imaginary, and magnitude parts of the wave function\nacross the well for energy level { $energyLevelIndex }. Move the\nReference Line to read values, and play time to explore how the parts behave."
         }
       }
     },
@@ -827,7 +827,7 @@
         "value": "Superposition Customization"
       },
       "accessibleHelpText": {
-        "value": "Open the Customize Superposition dialog to set the magnitude and phase of each energy level."
+        "value": "Open the Customize Superposition dialog to set the contribution of each energy level in the superposition."
       },
       "accessibleContextResponse": {
         "value": "Superposition Customization dialog opened."
@@ -862,7 +862,7 @@
     },
     "electronMassesControl": {
       "accessibleHelpText": {
-        "value": "Adjust the relative mass of the system and explore how the wave function and energy levels respond."
+        "value": "Adjust the mass of the system and observe how the wave function and the energy levels respond."
       }
     },
     "numberOfWellsControl": {
@@ -872,7 +872,7 @@
     },
     "electricFieldControl": {
       "accessibleHelpText": {
-        "value": "Apply an electric field and explore its effect on the energy levels."
+        "value": "Apply an electric field to tilt the whole lattice, and observe how the energy lines respond."
       }
     },
     "energyLevelSpinner": {
@@ -952,17 +952,17 @@
         "value": "Magnifier"
       },
       "accessibleParagraph": {
-        "value": "The Magnifier shows a zoomed-in view of part of the Energy Diagram, helpful for telling apart closely spaced energy levels."
+        "value": "The Magnifier shows a zoomed-in view of part of the Energy Diagram for looking closely at the energy levels."
       },
       "probe": {
         "accessibleName": {
           "value": "Probe"
         },
         "accessibleHelpText": {
-          "value": "Move the probe over the Energy Diagram to inspect closely spaced energy levels."
+          "value": "Move the probe over the Energy Diagram to visually look closely at the energy levels."
         },
         "accessibleObjectResponse": {
-          "value": "probe centered at POSITION nanometers"
+          "value": "probe centered at VECTOR_POSITION nanometers"
         }
       },
       "viewer": {
@@ -973,7 +973,7 @@
           "value": "Move the viewer that shows the zoomed-in view."
         },
         "accessibleObjectResponse": {
-          "value": "lens at POSITION nanometers"
+          "value": "lens at VECTOR_POSITION nanometers"
         }
       }
     },
