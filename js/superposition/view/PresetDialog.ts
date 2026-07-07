@@ -42,7 +42,7 @@ export default class PresetDialog extends Dialog {
 
     const titleNode = new RichText( titleStringProperty, {
       font: TITLE_FONT,
-      maxWidth: 500
+      maxWidth: 700
     } );
 
     const content = new PresetDialogContent( superpositionState, groundStateIndex );

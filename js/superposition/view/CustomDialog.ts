@@ -22,6 +22,7 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
@@ -33,10 +34,11 @@ import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import CustomSuperpositionState, { CoefficientFormat } from '../model/CustomSuperpositionState.js';
 import { CoefficientFormatRadioButtonGroup } from './CoefficientFormatRadioButtonGroup.js';
+import { PreviewLegendNode } from './PreviewLegendNode.js';
 import SuperpositionStatePreviewNode from './SuperpositionStatePreviewNode.js';
 
 const NUMBER_SPINNER_FIRE_ON_HOLD_INTERVAL = 35;
-const PREVIEW_SCALE = 0.75;
+const PREVIEW_SCALE = 0.7;
 
 export default class CustomDialog extends Dialog {
 
@@ -51,7 +53,7 @@ export default class CustomDialog extends Dialog {
 
     const titleNode = new RichText( titleStringProperty, {
       font: QBSConstants.TITLE_FONT,
-      maxWidth: 500
+      maxWidth: 700
     } );
 
     const content = new CustomDialogContent( superpositionState, potential, numberOfEnergyLevels );
@@ -121,6 +123,17 @@ class CustomDialogContent extends VBox {
       viewScale: PREVIEW_SCALE
     } );
 
+    const legendNode = new PreviewLegendNode();
+    const leftSpacer = new Rectangle( 0, 0, 1, 1 );
+    legendNode.localBoundsProperty.link( localBounds => {
+      leftSpacer.setRectWidth( localBounds.width );
+    } );
+
+    const previewRow = new HBox( {
+      children: [ leftSpacer, previewNode, legendNode ],
+      spacing: 20
+    } );
+
     const pushButtonGroup = new PushButtonGroup();
 
     super( {
@@ -136,7 +149,7 @@ class CustomDialogContent extends VBox {
         coefficientSpinnersGroup,
         amplitudePageSpinner,
         magnitudeAndPhasePageSpinner,
-        previewNode,
+        previewRow,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
@@ -152,6 +165,7 @@ class CustomDialogContent extends VBox {
       coefficientFormatRadioButtonGroup.dispose();
       coefficientSpinnersGroup.dispose();
       previewNode.dispose();
+      legendNode.dispose();
       pushButtonGroup.dispose();
     } );
   }

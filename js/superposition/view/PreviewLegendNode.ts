@@ -20,7 +20,7 @@ import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 const LEGEND_FONT = new PhetFont( 14 );
 const LINE_LENGTH = 25;
 const LINE_WIDTH = 3;
-const TEXT_MAX_WIDTH = 150;
+const TEXT_MAX_WIDTH = 100;
 
 export class PreviewLegendNode extends GridBox {
 
