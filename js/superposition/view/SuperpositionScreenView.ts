@@ -28,6 +28,7 @@ export default class SuperpositionScreenView extends QBSScreenView {
       model.superpositionStateTypeProperty,
       model.presetSuperpositionStateProperty,
       model.customSuperpositionStateProperty,
+      model.time,
       tandem.createTandem( 'energyDiagramPanel' ) );
 
     super( model, listboxParent, energyDiagramPanel, {

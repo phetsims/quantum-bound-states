@@ -19,6 +19,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import QuantumPotential from '../../common/model/potentials/QuantumPotential.js';
+import QBSTime from '../../common/model/QBSTime.js';
 import BoundStateResult from '../../common/model/solvers/BoundStateResult.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
@@ -48,6 +49,7 @@ export class SuperpositionEnergyDiagramPanel extends Panel {
                       superpositionStateTypeProperty: Property<SuperpositionStateType>,
                       superpositionPresetProperty: Property<PresetSuperpositionState>,
                       superpositionCustomProperty: Property<CustomSuperpositionState>,
+                      time: QBSTime,
                       tandem: Tandem ) {
 
     const energyDiagramText = new Text( QuantumBoundStatesFluent.energyDiagramStringProperty, {
@@ -77,7 +79,19 @@ export class SuperpositionEnergyDiagramPanel extends Panel {
       comboBoxItemAlignGroup, tandem.createTandem( 'presetComboBox' ) );
 
     const presetInfoButton = new PresetInfoButton( {
-      listener: () => new PresetDialog( superpositionPresetProperty.value, potentialProperty.value.groundStateIndex ).show(),
+      listener: () => {
+        const wasPlaying = time.isPlayingProperty.value;
+        const presetDialog = new PresetDialog( superpositionPresetProperty.value, potentialProperty.value.groundStateIndex, {
+          showCallback: () => {
+            time.isPlayingProperty.value = false;
+          },
+          hideCallback: () => {
+            time.isPlayingProperty.value = wasPlaying;
+            presetDialog.dispose();
+          }
+        } );
+        presetDialog.show();
+      },
       tandem: tandem.createTandem( 'presetInfoButton' )
     } );
 

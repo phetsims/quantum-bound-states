@@ -9,7 +9,8 @@
 
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import GridBox from '../../../../scenery/js/layout/nodes/GridBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
@@ -17,6 +18,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
@@ -31,9 +33,13 @@ const COLUMN_HEADING_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 const COEFFICIENT_FONT = new PhetFont( 14 );
 const PREVIEW_SCALE = 0.2;
 
+type SelfOptions = EmptySelfOptions;
+
+type PresetDialogOptions = SelfOptions & PickOptional<DialogOptions, 'showCallback' | 'hideCallback'>;
+
 export default class PresetDialog extends Dialog {
 
-  public constructor( superpositionState: PresetSuperpositionState, groundStateIndex: number ) {
+  public constructor( superpositionState: PresetSuperpositionState, groundStateIndex: number, providedOptions?: PresetDialogOptions ) {
 
     // Title includes the visual name of the Preset.
     const titleStringProperty = new PatternStringProperty( QuantumBoundStatesFluent.presetSuperpositionStateDialogTitleStringProperty, {
@@ -45,16 +51,18 @@ export default class PresetDialog extends Dialog {
       maxWidth: 700
     } );
 
-    const content = new PresetDialogContent( superpositionState, groundStateIndex );
+    const options = optionize<PresetDialogOptions, SelfOptions, DialogOptions>()( {
 
-    const options = combineOptions<DialogOptions>( {}, QBSConstants.DIALOG_OPTIONS, {
+      // DialogOptions
       title: titleNode,
       xSpacing: 20, // horizontal space between content and closeButton
       ySpacing: 15, // vertical space between title and content
       fill: QBSColors.superpositionStateDialogFillProperty,
-      hideCallback: () => this.dispose(),
-      accessibleParagraph: QuantumBoundStatesFluent.a11y.presetSuperpositionStateDialog.accessibleParagraphStringProperty
-    } );
+      accessibleParagraph: QuantumBoundStatesFluent.a11y.presetSuperpositionStateDialog.accessibleParagraphStringProperty,
+      tandem: Tandem.OPT_OUT //TODO
+    }, providedOptions );
+
+    const content = new PresetDialogContent( superpositionState, groundStateIndex );
 
     super( content, options );
 
