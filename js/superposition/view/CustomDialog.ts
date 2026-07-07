@@ -195,9 +195,9 @@ class InstructionsText extends RichText {
     //TODO localize
     //TODO superscripts for phase
     const magnitudeAndPhaseInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
-                                                `Ψ = c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub> + ` +
-                                                `c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub> + ` +
-                                                '... + c<sub>n</sub>Ψ<sub>n</sub>';
+                                                `Ψ = |c<sub>${subscript}</sub>|Ψ<sub>${subscript}</sub>e<sup>iφ<sub>${subscript++}</sub></sup> + ` +
+                                                `|c<sub>${subscript}</sub>|Ψ<sub>${subscript}</sub>e<sup>iφ<sub>${subscript++}</sub></sup> + ` +
+                                                '... + |c<sub>n</sub>|Ψ<sub>n</sub>e<sup>iφ<sub>n</sub></sup>';
 
     const instructionsStringProperty = new DerivedStringProperty( [ superpositionState.coefficientFormatProperty ],
       coefficientFormat => coefficientFormat === 'amplitude' ? amplitudeInstructionsString : magnitudeAndPhaseInstructionsString );
@@ -232,7 +232,7 @@ class CoefficientFormatRadioButtonGroup extends RectangularRadioButtonGroup<Coef
       },
       {
         value: 'magnitudeAndPhase',
-        createNode: () => new RichText( 'Magnitude (c) & Phase (φ)', richTextOptions ) //TODO localize
+        createNode: () => new RichText( 'Magnitude (|c|) & Phase (φ)', richTextOptions ) //TODO localize
       }
     ];
 
@@ -365,7 +365,7 @@ class CoefficientSpinnersGroup extends GridBox {
 
       // Magnitude label
       const magnitudeAlignGroup = new AlignGroup();
-      const magnitudeLabel = magnitudeAlignGroup.createBox( new RichText( `c<sub>${this.groundStateIndex + i}</sub>`, {
+      const magnitudeLabel = magnitudeAlignGroup.createBox( new RichText( `|c<sub>${this.groundStateIndex + i}</sub>|`, {
         font: new PhetFont( 14 )
       } ) );
 
