@@ -10,12 +10,10 @@
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import GridBox, { GridBoxOptions } from '../../../../scenery/js/layout/nodes/GridBox.js';
+import GridBox from '../../../../scenery/js/layout/nodes/GridBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
-import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
@@ -24,13 +22,13 @@ import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
 import PresetEquationNode from './PresetEquationNode.js';
+import { PreviewLegendNode } from './PreviewLegendNode.js';
 import SuperpositionStatePreviewNode from './SuperpositionStatePreviewNode.js';
 
 //TODO Move to QBSConstants?
 const TITLE_FONT = QBSConstants.TITLE_FONT;
 const COLUMN_HEADING_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 const COEFFICIENT_FONT = new PhetFont( 14 );
-const LEGEND_FONT = new PhetFont( 14 );
 const PREVIEW_SCALE = 0.2;
 
 export default class PresetDialog extends Dialog {
@@ -180,71 +178,3 @@ class PresetDialogContent extends GridBox {
   }
 }
 
-/**
- * PreviewLegendNode is a legend that identifies the real and imaginary parts of the wave function shown in the previews.
- */
-class PreviewLegendNode extends GridBox {
-
-  public constructor( providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
-
-    const LINE_LENGTH = 25;
-    const LINE_WIDTH = 3;
-    const TEXT_MAX_WIDTH = 150;
-
-    const realPartLine = new Line( 0, 0, LINE_LENGTH, 0, {
-      lineWidth: LINE_WIDTH,
-      stroke: QBSColors.realPartStrokeProperty,
-      layoutOptions: {
-        row: 0,
-        column: 0,
-        yAlign: 'center'
-      }
-    } );
-
-    const realPartText = new Text( QuantumBoundStatesFluent.realPartStringProperty, {
-      font: LEGEND_FONT,
-      maxWidth: TEXT_MAX_WIDTH,
-      layoutOptions: {
-        row: 0,
-        column: 1,
-        xAlign: 'left',
-        yAlign: 'center'
-      }
-    } );
-
-    const imaginaryPartLine = new Line( 0, 0, LINE_LENGTH, 0, {
-      lineWidth: LINE_WIDTH,
-      stroke: QBSColors.imaginaryPartStrokeProperty,
-      layoutOptions: {
-        row: 1,
-        column: 0,
-        yAlign: 'center'
-      }
-    } );
-
-    const imaginaryPartText = new Text( QuantumBoundStatesFluent.imaginaryPartStringProperty, {
-      font: LEGEND_FONT,
-      maxWidth: TEXT_MAX_WIDTH,
-      layoutOptions: {
-        row: 1,
-        column: 1,
-        xAlign: 'left',
-        yAlign: 'center'
-      }
-    } );
-
-    super( combineOptions<GridBoxOptions>( {
-      children: [
-        realPartLine, realPartText,
-        imaginaryPartLine, imaginaryPartText
-      ],
-      xSpacing: 8,
-      ySpacing: 6
-    }, providedOptions ) );
-
-    this.disposeEmitter.addListener( () => {
-      realPartText.dispose();
-      imaginaryPartText.dispose();
-    } );
-  }
-}
