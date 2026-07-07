@@ -186,17 +186,18 @@ class InstructionsText extends RichText {
     let subscript = groundStateIndex;
     //TODO localize
     const amplitudeInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
-                                        `Ψ(x,t) = a<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
-                                        `a<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
-                                        '... + a<sub>n</sub>Ψ<sub>n</sub>(x,t)';
+                                        `Ψ = a<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub> + ` +
+                                        `a<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub> + ` +
+                                        '... + a<sub>n</sub>Ψ<sub>n</sub>';
 
     // Instruction for magnitude & phase format, with subscripts that match the selected potential's ground state.
     subscript = groundStateIndex;
     //TODO localize
+    //TODO superscripts for phase
     const magnitudeAndPhaseInstructionsString = 'Create a Superposition State by setting coefficients such that ' +
-                                                `Ψ(x,t) = c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
-                                                `c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub>(x,t) + ` +
-                                                '... + c<sub>n</sub>Ψ<sub>n</sub>(x,t)';
+                                                `Ψ = c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub> + ` +
+                                                `c<sub>${subscript}</sub>Ψ<sub>${subscript++}</sub> + ` +
+                                                '... + c<sub>n</sub>Ψ<sub>n</sub>';
 
     const instructionsStringProperty = new DerivedStringProperty( [ superpositionState.coefficientFormatProperty ],
       coefficientFormat => coefficientFormat === 'amplitude' ? amplitudeInstructionsString : magnitudeAndPhaseInstructionsString );

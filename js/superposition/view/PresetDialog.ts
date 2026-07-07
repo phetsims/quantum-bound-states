@@ -95,7 +95,7 @@ class PresetDialogContent extends GridBox {
 
     // Localization of equationString is not supported.
     //TODO Should this be Ψ(x) since the previews are time-independent?
-    let equationString = 'Ψ(x,t) =';
+    let equationString = 'Ψ =';
 
     const coefficients = superpositionState.getCoefficients();
     coefficients.forEach( ( coefficient, index ) => {
@@ -143,7 +143,7 @@ class PresetDialogContent extends GridBox {
           equationString += '<br>';
         }
 
-        equationString += ` ${magnitudeString}Ψ<sub>${subscript}</sub>(x,t)`;
+        equationString += ` ${magnitudeString}Ψ<sub>${subscript}</sub>`;
 
         row++;
       }
