@@ -295,6 +295,8 @@ class CoefficientSpinnersGroup extends GridBox {
   }
 
   private updateAmplitudeControls(): void {
+
+    // Layout is in row-major order to match the flow of equations. This differs from the Java version.
     const rows: Node[][] = [];
     const numberOfColumns = 6;
     // for ( let i = 0; i < this.numberOfCoefficients; i++ ) {
@@ -349,6 +351,8 @@ class CoefficientSpinnersGroup extends GridBox {
   }
 
   private updateMagnitudeAndPhaseControls(): void {
+
+    // Layout is in row-major order to match the flow of equations. This differs from the Java version.
     const rows: Node[][] = [];
     const numberOfColumns = 3;
     // for ( let i = 0; i < this.numberOfCoefficients; i++ ) {
