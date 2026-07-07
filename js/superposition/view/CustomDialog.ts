@@ -37,7 +37,7 @@ import CustomSuperpositionState, { CoefficientFormat } from '../model/CustomSupe
 import SuperpositionStatePreviewNode from './SuperpositionStatePreviewNode.js';
 
 const NUMBER_SPINNER_FIRE_ON_HOLD_INTERVAL = 35;
-const PREVIEW_SCALE = 0.35;
+const PREVIEW_SCALE = 0.75;
 
 export default class CustomDialog extends Dialog {
 
@@ -203,7 +203,7 @@ class InstructionsText extends RichText {
       coefficientFormat => coefficientFormat === 'amplitude' ? amplitudeInstructionsString : magnitudeAndPhaseInstructionsString );
 
     super( instructionsStringProperty, {
-      font: new PhetFont( 12 ),
+      font: new PhetFont( 14 ),
       maxWidth: 800
     } );
 
