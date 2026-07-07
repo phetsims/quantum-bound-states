@@ -8,7 +8,6 @@
  */
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -88,71 +87,34 @@ class CustomDialogContent extends VBox {
     // Instructions
     const instructionsText = new InstructionsText( superpositionState, potential.groundStateIndex );
 
-    //TODO localize
-    const numberOfCoefficientsText = new Text( 'Number of coefficients', {
-      font: new PhetFont( 14 ),
-      maxWidth: 200
-    } );
-
-    const numberOfCoefficientsProperty = superpositionState.numberOfCoefficientsProperty;
-    const numberOfCoefficientsSpinner = new NumberSpinner( numberOfCoefficientsProperty, numberOfCoefficientsProperty.rangeProperty, {
-      arrowsPosition: 'leftRight',
-      arrowsScale: 1,
-      numberDisplayOptions: {
-        cornerRadius: 3,
-        align: 'center',
-        textOptions: {
-          font: QBSConstants.CONTROL_FONT
-        }
-      },
-      arrowButtonOptions: {
-        fireOnHoldInterval: 100
-      }
-    } );
-
-    const numberOfCoefficientsHBox = new HBox( {
-      children: [ numberOfCoefficientsText, numberOfCoefficientsSpinner ],
-      spacing: 10
-    } );
-
     //TODO localize, handle singular/plural
-    const warningStringProperty = new DerivedStringProperty( [ superpositionState.numberOfCoefficientsProperty ],
-      numberOfCoefficients => numberOfCoefficients > numberOfEnergyLevels ?
-                              `\u26a0\ufe0f Selected potential has ${numberOfEnergyLevels} energy levels.` :
-                              `Selected potential has ${numberOfEnergyLevels} energy levels.` );
-    const numberOfEnergyLevelsWarningText = new Text( warningStringProperty, {
-      font: new PhetFont( 12 ),
-      maxWidth: numberOfCoefficientsHBox.width
-    } );
-
-    const numberOfCoefficientVBox = new VBox( {
-      children: [
-        numberOfCoefficientsHBox,
-        numberOfEnergyLevelsWarningText
-      ],
-      spacing: 5,
-      align: 'left'
-    } );
-
+    // const warningStringProperty = new StringProperty( superpositionState.getNumberOfCoefficients() > numberOfEnergyLevels ?
+    //                           `\u26a0\ufe0f Selected potential has ${numberOfEnergyLevels} energy levels.` :
+    //                           `Selected potential has ${numberOfEnergyLevels} energy levels.` );
+    // const numberOfEnergyLevelsWarningText = new Text( warningStringProperty, {
+    //   font: QBSConstants.CONTROL_FONT,
+    //   maxWidth: 300
+    // } );
+    //
     //TODO localize
-    const formatText = new Text( 'Format', {
-      font: new PhetFont( 14 ),
-      maxWidth: 200
-    } );
+    // const formatText = new Text( 'Format', {
+    //   font: new PhetFont( 14 ),
+    //   maxWidth: 200
+    // } );
 
     const formatRadioButtonGroup = new CoefficientFormatRadioButtonGroup( superpositionState.coefficientFormatProperty );
 
-    const formatHBox = new HBox( {
-      children: [ formatText, formatRadioButtonGroup ],
-      spacing: 10
-    } );
+    // const formatHBox = new HBox( {
+    //   children: [ formatText, formatRadioButtonGroup ],
+    //   spacing: 10
+    // } );
+    //
+    // const topRow = new HBox( {
+    //   children: [ numberOfEnergyLevelsWarningText, formatHBox ],
+    //   spacing: 50
+    // } );
 
-    const topRow = new HBox( {
-      children: [ numberOfCoefficientVBox, formatHBox ],
-      spacing: 50
-    } );
-
-    const coefficientSpinnersGroup = new CoefficientSpinnersGroup( superpositionState.numberOfCoefficientsProperty,
+    const coefficientSpinnersGroup = new CoefficientSpinnersGroup( superpositionState.getNumberOfCoefficients(),
       superpositionState.coefficientFormatProperty, potential.groundStateIndex );
 
     const previewNode = new SuperpositionStatePreviewNode( {
@@ -167,7 +129,8 @@ class CustomDialogContent extends VBox {
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
-        topRow,
+        // topRow,
+        formatRadioButtonGroup,
         new HSeparator( {
           stroke: QBSColors.separatorStrokeProperty
         } ),
@@ -185,11 +148,9 @@ class CustomDialogContent extends VBox {
     this.disposeEmitter.addListener( () => {
       phet.log && phet.log( 'CustomDialogContent disposed' );
       instructionsText.dispose();
-      numberOfCoefficientsText.dispose();
-      numberOfCoefficientsSpinner.dispose();
-      warningStringProperty.dispose();
-      numberOfEnergyLevelsWarningText.dispose();
-      formatText.dispose();
+      // warningStringProperty.dispose();
+      // numberOfEnergyLevelsWarningText.dispose();
+      // formatText.dispose();
       formatRadioButtonGroup.dispose();
       coefficientSpinnersGroup.dispose();
       previewNode.dispose();
@@ -272,27 +233,26 @@ class CoefficientFormatRadioButtonGroup extends RectangularRadioButtonGroup<Coef
 
 class CoefficientSpinnersGroup extends GridBox {
 
-  private readonly numberOfCoefficientsProperty: TReadOnlyProperty<number>;
+  private readonly numberOfCoefficients: number;
   private readonly coefficientFormatProperty: TReadOnlyProperty<CoefficientFormat>;
   private readonly groundStateIndex: number;
 
-  public constructor( numberOfCoefficientsProperty: TReadOnlyProperty<number>,
+  public constructor( numberOfCoefficients: number,
                       coefficientFormatProperty: TReadOnlyProperty<CoefficientFormat>,
                       groundStateIndex: number ) {
     super( {
       xSpacing: 35,
-      ySpacing: 20
+      ySpacing: 20,
+      xAlign: 'right'
     } );
 
-    this.numberOfCoefficientsProperty = numberOfCoefficientsProperty;
+    this.numberOfCoefficients = numberOfCoefficients;
     this.coefficientFormatProperty = coefficientFormatProperty;
     this.groundStateIndex = groundStateIndex;
 
-    const multilink = Multilink.multilink( [ numberOfCoefficientsProperty, coefficientFormatProperty ], () => this.update() );
-    this.update();
+    coefficientFormatProperty.link( () => this.update() );
 
     this.disposeEmitter.addListener( () => {
-      multilink.dispose();
       //TODO dispose
     } );
   }
@@ -309,7 +269,8 @@ class CoefficientSpinnersGroup extends GridBox {
   private updateAmplitudeControls(): void {
     const rows: Node[][] = [];
     const numberOfColumns = 6;
-    for ( let i = 0; i < this.numberOfCoefficientsProperty.value; i++ ) {
+    // for ( let i = 0; i < this.numberOfCoefficients; i++ ) {
+    for ( let i = 0; i < 24; i++ ) {
 
       // Create a new row.
       if ( i % numberOfColumns === 0 ) {
@@ -317,9 +278,10 @@ class CoefficientSpinnersGroup extends GridBox {
       }
 
       // Amplitude label
-      const amplitudeLabel = new RichText( `a<sub>${this.groundStateIndex + i}</sub>`, {
+      const amplitudeAlignGroup = new AlignGroup();
+      const amplitudeLabel = amplitudeAlignGroup.createBox( new RichText( `a<sub>${this.groundStateIndex + i}</sub>`, {
         font: new PhetFont( 14 )
-      } );
+      } ) );
 
       // Amplitude spinner
       const amplitudeProperty = new NumberProperty( 0, {
@@ -361,7 +323,8 @@ class CoefficientSpinnersGroup extends GridBox {
   private updateMagnitudeAndPhaseControls(): void {
     const rows: Node[][] = [];
     const numberOfColumns = 3;
-    for ( let i = 0; i < this.numberOfCoefficientsProperty.value; i++ ) {
+    // for ( let i = 0; i < this.numberOfCoefficients; i++ ) {
+    for ( let i = 0; i < 12; i++ ) {
 
       // Create a new row.
       if ( i % numberOfColumns === 0 ) {
@@ -369,9 +332,10 @@ class CoefficientSpinnersGroup extends GridBox {
       }
 
       // Magnitude label
-      const magnitudeLabel = new RichText( `c<sub>${this.groundStateIndex + i}</sub>`, {
+      const magnitudeAlignGroup = new AlignGroup();
+      const magnitudeLabel = magnitudeAlignGroup.createBox( new RichText( `c<sub>${this.groundStateIndex + i}</sub>`, {
         font: new PhetFont( 14 )
-      } );
+      } ) );
 
       // Magnitude spinner
       const magnitudeProperty = new NumberProperty( 0, {
@@ -398,9 +362,10 @@ class CoefficientSpinnersGroup extends GridBox {
       } );
 
       // Phase label
-      const phaseLabel = new RichText( `φ<sub>${this.groundStateIndex + i}</sub>`, {
+      const phaseAlignGroup = new AlignGroup();
+      const phaseLabel = phaseAlignGroup.createBox( new RichText( `φ<sub>${this.groundStateIndex + i}</sub>`, {
         font: new PhetFont( 14 )
-      } );
+      } ) );
 
       // Phase spinner
       const phaseMultiplierProperty = new NumberProperty( 0, {

@@ -6,11 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Range from '../../../../dot/js/Range.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
@@ -26,7 +24,6 @@ type CustomSuperpositionStateOptions = SelfOptions & SuperpositionStateOptions;
 
 export default class CustomSuperpositionState extends SuperpositionState {
 
-  public readonly numberOfCoefficientsProperty: NumberProperty;
   public readonly coefficientFormatProperty: Property<CoefficientFormat>;
 
   public constructor( providedOptions: CustomSuperpositionStateOptions ) {
@@ -34,20 +31,16 @@ export default class CustomSuperpositionState extends SuperpositionState {
     const options = providedOptions;
 
     //TODO Is this the correct initial value? A superposition state requires 2 non-zero coefficients.
+    //TODO Demo fixed number of coefficients.
     const coefficients = [
-      SuperpositionCoefficient.GROUND_STATE_COEFFICIENT,
-      SuperpositionCoefficient.ZERO_COEFFICIENT
+      new SuperpositionCoefficient( 0.72, 0 ),
+      new SuperpositionCoefficient( 0.72, 0 )
     ];
+    for ( let i = coefficients.length; i < 48; i++ ) {
+       coefficients.push( SuperpositionCoefficient.ZERO_COEFFICIENT );
+    }
 
     super( coefficients, providedOptions );
-
-    this.numberOfCoefficientsProperty = new NumberProperty( coefficients.length, {
-      range: new Range( 2, 48 ), // At least 2 coefficients are required for a superposition state.
-      numberType: 'Integer',
-      tandem: options.tandem.createTandem( 'numberOfCoefficientsProperty' )
-    } );
-
-    this.numberOfCoefficientsProperty.lazyLink( numberOfCoefficients => this.setNumberOfCoefficients( numberOfCoefficients ) );
 
     this.coefficientFormatProperty = new StringUnionProperty( 'amplitude', {
       validValues: CoefficientFormatValues,
@@ -58,7 +51,6 @@ export default class CustomSuperpositionState extends SuperpositionState {
   //TODO Is this being called?
   public override reset(): void {
     super.reset();
-    this.numberOfCoefficientsProperty.reset(); //TODO Should this be reset?
     this.coefficientFormatProperty.reset();
   }
 
