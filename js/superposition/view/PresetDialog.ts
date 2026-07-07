@@ -11,7 +11,6 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import GridBox, { GridBoxOptions } from '../../../../scenery/js/layout/nodes/GridBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
@@ -24,13 +23,13 @@ import QBSColors from '../../common/QBSColors.js';
 import QBSConstants from '../../common/QBSConstants.js';
 import QuantumBoundStatesFluent from '../../QuantumBoundStatesFluent.js';
 import PresetSuperpositionState from '../model/PresetSuperpositionState.js';
+import PresetEquationNode from './PresetEquationNode.js';
 import SuperpositionStatePreviewNode from './SuperpositionStatePreviewNode.js';
 
 //TODO Move to QBSConstants?
 const TITLE_FONT = QBSConstants.TITLE_FONT;
 const COLUMN_HEADING_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 const COEFFICIENT_FONT = new PhetFont( 14 );
-const EQUATION_FONT = new PhetFont( 14 );
 const LEGEND_FONT = new PhetFont( 14 );
 const PREVIEW_SCALE = 0.2;
 
@@ -93,10 +92,6 @@ class PresetDialogContent extends GridBox {
     children.push( amplitudeText );
     row++;
 
-    // Localization of equationString is not supported.
-    //TODO Should this be Ψ(x) since the previews are time-independent?
-    let equationString = 'Ψ =';
-
     const coefficients = superpositionState.getCoefficients();
     coefficients.forEach( ( coefficient, index ) => {
       if ( coefficient.magnitude !== 0 ) {
@@ -104,7 +99,6 @@ class PresetDialogContent extends GridBox {
         const subscript = index + groundStateIndex;
         const amplitude = coefficient.asAmplitude();
         const amplitudeString = toFixed( amplitude, QBSConstants.SUPERPOSITION_COEFFICIENT_AMPLITUDE_DECIMAL_PLACES );
-        const magnitudeString = toFixed( coefficient.magnitude, QBSConstants.SUPERPOSITION_COEFFICIENT_AMPLITUDE_DECIMAL_PLACES );
 
         // Localization is not supported.
         const coefficientText = new RichText( `a<sub>${subscript}</sub> = ${amplitudeString}`, {
@@ -129,22 +123,6 @@ class PresetDialogContent extends GridBox {
           }
         } );
         children.push( previewNode );
-
-        if ( index > 0 ) {
-          if ( amplitude > 0 ) {
-            equationString += ` ${MathSymbols.PLUS}`;
-          }
-          else {
-            equationString += ` ${MathSymbols.MINUS}`;
-          }
-        }
-
-        if ( index > 0 && index % 4 === 0 ) {
-          equationString += '<br>';
-        }
-
-        equationString += ` ${magnitudeString}Ψ<sub>${subscript}</sub>`;
-
         row++;
       }
     } );
@@ -160,16 +138,7 @@ class PresetDialogContent extends GridBox {
     children.push( separator );
     row++;
 
-    const equationNode = new RichText( equationString, {
-      font: EQUATION_FONT,
-      maxWidth: 500,
-      layoutOptions: {
-        row: row,
-        column: 0,
-        xAlign: 'right',
-        yAlign: 'center'
-      }
-    } );
+    const equationNode = new PresetEquationNode( coefficients, groundStateIndex, row );
     children.push( equationNode );
 
     const previewNode = new SuperpositionStatePreviewNode( {
