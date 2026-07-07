@@ -177,10 +177,7 @@ export default class QBSConstants {
       trackSize: new Dimension2( 150, 3 ),
       thumbSize: new Dimension2( 15, 25 ),
       majorTickLength: 13,
-      tickLabelSpacing: 4,
-      keyboardStep: 0.1,
-      shiftKeyboardStep: 0.01,
-      pageKeyboardStep: 0.2
+      tickLabelSpacing: 4
     }
   };
 
