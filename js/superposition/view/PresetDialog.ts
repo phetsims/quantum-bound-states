@@ -1,6 +1,5 @@
 // Copyright 2026, University of Colorado Boulder
 
-//TODO Factor out private classes into their own source files.
 /**
  * PresetDialog is the dialog for viewing a preset superposition state.
  *
