@@ -13,9 +13,12 @@
  */
 
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
+import { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import SuperpositionCoefficient from '../../common/model/SuperpositionCoefficient.js';
 import QBSConstants from '../../common/QBSConstants.js';
 
@@ -27,7 +30,7 @@ export default class PresetEquationNode extends RichText {
 
   public constructor( coefficients: readonly SuperpositionCoefficient[],
                       groundStateIndex: number,
-                      row: number ) {
+                      providedOptions?: PickOptional<NodeOptions, 'layoutOptions'> ) {
 
     // Localization of equationString is not supported.
     let equationString = 'Ψ =';
@@ -56,15 +59,9 @@ export default class PresetEquationNode extends RichText {
       }
     } );
 
-    super( equationString, {
+    super( equationString, combineOptions<RichTextOptions>( {
       font: EQUATION_FONT,
-      maxWidth: 500,
-      layoutOptions: {
-        row: row,
-        column: 0,
-        xAlign: 'right',
-        yAlign: 'center'
-      }
-    } );
+      maxWidth: 500
+    }, providedOptions ) );
   }
 }

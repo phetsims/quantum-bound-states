@@ -81,22 +81,18 @@ class PresetDialogContent extends GridBox {
 
   public constructor( superpositionState: PresetSuperpositionState, groundStateIndex: number ) {
 
-    const children: Node[] = [];
-
-    let row = 0;
+    // GridBox layout will be specified as rows.
+    const rows: Node[][] = [];
 
     const amplitudeText = new Text( QuantumBoundStatesFluent.amplitudeHeadingStringProperty, {
       font: COLUMN_HEADING_FONT,
       maxWidth: 200,
       layoutOptions: {
-        row: row,
-        column: 0,
         xAlign: 'right',
         yAlign: 'center'
       }
     } );
-    children.push( amplitudeText );
-    row++;
+    rows.push( [ amplitudeText ] );
 
     const coefficients = superpositionState.getCoefficients();
     coefficients.forEach( ( coefficient, index ) => {
@@ -111,66 +107,57 @@ class PresetDialogContent extends GridBox {
           font: COEFFICIENT_FONT,
           maxWidth: 200,
           layoutOptions: {
-            row: row,
-            column: 0,
             xAlign: 'right',
             yAlign: 'center'
           }
         } );
-        children.push( coefficientText );
 
         const previewNode = new SuperpositionStatePreviewNode( {
           viewScale: PREVIEW_SCALE,
           layoutOptions: {
-            row: row,
-            column: 1,
             xAlign: 'left',
             yAlign: 'center'
           }
         } );
-        children.push( previewNode );
-        row++;
+
+        rows.push( [ coefficientText, previewNode ] );
       }
     } );
 
     const separator = new HSeparator( {
       stroke: QBSColors.separatorStrokeProperty,
       layoutOptions: {
-        row: row,
         horizontalSpan: 2,
         stretch: true
       }
     } );
-    children.push( separator );
-    row++;
+    rows.push( [ separator ] );
 
-    const equationNode = new PresetEquationNode( coefficients, groundStateIndex, row );
-    children.push( equationNode );
+    const equationNode = new PresetEquationNode( coefficients, groundStateIndex, {
+      layoutOptions: {
+        xAlign: 'right',
+        yAlign: 'center'
+      }
+    } );
 
     const previewNode = new SuperpositionStatePreviewNode( {
       viewScale: PREVIEW_SCALE,
       layoutOptions: {
-        row: row,
-        column: 1,
         xAlign: 'left',
         yAlign: 'center'
       }
     } );
-    children.push( previewNode );
 
     const legendNode = new PreviewLegendNode( {
       layoutOptions: {
-        row: row,
-        column: 2,
         xAlign: 'left',
         yAlign: 'center'
       }
     } );
-    children.push( legendNode );
-    row++;
+    rows.push( [ equationNode, previewNode, legendNode ] );
 
     super( {
-      children: children,
+      rows: rows,
       xSpacing: 25,
       ySpacing: 10
     } );
