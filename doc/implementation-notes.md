@@ -241,9 +241,24 @@ superposition state changes, and each time the simulation clock ticks. See `QBSM
 `QBSTime` is responsible for all aspects of simulation time - play, pause, step, restart, speed, visibility,
 and mapping to simulation time units (fs).
 
-Note that time is paused while dragging handles to modify a potential. And time is restarted (set to 0 fs) whenever the
-state being shown is redefined — by changing or reshaping the potential, by selecting an energy level, or by
-selecting/saving a superposition state.
+Pausing time is the responsibility of the view. Time is paused while:
+* interacting with a potential handle,
+* interacting with controls in the Energy Diagram panel (this includes pressing anywhere on the control, even its label or NumberDisplay)
+* the Superposition State dialog is open
+
+Restarting time (setting it to 0 fs) is the responsibility of the model.
+Time is restarted when a change is made that requires recomputation of the time-independent wave function.
+That occurs when any of the following are changed:
+* the selected potential
+* properties of the select potential (width, depth, etc.)
+* Mass
+* Energy Offset
+* Number of Wells
+* Electric Field
+* the selected superposition state
+* the coefficients of a custom superposition state
+
+Time does _not_ restart when the selected Energy Level is changed in the _One Well_, _Two Wells_, and _Many Wells_ screens.
 
 ### State Coefficients and Superposition States
 
@@ -475,7 +490,10 @@ Version 1.0 of this simulation supports PhET-iO.
 
 Dialogs are considered "transient" elements and are therefore not instrumented for PhET-iO. This includes the dialogs
 that display equation details (Wave Function, Probability Density) and the Superposition State dialogs for preset and
-custom states.
+custom states. (_Rationale_: Customization of the Superposition State dialog for preset states has no pedagogical value.
+The Superposition State dialog for custom states has a complicated user interface and is intended to be used primarily
+by teachers and other “power users”. So PhET-iO customization of that dialog would require high cost for negligible
+benefit. We therefore decided not to instrument these dialogs.)
 
 All other elements are instrumented for PhET-iO, are instantiated at startup, and do not require support for dynamic
 elements (e.g., `PhetioGroup`, `PhetioCapsule`).

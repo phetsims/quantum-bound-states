@@ -31,18 +31,12 @@ They are documented in [QBSQueryParameters.ts](https://github.com/phetsims/total
 
 Private query parameters can be ignored.
 
-## Multitouch
-
-Verify that multitouch is disabled for all sims in the suite. 
-
-If you're curious about why multitouch is disabled, see https://github.com/phetsims/quantum-bound-states/issues/65.
-
 ## Time Controls
 
 Verify that the sim behaves as expected when time is playing and when time is paused.
 
-Verify that time is restarted (set to 0 fs) whenever the state being shown is redefined — by changing or reshaping
-the potential, by selecting an energy level, or by selecting/saving a superposition state.
+Verify that time pauses and restarts as described in the
+[**Time** section of implementation-notes.md](https://github.com/phetsims/totality/blob/main/quantum-bound-states/doc/implementation-notes.md#time).
 
 ## Potential Handles
 
